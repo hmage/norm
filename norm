@@ -38,7 +38,7 @@ cmd_install() {
 	done
 	shift $((OPTIND-1))
 	[ -z "$1" ] && echo "Need package names" && exit 64
-	set_prefix "$DEFAULT_PREFIX"
+	setup_prefix "$DEFAULT_PREFIX"
 	compile_package "$@"
 }
 

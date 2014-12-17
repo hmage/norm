@@ -6,7 +6,7 @@ CLEANPATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin"
 DEFAULT_PREFIX="$HOME/norm"
 #BOOTSTRAP_PREFIX="$HOME/prefixes/bootstrap"
 
-set_prefix() {
+setup_prefix() {
     PREFIX="$1"
     DESTDIR=/tmp/stage
     STAGE=$DESTDIR/$PREFIX
@@ -27,6 +27,11 @@ set_prefix() {
     export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
     export ACLOCAL_PATH="$PREFIX/share/aclocal"
     export PERL5LIB="$PREFIX/lib/perl"
+
+    ## create files if they don't exist
+    [ ! -e "$PREFIX/share/man" ] && mkdir -p "$PREFIX/share/man" || true
+    [ ! -e "$PREFIX/man" ] && ln -s share/man $PREFIX/man || true
+    [ ! -e "$PREFIX/share/config.site" ] && generate_config_site || true
 }
 
 use_clang() {
