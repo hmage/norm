@@ -21,12 +21,10 @@ export COMPILEDIR="$HOME/tmp/compile"
 
 onerror() {
     log "Package $PACKAGE failed to build"
-    prowl `basename "$0"` "$PACKAGE failed to build" >/dev/null 2>&1 &
 }
 
 onexit() {
     log "$0 -- exiting, last package $PACKAGE"
-    prowl `basename "$0"` "exiting, last package $PACKAGE" >/dev/null 2>&1 &
 }
 
 log() {
@@ -37,7 +35,6 @@ log() {
 
 log_start() {
     log "$0 -- starting script"
-    prowl `basename "$0"` "starting script" >/dev/null 2>&1 &
 }
 
 log_success() {
