@@ -241,3 +241,17 @@ depends_on() {
     compile_package "$@"
 }
 
+fetch_source() {
+    URL="$1"
+    SHA1="$2"
+    FILENAME="$3"
+    [ -z "$FILENAME" ] && FILENAME=`basename "$URL"`
+    if [ ! -e "$TARDIR"/$FILENAME ]; then
+        curl -L "$URL" -o "$TARDIR"/$FILENAME || (rm -f "$TARDIR"/$FILENAME && false)
+        SHA1SUM=`sha1sum "$TARDIR/$FILENAME" | cut -f1 -d' '`
+        if [ ! -z "$SHA1" ] && [ "$SHA1SUM" != "$SHA1" ]; then
+            log "SHA1sum mismatch! $SHA1SUM vs $SHA1"
+            false
+        fi
+    fi
+}
