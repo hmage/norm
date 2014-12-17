@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# sourced by norm_common.functions
+
 CLEANPATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin"
 DEFAULT_PREFIX="$HOME/norm"
 #BOOTSTRAP_PREFIX="$HOME/prefixes/bootstrap"

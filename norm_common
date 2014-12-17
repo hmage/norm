@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-DIRNAME=`dirname "$0"`
-READLINK=`readlink "$0" || true`
-LINKDIRNAME=`dirname "$READLINK"`
-NORMDIR=$LINKDIRNAME
-[ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
-NORMDIR=`cd "$NORMDIR"; pwd`
+
+# sourced by norm
+
+TARDIR="$NORMDIR/archives"
 
 . "$NORMDIR"/norm_common.functions
 

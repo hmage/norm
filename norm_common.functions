@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 
-DIRNAME=`dirname "$0"`
-READLINK=`readlink "$0" || true`
-LINKDIRNAME=`dirname "$READLINK"`
-NORMDIR=$LINKDIRNAME
-[ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
-NORMDIR=`cd "$NORMDIR"; pwd`
+# sourced by norm_common
 
 . "$NORMDIR"/norm_common.prefix
 
@@ -128,7 +123,6 @@ do_unpack() {
     PACKAGE="$1"
     SRCDIR="$COMPILEDIR"/"$PACKAGE"
     TARNAME="$2"
-    TARDIR="$NORMDIR/archives"
     shift 2
 
     rm -rf "$SRCDIR"  || exit 1
@@ -141,7 +135,6 @@ do_undebian() {
     PACKAGE="$1"
     SRCDIR="$COMPILEDIR"/"$PACKAGE"
     TARNAME="$2"
-    TARDIR="$NORMDIR/archives"
 
     do_unpack "$PACKAGE" "$TARNAME"  || exit 1
 
