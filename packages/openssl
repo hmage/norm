@@ -1,0 +1,21 @@
+fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e.orig.tar.gz
+fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e-2+deb7u13.debian.tar.gz
+
+do_undebian openssl-1.0.1e openssl_1.0.1e.orig.tar.gz openssl_1.0.1e-2+deb7u13.debian.tar.gz
+pushd "$COMPILEDIR"/$PACKAGE
+SSLCONFIG="no-idea no-mdc2 no-rc5 zlib enable-tlsext no-ssl2 enable-cms"
+./Configure no-shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG debian-i386-i686/cmov
+make -f Makefile all
+make test
+mv libcrypto.a libcrypto.static
+mv libssl.a libssl.static
+make -f Makefile clean
+./Configure shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG debian-i386-i686/cmov
+make -f Makefile all
+make test
+do_install MANDIR=$PREFIX/share/man
+cp -pf libcrypto.static $PREFIX/lib/libcrypto.a
+cp -pf libssl.static $PREFIX/lib/libssl.a
+do_strip $PREFIX/bin/openssl $PREFIX/lib/openssl-1.*/engines/lib*.so $PREFIX/lib/lib{crypto,ssl}.so
+popd
+log_success

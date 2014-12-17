@@ -1,0 +1,10 @@
+fetch_source http://ftp.de.debian.org/debian/pool/main/g/gettext/gettext_0.18.1.1.orig.tar.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/g/gettext/gettext_0.18.1.1-9.debian.tar.gz
+
+do_undebian_compile gettext-0.18.1.1 gettext_0.18.1.1.orig.tar.gz gettext_0.18.1.1-9.debian.tar.gz \
+                    --without-emacs --enable-relocatable \
+                    --enable-threads --disable-native-java --disable-libasprintf --disable-java \
+                    --disable-csharp \
+                    --without-git --without-cvs
+rm -rf $PREFIX/share/doc/gettext/examples
+do_strip $PREFIX/lib/preloadable_libintl.so
