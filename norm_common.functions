@@ -1,0 +1,253 @@
+#!/usr/bin/env bash
+
+DIRNAME=`dirname "$0"`
+READLINK=`readlink "$0" || true`
+LINKDIRNAME=`dirname "$READLINK"`
+NORMDIR=$LINKDIRNAME
+[ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
+NORMDIR=`cd "$NORMDIR"; pwd`
+
+. "$NORMDIR"/norm_common.prefix
+
+CONFIGURE_FLAGS=""
+#CONFIGURE_FLAGS+=" --enable-silent-rules"
+#CONFIGURE_FLAGS+=" --disable-dependency-tracking"
+#CONFIGURE_FLAGS+=" --enable-fast-install"
+#CONFIGURE_FLAGS+=" --disable-debug"
+#CONFIGURE_FLAGS+=" --disable-maintainer-mode"
+CONFIGURE_FLAGS+=" --enable-strip"
+#CONFIGURE_FLAGS+=" --disable-nls"
+#CONFIGURE_FLAGS+=" --enable-shared"
+#CONFIGURE_FLAGS+=" --with-shared"
+#CONFIGURE_FLAGS+=" --disable-static"
+#CONFIGURE_FLAGS+=" --without-static"
+
+export COMPILEDIR="$HOME/tmp/compile"
+
+onerror() {
+    log "Package $PACKAGE failed to build"
+    prowl `basename "$0"` "$PACKAGE failed to build" >/dev/null 2>&1 &
+}
+
+onexit() {
+    log "$0 -- exiting, last package $PACKAGE"
+    prowl `basename "$0"` "exiting, last package $PACKAGE" >/dev/null 2>&1 &
+}
+
+log() {
+    DATE=`LANG=C LC_ALL=C date`
+    echo "[$DATE] $@" >> "$HOME"/compile.log
+    echo "$@"
+}
+
+log_start() {
+    log "$0 -- starting script"
+    prowl `basename "$0"` "starting script" >/dev/null 2>&1 &
+}
+
+log_success() {
+    log "$0 -- Compiled $PACKAGE"
+}
+
+do_configure() {
+    ./configure --prefix="$PREFIX" $CONFIGURE_FLAGS "$@" 2>&1 | filter.configure | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
+}
+
+do_configure_outside() {
+    ../"$PACKAGE"/configure --prefix="$PREFIX" $CONFIGURE_FLAGS "$@" 2>&1 | filter.configure | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
+}
+
+do_configure_nognu() {
+    ./configure --prefix="$PREFIX" "$@" 2>&1 | filter.configure | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
+}
+
+do_configure_outside_nognu() {
+    ../"$PACKAGE"/configure --prefix="$PREFIX" "$@" 2>&1 | filter.configure | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
+}
+
+do_make() {
+    PARALLEL="-j4"
+    [ "$NOPARALLEL" = "1" ] && PARALLEL=
+    make $PARALLEL "$@" 2>&1 | filter.configure | tee $COMPILEDIR/$PACKAGE-make.log || exit 1
+}
+
+do_install() {
+    make install-strip "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-makeinstall.log || make install "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-makeinstall.log || exit 1
+}
+
+do_make_and_install() {
+    do_make "$@" || exit 1
+    do_install "$@" || exit 1
+}
+
+do_compile() {
+    if [ "$1" != "" ]; then
+        PACKAGE="$1"
+        shift
+    fi
+    SRCDIR="$COMPILEDIR"/"$PACKAGE"
+    pushd "$SRCDIR" || exit 1
+    do_configure "$@" || exit 1
+    do_make_and_install || exit 1
+    popd || exit 1
+    log_success
+}
+
+
+do_compile_nognu() {
+    if [ "$1" != "" ]; then
+        PACKAGE="$1"
+        shift
+    fi
+    SRCDIR="$COMPILEDIR"/"$PACKAGE"
+    pushd "$SRCDIR" || exit 1
+    do_configure_nognu "$@" || exit 1
+    do_make_and_install || exit 1
+    popd || exit 1
+    log_success
+}
+
+do_compile_outside() {
+    if [ "$1" != "" ]; then
+        PACKAGE="$1"
+        shift
+    fi
+    SRCDIR="$COMPILEDIR"/"$PACKAGE"
+    BUILDDIR="$COMPILEDIR"/"$PACKAGE"-build
+
+    rm -rf "$BUILDDIR" || exit 1
+    mkdir -p "$BUILDDIR" || exit 1
+    pushd "$BUILDDIR" || exit 1
+    do_configure_outside "$@" || exit 1
+    do_make_and_install || exit 1
+    popd || exit 1
+    log_success
+}
+
+do_unpack() {
+    PACKAGE="$1"
+    SRCDIR="$COMPILEDIR"/"$PACKAGE"
+    TARNAME="$2"
+    TARDIR="$NORMDIR/archives"
+    shift 2
+
+    rm -rf "$SRCDIR"  || exit 1
+    mkdir -p "$COMPILEDIR"  || exit 1
+    tar xf "$TARDIR/$TARNAME" -C "$COMPILEDIR" "$@" || exit 1
+    log "$0 -- Unpacked $PACKAGE"
+}
+
+do_undebian() {
+    PACKAGE="$1"
+    SRCDIR="$COMPILEDIR"/"$PACKAGE"
+    TARNAME="$2"
+    TARDIR="$NORMDIR/archives"
+
+    do_unpack "$PACKAGE" "$TARNAME"  || exit 1
+
+    ## unpack package's debian subdir from tar or diff
+    tar xf "$TARDIR/$3" -C "$SRCDIR" ||
+    zless "$TARDIR/$3" | patch -f -p1 -i - -d "$SRCDIR" ||
+    xzless "$TARDIR/$3" | patch -f -p1 -i - -d "$SRCDIR" ||
+    bzless "$TARDIR/$3" | patch -f -p1 -i - -d "$SRCDIR" || exit 1
+
+    PATCHES=""
+    SERIES="$SRCDIR"/debian/patches/series
+    SERIES2="$SRCDIR"/debian/patches-applied/series
+    if [ -e "$SERIES" ]; then
+        PATCHES=`cat "$SERIES"|perl -pe "s/#.*$//g;s|^|$SRCDIR/debian/patches/|"`
+    elif [ -e "$SERIES2" ]; then
+        PATCHES=`cat "$SERIES2"|perl -pe "s/#.*$//g;s|^|$SRCDIR/debian/patches-applied/|"`
+    elif [ -e "$SRCDIR"/debian/patches/*.patch ]; then
+        PATCHES="$SRCDIR"/debian/patches/*.patch
+    fi
+    if [ ! -z "$PATCHES" ]; then
+        for i in $PATCHES; do
+            echo Applying patch "$i"
+            patch -f -p1 -i "$i" -d "$SRCDIR" ||
+            patch -f -p0 -i "$i" -d "$SRCDIR" ||
+            patch -f -p2 -i "$i" -d "$SRCDIR" || true
+        done
+    fi
+}
+
+do_undebian_compile() {
+    PACKAGE="$1"
+    do_undebian "$PACKAGE" "$2" "$3"
+    shift 3
+    do_compile "$PACKAGE" "$@"
+}
+
+
+do_unpack_compile() {
+    PACKAGE="$1"
+    do_unpack "$PACKAGE" "$2"
+    shift 2
+    do_compile "$PACKAGE" "$@"
+}
+
+do_configure_gcc() {
+    CC=gcc CXX=g++ CPPFLAGS="$default_cppflags" LDFLAGS="$default_ldflags" do_configure "$@"
+}
+
+do_compile_gcc() {
+    CC=gcc CXX=g++ CPPFLAGS="$default_cppflags" LDFLAGS="$default_ldflags" do_compile "$@"
+}
+
+do_compile_nognu_gcc() {
+    CC=gcc CXX=g++ CPPFLAGS="$default_cppflags" LDFLAGS="$default_ldflags" do_compile_nognu "$@"
+}
+
+do_undebian_compile_gcc() {
+    PACKAGE="$1"
+    do_undebian "$PACKAGE" "$2" "$3"
+    shift 3
+    do_compile_gcc "$PACKAGE" "$@"
+}
+
+do_unpack_compile_gcc() {
+    PACKAGE="$1"
+    do_unpack "$PACKAGE" "$2"
+    shift 2
+    do_compile_gcc "$PACKAGE" "$@"
+}
+
+do_patch() {
+    PATCHNAME="$1"
+    shift
+    patch -p1 -i "$NORMDIR"/"$PATCHNAME" -d "$COMPILEDIR"/"$PACKAGE" "$@"
+}
+
+do_autoreconf() {
+    pushd "$COMPILEDIR"/$PACKAGE || exit 1
+    autoreconf -f -i -v || exit 1
+    popd || exit 1
+}
+
+do_strip() {
+    chmod u+w "$@"
+    strip -sp "$@"
+}
+
+
+use_noopt() {
+    export CPPFLAGS="$default_cppflags"
+    export LDFLAGS="$default_ldflags"
+    unset CFLAGS CXXFLAGS
+}
+
+compile_package() {
+    ## don't do for arg in "$@" -- gets overriden by package script
+    while [ "$1" != "" ]; do
+        [ -e "$PREFIX"/"$1".installed ] && shift && continue
+        echo "Building package $1"
+        . "$NORMDIR"/packages/"$1"
+        touch "$PREFIX"/"$1".installed
+        shift
+    done
+}
+
+depends_on() {
+    compile_package "$@"
+}
+

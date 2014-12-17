@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+CLEANPATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin"
+DEFAULT_PREFIX="$HOME/norm"
+#BOOTSTRAP_PREFIX="$HOME/prefixes/bootstrap"
+
+set_prefix() {
+    PREFIX="$1"
+    DESTDIR=/tmp/stage
+    STAGE=$DESTDIR/$PREFIX
+
+    default_ldflags="-L$PREFIX/lib -L$BOOTSTRAP_PREFIX/lib"
+    default_ldflags+=" -Wl,-rpath=$PREFIX/lib:$BOOTSTRAP_PREFIX/lib -Wl,-rpath-link=$PREFIX/lib:$BOOTSTRAP_PREFIX/lib"
+    default_ldopt="-Wl,-O1 -Wl,--as-needed -Wl,--gc-sections"
+    default_cppflags="-I$PREFIX/include -L$BOOTSTRAP_PREFIX/include -pipe"
+    default_optflags=" -Wno-unused-local-typedefs -O2 -g0"
+    default_optflags+=" -march=core2 -mtune=core2 -mssse3 -msse4.1 -mcx16"
+    #default_optflags+=" -msahf -mfxsr"
+
+    export LDFLAGS="$default_ldflags $default_ldopt $default_optflags"
+    export DSOFLAGS="$LDFLAGS"
+    export CPPFLAGS="$default_cppflags"
+    export CFLAGS="$default_optflags"
+    export CXXFLAGS="$default_optflags"
+    export PATH="$PREFIX/sbin:$PREFIX/bin:$BOOTSTRAP_PREFIX/bin/ccache_wrap:$BOOTSTRAP_PREFIX/bin:$CLEANPATH"
+    export LD_LIBRARY_PATH="$PREFIX/lib:$BOOTSTRAP_PREFIX/lib"
+    export LD_RUN_PATH="$PREFIX/lib:$BOOTSTRAP_PREFIX/lib"
+    export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
+    export ACLOCAL_PATH="$PREFIX/share/aclocal:$BOOTSTRAP_PREFIX/share/aclocal"
+    export PERL5LIB="$PREFIX/lib/perl:$HOME/perl5/lib/perl5"
+}
+
+use_clang() {
+    export CC=clang
+    export CXX=clang++
+    export CPPFLAGS="$CPPFLAGS -Qunused-arguments -Wno-gnu-variable-sized-type-not-at-end"
+    export PATH="$PREFIX/bin:$BOOTSTRAP_PREFIX/bin/ccache_wrap:$BOOTSTRAP_PREFIX/bin:$BOOTSTRAP_CLANG/bin:$CLEANPATH"
+}
+
+generate_config_site() {
+## generate config.site
+mkdir -p $PREFIX/share
+cat << EOF > $PREFIX/share/config.site
+[ -z "\$CPPFLAGS" ] && CPPFLAGS="$default_cppflags"
+[ -z "\$LDFLAGS" ] && LDFLAGS="$default_ldflags"
+true
+EOF
+}
+

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+DIRNAME=`dirname "$0"`
+READLINK=`readlink "$0" || true`
+LINKDIRNAME=`dirname "$READLINK"`
+NORMDIR=$LINKDIRNAME
+[ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
+NORMDIR=`cd "$NORMDIR"; pwd`
+
+. "$NORMDIR"/norm_common.functions
+
+set -eE
+set -o pipefail
+trap onerror ERR
+trap onexit EXIT
+
+export COMPILEDIR="$HOME/tmp/compile"
+

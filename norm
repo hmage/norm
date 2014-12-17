@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -eE
+
+DIRNAME=`dirname "$0"`
+READLINK=`readlink "$0" || true`
+LINKDIRNAME=`dirname "$READLINK"`
+NORMDIR=$LINKDIRNAME
+[ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
+NORMDIR=`cd "$NORMDIR"; pwd`
+
+. $NORMDIR/norm_common
+
+usage() {
+    echo "Usage: "
+    echo "    $0 install [-f] <package> [package ...]"
+}
+
+cmd_install() {
+	force=
+	echo "Called install: $@"
+	while getopts ":p:hf" opt; do
+	case $opt in
+	    f)
+	    echo "-f triggered" >&2
+	    force=1
+	    ;;
+	    \?)
+	    echo "Invalid option: -$OPTARG" >&2
+	    usage
+	    exit 64
+	    ;;
+	    :)
+	    echo "Option -$OPTARG requires an argument." >&2
+	    usage
+	    exit 64
+	    ;;
+	esac
+	done
+	shift $((OPTIND-1))
+	[ -z "$1" ] && echo "Need package names" && exit 64
+	set_prefix "$DEFAULT_PREFIX"
+	compile_package "$@"
+}
+
+case "$1" in
+    install)
+	shift
+	cmd_install "$@"
+	;;
+    *)
+	echo "Uknown command: $1" >&2
+	usage
+	exit 64
+	;;
+esac
+
