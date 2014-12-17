@@ -42,25 +42,25 @@ log_success() {
 }
 
 do_configure() {
-    ./configure --prefix="$PREFIX" $CONFIGURE_FLAGS "$@" 2>&1 | filter.configure | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
+    ./configure --prefix="$PREFIX" $CONFIGURE_FLAGS "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
 }
 
 do_configure_outside() {
-    ../"$PACKAGE"/configure --prefix="$PREFIX" $CONFIGURE_FLAGS "$@" 2>&1 | filter.configure | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
+    ../"$PACKAGE"/configure --prefix="$PREFIX" $CONFIGURE_FLAGS "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
 }
 
 do_configure_nognu() {
-    ./configure --prefix="$PREFIX" "$@" 2>&1 | filter.configure | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
+    ./configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
 }
 
 do_configure_outside_nognu() {
-    ../"$PACKAGE"/configure --prefix="$PREFIX" "$@" 2>&1 | filter.configure | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
+    ../"$PACKAGE"/configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
 }
 
 do_make() {
     PARALLEL="-j4"
     [ "$NOPARALLEL" = "1" ] && PARALLEL=
-    make $PARALLEL "$@" 2>&1 | filter.configure | tee $COMPILEDIR/$PACKAGE-make.log || exit 1
+    make $PARALLEL "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-make.log || exit 1
 }
 
 do_install() {
