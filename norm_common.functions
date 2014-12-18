@@ -153,7 +153,7 @@ do_undebian() {
     fi
     if [ ! -z "$PATCHES" ]; then
         for i in $PATCHES; do
-            echo Applying patch "$i"
+            log Applying patch "$i"
             patch -f -p1 -i "$i" -d "$SRCDIR" ||
             patch -f -p0 -i "$i" -d "$SRCDIR" ||
             patch -f -p2 -i "$i" -d "$SRCDIR" || true
@@ -230,7 +230,7 @@ compile_package() {
     ## don't do for arg in "$@" -- gets overriden by package script
     while [ "$1" != "" ]; do
         [ -e "$PREFIX"/"$1".installed ] && shift && continue
-        echo "Building package $1"
+        log "Building package $1"
         . "$NORMDIR"/packages/"$1"
         touch "$PREFIX"/"$1".installed
         shift
@@ -247,6 +247,7 @@ fetch_source() {
     FILENAME="$3"
     [ -z "$FILENAME" ] && FILENAME=`basename "$URL"`
     if [ ! -e "$TARDIR"/$FILENAME ]; then
+        log "Downloading $URL"
         curl -L "$URL" -o "$TARDIR"/$FILENAME || (rm -f "$TARDIR"/$FILENAME && false)
         SHA1SUM=`sha1sum "$TARDIR/$FILENAME" | cut -f1 -d' '`
         if [ ! -z "$SHA1" ] && [ "$SHA1SUM" != "$SHA1" ]; then
