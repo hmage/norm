@@ -1,6 +1,8 @@
 fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e.orig.tar.gz
 fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e-2+deb7u13.debian.tar.gz
 
+depends_on zlib
+
 do_undebian openssl-1.0.1e openssl_1.0.1e.orig.tar.gz openssl_1.0.1e-2+deb7u13.debian.tar.gz
 pushd "$COMPILEDIR"/$PACKAGE
 SSLCONFIG="no-idea no-mdc2 no-rc5 zlib enable-tlsext no-ssl2 enable-cms"
