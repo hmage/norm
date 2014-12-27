@@ -1,0 +1,5 @@
+fetch_source http://ftp.gnu.org/gnu/mpc/mpc-1.0.2.tar.gz 5072d82ab50ec36cc8c0e320b5c377adb48abe70
+
+depends_on libgmp libmpfr
+
+do_unpack_compile mpc-1.0.2 mpc-1.0.2.tar.gz
