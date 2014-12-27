@@ -3,17 +3,27 @@ fetch_source http://security.debian.org/debian-security/pool/updates/main/o/open
 
 depends_on zlib
 
+BUILDCONF=gcc
+[[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == i?86 ]] && BUILDCONF=debian-i386-i686/cmov
+[[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == x86_64 ]] && BUILDCONF=debian-amd64
+[[ $OSTYPE == *darwin* ]] && BUILDCONF=darwin64-x86_64-cc
+SSLCONFIG="no-idea no-mdc2 no-rc5 zlib enable-tlsext no-ssl2 enable-cms"
+
 do_undebian openssl-1.0.1e openssl_1.0.1e.orig.tar.gz openssl_1.0.1e-2+deb7u13.debian.tar.gz
 pushd "$COMPILEDIR"/$PACKAGE
-SSLCONFIG="no-idea no-mdc2 no-rc5 zlib enable-tlsext no-ssl2 enable-cms"
-./Configure no-shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG debian-i386-i686/cmov
-make -f Makefile all
+
+LC_CTYPE=C sed -ibak 's|.*--version-script.*||' Configure
+
+./Configure no-shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG $BUILDCONF
+sed -ibak 's|tempfile|mktemp /tmp/aaa.XXXXXXXX|' tools/c_rehash
+make all
 make test
 mv libcrypto.a libcrypto.static
 mv libssl.a libssl.static
 make -f Makefile clean
-./Configure shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG debian-i386-i686/cmov
-make -f Makefile all
+./Configure shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG $BUILDCONF
+sed -ibak 's|tempfile|mktemp /tmp/aaa.XXXXXXXX|' tools/c_rehash
+make all
 make test
 do_install MANDIR=$PREFIX/share/man
 cp -pf libcrypto.static $PREFIX/lib/libcrypto.a
