@@ -13,7 +13,8 @@ setup_prefix() {
 
     ## set compile flags
     default_ldflags="-L$PREFIX/lib"
-    default_ldflags+=" -Wl,-rpath=$PREFIX/lib -Wl,-rpath-link=$PREFIX/lib"
+    [[ $OSTYPE == *linux* ]] && default_ldflags+=" -Wl,-rpath=$PREFIX/lib -Wl,-rpath-link=$PREFIX/lib"
+    [[ $OSTYPE == *darwin* ]] && default_ldflags+=" -Wl,-rpath -Wl,$PREFIX/lib"
     default_cppflags="-I$PREFIX/include"
     default_aclocal="$PREFIX/share/aclocal"
 
@@ -31,6 +32,7 @@ setup_prefix() {
     ## create files if they don't exist
     [ ! -e "$PREFIX/share/man" ] && mkdir -p "$PREFIX/share/man" || true
     [ ! -e "$PREFIX/man" ] && ln -s share/man $PREFIX/man || true
+    [ ! -e "$PREFIX/lib" ] && mkdir -p "$PREFIX/lib" || true
     [ ! -e "$PREFIX/share/config.site" ] && generate_config_site || true
 }
 
