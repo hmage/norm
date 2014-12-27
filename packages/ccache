@@ -3,7 +3,7 @@ fetch_source http://samba.org/ftp/ccache/ccache-3.2.1.tar.gz 64464a7697ac9ee2b3c
 depends_on zlib
 
 do_unpack_compile ccache-3.2.1 ccache-3.2.1.tar.gz
-strip -sp $PREFIX/bin/ccache
+do_strip $PREFIX/bin/ccache
 
 add_to_ccache() {
     mkdir -p $PREFIX/bin/ccache_wrap

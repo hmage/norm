@@ -3,4 +3,4 @@ fetch_source http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg-13
 
 do_undebian zlib-1.2.7 zlib_1.2.7.dfsg.orig.tar.gz zlib_1.2.7.dfsg-13.debian.tar.gz
 do_compile_nognu
-strip -sp $PREFIX/lib/libz.so.1.*
+do_strip $PREFIX/lib/libz.*$LIBSUFFIX

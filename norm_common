@@ -4,6 +4,9 @@
 
 TARDIR="$NORMDIR/archives"
 
+LIBSUFFIX=so
+[[ $OSTYPE == *darwin* ]] && LIBSUFFIX=dylib
+
 . "$NORMDIR"/norm_common.functions
 
 set -eE
