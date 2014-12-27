@@ -1,33 +1,30 @@
-fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e.orig.tar.gz 3f1b1223c9e8189bfe4e186d86449775bd903460
-fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e-2+deb7u13.debian.tar.gz 93002f40414b396ab026adc2fc990fb742f1ea02
+fetch_source https://github.com/openssl/openssl/archive/OpenSSL_1_0_1j.tar.gz 38b73471e1fcc1edb7ab3e18cc59286116c1de5c
 
 depends_on zlib
 
 BUILDCONF=gcc
-[[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == i?86 ]] && BUILDCONF=debian-i386-i686/cmov
-[[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == x86_64 ]] && BUILDCONF=debian-amd64
+[[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == i?86 ]] && BUILDCONF=linux-elf
+[[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == x86_64 ]] && BUILDCONF=linux-x86_64
 [[ $OSTYPE == *darwin* ]] && BUILDCONF=darwin64-x86_64-cc
 SSLCONFIG="no-idea no-mdc2 no-rc5 zlib enable-tlsext no-ssl2 enable-cms"
 
-do_undebian openssl-1.0.1e openssl_1.0.1e.orig.tar.gz openssl_1.0.1e-2+deb7u13.debian.tar.gz
+do_unpack openssl-OpenSSL_1_0_1j OpenSSL_1_0_1j.tar.gz
 pushd "$COMPILEDIR"/$PACKAGE
 
-LC_CTYPE=C sed -ibak 's|.*--version-script.*||' Configure
-
 ./Configure no-shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG $BUILDCONF
-sed -ibak 's|tempfile|mktemp /tmp/aaa.XXXXXXXX|' tools/c_rehash
+make depend
 make all
 make test
 mv libcrypto.a libcrypto.static
 mv libssl.a libssl.static
 make -f Makefile clean
 ./Configure shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG $BUILDCONF
-sed -ibak 's|tempfile|mktemp /tmp/aaa.XXXXXXXX|' tools/c_rehash
+make depend
 make all
 make test
 do_install MANDIR=$PREFIX/share/man
 cp -pf libcrypto.static $PREFIX/lib/libcrypto.a
 cp -pf libssl.static $PREFIX/lib/libssl.a
-do_strip $PREFIX/bin/openssl $PREFIX/lib/openssl-1.*/engines/lib*.$LIBSUFFIX $PREFIX/lib/lib{crypto,ssl}.$LIBSUFFIX
+do_strip $PREFIX/bin/openssl $PREFIX/lib/engines/lib*.$LIBSUFFIX $PREFIX/lib/lib{crypto,ssl}.$LIBSUFFIX
 popd
 log_success
