@@ -1,5 +1,5 @@
-fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e.orig.tar.gz
-fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e-2+deb7u13.debian.tar.gz
+fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e.orig.tar.gz 3f1b1223c9e8189bfe4e186d86449775bd903460
+fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e-2+deb7u13.debian.tar.gz 93002f40414b396ab026adc2fc990fb742f1ea02
 
 depends_on zlib
 

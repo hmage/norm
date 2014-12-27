@@ -1,5 +1,5 @@
-fetch_source http://ftp.de.debian.org/debian/pool/main/g/gettext/gettext_0.18.1.1.orig.tar.gz
-fetch_source http://ftp.de.debian.org/debian/pool/main/g/gettext/gettext_0.18.1.1-9.debian.tar.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/g/gettext/gettext_0.18.1.1.orig.tar.gz 5009deb02f67fc3c59c8ce6b82408d1d35d4e38f
+fetch_source http://ftp.de.debian.org/debian/pool/main/g/gettext/gettext_0.18.1.1-9.debian.tar.gz 0381483cdd9e3d6ec64c0753e23a8fdb4793c16b
 
 do_undebian_compile gettext-0.18.1.1 gettext_0.18.1.1.orig.tar.gz gettext_0.18.1.1-9.debian.tar.gz \
                     --without-emacs --enable-relocatable \

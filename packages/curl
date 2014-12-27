@@ -1,4 +1,4 @@
-fetch_source http://curl.haxx.se/download/curl-7.39.0.tar.bz2
+fetch_source http://curl.haxx.se/download/curl-7.39.0.tar.bz2 80c6eadcc6ca526d1e1862c2234f33c7b7d10950
 
 depends_on openssl zlib
 do_unpack_compile curl-7.39.0 curl-7.39.0.tar.bz2
