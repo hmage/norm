@@ -22,6 +22,6 @@ do_compile_outside gcc-4.9.2 --program-suffix=-4.9 --enable-languages=c,c++ --en
                              --with-mpc=$PREFIX --with-mpfr=$PREFIX --with-gmp=$PREFIX \
                              $HASH_STYLE --disable-gnu-unique-object \
                              --disable-initfini-array --disable-gnu-indirect-function \
-                             --enable-dependency-tracking --disable-bootstrap
+                             --enable-dependency-tracking
 symlink_gcc
 ln -f $PREFIX/bin/gcc $PREFIX/bin/cc
