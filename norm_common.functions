@@ -215,7 +215,7 @@ do_autoreconf() {
 }
 
 do_strip() {
-    [[ $OSTYPE == *linux* ]] && chmod u+w "$@"
+    chmod u+w "$@"
     [[ $OSTYPE == *linux* ]] && strip -sp "$@"
     [[ $OSTYPE == *darwin* ]] && strip -S -u -r "$@"
 }
