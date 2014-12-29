@@ -216,8 +216,10 @@ do_autoreconf() {
 
 do_strip() {
     chmod u+w "$@"
-    [[ $OSTYPE == *linux* ]] && strip -sp "$@"
-    [[ $OSTYPE == *darwin* ]] && strip -S -u -r "$@"
+    case "$OSTYPE" in
+        *linux*) strip -sp "$@";;
+        *darwin*) strip -S -u -r "$@";;
+    esac
 }
 
 
