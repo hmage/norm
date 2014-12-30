@@ -252,14 +252,14 @@ fetch_source() {
     if [ ! -e "$TARDIR"/$FILENAME ]; then
         log "Downloading $URL"
         curl -L "$URL" -o "$TARDIR"/$FILENAME || (rm -f "$TARDIR"/$FILENAME && false)
-        SHA1SUM=`shasum "$TARDIR/$FILENAME" | cut -f1 -d' '`
+        SHA1SUM=`$SHASUM_BIN "$TARDIR/$FILENAME" | cut -f1 -d' '`
         [ -z "$SHA1" ] && echo "For future -- SHA1 is $SHA1SUM"
         if [ ! -z "$SHA1" ] && [ "$SHA1SUM" != "$SHA1" ]; then
             log "SHA1sum mismatch! $SHA1SUM vs $SHA1"
             false
         fi
     else
-        SHA1SUM=`shasum "$TARDIR/$FILENAME" | cut -f1 -d' '`
+        SHA1SUM=`$SHASUM_BIN "$TARDIR/$FILENAME" | cut -f1 -d' '`
         [ -z "$SHA1" ] && echo "For future -- SHA1 of $FILENAME is $SHA1SUM"
         if [ ! -z "$SHA1" ] && [ "$SHA1SUM" != "$SHA1" ]; then
             log "SHA1sum mismatch! $SHA1SUM vs $SHA1"
