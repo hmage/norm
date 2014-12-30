@@ -214,15 +214,6 @@ do_autoreconf() {
     popd || exit 1
 }
 
-do_strip() {
-    chmod u+w "$@"
-    case "$OSTYPE" in
-        *linux*) strip -sp "$@";;
-        *darwin*) strip -S -u -r "$@";;
-    esac
-}
-
-
 use_noopt() {
     export CPPFLAGS="$default_cppflags"
     export LDFLAGS="$default_ldflags"

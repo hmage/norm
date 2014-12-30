@@ -25,6 +25,5 @@ make test
 do_install MANDIR=$PREFIX/share/man
 cp -pf libcrypto.static $PREFIX/lib/libcrypto.a
 cp -pf libssl.static $PREFIX/lib/libssl.a
-do_strip $PREFIX/bin/openssl $PREFIX/lib/engines/lib*.$LIBSUFFIX $PREFIX/lib/lib{crypto,ssl}.$LIBSUFFIX
 popd
 log_success

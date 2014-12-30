@@ -11,4 +11,3 @@ do_unpack_compile gettext-0.19.3 gettext-0.19.3.tar.xz \
                     --without-xz \
                     --without-git --without-cvs
 rm -rf $PREFIX/share/doc/gettext/examples
-do_strip $PREFIX/lib/preloadable_libintl.$LIBSUFFIX || true

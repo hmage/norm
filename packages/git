@@ -7,4 +7,3 @@ depends_on gettext
 do_unpack git-2.2.0 git-2.2.0.tar.xz
 #do_patch git-2.2.0-hmdmod.patch
 do_compile $PACKAGE --disable-static --enable-shared
-do_strip $PREFIX/libexec/git-core/git* $PREFIX/bin/git-{upload-pack,shell} || true
