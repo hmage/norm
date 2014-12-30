@@ -205,7 +205,7 @@ do_unpack_compile_gcc() {
 do_patch() {
     PATCHNAME="$1"
     shift
-    patch -p1 -i "$NORMDIR"/"$PATCHNAME" -d "$COMPILEDIR"/"$PACKAGE" "$@"
+    patch -p1 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$COMPILEDIR"/"$PACKAGE" "$@"
 }
 
 do_autoreconf() {
