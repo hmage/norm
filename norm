@@ -46,10 +46,20 @@ cmd_install() {
 	compile_package "$@"
 }
 
+cmd_in() {
+	echo "Creating subshell so you can compile and link against norm libs"
+	setup_prefix "$DEFAULT_PREFIX"
+	$SHELL -i
+}
+
 case "$1" in
     install)
 	shift
 	cmd_install "$@"
+	;;
+    in)
+	shift
+	cmd_in "$@"
 	;;
     *)
 	echo "Uknown command: $1" >&2
