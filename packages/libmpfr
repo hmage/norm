@@ -1,4 +1,4 @@
-fetch_source https://ftp.gnu.org/gnu/mpfr/mpfr-3.1.2.tar.xz 03e593cc6e26639ef5e60be1af8dc527209e5172
+fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.2.tar.xz 03e593cc6e26639ef5e60be1af8dc527209e5172
 
 depends_on libgmp
 

@@ -1,4 +1,4 @@
-fetch_source https://ftp.gnu.org/gnu/gmp/gmp-5.0.5.tar.xz 4e006dd5e473f21d414b88997630122662ddc2be
+fetch_source http://ftpmirror.gnu.org/gmp/gmp-5.0.5.tar.xz 4e006dd5e473f21d414b88997630122662ddc2be
 
 depends_on m4
 

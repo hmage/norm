@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2 79dbcb09f44232822460d80b033c962c0237c6d8
+fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2 79dbcb09f44232822460d80b033c962c0237c6d8
 depends_on libmpfr libmpc libgmp
 
 
