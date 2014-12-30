@@ -21,11 +21,9 @@ usage() {
 
 cmd_install() {
 	force=
-	echo "Called install: $@"
 	while getopts ":p:hf" opt; do
 	case $opt in
 	    f)
-	    echo "-f triggered" >&2
 	    force=1
 	    ;;
 	    \?)
@@ -42,6 +40,12 @@ cmd_install() {
 	done
 	shift $((OPTIND-1))
 	[ -z "$1" ] && echo "Need package names" && exit 64
+	if [ ! -z "$force" ]; then
+		echo "Forcing reinstall of packages: $@"
+		for pkg in "$@"; do rm -f "$DEFAULT_PREFIX/$pkg.installed"; done
+	else
+		echo "Installing packages: $@"
+	fi
 	setup_prefix "$DEFAULT_PREFIX"
 	compile_package "$@"
 }
