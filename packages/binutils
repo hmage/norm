@@ -1,0 +1,10 @@
+fetch_source http://ftpmirror.gnu.org/binutils/binutils-2.25.tar.bz2 b46cc90ebaba7ffcf6c6d996d60738881b14e50d
+
+do_unpack binutils-2.25 binutils-2.25.tar.bz2
+do_patch binutils-2.25-multiarch.patch
+do_compile_outside $PACKAGE
+
+#--disable-multilib --enable-ld=default \
+#                            --disable-plugins --disable-plugin --disable-werror \
+#                            --with-build-sysroot=/ --with-sysroot=/ \
+#                            --enable-targets=x86_64-linux-gnu,x86_64-linux-gnux32,x86_64-pep

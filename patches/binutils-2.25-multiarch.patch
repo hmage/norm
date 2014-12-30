@@ -1,0 +1,212 @@
+# DP: Add multiarch directories to linker search path for ld and gold.
+
+Index: b/ld/genscripts.sh
+===================================================================
+--- a/ld/genscripts.sh
++++ b/ld/genscripts.sh
+@@ -228,7 +228,115 @@
+   *) LIB_PATH=${lib_path1}:${lib_path2} ;;
+ esac
+ 
++# We use the $tool_lib variable in our multiarch mangling:
++if [ "x${TOOL_LIB}" = "x" ] ; then
++  tool_lib=${exec_prefix}/${target_alias}/lib
++else
++  tool_lib=${exec_prefix}/${TOOL_LIB}/lib
++fi
++
++if [ "x${APPEND_TOOLLIBDIR}" = "xyes" ] ; then
++  LIB_PATH=${LIB_PATH}:${tool_lib}
++  # For multilib targets, search both $tool_lib dirs
++  if [ "x${LIBPATH_SUFFIX}" != "x" ] ; then
++    LIB_PATH=${LIB_PATH}:${tool_lib}${LIBPATH_SUFFIX}
++  fi
++fi
++
+ LIB_SEARCH_DIRS=`echo ${LIB_PATH} | sed -e 's/:/ /g' -e 's/\([^ ][^ ]*\)/SEARCH_DIR(\\"\1\\");/g'`
++if [ -n "$DEB_TARGET_MULTIARCH" ]; then
++    temp_dirs=' '
++    for dir in `echo ${LIB_PATH} | sed -e 's/:/ /g'`; do
++	case "$dir" in
++	    *${tool_lib}*|*/${target_alias}/*)
++	        ;;
++	    */lib)
++		if [ -n "$DEB_TARGET_MULTIARCH32" ]; then
++		    case $EMULATION_NAME in
++			elf_i386|elf32*)
++			    temp_dirs="${temp_dirs}${dir}/$DEB_TARGET_MULTIARCH32 ";;
++			*)
++			    temp_dirs="${temp_dirs}${dir}/$DEB_TARGET_MULTIARCH "
++		    esac
++		elif [ -n "$DEB_TARGET_MULTIARCH64" ]; then
++		    case $EMULATION_NAME in
++			elf*_64|elf64*)
++			    temp_dirs="${temp_dirs}${dir}/$DEB_TARGET_MULTIARCH64 ";;
++			*)
++			    temp_dirs="${temp_dirs}${dir}/$DEB_TARGET_MULTIARCH "
++		    esac
++		else
++		    temp_dirs="${temp_dirs}${dir}/$DEB_TARGET_MULTIARCH "
++		fi
++		;;
++	    */lib32)
++	        if [ -n "$DEB_TARGET_MULTIARCH32" ]; then
++		    dir2=$(echo $dir | sed "s,32$,,")
++		    temp_dirs="${temp_dirs}${dir2}/$DEB_TARGET_MULTIARCH32 "
++		fi
++		;;
++	    */lib64)
++	        case "${target}" in
++		    aarch64*-*-*|powerpc64-*-*|s390x-*-*|sparc64-*-*|x86_64-*-linux-gnu|mips64-*-gnuabi64)
++			#dir=$(echo $dir | sed "s,64$,,")
++			dir2=$(echo $dir | sed "s,64$,,")
++			temp_dirs="${temp_dirs}${dir2}/$DEB_TARGET_MULTIARCH "
++			;;
++		    *)
++			if [ -n "$DEB_TARGET_MULTIARCH64" ]; then
++			    dir2=$(echo $dir | sed "s,64$,,")
++			    temp_dirs="${temp_dirs}${dir2}/$DEB_TARGET_MULTIARCH64 "
++			fi
++			;;
++		esac
++	        ;;
++	    */libx32)
++		case "${target}" in
++		    x86_64-*-linux-gnux32)
++			dir2=$(echo $dir | sed "s,x32$,,")
++			temp_dirs="${temp_dirs}${dir2}/$DEB_TARGET_MULTIARCH "
++			;;
++		    *)
++			if [ -n "$DEB_TARGET_MULTIARCHX32" ]; then
++			    dir2=$(echo $dir | sed "s,x32$,,")
++			    temp_dirs="${temp_dirs}${dir2}/$DEB_HOST_MULTIARCHX32 "
++			fi
++			;;
++		esac
++		;;
++	    */libn32)
++		case "${target}" in
++		    mips64*-*-linux-gnuabin32)
++			dir2=$(echo $dir | sed "s,n32$,,")
++			temp_dirs="${temp_dirs}${dir2}/$DEB_TARGET_MULTIARCH "
++			;;
++		    *)
++			if [ -n "$DEB_TARGET_MULTIARCHN32" ]; then
++			    dir2=$(echo $dir | sed "s,n32$,,")
++			    temp_dirs="${temp_dirs}${dir2}/$DEB_HOST_MULTIARCHN32 "
++			fi
++			;;
++		esac
++		;;
++	    */libilp32)
++	        if [ -n "$DEB_TARGET_MULTIARCH32" ]; then
++		    dir2=$(echo $dir | sed "s,ilp32$,,")
++		    temp_dirs="${temp_dirs}${dir2}/$DEB_TARGET_MULTIARCH32 "
++		fi
++		;;
++	    *)
++		;;
++	esac
++	temp_dirs="${temp_dirs}${dir} "
++    done
++    LIB_SEARCH_DIRS=
++    for dir in $temp_dirs; do
++	if echo "$LIB_SEARCH_DIRS" | fgrep -q "\"$dir\""; then
++	    continue
++	fi
++	LIB_SEARCH_DIRS="${LIB_SEARCH_DIRS}SEARCH_DIR(\"$dir\"); "
++    done
++fi
+ 
+ # We need it for testsuite.
+ set $EMULATION_LIBPATH
+Index: b/gold/Makefile.am
+===================================================================
+--- a/gold/Makefile.am
++++ b/gold/Makefile.am
+@@ -32,6 +32,7 @@
+ 	-I$(srcdir) -I$(srcdir)/../include -I$(srcdir)/../elfcpp \
+ 	-DLOCALEDIR="\"$(datadir)/locale\"" \
+ 	-DBINDIR="\"$(bindir)\"" -DTOOLBINDIR="\"$(tooldir)/bin\"" \
++	@MULTIARCH_DIRNAME@ $(if $(APPEND_TOOLLIBDIR),-DAPPEND_TOOLLIBDIR) \
+ 	-DTOOLLIBDIR="\"$(tooldir)/lib\"" @INCINTL@
+ 
+ LIBIBERTY = ../libiberty/libiberty.a
+Index: b/gold/configure
+===================================================================
+--- a/gold/configure
++++ b/gold/configure
+@@ -594,6 +594,7 @@
+ MAINT
+ MAINTAINER_MODE_FALSE
+ MAINTAINER_MODE_TRUE
++MULTIARCH_DIRNAME
+ DLOPEN_LIBS
+ CXXCPP
+ HAVE_NO_USE_LINKER_PLUGIN_FALSE
+@@ -7648,6 +7649,14 @@
+   fi
+ 
+ 
++if test x$DEB_TARGET_MULTIARCH != x; then
++  multiarch=$DEB_TARGET_MULTIARCH
++  if test -n "$multiarch"; then
++    MULTIARCH_DIRNAME='-DMULTIARCH_DIRNAME=\"'$multiarch'\"'
++  fi
++fi
++
++
+ 
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to enable maintainer-specific portions of Makefiles" >&5
+ $as_echo_n "checking whether to enable maintainer-specific portions of Makefiles... " >&6; }
+Index: b/gold/configure.ac
+===================================================================
+--- a/gold/configure.ac
++++ b/gold/configure.ac
+@@ -628,6 +628,14 @@
+ AC_CHECK_FUNCS(setlocale)
+ AM_LC_MESSAGES
+ 
++if test x$DEB_TARGET_MULTIARCH != x; then
++  multiarch=$DEB_TARGET_MULTIARCH
++  if test -n "$multiarch"; then
++    MULTIARCH_DIRNAME='-DMULTIARCH_DIRNAME=\"'$multiarch'\"'
++  fi
++fi
++AC_SUBST(MULTIARCH_DIRNAME)
++
+ AM_MAINTAINER_MODE
+ 
+ AC_OUTPUT(Makefile testsuite/Makefile po/Makefile.in:po/Make-in)
+Index: b/gold/options.cc
+===================================================================
+--- a/gold/options.cc
++++ b/gold/options.cc
+@@ -1142,8 +1142,15 @@
+ 	       || this->user_set_sysroot()
+ 	       || *TARGET_SYSTEM_ROOT != '\0')
+ 	{
++#ifdef MULTIARCH_DIRNAME
++	  this->add_to_library_path_with_sysroot("/lib/" MULTIARCH_DIRNAME);
++	  this->add_to_library_path_with_sysroot("/usr/lib/" MULTIARCH_DIRNAME);
++#endif
+ 	  this->add_to_library_path_with_sysroot("/lib");
+ 	  this->add_to_library_path_with_sysroot("/usr/lib");
++#ifdef APPEND_TOOLLIBDIR
++	  this->add_to_library_path_with_sysroot(TOOLLIBDIR);
++#endif
+ 	}
+       else
+ 	this->add_to_library_path_with_sysroot(TOOLLIBDIR);
+Index: b/gold/Makefile.in
+===================================================================
+--- a/gold/Makefile.in
++++ b/gold/Makefile.in
+@@ -415,6 +415,7 @@
+ 	-I$(srcdir) -I$(srcdir)/../include -I$(srcdir)/../elfcpp \
+ 	-DLOCALEDIR="\"$(datadir)/locale\"" \
+ 	-DBINDIR="\"$(bindir)\"" -DTOOLBINDIR="\"$(tooldir)/bin\"" \
++	@MULTIARCH_DIRNAME@ $(if $(APPEND_TOOLLIBDIR),-DAPPEND_TOOLLIBDIR) \
+ 	-DTOOLLIBDIR="\"$(tooldir)/lib\"" @INCINTL@
+ 
+ LIBIBERTY = ../libiberty/libiberty.a
