@@ -1,8 +1,10 @@
 NORM = NOt Root (package) Manager
 ====
 
+You don't need root to install anything.
+
 ```
-norm install <package>
+norm install gcc
 ```
 
-Installs the package to $HOME/norm.
+Installs gcc to $HOME/norm by downloading source and compiling gcc and it's dependencies.
