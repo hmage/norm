@@ -240,6 +240,7 @@ fetch_source() {
     SHA1="$2"
     FILENAME="$3"
     [ -z "$FILENAME" ] && FILENAME=`basename "$URL"`
+    mkdir -p "$TARDIR"
     if [ ! -e "$TARDIR"/$FILENAME ]; then
         log "Downloading $URL"
         curl -L "$URL" -o "$TARDIR"/$FILENAME || (rm -f "$TARDIR"/$FILENAME && false)
