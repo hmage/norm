@@ -41,6 +41,10 @@ log_success() {
     log "$0 -- Compiled $PACKAGE"
 }
 
+pushd_src() {
+    pushd "$COMPILEDIR"/"$PACKAGE"
+}
+
 do_configure() {
     ./configure --prefix="$PREFIX" $CONFIGURE_FLAGS "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
 }

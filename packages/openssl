@@ -9,7 +9,7 @@ BUILDCONF=gcc
 SSLCONFIG="no-idea no-mdc2 no-rc5 zlib enable-tlsext no-ssl2 enable-cms"
 
 do_unpack openssl-OpenSSL_1_0_1j OpenSSL_1_0_1j.tar.gz
-pushd "$COMPILEDIR"/$PACKAGE
+pushd_src
 
 ./Configure no-shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG $BUILDCONF
 make depend
