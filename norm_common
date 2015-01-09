@@ -2,7 +2,7 @@
 
 # sourced by norm
 
-TARDIR="$NORMDIR/archives"
+TARDIR="$HOME/.cache/norm/archives"
 
 LIBSUFFIX=so
 [[ $OSTYPE == *darwin* ]] && LIBSUFFIX=dylib
