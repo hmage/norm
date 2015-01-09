@@ -1,0 +1,5 @@
+fetch_source http://ftp.gnu.org/gnu/tar/tar-1.28.tar.gz cd30a13bbfefb54b17e039be7c43d2592dd3d5d0
+
+depends_on libacl libattr
+
+do_unpack_compile tar-1.28 tar-1.28.tar.gz
