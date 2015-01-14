@@ -1,3 +1,4 @@
-fetch_source http://ftp.gnu.org/gnu/libidn/libidn-1.29.tar.gz
+#!/bin/bash
+fetch_source http://ftp.gnu.org/gnu/libidn/libidn-1.29.tar.gz e0959eec9a03fd8053379b0aeab447c546c05ab2
 
 do_unpack_compile libidn-1.29 libidn-1.29.tar.gz
