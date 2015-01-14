@@ -48,6 +48,7 @@ cmd_install() {
 	else
 		echo "Installing packages: $@"
 	fi
+	setup_traps
 	setup_prefix "$DEFAULT_PREFIX"
 	compile_package "$@"
 }

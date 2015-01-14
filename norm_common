@@ -11,8 +11,6 @@ LIBSUFFIX=so
 
 set -eE
 set -o pipefail
-trap onerror ERR
-trap onexit EXIT
 
 export COMPILEDIR="$HOME/tmp/compile"
 
