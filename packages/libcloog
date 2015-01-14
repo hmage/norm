@@ -1,0 +1,10 @@
+fetch_source 'http://www.bastoul.net/cloog/pages/download/count.php3?url=./cloog-0.18.1.tar.gz' 2dc70313e8e2c6610b856d627bce9c9c3f848077
+
+depends_on libgmp
+depends_on libisl
+
+do_unpack_compile cloog-0.18.1 cloog-0.18.1.tar.gz \
+                  --with-gmp=system \
+                  --with-gmp-prefix=$PREFIX \
+                  --with-isl=system \
+                  --with-isl-prefix=$PREFIX

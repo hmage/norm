@@ -1,0 +1,147 @@
+# DP: - Remaining multiarch patches, not yet submitted upstream.
+# DP: - Add MULTIARCH_DIRNAME definitions for multilib configurations,
+# DP:   which are used for the non-multilib builds.
+
+2013-06-12  Matthias Klose  <doko@ubuntu.com>
+
+	* config/i386/t-linux64: Set MULTIARCH_DIRNAME.
+	* config/i386/t-kfreebsd: Set MULTIARCH_DIRNAME.
+	* config.gcc (i[34567]86-*-linux* | x86_64-*-linux*): Prepend
+	i386/t-linux to $tmake_file.
+	* config/mips/t-linux64: Set MULTIARCH_DIRNAME.
+	* config/rs6000/t-linux64: Set MULTIARCH_DIRNAME.
+	* config/s390/t-linux64: Set MULTIARCH_DIRNAME.
+	* config/sparc/t-linux64: Set MULTIARCH_DIRNAME.
+
+Index: b/src/gcc/config/sh/t-linux
+===================================================================
+--- a/src/gcc/config/sh/t-linux
++++ b/src/gcc/config/sh/t-linux
+@@ -1,2 +1,4 @@
+ MULTILIB_DIRNAMES= 
+ MULTILIB_MATCHES = 
++
++MULTILIB_OSDIRNAMES = sh4-linux-gnu:sh4-linux-gnu sh4_nofpu-linux-gnu:sh4-linux-gnu
+Index: b/src/gcc/config/sparc/t-linux64
+===================================================================
+--- a/src/gcc/config/sparc/t-linux64
++++ b/src/gcc/config/sparc/t-linux64
+@@ -27,3 +27,5 @@ MULTILIB_OPTIONS = m64/m32
+ MULTILIB_DIRNAMES = 64 32
+ MULTILIB_OSDIRNAMES = ../lib64$(call if_multiarch,:sparc64-linux-gnu)
+ MULTILIB_OSDIRNAMES += $(if $(wildcard $(shell echo $(SYSTEM_HEADER_DIR))/../../usr/lib32),../lib32,../lib)$(call if_multiarch,:sparc-linux-gnu)
++
++MULTIARCH_DIRNAME = $(call if_multiarch,sparc$(if $(findstring 64,$(target)),64)-linux-gnu)
+Index: b/src/gcc/config/s390/t-linux64
+===================================================================
+--- a/src/gcc/config/s390/t-linux64
++++ b/src/gcc/config/s390/t-linux64
+@@ -9,3 +9,5 @@ MULTILIB_OPTIONS = m64/m31
+ MULTILIB_DIRNAMES = 64 32
+ MULTILIB_OSDIRNAMES = ../lib64$(call if_multiarch,:s390x-linux-gnu)
+ MULTILIB_OSDIRNAMES += $(if $(wildcard $(shell echo $(SYSTEM_HEADER_DIR))/../../usr/lib32),../lib32,../lib)$(call if_multiarch,:s390-linux-gnu)
++
++MULTIARCH_DIRNAME = $(call if_multiarch,s390$(if $(findstring s390x,$(target)),x)-linux-gnu)
+Index: b/src/gcc/config/rs6000/t-linux64
+===================================================================
+--- a/src/gcc/config/rs6000/t-linux64
++++ b/src/gcc/config/rs6000/t-linux64
+@@ -31,6 +31,8 @@ MULTILIB_EXTRA_OPTS :=
+ MULTILIB_OSDIRNAMES := m64=../lib64$(call if_multiarch,:powerpc64-linux-gnu)
+ MULTILIB_OSDIRNAMES += m32=$(if $(wildcard $(shell echo $(SYSTEM_HEADER_DIR))/../../usr/lib32),../lib32,../lib)$(call if_multiarch,:powerpc-linux-gnu)
+ 
++MULTIARCH_DIRNAME = $(call if_multiarch,powerpc$(if $(findstring 64,$(target)),64)-linux-gnu)
++
+ rs6000-linux.o: $(srcdir)/config/rs6000/rs6000-linux.c
+ 	$(COMPILE) $<
+ 	$(POSTCOMPILE)
+Index: b/src/gcc/config/i386/t-linux64
+===================================================================
+--- a/src/gcc/config/i386/t-linux64
++++ b/src/gcc/config/i386/t-linux64
+@@ -36,3 +36,13 @@ MULTILIB_DIRNAMES   = $(patsubst m%, %,
+ MULTILIB_OSDIRNAMES = m64=../lib64$(call if_multiarch,:x86_64-linux-gnu)
+ MULTILIB_OSDIRNAMES+= m32=$(if $(wildcard $(shell echo $(SYSTEM_HEADER_DIR))/../../usr/lib32),../lib32,../lib)$(call if_multiarch,:i386-linux-gnu)
+ MULTILIB_OSDIRNAMES+= mx32=../libx32$(call if_multiarch,:x86_64-linux-gnux32)
++
++ifneq (,$(findstring x86_64,$(target)))
++  ifneq (,$(findstring biarchx32.h,$(tm_include_list)))
++  MULTIARCH_DIRNAME = $(call if_multiarch,x86_64-linux-gnux32)
++  else
++  MULTIARCH_DIRNAME = $(call if_multiarch,x86_64-linux-gnu)
++  endif
++else
++  MULTIARCH_DIRNAME = $(call if_multiarch,i386-linux-gnu)
++endif
+Index: b/src/gcc/config/i386/t-kfreebsd
+===================================================================
+--- a/src/gcc/config/i386/t-kfreebsd
++++ b/src/gcc/config/i386/t-kfreebsd
+@@ -1,5 +1,9 @@
+-MULTIARCH_DIRNAME = $(call if_multiarch,i386-kfreebsd-gnu)
++ifeq (,$(MULTIARCH_DIRNAME))
++  MULTIARCH_DIRNAME = $(call if_multiarch,i386-kfreebsd-gnu)
++endif
+ 
+ # MULTILIB_OSDIRNAMES are set in t-linux64.
+ KFREEBSD_OS = $(filter kfreebsd%, $(word 3, $(subst -, ,$(target))))
+ MULTILIB_OSDIRNAMES := $(filter-out mx32=%,$(subst linux,$(KFREEBSD_OS),$(MULTILIB_OSDIRNAMES)))
++
++MULTIARCH_DIRNAME := $(subst linux,$(KFREEBSD_OS),$(MULTIARCH_DIRNAME))
+Index: b/src/gcc/config/mips/t-linux64
+===================================================================
+--- a/src/gcc/config/mips/t-linux64
++++ b/src/gcc/config/mips/t-linux64
+@@ -24,3 +24,13 @@ MULTILIB_OSDIRNAMES = \
+ 	../lib32$(call if_multiarch,:mips64$(MIPS_EL)-linux-gnuabin32$(MIPS_SOFT)) \
+ 	../lib$(call if_multiarch,:mips$(MIPS_EL)-linux-gnu$(MIPS_SOFT)) \
+ 	../lib64$(call if_multiarch,:mips64$(MIPS_EL)-linux-gnuabi64$(MIPS_SOFT))
++
++ifneq (,$(findstring abin32,$(target)))
++MULTIARCH_DIRNAME = $(call if_multiarch,mips64$(MIPS_EL)-linux-gnuabin32$(MIPS_SOFT))
++else
++ifneq (,$(findstring abi64,$(target)))
++MULTIARCH_DIRNAME = $(call if_multiarch,mips64$(MIPS_EL)-linux-gnuabi64$(MIPS_SOFT))
++else
++MULTIARCH_DIRNAME = $(call if_multiarch,mips$(MIPS_EL)-linux-gnu$(MIPS_SOFT))
++endif
++endif
+Index: b/src/gcc/config.gcc
+===================================================================
+--- a/src/gcc/config.gcc
++++ b/src/gcc/config.gcc
+@@ -1961,8 +1961,11 @@ mips64*-*-linux* | mipsisa64*-*-linux*)
+ 	tm_file="dbxelf.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h ${tm_file} mips/gnu-user.h mips/gnu-user64.h mips/linux64.h mips/linux-common.h"
+ 	extra_options="${extra_options} linux-android.opt"
+ 	tmake_file="${tmake_file} mips/t-linux64"
+-	tm_defines="${tm_defines} MIPS_ABI_DEFAULT=ABI_N32"
++	tm_defines="${tm_defines} MIPS_ABI_DEFAULT=ABI_64"
+ 	case ${target} in
++		*gnuabin32*)
++			tm_defines=$(echo ${tm_defines}| sed 's/MIPS_ABI_DEFAULT=ABI_64/MIPS_ABI_DEFAULT=ABI_N32/g')
++			;;
+ 		mips64el-st-linux-gnu)
+ 			tm_file="${tm_file} mips/st.h"
+ 			tmake_file="${tmake_file} mips/t-st"
+@@ -4105,7 +4108,7 @@ case ${target} in
+ 	i[34567]86-*-darwin* | x86_64-*-darwin*)
+ 		;;
+ 	i[34567]86-*-linux* | x86_64-*-linux*)
+-		tmake_file="$tmake_file i386/t-linux"
++		tmake_file="i386/t-linux $tmake_file"
+ 		;;
+ 	i[34567]86-*-kfreebsd*-gnu | x86_64-*-kfreebsd*-gnu)
+ 		tmake_file="$tmake_file i386/t-kfreebsd"
+Index: b/src/gcc/config/aarch64/t-aarch64-linux
+===================================================================
+--- a/src/gcc/config/aarch64/t-aarch64-linux
++++ b/src/gcc/config/aarch64/t-aarch64-linux
+@@ -22,7 +22,7 @@ LIB1ASMSRC   = aarch64/lib1funcs.asm
+ LIB1ASMFUNCS = _aarch64_sync_cache_range
+ 
+ AARCH_BE = $(if $(findstring TARGET_BIG_ENDIAN_DEFAULT=1, $(tm_defines)),_be)
+-MULTILIB_OSDIRNAMES = .=../lib64$(call if_multiarch,:aarch64$(AARCH_BE)-linux-gnu)
++MULTILIB_OSDIRNAMES = .=../lib$(call if_multiarch,:aarch64$(AARCH_BE)-linux-gnu)
+ MULTIARCH_DIRNAME = $(call if_multiarch,aarch64$(AARCH_BE)-linux-gnu)
+ 
+ # Disable the multilib for linux-gnu targets for the time being; focus
