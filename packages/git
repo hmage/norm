@@ -3,6 +3,6 @@ fetch_source http://www.kernel.org/pub/software/scm/git/git-2.2.1.tar.xz b9be144
 depends_on curl
 depends_on openssl
 
-## TODO: libexpat.so, libidn.so, libldap.so, liblber.so
+## TODO: libexpat.so, libldap.so, liblber.so
 
 do_unpack_compile git-2.2.1 git-2.2.1.tar.xz
