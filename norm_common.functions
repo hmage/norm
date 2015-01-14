@@ -10,7 +10,7 @@ CONFIGURE_FLAGS=""
 #CONFIGURE_FLAGS+=" --enable-fast-install"
 #CONFIGURE_FLAGS+=" --disable-debug"
 #CONFIGURE_FLAGS+=" --disable-maintainer-mode"
-CONFIGURE_FLAGS+=" --enable-strip"
+#CONFIGURE_FLAGS+=" --enable-strip"
 #CONFIGURE_FLAGS+=" --disable-nls"
 #CONFIGURE_FLAGS+=" --enable-shared"
 #CONFIGURE_FLAGS+=" --with-shared"
@@ -68,7 +68,7 @@ do_make() {
 }
 
 do_install() {
-    make install-strip "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-makeinstall.log || make install "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-makeinstall.log || exit 1
+    make install "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-makeinstall.log || exit 1
 }
 
 do_make_and_install() {
