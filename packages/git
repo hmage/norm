@@ -1,9 +1,8 @@
-fetch_source https://www.kernel.org/pub/software/scm/git/git-2.2.0.tar.xz 6221b8303dc6887cbce986563f9ece78a3b2ad6a
+fetch_source http://www.kernel.org/pub/software/scm/git/git-2.2.1.tar.xz b9be1448c5db065f8fda875abd224f2fef1d32bc
 
-depends_on zlib
 depends_on curl
-depends_on gettext
+depends_on openssl
 
-do_unpack git-2.2.0 git-2.2.0.tar.xz
-#do_patch git-2.2.0-hmdmod.patch
-do_compile $PACKAGE --disable-static --enable-shared
+## TODO: libexpat.so, libidn.so, libldap.so, liblber.so
+
+do_unpack_compile git-2.2.1 git-2.2.1.tar.xz
