@@ -1,0 +1,9 @@
+#!/bin/bash
+fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.6.16.tar.xz 31855a8438ae795d249574b0da15b34eb0922e13
+
+depends_on zlib
+
+do_unpack_compile libpng-1.6.16 libpng-1.6.16.tar.xz
+
+#do_undebian_compile libpng-1.2.49 libpng_1.2.49.orig.tar.bz2 libpng_1.2.49-1.debian.tar.bz2
+#do_unpack_compile libpng-1.4.13 libpng-1.4.13.tar.xz

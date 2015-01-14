@@ -1,0 +1,7 @@
+#!/bin/bash
+fetch_source ftp://space.mit.edu/pub/davis/slang/v2.2/slang-2.2.4.tar.bz2 34e68a993888d0ae2ebc7bc31b40bc894813a7e2
+
+depends_on libpng libpcre
+
+do_unpack slang-2.2.4 slang-2.2.4.tar.bz2
+NOPARALLEL=1 do_compile $PACKAGE --without-onig

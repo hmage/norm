@@ -1,0 +1,7 @@
+#!/bin/sh
+fetch_source http://ftp.midnight-commander.org/mc-4.8.13.tar.xz b64b81f80fa93224f054ad5f498e479ceac5a49d
+
+depends_on libslang glib 
+#libncurses
+
+do_unpack_compile mc-4.8.13 mc-4.8.13.tar.xz --without-x --with-screen=slang --without-gpm-mouse

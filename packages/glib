@@ -1,0 +1,10 @@
+#!/bin/sh
+fetch_source http://ftp.gnome.org/pub/gnome/sources/glib/2.42/glib-2.42.1.tar.xz b5158fd434f01e84259155c04ff93026a090e586
+
+depends_on libffi libelf
+#depends_on libselinux gettext
+
+## glib (needed by mc) needs libfam
+do_unpack_compile glib-2.42.1 glib-2.42.1.tar.xz --disable-fam
+#\
+#                    --disable-fam --disable-rebuilds
