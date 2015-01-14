@@ -1,10 +1,12 @@
-fetch_source http://download.savannah.gnu.org/releases/attr/attr-2.4.47.src.tar.gz
+#!/usr/bin/env bash
+fetch_source https://download.savannah.gnu.org/releases/attr/attr-2.4.47.src.tar.gz 5060f0062baee6439f41a433325b8b3671f8d2d8
 
 do_unpack attr-2.4.47 attr-2.4.47.src.tar.gz
 pushd_src
-do_configure
+do_configure --enable-gettext=no
 do_make
 do_install
 make install-dev
 make install-lib
 popd
+log_success
