@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-fetch_source https://download.savannah.gnu.org/releases/attr/attr-2.4.47.src.tar.gz 5060f0062baee6439f41a433325b8b3671f8d2d8
+fetch_source http://download.savannah.gnu.org/releases/attr/attr-2.4.47.src.tar.gz 5060f0062baee6439f41a433325b8b3671f8d2d8
 
 do_unpack attr-2.4.47 attr-2.4.47.src.tar.gz
 pushd_src
