@@ -33,7 +33,7 @@ sub eachFile {
 
 find (\&eachFile, $prefix);
 
-print "Found " . scalar(@files) . " files, feeding them to ldd\n";
+print "Found " . scalar(@files) . " files, checking if they have dependencies outside norm's prefix...\n";
 
 foreach my $arg (@files) {
     my $output = `ldd "$arg" 2>&1`;
