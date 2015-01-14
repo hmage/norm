@@ -2,6 +2,6 @@ fetch_source http://curl.haxx.se/download/curl-7.39.0.tar.bz2 80c6eadcc6ca526d1e
 
 depends_on libidn
 depends_on openssl zlib
-## TODO: libldap.so, liblber.so
+## TODO: liblber.so
 
-do_unpack_compile curl-7.39.0 curl-7.39.0.tar.bz2
+do_unpack_compile curl-7.39.0 curl-7.39.0.tar.bz2 --disable-ldap
