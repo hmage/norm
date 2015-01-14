@@ -17,6 +17,8 @@ SHASUM_BIN=shasum
 usage() {
     echo "Usage: "
     echo "    $0 install [-f] <package> [package ...]"
+    echo "    $0 sub"
+    echo "    $0 ldd"
 }
 
 cmd_install() {
@@ -50,10 +52,14 @@ cmd_install() {
 	compile_package "$@"
 }
 
-cmd_in() {
+cmd_sub() {
 	echo "Creating subshell so you can compile and link against norm libs"
 	setup_prefix "$DEFAULT_PREFIX"
 	$SHELL -i
+}
+
+cmd_ldd() {
+	$NORMDIR/norm-ldd "$DEFAULT_PREFIX" "$@"
 }
 
 case "$1" in
@@ -61,9 +67,13 @@ case "$1" in
 	shift
 	cmd_install "$@"
 	;;
-    in)
+    sub)
 	shift
-	cmd_in "$@"
+	cmd_sub "$@"
+	;;
+    ldd)
+	shift
+	cmd_ldd "$@"
 	;;
     *)
 	echo "Uknown command: $1" >&2

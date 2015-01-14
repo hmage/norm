@@ -1,0 +1,53 @@
+#!/usr/bin/env perl
+
+use warnings;
+use strict;
+
+use File::Find;
+
+my @files;
+
+if (@ARGV < 1) {
+    print "Usage: $0 <full-prefix-path>\n";
+    exit 127;
+}
+
+my $prefix = $ARGV[0];
+
+sub eachFile {
+    return if not -f;
+    return if -l;
+    return if /\.(py|pyo|pyc)$/; ## 3900 files
+    return if /\.(def|decTest|m4|txt|pc|la|syntax|installed)$/;
+    return if /\.(c|h|fon|am|pm|tcl|sl|xml|sh|msg|map|info|pem|ini|hlp|mo)$/;
+    return if /\.(sample|ttf|css|html|pub|ac|in|inc|sub)$/;
+    return if /\.(gif|png|jpg|jpeg)$/;
+    return if /\.(a)$/;
+
+    my $fullpath = $File::Find::name;
+    return if ($fullpath =~ m"/include/");
+    return if ($fullpath =~ m"/share/terminfo/");
+    return if ($fullpath =~ m"/man/man");
+    push (@files, $fullpath);
+}
+
+find (\&eachFile, $prefix);
+
+print "Found " . scalar(@files) . " files, feeding them to ldd\n";
+
+foreach my $arg (@files) {
+    my $output = `ldd "$arg" 2>&1`;
+    my $filtered_output = "";
+    foreach (split(/\n/, $output)) {
+	next if /not a dynamic executable/;
+	next if m"$prefix";
+	next if /^[\t]linux-gate.so.1 =>/;
+	next if /^[\t]lib(c|m|dl|rt|pthread|resolv|crypt|util|nsl)\.so/;
+	next if /^[\t]\/lib\/ld-linux.so.2/;
+	$filtered_output .= $_ . "\n";
+    }
+    if (length $filtered_output) {
+	print "$arg:\n";
+	print $filtered_output;
+    }
+}
