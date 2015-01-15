@@ -257,7 +257,7 @@ fetch_source() {
     if [ ! -e "$TARDIR"/$FILENAME ]; then
         log "Downloading $URL"
         curl -L "$URL" -o "$TARDIR"/$FILENAME.temp || (rm -f "$TARDIR"/$FILENAME.temp && false)
-        mv -n "$TARDIR"/$FILENAME{.temp,}
+        mv -f "$TARDIR"/$FILENAME{.temp,}
     fi
     SHA1SUM=`$SHASUM_BIN "$TARDIR/$FILENAME" | cut -f1 -d' '`
     [ -z "$SHA1" ] && echo "For future -- SHA1 of $FILENAME is $SHA1SUM"
