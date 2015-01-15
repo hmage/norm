@@ -34,6 +34,6 @@ For more examples, see existing packages.
 
 ***
 
-Since the variability of systems the code will be built on is big, please try to bring every dependency with the package, excapt for glibc, gcc and binutils.
+Since the variability of systems the code will be built on is big, please try to bring every dependency with the package, except for glibc, gcc and binutils.
 
 Alternatively, don't build with rarely used features (like kerberos in openssh or ldap in curl).
