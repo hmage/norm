@@ -1,14 +1,14 @@
-fetch_source https://github.com/openssl/openssl/archive/OpenSSL_1_0_1j.tar.gz 38b73471e1fcc1edb7ab3e18cc59286116c1de5c
+fetch_source https://github.com/openssl/openssl/archive/OpenSSL_1_0_1k.tar.gz bf9bc4233a54ec0d9544ccaadb1134c39a142148
 
-depends_on zlib
+depends_on zlib libgmp
 
 BUILDCONF=gcc
 [[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == i?86 ]] && BUILDCONF=linux-elf
 [[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == x86_64 ]] && BUILDCONF=linux-x86_64
 [[ $OSTYPE == *darwin* ]] && BUILDCONF=darwin64-x86_64-cc
-SSLCONFIG="no-idea no-mdc2 no-rc5 zlib enable-tlsext no-ssl2 enable-cms"
+SSLCONFIG="no-idea no-mdc2 no-rc5 zlib enable-tlsext no-ssl2 enable-cms enable-gmp -lgmp"
 
-do_unpack openssl-OpenSSL_1_0_1j OpenSSL_1_0_1j.tar.gz
+do_unpack openssl-OpenSSL_1_0_1k OpenSSL_1_0_1k.tar.gz
 pushd_src
 
 ./Configure no-shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG $BUILDCONF
