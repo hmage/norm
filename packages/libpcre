@@ -2,5 +2,7 @@
 fetch_source http://ftp.de.debian.org/debian/pool/main/p/pcre3/pcre3_8.30.orig.tar.gz 66440d6b04f08e899fed1b0c03303ec3a926999c
 fetch_source http://ftp.de.debian.org/debian/pool/main/p/pcre3/pcre3_8.30-5.debian.tar.gz 3b0b49ddcf8105d2dbb6805c4c3d3955f152bd14
 
+depends_on libncurses libreadline
+
 do_undebian_compile pcre-8.30 pcre3_8.30.orig.tar.gz pcre3_8.30-5.debian.tar.gz \
                     --enable-utf8 --enable-unicode-properties --disable-cpp

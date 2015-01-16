@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+fetch_source http://ftpmirror.gnu.org/readline/readline-6.3.tar.gz
+
+do_unpack_compile readline-6.3 readline-6.3.tar.gz
