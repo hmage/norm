@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 fetch_source http://ftp.de.debian.org/debian/pool/main/o/openssh/openssh_6.0p1.orig.tar.gz f691e53ef83417031a2854b8b1b661c9c08e4422
 fetch_source http://ftp.de.debian.org/debian/pool/main/o/openssh/openssh_6.0p1-4+deb7u2.debian.tar.gz 117c2b8d405a563db9fac1f30b81920d8c695509
 
