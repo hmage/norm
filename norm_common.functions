@@ -251,8 +251,7 @@ depends_on() {
 fetch_source() {
     URL="$1"
     SHA1="$2"
-    FILENAME="$3"
-    [ -z "$FILENAME" ] && FILENAME=`basename "$URL"`
+    FILENAME=`basename "$URL"`
     mkdir -p "$TARDIR"
     if [ ! -e "$TARDIR"/$FILENAME ]; then
         log "Downloading $URL"
