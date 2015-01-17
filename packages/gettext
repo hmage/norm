@@ -1,4 +1,4 @@
 #!/bin/bash
 fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.19.4.tar.xz 16c90342f3a59c7df364ebb3209a48be42b7ffd9
 
-do_unpack_compile
+do_unpack_compile --without-emacs
