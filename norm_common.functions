@@ -162,9 +162,9 @@ do_unpack_compile() {
 
 do_patch() {
     for PATCHNAME; do
-        patch -f -p1 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" "$@" ||
-        patch -f -p0 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" "$@" ||
-        patch -f -p2 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" "$@"
+        patch -f -p1 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" ||
+        patch -f -p0 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" ||
+        patch -f -p2 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR"
     done
 }
 
