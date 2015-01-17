@@ -5,11 +5,11 @@
 . "$NORMDIR"/norm_common.prefix
 
 onerror() {
-    log "Package $PKGNAME failed to build"
+    log "Package $TARNAME failed to build"
 }
 
 onexit() {
-    log "$0 -- exiting, last package $PKGNAME"
+    log "$0 -- exiting, last package $TARNAME"
 }
 
 setup_traps() {
@@ -26,7 +26,7 @@ log() {
 }
 
 log_success() {
-    log "$0 -- Compiled $PKGNAME"
+    log "$0 -- Compiled $TARNAME"
 }
 
 pushd_src() {
@@ -145,10 +145,9 @@ do_undebian() {
 }
 
 do_undebian_compile() {
-    PACKAGE="$1"
-    do_undebian "$TARNAME" "$2" "$3"
-    shift 3
-    do_compile "$TARNAME" "$@"
+    do_undebian "$1" "$2"
+    shift 2
+    do_compile "$@"
 }
 
 
@@ -180,9 +179,8 @@ compile_package() {
     while [ "$1" != "" ]; do
         [ -e "$PREFIX"/"$1".installed ] && shift && continue
         log "Building package $1"
-        PKGNAME="$1"
-        . "$NORMDIR"/packages/"$PKGNAME"
-        touch "$PREFIX"/"$PKGNAME".installed
+        . "$NORMDIR"/packages/"$1"
+        touch "$PREFIX"/"$1".installed
         shift
     done
 }
