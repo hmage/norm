@@ -4,7 +4,7 @@ fetch_source http://ftp.de.debian.org/debian/pool/main/libe/libelf/libelf_0.8.13
 
 #depends_on gettext
 
-do_undebian libelf_0.8.13.orig.tar.gz libelf_0.8.13-3.diff.gz
+do_undebian libelf_0.8.13.orig.tar.gz libelf_0.8.13-5.diff.gz
 do_autoreconf
 do_compile --enable-elf64 --enable-compat
 
