@@ -23,11 +23,10 @@ You'll be surprised how much software you can install this way.
 Example:
 ```bash
 #!/bin/bash
-fetch_source http://ftpmirror.gnu.org/tar/tar-1.28.tar.gz cd30a13bbfefb54b17e039be7c43d2592dd3d5d0
-
 depends_on libacl libattr
 
-do_unpack_compile tar-1.28 tar-1.28.tar.gz
+fetch_source http://ftpmirror.gnu.org/tar/tar-1.28.tar.gz cd30a13bbfefb54b17e039be7c43d2592dd3d5d0
+do_unpack_compile
 ```
 
 For more examples, see existing packages.
