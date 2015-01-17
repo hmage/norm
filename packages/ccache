@@ -7,7 +7,7 @@ do_unpack_compile
 add_to_ccache() {
     mkdir -p $PREFIX/bin/ccache_wrap
     for name in "$@"; do
-        ln -s ../ccache $PREFIX/bin/ccache_wrap/"$name"
+        ln -fs ../ccache $PREFIX/bin/ccache_wrap/"$name"
     done
 }
 
