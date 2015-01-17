@@ -196,7 +196,7 @@ fetch_source() {
     mkdir -p "$TARDIR"
     if [ ! -e "$TARDIR"/$TARNAME ]; then
         log "Downloading $URL"
-        curl -L -R --xattr "$URL" -o "$TARDIR"/$TARNAME.temp || (rm -f "$TARDIR"/$TARNAME.temp && false)
+        curl -L -R "$URL" -o "$TARDIR"/$TARNAME.temp || (rm -f "$TARDIR"/$TARNAME.temp && false)
         mv -f "$TARDIR"/$TARNAME{.temp,}
     fi
     SHA1SUM=`$SHASUM_BIN "$TARDIR/$TARNAME" | cut -f1 -d' '`
