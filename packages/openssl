@@ -1,4 +1,5 @@
-fetch_source https://github.com/openssl/openssl/archive/OpenSSL_1_0_1k.tar.gz bf9bc4233a54ec0d9544ccaadb1134c39a142148
+#!/bin/bash
+fetch_source https://github.com/openssl/openssl/archive/OpenSSL_1_0_1l.tar.gz af7e23d5fe6d98ae98144bc78314cb21860c582f
 
 depends_on zlib libgmp
 
@@ -8,7 +9,7 @@ BUILDCONF=gcc
 [[ $OSTYPE == *darwin* ]] && BUILDCONF=darwin64-x86_64-cc
 SSLCONFIG="no-idea no-mdc2 no-rc5 zlib enable-tlsext no-ssl2 enable-cms enable-gmp -lgmp"
 
-do_unpack openssl-OpenSSL_1_0_1k OpenSSL_1_0_1k.tar.gz
+do_unpack openssl-OpenSSL_1_0_1l OpenSSL_1_0_1l.tar.gz
 pushd_src
 
 ./Configure no-shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG $BUILDCONF
