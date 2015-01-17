@@ -1,6 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2 79dbcb09f44232822460d80b033c962c0237c6d8
 
 depends_on libmpfr libmpc libgmp
 depends_on libcloog libisl # for extra optimization options like -floop-interchange
@@ -16,24 +15,25 @@ HASH_STYLE=
 [[ $HOSTTYPE == i?86 ]] && WITH_ARCH=--with-arch=i686
 [[ $OSTYPE == *linux* ]] && HASH_STYLE=--with-linker-hash-style=both
 
-do_unpack gcc-4.9.2 gcc-4.9.2.tar.bz2
+fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2 79dbcb09f44232822460d80b033c962c0237c6d8
+do_unpack
 do_patch gcc-4.9.2-multiarch.patch ## add support for multiarch
 do_patch gcc-4.7.1-startfiles_fix-1.patch ## search for files in $PREFIX as well
 
-sed -i 's@\./fixinc\.sh@-c true@' "$COMPILEDIR"/$PACKAGE/gcc/Makefile.in ## disable fixincludes
+sed -i 's@\./fixinc\.sh@-c true@' "$SRCDIR"/gcc/Makefile.in ## disable fixincludes
 
-do_compile_outside gcc-4.9.2 --program-suffix=-4.9 \
-                             --enable-__cxa_atexit --with-tune=generic \
-                             --enable-checking=release \
-                             --enable-languages=c,c++,fortran \
-                             --enable-threads=posix \
-                             --with-mpc=$PREFIX --with-mpfr=$PREFIX --with-gmp=$PREFIX \
-                             --with-cloog=$PREFIX --with-isl=$PREFIX \
-                             $HASH_STYLE $WITH_ARCH \
-                             --enable-multiarch \
-                             --enable-clocale=generic \
-                             --enable-shared \
-                             --enable-dependency-tracking
+do_compile_outside --program-suffix=-4.9 \
+                   --enable-__cxa_atexit --with-tune=generic \
+                   --enable-checking=release \
+                   --enable-languages=c,c++,fortran \
+                   --enable-threads=posix \
+                   --with-mpc=$PREFIX --with-mpfr=$PREFIX --with-gmp=$PREFIX \
+                   --with-cloog=$PREFIX --with-isl=$PREFIX \
+                   $HASH_STYLE $WITH_ARCH \
+                   --enable-multiarch \
+                   --enable-clocale=generic \
+                   --enable-shared \
+                   --enable-dependency-tracking
 
 symlink_gcc
 ln -f $PREFIX/bin/gcc $PREFIX/bin/cc

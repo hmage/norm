@@ -7,6 +7,8 @@ LINKDIRNAME=`dirname "$READLINK"`
 NORMDIR=$LINKDIRNAME
 [ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
 NORMDIR=`cd "$NORMDIR"; pwd`
+TARDIR="$HOME/.cache/norm/archives"
+COMPILEDIR="$HOME/tmp/compile"
 
 . $NORMDIR/norm_common
 

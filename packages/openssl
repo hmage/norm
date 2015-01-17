@@ -1,7 +1,7 @@
 #!/bin/bash
-fetch_source https://github.com/openssl/openssl/archive/OpenSSL_1_0_1l.tar.gz af7e23d5fe6d98ae98144bc78314cb21860c582f
-
 depends_on zlib libgmp
+
+fetch_source https://github.com/openssl/openssl/archive/OpenSSL_1_0_1l.tar.gz af7e23d5fe6d98ae98144bc78314cb21860c582f
 
 BUILDCONF=gcc
 [[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == i?86 ]] && BUILDCONF=linux-elf
@@ -9,9 +9,10 @@ BUILDCONF=gcc
 [[ $OSTYPE == *darwin* ]] && BUILDCONF=darwin64-x86_64-cc
 SSLCONFIG="no-idea no-mdc2 no-rc5 zlib enable-tlsext no-ssl2 enable-cms enable-gmp -lgmp"
 
-do_unpack openssl-OpenSSL_1_0_1l OpenSSL_1_0_1l.tar.gz
+do_unpack
 pushd_src
 
+## make both static and shared versions
 ./Configure no-shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG $BUILDCONF
 make depend
 make all

@@ -2,15 +2,7 @@
 
 # sourced by norm
 
-TARDIR="$HOME/.cache/norm/archives"
-
 LIBSUFFIX=so
 [[ $OSTYPE == *darwin* ]] && LIBSUFFIX=dylib
 
 . "$NORMDIR"/norm_common.functions
-
-set -eE
-set -o pipefail
-
-export COMPILEDIR="$HOME/tmp/compile"
-

@@ -4,27 +4,12 @@
 
 . "$NORMDIR"/norm_common.prefix
 
-CONFIGURE_FLAGS=""
-#CONFIGURE_FLAGS+=" --enable-silent-rules"
-#CONFIGURE_FLAGS+=" --disable-dependency-tracking"
-#CONFIGURE_FLAGS+=" --enable-fast-install"
-#CONFIGURE_FLAGS+=" --disable-debug"
-#CONFIGURE_FLAGS+=" --disable-maintainer-mode"
-#CONFIGURE_FLAGS+=" --enable-strip"
-#CONFIGURE_FLAGS+=" --disable-nls"
-#CONFIGURE_FLAGS+=" --enable-shared"
-#CONFIGURE_FLAGS+=" --with-shared"
-#CONFIGURE_FLAGS+=" --disable-static"
-#CONFIGURE_FLAGS+=" --without-static"
-
-export COMPILEDIR="$HOME/tmp/compile"
-
 onerror() {
-    log "Package $PACKAGE failed to build"
+    log "Package $PKGNAME failed to build"
 }
 
 onexit() {
-    log "$0 -- exiting, last package $PACKAGE"
+    log "$0 -- exiting, last package $PKGNAME"
 }
 
 setup_traps() {
@@ -40,42 +25,30 @@ log() {
     echo "$@"
 }
 
-log_start() {
-    log "$0 -- starting script"
-}
-
 log_success() {
-    log "$0 -- Compiled $PACKAGE"
+    log "$0 -- Compiled $PKGNAME"
 }
 
 pushd_src() {
-    pushd "$COMPILEDIR"/"$PACKAGE"
+    pushd "$COMPILEDIR"/"$TARNAME"
 }
 
 do_configure() {
-    ./configure --prefix="$PREFIX" $CONFIGURE_FLAGS "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
+    ./configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-configure.log || exit 1
 }
 
 do_configure_outside() {
-    ../"$PACKAGE"/configure --prefix="$PREFIX" $CONFIGURE_FLAGS "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
-}
-
-do_configure_nognu() {
-    ./configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
-}
-
-do_configure_outside_nognu() {
-    ../"$PACKAGE"/configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-configure.log || exit 1
+    ../"$TARNAME"/configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-configure.log || exit 1
 }
 
 do_make() {
     PARALLEL="-j4"
     [ "$NOPARALLEL" = "1" ] && PARALLEL=
-    make $PARALLEL "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-make.log || exit 1
+    make $PARALLEL "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-make.log || exit 1
 }
 
 do_install() {
-    make install "$@" 2>&1 | tee $COMPILEDIR/$PACKAGE-makeinstall.log || exit 1
+    make install "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-makeinstall.log || exit 1
 }
 
 do_make_and_install() {
@@ -84,12 +57,14 @@ do_make_and_install() {
 }
 
 do_compile() {
-    if [ "$1" != "" ]; then
-        PACKAGE="$1"
+    if [ -f "$TARDIR"/"$1" ]; then
+        TARNAME="$1"
         shift
     fi
-    SRCDIR="$COMPILEDIR"/"$PACKAGE"
-    pushd "$SRCDIR" || exit 1
+
+    SRCDIR="$COMPILEDIR"/"$TARNAME"
+
+    pushd_src || exit 1
     do_configure "$@" || exit 1
     do_make_and_install || exit 1
     popd || exit 1
@@ -97,26 +72,14 @@ do_compile() {
 }
 
 
-do_compile_nognu() {
-    if [ "$1" != "" ]; then
-        PACKAGE="$1"
-        shift
-    fi
-    SRCDIR="$COMPILEDIR"/"$PACKAGE"
-    pushd "$SRCDIR" || exit 1
-    do_configure_nognu "$@" || exit 1
-    do_make_and_install || exit 1
-    popd || exit 1
-    log_success
-}
-
 do_compile_outside() {
-    if [ "$1" != "" ]; then
-        PACKAGE="$1"
+    if [ -f "$TARDIR"/"$1" ]; then
+        TARNAME="$1"
         shift
     fi
-    SRCDIR="$COMPILEDIR"/"$PACKAGE"
-    BUILDDIR="$COMPILEDIR"/"$PACKAGE"-build
+
+    SRCDIR="$COMPILEDIR"/"$TARNAME"
+    BUILDDIR="$COMPILEDIR"/"$TARNAME"-build
 
     rm -rf "$BUILDDIR" || exit 1
     mkdir -p "$BUILDDIR" || exit 1
@@ -128,31 +91,37 @@ do_compile_outside() {
 }
 
 do_unpack() {
-    PACKAGE="$1"
-    SRCDIR="$COMPILEDIR"/"$PACKAGE"
-    TARNAME="$2"
-    shift 2
+    if [ -f "$TARDIR"/"$1" ]; then
+        TARNAME="$1"
+        shift 1
+    fi
+
+    SRCDIR="$COMPILEDIR"/"$TARNAME"
 
     rm -rf "$SRCDIR"  || exit 1
-    mkdir -p "$COMPILEDIR"  || exit 1
-    tar xf "$TARDIR/$TARNAME" -C "$COMPILEDIR" "$@" || exit 1
-    log "$0 -- Unpacked $PACKAGE"
+    mkdir -p "$SRCDIR"  || exit 1
+    tar -xf "$TARDIR/$TARNAME" -C "$SRCDIR" --strip-components 1 || exit 1
+    log "$0 -- Unpacked $TARNAME"
 }
 
+##
+## usage: do_undebian foo-1.2.3.orig.tar.bz2 foo-1.2.3.debian.tar.gz
+## usage: do_undebian foo-1.2.3.orig.tar.bz2 foo-1.2.3.diff.tar
+## unpacks source code, applies debian patches, sets TARNAME
 do_undebian() {
-    PACKAGE="$1"
-    SRCDIR="$COMPILEDIR"/"$PACKAGE"
-    TARNAME="$2"
+    TARNAME="$1"
+    DEBPATCH="$2"
 
-    do_unpack "$PACKAGE" "$TARNAME"  || exit 1
+    ## sets SRCDIR
+    do_unpack "$TARNAME" || exit 1
 
-    ## unpack package's debian subdir from tar or diff
-    tar xf "$TARDIR/$3" -C "$SRCDIR" ||
-    zless "$TARDIR/$3" | patch -f -p1 -i - -d "$SRCDIR" ||
-    xzless "$TARDIR/$3" | patch -f -p1 -i - -d "$SRCDIR" ||
-    bzless "$TARDIR/$3" | patch -f -p1 -i - -d "$SRCDIR" || exit 1
+    ## unpack debian overlay -- try tar, gzip, xz, bz
+    tar -xf "$TARDIR/$DEBPATCH" -C "$SRCDIR" ||
+    gzip -cd "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" ||
+    xzcat "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" ||
+    bzcat "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" || exit 1
 
-    PATCHES=""
+    ## apply debian patches
     SERIES="$SRCDIR"/debian/patches/series
     SERIES2="$SRCDIR"/debian/patches-applied/series
     if [ -e "$SERIES" ]; then
@@ -170,67 +139,40 @@ do_undebian() {
             patch -f -p2 -i "$i" -d "$SRCDIR" || true
         done
     fi
+
+    ## we're done
+    unset PATCHES SERIES SERIES DEBPATCH
 }
 
 do_undebian_compile() {
     PACKAGE="$1"
-    do_undebian "$PACKAGE" "$2" "$3"
+    do_undebian "$TARNAME" "$2" "$3"
     shift 3
-    do_compile "$PACKAGE" "$@"
+    do_compile "$TARNAME" "$@"
 }
 
 
 do_unpack_compile() {
-    PACKAGE="$1"
-    do_unpack "$PACKAGE" "$2"
-    shift 2
-    do_compile "$PACKAGE" "$@"
-}
-
-do_configure_gcc() {
-    CC=gcc CXX=g++ CPPFLAGS="$default_cppflags" LDFLAGS="$default_ldflags" do_configure "$@"
-}
-
-do_compile_gcc() {
-    CC=gcc CXX=g++ CPPFLAGS="$default_cppflags" LDFLAGS="$default_ldflags" do_compile "$@"
-}
-
-do_compile_nognu_gcc() {
-    CC=gcc CXX=g++ CPPFLAGS="$default_cppflags" LDFLAGS="$default_ldflags" do_compile_nognu "$@"
-}
-
-do_undebian_compile_gcc() {
-    PACKAGE="$1"
-    do_undebian "$PACKAGE" "$2" "$3"
-    shift 3
-    do_compile_gcc "$PACKAGE" "$@"
-}
-
-do_unpack_compile_gcc() {
-    PACKAGE="$1"
-    do_unpack "$PACKAGE" "$2"
-    shift 2
-    do_compile_gcc "$PACKAGE" "$@"
+    if [ -f "$TARDIR"/"$1" ]; then
+        TARNAME="$1"
+        shift 1
+    fi
+    do_unpack "$TARNAME"
+    do_compile "$TARNAME" "$@"
 }
 
 do_patch() {
-    PATCHNAME="$1"
-    shift
-    patch -f -p1 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$COMPILEDIR"/"$PACKAGE" "$@" ||
-    patch -f -p0 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$COMPILEDIR"/"$PACKAGE" "$@" ||
-    patch -f -p2 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$COMPILEDIR"/"$PACKAGE" "$@"
+    for PATCHNAME; do
+        patch -f -p1 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" "$@" ||
+        patch -f -p0 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" "$@" ||
+        patch -f -p2 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" "$@"
+    done
 }
 
 do_autoreconf() {
-    pushd "$COMPILEDIR"/$PACKAGE || exit 1
+    pushd_src || exit 1
     autoreconf -f -i -v || exit 1
     popd || exit 1
-}
-
-use_noopt() {
-    export CPPFLAGS="$default_cppflags"
-    export LDFLAGS="$default_ldflags"
-    unset CFLAGS CXXFLAGS
 }
 
 compile_package() {
@@ -238,8 +180,9 @@ compile_package() {
     while [ "$1" != "" ]; do
         [ -e "$PREFIX"/"$1".installed ] && shift && continue
         log "Building package $1"
-        . "$NORMDIR"/packages/"$1"
-        touch "$PREFIX"/"$1".installed
+        PKGNAME="$1"
+        . "$NORMDIR"/packages/"$PKGNAME"
+        touch "$PREFIX"/"$PKGNAME".installed
         shift
     done
 }
@@ -251,15 +194,15 @@ depends_on() {
 fetch_source() {
     URL="$1"
     SHA1="$2"
-    FILENAME=`basename "$URL"`
+    TARNAME=`basename "$URL"`
     mkdir -p "$TARDIR"
-    if [ ! -e "$TARDIR"/$FILENAME ]; then
+    if [ ! -e "$TARDIR"/$TARNAME ]; then
         log "Downloading $URL"
-        curl -L "$URL" -o "$TARDIR"/$FILENAME.temp || (rm -f "$TARDIR"/$FILENAME.temp && false)
-        mv -f "$TARDIR"/$FILENAME{.temp,}
+        curl -L -R --xattr "$URL" -o "$TARDIR"/$TARNAME.temp || (rm -f "$TARDIR"/$TARNAME.temp && false)
+        mv -f "$TARDIR"/$TARNAME{.temp,}
     fi
-    SHA1SUM=`$SHASUM_BIN "$TARDIR/$FILENAME" | cut -f1 -d' '`
-    [ -z "$SHA1" ] && echo "For future -- SHA1 of $FILENAME is $SHA1SUM"
+    SHA1SUM=`$SHASUM_BIN "$TARDIR/$TARNAME" | cut -f1 -d' '`
+    [ -z "$SHA1" ] && echo "For future -- SHA1 of $TARNAME is $SHA1SUM"
     if [ ! -z "$SHA1" ] && [ "$SHA1SUM" != "$SHA1" ]; then
         log "SHA1sum mismatch! $SHA1SUM vs $SHA1"
         false

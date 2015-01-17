@@ -2,4 +2,4 @@
 
 fetch_source http://downloads.sourceforge.net/expat/expat-2.1.0.tar.gz b08197d146930a5543a7b99e871cba3da614f6f0
 
-do_unpack_compile expat-2.1.0 expat-2.1.0.tar.gz
+do_unpack_compile

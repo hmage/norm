@@ -1,9 +1,10 @@
-fetch_source http://www.kernel.org/pub/software/scm/git/git-2.2.1.tar.xz b9be1448c5db065f8fda875abd224f2fef1d32bc
+#!/bin/bash
 
+## TODO: libldap.so, liblber.so
 depends_on libexpat
 depends_on curl
 depends_on openssl
 
-## TODO: libldap.so, liblber.so
+fetch_source http://www.kernel.org/pub/software/scm/git/git-2.2.1.tar.xz b9be1448c5db065f8fda875abd224f2fef1d32bc
 
-do_unpack_compile git-2.2.1 git-2.2.1.tar.xz
+do_unpack_compile

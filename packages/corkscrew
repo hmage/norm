@@ -1,3 +1,4 @@
+#!/bin/bash
 fetch_source http://www.agroman.net/corkscrew/corkscrew-2.0.tar.gz 8bdb4c0dc71048136c721c33229b9bf795230b32
 
-do_unpack_compile corkscrew-2.0 corkscrew-2.0.tar.gz
+do_unpack_compile
