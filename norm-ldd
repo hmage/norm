@@ -19,15 +19,19 @@ sub eachFile {
     return if -l;
     return if /\.(py|pyo|pyc)$/; ## 3900 files
     return if /\.(def|decTest|m4|txt|pc|la|syntax|installed)$/;
-    return if /\.(c|h|fon|am|pm|tcl|sl|xml|sh|msg|map|info|pem|ini|hlp|mo)$/;
+    return if /\.(c|h|fon|am|pm|tcl|sl|xml|sh|msg|map|info|pem|ini|hlp|mo|po)$/;
     return if /\.(sample|ttf|css|html|pub|ac|in|inc|sub)$/;
     return if /\.(gif|png|jpg|jpeg)$/;
     return if /\.(a)$/;
 
     my $fullpath = $File::Find::name;
     return if ($fullpath =~ m"/include/");
+    return if ($fullpath =~ m"/share/cmake");
+    return if ($fullpath =~ m"/share/doc/");
+    return if ($fullpath =~ m"/share/gtk-doc/");
+    return if ($fullpath =~ m"/share/man");
     return if ($fullpath =~ m"/share/terminfo/");
-    return if ($fullpath =~ m"/man/man");
+    return if ($fullpath =~ m"/var/cache/");
     push (@files, $fullpath);
 }
 
