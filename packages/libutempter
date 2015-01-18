@@ -1,0 +1,11 @@
+#!/bin/bash
+fetch_source ftp://ftp.altlinux.org/pub/people/ldv/utempter/libutempter-1.1.5.tar.bz2 fd250c317c92a300508365593bf68fbd5f2b9e9a
+
+do_unpack
+pushd_src
+sed -i "s|/usr/|$PREFIX/|" Makefile
+do_make
+do_install
+#do_compile
+popd
+log_success

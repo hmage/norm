@@ -1,0 +1,15 @@
+#!/bin/bash
+depends_on libncurses libelf libutempter
+
+fetch_source http://ftp.gnu.org/gnu/screen/screen-4.2.1.tar.gz 21eadf5f1d64120649f3390346253c6bc8a5103c
+
+do_unpack
+pushd_src
+do_autoreconf
+sed -i 's|/usr/lib/terminfo|@prefix@/lib/terminfo|' Makefile.in ## upstream forgot about a prefix here
+popd
+do_compile
+pushd_src
+mkdir -p $PREFIX/etc
+install -c -m 644 etc/etcscreenrc $PREFIX/etc/screenrc
+popd
