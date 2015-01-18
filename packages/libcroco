@@ -1,0 +1,5 @@
+#!/bin/bash
+depends_on libxml glib
+
+fetch_source http://ftp.gnome.org/pub/gnome/sources/libcroco/0.6/libcroco-0.6.8.tar.xz 23a5c33a2a86d5e46173234f5fa88ac1e15de035
+do_unpack_compile
