@@ -3,4 +3,4 @@
 depends_on libffi libelf
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/glib/2.42/glib-2.42.1.tar.xz b5158fd434f01e84259155c04ff93026a090e586
-do_unpack_compile
+do_unpack_compile --disable-fam
