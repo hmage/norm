@@ -1,0 +1,12 @@
+#!/bin/bash
+fetch_source http://ftp.de.debian.org/debian/pool/main/p/pmccabe/pmccabe_2.6.tar.gz 6e1378b28faf822339780829f3cb9e2d897c5c4d
+
+do_unpack
+pushd_src
+sed -i "s|/usr/|$PREFIX/|" Makefile # no way provided to set a prefix -> patch makefile
+sed -i 's|install -o root -g root|install|' Makefile # unnecessarily assumption that it's done only by root
+do_make
+do_install
+popd
+log_success
+
