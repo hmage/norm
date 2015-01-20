@@ -1,0 +1,15 @@
+#!/bin/bash
+
+depends_on xz
+
+fetch_source https://github.com/jnovy/pxz/archive/ae808463c2950edfdedb8fb49f95006db0a18667.tar.gz 1892ff1c648159b9aec3496170907cb2ae3f057a
+do_unpack
+pushd_src
+sed -i "s|/usr/|$PREFIX/|" Makefile
+sed -i 's|cp $(NAME) |install -m 0755 $(NAME) |' Makefile
+sed -i 's|cp $(NAME).1 |install -m 0644 $(NAME).1 |' Makefile
+do_make
+do_install
+popd
+log_success
+
