@@ -1,0 +1,10 @@
+#!/bin/bash
+fetch_source http://ftp.de.debian.org/debian/pool/main/b/bzip2/bzip2_1.0.6.orig.tar.bz2 3725a0554fa6bb654ef2728fef36bc06aed4e388
+fetch_source http://ftp.de.debian.org/debian/pool/main/b/bzip2/bzip2_1.0.6-4.debian.tar.bz2 0d18086b0e37fc50c6a70bdc566b69bc6b0a357c
+
+do_undebian bzip2_1.0.6.orig.tar.bz2 bzip2_1.0.6-4.debian.tar.bz2
+pushd_src
+do_make_and_install PREFIX=$PREFIX
+popd
+ln -s libbz2.so.1.0 $PREFIX/lib/libbz2.so.1
+log_success
