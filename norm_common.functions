@@ -92,6 +92,7 @@ do_compile_outside() {
 
 do_unpack() {
     [ -f "$TARDIR"/"$1" ] && TARNAME="$1"
+    [ -z "$TARNAME" ] && echo "TARNAME is empty!" && exit 1
 
     SRCDIR="$COMPILEDIR"/"$TARNAME"
 
