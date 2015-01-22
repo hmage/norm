@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on libgdbm libpcre bzip2
+## TODO: libfam.so
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/m/maildrop/maildrop_2.5.5.orig.tar.bz2
+
+do_unpack_compile
