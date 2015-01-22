@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on libdb
+## TODO: libdb1.so
+
+fetch_source http://ftp.gnu.org/gnu/gdbm/gdbm-1.11.tar.gz
+
+do_unpack_compile

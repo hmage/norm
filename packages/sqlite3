@@ -1,0 +1,6 @@
+#!/bin/bash
+
+depends_on libreadline libncurses
+
+fetch_source http://www.sqlite.org/2015/sqlite-autoconf-3080801.tar.gz
+do_unpack_compile --enable-threadsafe --disable-tcl
