@@ -7,3 +7,6 @@ CONFIGURE_OPTIONS="--with-libtool --enable-rpath --enable-pc-files --enable-cons
 
 PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
 do_undebian_compile $CONFIGURE_OPTIONS
+
+PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
+do_undebian_compile $CONFIGURE_OPTIONS --enable-widec
