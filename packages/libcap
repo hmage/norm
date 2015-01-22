@@ -1,0 +1,13 @@
+#!/bin/bash
+depends_on libattr
+
+#fetch_source https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.24.tar.xz b2754cddb614567de445ffdaac7a00b9671b858a
+fetch_source http://ftp.de.debian.org/debian/pool/main/libc/libcap2/libcap2_2.22.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libc/libcap2/libcap2_2.22-1.2.debian.tar.gz
+
+do_undebian
+pushd_src
+do_make
+do_install prefix=$PREFIX RAISE_SETFCAP=no
+popd
+log_success

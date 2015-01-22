@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on openssl libcap sqlite3 bzip2 xz libexpat
+## TODO: libpam.so
+
+fetch_source http://dovecot.org/releases/2.2/dovecot-2.2.15.tar.gz 10c90f1f08797b5931703d52a871437e6561d76f
+
+do_unpack_compile --with-ssl=openssl --with-solr --with-sqlite --localstatedir=$PREFIX/var --with-moduledir=$PREFIX/lib/dovecot/modules --sysconfdir=$PREFIX/etc
