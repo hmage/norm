@@ -4,7 +4,6 @@ depends_on libncurses bzip2 libffi
 ## TODO: libdb, libncursesw, libpanelw, libsqlite3, libtk, libtcl, libX11, libxcb, libXau, libXdmcp, libdb1, libgdbm
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/p/python2.7/python2.7_2.7.3.orig.tar.gz
-fetch_source http://ftp.de.debian.org/debian/pool/main/p/python2.7/python2.7_2.7.3-6+deb7u2.diff.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/p/python2.7/python2.7_2.7.3-6+deb7u2.diff.gz
 
-do_undebian_compile python2.7_2.7.3.orig.tar.gz python2.7_2.7.3-6+deb7u2.diff.gz \
-                    --enable-ipv6 --enable-unicode=ucs4
+do_undebian_compile --enable-ipv6 --enable-unicode=ucs4

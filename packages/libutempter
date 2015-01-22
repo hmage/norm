@@ -1,12 +1,11 @@
 #!/bin/bash
 fetch_source http://ftp.de.debian.org/debian/pool/main/libu/libutempter/libutempter_1.1.5.orig.tar.gz 8e8dbdcfe4b1fb68acc0437d0956266d82f922f7
-fetch_source http://ftp.de.debian.org/debian/pool/main/libu/libutempter/libutempter_1.1.5-4.debian.tar.gz a9fa23cd1f4d4233fdc3b54d8f613ba986d171af
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libu/libutempter/libutempter_1.1.5-4.debian.tar.gz a9fa23cd1f4d4233fdc3b54d8f613ba986d171af
 
-do_undebian libutempter_1.1.5.orig.tar.gz libutempter_1.1.5-4.debian.tar.gz
+do_undebian
 pushd_src
 sed -i "s|/usr/|$PREFIX/|" Makefile
 do_make
 do_install
-#do_compile
 popd
 log_success

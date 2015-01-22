@@ -91,10 +91,7 @@ do_compile_outside() {
 }
 
 do_unpack() {
-    if [ -f "$TARDIR"/"$1" ]; then
-        TARNAME="$1"
-        shift 1
-    fi
+    [ -f "$TARDIR"/"$1" ] && TARNAME="$1"
 
     SRCDIR="$COMPILEDIR"/"$TARNAME"
 
@@ -109,8 +106,8 @@ do_unpack() {
 ## usage: do_undebian foo-1.2.3.orig.tar.bz2 foo-1.2.3.diff.tar
 ## unpacks source code, applies debian patches, sets TARNAME
 do_undebian() {
-    TARNAME="$1"
-    DEBPATCH="$2"
+    [ -f "$TARDIR"/"$1" ] && TARNAME="$1"
+    [ -f "$TARDIR"/"$2" ] && DEBPATCH="$2"
 
     ## sets SRCDIR
     do_unpack "$TARNAME" || exit 1
@@ -128,7 +125,7 @@ do_undebian() {
         PATCHES=`cat "$SERIES"|perl -pe "s/#.*$//g;s|^|$SRCDIR/debian/patches/|"`
     elif [ -e "$SERIES2" ]; then
         PATCHES=`cat "$SERIES2"|perl -pe "s/#.*$//g;s|^|$SRCDIR/debian/patches-applied/|"`
-    elif [ -e "$SRCDIR"/debian/patches/*.patch ]; then
+    elif [ "$(ls -A \"$SRCDIR\"/debian/patches/*.patch)" ]; then
         PATCHES="$SRCDIR"/debian/patches/*.patch
     fi
     if [ ! -z "$PATCHES" ]; then
@@ -141,12 +138,16 @@ do_undebian() {
     fi
 
     ## we're done
-    unset PATCHES SERIES SERIES DEBPATCH
+    unset PATCHES SERIES SERIES
 }
 
 do_undebian_compile() {
-    do_undebian "$1" "$2"
-    shift 2
+    if [ -f "$TARDIR"/"$1" -a -f "$TARDIR"/"$2" ]; then
+        TARNAME="$1"
+        DEBPATCH="$2"
+        shift 2
+    fi
+    do_undebian
     do_compile "$@"
 }
 
@@ -189,20 +190,34 @@ depends_on() {
     compile_package "$@"
 }
 
-fetch_source() {
+fetch_file() {
+    [ -z "$1" ] && echo "fetch_file() needs at least 1 argument" && exit 1
     URL="$1"
     SHA1="$2"
-    TARNAME=`basename "$URL"`
+    FILENAME=`basename "$URL"`
     mkdir -p "$TARDIR"
-    if [ ! -e "$TARDIR"/$TARNAME ]; then
+    if [ ! -e "$TARDIR"/$FILENAME ]; then
         log "Downloading $URL"
-        curl -L -R "$URL" -o "$TARDIR"/$TARNAME.temp || (rm -f "$TARDIR"/$TARNAME.temp && false)
-        mv -f "$TARDIR"/$TARNAME{.temp,}
+        curl -L -R "$URL" -o "$TARDIR"/$FILENAME.temp || (rm -f "$TARDIR"/$FILENAME.temp && exit 1)
+        mv -f "$TARDIR"/$FILENAME{.temp,}
     fi
-    SHA1SUM=`$SHASUM_BIN "$TARDIR/$TARNAME" | cut -f1 -d' '`
-    [ -z "$SHA1" ] && echo "For future -- SHA1 of $TARNAME is $SHA1SUM"
+    SHA1SUM=`$SHASUM_BIN "$TARDIR/$FILENAME" | cut -f1 -d' '`
+    [ -z "$SHA1" ] && echo "For future -- SHA1 of $FILENAME is $SHA1SUM"
     if [ ! -z "$SHA1" ] && [ "$SHA1SUM" != "$SHA1" ]; then
         log "SHA1sum mismatch! $SHA1SUM vs $SHA1"
         false
     fi
+    unset FILENAME
+}
+
+fetch_source() {
+    URL="$1"
+    TARNAME=`basename "$URL"`
+    fetch_file "$@"
+}
+
+fetch_debian() {
+    URL="$1"
+    DEBPATCH=`basename "$URL"`
+    fetch_file "$@"
 }

@@ -1,5 +1,5 @@
 #!/bin/bash
 fetch_source http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg.orig.tar.gz 9ab169183dfcb14c4c906076a2035d2148480d02
-fetch_source http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg-13.debian.tar.gz 93dd4adcae65c2583073c4c538216b19e64abb29
+fetch_debian http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg-13.debian.tar.gz 93dd4adcae65c2583073c4c538216b19e64abb29
 
-do_undebian_compile zlib_1.2.7.dfsg.orig.tar.gz zlib_1.2.7.dfsg-13.debian.tar.gz
+do_undebian_compile
