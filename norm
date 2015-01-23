@@ -24,11 +24,11 @@ usage() {
 }
 
 cmd_install() {
-	force=
+	local force
 	while getopts ":p:hf" opt; do
 	case $opt in
 	    f)
-	    force=1
+	    force=-f
 	    ;;
 	    \?)
 	    echo "Invalid option: -$OPTARG" >&2
@@ -44,15 +44,13 @@ cmd_install() {
 	done
 	shift $((OPTIND-1))
 	[ -z "$1" ] && echo "Need package names" && exit 64
-	if [ ! -z "$force" ]; then
-		echo "Forcing reinstall of packages: $@"
-		for pkg in "$@"; do rm -f "$DEFAULT_PREFIX/$pkg.installed"; done
-	else
-		echo "Installing packages: $@"
-	fi
+	[ -n "$force" ] && echo "Forcing reinstall of packages: $@" \
+					|| echo "Installing packages: $@"
 	setup_traps
 	setup_prefix "$DEFAULT_PREFIX"
-	compile_package "$@"
+	for FORMULA; do
+		compile_package $force "$FORMULA"
+	done
 }
 
 cmd_sub() {

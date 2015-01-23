@@ -20,7 +20,7 @@ setup_traps() {
 }
 
 log() {
-    DATE=`LANG=C LC_ALL=C date`
+    local DATE=`LANG=C LC_ALL=C date`
     echo "[$DATE] $@" >> "$HOME"/compile.log
     echo "$@"
 }
@@ -42,7 +42,7 @@ do_configure_outside() {
 }
 
 do_make() {
-    PARALLEL="-j4"
+    local PARALLEL="-j4"
     [ "$NOPARALLEL" = "1" ] && PARALLEL=
     make $PARALLEL "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-make.log || exit 1
 }
@@ -66,7 +66,7 @@ do_compile() {
 
 
 do_compile_outside() {
-    BUILDDIR="$COMPILEDIR"/"$TARNAME"-build
+    local BUILDDIR="$COMPILEDIR"/"$TARNAME"-build
 
     rm -rf "$BUILDDIR" || exit 1
     mkdir -p "$BUILDDIR" || exit 1
@@ -75,7 +75,6 @@ do_compile_outside() {
     do_make_and_install || exit 1
     popd || exit 1
     log_success
-    unset BUILDDIR
 }
 
 ## the only place that sets SRCDIR
@@ -114,9 +113,9 @@ do_apply_debian() {
     bzcat "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" || exit 1
 
     ## apply debian patches
-    SERIES="$SRCDIR"/debian/patches/series
-    SERIES2="$SRCDIR"/debian/patches-applied/series
-    PATCHES="$SRCDIR"/debian/patches/*.patch
+    local SERIES="$SRCDIR"/debian/patches/series
+    local SERIES2="$SRCDIR"/debian/patches-applied/series
+    local PATCHES="$SRCDIR"/debian/patches/*.patch
     if [ -e "$SERIES" ]; then
         PATCHES=`cat "$SERIES"|perl -pe "s/#.*$//g;s|^|$SRCDIR/debian/patches/|"`
     elif [ -e "$SERIES2" ]; then
@@ -129,9 +128,6 @@ do_apply_debian() {
         patch -f -p0 -i "$i" -d "$SRCDIR" ||
         patch -f -p2 -i "$i" -d "$SRCDIR" || true
     done
-
-    ## we're done
-    unset PATCHES SERIES SERIES
 }
 
 do_undebian_compile() {
@@ -155,6 +151,7 @@ do_unpack_compile() {
 }
 
 do_patch() {
+    local PATCHNAME
     for PATCHNAME; do
         patch -f -p1 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" ||
         patch -f -p0 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" ||
@@ -168,26 +165,34 @@ do_autoreconf() {
     popd || exit 1
 }
 
+## usage: compile_package FORMULA [what formula asked for this one]
 compile_package() {
-    ## don't do for arg in "$@" -- gets overriden by package script
-    while [ "$1" != "" ]; do
-        [ -e "$PREFIX"/"$1".installed ] && shift && continue
-        log "Building package $1"
-        . "$NORMDIR"/packages/"$1"
-        touch "$PREFIX"/"$1".installed
-        shift
-    done
+    local COMPILING_FOR force
+    [ "$1" == "-f" ] && force=-f && shift
+
+    FORMULA="$1"
+    [ -n "$2" ] && COMPILING_FOR="$2"
+    if [ ! -e "$PREFIX"/"$FORMULA".installed -o -n "$force" ]; then
+        [ -z "$COMPILING_FOR" ] && log "Building package $FORMULA" \
+                                || log "Building package $FORMULA for $COMPILING_FOR"
+
+        . "$NORMDIR"/packages/"$FORMULA"
+        touch "$PREFIX"/"$FORMULA".installed
+    fi
+    [ -n "$COMPILING_FOR" ] && echo "Needed for $COMPILING_FOR" >> "$PREFIX"/"$FORMULA".installed
 }
 
 depends_on() {
-    compile_package "$@"
+    for i; do
+        compile_package "$i" $FORMULA
+    done
 }
 
 fetch_file() {
     [ -z "$1" ] && echo "fetch_file() needs at least 1 argument" && exit 1
-    URL="$1"
-    SHA1="$2"
-    FILENAME=`basename "$URL"`
+    local URL="$1"
+    local SHA1="$2"
+    local FILENAME=`basename "$URL"`
     mkdir -p "$TARDIR"
     if [ ! -e "$TARDIR"/$FILENAME ]; then
         log "Downloading $URL"
@@ -200,17 +205,16 @@ fetch_file() {
         log "SHA1sum mismatch! $SHA1SUM vs $SHA1"
         false
     fi
-    unset FILENAME
 }
 
 fetch_source() {
-    URL="$1"
+    local URL="$1"
     TARNAME=`basename "$URL"`
     fetch_file "$@"
 }
 
 fetch_debian() {
-    URL="$1"
+    local URL="$1"
     DEBPATCH=`basename "$URL"`
     fetch_file "$@"
 }
