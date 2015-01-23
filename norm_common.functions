@@ -116,21 +116,19 @@ do_apply_debian() {
     ## apply debian patches
     SERIES="$SRCDIR"/debian/patches/series
     SERIES2="$SRCDIR"/debian/patches-applied/series
+    PATCHES="$SRCDIR"/debian/patches/*.patch
     if [ -e "$SERIES" ]; then
         PATCHES=`cat "$SERIES"|perl -pe "s/#.*$//g;s|^|$SRCDIR/debian/patches/|"`
     elif [ -e "$SERIES2" ]; then
         PATCHES=`cat "$SERIES2"|perl -pe "s/#.*$//g;s|^|$SRCDIR/debian/patches-applied/|"`
-    elif [ "$(ls -A \"$SRCDIR\"/debian/patches/*.patch)" ]; then
-        PATCHES="$SRCDIR"/debian/patches/*.patch
     fi
-    if [ ! -z "$PATCHES" ]; then
-        for i in $PATCHES; do
-            log Applying patch "$i"
-            patch -f -p1 -i "$i" -d "$SRCDIR" ||
-            patch -f -p0 -i "$i" -d "$SRCDIR" ||
-            patch -f -p2 -i "$i" -d "$SRCDIR" || true
-        done
-    fi
+    for i in $PATCHES; do
+        [ -e "$i" ] || continue
+        log Applying patch "$i"
+        patch -f -p1 -i "$i" -d "$SRCDIR" ||
+        patch -f -p0 -i "$i" -d "$SRCDIR" ||
+        patch -f -p2 -i "$i" -d "$SRCDIR" || true
+    done
 
     ## we're done
     unset PATCHES SERIES SERIES
