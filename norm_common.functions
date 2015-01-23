@@ -30,7 +30,7 @@ log_success() {
 }
 
 pushd_src() {
-    pushd "$COMPILEDIR"/"$TARNAME"
+    pushd "$SRCDIR"
 }
 
 do_configure() {
@@ -57,13 +57,6 @@ do_make_and_install() {
 }
 
 do_compile() {
-    if [ -f "$TARDIR"/"$1" ]; then
-        TARNAME="$1"
-        shift
-    fi
-
-    SRCDIR="$COMPILEDIR"/"$TARNAME"
-
     pushd_src || exit 1
     do_configure "$@" || exit 1
     do_make_and_install || exit 1
@@ -73,12 +66,6 @@ do_compile() {
 
 
 do_compile_outside() {
-    if [ -f "$TARDIR"/"$1" ]; then
-        TARNAME="$1"
-        shift
-    fi
-
-    SRCDIR="$COMPILEDIR"/"$TARNAME"
     BUILDDIR="$COMPILEDIR"/"$TARNAME"-build
 
     rm -rf "$BUILDDIR" || exit 1
@@ -88,8 +75,10 @@ do_compile_outside() {
     do_make_and_install || exit 1
     popd || exit 1
     log_success
+    unset BUILDDIR
 }
 
+## the only place that sets SRCDIR
 do_unpack() {
     [ -f "$TARDIR"/"$1" ] && TARNAME="$1"
     [ -z "$TARNAME" ] && echo "TARNAME is empty!" && exit 1
@@ -112,6 +101,11 @@ do_undebian() {
 
     ## sets SRCDIR
     do_unpack "$TARNAME" || exit 1
+    do_apply_debian "$DEBPATCH" || exit 1
+}
+
+do_apply_debian() {
+    [ -f "$TARDIR"/"$1" ] && DEBPATCH="$1"
 
     ## unpack debian overlay -- try tar, gzip, xz, bz
     tar -xf "$TARDIR/$DEBPATCH" -C "$SRCDIR" ||
@@ -159,7 +153,7 @@ do_unpack_compile() {
         shift 1
     fi
     do_unpack "$TARNAME"
-    do_compile "$TARNAME" "$@"
+    do_compile "$@"
 }
 
 do_patch() {
