@@ -63,6 +63,13 @@ cmd_ldd() {
 	$NORMDIR/norm-ldd "$DEFAULT_PREFIX" "$@"
 }
 
+cmd_list() {
+	for file in $DEFAULT_PREFIX/*installed; do
+		[ -e "$file" ] || continue
+		basename "$file" .installed
+	done
+}
+
 case "$1" in
     install)
 	shift
@@ -75,6 +82,14 @@ case "$1" in
     ldd)
 	shift
 	cmd_ldd "$@"
+	;;
+    list)
+	shift
+	cmd_list "$@"
+	;;
+    reinstall)
+	shift
+	cmd_install -f "$@"
 	;;
     *)
 	echo "Uknown command: $1" >&2
