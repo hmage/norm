@@ -24,77 +24,77 @@ usage() {
 }
 
 cmd_install() {
-	local force
-	while getopts ":p:hf" opt; do
-	case $opt in
-	    f)
-	    force=-f
-	    ;;
-	    \?)
-	    echo "Invalid option: -$OPTARG" >&2
-	    usage
-	    exit 64
-	    ;;
-	    :)
-	    echo "Option -$OPTARG requires an argument." >&2
-	    usage
-	    exit 64
-	    ;;
-	esac
-	done
-	shift $((OPTIND-1))
-	[ -z "$1" ] && echo "Need package names" && exit 64
-	[ -n "$force" ] && echo "Forcing reinstall of packages: $@" \
-					|| echo "Installing packages: $@"
-	setup_traps
-	setup_prefix "$DEFAULT_PREFIX"
-	for FORMULA; do
-		compile_package $force "$FORMULA"
-	done
+    local force
+    while getopts ":p:hf" opt; do
+    case $opt in
+        f)
+        force=-f
+        ;;
+        \?)
+        echo "Invalid option: -$OPTARG" >&2
+        usage
+        exit 64
+        ;;
+        :)
+        echo "Option -$OPTARG requires an argument." >&2
+        usage
+        exit 64
+        ;;
+    esac
+    done
+    shift $((OPTIND-1))
+    [ -z "$1" ] && echo "Need package names" && exit 64
+    [ -n "$force" ] && echo "Forcing reinstall of packages: $@" \
+                    || echo "Installing packages: $@"
+    setup_traps
+    setup_prefix "$DEFAULT_PREFIX"
+    for FORMULA; do
+        compile_package $force "$FORMULA"
+    done
 }
 
 cmd_sub() {
-	echo "Creating subshell so you can compile and link against norm libs"
-	setup_prefix "$DEFAULT_PREFIX"
-	$SHELL -i
+    echo "Creating subshell so you can compile and link against norm libs"
+    setup_prefix "$DEFAULT_PREFIX"
+    $SHELL -i
 }
 
 cmd_ldd() {
-	$NORMDIR/norm-ldd "$DEFAULT_PREFIX" "$@"
+    $NORMDIR/norm-ldd "$DEFAULT_PREFIX" "$@"
 }
 
 cmd_list() {
-	for file in $DEFAULT_PREFIX/*installed; do
-		[ -e "$file" ] || continue
-		basename "$file" .installed
-	done
+    for file in $DEFAULT_PREFIX/*installed; do
+        [ -e "$file" ] || continue
+        basename "$file" .installed
+    done
 }
 
 case "$1" in
     install)
-	shift
-	cmd_install "$@"
-	;;
+        shift
+        cmd_install "$@"
+        ;;
     sub)
-	shift
-	cmd_sub "$@"
-	;;
+        shift
+        cmd_sub "$@"
+        ;;
     ldd)
-	shift
-	cmd_ldd "$@"
-	;;
+        shift
+        cmd_ldd "$@"
+        ;;
     list)
-	shift
-	cmd_list "$@"
-	;;
+        shift
+        cmd_list "$@"
+        ;;
     reinstall)
-	shift
-	cmd_install -f "$@"
-	;;
+        shift
+        cmd_install -f "$@"
+        ;;
     *)
-	echo "Uknown command: $1" >&2
-	usage
-	exit 64
-	;;
+        echo "Uknown command: $1" >&2
+        usage
+        exit 64
+        ;;
 esac
 
