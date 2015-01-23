@@ -60,7 +60,7 @@ cmd_sub() {
 }
 
 cmd_ldd() {
-    $NORMDIR/norm-ldd "$DEFAULT_PREFIX" "$@"
+    $NORMDIR/norm-ldd "$@" "$DEFAULT_PREFIX"
 }
 
 cmd_list() {

@@ -2,18 +2,25 @@
 
 use warnings;
 use strict;
+use Getopt::Long;
 
 use File::Find;
 
-my @files;
+sub usage {
+    print "Usage: $0 <full-prefix-path>\n";
+    exit 64;
+}
+
+my $verbose = '';
+GetOptions ("verbose+" => \$verbose) or usage();
 
 if (@ARGV < 1) {
-    print "Usage: $0 <full-prefix-path>\n";
-    exit 127;
+    usage();
 }
 
 my $prefix = $ARGV[0];
 
+my @files;
 sub eachFile {
     return if not -f;
     return if -l;
@@ -36,6 +43,10 @@ sub eachFile {
 }
 
 find (\&eachFile, $prefix);
+
+if ($verbose) {
+    print join("\n", @files) . "\n";
+}
 
 print "Found " . scalar(@files) . " files, checking if they have dependencies outside norm's prefix...\n";
 
