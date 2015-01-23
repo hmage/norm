@@ -1,6 +1,6 @@
 #!/bin/bash
-depends_on libpng libpcre
+depends_on libpcre
 
 fetch_source ftp://space.mit.edu/pub/davis/slang/v2.2/slang-2.2.4.tar.bz2 34e68a993888d0ae2ebc7bc31b40bc894813a7e2
 do_unpack
-NOPARALLEL=1 do_compile --without-onig
+NOPARALLEL=1 do_compile --without-onig --without-png
