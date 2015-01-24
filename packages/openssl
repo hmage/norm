@@ -2,7 +2,7 @@
 depends_on zlib
 
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
-fetch_source ftp://ftp.openssl.org/source/openssl-1.0.1l.tar.gz 4547a0b4269acf76b1f9e7d188896867d6fc8c18
+fetch_source ftp://ftp.openssl.org/source/openssl-1.0.2.tar.gz 2f264f7f6bb973af444cd9fc6ee65c8588f610cc
 
 BUILDCONF=gcc
 [[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == i?86 ]] && BUILDCONF=linux-elf
