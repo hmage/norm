@@ -27,7 +27,7 @@ sub eachFile {
     return if /\.(py|pyo|pyc)$/; ## 3900 files
     return if /\.(def|decTest|m4|txt|pc|la|syntax|installed)$/;
     return if /\.(c|h|fon|am|pm|tcl|sl|xml|sh|msg|map|info|pem|ini|hlp|mo|po)$/;
-    return if /\.(sample|ttf|css|html|pub|ac|in|inc|sub|conf)$/;
+    return if /\.(sample|ttf|css|html|pub|ac|in|inc|sub|conf|site|cnf|pod|el)$/;
     return if /\.(gif|png|jpg|jpeg)$/;
     return if /\.(a)$/;
 
