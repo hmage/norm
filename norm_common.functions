@@ -200,6 +200,7 @@ do_autoreconf() {
 ## usage: compile_package FORMULA [what formula asked for this one]
 compile_package() {
     local COMPILING_FOR force FORMULA
+    local DATE=`LANG=C LC_ALL=C date`
     [ "$1" == "-f" ] && force=-f && shift
 
     FORMULA="$1"
@@ -211,7 +212,7 @@ compile_package() {
         . "$NORMDIR"/packages/"$FORMULA"
         touch "$PREFIX"/"$FORMULA".installed
     fi
-    [ -n "$COMPILING_FOR" ] && echo "Needed for $COMPILING_FOR" >> "$PREFIX"/"$FORMULA".installed
+    [ -n "$COMPILING_FOR" ] && echo "[$DATE] Needed for $COMPILING_FOR" >> "$PREFIX"/"$FORMULA".installed || true
 }
 
 depends_on() {
