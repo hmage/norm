@@ -167,7 +167,7 @@ do_autoreconf() {
 
 ## usage: compile_package FORMULA [what formula asked for this one]
 compile_package() {
-    local COMPILING_FOR force
+    local COMPILING_FOR force FORMULA
     [ "$1" == "-f" ] && force=-f && shift
 
     FORMULA="$1"
