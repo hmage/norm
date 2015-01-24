@@ -77,7 +77,13 @@ do_compile_outside() {
     log_success
 }
 
-## the only place that sets SRCDIR
+##
+## unpacks source code
+## sets global SRCDIR and TARNAME
+##
+## usage: do_unpack <-- gets filename from fetch_source
+##
+## alternative usage: do_unpack foo-1.2.3.tar.bz2
 do_unpack() {
     [ -f "$TARDIR"/"$1" ] && TARNAME="$1"
     [ -z "$TARNAME" ] && echo "TARNAME is empty!" && exit 1
@@ -91,9 +97,12 @@ do_unpack() {
 }
 
 ##
-## usage: do_undebian foo-1.2.3.orig.tar.bz2 foo-1.2.3.debian.tar.gz
-## usage: do_undebian foo-1.2.3.orig.tar.bz2 foo-1.2.3.diff.tar
-## unpacks source code, applies debian patches, sets TARNAME
+## unpacks source code and applies debian patches
+## sets global TARNAME and DEBPATCH
+##
+## usage: do_undebian <-- gets filenames from fetch_source and fetch_debian
+##
+## alternative usage: do_undebian foo-1.2.3.orig.tar.bz2 foo-1.2.3.debian.tar.gz
 do_undebian() {
     [ -f "$TARDIR"/"$1" ] && TARNAME="$1"
     [ -f "$TARDIR"/"$2" ] && DEBPATCH="$2"
@@ -103,6 +112,12 @@ do_undebian() {
     do_apply_debian "$DEBPATCH" || exit 1
 }
 
+##
+## applies debian patches, sets global DEBPATCH
+##
+## usage: do_apply_debian <-- gets filename from fetch_debian
+##
+## alternative usage: do_apply_debian foo-1.2.3.debian.tar.gz
 do_apply_debian() {
     [ -f "$TARDIR"/"$1" ] && DEBPATCH="$1"
 
@@ -130,6 +145,12 @@ do_apply_debian() {
     done
 }
 
+##
+## unpacks source code, applies debian patches, runs configure, make, install
+##
+## usage: do_undebian_compile <-- gets filenames from fetch_source and fetch_debian
+##
+## alternative usage: do_undebian_compile foo-1.2.3.orig.tar.bz2 foo-1.2.3.debian.tar.gz
 do_undebian_compile() {
     if [ -f "$TARDIR"/"$1" -a -f "$TARDIR"/"$2" ]; then
         TARNAME="$1"
@@ -140,7 +161,12 @@ do_undebian_compile() {
     do_compile "$@"
 }
 
-
+##
+## unpacks source code, runs configure, make, install
+##
+## usage: do_unpack_compile <-- gets filename from fetch_source
+##
+## alternative usage: do_unpack_compile foo-1.2.3.tar.bz2
 do_unpack_compile() {
     if [ -f "$TARDIR"/"$1" ]; then
         TARNAME="$1"
@@ -150,6 +176,12 @@ do_unpack_compile() {
     do_compile "$@"
 }
 
+##
+## applies a patch in $SRCDIR, takes it from 'patches' directory in NORM
+## tries different -p values
+##
+## usage: do_patch gcc-4.9.2-multiarch-support.patch
+##
 do_patch() {
     local PATCHNAME
     for PATCHNAME; do
