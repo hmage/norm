@@ -1,0 +1,7 @@
+#!/bin/bash
+depends_on m4
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/a/autoconf/autoconf_2.69.orig.tar.xz e891c3193029775e83e0534ac0ee0c4c711f6d23
+fetch_debian http://ftp.de.debian.org/debian/pool/main/a/autoconf/autoconf_2.69-1.debian.tar.gz 48c98d97d51e6f55d86126141da8be35bd556033
+
+do_undebian_compile

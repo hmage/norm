@@ -1,0 +1,10 @@
+#!/bin/bash
+depends_on autoconf
+
+mkdir -p $PREFIX/share/aclocal
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/a/automake1.11/automake1.11_1.11.6.orig.tar.xz 765cd19ffefb57604b7208f925b56803166484e9
+fetch_debian http://ftp.de.debian.org/debian/pool/main/a/automake1.11/automake1.11_1.11.6-1.debian.tar.bz2 ab4e8ac687014cdd32c7c51f69b3f46c77ca5e03
+
+am_cv_prog_PERL_ithreads=no \
+do_undebian_compile
