@@ -1,0 +1,16 @@
+#!/bin/bash
+
+depends_on xz liblzo
+
+fetch_source http://downloads.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz a615979db9cee82e4a934a1455577f597d290b41
+
+do_unpack
+pushd_src
+cd squashfs-tools
+sed -i 's|#XZ_SUPPORT|XZ_SUPPORT|' Makefile
+sed -i 's|#LZO_SUPPORT|LZO_SUPPORT|' Makefile
+sed -i "s|/usr/local|$PREFIX/|" Makefile
+do_make
+do_install
+popd
+
