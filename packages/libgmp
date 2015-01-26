@@ -1,5 +1,0 @@
-#!/bin/bash
-depends_on m4
-
-fetch_source http://ftpmirror.gnu.org/gmp/gmp-6.0.0a.tar.xz 1aaf78358ab9e34aeb61f3ae08174ee9118ece98
-do_unpack_compile

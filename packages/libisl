@@ -1,6 +1,0 @@
-#!/bin/bash
-
-depends_on libgmp
-
-fetch_source http://isl.gforge.inria.fr/isl-0.12.2.tar.bz2 ca98a91e35fb3ded10d080342065919764d6f928
-do_unpack_compile --with-gmp=system --with-gmp-prefix=$PREFIX

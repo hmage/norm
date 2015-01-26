@@ -1,11 +1,19 @@
 #!/bin/bash
 
+depends_on zlib # for binutils
 
-depends_on libmpfr libmpc libgmp
-depends_on libcloog libisl # for extra optimization options like -floop-interchange
+intree_unpack() {
+  pushd_src
+  [ -n "$1" ] && mkdir "$1"
+  [ -n "$1" ] && tar xkf "$TARDIR"/"$TARNAME" --strip-components 1 -C "$1" || true
+  [ -z "$1" ] && tar xkf "$TARDIR"/"$TARNAME" --strip-components 1 || true
+  popd
+}
 
-symlink_gcc() {
-    for file in cpp gcov {c++,g++,gcc,gcc-ar,gcc-nm,gcc-ranlib} gfortran; do
+symlink_suffix() {
+    for file in cpp gcov c++ g++ gcc gcc-ar gcc-nm gcc-ranlib gfortran \
+                addr2line ar as elfedit gprof ld ld.bfd nm objcopy objdump ranlib \
+                readelf size strings strip c++filt; do
         ln -sf "$file"-4.9 "$PREFIX"/bin/"$file"
     done
 }
@@ -17,28 +25,47 @@ HASH_STYLE=
 
 fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2 79dbcb09f44232822460d80b033c962c0237c6d8
 do_unpack
+
+fetch_source http://ftpmirror.gnu.org/binutils/binutils-2.25.tar.bz2 b46cc90ebaba7ffcf6c6d996d60738881b14e50d
+intree_unpack
+
+fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.2.tar.xz 03e593cc6e26639ef5e60be1af8dc527209e5172
+intree_unpack mpfr
+
+fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.2.tar.gz 5072d82ab50ec36cc8c0e320b5c377adb48abe70
+intree_unpack mpc
+
+fetch_source http://ftpmirror.gnu.org/gmp/gmp-6.0.0a.tar.xz 1aaf78358ab9e34aeb61f3ae08174ee9118ece98
+intree_unpack gmp
+
+fetch_source 'http://www.bastoul.net/cloog/pages/download/count.php3?url=./cloog-0.18.1.tar.gz' 2dc70313e8e2c6610b856d627bce9c9c3f848077
+intree_unpack cloog
+
+fetch_source http://isl.gforge.inria.fr/isl-0.12.2.tar.bz2 ca98a91e35fb3ded10d080342065919764d6f928
+intree_unpack isl
+
+TARNAME=gcc-4.9.2.tar.bz2
+
 do_patch gcc-4.9.2-multiarch.patch ## add support for multiarch
 do_patch gcc-4.7.1-startfiles_fix-1.patch ## search for files in $PREFIX as well
+do_patch binutils-2.25-multiarch.patch ## add support for multiarch
 
 sed -i 's@\./fixinc\.sh@-c true@' "$SRCDIR"/gcc/Makefile.in ## disable fixincludes
 
 do_compile_outside --program-suffix=-4.9 \
                    --enable-__cxa_atexit --with-tune=generic \
                    --enable-checking=release \
-                   --enable-languages=c,c++,fortran \
                    --enable-threads=posix \
-                   --with-mpc=$PREFIX --with-mpfr=$PREFIX --with-gmp=$PREFIX \
-                   --with-cloog=$PREFIX --with-isl=$PREFIX \
                    $HASH_STYLE $WITH_ARCH \
                    --enable-multiarch \
                    --enable-clocale=generic \
                    --enable-shared \
                    --enable-dependency-tracking
 
-symlink_gcc
+symlink_suffix
 ln -f $PREFIX/bin/gcc $PREFIX/bin/cc
 
-## get rid of fixed includes that are actually not needed
+## get rid of fixincludes that are actually not needed
 for dir in $PREFIX/lib/gcc/*/4.9.2/include-fixed; do
     pushd "$dir"
     for i in *; do
