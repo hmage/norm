@@ -1,10 +1,17 @@
 #!/bin/bash
-depends_on libncurses bzip2 libffi
+depends_on zlib
+depends_on libreadline
+depends_on openssl
+depends_on bzip2
+depends_on libffi
+depends_on libdb
+depends_on libncurses
+depends_on libexpat
+depends_on libgdbm
+depends_on sqlite3
+## TODO: libtk, libtcl, libX11, libxcb, libXau, libXdmcp
 
-depends_on libgdbm sqlite3
-## TODO: libpanelw, libtk, libtcl, libX11, libxcb, libXau, libXdmcp
+fetch_source http://ftp.de.debian.org/debian/pool/main/p/python2.7/python2.7_2.7.3.orig.tar.gz 7eb972b37f596bea7215efce2da40fcb24bed5d9
+fetch_debian http://ftp.de.debian.org/debian/pool/main/p/python2.7/python2.7_2.7.3-6+deb7u2.diff.gz a3db682353e306d018e7d2289acbe424e829e6f6
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/p/python2.7/python2.7_2.7.3.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/p/python2.7/python2.7_2.7.3-6+deb7u2.diff.gz
-
-do_undebian_compile --enable-ipv6 --enable-unicode=ucs4
+do_undebian_compile --enable-ipv6 --enable-unicode=ucs4 --with-system-expat --with-system-ffi --with-threads
