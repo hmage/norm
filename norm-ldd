@@ -55,9 +55,10 @@ foreach my $arg (@files) {
     my $filtered_output = "";
     foreach (split(/\n/, $output)) {
 	next if /not a dynamic executable/;
+	next if /statically linked/;
 	next if m"$prefix";
 	next if /^[\t]linux-gate.so.1 =>/;
-	next if /^[\t]lib(c|m|dl|rt|pthread|resolv|crypt|util|nsl)\.so/;
+	next if /^[\t]lib(c|m|dl|rt|pthread|resolv|crypt|util|nsl|stdc\+\+|gcc_s)\.so/;
 	next if /^[\t]\/lib\/ld-linux.so.2/;
 	$filtered_output .= $_ . "\n";
     }
