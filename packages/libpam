@@ -1,0 +1,12 @@
+#!/bin/bash
+
+depends_on libtool
+depends_on libdb
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/p/pam/pam_1.1.3.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/p/pam/pam_1.1.3-7.1.diff.gz
+
+do_undebian
+do_autoreconf
+do_compile --enable-static --enable-shared --libdir=$PREFIX/lib --enable-isadir=$PREFIX/lib/security \
+           --disable-audit --disable-regenerate-docu --disable-cracklib
