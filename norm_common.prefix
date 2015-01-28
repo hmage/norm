@@ -2,9 +2,27 @@
 
 # sourced by norm_common.functions
 
-CLEANPATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin"
 DEFAULT_PREFIX="$HOME/norm"
-#BOOTSTRAP_PREFIX="$HOME/prefixes/bootstrap"
+
+addpath() {
+    [ -z "$1" -o -z "$2" ] && return
+    local value VARNAME=$1
+    shift
+    for value; do
+        [ -z "${!VARNAME}" ] && export $VARNAME="$value" && continue
+        [[ ! "${!VARNAME}" =~ (^|:)"$value"(:|$) ]] && export $VARNAME="$value:${!VARNAME}"
+    done
+}
+
+addflags() {
+    [ -z "$1" -o -z "$2" ] && return
+    local value VARNAME=$1
+    shift
+    for value; do
+        [ -z "${!VARNAME}" ] && export $VARNAME="$value" && continue
+        [[ ! "${!VARNAME}" =~ (^| )"$value"( |$) ]] && export $VARNAME="$value ${!VARNAME}"
+    done
+}
 
 setup_prefix() {
     PREFIX="$1"
@@ -14,20 +32,20 @@ setup_prefix() {
     ## set compile flags
     default_ldflags="-L$PREFIX/lib"
     [[ $OSTYPE == *linux* ]] && default_ldflags+=" -Wl,-rpath=$PREFIX/lib -Wl,-rpath-link=$PREFIX/lib"
-    [[ $OSTYPE == *darwin* ]] && default_ldflags+=" -Wl,-rpath -Wl,$PREFIX/lib"
+    [[ $OSTYPE == *darwin* ]] && default_ldflags+=" -Wl,-rpath,$PREFIX/lib"
     default_cppflags="-I$PREFIX/include"
     default_aclocal="$PREFIX/share/aclocal"
 
-    export LDFLAGS="$default_ldflags"
-    export CPPFLAGS="$default_cppflags"
+    addflags LDFLAGS $default_ldflags
+    addflags CPPFLAGS $default_cppflags
 
     ## set runtime flags
-    export PATH="$PREFIX/bin/ccache_wrap:$PREFIX/sbin:$PREFIX/bin:$CLEANPATH"
-    export LD_LIBRARY_PATH="$PREFIX/lib"
-    export LD_RUN_PATH="$PREFIX/lib"
-    export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
-    export ACLOCAL_PATH="$PREFIX/share/aclocal"
-    export PERL5LIB="$PREFIX/lib/perl5"
+    addpath PATH "$PREFIX/bin" "$PREFIX/sbin" "$PREFIX/bin/ccache_wrap"
+    addpath LD_LIBRARY_PATH "$PREFIX/lib"
+    addpath LD_RUN_PATH "$PREFIX/lib"
+    addpath PKG_CONFIG_PATH "$PREFIX/share/pkgconfig" "$PREFIX/lib/pkgconfig"
+    addpath ACLOCAL_PATH "$default_aclocal"
+    addpath PERL5LIB "$PREFIX/lib/perl5"
 
     ## create files if they don't exist
     [ ! -e "$PREFIX/share/man" ] && mkdir -p "$PREFIX/share/man" || true
@@ -48,6 +66,7 @@ mkdir -p $PREFIX/share
 cat << EOF > $PREFIX/share/config.site
 [ -z "\$CPPFLAGS" ] && CPPFLAGS="$default_cppflags"
 [ -z "\$LDFLAGS" ] && LDFLAGS="$default_ldflags"
+[ -z "\$ACLOCAL_PATH" ] && ACLOCAL_PATH="$default_aclocal"
 true
 EOF
 }
