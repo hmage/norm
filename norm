@@ -14,7 +14,7 @@ COMPILEDIR="$HOME/tmp/compile"
 
 ## find shasum binary
 SHASUM_BIN=shasum
-[[ -z `which $SHASUM_BIN` ]] 2>/dev/null && SHASUM_BIN=sha1sum
+hash $SHASUM_BIN 2>/dev/null || SHASUM_BIN=sha1sum
 
 usage() {
     echo "Usage: "
