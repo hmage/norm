@@ -27,7 +27,7 @@ setup_prefix() {
     export LD_RUN_PATH="$PREFIX/lib"
     export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
     export ACLOCAL_PATH="$PREFIX/share/aclocal"
-    export PERL5LIB="$PREFIX/lib/perl"
+    export PERL5LIB="$PREFIX/lib/perl5"
 
     ## create files if they don't exist
     [ ! -e "$PREFIX/share/man" ] && mkdir -p "$PREFIX/share/man" || true
