@@ -51,12 +51,14 @@ HASH_STYLE=
 [[ $HOSTTYPE == i?86 ]] && WITH_ARCH=--with-arch=i686
 [[ $OSTYPE == *linux* ]] && HASH_STYLE=--with-linker-hash-style=both
 
+## 'plugin' is gcc, 'plugins' is binutils.
 do_compile_outside \
                    --enable-__cxa_atexit --with-tune=generic \
                    --enable-checking=release \
                    --with-system-zlib \
                    $LANGUAGES \
                    --enable-plugin \
+                   --enable-plugins \
                    --enable-lto \
                    --enable-threads=posix \
                    $HASH_STYLE $WITH_ARCH \
