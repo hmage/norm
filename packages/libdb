@@ -6,23 +6,27 @@ fetch_debian http://ftp.de.debian.org/debian/pool/main/d/db/db_5.1.29-5.debian.t
 ## TODO: create macros to configure outside of 'dist' subdir but inside source tree
 do_undebian
 pushd_src
+sed -i 's|docdir=.*$(prefix)/docs|docdir=\t@docdir@|' dist/Makefile.in
 mkdir -p build
 cd build
-../dist/configure --enable-compat185 --mandir=$PREFIX/share/man --disable-java --prefix=$PREFIX
+../dist/configure --prefix=$PREFIX --mandir=$PREFIX/share/man --enable-compat185 --disable-java \
+                  --enable-dbm
 do_make
 do_install
 popd
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/d/db1-compat/db1-compat_2.1.3.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/d/db1-compat/db1-compat_2.1.3-16.debian.tar.gz
+ln -fs libdb.so $PREFIX/lib/libdb.so.2
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/d/db1-compat/db1-compat_2.1.3.orig.tar.gz 1dbe9b1a1bbeb44e0ce2e234e6e3d06b308664ed
+fetch_debian http://ftp.de.debian.org/debian/pool/main/d/db1-compat/db1-compat_2.1.3-16.debian.tar.gz 773c7e2c9706bc1ca3125043a04ac599f1fc0d04
 
 do_undebian
 pushd_src
 do_make
 install -m 755 db_dump185/db_dump185 $PREFIX/bin/
 install -m 755 libdb1.so.2 $PREFIX/lib/libdb1-2.2.5.so
-ln -s libdb1-2.2.5.so $PREFIX/lib/libdb1.so.2
-ln -s libdb1-2.2.5.so $PREFIX/lib/libdb1.so
+ln -fs libdb1-2.2.5.so $PREFIX/lib/libdb1.so.2
+ln -fs libdb1-2.2.5.so $PREFIX/lib/libdb1.so
 popd
 
 log_success
