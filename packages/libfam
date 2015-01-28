@@ -1,0 +1,17 @@
+#!/bin/bash
+depends_on automake libtool # need to properly autoreconf
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/f/fam/fam_2.7.0.orig.tar.gz c8c71f0f9467956fb151a4600691bd97f777495d
+fetch_debian http://ftp.de.debian.org/debian/pool/main/f/fam/fam_2.7.0-17.diff.gz 680b03081b014246425f5b722fdb832ee254393e
+
+## norm can't deal with CDBS yet, so do it semi-manually
+
+do_unpack
+tar xf "$SRCDIR"/fam-2.7.0.tar.gz -C "$SRCDIR"
+SRCDIR="$SRCDIR"/fam-2.7.0
+do_apply_debian
+pushd_src
+sed -i 's|AC_DEFINE(USE_DNOTIFY)|AC_DEFINE(USE_DNOTIFY,, Use dnotify)|' configure.ac ## update for newer autoheader
+popd
+do_autoreconf
+do_compile
