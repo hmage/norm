@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on zlib # for binutils
+depends_on zlib
 
 intree_unpack() {
   pushd_src
@@ -10,23 +10,11 @@ intree_unpack() {
   popd
 }
 
-symlink_suffix() {
-    for file in cpp gcov c++ g++ gcc gcc-ar gcc-nm gcc-ranlib gfortran \
-                addr2line ar as elfedit gprof ld ld.bfd nm objcopy objdump ranlib \
-                readelf size strings strip c++filt; do
-        ln -sf "$file"-4.9 "$PREFIX"/bin/"$file"
-    done
-}
-
-WITH_ARCH=
-HASH_STYLE=
-[[ $HOSTTYPE == i?86 ]] && WITH_ARCH=--with-arch=i686
-[[ $OSTYPE == *linux* ]] && HASH_STYLE=--with-linker-hash-style=both
-
 fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2 79dbcb09f44232822460d80b033c962c0237c6d8
 do_unpack
 
-fetch_source http://ftpmirror.gnu.org/binutils/binutils-2.25.tar.bz2 b46cc90ebaba7ffcf6c6d996d60738881b14e50d
+## binutils 2.25 doesn't compile in-tree with gcc 4.9.2
+fetch_source http://ftpmirror.gnu.org/binutils/binutils-2.24.tar.bz2 7ac75404ddb3c4910c7594b51ddfc76d4693debb
 intree_unpack
 
 fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.2.tar.xz 03e593cc6e26639ef5e60be1af8dc527209e5172
@@ -46,24 +34,37 @@ intree_unpack isl
 
 TARNAME=gcc-4.9.2.tar.bz2
 
+do_patch binutils-2.24-vparams.patch      ## remove macros removed from gcc 4.9.2
 do_patch gcc-4.9.2-multiarch.patch -p2    ## add support for multiarch
 do_patch gcc-4.7.1-startfiles_fix-1.patch ## search for files in $PREFIX as well
-do_patch binutils-2.25-multiarch.patch ## add support for multiarch
+do_patch binutils-2.24-multiarch.patch    ## add support for multiarch
 
-sed -i 's@\./fixinc\.sh@-c true@' "$SRCDIR"/gcc/Makefile.in ## disable fixincludes
+## disable fixincludes
+sed -i 's@\./fixinc\.sh@-c true@' "$SRCDIR"/gcc/Makefile.in
 
-do_compile_outside --program-suffix=-4.9 \
+## build all languages except java
+LANGUAGES=--enable-languages=c,c++,fortran,go,lto,objc,obj-c++
+
+## enable machine and OS specific features
+WITH_ARCH=
+HASH_STYLE=
+[[ $HOSTTYPE == i?86 ]] && WITH_ARCH=--with-arch=i686
+[[ $OSTYPE == *linux* ]] && HASH_STYLE=--with-linker-hash-style=both
+
+do_compile_outside \
                    --enable-__cxa_atexit --with-tune=generic \
                    --enable-checking=release \
+                   --with-system-zlib \
+                   $LANGUAGES \
+                   --enable-plugin \
+                   --enable-lto \
                    --enable-threads=posix \
                    $HASH_STYLE $WITH_ARCH \
                    --enable-multiarch \
                    --enable-clocale=generic \
-                   --enable-shared \
-                   --enable-dependency-tracking
+                   --disable-werror # otherwise compilation fails because of binutils
 
-symlink_suffix
-ln -f $PREFIX/bin/gcc $PREFIX/bin/cc
+ln -sf $PREFIX/bin/gcc $PREFIX/bin/cc
 
 ## get rid of fixincludes that are actually not needed
 for dir in $PREFIX/lib/gcc/*/4.9.2/include-fixed; do

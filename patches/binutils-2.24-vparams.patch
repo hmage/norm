@@ -1,0 +1,109 @@
+diff --git a/binutils-2.24/binutils/bucomm.c b/binutils-2.25/binutils/bucomm.c
+index bb3fb3f..b8deff5 100644
+--- binutils-2.24/binutils/bucomm.c
++++ binutils-2.25/binutils/bucomm.c
+@@ -127,24 +125,26 @@ report (const char * format, va_list args)
+ }
+ 
+ void
+-fatal VPARAMS ((const char *format, ...))
++fatal (const char *format, ...)
+ {
+-  VA_OPEN (args, format);
+-  VA_FIXEDARG (args, const char *, format);
++  va_list args;
++
++  va_start (args, format);
+ 
+   report (format, args);
+-  VA_CLOSE (args);
++  va_end (args);
+   xexit (1);
+ }
+ 
+ void
+-non_fatal VPARAMS ((const char *format, ...))
++non_fatal (const char *format, ...)
+ {
+-  VA_OPEN (args, format);
+-  VA_FIXEDARG (args, const char *, format);
++  va_list args;
++
++  va_start (args, format);
+ 
+   report (format, args);
+-  VA_CLOSE (args);
++  va_end (args);
+ }
+ 
+ /* Set the default BFD target based on the configured target.  Doing
+diff --git a/binutils-2.24/binutils/dlltool.c b/binutils-2.25/binutils/dlltool.c
+index 0da0011..8b013f0 100644
+--- binutils-2.24/binutils/dlltool.c
++++ binutils-2.25/binutils/dlltool.c
+@@ -881,17 +880,18 @@ dlltmp (char **buf, const char *fmt)
+ }
+ 
+ static void
+-inform VPARAMS ((const char * message, ...))
++inform (const char * message, ...)
+ {
+-  VA_OPEN (args, message);
+-  VA_FIXEDARG (args, const char *, message);
++  va_list args;
++
++  va_start (args, message);
+ 
+   if (!verbose)
+     return;
+ 
+   report (message, args);
+ 
+-  VA_CLOSE (args);
++  va_end (args);
+ }
+ 
+ static const char *
+diff --git a/binutils-2.24/binutils/dllwrap.c b/binutils-2.25/binutils/dllwrap.c
+index a6dae90..85ace9b 100644
+--- binutils-2.24/binutils/dllwrap.c
++++ binutils-2.25/binutils/dllwrap.c
+@@ -144,28 +143,30 @@ display (const char * message, va_list args)
+ 
+ 
+ static void
+-inform VPARAMS ((const char *message, ...))
++inform (const char *message, ...)
+ {
+-  VA_OPEN (args, message);
+-  VA_FIXEDARG (args, const char *, message);
++  va_list args;
++
++  va_start (args, message);
+ 
+   if (!verbose)
+     return;
+ 
+   display (message, args);
+ 
+-  VA_CLOSE (args);
++  va_end (args);
+ }
+ 
+ static void
+-warn VPARAMS ((const char *format, ...))
++warn (const char *format, ...)
+ {
+-  VA_OPEN (args, format);
+-  VA_FIXEDARG (args, const char *, format);
++  va_list args;
++
++  va_start (args, format);
+ 
+   display (format, args);
+ 
+-  VA_CLOSE (args);
++  va_end (args);
+ }
+ 
+ /* Look for the program formed by concatenating PROG_NAME and the
