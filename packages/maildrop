@@ -1,8 +1,12 @@
 #!/bin/bash
+depends_on libidn
+depends_on libgdbm
+depends_on libfam
+depends_on libpcre
 
-depends_on libgdbm libpcre bzip2
-## TODO: libfam.so
+fetch_source http://ftp.de.debian.org/debian/pool/main/m/maildrop/maildrop_2.5.5.orig.tar.bz2 57b307972b884b4f8fea840c56d2ff37f95139a3
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/m/maildrop/maildrop_2.5.5.orig.tar.bz2
-
-do_unpack_compile
+mkdir -p $PREFIX/var/mail
+maildrop_cv_SYS_INSTALL_MBOXDIR=$PREFIX/var/mail \
+maildrop_cv_SYS_INSTALL_RESET_GID=1 \
+do_unpack_compile --disable-authlib --with-default-maildrop=$PREFIX/var/mail
