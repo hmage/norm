@@ -178,17 +178,15 @@ do_unpack_compile() {
 
 ##
 ## applies a patch in $SRCDIR, takes it from 'patches' directory in NORM
-## tries different -p values
+## default is -p1, but you can override that after patchname
 ##
 ## usage: do_patch gcc-4.9.2-multiarch-support.patch
+## usage: do_patch binutils-multiarch-support.patch -p2
 ##
 do_patch() {
-    local PATCHNAME
-    for PATCHNAME; do
-        patch -f -p1 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" ||
-        patch -f -p0 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" ||
-        patch -f -p2 -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR"
-    done
+    local PATCHNAME="$1"
+    shift
+    patch -p1 -f -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" "$@"
 }
 
 do_autoreconf() {

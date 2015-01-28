@@ -46,7 +46,7 @@ intree_unpack isl
 
 TARNAME=gcc-4.9.2.tar.bz2
 
-do_patch gcc-4.9.2-multiarch.patch ## add support for multiarch
+do_patch gcc-4.9.2-multiarch.patch -p2    ## add support for multiarch
 do_patch gcc-4.7.1-startfiles_fix-1.patch ## search for files in $PREFIX as well
 do_patch binutils-2.25-multiarch.patch ## add support for multiarch
 
