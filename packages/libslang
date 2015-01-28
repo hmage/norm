@@ -1,4 +1,5 @@
 #!/bin/bash
+depends_on zlib
 depends_on libpcre
 
 fetch_source ftp://space.mit.edu/pub/davis/slang/v2.2/slang-2.2.4.tar.bz2 34e68a993888d0ae2ebc7bc31b40bc894813a7e2

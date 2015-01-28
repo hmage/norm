@@ -1,9 +1,10 @@
 #!/bin/bash
 
 ## TODO: libldap.so, liblber.so
-depends_on libexpat
-depends_on curl
+depends_on zlib
 depends_on openssl
+depends_on curl
+depends_on libexpat
 
 fetch_source http://www.kernel.org/pub/software/scm/git/git-2.2.2.tar.xz 013649d20f8f4d44e8b2aacdb3a8a348ecb42346
 

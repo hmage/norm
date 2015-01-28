@@ -2,8 +2,6 @@
 fetch_source http://ftp.de.debian.org/debian/pool/main/libe/libelf/libelf_0.8.13.orig.tar.gz 9491e8c11e7bd6249b16eb507f290536785f4478
 fetch_debian http://ftp.de.debian.org/debian/pool/main/libe/libelf/libelf_0.8.13-5.diff.gz daef00505e1c7d5a9d85dcc93dd5ebc5de6c2f98
 
-#depends_on gettext
-
 do_undebian
 do_autoreconf
 do_compile --enable-elf64 --enable-compat

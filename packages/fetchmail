@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/f/fetchmail/fetchmail_6.3.21.orig.tar.bz2
-fetch_debian http://ftp.de.debian.org/debian/pool/main/f/fetchmail/fetchmail_6.3.21-4.debian.tar.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/f/fetchmail/fetchmail_6.3.21.orig.tar.bz2 e32a0d40ec133d651782543ecd7bc9bbee52dff7
+fetch_debian http://ftp.de.debian.org/debian/pool/main/f/fetchmail/fetchmail_6.3.21-4.debian.tar.gz f0f6fa2eb296dc8b5816ed84b07a035584032b47
 
 do_undebian_compile
