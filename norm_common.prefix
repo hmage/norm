@@ -9,8 +9,8 @@ addpath() {
     local value VARNAME=$1
     shift
     for value; do
-        [ -z "${!VARNAME}" ] && export $VARNAME="$value" && continue
-        [[ ! "${!VARNAME}" =~ (^|:)"$value"(:|$) ]] && export $VARNAME="$value:${!VARNAME}"
+        [ -z "${!VARNAME}" ] && export $VARNAME="$value" && continue || true
+        [[ ! "${!VARNAME}" =~ (^|:)"$value"(:|$) ]] && export $VARNAME="$value:${!VARNAME}" || true
     done
 }
 
@@ -19,8 +19,8 @@ addflags() {
     local value VARNAME=$1
     shift
     for value; do
-        [ -z "${!VARNAME}" ] && export $VARNAME="$value" && continue
-        [[ ! "${!VARNAME}" =~ (^| )"$value"( |$) ]] && export $VARNAME="$value ${!VARNAME}"
+        [ -z "${!VARNAME}" ] && export $VARNAME="$value" && continue || true
+        [[ ! "${!VARNAME}" =~ (^| )"$value"( |$) ]] && export $VARNAME="$value ${!VARNAME}" || true
     done
 }
 
