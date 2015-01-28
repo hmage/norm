@@ -1,5 +1,6 @@
 #!/bin/bash
-depends_on glib libxml libncurses libcroco
+depends_on libacl
+depends_on libcroco
 
 fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.19.4.tar.xz 16c90342f3a59c7df364ebb3209a48be42b7ffd9
 do_unpack_compile --without-emacs --disable-libasprintf
