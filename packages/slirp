@@ -5,5 +5,4 @@ fetch_debian http://ftp.de.debian.org/debian/pool/main/s/slirp/slirp_1.0.17-6.de
 
 do_undebian
 SRCDIR="$SRCDIR"/src
-CPPFLAGS="$CPPFLAGS -DUSE_PPP -DUSE_MS_DNS -DFULL_BOLT -fno-strict-aliasing" do_compile
-
+CFLAGS="$CFLAGS -DFULL_BOLT -fno-strict-aliasing" do_compile
