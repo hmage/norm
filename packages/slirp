@@ -1,0 +1,9 @@
+#!/bin/bash
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/s/slirp/slirp_1.0.17.orig.tar.gz 9b660f5365f1d9536d9171c1e0de490ab2232ec8
+fetch_debian http://ftp.de.debian.org/debian/pool/main/s/slirp/slirp_1.0.17-6.debian.tar.gz 3da79bc4cf0a93de2201540705b3385a26c9dbc6
+
+do_undebian
+SRCDIR="$SRCDIR"/src
+CPPFLAGS="$CPPFLAGS -DUSE_PPP -DUSE_MS_DNS -DFULL_BOLT -fno-strict-aliasing" do_compile
+
