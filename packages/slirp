@@ -4,5 +4,6 @@ fetch_source http://ftp.de.debian.org/debian/pool/main/s/slirp/slirp_1.0.17.orig
 fetch_debian http://ftp.de.debian.org/debian/pool/main/s/slirp/slirp_1.0.17-6.debian.tar.gz 3da79bc4cf0a93de2201540705b3385a26c9dbc6
 
 do_undebian
+mkdir -p $PREFIX/share/man/man1
 SRCDIR="$SRCDIR"/src
 CFLAGS="$CFLAGS -DFULL_BOLT -fno-strict-aliasing" do_compile
