@@ -16,38 +16,43 @@ COMPILEDIR="$HOME/tmp/compile"
 SHASUM_BIN=shasum
 hash $SHASUM_BIN 2>/dev/null || SHASUM_BIN=sha1sum
 
+newprefix=$DEFAULT_PREFIX
+
 usage() {
+    ourname=`basename $0`
     echo "Usage: "
-    echo "    $0 install [-f] <package> [package ...]"
-    echo "    $0 sub"
-    echo "    $0 ldd"
+    echo "    $ourname install <package> [package ...]   -- install package(s)"
+    echo "    $ourname reinstall <package> [package ...] -- reinstall already installed package(s)"
+    echo "    $ourname list                              -- list all installed packages"
+    echo "    $ourname ldd                               -- check for dynamic dependencies outside of prefix"
+    echo "    $ourname sub                               -- subshell with all prefix variables set"
+    echo
+    echo "Common options:"
+    echo "    -p <prefix> -- full path to custom prefix instead of default one"
+    echo
+    echo "Install options:"
+    echo "    -f          -- force install, same as reinstall command"
+    echo
+    echo "ldd options:"
+    echo "    -v          -- show list of files that will be fed to ldd"
+
 }
 
 cmd_install() {
     local force
-    while getopts ":p:hf" opt; do
-    case $opt in
+    while getopts "f" opt; do
+        case $opt in
         f)
-        force=-f
-        ;;
-        \?)
-        echo "Invalid option: -$OPTARG" >&2
-        usage
-        exit 64
-        ;;
-        :)
-        echo "Option -$OPTARG requires an argument." >&2
-        usage
-        exit 64
-        ;;
-    esac
+            force=-f
+            ;;
+        esac
     done
     shift $((OPTIND-1))
     [ -z "$1" ] && echo "Need package names" && exit 64
     [ -n "$force" ] && echo "Forcing reinstall of packages: $@" \
                     || echo "Installing packages: $@"
     setup_traps
-    setup_prefix "$DEFAULT_PREFIX"
+    setup_prefix "$newprefix"
     for FORMULA; do
         compile_package $force "$FORMULA"
     done
@@ -55,20 +60,51 @@ cmd_install() {
 
 cmd_sub() {
     echo "Creating subshell so you can compile and link against norm libs"
-    setup_prefix "$DEFAULT_PREFIX"
+    setup_prefix "$newprefix"
     $SHELL -i
 }
 
 cmd_ldd() {
-    $NORMDIR/norm-ldd "$@" "$DEFAULT_PREFIX"
+    local verbose
+    while getopts "v" opt; do
+        case $opt in
+        v)
+            verbose=-v
+            ;;
+        esac
+    done
+    $NORMDIR/norm-ldd $verbose "$newprefix"
 }
 
 cmd_list() {
-    for file in $DEFAULT_PREFIX/*installed; do
+    for file in "$newprefix"/*installed; do
         [ -e "$file" ] || continue
         basename "$file" .installed
     done
 }
+
+while getopts ":p:" opt; do
+    case $opt in
+    p)
+        newprefix="$OPTARG"
+        ;;
+    \?)
+        echo "Invalid option: -$OPTARG" >&2
+        usage
+        exit 64
+        ;;
+    :)
+        echo "Option -$OPTARG requires an argument." >&2
+        usage
+        exit 64
+        ;;
+    esac
+done
+
+shift $((OPTIND-1))
+OPTIND=1
+
+[ -z "$1" ] && echo "No command specified" && usage && exit 64
 
 case "$1" in
     install)
@@ -92,7 +128,7 @@ case "$1" in
         cmd_install -f "$@"
         ;;
     *)
-        echo "Uknown command: $1" >&2
+        echo "Unknown command: $1" >&2
         usage
         exit 64
         ;;
