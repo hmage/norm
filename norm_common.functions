@@ -109,16 +109,23 @@ do_undebian() {
 
     ## sets SRCDIR
     do_unpack "$TARNAME" || exit 1
-    do_apply_debian "$DEBPATCH" || exit 1
+    do_debianize "$DEBPATCH" || exit 1
 }
 
 ##
 ## applies debian patches, sets global DEBPATCH
 ##
-## usage: do_apply_debian <-- gets filename from fetch_debian
+## usage: do_debianize <-- gets filename from fetch_debian
 ##
-## alternative usage: do_apply_debian foo-1.2.3.debian.tar.gz
-do_apply_debian() {
+## alternative usage: do_debianize foo-1.2.3.debian.tar.gz
+do_debianize() {
+    [ -f "$TARDIR"/"$1" ] && DEBPATCH="$1"
+
+    do_undebian_overlay "$DEBPATCH"
+    do_debian_patches
+}
+
+do_undebian_overlay() {
     [ -f "$TARDIR"/"$1" ] && DEBPATCH="$1"
 
     ## unpack debian overlay -- try tar, gzip, xz, bz
@@ -126,7 +133,9 @@ do_apply_debian() {
     gzip -cd "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" ||
     xzcat "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" ||
     bzcat "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" || exit 1
+}
 
+do_debian_patches() {
     ## apply debian patches
     local SERIES="$SRCDIR"/debian/patches/series
     local SERIES2="$SRCDIR"/debian/patches-applied/series
