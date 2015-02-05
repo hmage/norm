@@ -11,7 +11,7 @@ depends_on libgdbm
 depends_on sqlite3
 ## TODO: libtk, libtcl, libX11, libxcb, libXau, libXdmcp
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/p/python2.7/python2.7_2.7.3.orig.tar.gz 7eb972b37f596bea7215efce2da40fcb24bed5d9
-fetch_debian http://ftp.de.debian.org/debian/pool/main/p/python2.7/python2.7_2.7.3-6+deb7u2.diff.gz a3db682353e306d018e7d2289acbe424e829e6f6
+fetch_source https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tar.xz 3172f6e957713c2d9fca462cc16068222fd1b9d3
 
-do_undebian_compile --enable-ipv6 --enable-unicode=ucs4 --with-system-expat --with-system-ffi --with-threads
+do_unpack_compile --enable-ipv6 --enable-unicode=ucs4 --with-system-expat --with-system-ffi \
+                  --with-dbmliborder=bdb:gdbm --with-fpectl --enable-shared --with-threads
