@@ -3,9 +3,8 @@
 depends_on zlib
 depends_on libidn
 depends_on openssl
-## TODO: liblber.so
 
 fetch_source http://curl.haxx.se/download/curl-7.39.0.tar.bz2 80c6eadcc6ca526d1e1862c2234f33c7b7d10950
-do_unpack_compile --disable-ldap --with-ca-bundle=$PREFIX/etc/ssl/certs/cacert.pem
+do_unpack_compile --disable-ldap --enable-optimize --with-ca-bundle=$PREFIX/etc/ssl/cert.pem
 mkdir -p $PREFIX/etc/ssl/certs
-curl -L -R 'http://curl.haxx.se/ca/cacert.pem' -o $PREFIX/etc/ssl/certs/cacert.pem
+curl -L -R 'http://curl.haxx.se/ca/cacert.pem' -o $PREFIX/etc/ssl/cert.pem
