@@ -18,7 +18,7 @@ setup_traps() {
 log() {
     local DATE=`LANG=C LC_ALL=C date`
     echo "[$DATE] $@" >> "$HOME"/compile.log
-    echo "$@"
+    echo "[norm] $@"
 }
 
 log_success() {
@@ -212,14 +212,18 @@ compile_package() {
 
     FORMULA="$1"
     [ -n "$2" ] && COMPILING_FOR="$2"
-    if [ ! -e "$PREFIX"/"$FORMULA".installed -o -n "$force" ]; then
-        [ -z "$COMPILING_FOR" ] && log "Building package $FORMULA" \
-                                || log "Building package $FORMULA for $COMPILING_FOR"
+    local STATEDIR="$PREFIX"/var/norm
+    if [ ! -e "$STATEDIR"/"$FORMULA".installed -o -n "$force" ]; then
+        [ -z "$COMPILING_FOR" ] && log "Building package: $FORMULA" \
+                                || log "Building package: $FORMULA -- dependency of $COMPILING_FOR"
 
         . "$NORMDIR"/packages/"$FORMULA"
-        touch "$PREFIX"/"$FORMULA".installed
+        mkdir -p `dirname "$STATEDIR"/"$FORMULA"`
+        touch "$STATEDIR"/"$FORMULA".installed
+    else
+        log "Package already installed: $FORMULA"
     fi
-    [ -n "$COMPILING_FOR" ] && echo "[$DATE] Needed for $COMPILING_FOR" >> "$PREFIX"/"$FORMULA".installed || true
+    [ -n "$COMPILING_FOR" ] && echo "[$DATE] Needed for $COMPILING_FOR" >> "$STATEDIR"/"$FORMULA".installed || true
 }
 
 depends_on() {

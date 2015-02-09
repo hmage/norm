@@ -55,9 +55,9 @@ cmd_install() {
         esac
     done
     shift $((OPTIND-1))
-    [ -z "$1" ] && echo "Need package names" && exit 64
-    [ -n "$force" ] && echo "Forcing reinstall of packages: $@" \
-                    || echo "Installing packages: $@"
+    [ -z "$1" ] && log "Need package names" && exit 64
+    [ -n "$force" ] && log "Forcing reinstall of packages: $@" \
+                    || log "Installing packages: $@"
     setup_traps
     setup_prefix "$newprefix"
     for FORMULA; do
@@ -66,7 +66,7 @@ cmd_install() {
 }
 
 cmd_sub() {
-    echo "Creating subshell so you can compile and link against norm libs"
+    log "Creating subshell so you can compile and link against norm libs"
     setup_prefix "$newprefix"
     $SHELL -i
 }
@@ -118,7 +118,7 @@ done
 shift $((OPTIND-1))
 OPTIND=1
 
-[ -z "$1" ] && echo "No command specified" && usage && exit 64
+[ -z "$1" ] && echo "No command specified" >&2 && usage && exit 64
 
 case "$1" in
     install)
