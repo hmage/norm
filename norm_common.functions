@@ -38,7 +38,7 @@ do_configure() {
 }
 
 do_configure_outside() {
-    ../"$TARNAME"/configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-configure.log || exit 1
+    "$SRCDIR"/configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-configure.log || exit 1
 }
 
 do_make() {
@@ -66,7 +66,7 @@ do_compile() {
 
 
 do_compile_outside() {
-    local BUILDDIR="$COMPILEDIR"/"$TARNAME"-build
+    local BUILDDIR="$SRCDIR"-build
 
     rm -rf "$BUILDDIR" || exit 1
     mkdir -p "$BUILDDIR" || exit 1
