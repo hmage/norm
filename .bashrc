@@ -15,6 +15,6 @@ addpath() {
 }
 
 ## add ourselves to the PATH if we're not there yet
-addpath PATH "$DIR" "$NORMPREFIX/bin" "$NORMPREFIX/bin/ccache_wrap"
+addpath PATH "$DIR" "$NORMPREFIX/bin" "$NORMPREFIX/sbin" "$NORMPREFIX/bin/ccache_wrap"
 
 unset -f addpath
