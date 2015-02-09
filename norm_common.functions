@@ -263,6 +263,27 @@ fetch_debian() {
     fetch_file "$@"
 }
 
+##
+## check if current compiler supports various flags
+##
+## if yes, add it to specified variable
+## if multiple flags, chooses first that's accepted
+##
+## example: cc_supports EXTRA_CFLAGS -march=native -march=core2 -march=i686
+## example: cc_supports EXTRA_CFLAGS -Wextra
+cc_supports() {
+    [ -z "$1" -o -z "$2" ] && return
+    local value VARNAME=$1
+    shift 1
+    for value; do
+        echo 'int main() { int i; return 0;}' | cc -x c $CFLAGS ${!VARNAME} $value -o /dev/null - 2>/dev/null || true
+        local STATUS=${PIPESTATUS[1]}
+        [ -z "$STATUS" ] && continue
+        [ "$STATUS" -eq 0 ] && declare -g $VARNAME="${!VARNAME} $value"
+        return
+    done
+}
+
 add_to_ccache() {
     mkdir -p $PREFIX/bin/ccache_wrap
     for name in "$@"; do
