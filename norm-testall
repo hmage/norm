@@ -1,0 +1,54 @@
+#!/bin/bash
+set -eE
+
+##
+## prepare norm bootstrap
+##
+rm -rf $HOME/normtest
+if [ ! -e $HOME/normtest-bootstrap.tar.gz ]; then
+    norm -p $HOME/normtest install ccache tar curl
+    pushd $HOME
+    tar zcf normtest-bootstrap.tar.gz normtest
+    popd
+fi
+tar xf $HOME/normtest-bootstrap.tar.gz -C $HOME
+export PATH="$HOME/normtest/bin/ccache_wrap:$HOME/normtest/bin:$PATH"
+
+##
+## set up logging
+##
+LOGPATH=$HOME/work/norm/testlogs
+mkdir -p $LOGPATH
+LOGFILE=
+
+sigint() {
+    echo "Cancelled compilation of $file"
+    [ -e "$LOGFILE" ] && mv -f $LOGFILE{,.cancelled}
+    exit 1
+}
+trap sigint SIGINT
+trap sigint ERR
+
+##
+## compile each package and log output
+##
+cd packages
+mkdir -p $HOME/tmp
+for file in *; do
+    MD5=`md5sum $file|awk '{ print $1 }'`
+    LOGFILE=$LOGPATH/$file.log.$MD5
+    [ -f "$LOGFILE" ] && continue
+    rm -rf $HOME/norm
+    norm install $file 2>&1 | tee $LOGFILE
+    if [ ${PIPESTATUS[0]} -eq 0 ]; then
+	norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a $LOGFILE
+	pushd $HOME
+	[ "$file" != "ccache" ] && rm -rf norm/bin/ccache*
+	[ "$file" != "tar" ] && rm -rf norm/bin/tar norm/libexec/rmt
+	[ "$file" != "curl" -a "$file" != "curl-static" ] && rm -rf norm/bin/curl norm/etc/ssl/cert.pem
+	tar zcvf norm-"$file".tar.gz norm
+	popd
+    else
+	mv -f $LOGFILE{,.err}
+    fi
+done

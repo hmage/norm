@@ -22,7 +22,7 @@ newprefix=$DEFAULT_PREFIX
 
 usage() {
     ourname=`basename $0`
-    echo "Usage: "
+    echo "Usage:"
     echo "    $ourname install <package> [package ...]   -- install package(s)"
     echo "    $ourname reinstall <package> [package ...] -- reinstall already installed package(s)"
     echo "    $ourname list                              -- list all installed packages"
@@ -37,7 +37,9 @@ usage() {
     echo
     echo "ldd options:"
     echo "    -v          -- show list of files that will be fed to ldd"
-
+    echo
+    echo "Maintainer commands:"
+    echo "    $ourname testall  -- compile every package and save the result into separate logfiles"
 }
 
 cmd_install() {
@@ -85,6 +87,12 @@ cmd_list() {
     done
 }
 
+cmd_testall() {
+    pushd $NORMDIR
+    ./norm-testall "$@"
+    popd
+}
+
 while getopts ":p:" opt; do
     case $opt in
     p)
@@ -129,6 +137,10 @@ case "$1" in
     reinstall)
         shift
         cmd_install -f "$@"
+        ;;
+    testall)
+        shift
+        cmd_testall "$@"
         ;;
     *)
         echo "Unknown command: $1" >&2
