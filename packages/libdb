@@ -5,14 +5,11 @@ fetch_debian http://ftp.de.debian.org/debian/pool/main/d/db/db_5.1.29-5.debian.t
 
 ## TODO: create macros to configure outside of 'dist' subdir but inside source tree
 do_undebian
+SRCDIR=$SRCDIR/dist
 pushd_src
-sed -i 's|docdir=.*$(prefix)/docs|docdir=\t@docdir@|' dist/Makefile.in
-mkdir -p build
-cd build
-../dist/configure --prefix=$PREFIX --mandir=$PREFIX/share/man --enable-compat185 --disable-java \
-                  --enable-dbm
-do_make
-do_install
+sed -i 's|docdir=.*$(prefix)/docs|docdir=\t@docdir@|' Makefile.in
+do_compile_outside --prefix=$PREFIX --mandir=$PREFIX/share/man --enable-compat185 --disable-java \
+                   --enable-dbm
 popd
 
 ln -fs libdb.so $PREFIX/lib/libdb.so.2
