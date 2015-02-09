@@ -29,7 +29,7 @@ sub eachFile {
     return if /\.(c|h|fon|am|pm|tcl|sl|xml|sh|msg|map|info|pem|ini|hlp|mo|po)$/;
     return if /\.(sample|ttf|css|html|pub|ac|in|inc|sub|conf|site|cnf|pod|el)$/;
     return if /\.(gif|png|jpg|jpeg)$/;
-    return if /\.(a)$/;
+    return if /\.(a|gox)$/;
 
     my $fullpath = $File::Find::name;
     return if ($fullpath =~ m"/include/");
@@ -38,6 +38,7 @@ sub eachFile {
     return if ($fullpath =~ m"/share/gtk-doc/");
     return if ($fullpath =~ m"/share/man");
     return if ($fullpath =~ m"/share/terminfo/");
+    return if ($fullpath =~ m"/share/X11/locale/");
     return if ($fullpath =~ m"/var/cache/");
     push (@files, $fullpath);
 }
@@ -56,7 +57,7 @@ foreach my $arg (@files) {
     foreach (split(/\n/, $output)) {
 	next if /not a dynamic executable/;
 	next if /statically linked/;
-	next if m"$prefix";
+	next if m{\Q$prefix\E};
 	next if /^[\t]linux-gate.so.1 =>/;
 	next if /^[\t]lib(c|m|dl|rt|pthread|resolv|crypt|util|nsl|stdc\+\+|gcc_s)\.so/;
 	next if /^[\t]\/lib\/ld-linux.so.2/;
