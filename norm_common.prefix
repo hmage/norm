@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# sourced by norm_common.functions
-
 DEFAULT_PREFIX="$HOME/norm"
 
 addpath() {

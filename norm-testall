@@ -1,6 +1,13 @@
 #!/bin/bash
 set -eE
 
+DIRNAME=`dirname "$0"`
+READLINK=`readlink "$0" || true`
+LINKDIRNAME=`dirname "$READLINK"`
+NORMDIR=$LINKDIRNAME
+[ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
+NORMDIR=`cd "$NORMDIR"; pwd`
+
 ##
 ## prepare norm bootstrap
 ##
@@ -17,7 +24,7 @@ export PATH="$HOME/normtest/bin/ccache_wrap:$HOME/normtest/bin:$PATH"
 ##
 ## set up logging
 ##
-LOGPATH=$HOME/work/norm/testlogs
+LOGPATH=$NORMDIR/testlogs
 mkdir -p $LOGPATH
 LOGFILE=
 
@@ -32,23 +39,21 @@ trap sigint ERR
 ##
 ## compile each package and log output
 ##
-cd packages
+#cd packages
 mkdir -p $HOME/tmp
-for file in *; do
-    MD5=`md5sum $file|awk '{ print $1 }'`
-    LOGFILE=$LOGPATH/$file.log.$MD5
-    [ -f "$LOGFILE" ] && continue
+for file in `find $NORMDIR/packages -type f`; do
+    MD5=`md5sum "$file"|awk '{ print $1 }'`
+    formula=`basename "$file"`
+    LOGFILE=$LOGPATH/$formula.log.$MD5
+    [ -f "$LOGFILE" ] && continue # successful logfile exists, skip the package
     rm -rf $HOME/norm
-    norm install $file 2>&1 | tee $LOGFILE
+    norm install $formula 2>&1 | tee $LOGFILE
     if [ ${PIPESTATUS[0]} -eq 0 ]; then
-	norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a $LOGFILE
-	pushd $HOME
-	[ "$file" != "ccache" ] && rm -rf norm/bin/ccache*
-	[ "$file" != "tar" ] && rm -rf norm/bin/tar norm/libexec/rmt
-	[ "$file" != "curl" -a "$file" != "curl-static" ] && rm -rf norm/bin/curl norm/etc/ssl/cert.pem
-	tar zcvf norm-"$file".tar.gz norm
-	popd
+        norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a $LOGFILE
+        pushd $HOME
+        tar zcvf norm-"$formula".tar.gz norm
+        popd
     else
-	mv -f $LOGFILE{,.err}
+        mv -f $LOGFILE{,.err} # install failure, rename the log to indicate that
     fi
 done

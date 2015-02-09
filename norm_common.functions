@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# sourced by norm_common
-
-. "$NORMDIR"/norm_common.prefix
-
 onerror() {
     log "Package $TARNAME failed to build"
 }

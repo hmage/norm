@@ -9,8 +9,11 @@ NORMDIR=$LINKDIRNAME
 NORMDIR=`cd "$NORMDIR"; pwd`
 TARDIR="$HOME/.cache/norm"
 COMPILEDIR="$HOME/tmp/compile"
+LIBSUFFIX=so
+[[ $OSTYPE == *darwin* ]] && LIBSUFFIX=dylib
 
-. $NORMDIR/norm_common
+. $NORMDIR/norm_common.functions
+. $NORMDIR/norm_common.prefix
 
 ## find shasum binary
 SHASUM_BIN=shasum

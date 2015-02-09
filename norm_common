@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# sourced by norm
-
-LIBSUFFIX=so
-[[ $OSTYPE == *darwin* ]] && LIBSUFFIX=dylib
-
-. "$NORMDIR"/norm_common.functions
