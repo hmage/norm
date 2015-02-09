@@ -6,7 +6,7 @@ do_unpack
 pushd_src
 sed -i "s|/etc/bash_completion|$PREFIX/etc/bash_completion|" -- bash_completion
 sed -i "s|readlink -f|readlink|" -- bash_completion
-patch -p1 -l -N -f << 'EOF'
+do_patch_inline << 'EOF'
 --- a/bash_completion.orig        2015-01-24 20:29:19.255591000 +0300
 +++ b/bash_completion     2015-01-24 20:30:09.831591000 +0300
 @@ -1334,7 +1334,7 @@

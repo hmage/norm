@@ -198,6 +198,10 @@ do_patch() {
     patch -p1 -f -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" "$@"
 }
 
+do_patch_inline() {
+    patch -p1 -l -N -f "$@"
+}
+
 do_autoreconf() {
     pushd_src || exit 1
     autoreconf -f -i -v || exit 1
