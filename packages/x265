@@ -1,0 +1,15 @@
+#!/bin/bash
+
+depends_on yasm
+depends_on cmake
+
+fetch_source https://bitbucket.org/multicoreware/x265/get/1.4.tar.bz2 95b4481d61d1766fce4b7120d4b49d08e39d922b
+
+do_unpack
+pushd_src
+cmake source -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON
+do_make
+do_install
+popd
+log_success
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on libogg
+
+fetch_source http://downloads.xiph.org/releases/speex/speex-1.2rc1.tar.gz
+
+do_unpack_compile
+

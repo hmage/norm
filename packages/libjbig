@@ -1,0 +1,17 @@
+#!/bin/bash
+
+depends_on libtool
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/j/jbigkit/jbigkit_2.0.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/j/jbigkit/jbigkit_2.0-2+deb7u1.debian.tar.gz
+
+do_undebian
+pushd_src
+cd libjbig
+sed -i "s|/usr/|$PREFIX/|" Makefile
+do_make
+install -d $PREFIX/lib
+install -m 644 .libs/*.so* .libs/*.a .libs/*.la $PREFIX/lib
+install -d $PREFIX/include
+install -m 644 *.h $PREFIX/include
+popd

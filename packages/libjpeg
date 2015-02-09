@@ -1,0 +1,7 @@
+#!/bin/bash
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/libj/libjpeg8/libjpeg8_8d.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libj/libjpeg8/libjpeg8_8d-1+deb7u1.debian.tar.gz
+
+do_undebian_compile
+

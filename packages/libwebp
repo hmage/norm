@@ -1,0 +1,10 @@
+#!/bin/bash
+
+depends_on libpng
+depends_on libjpeg
+depends_on libtiff
+
+fetch_source http://downloads.webmproject.org/releases/webp/libwebp-0.4.2.tar.gz
+
+do_unpack_compile
+

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+fetch_source http://downloads.xvid.org/downloads/xvidcore-1.3.3.tar.gz
+
+do_unpack
+SRCDIR=$SRCDIR/build/generic
+do_compile

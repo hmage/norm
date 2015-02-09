@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on libogg
+depends_on libvorbis
+
+fetch_source http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.bz2
+
+do_unpack_compile

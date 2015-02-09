@@ -1,0 +1,5 @@
+#!/bin/bash
+depends_on libidn libncurses
+
+fetch_source http://www.cmake.org/files/v3.1/cmake-3.1.0.tar.gz cc20c40f5480c83a0204f516a490b470bd3a963a
+do_unpack_compile
