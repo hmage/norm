@@ -262,3 +262,10 @@ fetch_debian() {
     DEBPATCH=`basename "$URL"`
     fetch_file "$@"
 }
+
+add_to_ccache() {
+    mkdir -p $PREFIX/bin/ccache_wrap
+    for name in "$@"; do
+        ln -fs ../ccache $PREFIX/bin/ccache_wrap/"$name"
+    done
+}

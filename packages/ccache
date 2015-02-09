@@ -4,13 +4,4 @@ depends_on zlib
 fetch_source http://samba.org/ftp/ccache/ccache-3.2.1.tar.gz 64464a7697ac9ee2b3c766e69b1b7f565c05df7c
 do_unpack_compile
 
-add_to_ccache() {
-    mkdir -p $PREFIX/bin/ccache_wrap
-    for name in "$@"; do
-        ln -fs ../ccache $PREFIX/bin/ccache_wrap/"$name"
-    done
-}
-
 add_to_ccache cc cpp gcov c++ g++ gcc gcc-ar gcc-nm gcc-ranlib
-add_to_ccache clang clang++
-
