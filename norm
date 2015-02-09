@@ -89,6 +89,7 @@ while getopts ":p:" opt; do
     case $opt in
     p)
         newprefix="$OPTARG"
+        [ "${newprefix:0:1}" != "/" ] && newprefix="$PWD"/"$OPTARG"
         ;;
     \?)
         echo "Invalid option: -$OPTARG" >&2
