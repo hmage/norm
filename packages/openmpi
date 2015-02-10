@@ -1,0 +1,9 @@
+#!/bin/bash
+depends_on zlib
+depends_on libpciaccess
+
+fetch_source http://www.open-mpi.org/software/ompi/v1.8/downloads/openmpi-1.8.4.tar.bz2 88ae39850fcf0db05ac20e35dd9e4cacc75bde4d
+
+do_unpack
+do_patch openmpi-cpuid-x86.patch # gcc 4.9 is inlining aggressively and produces duplicate label, fix that
+do_compile --disable-mpi-fortran

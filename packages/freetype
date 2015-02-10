@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# because of circular dependency of harfbuzz<->freetype, we compile freetype for harfbuzz and then use harfbuzz to compile freetype
+
+depends_on pkg-config
+depends_on zlib
+depends_on bzip2
+depends_on libpng
+#depends_on libcairo -- it's the other way around -- cairo needs freetype
+depends_on libicu
+
+FREETYPE_OPTS="--with-zlib --with-bzip2 --with-png"
+
+## freetype #1 for harfbuzz
+fetch_source http://download.savannah.gnu.org/releases/freetype/freetype-2.5.5.tar.bz2 7b7460ef51a8fdb17baae53c6658fc1ad000a1c2
+do_unpack_compile $FREETYPE_OPTS
+
+## harfbuzz with freshly built freetype
+fetch_source http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-0.9.38.tar.bz2 00c24a228206a5646166630e02b542d7d3fb4544
+do_unpack_compile
+
+## freetype #2 with freshly built harfbuzz
+fetch_source http://download.savannah.gnu.org/releases/freetype/freetype-2.5.5.tar.bz2 7b7460ef51a8fdb17baae53c6658fc1ad000a1c2
+do_unpack
+pushd_src
+echo '#define FT_CONFIG_OPTION_SUBPIXEL_RENDERING 1' >> include/config/ftoption.h
+popd
+do_compile $FREETYPE_OPTS --with-harfbuzz
+

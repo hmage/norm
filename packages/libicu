@@ -1,0 +1,7 @@
+#!/bin/bash
+
+fetch_source http://download.icu-project.org/files/icu4c/54.1/icu4c-54_1-src.tgz
+
+do_unpack
+SRCDIR="$SRCDIR/source"
+do_compile

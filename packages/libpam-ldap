@@ -1,0 +1,22 @@
+#!/bin/bash
+
+depends_on openldap
+depends_on libpam
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/libp/libpam-ldap/libpam-ldap_184.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libp/libpam-ldap/libpam-ldap_184-8.6.diff.gz
+
+#do_undebian_compile
+
+## norm can't deal with CDBS yet, so do it semi-manually
+
+do_unpack
+tar xf "$SRCDIR"/pam_ldap-184.tar.gz -C "$SRCDIR"
+SRCDIR="$SRCDIR"/pam_ldap-184
+do_debianize
+pushd_src
+sed -ibak 's|-g root||' Makefile.am
+sed -ibak 's|-o root||' Makefile.am
+popd
+do_autoreconf
+do_compile

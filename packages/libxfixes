@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on libx11
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxfixes/libxfixes_5.0.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxfixes/libxfixes_5.0-4+deb7u1.diff.gz
+
+do_undebian_compile

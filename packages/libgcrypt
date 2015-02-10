@@ -1,0 +1,7 @@
+#!/bin/bash
+
+depends_on libgpg-error
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/libg/libgcrypt11/libgcrypt11_1.5.0.orig.tar.bz2 3e776d44375dc1a710560b98ae8437d5da6e32cf
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libg/libgcrypt11/libgcrypt11_1.5.0-5+deb7u2.debian.tar.gz 357f85a6259863f01fac71253507d8bafb57c4ef
+do_undebian_compile

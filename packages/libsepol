@@ -1,0 +1,10 @@
+#!/bin/bash
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/libs/libsepol/libsepol_2.1.4.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libs/libsepol/libsepol_2.1.4-3.debian.tar.gz
+
+do_undebian
+pushd_src
+sed -i 's|ln -sf ../../`basename $(SHLIBDIR)`/$(LIBSO)|ln -sf $(LIBSO)|' src/Makefile
+make install PREFIX="$PREFIX" SHLIBDIR="$PREFIX/lib" MAN8DIR=$PREFIX/share/man/man8 MAN3DIR=$PREFIX/share/man/man3
+popd

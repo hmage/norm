@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on python
+depends_on glib
+
+fetch_source http://ftp.gnome.org/pub/gnome/sources/gobject-introspection/1.42/gobject-introspection-1.42.0.tar.xz
+
+do_unpack_compile --disable-tests

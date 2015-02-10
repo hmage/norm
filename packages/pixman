@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source http://cairographics.org/releases/pixman-0.32.6.tar.gz
+
+do_unpack_compile
+

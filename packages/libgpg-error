@@ -1,0 +1,10 @@
+#!/bin/bash
+
+depends_on libtool # otherwise compile errors
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/libg/libgpg-error/libgpg-error_1.10.orig.tar.bz2 95b324359627fbcb762487ab6091afbe59823b29
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libg/libgpg-error/libgpg-error_1.10-3.1.debian.tar.gz b958decf8c5e9613c583d02670e141f121cb543c
+
+do_undebian
+do_autoreconf
+do_compile

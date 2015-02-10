@@ -1,0 +1,9 @@
+#!/bin/bash
+
+fetch_source http://llvm.org/releases/3.5.0/llvm-3.5.0.src.tar.xz 58d817ac2ff573386941e7735d30702fe71267d5
+
+do_unpack
+
+CC=gcc CXX=g++ \
+do_compile_outside --disable-assertions --enable-optimized --enable-targets=host \
+                   --enable-shared --disable-libedit

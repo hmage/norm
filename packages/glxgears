@@ -1,0 +1,13 @@
+#!/bin/bash
+
+depends_on mesa
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/m/mesa-demos/mesa-demos_8.2.0.orig.tar.gz d15728d32d5cc6078decbac7f425dc8ee81a8e12
+fetch_debian http://ftp.de.debian.org/debian/pool/main/m/mesa-demos/mesa-demos_8.2.0-1.diff.gz fdd7797cb5e28d2a185eb5995c383ddb445e76b8
+
+do_undebian
+pushd_src
+cd src/xdemos
+cc -O3 $CPPFLAGS glxgears.c $LDFLAGS -lGL -lX11 -lm -o glxgears
+install -m 755 glxgears $PREFIX/bin/glxgears
+popd

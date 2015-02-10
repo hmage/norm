@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on glib
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/p/pkg-config/pkg-config_0.26.orig.tar.gz fd71a70b023b9087c8a7bb76a0dc135a61059652
+fetch_debian http://ftp.de.debian.org/debian/pool/main/p/pkg-config/pkg-config_0.26-1.diff.gz 47a4391e1dd532a6dca7d32e61cb66a94d4f8b2c
+
+do_undebian_compile

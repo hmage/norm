@@ -1,0 +1,12 @@
+#!/bin/bash
+
+depends_on freetype
+depends_on gobject-introspection pixman libpng libx11
+depends_on libsm
+depends_on libxrender
+depends_on libxext
+
+fetch_source http://cairographics.org/releases/cairo-1.12.18.tar.xz
+
+do_unpack_compile --enable-xlib --enable-pdf --enable-ps --enable-png --enable-tee --enable-xlib \
+                  --enable-svg --enable-xcb --enable-xlib-xcb --enable-gobject=yes --enable-pthread

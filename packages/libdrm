@@ -1,0 +1,62 @@
+#!/bin/bash
+depends_on autoconf
+depends_on libtool
+depends_on libpciaccess
+depends_on pthread-stubs
+#depends_on udev
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/libd/libdrm/libdrm_2.4.58.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libd/libdrm/libdrm_2.4.58-2.diff.gz
+#fetch_source http://ftp.de.debian.org/debian/pool/main/libd/libdrm/libdrm_2.4.40.orig.tar.gz fa16e9704514e3368a5b207ba250a7d7626b627b
+#fetch_debian http://ftp.de.debian.org/debian/pool/main/libd/libdrm/libdrm_2.4.40-1~deb7u2.diff.gz 982f268cc21a156dff033e2d513400b1517334d4
+
+do_undebian
+do_patch_inline << 'EOF'
+diff -ur libdrm_2.4.40.orig.tar.gz.orig/radeon/radeon_bo_gem.c libdrm_2.4.40.orig.tar.gz/radeon/radeon_bo_gem.c
+--- a/radeon/radeon_bo_gem.c       2012-08-24 18:51:13.000000000 +0400
++++ b/radeon/radeon_bo_gem.c    2015-01-27 18:33:25.752000000 +0300
+@@ -46,6 +46,11 @@
+ #include "radeon_bo_int.h"
+ #include "radeon_bo_gem.h"
+ #include <fcntl.h>
++
++#if !defined(O_CLOEXEC) && defined(__linux__)
++#define O_CLOEXEC 02000000
++#endif
++
+ struct radeon_bo_gem {
+     struct radeon_bo_int base;
+     uint32_t            name;
+diff -urw libdrm_2.4.58.orig.tar.gz.orig/intel/intel_bufmgr_gem.c libdrm_2.4.58.orig.tar.gz/intel/intel_bufmgr_gem.c
+--- a/intel/intel_bufmgr_gem.c     2015-01-29 22:17:58.000000000 +0300
++++ b/intel/intel_bufmgr_gem.c  2015-01-29 22:20:35.636000000 +0300
+@@ -83,6 +83,11 @@
+ 
+ #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
+ 
++/* XXX hack for old libc */
++#if !defined(O_CLOEXEC) && defined(__linux__)
++#define O_CLOEXEC 02000000
++#endif
++
+ typedef struct _drm_intel_bo_gem drm_intel_bo_gem;
+ 
+ struct drm_intel_gem_bo_bucket {
+diff -urw libdrm_2.4.58.orig.tar.gz.orig/nouveau/nouveau.c libdrm_2.4.58.orig.tar.gz/nouveau/nouveau.c
+--- a/nouveau/nouveau.c	2014-09-28 20:19:54.000000000 +0400
++++ b/nouveau/nouveau.c	2015-01-29 22:23:53.004000000 +0300
+@@ -44,6 +44,11 @@
+ #include "nouveau.h"
+ #include "private.h"
+ 
++/* XXX hack for old libc */
++#if !defined(O_CLOEXEC) && defined(__linux__)
++#define O_CLOEXEC 02000000
++#endif
++
+ #ifdef DEBUG
+ uint32_t nouveau_debug = 0;
+ 
+EOF
+do_autoreconf
+do_compile

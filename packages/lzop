@@ -1,0 +1,7 @@
+#!/bin/bash
+depends_on liblzo
+
+fetch_source http://www.lzop.org/download/lzop-1.03.tar.gz 4ee0b49b2a6b0a13572ddca5785ee48ef4c8f80f
+
+do_unpack_compile
+

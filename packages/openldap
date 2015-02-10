@@ -1,0 +1,15 @@
+#!/bin/bash
+
+depends_on libtool autoconf automake
+depends_on libgcrypt
+depends_on libsasl
+depends_on openssl
+#depends_on libgnutls
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/o/openldap/openldap_2.4.31.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/o/openldap/openldap_2.4.31-1+nmu2.diff.gz
+
+do_undebian
+do_autoreconf
+do_compile --disable-slapd
+

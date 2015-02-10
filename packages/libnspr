@@ -1,0 +1,8 @@
+#!/bin/bash
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/n/nspr/nspr_4.9.2.orig.tar.gz 52e4c4b44398e2f5eb9430fd28d44083fbde880f
+fetch_debian http://ftp.de.debian.org/debian/pool/main/n/nspr/nspr_4.9.2-1+deb7u2.debian.tar.gz
+
+do_undebian
+SRCDIR=$SRCDIR/mozilla/nsprpub
+do_compile --enable-pthreads --enable-ipv6

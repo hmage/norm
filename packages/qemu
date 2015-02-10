@@ -1,0 +1,15 @@
+#!/bin/bash
+
+depends_on libuuid
+depends_on curl
+depends_on libpng
+depends_on libjpeg
+depends_on libasound
+depends_on pixman
+depends_on glib
+depends_on liblzo
+depends_on libnss
+
+fetch_source http://wiki.qemu-project.org/download/qemu-2.2.0.tar.bz2 9a16623775a92fd25334f4eced4e6a56ab536233
+
+do_unpack_compile --disable-sdl --disable-gtk --disable-vnc --disable-attr --with-system-pixman

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+depends_on qemu
+
+fetch_source http://libguestfs.org/download/1.28-stable/libguestfs-1.28.6.tar.gz 459e983cbbf635965ff74f6d5b605fa48580754d
+
+do_unpack_compile --disable-appliance --disable-daemon
+
+# --disable-introspection --disable-daemon --disable-appliance --disable-fuse \
+#                  --disable-ocaml --disable-perl --disable-python --disable-ruby --disable-haskell \
+#                  --disable-php --disable-erlang --disable-lua --disable-golang --disable-gobject
+

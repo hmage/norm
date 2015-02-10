@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on libxext libxtst
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxmu/libxmu_1.1.1.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxmu/libxmu_1.1.1-1.diff.gz
+
+do_undebian_compile

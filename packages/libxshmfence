@@ -1,0 +1,7 @@
+#!/bin/bash
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxshmfence/libxshmfence_1.1.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxshmfence/libxshmfence_1.1-4.diff.gz
+
+do_undebian_compile
+

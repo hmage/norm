@@ -1,0 +1,48 @@
+#!/bin/bash
+depends_on libnspr
+depends_on zlib
+depends_on sqlite3
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/n/nss/nss_3.14.5.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/n/nss/nss_3.14.5-1+deb7u3.debian.tar.gz
+
+do_undebian
+pushd_src
+make -C mozilla/security/nss build_coreconf build_dbm all \
+                                         MOZILLA_CLIENT=1 NSPR_INCLUDE_DIR=$PREFIX/include/nspr \
+                                         NSPR_LIB_DIR=$PREFIX/lib BUILD_OPT=1 NS_USE_GCC=1 \
+                                         NSS_USE_SYSTEM_SQLITE=1 NSS_ENABLE_ECC=1 CHECKLOC= \
+                                         USE_SYSTEM_ZLIB=1 OPTIMIZER="$CFLAGS $CPPFLAGS"
+
+cat debian/nss.pc.in     | perl -pe "s|prefix=/usr|prefix=$PREFIX|;s|/\@DEB_HOST_MULTIARCH\@||;s/\@VERSION\@/3.14.5/" > debian/nss.pc
+cat debian/nss-config.in | perl -pe "s|prefix=/usr|prefix=$PREFIX|;s|/\@DEB_HOST_MULTIARCH\@||;s/\@VERSION\@/3.14.5/;s/\@MOD_MAJOR_VERSION\@/3/;s/\@MOD_MINOR_VERSION\@/14/;s/\@MOD_PATCH_VERSION\@/5/" > debian/nss-config
+
+DISTDIR=mozilla/dist/Linux*_OPT.OBJ
+
+mkdir -p $PREFIX/bin
+mkdir -p $PREFIX/lib
+mkdir -p $PREFIX/lib/nss
+mkdir -p $PREFIX/lib/pkgconfig
+mkdir -p $PREFIX/include/nss
+install -m 644 -s -t $PREFIX/lib \
+        $DISTDIR/lib/libnss3.so \
+        $DISTDIR/lib/libnssutil3.so \
+        $DISTDIR/lib/libsmime3.so \
+        $DISTDIR/lib/libssl3.so
+install -m 644 -s -t $PREFIX/lib/nss \
+        $DISTDIR/lib/libfreebl3.so \
+        $DISTDIR/lib/libsoftokn3.so \
+        $DISTDIR/lib/libnssdbm3.so \
+        $DISTDIR/lib/libnssckbi.so
+ln -fs nss/libfreebl3.so $PREFIX/lib
+ln -fs nss/libsoftokn3.so $PREFIX/lib
+ln -fs nss/libnssdbm3.so $PREFIX/lib
+ln -fs nss/libnssckbi3.so $PREFIX/lib
+install -m 644 -t $PREFIX/include/nss mozilla/dist/public/nss/*
+install -m 644 -t $PREFIX/lib $DISTDIR/lib/libcrmf.a
+install -m 644 -t $PREFIX/lib/pkgconfig debian/nss.pc
+install -m 755 -t $PREFIX/bin debian/nss-config
+install -m 755 -s -t $PREFIX/bin $DISTDIR/bin/{certutil,cmsutil,crlutil,modutil,pk12util,shlibsign,signtool,signver,ssltap,pwdecrypt}
+popd
+log_success
+
