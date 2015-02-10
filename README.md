@@ -18,7 +18,7 @@ If you don't have root, it's very likely that software you want to use isn't the
 
 ## Hardcoded paths
 
-The compiled binaries are not for distribution -- compilation process adds hardcoded paths to them and won't work in any other location.
+The compiled binaries are not for distribution -- compilation process adds hardcoded paths and they won't work in any other location.
 
 ## Proxies
 
