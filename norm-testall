@@ -13,7 +13,7 @@ NORMDIR=`cd "$NORMDIR"; pwd`
 ##
 rm -rf $HOME/normtest
 if [ ! -e $HOME/normtest-bootstrap.tar.gz ]; then
-    norm -p $HOME/normtest install ccache tar curl
+    norm -p $HOME/normtest install ccache tar curl gcc
     pushd $HOME
     tar zcf normtest-bootstrap.tar.gz normtest
     popd
