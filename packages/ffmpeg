@@ -1,0 +1,30 @@
+#!/bin/bash
+
+depends_on yasm
+depends_on libopus
+depends_on speex
+depends_on libwebp
+depends_on x264
+depends_on x265
+depends_on libvorbis
+depends_on libxvid
+depends_on libfaac
+depends_on libtheora
+depends_on lame
+
+fetch_source https://www.ffmpeg.org/releases/ffmpeg-2.5.3.tar.bz2 160d53a0d6b8df18336fac7f068c390ac2d34cef
+
+do_unpack_compile --enable-pthreads --enable-gpl --enable-version3 \
+                  --enable-hardcoded-tables --enable-avresample \
+                  --enable-nonfree \
+                  --enable-libx264 \
+                  --enable-libx265 \
+                  --enable-libmp3lame \
+                  --enable-libxvid \
+                  --enable-libtheora \
+                  --enable-libvorbis \
+                  --enable-libfaac \
+                  --enable-ffplay \
+                  --enable-libspeex \
+                  --enable-libopus \
+                  --enable-libwebp
