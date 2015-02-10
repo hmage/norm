@@ -38,20 +38,18 @@ trap sigint ERR
 
 ##
 ## compile each package and log output
-##
-#cd packages
-mkdir -p $HOME/tmp
-for file in `find $NORMDIR/packages -type f`; do
+for file in `find $NORMDIR/packages -type f|sort -u`; do
     MD5=`md5sum "$file"|awk '{ print $1 }'`
-    formula=`basename "$file"`
-    LOGFILE=$LOGPATH/$formula.log.$MD5
+    formula=${file#$NORMDIR/packages/}
+    formula_name=`basename "$formula"`
+    LOGFILE=$LOGPATH/"$formula_name".log.$MD5
     [ -f "$LOGFILE" ] && continue # successful logfile exists, skip the package
     rm -rf $HOME/norm
     norm install $formula 2>&1 | tee $LOGFILE
     if [ ${PIPESTATUS[0]} -eq 0 ]; then
         norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a $LOGFILE
         pushd $HOME
-        tar zcvf norm-"$formula".tar.gz norm
+        tar zcvf norm-"$formula_name".tar.gz norm
         popd
     else
         mv -f $LOGFILE{,.err} # install failure, rename the log to indicate that
