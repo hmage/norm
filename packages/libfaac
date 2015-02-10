@@ -2,4 +2,24 @@
 
 fetch_source https://downloads.sourceforge.net/project/faac/faac-src/faac-1.28/faac-1.28.tar.gz d00b023a3642f81bb1fb13d962a65079121396ee
 
-do_unpack_compile --disable-debug
+do_unpack
+do_patch_inline << 'EOF'
+--- a/common/mp4v2/mpeg4ip.h
++++ b/common/mp4v2/mpeg4ip.h
+@@ -120,14 +120,6 @@
+ #endif
+ #include <sys/param.h>
+ 
+-#ifdef __cplusplus
+-extern "C" {
+-#endif
+-char *strcasestr(const char *haystack, const char *needle);
+-#ifdef __cplusplus
+-}
+-#endif
+-
+ #define OPEN_RDWR O_RDWR
+ #define OPEN_CREAT O_CREAT 
+ #define OPEN_RDONLY O_RDONLY
+EOF
+do_compile --disable-debug

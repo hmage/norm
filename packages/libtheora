@@ -5,4 +5,21 @@ depends_on libvorbis
 
 fetch_source http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.bz2
 
-do_unpack_compile
+do_unpack
+do_patch_inline << 'EOF'
+--- libtheora-1.1.1.tar.bz2.orig/examples/png2theora.c
++++ libtheora-1.1.1.tar.bz2/examples/png2theora.c
+@@ -462,9 +462,9 @@
+   png_set_strip_alpha(png_ptr);
+
+   row_data = (png_bytep)png_malloc(png_ptr,
+-    3*height*width*png_sizeof(*row_data));
++    3*height*width*sizeof(*row_data));
+   row_pointers = (png_bytep *)png_malloc(png_ptr,
+-    height*png_sizeof(*row_pointers));
++    height*sizeof(*row_pointers));
+   for(y = 0; y < height; y++) {
+     row_pointers[y] = row_data + y*(3*width);
+   }
+EOF
+do_compile

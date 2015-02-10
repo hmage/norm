@@ -195,7 +195,7 @@ do_patch() {
 }
 
 do_patch_inline() {
-    patch -p1 -l -N -f "$@"
+    patch -p1 -l -N -f -d "$SRCDIR" "$@"
 }
 
 do_autoreconf() {
