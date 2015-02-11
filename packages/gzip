@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/g/gzip/gzip_1.5.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/g/gzip/gzip_1.5-1.1.debian.tar.gz
+
+do_undebian_compile
