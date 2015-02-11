@@ -35,6 +35,6 @@ cd squashfs-tools
 sed -i 's|#XZ_SUPPORT|XZ_SUPPORT|' Makefile
 sed -i 's|#LZO_SUPPORT|LZO_SUPPORT|' Makefile
 sed -i "s|/usr/local|$PREFIX/|" Makefile
-popd
 do_make
 do_install
+popd
