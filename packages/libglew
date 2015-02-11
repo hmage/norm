@@ -11,5 +11,4 @@ pushd_src
 do_make GLEW_DEST=$PREFIX GL_LDFLAGS=-lX11
 do_install GLEW_DEST=$PREFIX GL_LDFLAGS=-lX11
 popd
-log_success
 

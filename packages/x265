@@ -11,5 +11,4 @@ cmake source -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DC
 do_make
 do_install
 popd
-log_success
 

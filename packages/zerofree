@@ -10,5 +10,4 @@ pushd_src
 do_make
 install -m755 zerofree $PREFIX/bin/zerofree
 popd
-log_success
 

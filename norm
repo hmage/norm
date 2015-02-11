@@ -7,6 +7,7 @@ LINKDIRNAME=`dirname "$READLINK"`
 NORMDIR=$LINKDIRNAME
 [ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
 NORMDIR=`cd "$NORMDIR"; pwd`
+OURNAME=`basename $0`
 TARDIR="$HOME/.cache/norm"
 COMPILEDIR="$HOME/tmp/compile"
 LIBSUFFIX=so
@@ -24,13 +25,12 @@ perl ' use v5.10.0; ' 2>/dev/null || CONFIGURE_FILTER=cat
 newprefix=$DEFAULT_PREFIX
 
 usage() {
-    ourname=`basename $0`
     echo "Usage:"
-    echo "    $ourname install <package> [package ...]   -- install package(s)"
-    echo "    $ourname reinstall <package> [package ...] -- reinstall already installed package(s)"
-    echo "    $ourname list                              -- list all installed packages"
-    echo "    $ourname ldd                               -- check for dynamic dependencies outside of prefix"
-    echo "    $ourname sub                               -- subshell with all prefix variables set"
+    echo "    $OURNAME install <package> [package ...]   -- install package(s)"
+    echo "    $OURNAME reinstall <package> [package ...] -- reinstall already installed package(s)"
+    echo "    $OURNAME list                              -- list all installed packages"
+    echo "    $OURNAME ldd                               -- check for dynamic dependencies outside of prefix"
+    echo "    $OURNAME sub                               -- subshell with all prefix variables set"
     echo
     echo "Common options:"
     echo "    -p <prefix> -- full path to custom prefix instead of default one"
@@ -42,7 +42,7 @@ usage() {
     echo "    -v          -- show list of files that will be fed to ldd"
     echo
     echo "Maintainer commands:"
-    echo "    $ourname testall  -- compile every package and save the result into separate logfiles"
+    echo "    $OURNAME testall  -- compile every package and save the result into separate logfiles"
 }
 
 cmd_install() {

@@ -11,5 +11,4 @@ sed -i 's|cp $(NAME).1 |install -m 0644 $(NAME).1 |' Makefile
 do_make
 do_install
 popd
-log_success
 

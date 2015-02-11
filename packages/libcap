@@ -10,4 +10,3 @@ pushd_src
 do_make
 do_install prefix=$PREFIX RAISE_SETFCAP=no
 popd
-log_success

@@ -11,4 +11,3 @@ sed -i "s|/usr/|$PREFIX/|" Makefile
 do_make
 do_install
 popd
-log_success

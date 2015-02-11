@@ -44,5 +44,4 @@ install -m 644 -t $PREFIX/lib/pkgconfig debian/nss.pc
 install -m 755 -t $PREFIX/bin debian/nss-config
 install -m 755 -s -t $PREFIX/bin $DISTDIR/bin/{certutil,cmsutil,crlutil,modutil,pk12util,shlibsign,signtool,signver,ssltap,pwdecrypt}
 popd
-log_success
 

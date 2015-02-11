@@ -11,4 +11,3 @@ sed -i 's|LDFLAGS= `dpkg-buildflags --get LDFLAGS`||' Makefile
 do_make_and_install PREFIX=$PREFIX
 popd
 ln -fs libbz2.so.1.0 $PREFIX/lib/libbz2.so.1
-log_success

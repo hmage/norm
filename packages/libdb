@@ -25,5 +25,3 @@ install -m 755 libdb1.so.2 $PREFIX/lib/libdb1-2.2.5.so
 ln -fs libdb1-2.2.5.so $PREFIX/lib/libdb1.so.2
 ln -fs libdb1-2.2.5.so $PREFIX/lib/libdb1.so
 popd
-
-log_success

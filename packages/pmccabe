@@ -8,5 +8,4 @@ sed -i 's|install -o root -g root|install|' Makefile # unnecessarily assumption 
 do_make
 do_install
 popd
-log_success
 

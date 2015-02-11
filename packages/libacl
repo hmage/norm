@@ -11,4 +11,3 @@ do_install
 make install-dev
 make install-lib
 popd
-log_success

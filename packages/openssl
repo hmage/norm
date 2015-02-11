@@ -45,4 +45,3 @@ install -p -m755 apps/openssl.static $PREFIX/bin/openssl
 install -p -m644 libcrypto.static $PREFIX/lib/libcrypto.a
 install -p -m644 libssl.static $PREFIX/lib/libssl.a
 popd
-log_success

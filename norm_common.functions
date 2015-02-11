@@ -1,11 +1,11 @@
 #!/bin/bash
 
 onerror() {
-    log "Package $TARNAME failed to build"
+    log "Package $FORMULA failed to build"
 }
 
 onexit() {
-    log "$0 -- exiting, last package $TARNAME"
+    log "$OURNAME -- exiting, last formula -- $FORMULA"
 }
 
 setup_traps() {
@@ -22,7 +22,7 @@ log() {
 }
 
 log_success() {
-    log "$0 -- Compiled $TARNAME"
+    log "$OURNAME -- Package $FORMULA -- success"
 }
 
 pushd_src() {
@@ -57,7 +57,6 @@ do_compile() {
     do_configure "$@" || exit 1
     do_make_and_install || exit 1
     popd || exit 1
-    log_success
 }
 
 
@@ -70,7 +69,6 @@ do_compile_outside() {
     do_configure_outside "$@" || exit 1
     do_make_and_install || exit 1
     popd || exit 1
-    log_success
 }
 
 ##
@@ -89,7 +87,7 @@ do_unpack() {
     rm -rf "$SRCDIR"  || exit 1
     mkdir -p "$SRCDIR"  || exit 1
     tar -xf "$TARDIR/$TARNAME" -C "$SRCDIR" --strip-components 1 || exit 1
-    log "$0 -- Unpacked $TARNAME"
+    log "$OURNAME -- Unpacked $TARNAME"
 }
 
 ##
@@ -143,7 +141,7 @@ do_debian_patches() {
     fi
     for i in $PATCHES; do
         [ -e "$i" ] || continue
-        log Applying patch "$i"
+        echo Applying patch "$i"
         patch -f -p1 -i "$i" -d "$SRCDIR" ||
         patch -f -p0 -i "$i" -d "$SRCDIR" ||
         patch -f -p2 -i "$i" -d "$SRCDIR" || true
@@ -219,9 +217,11 @@ compile_package() {
 
         . "$NORMDIR"/packages/"$FORMULA"
         mkdir -p `dirname "$STATEDIR"/"$FORMULA"`
+        log_success
         touch "$STATEDIR"/"$FORMULA".installed
     else
-        log "Package already installed: $FORMULA"
+        [ -z "$COMPILING_FOR" ] && log "Package already installed: $FORMULA" \
+                                || log "Package already installed: $FORMULA -- wanted by $COMPILING_FOR"
     fi
     [ -n "$COMPILING_FOR" ] && echo "[$DATE] Needed for $COMPILING_FOR" >> "$STATEDIR"/"$FORMULA".installed || true
 }
