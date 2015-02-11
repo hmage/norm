@@ -19,6 +19,11 @@ if (@ARGV < 1) {
 }
 
 my $prefix = $ARGV[0];
+# strip trailing slashes
+while ($prefix =~ /\/\z/) {
+    $prefix =~ s|/\z||g;
+}
+
 
 my @files;
 sub eachFile {
@@ -51,13 +56,14 @@ if ($verbose) {
 
 print "Found " . scalar(@files) . " files, checking if they have dependencies outside norm's prefix...\n";
 
+my $filtered_prefix = quotemeta($prefix);
 foreach my $arg (@files) {
     my $output = `ldd "$arg" 2>&1`;
     my $filtered_output = "";
     foreach (split(/\n/, $output)) {
 	next if /not a dynamic executable/;
 	next if /statically linked/;
-	next if m{\Q$prefix\E};
+	next if m|$filtered_prefix/|;
 	next if /^[\t]linux-gate.so.1 =>/;
 	next if /^[\t]lib(c|m|dl|rt|pthread|resolv|crypt|util|nsl|stdc\+\+|gcc_s)\.so/;
 	next if /^[\t]\/lib\/ld-linux.so.2/;
