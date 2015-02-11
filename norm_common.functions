@@ -30,11 +30,11 @@ pushd_src() {
 }
 
 do_configure() {
-    ./configure --prefix="$PREFIX" "$@" 2>&1 | $CONFIGURE_FILTER | tee $COMPILEDIR/$TARNAME-configure.log || exit 1
+    ./configure --prefix="$PREFIX" "$@" 2>&1 | $CONFIGURE_FILTER | tee $COMPILEDIR/$TARNAME-configure.log || ./configure.gnu --prefix="$PREFIX" "$@" 2>&1 | $CONFIGURE_FILTER | tee $COMPILEDIR/$TARNAME-configure.log || exit 1
 }
 
 do_configure_outside() {
-    "$SRCDIR"/configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-configure.log || exit 1
+    "$SRCDIR"/configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-configure.log || "$SRCDIR"/configure.gnu --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-configure.log || exit 1
 }
 
 do_make() {
