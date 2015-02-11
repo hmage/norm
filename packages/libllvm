@@ -1,5 +1,8 @@
 #!/bin/bash
 
+depends_on zlib
+depends_on libncurses
+
 fetch_source http://llvm.org/releases/3.5.0/llvm-3.5.0.src.tar.xz 58d817ac2ff573386941e7735d30702fe71267d5
 
 do_unpack

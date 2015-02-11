@@ -3,6 +3,7 @@
 depends_on libtool
 depends_on libdb
 depends_on libcrack
+depends_on gettext # autopoint for autoreconf
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/p/pam/pam_1.1.3.orig.tar.gz 897acdce243c6c6afeee7d3a4f351e3e891eff44
 fetch_debian http://ftp.de.debian.org/debian/pool/main/p/pam/pam_1.1.3-7.1.diff.gz 7d7676198107d4cfb61910376826c06cc830c0c2
