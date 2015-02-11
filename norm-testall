@@ -4,33 +4,33 @@ set -eE
 DIRNAME=`dirname "$0"`
 READLINK=`readlink "$0" || true`
 LINKDIRNAME=`dirname "$READLINK"`
-NORMDIR=$LINKDIRNAME
+NORMDIR="$LINKDIRNAME"
 [ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
 NORMDIR=`cd "$NORMDIR"; pwd`
 
 ##
 ## prepare norm bootstrap
 ##
-rm -rf $HOME/normtest
-if [ ! -e $HOME/normtest-bootstrap.tar.gz ]; then
-    norm -p $HOME/normtest install ccache tar curl gcc
-    pushd $HOME
+rm -rf "$HOME"/normtest
+if [ ! -e "$HOME"/normtest-bootstrap.tar.gz ]; then
+    norm -p "$HOME"/normtest install ccache tar curl
+    pushd "$HOME"
     tar zcf normtest-bootstrap.tar.gz normtest
     popd
 fi
-tar xf $HOME/normtest-bootstrap.tar.gz -C $HOME
+tar xf "$HOME"/normtest-bootstrap.tar.gz -C "$HOME"
 export PATH="$HOME/normtest/bin/ccache_wrap:$HOME/normtest/bin:$PATH"
 
 ##
 ## set up logging
 ##
-LOGPATH=$NORMDIR/testlogs
-mkdir -p $LOGPATH
+LOGPATH="$NORMDIR"/testlogs
+mkdir -p "$LOGPATH"
 LOGFILE=
 
 sigint() {
     echo "Cancelled compilation of $file"
-    [ -e "$LOGFILE" ] && mv -f $LOGFILE{,.cancelled}
+    [ -e "$LOGFILE" ] && mv -f "$LOGFILE"{,.cancelled}
     exit 1
 }
 trap sigint SIGINT
@@ -38,20 +38,20 @@ trap sigint ERR
 
 ##
 ## compile each package and log output
-for file in `find $NORMDIR/packages -type f|sort -u`; do
+for file in `find "$NORMDIR"/packages -type f|sort -u`; do
     MD5=`md5sum "$file"|awk '{ print $1 }'`
     formula=${file#$NORMDIR/packages/}
     formula_name=`basename "$formula"`
-    LOGFILE=$LOGPATH/"$formula_name".log.$MD5
+    LOGFILE="$LOGPATH"/"$formula_name".log."$MD5"
     [ -f "$LOGFILE" ] && continue # successful logfile exists, skip the package
-    rm -rf $HOME/norm
-    norm install $formula 2>&1 | tee $LOGFILE
-    if [ ${PIPESTATUS[0]} -eq 0 ]; then
-        norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a $LOGFILE
-        pushd $HOME
+    rm -rf "$HOME"/norm
+    norm install "$formula" 2>&1 | tee "$LOGFILE"
+    if [ "${PIPESTATUS[0]}" == "0" ]; then
+        norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a "$LOGFILE"
+        pushd "$HOME"
         tar zcvf norm-"$formula_name".tar.gz norm
         popd
     else
-        mv -f $LOGFILE{,.err} # install failure, rename the log to indicate that
+        mv -f "$LOGFILE"{,.err} # install failure, rename the log to indicate that
     fi
 done
