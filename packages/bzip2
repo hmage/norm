@@ -1,13 +1,19 @@
 #!/bin/bash
-fetch_source http://ftp.de.debian.org/debian/pool/main/b/bzip2/bzip2_1.0.6.orig.tar.bz2 3725a0554fa6bb654ef2728fef36bc06aed4e388
-fetch_debian http://ftp.de.debian.org/debian/pool/main/b/bzip2/bzip2_1.0.6-4.debian.tar.bz2 0d18086b0e37fc50c6a70bdc566b69bc6b0a357c
+
+fetch_source http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz
 
 ## these files break reinstall/upgrade
 rm -f $PREFIX/bin/{bunzip2,bzcat}
 
-do_undebian
+do_unpack
 pushd_src
-sed -i 's|LDFLAGS= `dpkg-buildflags --get LDFLAGS`||' Makefile
 do_make_and_install PREFIX=$PREFIX
-popd
+
+## shared library needs to be built and installed manually
+do_make -f Makefile-libbz2_so
+install -d $PREFIX/lib
+install -m 755 libbz2.so.* $PREFIX/lib
+cp -fd libbz2.so.1.0 $PREFIX/lib/
 ln -fs libbz2.so.1.0 $PREFIX/lib/libbz2.so.1
+
+popd
