@@ -4,7 +4,7 @@ fetch_source http://www.cpan.org/src/5.0/perl-5.20.0.tar.gz 52087047fd35e1020387
 
 do_unpack
 pushd_src
-./configure.gnu
+./Configure -de -Dprefix=$PREFIX
 do_make
 do_install
 popd
