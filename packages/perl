@@ -2,4 +2,9 @@
 
 fetch_source http://www.cpan.org/src/5.0/perl-5.20.0.tar.gz 52087047fd35e1020387f7c492f594a397be4e12
 
-do_unpack_compile
+do_unpack
+pushd_src
+./configure.gnu
+do_make
+do_install
+popd
