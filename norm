@@ -24,7 +24,12 @@ perl ' use v5.10.0; ' 2>/dev/null || CONFIGURE_FILTER=cat
 
 newprefix=$DEFAULT_PREFIX
 
+## root users must use distro's package manager
 [ $EUID == "0" ] && log "Error: I will not run for root user." && exit 1
+
+## cc sanity check
+test_cc_func "stdio.h" 'printf("Hello, world!\n");' || (log "Error: your compiler can't compile!" && log "Check that your have it installed correctly" && exit 1)
+
 
 usage() {
     echo "Usage:"

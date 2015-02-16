@@ -35,7 +35,7 @@ setup_prefix() {
     default_aclocal="$PREFIX/share/aclocal"
 
     addflags LDFLAGS $default_ldflags
-    addflags CPPFLAGS $default_cppflags
+    cc_addflags CPPFLAGS $default_cppflags
 
     ## set runtime flags
     addpath PATH "$PREFIX/bin" "$PREFIX/sbin" "$PREFIX/bin/ccache_wrap"

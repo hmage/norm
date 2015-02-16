@@ -264,24 +264,94 @@ fetch_debian() {
 }
 
 ##
-## check if current compiler supports various flags
+## example: test_cc 'main() { return 0;}' -O2
+test_cc() {
+    CODE="$1"
+    shift
+    echo "$CODE" | cc -x c "$@" -o /dev/null - 2>/dev/null || true
+    local STATUS=${PIPESTATUS[1]}
+    [ -n "$STATUS" ] && return $STATUS
+    return 1
+}
+
 ##
-## if yes, add it to specified variable
-## if multiple flags, chooses first that's accepted
+## example: cc_checkflags -Wl,-Bsymbolic -O2
+cc_checkflags() {
+    test_cc 'int main() { int i; return 0;}' "$@"
+}
+
 ##
-## example: cc_supports EXTRA_CFLAGS -march=native -march=core2 -march=i686
-## example: cc_supports EXTRA_CFLAGS -Wextra
-cc_supports() {
+## check if compiler will accept the flag
+## first one accepted is added to specified variable
+##
+## example: cc_addflag EXTRA_CFLAGS -march=native -march=core2 -march=i686
+## example: cc_addflag EXTRA_CFLAGS -Wextra -W
+cc_addflag() {
     [ -z "$1" -o -z "$2" ] && return
     local value VARNAME=$1
     shift 1
     for value; do
-        echo 'int main() { int i; return 0;}' | cc -x c $CFLAGS ${!VARNAME} $value -o /dev/null - 2>/dev/null || true
-        local STATUS=${PIPESTATUS[1]}
-        [ -z "$STATUS" ] && continue
-        [ "$STATUS" -eq 0 ] && declare -g $VARNAME="${!VARNAME} $value"
+        [[ "${!VARNAME}" =~ "(^| )$value( |$)" ]] && return # already have it
+        cc_checkflags $CFLAGS ${!VARNAME} $value || continue
+        export $VARNAME="${!VARNAME} $value"
         return
     done
+}
+
+##
+## check if compiler will accept the flags
+## any flag that gets accepted will be added to specified variable
+cc_addflags() {
+    [ -z "$1" -o -z "$2" ] && return
+    local value VARNAME=$1
+    shift 1
+    for value; do
+        [[ "${!VARNAME}" =~ "(^| )$value( |$)" ]] && continue # already have it
+        cc_checkflags $CFLAGS ${!VARNAME} $value || continue
+        export $VARNAME="${!VARNAME} $value"
+    done
+}
+
+
+## test_cc_value "fcntl.h" "O_CLOEXEC"
+test_cc_value() {
+    test_cc "#define _GNU_SOURCE
+#include <$1>
+int main() { int a = $2; return 0;}"
+}
+
+## test_cc_func "stdio.h" 'printf("Hello, world!\n");'
+test_cc_func() {
+    test_cc "#include <$1>
+int main() { $2; return 0;}"
+}
+
+
+## Example: have_gcc 4.7
+have_gcc() {
+    [ -z "$1" ] && echo "have_gcc() needs an argument" && return 1
+    local HAVE_GCC_RAW=`gcc -dumpversion`
+    local HAVE_GCC=`echo "$HAVE_GCC_RAW" | sed -e 's/\.\([0-9][0-9]\)/\1/g' -e 's/\.\([0-9]\)/0\1/g' -e 's/^[0-9]\{3,4\}$/&00/'`
+    local ASKED_GCC=`echo "$1" | sed -e 's/\.\([0-9][0-9]\)/\1/g' -e 's/\.\([0-9]\)/0\1/g' -e 's/^[0-9]\{3,4\}$/&00/'`
+    [ "$HAVE_GCC" -lt "$ASKED_GCC" ] && return 1
+    return 0
+}
+
+## Example: require_gcc 4.7
+## Same as have_gcc, but prints a message doesn't print a message
+requires_gcc() {
+    [ -z "$1" ] && echo "require_gcc() needs an argument" && return 1
+    if ! have_gcc "$1"; then
+        local NEED_GCC_RAW="$1"
+        shift
+        local HAVE_GCC_RAW=`gcc -dumpversion`
+        log "Package $FORMULA needs GCC at least $NEED_GCC_RAW $@"
+        log "You have $HAVE_GCC_RAW"
+        log ""
+        log "Type 'norm install gcc' to install fresh gcc"
+        exit 1 ## we don't want onerror() to type 'package failed to build'
+    fi
+    return 0
 }
 
 add_to_ccache() {
