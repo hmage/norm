@@ -1,5 +1,7 @@
 #!/bin/bash
 
+requires_gcc 4.7
+
 depends_on zlib
 depends_on libncurses
 

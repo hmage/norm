@@ -1,5 +1,7 @@
 #!/bin/bash
 
+requires_gcc 4.3 for -mssse3 support
+
 depends_on yasm
 
 fetch_source https://webm.googlecode.com/files/libvpx-v1.3.0.tar.bz2 191b95817aede8c136cc3f3745fb1b8c50e6d5dc
