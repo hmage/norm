@@ -1,0 +1,45 @@
+#!/bin/bash
+
+depends_on autoconf automake libtool
+depends_on pkg-config
+depends_on gperf
+
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/u/udev/udev_175.orig.tar.bz2 2ef42ca4b11e6b9d0d5c7f47da39eb2e64695e44
+fetch_debian http://ftp.de.debian.org/debian/pool/main/u/udev/udev_175-7.2.debian.tar.xz 05013ead1f9c789e17bfd5d1330ab3307b7c3a8a
+
+do_undebian
+do_patch_inline << 'EOF'
+--- udev_175.orig.tar.bz2.orig/libudev/libudev-private.h
++++ udev_175.orig.tar.bz2/libudev/libudev-private.h
+@@ -214,4 +214,14 @@
+ void udev_selinux_resetfscreatecon(struct udev *udev);
+ #endif
+
++#ifndef O_CLOEXEC
++#define O_CLOEXEC    02000000
++#endif
++#ifndef SOCK_NONBLOCK
++#define SOCK_NONBLOCK 04000
++#endif
++#ifndef SOCK_CLOEXEC
++#define SOCK_CLOEXEC O_CLOEXEC
++#endif
++
+ #endif
+--- udev_175.orig.tar.bz2.orig/Makefile.am
++++ udev_175.orig.tar.bz2/Makefile.am
+@@ -637,6 +637,9 @@
+ dist_udevrules_DATA += extras/edd_id/61-persistent-storage-edd.rules
+ endif
+
++libexec_PROGRAMS =
++sbin_PROGRAMS =
++
+ # ------------------------------------------------------------------------------
+ # install, uninstall, clean hooks
+ # ------------------------------------------------------------------------------
+EOF
+do_autoreconf
+do_compile --disable-introspection --disable-gudev --disable-hwdb --disable-gtk-doc \
+           --without-systemdsystemunitdir

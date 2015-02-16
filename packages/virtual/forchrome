@@ -19,7 +19,7 @@ depends_on libxdamage
 depends_on libxtst
 depends_on libxrandr
 depends_on libexpat
-depends_on udev
+depends_on libudev
 #depends_on cups
 #depends_on libdbus
 depends_on libcap
