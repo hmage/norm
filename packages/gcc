@@ -5,8 +5,8 @@ depends_on zlib
 intree_unpack() {
   pushd_src
   [ -n "$1" ] && mkdir "$1"
-  [ -n "$1" ] && tar xkf "$TARDIR"/"$TARNAME" --strip-components 1 -C "$1" || true
-  [ -z "$1" ] && tar xkf "$TARDIR"/"$TARNAME" --strip-components 1 || true
+  [ -n "$1" ] && tar xkf "$TARDIR/$TARNAME" --strip-components 1 -C "$1" || true
+  [ -z "$1" ] && tar xkf "$TARDIR/$TARNAME" --strip-components 1 || true
   popd
 }
 

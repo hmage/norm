@@ -79,10 +79,10 @@ do_compile_outside() {
 ##
 ## alternative usage: do_unpack foo-1.2.3.tar.bz2
 do_unpack() {
-    [ -f "$TARDIR"/"$1" ] && TARNAME="$1"
+    [ -f "$TARDIR/$1" ] && TARNAME="$1"
     [ -z "$TARNAME" ] && echo "TARNAME is empty!" && exit 1
 
-    SRCDIR="$COMPILEDIR"/"$TARNAME"
+    SRCDIR="$COMPILEDIR/$TARNAME"
 
     rm -rf "$SRCDIR"  || exit 1
     mkdir -p "$SRCDIR"  || exit 1
@@ -98,8 +98,8 @@ do_unpack() {
 ##
 ## alternative usage: do_undebian foo-1.2.3.orig.tar.bz2 foo-1.2.3.debian.tar.gz
 do_undebian() {
-    [ -f "$TARDIR"/"$1" ] && TARNAME="$1"
-    [ -f "$TARDIR"/"$2" ] && DEBPATCH="$2"
+    [ -f "$TARDIR/$1" ] && TARNAME="$1"
+    [ -f "$TARDIR/$2" ] && DEBPATCH="$2"
 
     ## sets SRCDIR
     do_unpack "$TARNAME" || exit 1
@@ -113,14 +113,14 @@ do_undebian() {
 ##
 ## alternative usage: do_debianize foo-1.2.3.debian.tar.gz
 do_debianize() {
-    [ -f "$TARDIR"/"$1" ] && DEBPATCH="$1"
+    [ -f "$TARDIR/$1" ] && DEBPATCH="$1"
 
     do_undebian_overlay "$DEBPATCH"
     do_debian_patches
 }
 
 do_undebian_overlay() {
-    [ -f "$TARDIR"/"$1" ] && DEBPATCH="$1"
+    [ -f "$TARDIR/$1" ] && DEBPATCH="$1"
 
     ## unpack debian overlay -- try tar, gzip, xz, bz
     tar -xf "$TARDIR/$DEBPATCH" -C "$SRCDIR" ||
@@ -155,7 +155,7 @@ do_debian_patches() {
 ##
 ## alternative usage: do_undebian_compile foo-1.2.3.orig.tar.bz2 foo-1.2.3.debian.tar.gz
 do_undebian_compile() {
-    if [ -f "$TARDIR"/"$1" -a -f "$TARDIR"/"$2" ]; then
+    if [ -f "$TARDIR/$1" -a -f "$TARDIR/$2" ]; then
         TARNAME="$1"
         DEBPATCH="$2"
         shift 2
@@ -171,7 +171,7 @@ do_undebian_compile() {
 ##
 ## alternative usage: do_unpack_compile foo-1.2.3.tar.bz2
 do_unpack_compile() {
-    if [ -f "$TARDIR"/"$1" ]; then
+    if [ -f "$TARDIR/$1" ]; then
         TARNAME="$1"
         shift 1
     fi
@@ -216,16 +216,16 @@ compile_package() {
                                 || log "Building package: $FORMULA -- dependency of $COMPILING_FOR"
         [ ! -e "$NORMDIR"/packages/"$FORMULA" ] && log "Error: Package file '$FORMULA' does not exist" && return 1
         . "$NORMDIR"/packages/"$FORMULA"
-        mkdir -p `dirname "$STATEDIR"/"$FORMULA"`
+        mkdir -p `dirname "$STATEDIR/$FORMULA"`
         log_success
-        touch "$STATEDIR"/"$FORMULA".installed
+        touch "$STATEDIR/$FORMULA".installed
         ## remove artifacts
         [ -z "$norm_keep_sources" -a -n "$COMPILEDIR" -a -n "$TARNAME" ] && rm -rf "$COMPILEDIR/$TARNAME"
     else
         [ -z "$COMPILING_FOR" ] && log "Package already installed: $FORMULA" \
                                 || log "Package already installed: $FORMULA -- wanted by $COMPILING_FOR"
     fi
-    [ -n "$COMPILING_FOR" ] && echo "[$DATE] Needed for $COMPILING_FOR" >> "$STATEDIR"/"$FORMULA".installed || true
+    [ -n "$COMPILING_FOR" ] && echo "[$DATE] Needed for $COMPILING_FOR" >> "$STATEDIR/$FORMULA".installed || true
 }
 
 depends_on() {

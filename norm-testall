@@ -47,7 +47,7 @@ for file in `find "$NORMDIR"/packages -type f|sort -u`; do
     MD5=`md5sum "$file"|awk '{ print $1 }'`
     formula=${file#$NORMDIR/packages/}
     formula_name=`basename "$formula"`
-    LOGFILE="$LOGPATH"/"$formula_name".log."$MD5"
+    LOGFILE="$LOGPATH/$formula_name".log."$MD5"
     [ -f "$LOGFILE" -o -f "$LOGFILE".gz ] && continue # successful logfile exists, skip the package
     rm -rf "$HOME"/norm
     norm install "$formula" 2>&1 | tee "$LOGFILE"
