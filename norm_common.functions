@@ -214,11 +214,13 @@ compile_package() {
     if [ ! -e "$STATEDIR"/"$FORMULA".installed -o -n "$force" ]; then
         [ -z "$COMPILING_FOR" ] && log "Building package: $FORMULA" \
                                 || log "Building package: $FORMULA -- dependency of $COMPILING_FOR"
-
+        [ ! -e "$NORMDIR"/packages/"$FORMULA" ] && log "Error: Package file '$FORMULA' does not exist" && return 1
         . "$NORMDIR"/packages/"$FORMULA"
         mkdir -p `dirname "$STATEDIR"/"$FORMULA"`
         log_success
         touch "$STATEDIR"/"$FORMULA".installed
+        ## remove artifacts
+        [ -z "$norm_keep_sources" -a -n "$COMPILEDIR" -a -n "$TARNAME" ] && rm -rf "$COMPILEDIR/$TARNAME"
     else
         [ -z "$COMPILING_FOR" ] && log "Package already installed: $FORMULA" \
                                 || log "Package already installed: $FORMULA -- wanted by $COMPILING_FOR"
