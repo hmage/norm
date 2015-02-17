@@ -1,10 +1,13 @@
 #!/bin/bash
 
+CAVEATS=()
+
 onerror() {
     log "Package $FORMULA failed to build"
 }
 
 onexit() {
+    for line in "${CAVEATS[@]}"; do log $line; done
     log "Exiting"
 }
 
@@ -362,4 +365,12 @@ add_to_ccache() {
     for name in "$@"; do
         ln -fs ../ccache $PREFIX/bin/ccache_wrap/"$name"
     done
+}
+
+add_caveat() {
+    CAVEATS+=("Formula $FORMULA has a message for you:")
+    for line; do
+        CAVEATS+=("$line")
+    done
+    CAVEATS+=("")
 }
