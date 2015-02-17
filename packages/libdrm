@@ -1,14 +1,13 @@
 #!/bin/bash
+depends_on pkg-config
 depends_on autoconf
+depends_on automake
 depends_on libtool
 depends_on libpciaccess
 depends_on pthread-stubs
-#depends_on udev
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libd/libdrm/libdrm_2.4.58.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libd/libdrm/libdrm_2.4.58-2.diff.gz
-#fetch_source http://ftp.de.debian.org/debian/pool/main/libd/libdrm/libdrm_2.4.40.orig.tar.gz fa16e9704514e3368a5b207ba250a7d7626b627b
-#fetch_debian http://ftp.de.debian.org/debian/pool/main/libd/libdrm/libdrm_2.4.40-1~deb7u2.diff.gz 982f268cc21a156dff033e2d513400b1517334d4
+fetch_source http://ftp.de.debian.org/debian/pool/main/libd/libdrm/libdrm_2.4.58.orig.tar.gz a53df9c326062f0ab0da8cfb8ccc843fe1accedc
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libd/libdrm/libdrm_2.4.58-2.diff.gz 5d3241b6a702d5e689f7ead7f6b686df9100ac10
 
 do_undebian
 do_patch_inline << 'EOF'

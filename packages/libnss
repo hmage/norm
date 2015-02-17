@@ -3,8 +3,8 @@ depends_on libnspr
 depends_on zlib
 depends_on sqlite3
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/n/nss/nss_3.14.5.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/n/nss/nss_3.14.5-1+deb7u3.debian.tar.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/n/nss/nss_3.14.5.orig.tar.gz d977d50bbd78c7cae520a57781c19c07927f5b7e
+fetch_debian http://ftp.de.debian.org/debian/pool/main/n/nss/nss_3.14.5-1+deb7u3.debian.tar.gz e2b1d6c03bca782f703379ee62c24c599dc3fdaf
 
 do_undebian
 pushd_src

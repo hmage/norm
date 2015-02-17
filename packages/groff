@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/g/groff/groff_1.21.orig.tar.gz a513aca4a7530a6e63325addd6ba2d282c8f1608
+fetch_debian http://ftp.de.debian.org/debian/pool/main/g/groff/groff_1.21-9.debian.tar.gz 40fb5c3666fd6c1806e753feaa7f573493dea063
+
+do_unpack_compile --without-x

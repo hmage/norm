@@ -1,6 +1,9 @@
 #!/bin/bash
 depends_on libacl
-depends_on libcroco
+depends_on libxml
+depends_on libncurses
+
+## don't add libcroco dependency -- it depends on glib, and glib depends on gettext
 
 fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.19.4.tar.xz 16c90342f3a59c7df364ebb3209a48be42b7ffd9
-do_unpack_compile --without-emacs --disable-libasprintf
+do_unpack_compile --without-emacs --disable-libasprintf --with-included-glib --with-included-libcroco

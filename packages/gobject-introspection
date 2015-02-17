@@ -1,8 +1,39 @@
 #!/bin/bash
 
+depends_on pkg-config
+depends_on autoconf automake libtool
+depends_on flex
+depends_on bison
 depends_on python
 depends_on glib
 
-fetch_source http://ftp.gnome.org/pub/gnome/sources/gobject-introspection/1.42/gobject-introspection-1.42.0.tar.xz
+## newer gobject-introspection depends on newer glib, but newer glib doesn't compile on old gcc
+fetch_source http://ftp.de.debian.org/debian/pool/main/g/gobject-introspection/gobject-introspection_1.32.1.orig.tar.xz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/g/gobject-introspection/gobject-introspection_1.32.1-1.debian.tar.gz
 
-do_unpack_compile --disable-tests
+do_undebian
+do_patch_inline << 'EOF' # old versions of linker require explicit libpython linkage too
+--- a/Makefile-giscanner.am
++++ b/Makefile-giscanner.am
+@@ -74,7 +74,7 @@
+    $(PYTHON_INCLUDES) \
+    $(GOBJECT_CFLAGS) \
+    -I$(top_srcdir)/giscanner
+-_giscanner_la_LIBADD = libgiscanner.la $(GOBJECT_LIBS)
++_giscanner_la_LIBADD = libgiscanner.la $(GOBJECT_LIBS) $(PYTHON_LIBS)
+
+ _giscanner_la_LDFLAGS = \
+    -module -avoid-version -export-symbols-regex init_giscanner
+--- a/configure.ac
++++ b/configure.ac
+@@ -268,7 +268,7 @@
+        ;;
+ esac
+ AM_CHECK_PYTHON_HEADERS(, AC_MSG_ERROR([Python headers not found]))
+-if test "x$os_win32" = "xyes"; then
++if true; then
+   AM_CHECK_PYTHON_LIBS(, AC_MSG_ERROR([Python libs not found. Windows requires Python modules to be explicitly linked to libpython.]))
+ fi
+EOF
+do_autoreconf
+do_compile --disable-tests ## tests depend on libcairo

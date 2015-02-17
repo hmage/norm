@@ -1,6 +1,9 @@
 #!/bin/bash
 
+depends_on pkg-config
+depends_on xorg-macros
 depends_on libx11
+depends_on xproto
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxrender/libxrender_0.9.7.orig.tar.gz
 fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxrender/libxrender_0.9.7-1+deb7u1.diff.gz

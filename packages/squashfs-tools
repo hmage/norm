@@ -35,6 +35,6 @@ cd squashfs-tools
 sed -i 's|#XZ_SUPPORT|XZ_SUPPORT|' Makefile
 sed -i 's|#LZO_SUPPORT|LZO_SUPPORT|' Makefile
 sed -i "s|/usr/local|$PREFIX/|" Makefile
-do_make
+do_make EXTRA_CFLAGS="$CPPFLAGS -std=gnu99" EXTRA_LDFLAGS="$LDFLAGS"
 do_install
 popd

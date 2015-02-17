@@ -2,10 +2,12 @@
 
 ## TODO: libldap.so, liblber.so
 depends_on zlib
+depends_on gettext
+
+## https support
 depends_on openssl
 depends_on curl
 depends_on libexpat
-depends_on gettext
 
 fetch_source https://www.kernel.org/pub/software/scm/git/git-2.3.0.tar.xz 8b36622e063931c3131d6a2217d4a8dc5bc69a08
 

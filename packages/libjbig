@@ -2,8 +2,8 @@
 
 depends_on libtool
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/j/jbigkit/jbigkit_2.0.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/j/jbigkit/jbigkit_2.0-2+deb7u1.debian.tar.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/j/jbigkit/jbigkit_2.0.orig.tar.gz cfb7d3121f02a74bfb229217858a0d149b6589ef
+fetch_debian http://ftp.de.debian.org/debian/pool/main/j/jbigkit/jbigkit_2.0-2+deb7u1.debian.tar.gz bfc4f10a785278a1cdc2ab7c0f1e4f1873ba413d
 
 do_undebian
 pushd_src

@@ -4,7 +4,7 @@ depends_on libpng
 depends_on libjpeg
 depends_on libtiff
 
-fetch_source http://downloads.webmproject.org/releases/webp/libwebp-0.4.2.tar.gz
+fetch_source http://downloads.webmproject.org/releases/webp/libwebp-0.4.2.tar.gz 49bb46fcb27aa01c7417064828560a57e3c7ff47
 
 do_unpack_compile
 

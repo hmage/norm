@@ -1,7 +1,7 @@
 #!/bin/bash
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/n/nspr/nspr_4.9.2.orig.tar.gz 52e4c4b44398e2f5eb9430fd28d44083fbde880f
-fetch_debian http://ftp.de.debian.org/debian/pool/main/n/nspr/nspr_4.9.2-1+deb7u2.debian.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/n/nspr/nspr_4.9.2-1+deb7u2.debian.tar.gz 0fb08d3f9abd784f56888395a8a272f720a8034a
 
 do_undebian
 SRCDIR=$SRCDIR/mozilla/nsprpub

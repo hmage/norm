@@ -1,4 +1,7 @@
 #!/bin/bash
+
+depends_on pkg-config
+
 fetch_source http://ftp.de.debian.org/debian/pool/main/libp/libpciaccess/libpciaccess_0.13.1.orig.tar.gz 657e226f4512cffd7168260fa6c8cbfc7e6809bc
 fetch_debian http://ftp.de.debian.org/debian/pool/main/libp/libpciaccess/libpciaccess_0.13.1-2.diff.gz f74d2deacd1f646dff60ecfcad2296048a50e5a7
 

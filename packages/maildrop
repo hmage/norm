@@ -1,5 +1,6 @@
 #!/bin/bash
-depends_on libidn
+
+depends_on pkg-config
 depends_on libgdbm
 depends_on libfam
 depends_on libpcre

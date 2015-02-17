@@ -1,4 +1,7 @@
 #!/bin/bash
+
+depends_on pkg-config
+depends_on xorg-macros
 depends_on xproto libx11
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxext/libxext_1.3.1.orig.tar.gz

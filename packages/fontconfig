@@ -1,5 +1,8 @@
 #!/bin/bash
+
+depends_on pkg-config
 depends_on freetype
+depends_on libxml
 depends_on libexpat
 
 fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.11.1.tar.bz2 08565feea5a4e6375f9d8a7435dac04e52620ff2

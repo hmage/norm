@@ -1,10 +1,11 @@
 #!/bin/bash
 
+depends_on pkg-config
+depends_on xorg-macros
 depends_on freetype
 depends_on fontconfig
 depends_on libx11
 depends_on libxrender
-depends_on zlib
 
 fetch_source http://xorg.freedesktop.org/releases/individual/lib/libXft-2.3.2.tar.gz
 

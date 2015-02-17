@@ -1,9 +1,12 @@
 #!/bin/bash
 
-depends_on zlib xz libjpeg libjbig
+#depends_on zlib xz libjpeg libjbig
+depends_on xz
+depends_on libjpeg
+depends_on zlib
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/t/tiff/tiff_4.0.2.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/t/tiff/tiff_4.0.2-6+deb7u3.debian.tar.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/t/tiff/tiff_4.0.2.orig.tar.gz d84b7b33a6cfb3d15ca386c8c16b05047f8b5352
+fetch_debian http://ftp.de.debian.org/debian/pool/main/t/tiff/tiff_4.0.2-6+deb7u3.debian.tar.gz 99ab6e9a5e8a491055255a1972f97821adf84b59
 
 do_undebian_compile --without-x
 

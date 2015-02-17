@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on pkg-config
 depends_on libtool
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/n/ncurses/ncurses_5.9.orig.tar.gz 2888200a4106435bc5ba8658c8434761a662b7ac

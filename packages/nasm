@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://www.nasm.us/pub/nasm/releasebuilds/2.11.06/nasm-2.11.06.tar.xz
+fetch_source http://www.nasm.us/pub/nasm/releasebuilds/2.11.06/nasm-2.11.06.tar.xz 0f3f8b3091e4024d0ef203a823896604640ac681
 
 do_unpack_compile

@@ -5,4 +5,4 @@ depends_on libx11 libxext
 fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxxf86vm/libxxf86vm_1.1.2.orig.tar.gz
 fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxxf86vm/libxxf86vm_1.1.2-1+deb7u1.diff.gz
 
-LDFLAGS="-lX11" do_undebian_compile
+do_undebian_compile

@@ -1,5 +1,18 @@
 #!/bin/bash
 
+depends_on pkg-config
+
 fetch_source http://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.42.12/e2fsprogs-1.42.12.tar.gz 083c1bb0d1e85672e8038a2fadf70b24e7409db7
 
-do_unpack_compile --enable-elf-shlibs --disable-defrag
+CONFFLAGS="--disable-defrag --enable-symlink-install"
+[[ $OSTYPE == *linux* ]] && CONFFLAGS="$CONFFLAGS --enable-elf-shlibs"
+
+do_unpack
+pushd_src
+mkdir -p build
+cd build
+do_configure_outside $CONFFLAGS
+do_make
+do_install
+make install-libs
+popd

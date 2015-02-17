@@ -1,4 +1,6 @@
 #!/bin/bash
+
+depends_on pkg-config
 depends_on libslang glib
 
 fetch_source http://ftp.midnight-commander.org/mc-4.8.13.tar.xz b64b81f80fa93224f054ad5f498e479ceac5a49d

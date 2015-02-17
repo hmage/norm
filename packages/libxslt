@@ -4,9 +4,4 @@ depends_on libxml
 
 fetch_source ftp://xmlsoft.org/libxslt/libxslt-1.1.28.tar.gz 4df177de629b2653db322bfb891afa3c0d1fa221
 
-#fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxslt/libxslt_1.1.26.orig.tar.gz
-#fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxslt/libxslt_1.1.26-14.1.debian.tar.gz
-
 do_unpack_compile
-#do_autoreconf
-#do_compile

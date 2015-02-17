@@ -1,7 +1,18 @@
 #!/bin/bash
+
+depends_on autoconf automake libtool
 depends_on zlib
 depends_on libffi libelf
 depends_on pkg-config
+depends_on gettext
+depends_on libpcre
+depends_on python # for mandatory tests to build
 
-fetch_source http://ftp.gnome.org/pub/gnome/sources/glib/2.42/glib-2.42.1.tar.xz b5158fd434f01e84259155c04ff93026a090e586
-do_unpack_compile --disable-fam
+## use debian stable. newer glib requires pthread functions that don't exist on older libc and gcc
+fetch_source http://ftp.de.debian.org/debian/pool/main/g/glib2.0/glib2.0_2.33.12+really2.32.4.orig.tar.xz 5b6481cbb34f560e8ea78887200b6b7f5448dcb4
+fetch_debian http://ftp.de.debian.org/debian/pool/main/g/glib2.0/glib2.0_2.33.12+really2.32.4-5.debian.tar.gz f706f21a5ab147e15488b009021d0bb1a76bfd31
+
+do_undebian
+do_autoreconf
+[[ $OSTYPE == *linux* ]] && NEW_LDFLAGS="$LDFLAGS -Wl,-z,defs -Wl,-O1"
+LDFLAGS="$NEW_LDFLAGS" do_compile --disable-fam --with-pcre=system

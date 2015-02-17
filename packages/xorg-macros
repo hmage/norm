@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on autoconf
+depends_on autoconf automake libtool
 hash -r
 fetch_source http://xorg.freedesktop.org/releases/individual/util/util-macros-1.19.0.tar.bz2 00cfc636694000112924198e6b9e4d72f1601338
 

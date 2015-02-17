@@ -1,0 +1,10 @@
+#!/bin/bash
+
+depends_on m4
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/b/bison/bison_2.5.dfsg.orig.tar.bz2 bd8121f2b02efbf2ea246ed541343ec675f8477e
+fetch_debian http://ftp.de.debian.org/debian/pool/main/b/bison/bison_2.5.dfsg-2.1.debian.tar.gz 2c38cbfe310f86e15dc5b17b7e0f7a7429419e00
+
+do_undebian
+touch --date="Jan 01 2000" "$SRCDIR"/doc/{bison.info,bison.texinfo,fdl.texi}
+do_compile

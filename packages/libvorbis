@@ -1,7 +1,8 @@
 #!/bin/bash
 
+depends_on pkg-config
 depends_on libogg
 
-fetch_source http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.xz
+fetch_source http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.xz b99724acdf3577982b3146b9430d765995ecf9e1
 
 do_unpack_compile

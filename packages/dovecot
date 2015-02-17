@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on pkg-config
 depends_on zlib
 depends_on bzip2
 depends_on xz
@@ -7,9 +8,48 @@ depends_on openssl
 depends_on sqlite3
 depends_on libexpat
 depends_on libpam
-depends_on libcap
 
 fetch_source http://dovecot.org/releases/2.2/dovecot-2.2.15.tar.gz 10c90f1f08797b5931703d52a871437e6561d76f
 
-do_unpack_compile --with-ssl=openssl --with-solr --with-sqlite --localstatedir=$PREFIX/var --with-moduledir=$PREFIX/lib/dovecot/modules --sysconfdir=$PREFIX/etc
+do_undebian
+do_patch_inline << 'EOF' ## work around old libc that can't handle const int
+--- dovecot-2.2.15.tar.gz.orig/src/auth/db-checkpassword.c      2014-06-02 15:50:10.000000000 +0400
++++ dovecot-2.2.15.tar.gz/src/auth/db-checkpassword.c   2015-02-14 15:40:33.972000000 +0300
+@@ -428,19 +428,20 @@
+ {
+    struct chkpw_auth_request *request =
+        hash_table_lookup(db->clients, POINTER_CAST(status->pid));
++       int stat = status->status;
+
+    i_assert(request != NULL);
+
+    hash_table_remove(db->clients, POINTER_CAST(status->pid));
+    request->exited = TRUE;
+
+-       if (WIFSIGNALED(status->status)) {
++       if (WIFSIGNALED(stat)) {
+        auth_request_log_error(request->request, AUTH_SUBSYS_DB,
+            "Child %s died with signal %d",
+-                       dec2str(status->pid), WTERMSIG(status->status));
++                       dec2str(status->pid), WTERMSIG(stat));
+        checkpassword_internal_failure(&request);
+-       } else if (WIFEXITED(status->status)) {
+-               request->exit_status = WEXITSTATUS(status->status);
++       } else if (WIFEXITED(stat)) {
++               request->exit_status = WEXITSTATUS(stat);
+
+        auth_request_log_debug(request->request, AUTH_SUBSYS_DB,
+                       "exit_status=%d", request->exit_status);
+@@ -449,7 +450,7 @@
+        /* shouldn't happen */
+        auth_request_log_debug(request->request, AUTH_SUBSYS_DB,
+                       "Child %s exited with status=%d",
+-                                      dec2str(status->pid), status->status);
++                                      dec2str(status->pid), stat);
+        checkpassword_internal_failure(&request);
+    }
+ }
+EOF
+do_compile --with-ssl=openssl --with-solr --with-sqlite --localstatedir=$PREFIX/var \
+           --with-moduledir=$PREFIX/lib/dovecot/modules --sysconfdir=$PREFIX/etc --with-ioloop=best
 mkdir -p $PREFIX/var/log

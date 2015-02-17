@@ -1,9 +1,9 @@
 #!/bin/bash
 
+depends_on pkg-config
 depends_on libogg
-depends_on libvorbis
 
-fetch_source http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.bz2
+fetch_source http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.bz2 8dcaa8e61cd86eb1244467c0b64b9ddac04ae262
 
 do_unpack
 do_patch_inline << 'EOF'

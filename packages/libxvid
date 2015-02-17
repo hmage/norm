@@ -1,5 +1,7 @@
 #!/bin/bash
 
+depends_on yasm
+
 fetch_source http://downloads.xvid.org/downloads/xvidcore-1.3.3.tar.gz
 
 do_unpack

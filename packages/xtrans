@@ -1,5 +1,5 @@
 #!/bin/bash
-depends_on autoconf automake
+depends_on autoconf automake libtool
 depends_on pkg-config
 depends_on xorg-macros
 

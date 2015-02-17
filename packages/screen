@@ -1,5 +1,9 @@
 #!/bin/bash
-depends_on libncurses libelf libutempter
+
+depends_on autoconf automake libtool
+depends_on libncurses
+depends_on libelf
+depends_on libutempter
 
 fetch_source http://ftp.gnu.org/gnu/screen/screen-4.2.1.tar.gz 21eadf5f1d64120649f3390346253c6bc8a5103c
 

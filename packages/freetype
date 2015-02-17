@@ -4,12 +4,12 @@
 
 depends_on pkg-config
 depends_on zlib
-depends_on bzip2
 depends_on libpng
 #depends_on libcairo -- it's the other way around -- cairo needs freetype
 depends_on libicu
 
-FREETYPE_OPTS="--with-zlib --with-bzip2 --with-png"
+## adding bzip2 will force everyone that uses freetype to add -lbz2 manually to linker, disable it
+FREETYPE_OPTS="--with-zlib --without-bzip2 --with-png"
 
 ## freetype #1 for harfbuzz
 fetch_source http://download.savannah.gnu.org/releases/freetype/freetype-2.5.5.tar.bz2 7b7460ef51a8fdb17baae53c6658fc1ad000a1c2

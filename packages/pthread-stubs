@@ -1,5 +1,7 @@
 #!/bin/bash
 
+depends_on pkg-config
+
 fetch_source http://ftp.de.debian.org/debian/pool/main/libp/libpthread-stubs/libpthread-stubs_0.3.orig.tar.gz
 fetch_debian http://ftp.de.debian.org/debian/pool/main/libp/libpthread-stubs/libpthread-stubs_0.3-3.diff.gz
 do_undebian_compile

@@ -2,8 +2,8 @@
 
 depends_on libreadline
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/u/uml-utilities/uml-utilities_20070815.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/u/uml-utilities/uml-utilities_20070815-1.3.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/u/uml-utilities/uml-utilities_20070815.orig.tar.gz e2dd5abf3d6cd9fd3af983382d1aeb76ab1006ea
+fetch_debian http://ftp.de.debian.org/debian/pool/main/u/uml-utilities/uml-utilities_20070815-1.3.diff.gz 4f3751507a19f2bcd62c085e4ff9f75def670b36
 
 do_undebian
 pushd_src
@@ -11,5 +11,5 @@ sed -i "s|/usr/|$PREFIX/|" Makefile
 sed -i "s:umlfs::" Makefile
 sed -i "s|/usr/|$PREFIX/|" jail/Makefile
 sed -i 's:install -o 0755:install -m 0755:' humfsify/Makefile
-do_make
+do_make CFLAGS="$CPPFLAGS $LDFLAGS -g -Wall" # these makefiles don't know of anything but CFLAGS
 do_install

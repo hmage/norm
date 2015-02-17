@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source ftp://ftp.alsa-project.org/pub/lib/alsa-lib-1.0.28.tar.bz2
+fetch_source ftp://ftp.alsa-project.org/pub/lib/alsa-lib-1.0.28.tar.bz2 3130b50835ce5e9ce061dd7916eac1121e1a83e3
 
 do_unpack_compile --disable-python

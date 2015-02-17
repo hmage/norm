@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on m4
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/f/flex/flex_2.5.35.orig.tar.gz 333c876a8e24ae5a17d9573459fc501b7721930b
+fetch_debian http://ftp.de.debian.org/debian/pool/main/f/flex/flex_2.5.35-10.1.diff.gz 05a6b0c4536e5bde1d955c489c1a821cb4de0a83
+
+do_undebian_compile

@@ -1,9 +1,10 @@
 #!/bin/bash
 
-depends_on libtool
+depends_on autoconf automake libtool
 depends_on libdb
 depends_on libcrack
 depends_on gettext # autopoint for autoreconf
+depends_on flex    # code calls to yywrap()
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/p/pam/pam_1.1.3.orig.tar.gz 897acdce243c6c6afeee7d3a4f351e3e891eff44
 fetch_debian http://ftp.de.debian.org/debian/pool/main/p/pam/pam_1.1.3-7.1.diff.gz 7d7676198107d4cfb61910376826c06cc830c0c2
@@ -11,4 +12,4 @@ fetch_debian http://ftp.de.debian.org/debian/pool/main/p/pam/pam_1.1.3-7.1.diff.
 do_undebian
 do_autoreconf
 do_compile --enable-static --enable-shared --libdir=$PREFIX/lib --enable-isadir=$PREFIX/lib/security \
-           --disable-regenerate-docu
+           --disable-regenerate-docu --includedir=$PREFIX/include/security

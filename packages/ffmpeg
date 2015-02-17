@@ -1,16 +1,29 @@
 #!/bin/bash
 
+depends_on pkg-config
 depends_on yasm
 depends_on libopus
 depends_on speex
 depends_on libwebp
 depends_on x264
-depends_on x265
+have_gcc 4.4 && depends_on x265
 depends_on libvorbis
 depends_on libxvid
 depends_on libfaac
 depends_on libtheora
 depends_on lame
+depends_on zlib
+depends_on bzip2
+depends_on xz
+depends_on libx11
+depends_on libxext
+depends_on libxau
+depends_on libxdmcp
+have_gcc 4.7 && depends_on libva ## mesa wants 4.7
+depends_on libasound
+
+X265_CONFIGURE=
+have_gcc 4.4 && X265_CONFIGURE=--enable-libx265
 
 fetch_source https://www.ffmpeg.org/releases/ffmpeg-2.5.3.tar.bz2 160d53a0d6b8df18336fac7f068c390ac2d34cef
 
@@ -18,7 +31,7 @@ do_unpack_compile --enable-pthreads --enable-gpl --enable-version3 \
                   --enable-hardcoded-tables --enable-avresample \
                   --enable-nonfree \
                   --enable-libx264 \
-                  --enable-libx265 \
+                  $X265_CONFIGURE \
                   --enable-libmp3lame \
                   --enable-libxvid \
                   --enable-libtheora \

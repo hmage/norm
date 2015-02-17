@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz
+fetch_source http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz 3f89f861209ce81a6bab1fd1998c0ef311712002
 
 ## these files break reinstall/upgrade
 rm -f $PREFIX/bin/{bunzip2,bzcat}

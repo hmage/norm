@@ -7,6 +7,6 @@ fetch_debian http://ftp.de.debian.org/debian/pool/main/libc/libcap2/libcap2_2.22
 
 do_undebian
 pushd_src
-do_make
+do_make LDFLAGS="$LDFLAGS"
 do_install prefix=$PREFIX RAISE_SETFCAP=no
 popd

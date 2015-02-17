@@ -1,5 +1,7 @@
 #!/bin/bash
 
+requires_gcc 4.2 for -fopenmp support
+
 depends_on xz
 
 fetch_source https://github.com/jnovy/pxz/archive/ae808463c2950edfdedb8fb49f95006db0a18667.tar.gz 1892ff1c648159b9aec3496170907cb2ae3f057a

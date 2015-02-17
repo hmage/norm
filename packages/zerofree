@@ -7,7 +7,8 @@ fetch_debian http://ftp.de.debian.org/debian/pool/main/z/zerofree/zerofree_1.0.2
 
 do_undebian
 pushd_src
-do_make
+sed -i 's:$(CC) -o zerofree:$(CC) $(CPPFLAGS) $(LDFLAGS) -o zerofree:' Makefile
+do_make LDFLAGS="$LDFLAGS" CPPFLAGS="$CPPFLAGS"
 install -m755 zerofree $PREFIX/bin/zerofree
 popd
 
