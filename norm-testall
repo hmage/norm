@@ -13,13 +13,18 @@ NORMDIR=`cd "$NORMDIR"; pwd`
 ##
 rm -rf "$HOME"/normtest
 if [ ! -e "$HOME"/normtest-bootstrap.tar.gz ]; then
-    norm -p "$HOME"/normtest install ccache tar curl
+    norm -p "$HOME"/normtest install ccache tar xz bzip2 gzip curl
     pushd "$HOME"
+    ## bin is in PATH, remove stuff that might trick packages into thinking we have what we shouldn't
+    cd normtest/bin
+    rm -vf attr c_rehash chacl curl-config getfacl getfattr idn setfacl setfattr *pkg-config
+    cd $HOME
     tar zcf normtest-bootstrap.tar.gz normtest
     popd
 fi
 tar xf "$HOME"/normtest-bootstrap.tar.gz -C "$HOME"
 export PATH="$HOME/normtest/bin/ccache_wrap:$HOME/normtest/bin:$PATH"
+export LD_LIBRARY_PATH="$HOME/normtest/lib"
 
 ##
 ## set up logging
@@ -31,7 +36,7 @@ LOGFILE=
 sigint() {
     echo "Cancelled compilation of $file"
     [ -e "$LOGFILE" ] && mv -f "$LOGFILE"{,.cancelled}
-    exit 1
+    false
 }
 trap sigint SIGINT
 trap sigint ERR
@@ -47,7 +52,7 @@ for file in `find "$NORMDIR"/packages -type f|sort -u`; do
     rm -rf "$HOME"/norm
     norm install "$formula" 2>&1 | tee "$LOGFILE"
     if [ "${PIPESTATUS[0]}" == "0" ]; then
-        norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a "$LOGFILE"
+        LD_LIBRARY_PATH= norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a "$LOGFILE"
         pushd "$HOME"
         tar zcvf norm-"$formula_name".tar.gz norm
         popd
@@ -55,6 +60,5 @@ for file in `find "$NORMDIR"/packages -type f|sort -u`; do
     else
         mv -f "$LOGFILE"{,.err} # install failure, rename the log to indicate that
         rm -f "$LOGFILE".err.gz
-        gzip "$LOGFILE".err
     fi
 done
