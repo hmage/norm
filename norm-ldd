@@ -29,11 +29,15 @@ my @files;
 sub eachFile {
     return if not -f;
     return if -l;
+    return if /(README|INSTALL|COPYING)$/;
     return if /\.(py|pyo|pyc)$/; ## 3900 files
     return if /\.(def|decTest|m4|txt|pc|la|syntax|installed)$/;
     return if /\.(c|h|fon|am|pm|tcl|sl|xml|sh|msg|map|info|pem|ini|hlp|mo|po)$/;
     return if /\.(sample|ttf|css|html|pub|ac|in|inc|sub|conf|site|cnf|pod|el)$/;
-    return if /\.(gif|png|jpg|jpeg)$/;
+    return if /\.(gir|cmake|rules|pickle|tmpl|typelib|packlist)$/;
+    return if /\.(gif|png|jpg|jpeg|bmp|pbm|pgm|ppm|ras|sgi|tiff|xbm)$/;
+    return if /\.(aiff|au|wav|aifc|aif)$/;
+    return if /\.(x|xbn|xc|xd|xdc|xdw|xn|xr|xs|xsc|xsw|xu|xw)$/;
     return if /\.(a|gox)$/;
 
     my $fullpath = $File::Find::name;
@@ -41,9 +45,11 @@ sub eachFile {
     return if ($fullpath =~ m"/share/cmake");
     return if ($fullpath =~ m"/share/doc/");
     return if ($fullpath =~ m"/share/gtk-doc/");
+    return if ($fullpath =~ m"/share/info/");
     return if ($fullpath =~ m"/share/man");
     return if ($fullpath =~ m"/share/terminfo/");
     return if ($fullpath =~ m"/share/X11/locale/");
+    return if ($fullpath =~ m"/bash_completion.d/");
     return if ($fullpath =~ m"/var/cache/");
     push (@files, $fullpath);
 }
@@ -64,9 +70,11 @@ foreach my $arg (@files) {
 	next if /not a dynamic executable/;
 	next if /statically linked/;
 	next if m|$filtered_prefix/|;
-	next if /^[\t]linux-gate.so.1 =>/;
-	next if /^[\t]lib(c|m|dl|rt|pthread|resolv|crypt|util|nsl|stdc\+\+|gcc_s)\.so/;
-	next if /^[\t]\/lib\/ld-linux.so.2/;
+	next if /^[\t]linux-gate\.so\.1 =>/;
+	next if /^[\t]lib(c|m|dl|rt|pthread|resolv|crypt|util|nsl)\.so/;
+	next if /^[\t]lib(gcc_s|stdc\+\+|ssp)\.so/;
+	next if /^[\t]\/lib\/ld-linux\.so\.2/;
+	next if /^[\t]\/lib64\/ld-linux-x86-64\.so\.2/;
 	$filtered_output .= $_ . "\n";
     }
     if (length $filtered_output) {
