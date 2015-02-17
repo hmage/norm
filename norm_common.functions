@@ -5,7 +5,7 @@ onerror() {
 }
 
 onexit() {
-    log "$OURNAME -- exiting, last formula -- $FORMULA"
+    log "Exiting"
 }
 
 setup_traps() {
@@ -22,7 +22,7 @@ log() {
 }
 
 log_success() {
-    log "$OURNAME -- Package $FORMULA -- success"
+    log "Package $FORMULA -- success"
 }
 
 pushd_src() {
@@ -30,45 +30,45 @@ pushd_src() {
 }
 
 do_configure() {
-    ./configure --prefix="$PREFIX" "$@" 2>&1 | $CONFIGURE_FILTER | tee $COMPILEDIR/$TARNAME-configure.log || exit 1
+    ./configure --prefix="$PREFIX" "$@" 2>&1 | $CONFIGURE_FILTER | tee $COMPILEDIR/$TARNAME-configure.log || return 1
 }
 
 do_configure_outside() {
-    "$SRCDIR"/configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-configure.log || exit 1
+    "$SRCDIR"/configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-configure.log || return 1
 }
 
 do_make() {
     local PARALLEL="-j4"
     [ "$NOPARALLEL" = "1" ] && PARALLEL=
-    make $PARALLEL "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-make.log || exit 1
+    make $PARALLEL "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-make.log || return 1
 }
 
 do_install() {
-    make install "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-makeinstall.log || exit 1
+    make install "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-makeinstall.log || return 1
 }
 
 do_make_and_install() {
-    do_make "$@" || exit 1
-    do_install "$@" || exit 1
+    do_make "$@" || return 1
+    do_install "$@" || return 1
 }
 
 do_compile() {
-    pushd_src || exit 1
-    do_configure "$@" || exit 1
-    do_make_and_install || exit 1
-    popd || exit 1
+    pushd_src || return 1
+    do_configure "$@" || return 1
+    do_make_and_install || return 1
+    popd || return 1
 }
 
 
 do_compile_outside() {
     local BUILDDIR="$SRCDIR"-build
 
-    rm -rf "$BUILDDIR" || exit 1
-    mkdir -p "$BUILDDIR" || exit 1
-    pushd "$BUILDDIR" || exit 1
-    do_configure_outside "$@" || exit 1
-    do_make_and_install || exit 1
-    popd || exit 1
+    rm -rf "$BUILDDIR" || return 1
+    mkdir -p "$BUILDDIR" || return 1
+    pushd "$BUILDDIR" || return 1
+    do_configure_outside "$@" || return 1
+    do_make_and_install || return 1
+    popd || return 1
 }
 
 ##
@@ -80,14 +80,14 @@ do_compile_outside() {
 ## alternative usage: do_unpack foo-1.2.3.tar.bz2
 do_unpack() {
     [ -f "$TARDIR/$1" ] && TARNAME="$1"
-    [ -z "$TARNAME" ] && echo "TARNAME is empty!" && exit 1
+    [ -z "$TARNAME" ] && echo "TARNAME is empty!" && return 1
 
     SRCDIR="$COMPILEDIR/$TARNAME"
 
-    rm -rf "$SRCDIR"  || exit 1
-    mkdir -p "$SRCDIR"  || exit 1
-    tar -xf "$TARDIR/$TARNAME" -C "$SRCDIR" --strip-components 1 || exit 1
-    log "$OURNAME -- Unpacked $TARNAME"
+    rm -rf "$SRCDIR"  || return 1
+    mkdir -p "$SRCDIR"  || return 1
+    tar -xf "$TARDIR/$TARNAME" -C "$SRCDIR" --strip-components 1 || return 1
+    log "Unpacked $TARNAME"
 }
 
 ##
@@ -102,8 +102,8 @@ do_undebian() {
     [ -f "$TARDIR/$2" ] && DEBPATCH="$2"
 
     ## sets SRCDIR
-    do_unpack "$TARNAME" || exit 1
-    do_debianize "$DEBPATCH" || exit 1
+    do_unpack "$TARNAME" || return 1
+    do_debianize "$DEBPATCH" || return 1
 }
 
 ##
@@ -126,7 +126,7 @@ do_undebian_overlay() {
     tar -xf "$TARDIR/$DEBPATCH" -C "$SRCDIR" ||
     gzip -cd "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" ||
     xzcat "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" ||
-    bzcat "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" || exit 1
+    bzcat "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" || return 1
 }
 
 do_debian_patches() {
@@ -197,12 +197,13 @@ do_patch_inline() {
 }
 
 do_autoreconf() {
-    pushd_src || exit 1
-    autoreconf -f -i -v || exit 1
-    popd || exit 1
+    pushd_src || return 1
+    autoreconf -f -i -v || return 1
+    popd || return 1
 }
 
 ## usage: compile_package FORMULA [what formula asked for this one]
+## note about force option -- it's passed as parameter so forcing package A won't force package B that A depends on
 compile_package() {
     local COMPILING_FOR force FORMULA
     local DATE=`LANG=C LC_ALL=C date`
@@ -235,14 +236,14 @@ depends_on() {
 }
 
 fetch_file() {
-    [ -z "$1" ] && echo "fetch_file() needs at least 1 argument" && exit 1
+    [ -z "$1" ] && echo "fetch_file() needs at least 1 argument" && return 1
     local URL="$1"
     local SHA1="$2"
     local FILENAME=`basename "$URL"`
     mkdir -p "$TARDIR"
     if [ ! -e "$TARDIR"/$FILENAME ]; then
         log "Downloading $URL"
-        curl -L -R "$URL" -o "$TARDIR"/$FILENAME.temp || (rm -f "$TARDIR"/$FILENAME.temp && exit 1)
+        curl -L -R "$URL" -o "$TARDIR"/$FILENAME.temp || (rm -f "$TARDIR"/$FILENAME.temp && return 1)
         mv -f "$TARDIR"/$FILENAME{.temp,}
     fi
     SHA1SUM=`$SHASUM_BIN "$TARDIR/$FILENAME" | cut -f1 -d' '`
