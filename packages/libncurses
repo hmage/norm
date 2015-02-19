@@ -7,7 +7,7 @@ fetch_source http://ftp.de.debian.org/debian/pool/main/n/ncurses/ncurses_5.9.ori
 fetch_debian http://ftp.de.debian.org/debian/pool/main/n/ncurses/ncurses_5.9-10.debian.tar.gz ffa0366c4a4378175b65497ccd4305b7bf8e0576
 
 CONFIGURE_OPTIONS="--with-libtool --enable-rpath --enable-pc-files --enable-const \
-                    --enable-symlinks --without-ada --without-cxx-binding"
+                    --enable-symlinks --without-ada --without-cxx-binding --with-termlib"
 
 PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
 do_undebian_compile $CONFIGURE_OPTIONS
