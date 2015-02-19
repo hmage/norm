@@ -7,7 +7,7 @@ LINKDIRNAME=`dirname "$READLINK"`
 NORMDIR=$LINKDIRNAME
 [ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
 NORMDIR=`cd "$NORMDIR"; pwd`
-OURNAME=`basename $0`
+OURNAME=`basename -- $0`
 TARDIR="$HOME/.cache/norm"
 COMPILEDIR="$HOME/tmp/compile"
 LIBSUFFIX=so
@@ -98,7 +98,7 @@ cmd_ldd() {
 cmd_list() {
     for file in "$newprefix"/*installed; do
         [ -e "$file" ] || continue
-        basename "$file" .installed
+        basename -- "$file" .installed
     done
 }
 

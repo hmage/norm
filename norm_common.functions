@@ -242,7 +242,7 @@ fetch_file() {
     [ -z "$1" ] && echo "fetch_file() needs at least 1 argument" && return 1
     local URL="$1"
     local SHA1="$2"
-    local FILENAME=`basename "$URL"`
+    local FILENAME=`basename -- "$URL"`
     mkdir -p "$TARDIR"
     if [ ! -e "$TARDIR"/$FILENAME ]; then
         log "Downloading $URL"
@@ -259,13 +259,13 @@ fetch_file() {
 
 fetch_source() {
     local URL="$1"
-    TARNAME=`basename "$URL"`
+    TARNAME=`basename -- "$URL"`
     fetch_file "$@"
 }
 
 fetch_debian() {
     local URL="$1"
-    DEBPATCH=`basename "$URL"`
+    DEBPATCH=`basename -- "$URL"`
     fetch_file "$@"
 }
 
