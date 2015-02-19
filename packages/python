@@ -14,5 +14,18 @@ depends_on sqlite3
 
 fetch_source https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tar.xz 3172f6e957713c2d9fca462cc16068222fd1b9d3
 
-do_unpack_compile --enable-ipv6 --enable-unicode=ucs4 --with-system-expat --with-system-ffi \
+do_unpack
+do_patch_inline << 'EOF'
+--- a/setup.py
++++ b/setup.py
+@@ -1856,6 +1856,7 @@
+ 
+     def detect_tkinter(self, inc_dirs, lib_dirs):
+         # The _tkinter module.
++        return
+ 
+         # Check whether --with-tcltk-includes and --with-tcltk-libs were
+         # configured or passed into the make target.  If so, use these values
+EOF
+do_compile --enable-ipv6 --enable-unicode=ucs4 --with-system-expat --with-system-ffi \
                   --with-dbmliborder=bdb:gdbm --with-fpectl --enable-shared --with-threads
