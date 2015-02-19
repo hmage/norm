@@ -1,0 +1,17 @@
+#!/bin/bash
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/t/tcp-wrappers/tcp-wrappers_7.6.q.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/t/tcp-wrappers/tcp-wrappers_7.6.q-24.debian.tar.xz
+
+BUILD_SYSTEM=generic
+[[ $OSTYPE == *linux* ]] && BUILD_SYSTEM=linux
+
+do_undebian
+pushd_src
+do_make COPTS="-g -O2 $CPPFLAGS" LDOPTS="$LDFLAGS" REAL_DAEMON_DIR=$PREFIX/sbin $BUILD_SYSTEM
+install -d $PREFIX/lib
+install -m 755 shared/libwrap* $PREFIX/lib/
+cp -fd shared/libwrap.so.0 $PREFIX/lib/
+install -m 644 libwrap.a $PREFIX/lib/
+## don't install the executables because this package provides only libwrap
+popd
