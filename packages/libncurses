@@ -10,7 +10,9 @@ CONFIGURE_OPTIONS="--with-libtool --enable-rpath --enable-pc-files --enable-cons
                     --enable-symlinks --without-ada --without-cxx-binding --with-termlib"
 
 PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
+NOPARALLEL=1 \
 do_undebian_compile $CONFIGURE_OPTIONS
 
 PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
+NOPARALLEL=1 \
 do_undebian_compile $CONFIGURE_OPTIONS --enable-widec
