@@ -1,0 +1,13 @@
+#!/bin/bash
+
+depends_on libbsd
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/n/netcat-openbsd/netcat-openbsd_1.105.orig.tar.gz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/n/netcat-openbsd/netcat-openbsd_1.105-7.debian.tar.gz
+
+do_undebian
+pushd_src
+do_make CFLAGS="$CPPFLAGS -O2 -g"
+install -d $PREFIX/bin
+install -m 755 nc $PREFIX/bin/nc
+popd
