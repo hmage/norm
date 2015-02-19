@@ -1,10 +1,42 @@
 #!/bin/bash
 
-fetch_source http://www.cpan.org/src/5.0/perl-5.20.0.tar.gz 52087047fd35e1020387f7c492f594a397be4e12
+depends_on libdb
+depends_on libgdbm
+
+fetch_source http://www.cpan.org/src/5.0/perl-5.20.2.tar.gz 07263da0703d97733a4d51bf77192039462d4a5a
 
 do_unpack
 pushd_src
-./Configure -de -Dprefix=$PREFIX
+do_patch_inline << 'EOF' ## perl's MakeMaker will put everything it sees into LD_RUN_PATH, overwriting our own
+diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm
+index e39c8b2..0b933ce 100644
+--- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm
++++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm
+@@ -56,6 +56,9 @@ sub _unix_os2_ext {
+     my ( $pwd )   = cwd();    # from Cwd.pm
+     my ( $found ) = 0;
+
++    # Debian-specific: don't use LD_RUN_PATH for standard dirs
++    $ld_run_path_seen{$_}++ for @libpath;
++
+     foreach my $thislib ( split ' ', $potential_libs ) {
+
+         # Handle possible linker path arguments.
+EOF
+
+## perl's build system doesn't honor CPPFLAGS and LDFLAGS environment variables, so it will link against system libraries only
+## also, by default perl is very crippled -- no 64bit ints, no support for >2GB files, no threads, no shared libraries
+## and telling that cc is GCC sets appropriate defaults
+./Configure -des \
+            -Dprefix=$PREFIX \
+            -Dloclibpth="$PREFIX/lib" \
+            -Dlocincpth="$PREFIX/include" \
+            -Accflags="$CPPFLAGS" \
+            -Aldflags="$LDFLAGS" \
+            -Alddlflags="-shared $LDFLAGS" \
+            -Duseshrplib -Dusethreads -Duselargefiles -Duse64bitint \
+            -Dcc=gcc
 do_make
+do_make test ## a lot of stuff depends on perl, so it must pass all self checks
 do_install
 popd
