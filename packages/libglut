@@ -1,7 +1,9 @@
 #!/bin/bash
 
-depends_on libtool
 depends_on mesa
+## mesa listed first because mesa has gcc version check and we can bail out early
+
+depends_on autoconf automake libtool
 depends_on libxi
 depends_on libxxf86vm
 

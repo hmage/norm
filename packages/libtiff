@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#depends_on zlib xz libjpeg libjbig
 depends_on xz
 depends_on libjpeg
 depends_on zlib

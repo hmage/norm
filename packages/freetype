@@ -5,7 +5,7 @@
 depends_on pkg-config
 depends_on zlib
 depends_on libpng
-#depends_on libcairo -- it's the other way around -- cairo needs freetype
+## don't add libcairo -- it's the other way around -- cairo needs freetype
 depends_on libicu
 
 ## adding bzip2 will force everyone that uses freetype to add -lbz2 manually to linker, disable it
