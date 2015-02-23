@@ -1,0 +1,36 @@
+diff -urw gcc-4.9.2.tar.bz2.orig/libsanitizer/sanitizer_common/sanitizer_platform_limits_linux.cc gcc-4.9.2.tar.gz/libsanitizer/sanitizer_common/sanitizer_platform_limits_linux.cc
+--- gcc-4.9.2.tar.bz2.orig/libsanitizer/sanitizer_common/sanitizer_platform_limits_linux.cc	2014-10-14 23:26:42.000000000 +0400
++++ gcc-4.9.2.tar.gz/libsanitizer/sanitizer_common/sanitizer_platform_limits_linux.cc	2015-02-21 22:04:51.392000000 +0300
+@@ -20,9 +20,6 @@
+ #include "sanitizer_internal_defs.h"
+ #include "sanitizer_platform_limits_posix.h"
+ 
+-// For offsetof -> __builtin_offsetof definition.
+-#include <stddef.h>
+-
+ // With old kernels (and even new kernels on powerpc) asm/stat.h uses types that
+ // are not defined anywhere in userspace headers. Fake them. This seems to work
+ // fine with newer headers, too.
+diff -urw gcc-4.9.2.tar.bz2.orig/libsanitizer/sanitizer_common/sanitizer_platform_limits_posix.h gcc-4.9.2.tar.gz/libsanitizer/sanitizer_common/sanitizer_platform_limits_posix.h
+--- gcc-4.9.2.tar.bz2.orig/libsanitizer/sanitizer_common/sanitizer_platform_limits_posix.h	2014-10-14 23:26:42.000000000 +0400
++++ gcc-4.9.2.tar.gz/libsanitizer/sanitizer_common/sanitizer_platform_limits_posix.h	2015-02-21 22:04:57.480000000 +0300
+@@ -1061,15 +1061,15 @@
+ #define CHECK_SIZE_AND_OFFSET(CLASS, MEMBER)                       \
+   COMPILER_CHECK(sizeof(((__sanitizer_##CLASS *) NULL)->MEMBER) == \
+                  sizeof(((CLASS *) NULL)->MEMBER));                \
+-  COMPILER_CHECK(offsetof(__sanitizer_##CLASS, MEMBER) ==          \
+-                 offsetof(CLASS, MEMBER))
++  COMPILER_CHECK(__builtin_offsetof(__sanitizer_##CLASS, MEMBER) ==          \
++                 __builtin_offsetof(CLASS, MEMBER))
+ 
+ // For sigaction, which is a function and struct at the same time,
+ // and thus requires explicit "struct" in sizeof() expression.
+ #define CHECK_STRUCT_SIZE_AND_OFFSET(CLASS, MEMBER)                       \
+   COMPILER_CHECK(sizeof(((struct __sanitizer_##CLASS *) NULL)->MEMBER) == \
+                  sizeof(((struct CLASS *) NULL)->MEMBER));                \
+-  COMPILER_CHECK(offsetof(struct __sanitizer_##CLASS, MEMBER) ==          \
+-                 offsetof(struct CLASS, MEMBER))
++  COMPILER_CHECK(__builtin_offsetof(struct __sanitizer_##CLASS, MEMBER) ==          \
++                 __builtin_offsetof(struct CLASS, MEMBER))
+ 
+ #endif

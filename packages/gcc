@@ -16,27 +16,31 @@ EXTRA_CONFOPTS=
 if test_cc_value "fcntl.h" "AT_FDCWD"; then
     LANGUAGES="$LANGUAGES,go"
 else
-    add_caveat "Your libc is too old to support go language in gcc, it was disabled"
+    add_caveat "go language was disabled -- your libc headers are too old"
 fi
 
-if ! have_gcc 4.2; then
-    ## gcc 4.1 can't compile libsanitizer -- gives error: array bound is not an integer constant before ']' token
+if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
     EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-libsanitizer"
-    ## gcc 4.1 can't compile libcilkrts -- gives error: field '__sem_lock' has incomplete type
-    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-libcilkrts"
-    add_caveat "Sanitizer and CILK support were disabled -- gcc was too old to compile it"
-    add_caveat "You can type 'norm reinstall gcc' to recompile gcc using new gcc"
+    add_caveat "Sanitizer support was disabled -- your linux headers are too old"
 fi
 
 intree_unpack() {
   pushd_src
-  [ -n "$1" ] && mkdir "$1"
-  [ -n "$1" ] && tar xkf "$TARDIR/$TARNAME" --strip-components 1 -C "$1" || true
-  [ -z "$1" ] && tar xkf "$TARDIR/$TARNAME" --strip-components 1 || true
+  rm -rf "$TARNAME"
+  mkdir -p "$TARNAME"
+  tar xf "$TARDIR/$TARNAME" --strip-components 1 -C "$TARNAME"
+  # mv -n would've worked better not all versions of mv have that flag
+  if [ -z "$1" ]; then
+    for x in "$TARNAME"/*; do
+      local file=${x#$TARNAME/}
+      [ ! -e "$file" ] && ln -s "$x" .
+    done
+  fi
+  [ -n "$1" ] && ln -s "$TARNAME" "$1"
   popd
 }
 
-fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2 79dbcb09f44232822460d80b033c962c0237c6d8
+fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz 7eef0c5876fa21e36d1c638653b1b7454c21b40f
 do_unpack
 
 ## binutils 2.25 doesn't compile in-tree with gcc 4.9.2
@@ -60,11 +64,12 @@ intree_unpack isl
 
 TARNAME=gcc-4.9.2.tar.bz2
 
-do_patch binutils-2.24-vparams.patch      ## remove macros removed from gcc 4.9.2
-do_patch gcc-4.9.2-multiarch.patch -p2    ## add support for multiarch
-do_patch gcc-4.7.1-startfiles_fix-1.patch ## search for files in $PREFIX as well
-do_patch binutils-2.24-multiarch.patch    ## add support for multiarch
-
+do_patch binutils-2.24-vparams.patch        ## remove macros removed from gcc 4.9.2
+do_patch binutils-2.24-multiarch.patch      ## add support for multiarch
+do_patch gcc-4.9.2-multiarch.patch -p2      ## add support for multiarch
+do_patch gcc-4.7.1-startfiles_fix-1.patch   ## search for files in $PREFIX as well
+do_patch gcc-4.9.2-sanitizer-offsetof.patch ## old headers fail to detect presence of __builtin_offsetof
+do_patch gcc-4.9.2-cilk-pthread.patch       ## old headers don't implicitly include pthread.h
 
 ## 'plugin' is gcc, 'plugins' is binutils.
 do_compile_outside \
@@ -84,15 +89,5 @@ do_compile_outside \
 
 ln -sf $PREFIX/bin/gcc $PREFIX/bin/cc
 
-## get rid of fixincludes that are actually not needed
-for dir in $PREFIX/lib/gcc/*/4.9.2/include-fixed; do
-    pushd "$dir"
-    for i in *; do
-        case "$i" in
-            README|syslimits.h|limits.h) ;;
-            linux) ;;
-            *) echo "Removing include-fixed/$i" && rm -rf "$i";
-        esac;
-    done
-    popd
-done
+add_caveat "Remember -- you can't use this build of gcc on any other machine" \
+           "Do not move it away from $PREFIX either -- paths are hardcoded"
