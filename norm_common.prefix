@@ -24,8 +24,9 @@ addflags() {
 
 setup_prefix() {
     PREFIX="$1"
-    DESTDIR=/tmp/stage
-    STAGE=$DESTDIR/$PREFIX
+    DESTDIR="$PREFIX/tmp/stage"
+    STAGE="$DESTDIR/$PREFIX"
+    COMPILEDIR="$PREFIX/tmp/compile"
 
     ## set compile flags
     default_ldflags="-L$PREFIX/lib"
