@@ -19,8 +19,6 @@ setup_traps() {
 }
 
 log() {
-    local DATE=`LANG=C LC_ALL=C date`
-    echo "[$DATE] $@" >> "$HOME"/compile.log
     echo "[norm] $@"
 }
 
