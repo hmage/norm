@@ -85,6 +85,7 @@ do_unpack() {
 
     SRCDIR="$COMPILEDIR/$TARNAME"
 
+    log "Unpacking $TARNAME"
     rm -rf "$SRCDIR"  || return 1
     mkdir -p "$SRCDIR"  || return 1
     tar -xf "$TARDIR/$TARNAME" -C "$SRCDIR" --strip-components 1 || return 1
