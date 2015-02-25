@@ -3,4 +3,4 @@
 fetch_source http://ftp.de.debian.org/debian/pool/main/libb/libbsd/libbsd_0.4.2.orig.tar.gz
 fetch_debian http://ftp.de.debian.org/debian/pool/main/libb/libbsd/libbsd_0.4.2-1.debian.tar.gz
 
-do_undebian_compile
+CFLAGS="-O2 -g $CFLAGS -std=c99" do_undebian_compile
