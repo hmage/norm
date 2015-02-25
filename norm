@@ -16,6 +16,9 @@ LIBSUFFIX=so
 . $NORMDIR/norm_common.prefix
 
 COMPILEDIR="$DEFAULT_PREFIX/tmp/compile"
+NUMCPU=`getconf _NPROCESSORS_ONLN`
+[ -z "$NUMCPU" ] && NUMCPU=1
+NUMJOBS=$(( $NUMCPU * 2 ))
 
 ## find shasum binary
 SHASUM_BIN=shasum

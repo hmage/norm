@@ -39,7 +39,7 @@ do_configure_outside() {
 }
 
 do_make() {
-    local PARALLEL="-j4"
+    local PARALLEL="-j$NUMJOBS"
     [ "$NOPARALLEL" = "1" ] && PARALLEL=
     make $PARALLEL "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-make.log || return 1
 }
