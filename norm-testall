@@ -21,6 +21,7 @@ if [ ! -e "$HOME"/normtest-bootstrap.tar.gz ]; then
     rm -vf attr c_rehash chacl curl-config getfacl getfattr idn setfacl setfattr *pkg-config
     cd ..
     strip -gp libexec/gcc/*/*/* || true
+    rm -rf tmp/compile
     cd $HOME
     tar zcf normtest-bootstrap.tar.gz normtest
     popd
@@ -60,6 +61,7 @@ for file in $LIST; do
     if [ "${PIPESTATUS[0]}" == "0" ]; then
         LD_LIBRARY_PATH= LD_PRELOAD= norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a "$LOGFILE"
         pushd "$HOME"
+        rm -rf norm/tmp/compile
         tar zcvf norm-"$formula_name".tar.gz norm
         popd
         gzip "$LOGFILE"
