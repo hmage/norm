@@ -9,6 +9,8 @@ depends_on openssl
 depends_on curl
 depends_on libexpat
 
-fetch_source https://www.kernel.org/pub/software/scm/git/git-2.3.0.tar.xz 8b36622e063931c3131d6a2217d4a8dc5bc69a08
-
+fetch_source https://www.kernel.org/pub/software/scm/git/git-2.3.1.tar.xz 0d5cfbc32e686985ca7642ee4a924757cbeaed36
 do_unpack_compile
+
+## install bash completion
+install -D $SRCDIR/contrib/completion/git-completion.bash $PREFIX/etc/bash_completion.d/git-completion.bash
