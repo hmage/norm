@@ -1,7 +1,5 @@
 #!/bin/bash
 
-## listed first because it has a gcc version check, so we bail out early
-depends_on libllvm
 
 depends_on autoconf automake libtool
 depends_on pkg-config
@@ -13,11 +11,29 @@ depends_on libxdamage
 depends_on libxfixes
 depends_on libxcb
 depends_on libxshmfence
+depends_on libxxf86vm
 depends_on libudev
+depends_on libselinux
+depends_on libexpat
+depends_on bison
+depends_on flex
+
+DISABLE_GALLIUM=
+if have_gcc 4.7; then
+    depends_on libllvm
+else
+    DISABLE_GALLIUM="--with-gallium-drivers="
+    add_caveat "You don't have GCC 4.7 or newer -- gallium in mesa was disabled."
+fi
+
+if ! test_cc_value "fcntl.h" "O_CLOEXEC"; then
+    DISABLE_GALLIUM="--with-gallium-drivers="
+    add_caveat "gallium in mesa was disabled -- your libc headers are too old."
+fi
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/m/mesa/mesa_10.3.2.orig.tar.gz a642d1fe460b4f5e4e650c71d07f4f0f511f8ba0
 fetch_debian http://ftp.de.debian.org/debian/pool/main/m/mesa/mesa_10.3.2-1.diff.gz 23c668b4f29b1ef701d69160b89c9227a59f3007
 
 do_undebian
 do_autoreconf
-do_compile
+do_compile $DISABLE_GALLIUM
