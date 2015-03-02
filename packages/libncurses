@@ -7,12 +7,18 @@ fetch_source http://ftp.de.debian.org/debian/pool/main/n/ncurses/ncurses_5.9.ori
 fetch_debian http://ftp.de.debian.org/debian/pool/main/n/ncurses/ncurses_5.9-10.debian.tar.gz ffa0366c4a4378175b65497ccd4305b7bf8e0576
 
 CONFIGURE_OPTIONS="--with-libtool --enable-rpath --enable-pc-files --enable-const \
-                    --enable-symlinks --without-ada --without-cxx-binding --with-termlib"
+                    --enable-symlinks --without-ada --without-cxx-binding --with-termlib --with-shared --without-debug"
 
 PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
 NOPARALLEL=1 \
 do_undebian_compile $CONFIGURE_OPTIONS
 
+## build wide version of ncurses
 PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
 NOPARALLEL=1 \
 do_undebian_compile $CONFIGURE_OPTIONS --enable-widec
+
+# link tinfo when linking ncurses
+rm $PREFIX/lib/libncurses{,w}.so
+echo "INPUT(libncurses.so.5 -ltinfo)" > $PREFIX/lib/libncurses.so
+echo "INPUT(libncursesw.so.5 -ltinfo)" > $PREFIX/lib/libncursesw.so
