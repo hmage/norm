@@ -6,7 +6,10 @@ depends_on freetype
 depends_on libxft
 depends_on libcairo
 depends_on glib
+depends_on gobject-introspection
+depends_on zlib
 
-fetch_source http://ftp.gnome.org/pub/GNOME/sources/pango/1.36/pango-1.36.8.tar.xz
-
-do_unpack_compile --enable-introspection=yes --with-xft
+fetch_source http://ftp.de.debian.org/debian/pool/main/p/pango1.0/pango1.0_1.30.0.orig.tar.xz
+fetch_debian http://ftp.de.debian.org/debian/pool/main/p/pango1.0/pango1.0_1.30.0-1.debian.tar.xz
+do_undebian
+do_compile --enable-introspection=yes --with-xft
