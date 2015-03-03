@@ -1,0 +1,14 @@
+#!/bin/bash
+
+depends_on bzip2
+
+fetch_source http://security.debian.org/debian-security/pool/updates/main/u/unzip/unzip_6.0.orig.tar.gz abf7de8a4018a983590ed6f5cbd990d4740f8a22
+fetch_debian http://security.debian.org/debian-security/pool/updates/main/u/unzip/unzip_6.0-8+deb7u2.debian.tar.gz f62b356bf40fcbf0e1143f99ed90860583c3ddbc
+
+do_undebian
+pushd_src
+do_make -f unix/Makefile D_USE_BZ2=-DUSE_BZIP2 L_BZ2=-lbz2 LF2="$LDFLAGS" CF="$CFLAGS $CPPFLAGS -I." unzips
+#                CC="$(CC)" LF2="$(LDFLAGS)" \
+#                CF="$(CFLAGS) $(CPPFLAGS) -I. $(DEFINES)" unzips
+do_install -f unix/Makefile prefix=$PREFIX
+popd
