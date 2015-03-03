@@ -1,0 +1,11 @@
+#!/bin/bash
+
+depends_on gettext
+depends_on libncurses
+depends_on help2man
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/t/texinfo/texinfo_4.13a.dfsg.1.orig.tar.gz da24b839bf2f36dbfc6a2321a3cf855127106af9
+fetch_debian http://ftp.de.debian.org/debian/pool/main/t/texinfo/texinfo_4.13a.dfsg.1-10.diff.gz 7ae3a0ee45686dece867de58aabf92c27d1776c8
+
+do_undebian
+do_compile
