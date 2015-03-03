@@ -1,0 +1,14 @@
+#!/bin/bash
+
+depends_on bison
+depends_on libncurses
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/b/bash/bash_4.2+dfsg.orig.tar.gz ef3fb45c962f6fc29784745f354bbd1ba8c2dc26
+fetch_debian http://ftp.de.debian.org/debian/pool/main/b/bash/bash_4.2+dfsg-0.1+deb7u3.diff.gz 18a4ead2956ebdbd00428377ef4261c99be38ea3
+
+do_unpack
+tar xf "$SRCDIR"/bash-4.2dfsg.tar.xz -C "$SRCDIR"
+SRCDIR="$SRCDIR"/bash-4.2
+do_debianize
+do_compile
+
