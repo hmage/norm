@@ -1,0 +1,10 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on libselinux
+depends_on libexpat
+
+fetch_source http://dbus.freedesktop.org/releases/dbus/dbus-1.8.16.tar.gz
+
+do_unpack_compile --without-x --disable-modular-tests --disable-libaudit --disable-xml-docs --disable-doxygen-docs
+
