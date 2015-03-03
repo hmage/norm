@@ -1,0 +1,8 @@
+#!/bin/bash
+
+fetch_source https://www.kernel.org/pub/linux/docs/man-pages/man-pages-3.81.tar.xz 100aa96f83c04b44dd2e25e178a589c4a13cafbf
+
+do_unpack
+pushd_src
+make install prefix=$PREFIX
+popd
