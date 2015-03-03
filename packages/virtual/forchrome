@@ -21,7 +21,7 @@ depends_on libxrandr
 depends_on libexpat
 depends_on libudev
 #depends_on cups
-#depends_on libdbus
+depends_on libdbus
 depends_on libcap
 #depends_on libgtk2
 #depends_on libxss
@@ -40,8 +40,3 @@ depends_on libattr
 #depends_on libxinerama
 depends_on libxxf86vm
 depends_on libdrm
-
-#depends_on openssl
-#depends_on libnss
-#depends_on libfontconfig
-#depends_on libx11
