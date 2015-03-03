@@ -9,13 +9,26 @@ fetch_source http://ftp.de.debian.org/debian/pool/main/c/cyrus-sasl2/cyrus-sasl2
 fetch_debian http://ftp.de.debian.org/debian/pool/main/c/cyrus-sasl2/cyrus-sasl2_2.1.25.dfsg1-6+deb7u1.debian.tar.gz 8cfc6b2b53e9d6abac604e0c3f0fcfcf229eb301
 AUTOFILES="acinclude.m4 aclocal.m4 config/config.sub config/config.guess config/ltmain.sh config/libtool.m4"
 do_undebian
+
+do_patch_inline << 'EOF'
+--- a/sasldb/Makefile.am
++++ b/sasldb/Makefile.am
+@@ -55,7 +55,7 @@
+ 
+ libsasldb_la_SOURCES = allockey.c sasldb.h
+ EXTRA_libsasldb_la_SOURCES = $(extra_common_sources)
+-libsasldb_la_DEPENDENCIES = $(SASL_DB_BACKEND) $(SASL_DB_LIB)
++libsasldb_la_DEPENDENCIES = $(SASL_DB_BACKEND)
+ libsasldb_la_LIBADD = $(SASL_DB_BACKEND) $(SASL_DB_LIB)
+ 
+ # Prevent make dist stupidity
+EOF
 pushd_src
 rm -f $AUTOFILES
 autoreconf -f -i -v
-pushd saslauthd
+cd saslauthd
 rm -f $AUTOFILES
 autoreconf -f -i -v
-popd
 popd
 NOPARALLEL=1 do_compile --disable-gssapi
 
