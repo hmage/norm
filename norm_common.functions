@@ -373,3 +373,33 @@ add_caveat() {
     done
     CAVEATS+=("")
 }
+
+is_without() {
+    [ -z "$1" ] && return 1
+    [[ "$1" == *" "* ]] && return ## don't allow whitespace
+    local name=is_without_${1}
+    [ -n "${!name}" ] && return 0
+    return 1
+}
+
+is_with() {
+    [ -z "$1" ] && return 1
+    [[ "$1" == *" "* ]] && return ## don't allow whitespace
+    local name=is_with_${1}
+    [ -n "${!name}" ] && return 0
+    return 1
+}
+
+set_without() {
+    [ -z "$1" ] && return
+    [[ "$1" == *" "* ]] && return ## don't allow whitespace
+    log Setting without "$1"
+    printf -v "is_without_${1}" %s "1"
+}
+
+set_with() {
+    [ -z "$1" ] && return
+    [[ "$1" == *" "* ]] && return ## don't allow whitespace
+    log Setting with "$1"
+    printf -v "is_with_${1}" %s "1"
+}
