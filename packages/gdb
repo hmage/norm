@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source http://ftp.gnu.org/gnu/gdb/gdb-7.9.tar.xz
+
+do_unpack_compile
+
