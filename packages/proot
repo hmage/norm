@@ -1,0 +1,11 @@
+#!/bin/bash
+
+fetch_source https://github.com/cedric-vincent/PRoot/archive/v5.1.0.tar.gz
+
+do_unpack
+pushd_src
+cd src
+do_make
+do_install PREFIX=$PREFIX
+install -m 644 -D ../doc/proot/man.1 $PREFIX/share/man/man1/proot.1
+popd
