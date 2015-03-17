@@ -37,7 +37,7 @@ install -m 644 -s -t $PREFIX/lib/nss \
 ln -fs nss/libfreebl3.so $PREFIX/lib
 ln -fs nss/libsoftokn3.so $PREFIX/lib
 ln -fs nss/libnssdbm3.so $PREFIX/lib
-ln -fs nss/libnssckbi3.so $PREFIX/lib
+ln -fs nss/libnssckbi.so $PREFIX/lib
 install -m 644 -t $PREFIX/include/nss mozilla/dist/public/nss/*
 install -m 644 -t $PREFIX/lib $DISTDIR/lib/libcrmf.a
 install -m 644 -t $PREFIX/lib/pkgconfig debian/nss.pc
