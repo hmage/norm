@@ -7,9 +7,13 @@ rm -f $PREFIX/bin/{bunzip2,bzcat}
 
 do_unpack
 pushd_src
-do_make_and_install PREFIX=$PREFIX
+sed -i 's/^CFLAGS=/CFLAGS=-fpic -fPIC /' Makefile
+do_make
+do_make test
+do_install PREFIX=$PREFIX
 
 ## shared library needs to be built and installed manually
+do_make -f Makefile-libbz2_so clean
 do_make -f Makefile-libbz2_so
 install -d $PREFIX/lib
 install -m 755 libbz2.so.* $PREFIX/lib
