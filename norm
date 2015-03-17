@@ -32,7 +32,11 @@ newprefix=$DEFAULT_PREFIX
 [ $EUID == "0" ] && log "Error: I will not run for root user." && exit 1
 
 ## cc sanity check
-test_cc_func "stdio.h" 'printf("Hello, world!\n");' || (log "Error: your compiler can't compile!" && log "Check that your have it installed correctly" && exit 1)
+if ! test_cc_func "stdio.h" 'printf("Hello, world!\n");'; then
+    log "Error: your compiler can't compile!"
+    log "Check that your have it installed correctly"
+    exit 1
+fi
 
 
 usage() {
