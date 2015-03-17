@@ -110,7 +110,8 @@ cmd_ldd() {
 }
 
 cmd_list() {
-    for file in "$newprefix"/*installed; do
+    local STATEDIR="$newprefix"/var/norm
+    for file in "$STATEDIR"/*installed; do
         [ -e "$file" ] || continue
         basename -- "$file" .installed
     done
