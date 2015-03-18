@@ -62,7 +62,7 @@ intree_unpack cloog
 fetch_source http://isl.gforge.inria.fr/isl-0.12.2.tar.bz2 ca98a91e35fb3ded10d080342065919764d6f928
 intree_unpack isl
 
-TARNAME=gcc-4.9.2.tar.bz2
+TARNAME=gcc-4.9.2.tar.gz
 
 do_patch binutils-2.24-vparams.patch        ## remove macros removed from gcc 4.9.2
 do_patch binutils-2.24-multiarch.patch      ## add support for multiarch
