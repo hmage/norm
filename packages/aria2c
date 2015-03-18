@@ -1,0 +1,11 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on zlib
+depends_on libxml
+depends_on sqlite3
+depends_on openssl
+
+fetch_source http://downloads.sourceforge.net/project/aria2/stable/aria2-1.18.10/aria2-1.18.10.tar.xz c5879835807b33d5b81c8da873e3824660a61d94
+
+do_unpack_compile
