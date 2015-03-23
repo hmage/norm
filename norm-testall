@@ -9,26 +9,28 @@ NORMDIR="$LINKDIRNAME"
 NORMDIR=`cd "$NORMDIR"; pwd`
 
 ##
-## prepare norm bootstrap
+## prepare norm bootstrap, not needed if running under continuous integration
 ##
-rm -rf "$HOME"/normtest
-if [ ! -e "$HOME"/normtest-bootstrap.tar.gz ]; then
-    pushd "$HOME"
-    $NORMDIR/norm -p normtest install ccache tar xz bzip2 gzip curl
-    $NORMDIR/norm -p normtest install gcc
-    ## bin is in PATH, remove stuff that might trick packages into thinking we have what we shouldn't
-    cd normtest/bin
-    rm -vf attr c_rehash chacl curl-config getfacl getfattr idn setfacl setfattr *pkg-config
-    cd ..
-    strip -gp libexec/gcc/*/*/* || true
-    rm -rf tmp/compile
-    cd $HOME
-    tar zcf normtest-bootstrap.tar.gz normtest
-    popd
+if [ -z "$CI" ]; then
+    rm -rf "$HOME"/normtest
+    if [ ! -e "$HOME"/normtest-bootstrap.tar.gz ]; then
+        pushd "$HOME"
+        $NORMDIR/norm -p normtest install ccache tar xz bzip2 gzip curl
+        $NORMDIR/norm -p normtest install gcc
+        ## bin is in PATH, remove stuff that might trick packages into thinking we have what we shouldn't
+        cd normtest/bin
+        rm -vf attr c_rehash chacl curl-config getfacl getfattr idn setfacl setfattr *pkg-config
+        cd ..
+        strip -gp libexec/gcc/*/*/* || true
+        rm -rf tmp/compile
+        cd $HOME
+        tar zcf normtest-bootstrap.tar.gz normtest
+        popd
+    fi
+    export PATH="$HOME/normtest/bin/ccache_wrap:$HOME/normtest/bin:$PATH"
+    tar xf "$HOME"/normtest-bootstrap.tar.gz -C "$HOME"
+    export LD_LIBRARY_PATH="$HOME/normtest/lib"
 fi
-export PATH="$HOME/normtest/bin/ccache_wrap:$HOME/normtest/bin:$PATH"
-tar xf "$HOME"/normtest-bootstrap.tar.gz -C "$HOME"
-export LD_LIBRARY_PATH="$HOME/normtest/lib"
 
 ##
 ## set up logging
