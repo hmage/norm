@@ -14,8 +14,8 @@ NORMDIR=`cd "$NORMDIR"; pwd`
 rm -rf "$HOME"/normtest
 if [ ! -e "$HOME"/normtest-bootstrap.tar.gz ]; then
     pushd "$HOME"
-    norm -p normtest install ccache tar xz bzip2 gzip curl
-    norm -p normtest install gcc
+    $NORMDIR/norm -p normtest install ccache tar xz bzip2 gzip curl
+    $NORMDIR/norm -p normtest install gcc
     ## bin is in PATH, remove stuff that might trick packages into thinking we have what we shouldn't
     cd normtest/bin
     rm -vf attr c_rehash chacl curl-config getfacl getfattr idn setfacl setfattr *pkg-config
@@ -57,7 +57,7 @@ for file in $LIST; do
     LOGFILE="$LOGPATH/$formula_name".log."$MD5"
     [ -f "$LOGFILE" -o -f "$LOGFILE".gz ] && continue # successful logfile exists, skip the package
     rm -rf "$HOME"/norm
-    norm install "$formula" 2>&1 | tee "$LOGFILE"
+    $NORMDIR/norm install "$formula" 2>&1 | tee "$LOGFILE"
     if [ "${PIPESTATUS[0]}" == "0" ]; then
         LD_LIBRARY_PATH= LD_PRELOAD= norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a "$LOGFILE"
         pushd "$HOME"
