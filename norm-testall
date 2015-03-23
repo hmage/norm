@@ -48,6 +48,8 @@ trap sigint ERR
 LIST="$@"
 [ -z "$LIST" ] && LIST=`find "$NORMDIR"/packages -type f|sort -u`
 
+rm -rf "$LOGPATH"/*.err
+
 ##
 ## compile each package and log output
 for file in $LIST; do
@@ -70,3 +72,10 @@ for file in $LIST; do
         rm -f "$LOGFILE".err.gz
     fi
 done
+
+ERRORS=`find "$NORMDIR"/testlogs -name '*.err' -type f`
+if [ -n "$ERRORS" ]; then
+    echo These packages have failed to build:
+    echo $ERRORS
+    exit 1
+fi
