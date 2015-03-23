@@ -64,10 +64,12 @@ for file in $LIST; do
     $NORMDIR/norm install "$formula" 2>&1 | tee "$LOGFILE"
     if [ "${PIPESTATUS[0]}" == "0" ]; then
         LD_LIBRARY_PATH= LD_PRELOAD= $NORMDIR/norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a "$LOGFILE"
-        pushd "$HOME"
-        rm -rf norm/tmp/compile
-        tar zcvf norm-"$formula_name".tar.gz norm
-        popd
+        if [ -z "$CI" ]; then
+            pushd "$HOME"
+            rm -rf norm/tmp/compile
+            tar zcvf norm-"$formula_name".tar.gz norm
+            popd
+        fi
         gzip "$LOGFILE"
     else
         mv -f "$LOGFILE"{,.err} # install failure, rename the log to indicate that
