@@ -31,20 +31,24 @@ pushd_src() {
 }
 
 do_configure() {
+    log "Configuring $FORMULA $@"
     ./configure --prefix="$PREFIX" "$@" 2>&1 | $CONFIGURE_FILTER | tee $COMPILEDIR/$TARNAME-configure.log || return 1
 }
 
 do_configure_outside() {
+    log "Configuring $FORMULA $@"
     "$SRCDIR"/configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-configure.log || return 1
 }
 
 do_make() {
+    log "Making $FORMULA $@"
     local PARALLEL="-j$NUMJOBS"
     [ "$NOPARALLEL" = "1" ] && PARALLEL=
     make $PARALLEL "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-make.log || return 1
 }
 
 do_install() {
+    log "Installing $FORMULA $@"
     make install "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-makeinstall.log || return 1
 }
 
