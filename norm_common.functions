@@ -106,6 +106,7 @@ intree_unpack() {
   fi
   if [ -z "$1" ]; then
     # mv -n would've worked better, but not all versions of mv have that flag
+    mkdir -p "$TARNAME"
     tar xf "$TARDIR/$TARNAME" --strip-components 1 -C "$TARNAME"
     for x in "$TARNAME"/*; do
       local file=${x#$TARNAME/}
