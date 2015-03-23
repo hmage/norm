@@ -1,0 +1,14 @@
+#!/bin/bash
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/r/rootstrap/rootstrap_0.3.25.orig.tar.bz2 4f9b955714be6fbb5e141e7bf6bd369667a82d72
+fetch_debian http://ftp.de.debian.org/debian/pool/main/r/rootstrap/rootstrap_0.3.25-1.debian.tar.gz 1b092d3740b7268c1269afbccbede4008a2c999f
+
+do_undebian
+pushd_src
+sed -i 's/install .* 644 rootstrap.1.*//' Makefile
+sed -i "s:/etc/rootstrap/:$PREFIX/etc/rootstrap/:" rootstrap
+sed -i "s:/usr/lib/rootstrap/builder:$PREFIX/lib/rootstrap/builder:" rootstrap
+sed -i 's:^#!/usr/bin/python:#!/usr/bin/env python2:' builder
+sed -i 's:^#!/usr/bin/env python:#!/usr/bin/env python2:' rootstrap
+do_install prefix=$PREFIX sysconfdir=$PREFIX/etc
+popd
