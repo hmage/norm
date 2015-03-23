@@ -6,7 +6,7 @@ depends_on zlib
 depends_on libncurses
 depends_on python
 
-fetch_source http://llvm.org/releases/3.5.0/llvm-3.5.0.src.tar.xz 58d817ac2ff573386941e7735d30702fe71267d5
+fetch_source http://llvm.org/releases/3.6.0/llvm-3.6.0.src.tar.xz 6eb2b7381d924bb3f267281c9058c817d825d824
 
 do_unpack
 
