@@ -2,8 +2,8 @@
 
 depends_on autoconf automake libtool
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/g/genext2fs/genext2fs_1.4.1.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/g/genext2fs/genext2fs_1.4.1-4.debian.tar.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/g/genext2fs/genext2fs_1.4.1.orig.tar.gz 9ace486ee1bad0a49b02194515e42573036f7392
+fetch_debian http://ftp.de.debian.org/debian/pool/main/g/genext2fs/genext2fs_1.4.1-4.debian.tar.gz c66636b049bf031bc0d647b205e5f632007c6c32
 
 do_undebian
 do_autoreconf
