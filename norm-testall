@@ -63,7 +63,7 @@ for file in $LIST; do
     rm -rf "$HOME"/norm
     $NORMDIR/norm install "$formula" 2>&1 | tee "$LOGFILE"
     if [ "${PIPESTATUS[0]}" == "0" ]; then
-        LD_LIBRARY_PATH= LD_PRELOAD= norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a "$LOGFILE"
+        LD_LIBRARY_PATH= LD_PRELOAD= $NORMDIR/norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a "$LOGFILE"
         pushd "$HOME"
         rm -rf norm/tmp/compile
         tar zcvf norm-"$formula_name".tar.gz norm
