@@ -80,7 +80,7 @@ do_compile_outside() {
 ##
 ## alternative usage: do_unpack foo-1.2.3.tar.bz2
 do_unpack() {
-    [ -f "$TARDIR/$1" ] && TARNAME="$1"
+    [ -f "$TARDIR/$1" ] && TARNAME="$1" && shift
     [ -z "$TARNAME" ] && echo "TARNAME is empty!" && return 1
 
     SRCDIR="$COMPILEDIR/$TARNAME"
@@ -88,8 +88,32 @@ do_unpack() {
     log "Unpacking $TARNAME"
     rm -rf "$SRCDIR"  || return 1
     mkdir -p "$SRCDIR"  || return 1
-    tar -xf "$TARDIR/$TARNAME" -C "$SRCDIR" --strip-components 1 || return 1
+    tar -xf "$TARDIR/$TARNAME" -C "$SRCDIR" --strip-components 1 "$@" || return 1
     log "Unpacked $TARNAME"
+}
+
+##
+## unpacks source code inside other package's source code
+##
+## usage: intree_unpack <-- unpacks into same directory of do_unpack'ed package
+## usage: intree_unpack tools/clang <-- unpacks into tools/clang subdirectory
+intree_unpack() {
+  log "Unpacking $TARNAME into $SRCDIR/$1"
+  pushd_src
+  if [ -n "$1" ]; then
+    mkdir -p "$1"
+    tar xf "$TARDIR/$TARNAME" --strip-components 1 -C "$1"
+  fi
+  if [ -z "$1" ]; then
+    # mv -n would've worked better, but not all versions of mv have that flag
+    tar xf "$TARDIR/$TARNAME" --strip-components 1 -C "$TARNAME"
+    for x in "$TARNAME"/*; do
+      local file=${x#$TARNAME/}
+      [ ! -e "$file" ] && ln -s "$x" .
+    done
+  fi
+  popd
+  log "Unpacked $TARNAME into $SRCDIR/$1"
 }
 
 ##

@@ -24,22 +24,6 @@ if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
     add_caveat "Sanitizer support was disabled -- your linux headers are too old"
 fi
 
-intree_unpack() {
-  pushd_src
-  rm -rf "$TARNAME"
-  mkdir -p "$TARNAME"
-  tar xf "$TARDIR/$TARNAME" --strip-components 1 -C "$TARNAME"
-  # mv -n would've worked better not all versions of mv have that flag
-  if [ -z "$1" ]; then
-    for x in "$TARNAME"/*; do
-      local file=${x#$TARNAME/}
-      [ ! -e "$file" ] && ln -s "$x" .
-    done
-  fi
-  [ -n "$1" ] && ln -s "$TARNAME" "$1"
-  popd
-}
-
 fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz 7eef0c5876fa21e36d1c638653b1b7454c21b40f
 do_unpack
 
