@@ -293,8 +293,7 @@ compile_package() {
         ## remove artifacts
         [ -z "$norm_keep_sources" -a -n "$COMPILEDIR" -a -n "$TARNAME" ] && rm -rf "$COMPILEDIR/$TARNAME"
     else
-        [ -z "$COMPILING_FOR" ] && log "Package already installed: $FORMULA" \
-                                || log "Package already installed: $FORMULA -- wanted by $COMPILING_FOR"
+        [ -z "$COMPILING_FOR" ] && log "Package already installed: $FORMULA"
     fi
     [ -n "$COMPILING_FOR" ] && echo "[$DATE] Needed for $COMPILING_FOR" >> "$STATEDIR/$FORMULA".installed || true
 }
