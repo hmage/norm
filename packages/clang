@@ -1,0 +1,20 @@
+#!/bin/bash
+
+requires_gcc 4.7
+
+fetch_source http://llvm.org/releases/3.6.0/llvm-3.6.0.src.tar.xz 6eb2b7381d924bb3f267281c9058c817d825d824
+do_unpack
+
+fetch_source http://llvm.org/releases/3.6.0/cfe-3.6.0.src.tar.xz 06b252867a3d118c95ca279fd3c4ac05f6730551
+intree_unpack tools/clang
+
+fetch_source http://llvm.org/releases/3.6.0/compiler-rt-3.6.0.src.tar.xz 771cbf0535dce1ca3a3be022377781e32fdea70e
+intree_unpack projects/compiler-rt
+
+TARNAME=clang-3.6.0
+
+pushd_src
+do_configure --enable-optimized --disable-assertions --disable-libedit
+do_make clang-only
+do_make install-clang
+popd
