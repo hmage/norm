@@ -1,9 +1,0 @@
-sudo: false
-language: c++
-compiler: gcc
-cache:
-  directories:
-  - $HOME/.ccache
-  - $HOME/.cache/norm
-  - testlogs
-script: ./norm testall

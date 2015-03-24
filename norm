@@ -19,7 +19,6 @@ COMPILEDIR="$DEFAULT_PREFIX/tmp/compile"
 NUMCPU=`getconf _NPROCESSORS_ONLN`
 [ -z "$NUMCPU" ] && NUMCPU=1
 NUMJOBS=$(( $NUMCPU * 2 ))
-[ -n "$CI" ] && NUMJOBS=2
 
 ## find shasum binary
 SHASUM_BIN=shasum
