@@ -45,8 +45,8 @@ LOGFILE=
 
 sigint() {
     echo "Cancelled compilation of $file"
-    [ -e "$LOGFILE" ] && mv -f "$LOGFILE"{,.cancelled}
-    false
+    [ -e "$INPUT_LOG" ] && cp -f "$INPUT_LOG" "$LOGPATH/$LOGNAME.cancelled"
+    exit 1
 }
 trap sigint SIGINT
 
