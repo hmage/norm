@@ -2,6 +2,8 @@
 
 requires_gcc 4.7
 
+depends_on python ## needs python 2.7 to compile
+
 fetch_source http://llvm.org/releases/3.6.0/llvm-3.6.0.src.tar.xz 6eb2b7381d924bb3f267281c9058c817d825d824
 do_unpack
 
