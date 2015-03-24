@@ -4,6 +4,11 @@ CAVEATS=()
 
 onerror() {
     log "Package $FORMULA failed to build"
+    local LOGDIR="$PREFIX"/var/log/norm
+    local SHA1SUM=`$SHASUM_BIN "$NORMDIR/packages/$FORMULA" | cut -f1 -d' '`
+    local logfile="$LOGDIR/$FORMULA.$SHA1SUM.log"
+    log "Last 10 lines of build log:"
+    tail -n10 "$logfile" >&3
 }
 
 onexit() {
@@ -18,38 +23,71 @@ setup_traps() {
     trap onexit EXIT
 }
 
+setup_fds() {
+    exec 3>&1 # save stdout to 3
+    exec 4>&2 # save stderr to 4
+}
+
+setup_logs() {
+    local FORMULA="$1"
+    local LOGDIR="$PREFIX"/var/log/norm
+    local SHA1SUM=`$SHASUM_BIN "$NORMDIR/packages/$FORMULA" | cut -f1 -d' '`
+    local logfile="$LOGDIR/$FORMULA.$SHA1SUM.log"
+    mkdir -p `dirname "$logfile"`
+    rm -f "$logfile"
+    exec 2>>"$logfile"
+    exec 1>>"$logfile"
+}
+
+finish_logs() {
+    exec 1>&3 2>&4 ## restore stdout and stderr
+}
+
 log() {
-    echo "[norm] $@"
+    local DATE=`LANG=C date '+%d/%b/%Y:%T %z'`
+    echo "[$DATE] [norm] $@" | tee >(cat >&1) >&3
 }
 
 log_success() {
     log "Package $FORMULA -- success"
 }
 
+pushd() {
+    command pushd "$@" > /dev/null
+}
+
+popd() {
+    command popd "$@" > /dev/null
+}
+
 pushd_src() {
     pushd "$SRCDIR"
 }
 
+popd_src() {
+    popd
+}
+
 do_configure() {
     log "Configuring $FORMULA $@"
-    ./configure --prefix="$PREFIX" "$@" 2>&1 | $CONFIGURE_FILTER | tee $COMPILEDIR/$TARNAME-configure.log || return 1
+    ./configure --prefix="$PREFIX" "$@" || return 1
 }
 
 do_configure_outside() {
     log "Configuring $FORMULA $@"
-    "$SRCDIR"/configure --prefix="$PREFIX" "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-configure.log || return 1
+    "$SRCDIR"/configure --prefix="$PREFIX" "$@" || return 1
 }
 
 do_make() {
     log "Making $FORMULA $@"
     local PARALLEL="-j$NUMJOBS"
     [ "$NOPARALLEL" = "1" ] && PARALLEL=
-    make $PARALLEL "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-make.log || return 1
+    make $PARALLEL "$@" || return 1
 }
 
 do_install() {
     log "Installing $FORMULA $@"
-    make install "$@" 2>&1 | tee $COMPILEDIR/$TARNAME-makeinstall.log || return 1
+    make install "$@" || return 1
 }
 
 do_make_and_install() {
