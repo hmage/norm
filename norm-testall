@@ -16,8 +16,9 @@ set -eE
 rm -rf "$HOME"/normtest
 if [ ! -e "$HOME"/normtest-bootstrap.tar.gz ]; then
     pushd "$HOME"
-    $NORMDIR/norm -p normtest install ccache tar xz bzip2 gzip curl
-    [ -z "$CI" ] && $NORMDIR/norm -p normtest install gcc
+    $NORMDIR/norm -p normtest install ccache
+    [ -z "$CI" ] && $NORMDIR/norm -p normtest install tar xz bzip2 gzip curl
+    $NORMDIR/norm -p normtest install gcc
 
     ## bin will be in PATH, so remove stuff that will get in our way
     cd normtest/bin
