@@ -80,14 +80,18 @@ for file in $LIST; do
     fi
     if [ "$ldd_status" == "0" ]; then
         # norm ldd output is ok, time to handle the log
-        cp "$INPUT_LOG" "$LOGPATH/"
+        cp -f "$INPUT_LOG" "$LOGPATH/"
         gzip "$LOGFILE"
     else
-        # either norm install or norm ldd failed -- save the log
+        # either norm install or norm ldd failed -- save the log and build environment
         cp "$INPUT_LOG" "$LOGPATH/"
         cat "$TMPFILE" >> "$LOGFILE"
         mv -f "$LOGFILE"{,.err} # install failure, rename the log to indicate that
+        pushd $HOME
+        tar zcvf "norm-fail-$FORMULA.tar.gz" norm
+        popd
     fi
+    rm -f "$TMPFILE"
     unset ldd_status
 done
 
