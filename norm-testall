@@ -76,7 +76,7 @@ for file in $LIST; do
     install_status=$?
     if [ "$install_status" == "0" ]; then
         LD_LIBRARY_PATH= LD_PRELOAD= $NORMDIR/norm ldd 2>&1 | fgrep -v 'files, checking if' > "$TMPFILE"
-        [ -s "$TMPFILE" ] && ldd_status=0
+        [ -e "$TMPFILE" -a ! -s "$TMPFILE" ] && ldd_status=0
     fi
     if [ "$ldd_status" == "0" ]; then
         # norm ldd output is ok, time to handle the log
