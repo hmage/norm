@@ -4,6 +4,6 @@ compiler: gcc
 cache:
   directories:
   - $HOME/.ccache
-  - $HOME/normtest-bootstrap.tar.gz
+  - $HOME/.cache/norm
   - testlogs
 script: ./norm testall

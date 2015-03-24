@@ -14,7 +14,7 @@ hash $SHASUM_BIN 2>/dev/null || SHASUM_BIN=sha1sum
 ##
 set -eE
 rm -rf "$HOME"/normtest
-if [ ! -e "$HOME"/normtest-bootstrap.tar.gz ]; then
+if [ ! -e "$HOME"/.cache/norm/normtest-bootstrap.tar.gz ]; then
     pushd "$HOME"
     $NORMDIR/norm -p normtest install ccache
     [ -z "$CI" ] && $NORMDIR/norm -p normtest install tar xz bzip2 gzip curl
@@ -27,11 +27,12 @@ if [ ! -e "$HOME"/normtest-bootstrap.tar.gz ]; then
     strip -gp libexec/gcc/*/*/* || true
     rm -rf tmp/compile
     cd $HOME
-    tar zcf normtest-bootstrap.tar.gz normtest
+    mkdir -p $HOME/.cache/norm
+    tar zcf $HOME/.cache/norm/normtest-bootstrap.tar.gz normtest
     popd
 fi
 export PATH="$HOME/normtest/bin/ccache_wrap:$HOME/normtest/bin:$PATH"
-tar xf "$HOME"/normtest-bootstrap.tar.gz -C "$HOME"
+tar xf "$HOME"/.cache/norm/normtest-bootstrap.tar.gz -C "$HOME"
 export LD_LIBRARY_PATH="$HOME/normtest/lib"
 set +eE
 
