@@ -1,6 +1,4 @@
 #!/bin/bash
-set -eE
-
 DIRNAME=`dirname "$0"`
 READLINK=`readlink "$0" || true`
 LINKDIRNAME=`dirname "$READLINK"`
@@ -8,29 +6,33 @@ NORMDIR="$LINKDIRNAME"
 [ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
 NORMDIR=`cd "$NORMDIR"; pwd`
 
+SHASUM_BIN=shasum
+hash $SHASUM_BIN 2>/dev/null || SHASUM_BIN=sha1sum
+
 ##
-## prepare norm bootstrap, not needed if running under continuous integration
+## prepare norm bootstrap
 ##
-if [ -z "$CI" ]; then
-    rm -rf "$HOME"/normtest
-    if [ ! -e "$HOME"/normtest-bootstrap.tar.gz ]; then
-        pushd "$HOME"
-        $NORMDIR/norm -p normtest install ccache tar xz bzip2 gzip curl
-        $NORMDIR/norm -p normtest install gcc
-        ## bin is in PATH, remove stuff that might trick packages into thinking we have what we shouldn't
-        cd normtest/bin
-        rm -vf attr c_rehash chacl curl-config getfacl getfattr idn setfacl setfattr *pkg-config
-        cd ..
-        strip -gp libexec/gcc/*/*/* || true
-        rm -rf tmp/compile
-        cd $HOME
-        tar zcf normtest-bootstrap.tar.gz normtest
-        popd
-    fi
-    export PATH="$HOME/normtest/bin/ccache_wrap:$HOME/normtest/bin:$PATH"
-    tar xf "$HOME"/normtest-bootstrap.tar.gz -C "$HOME"
-    export LD_LIBRARY_PATH="$HOME/normtest/lib"
+set -eE
+rm -rf "$HOME"/normtest
+if [ ! -e "$HOME"/normtest-bootstrap.tar.gz ]; then
+    pushd "$HOME"
+    $NORMDIR/norm -p normtest install ccache tar xz bzip2 gzip curl
+    [ -z "$CI" ] && $NORMDIR/norm -p normtest install gcc
+
+    ## bin will be in PATH, so remove stuff that will get in our way
+    cd normtest/bin
+    rm -vf attr c_rehash chacl curl-config getfacl getfattr idn setfacl setfattr *pkg-config
+    cd ..
+    strip -gp libexec/gcc/*/*/* || true
+    rm -rf tmp/compile
+    cd $HOME
+    tar zcf normtest-bootstrap.tar.gz normtest
+    popd
 fi
+export PATH="$HOME/normtest/bin/ccache_wrap:$HOME/normtest/bin:$PATH"
+tar xf "$HOME"/normtest-bootstrap.tar.gz -C "$HOME"
+export LD_LIBRARY_PATH="$HOME/normtest/lib"
+set +eE
 
 ##
 ## set up logging
@@ -45,41 +47,55 @@ sigint() {
     false
 }
 trap sigint SIGINT
-trap sigint ERR
 
 LIST="$@"
-[ -z "$LIST" ] && LIST=`find "$NORMDIR"/packages -type f|sort -u`
+[ -z "$LIST" ] && LIST=`find "$NORMDIR"/packages -maxdepth 1 -type f|sort -u`
 
 rm -rf "$LOGPATH"/*.err
 
 ##
-## compile each package and log output
+## compile each package and save logs
 for file in $LIST; do
-    formula=${file#$NORMDIR/packages/}
-    formula_name=`basename -- "$formula"`
-    MD5=`md5sum "$NORMDIR/packages/$formula"|awk '{ print $1 }'`
-    LOGFILE="$LOGPATH/$formula_name".log."$MD5"
+    # calculate names and paths
+    FORMULA=${file#$NORMDIR/packages/}
+    SHA1SUM=`$SHASUM_BIN "$NORMDIR/packages/$FORMULA" | cut -f1 -d' '`
+    INPUT_LOG="$HOME/norm/var/log/norm/$FORMULA.$SHA1SUM.log"
+    LOGNAME=`basename -- "$INPUT_LOG"`
+    LOGFILE="$LOGPATH/$LOGNAME"
+    TMPFILE=`mktemp -t norm-testall-XXXXXXXXX`
+
     [ -f "$LOGFILE" -o -f "$LOGFILE".gz ] && continue # successful logfile exists, skip the package
+
+    # start afresh
     rm -rf "$HOME"/norm
-    $NORMDIR/norm install "$formula" 2>&1 | tee "$LOGFILE"
-    if [ "${PIPESTATUS[0]}" == "0" ]; then
-        LD_LIBRARY_PATH= LD_PRELOAD= $NORMDIR/norm ldd 2>&1 | fgrep -v 'files, checking if' | tee -a "$LOGFILE"
-        if [ -z "$CI" ]; then
-            pushd "$HOME"
-            rm -rf norm/tmp/compile
-            tar zcvf norm-"$formula_name".tar.gz norm
-            popd
-        fi
+
+    # attempt to build the FORMULA
+    $NORMDIR/norm install "$FORMULA"
+    install_status=$?
+    if [ "$install_status" == "0" ]; then
+        LD_LIBRARY_PATH= LD_PRELOAD= $NORMDIR/norm ldd 2>&1 | fgrep -v 'files, checking if' > "$TMPFILE"
+        [ -s "$TMPFILE" ] && ldd_status=0
+    fi
+    if [ "$ldd_status" == "0" ]; then
+        # norm ldd output is ok, time to handle the log
+        cp "$INPUT_LOG" "$LOGPATH/"
         gzip "$LOGFILE"
     else
+        # either norm install or norm ldd failed -- save the log
+        cp "$INPUT_LOG" "$LOGPATH/"
+        cat "$TMPFILE" >> "$LOGFILE"
         mv -f "$LOGFILE"{,.err} # install failure, rename the log to indicate that
-        rm -f "$LOGFILE".err.gz
     fi
+    unset ldd_status
 done
 
 ERRORS=`find "$NORMDIR"/testlogs -name '*.err' -type f`
 if [ -n "$ERRORS" ]; then
     echo These packages have failed to build:
-    echo $ERRORS
+    for file in $ERRORS; do
+        FORMULA=${file#$NORMDIR/packages/}
+        FORMULA=${FORMULA%.err}
+        echo $formula
+    done
     exit 1
 fi
