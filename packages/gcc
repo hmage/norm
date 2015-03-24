@@ -24,6 +24,13 @@ if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
     add_caveat "Sanitizer support was disabled -- your linux headers are too old"
 fi
 
+if test_cc 'main() { return 0;}' -m64 && test_cc 'main() { return 0;}' -m32; then
+    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --enable-multilib"
+else
+    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-multilib"
+    add_caveat "Multilib support was disabled -- your current compiler doesn't support multilib"
+fi
+
 fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz 7eef0c5876fa21e36d1c638653b1b7454c21b40f
 do_unpack
 
