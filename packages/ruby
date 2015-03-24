@@ -1,0 +1,20 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on libgdbm
+depends_on libncurses
+depends_on libreadline
+depends_on zlib
+depends_on openssl
+depends_on libffi
+#depends_on libyaml
+
+fetch_source http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.1.tar.gz 12376b79163e02bc9bd1a39329d67c3d19ccace9
+
+do_unpack
+pushd_src
+do_configure
+do_make
+do_make check
+do_install
+popd
