@@ -9,7 +9,7 @@ onerror() {
     local logfile="$LOGDIR/$FORMULA.$SHA1SUM.log"
     finish_logs
     log "Last 50 lines of build log:"
-    tail -n50 "$logfile" >&3
+    tail -n50 "$logfile"
 }
 
 onexit() {
