@@ -33,8 +33,11 @@ setup_logs() {
     rm -f "$logfile"
     exec 3>&1 # save stdout to 3
     exec 4>&2 # save stderr to 4
-    exec 2>>"$logfile"
-    exec 1>>"$logfile"
+    if [ -z "$verbose" ]; then
+        exec 1>"$logfile" 2>&1 # redirect all output to logfile
+    else
+        exec 1> >(tee "$logfile" >&3) 2>&1 # redirect all output to tee, which duplicates to stdout and logfile
+    fi
 }
 
 finish_logs() {

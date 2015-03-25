@@ -53,6 +53,7 @@ usage() {
     echo "Install options:"
     echo "    -f          -- force install, same as reinstall command"
     echo "    -k          -- after successful install, keep source code in $COMPILEDIR"
+    echo "    -v          -- be verbose -- show compilation process"
     echo
     echo "ldd options:"
     echo "    -v          -- show list of files that will be fed to ldd"
@@ -64,13 +65,17 @@ usage() {
 cmd_install() {
     local force
     norm_keep_sources=
-    while getopts "fk" opt; do
+    verbose=
+    while getopts "fkv" opt; do
         case $opt in
         f)
             readonly force=-f
             ;;
         k)
             readonly norm_keep_sources=1
+            ;;
+        v)
+            readonly verbose=1
             ;;
         esac
     done
