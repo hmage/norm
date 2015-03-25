@@ -80,7 +80,6 @@ cmd_install() {
         [[ "$argument" == --with-* ]] && set_with "${argument#--with-}"
         [[ "$argument" == --without-* ]] && set_without "${argument#--without-}"
     done
-    setup_fds
     [ -z "$1" ] && log "Need package names" && exit 64
     [ -n "$force" ] && log "Forcing reinstall of packages: $@" \
                     || log "Installing packages: $@"

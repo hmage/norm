@@ -24,11 +24,6 @@ setup_traps() {
     trap onexit EXIT
 }
 
-setup_fds() {
-    exec 3>&1 # save stdout to 3
-    exec 4>&2 # save stderr to 4
-}
-
 setup_logs() {
     local FORMULA="$1"
     local LOGDIR="$PREFIX"/var/log/norm
@@ -36,17 +31,21 @@ setup_logs() {
     local logfile="$LOGDIR/$FORMULA.$SHA1SUM.log"
     mkdir -p `dirname "$logfile"`
     rm -f "$logfile"
+    exec 3>&1 # save stdout to 3
+    exec 4>&2 # save stderr to 4
     exec 2>>"$logfile"
     exec 1>>"$logfile"
 }
 
 finish_logs() {
     exec 1>&3 2>&4 ## restore stdout and stderr
+    exec 3>&- 4>&- ## close fd's
 }
 
 log() {
     local DATE=`LANG=C date '+%d/%b/%Y:%T %z'`
-    echo "[$DATE] [norm] $@" | tee >(cat >&1) >&3
+    echo "[$DATE] [norm] $@"
+    [ -e /dev/fd/3 ] && echo "[$DATE] [norm] $@" >&3
 }
 
 log_success() {
