@@ -215,6 +215,7 @@ do_debian_patches() {
     fi
     for i in $PATCHES; do
         [ -e "$i" ] || continue
+        [ ! -d "$i" ] || continue
         log Applying patch "$i"
         patch -f -p1 -i "$i" -d "$SRCDIR" ||
         patch -f -p0 -i "$i" -d "$SRCDIR" ||
