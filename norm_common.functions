@@ -125,7 +125,7 @@ do_compile_outside() {
 ## alternative usage: do_unpack foo-1.2.3.tar.bz2
 do_unpack() {
     [ -f "$TARDIR/$1" ] && TARNAME="$1" && shift
-    [ -z "$TARNAME" ] && echo "TARNAME is empty!" && return 1
+    [ -z "$TARNAME" ] && log "TARNAME is empty!" && return 1
 
     SRCDIR="$COMPILEDIR/$TARNAME"
 
@@ -212,7 +212,7 @@ do_debian_patches() {
     fi
     for i in $PATCHES; do
         [ -e "$i" ] || continue
-        echo Applying patch "$i"
+        log Applying patch "$i"
         patch -f -p1 -i "$i" -d "$SRCDIR" ||
         patch -f -p0 -i "$i" -d "$SRCDIR" ||
         patch -f -p2 -i "$i" -d "$SRCDIR" || true
@@ -306,7 +306,7 @@ depends_on() {
 }
 
 fetch_file() {
-    [ -z "$1" ] && echo "fetch_file() needs at least 1 argument" && return 1
+    [ -z "$1" ] && log "fetch_file() needs at least 1 argument" && return 1
     local URL="$1"
     local SHA1="$2"
     local FILENAME=`basename -- "$URL"`
@@ -317,7 +317,7 @@ fetch_file() {
         mv -f "$TARDIR"/$FILENAME{.temp,}
     fi
     SHA1SUM=`$SHASUM_BIN "$TARDIR/$FILENAME" | cut -f1 -d' '`
-    [ -z "$SHA1" ] && echo "For future -- SHA1 of $FILENAME is $SHA1SUM"
+    [ -z "$SHA1" ] && log "For future -- SHA1 of $FILENAME is $SHA1SUM"
     if [ ! -z "$SHA1" ] && [ "$SHA1SUM" != "$SHA1" ]; then
         log "SHA1sum mismatch! $SHA1SUM vs $SHA1"
         false
@@ -402,7 +402,7 @@ int main() { $2; return 0;}"
 
 ## Example: have_gcc 4.7
 have_gcc() {
-    [ -z "$1" ] && echo "have_gcc() needs an argument" && return 1
+    [ -z "$1" ] && log "have_gcc() needs an argument" && return 1
     local HAVE_GCC_RAW=`gcc -dumpversion`
     local HAVE_GCC=`echo "$HAVE_GCC_RAW" | sed -e 's/\.\([0-9][0-9]\)/\1/g' -e 's/\.\([0-9]\)/0\1/g' -e 's/^[0-9]\{3,4\}$/&00/'`
     local ASKED_GCC=`echo "$1" | sed -e 's/\.\([0-9][0-9]\)/\1/g' -e 's/\.\([0-9]\)/0\1/g' -e 's/^[0-9]\{3,4\}$/&00/'`
@@ -413,7 +413,7 @@ have_gcc() {
 ## Example: require_gcc 4.7
 ## Same as have_gcc, but prints a message doesn't print a message
 requires_gcc() {
-    [ -z "$1" ] && echo "require_gcc() needs an argument" && return 1
+    [ -z "$1" ] && log "require_gcc() needs an argument" && return 1
     if ! have_gcc "$1"; then
         local NEED_GCC_RAW="$1"
         shift
