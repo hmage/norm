@@ -45,7 +45,9 @@ finish_logs() {
 log() {
     local DATE=`LANG=C date '+%d/%b/%Y:%T %z'`
     echo "[$DATE] [norm] $@"
-    [ -e /dev/fd/3 ] && echo "[$DATE] [norm] $@" >&3
+    if [ -e /dev/fd/3 ]; then
+        echo "[$DATE] [norm] $@" >&3;
+    fi
 }
 
 log_success() {
