@@ -39,7 +39,7 @@ set +eE
 ##
 ## set up logging
 ##
-LOGPATH="$NORMDIR"/testlogs
+LOGPATH="$NORMDIR/testlogs.$HOSTNAME"
 mkdir -p "$LOGPATH"
 LOGFILE=
 
@@ -95,7 +95,7 @@ for file in $LIST; do
     unset ldd_status
 done
 
-ERRORS=`find "$NORMDIR"/testlogs -name '*.err' -type f`
+ERRORS=`find "$LOGPATH" -name '*.err' -type f`
 if [ -n "$ERRORS" ]; then
     echo These packages have failed to build:
     for file in $ERRORS; do
