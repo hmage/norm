@@ -341,7 +341,7 @@ fetch_debian() {
 test_cc() {
     CODE="$1"
     shift
-    echo "$CODE" | cc -x c "$@" -o /dev/null - 2>/dev/null || true
+    echo "$CODE" | cc -x c "$@" -o /dev/null - || true
     local STATUS=${PIPESTATUS[1]}
     [ -n "$STATUS" ] && return $STATUS
     return 1
