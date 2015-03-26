@@ -10,11 +10,26 @@ SHASUM_BIN=shasum
 hash $SHASUM_BIN 2>/dev/null || SHASUM_BIN=sha1sum
 
 ##
+## set up logging
+##
+LOGPATH="$NORMDIR/testlogs.$HOSTNAME.$HOSTTYPE"
+BOOTSTRAP="$LOGPATH/normtest-bootstrap.tar.gz"
+mkdir -p "$LOGPATH"
+LOGFILE=
+sigint() {
+    echo "Cancelled compilation of $file"
+    [ -e "$INPUT_LOG" ] && cp -f "$INPUT_LOG" "$LOGPATH/$LOGNAME.cancelled"
+    exit 1
+}
+trap sigint SIGINT
+
+
+##
 ## prepare norm bootstrap
 ##
 set -eE
 rm -rf "$HOME"/normtest
-if [ ! -e "$HOME"/.cache/norm/normtest-bootstrap.tar.gz ]; then
+if [ ! -e "$BOOTSTRAP" ]; then
     pushd "$HOME"
     $NORMDIR/norm -p normtest install ccache
     $NORMDIR/norm -p normtest install tar xz bzip2 gzip curl
@@ -27,28 +42,14 @@ if [ ! -e "$HOME"/.cache/norm/normtest-bootstrap.tar.gz ]; then
     strip -gp libexec/gcc/*/*/* || true
     rm -rf tmp/compile
     cd $HOME
-    mkdir -p $HOME/.cache/norm
-    tar zcf $HOME/.cache/norm/normtest-bootstrap.tar.gz normtest
+    mkdir -p `dirname "$BOOTSTRAP"`
+    tar zcf "$BOOTSTRAP" normtest
     popd
 fi
 export PATH="$HOME/normtest/bin/ccache_wrap:$HOME/normtest/bin:$PATH"
-tar xf "$HOME"/.cache/norm/normtest-bootstrap.tar.gz -C "$HOME"
+tar xf "$BOOTSTRAP" -C "$HOME"
 export LD_LIBRARY_PATH="$HOME/normtest/lib"
 set +eE
-
-##
-## set up logging
-##
-LOGPATH="$NORMDIR/testlogs.$HOSTNAME"
-mkdir -p "$LOGPATH"
-LOGFILE=
-
-sigint() {
-    echo "Cancelled compilation of $file"
-    [ -e "$INPUT_LOG" ] && cp -f "$INPUT_LOG" "$LOGPATH/$LOGNAME.cancelled"
-    exit 1
-}
-trap sigint SIGINT
 
 LIST="$@"
 [ -z "$LIST" ] && LIST=`find "$NORMDIR"/packages -maxdepth 1 -type f|sort -u`
