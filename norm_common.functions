@@ -48,8 +48,13 @@ finish_logs() {
 log() {
     local DATE=`LANG=C date '+%d/%b/%Y:%T %z'`
     echo "[$DATE] [norm] $@"
-    if [ -e /dev/fd/3 ]; then
-        echo "[$DATE] [norm] $@" >&3;
+
+    ## verbose was set, so this message was sent to terminal already
+    [ -n "$verbose" ] && return
+
+    ## duplicate this to terminal
+    if [ -e /dev/fd/3 -a -z "$verbose" ]; then
+        echo "[$DATE] [norm] $@" >&3
     fi
 }
 
