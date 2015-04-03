@@ -12,7 +12,10 @@ hash $SHASUM_BIN 2>/dev/null || SHASUM_BIN=sha1sum
 ##
 ## set up logging
 ##
-LOGPATH="$NORMDIR/testlogs.$HOSTNAME.$HOSTTYPE"
+MACHINEID="$HOSTNAME.$HOSTTYPE"
+[ -z "${debian_chroot:-}" -a -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
+[ -n "$debian_chroot" ] && MACHINEID+=".$debian_chroot"
+LOGPATH="$NORMDIR/testlogs.$MACHINEID"
 BOOTSTRAP="$LOGPATH/normtest-bootstrap.tar.gz"
 mkdir -p "$LOGPATH"
 LOGFILE=
@@ -89,7 +92,7 @@ for file in $LIST; do
         cat "$TMPFILE" >> "$LOGFILE"
         mv -f "$LOGFILE"{,.err} # install failure, rename the log to indicate that
         pushd $HOME
-        tar zcvf "norm-fail-$FORMULA.tar.gz" norm
+        tar zcvf "norm-fail-$MACHINEID-$FORMULA.tar.gz" norm
         popd
     fi
     rm -f "$TMPFILE"
