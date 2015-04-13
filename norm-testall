@@ -12,11 +12,13 @@ hash $SHASUM_BIN 2>/dev/null || SHASUM_BIN=sha1sum
 ##
 ## set up logging
 ##
-MACHINEID="$HOSTNAME.$HOSTTYPE"
+MACHINEID="$HOSTNAME.${BASH_VERSINFO[5]}"
 [ -z "${debian_chroot:-}" -a -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
 [ -n "$debian_chroot" ] && MACHINEID+=".$debian_chroot"
 LOGPATH="$NORMDIR/testlogs.$MACHINEID"
-BOOTSTRAP="$LOGPATH/normtest-bootstrap.tar.gz"
+BOOTSTRAP_PREFIX="normstrap.$MACHINEID"
+BOOTSTRAP_GZ="$BOOTSTRAP_PREFIX.tar.gz"
+NORMTEST_PREFIX="normtest.$MACHINEID"
 mkdir -p "$LOGPATH"
 LOGFILE=
 sigint() {
@@ -31,27 +33,27 @@ trap sigint SIGINT
 ## prepare norm bootstrap
 ##
 set -eE
-rm -rf "$HOME"/normtest
-if [ ! -e "$BOOTSTRAP" ]; then
+rm -rf $HOME/"$BOOTSTRAP_PREFIX"
+if [ ! -e "$LOGPATH/$BOOTSTRAP_GZ" ]; then
     pushd "$HOME"
-    $NORMDIR/norm -p normtest install ccache
-    $NORMDIR/norm -p normtest install tar xz bzip2 gzip curl
-    $NORMDIR/norm -p normtest install gcc
+    $NORMDIR/norm -p "$HOME/$BOOTSTRAP_PREFIX" install ccache
+    $NORMDIR/norm -p "$HOME/$BOOTSTRAP_PREFIX" install tar xz bzip2 gzip curl
+    $NORMDIR/norm -p "$HOME/$BOOTSTRAP_PREFIX" install gcc
 
     ## bin will be in PATH, so remove stuff that will get in our way
-    cd normtest/bin
+    cd "$HOME/$BOOTSTRAP_PREFIX/bin"
     rm -vf attr c_rehash chacl curl-config getfacl getfattr idn setfacl setfattr *pkg-config
     cd ..
     strip -gp libexec/gcc/*/*/* || true
     rm -rf tmp/compile
     cd $HOME
-    mkdir -p `dirname "$BOOTSTRAP"`
-    tar zcf "$BOOTSTRAP" normtest
+    mkdir -p $LOGPATH
+    tar zcf "$LOGPATH/$BOOTSTRAP_GZ" "$BOOTSTRAP_PREFIX"
     popd
 fi
-export PATH="$HOME/normtest/bin/ccache_wrap:$HOME/normtest/bin:$PATH"
-tar xf "$BOOTSTRAP" -C "$HOME"
-export LD_LIBRARY_PATH="$HOME/normtest/lib"
+export PATH="$HOME/$BOOTSTRAP_PREFIX/bin/ccache_wrap:$HOME/$BOOTSTRAP_PREFIX/bin:$PATH"
+tar xf "$LOGPATH/$BOOTSTRAP_GZ" -C "$HOME"
+export LD_LIBRARY_PATH="$HOME/$BOOTSTRAP_PREFIX/lib"
 set +eE
 
 LIST="$@"
@@ -65,7 +67,7 @@ for file in $LIST; do
     # calculate names and paths
     FORMULA=${file#$NORMDIR/packages/}
     SHA1SUM=`$SHASUM_BIN "$NORMDIR/packages/$FORMULA" | cut -f1 -d' '`
-    INPUT_LOG="$HOME/norm/var/log/norm/$FORMULA.$SHA1SUM.log"
+    INPUT_LOG="$HOME/$NORMTEST_PREFIX/var/log/norm/$FORMULA.$SHA1SUM.log"
     LOGNAME=`basename -- "$INPUT_LOG"`
     LOGFILE="$LOGPATH/$LOGNAME"
     TMPFILE=`mktemp -t norm-testall-XXXXXXXXX`
@@ -73,13 +75,13 @@ for file in $LIST; do
     [ -f "$LOGFILE" -o -f "$LOGFILE".gz ] && continue # successful logfile exists, skip the package
 
     # start afresh
-    rm -rf "$HOME"/norm
+    rm -rf "$HOME/$NORMTEST_PREFIX"
 
     # attempt to build the FORMULA
-    $NORMDIR/norm install "$FORMULA"
+    $NORMDIR/norm -p "$HOME/$NORMTEST_PREFIX" install "$FORMULA"
     install_status=$?
     if [ "$install_status" == "0" ]; then
-        LD_LIBRARY_PATH= LD_PRELOAD= $NORMDIR/norm ldd 2>&1 | fgrep -v 'files, checking if' > "$TMPFILE"
+        LD_LIBRARY_PATH= LD_PRELOAD= $NORMDIR/norm -p "$HOME/$NORMTEST_PREFIX" ldd 2>&1 | fgrep -v 'files, checking if' > "$TMPFILE"
         [ -e "$TMPFILE" -a ! -s "$TMPFILE" ] && ldd_status=0
     fi
     if [ "$ldd_status" == "0" ]; then
@@ -92,7 +94,7 @@ for file in $LIST; do
         cat "$TMPFILE" >> "$LOGFILE"
         mv -f "$LOGFILE"{,.err} # install failure, rename the log to indicate that
         pushd $HOME
-        tar zcvf "norm-fail-$MACHINEID-$FORMULA.tar.gz" norm
+        tar zcvf "norm-fail-$MACHINEID-$FORMULA.tar.gz" "$NORMTEST_PREFIX"
         popd
     fi
     rm -f "$TMPFILE"
