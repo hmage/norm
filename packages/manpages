@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://www.kernel.org/pub/linux/docs/man-pages/man-pages-3.81.tar.xz 100aa96f83c04b44dd2e25e178a589c4a13cafbf
+fetch_source https://www.kernel.org/pub/linux/docs/man-pages/man-pages-3.82.tar.xz 8679c7b712339c9af8ba977b4d33e2e2ebe3348b
 
 do_unpack
 pushd_src
