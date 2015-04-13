@@ -31,9 +31,6 @@ if ! test_cc_value "fcntl.h" "O_CLOEXEC"; then
     add_caveat "gallium in mesa was disabled -- your libc headers are too old."
 fi
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/m/mesa/mesa_10.3.2.orig.tar.gz a642d1fe460b4f5e4e650c71d07f4f0f511f8ba0
-fetch_debian http://ftp.de.debian.org/debian/pool/main/m/mesa/mesa_10.3.2-1.diff.gz 23c668b4f29b1ef701d69160b89c9227a59f3007
+fetch_source ftp://ftp.freedesktop.org/pub/mesa/10.5.3/mesa-10.5.3.tar.xz
 
-do_undebian
-do_autoreconf
-do_compile $DISABLE_GALLIUM
+do_unpack_compile $DISABLE_GALLIUM
