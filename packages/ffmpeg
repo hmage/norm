@@ -27,7 +27,7 @@ depends_on flex
 X265_CONFIGURE=
 have_gcc 4.4 && X265_CONFIGURE=--enable-libx265
 
-fetch_source https://www.ffmpeg.org/releases/ffmpeg-2.5.3.tar.bz2 160d53a0d6b8df18336fac7f068c390ac2d34cef
+fetch_source https://www.ffmpeg.org/releases/ffmpeg-2.6.2.tar.bz2
 
 do_unpack_compile --enable-pthreads --enable-gpl --enable-version3 \
                   --enable-hardcoded-tables --enable-avresample \
