@@ -38,6 +38,12 @@ if ! test_cc_func "stdio.h" 'printf("Hello, world!\n");'; then
     exit 1
 fi
 
+## curl availability check
+if ! hash curl 2>/dev/null; then
+    log "Error: you don't have curl installed in your PATH"
+    log "Can't compile anything, sorry"
+    exit 1
+fi
 
 usage() {
     echo "Usage:"
