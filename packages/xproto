@@ -2,32 +2,32 @@
 depends_on pkg-config
 depends_on xorg-macros
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-core/x11proto-core_7.0.23.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-core/x11proto-core_7.0.23-1.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-core/x11proto-core_7.0.23.orig.tar.gz 3baf2e7e517b392b60de0a8c090866f60a37e192
+fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-core/x11proto-core_7.0.23-1.diff.gz 09938c6e571108a9255e48232fd83e138ce9c316
 do_undebian_compile
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-input/x11proto-input_2.2.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-input/x11proto-input_2.2-1.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-input/x11proto-input_2.2.orig.tar.gz 116e11948b8fe57bd9c9ddc351f0f316fc4453f4
+fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-input/x11proto-input_2.2-1.diff.gz ac9029a5d3bf274c40ddf338a7e6a32ce1431034
 do_undebian_compile
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-kb/x11proto-kb_1.0.6.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-kb/x11proto-kb_1.0.6-2.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-kb/x11proto-kb_1.0.6.orig.tar.gz d2168250175b51cd4d4895541b688ca14ea31d10
+fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-kb/x11proto-kb_1.0.6-2.diff.gz 0b4e2a8e06caf9cf57f0d2c8107bde17b01b5697
 do_undebian_compile
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-xext/x11proto-xext_7.2.1.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-xext/x11proto-xext_7.2.1-1.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-xext/x11proto-xext_7.2.1.orig.tar.gz 3dc600d054043dc1768bd5a20b145bdf76729db0
+fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-xext/x11proto-xext_7.2.1-1.diff.gz 2786e656f561dfd1b6ccb4cc11866fa82bc42fca
 do_undebian_compile
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-render/x11proto-render_0.11.1.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-render/x11proto-render_0.11.1-2.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-render/x11proto-render_0.11.1.orig.tar.gz 522aa3e04e0c78598bb4a50157ca39e2b02d9222
+fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-render/x11proto-render_0.11.1-2.diff.gz 49b3e5e7cf558a185e10b00fb85c466099baef06
 do_undebian_compile
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-fixes/x11proto-fixes_5.0.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-fixes/x11proto-fixes_5.0-2.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-fixes/x11proto-fixes_5.0.orig.tar.gz 9efd241f9769fd6eec0cf74f338740a1f80c5885
+fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-fixes/x11proto-fixes_5.0-2.diff.gz 7288990973d8eda4d8900cb3d9e10839159a16df
 do_undebian_compile
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-damage/x11proto-damage_1.2.1.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-damage/x11proto-damage_1.2.1-2.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-damage/x11proto-damage_1.2.1.orig.tar.gz 6df5eccd2914ecb7c24ec0099b477aa5943c22ab
+fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-damage/x11proto-damage_1.2.1-2.diff.gz 99753da92a1b9a98d8063144381d865424a61da1
 do_undebian_compile
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-composite/x11proto-composite_0.4.2.orig.tar.gz

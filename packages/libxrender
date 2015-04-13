@@ -5,7 +5,7 @@ depends_on xorg-macros
 depends_on libx11
 depends_on xproto
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxrender/libxrender_0.9.7.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxrender/libxrender_0.9.7-1+deb7u1.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxrender/libxrender_0.9.7.orig.tar.gz 8463ff5f1ea2db1a6d0e50b28d30b8c6ea6bb538
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxrender/libxrender_0.9.7-1+deb7u1.diff.gz 9505763f5ed2d56877d8b82624882bec362ee54a
 
 do_undebian_compile

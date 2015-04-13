@@ -2,6 +2,6 @@
 
 depends_on pkg-config
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libp/libpthread-stubs/libpthread-stubs_0.3.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libp/libpthread-stubs/libpthread-stubs_0.3-3.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/libp/libpthread-stubs/libpthread-stubs_0.3.orig.tar.gz 7174d6a5f4b158746f020b8fc7a3e3e5438dd233
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libp/libpthread-stubs/libpthread-stubs_0.3-3.diff.gz 27951a3ef5d269ce75f6a61070d738de5b6067be
 do_undebian_compile

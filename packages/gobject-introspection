@@ -8,8 +8,8 @@ depends_on python
 depends_on glib
 
 ## newer gobject-introspection depends on newer glib, but newer glib doesn't compile on old gcc
-fetch_source http://ftp.de.debian.org/debian/pool/main/g/gobject-introspection/gobject-introspection_1.32.1.orig.tar.xz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/g/gobject-introspection/gobject-introspection_1.32.1-1.debian.tar.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/g/gobject-introspection/gobject-introspection_1.32.1.orig.tar.xz 289df976328490a2d5d4187032cf6d429dcef121
+fetch_debian http://ftp.de.debian.org/debian/pool/main/g/gobject-introspection/gobject-introspection_1.32.1-1.debian.tar.gz 0e870f3c6e9aa3a4c8581c2923710c9accc21dfc
 
 do_undebian
 do_patch_inline << 'EOF' # old versions of linker require explicit libpython linkage too
