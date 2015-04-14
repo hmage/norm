@@ -5,4 +5,4 @@ depends_on openssl libidn
 fetch_source http://ftp.de.debian.org/debian/pool/main/w/wget/wget_1.13.4.orig.tar.gz e25e1b487026ddd9026ca7d26af21f044c884d28
 fetch_debian http://ftp.de.debian.org/debian/pool/main/w/wget/wget_1.13.4-3+deb7u2.debian.tar.gz 881086ffa767edae77ebc480fd7550f57e7a56cf
 
-do_undebian_compile --enable-ipv6 --with-ssl --with-libidn
+do_undebian_compile --enable-ipv6 --with-ssl=openssl --with-libidn
