@@ -10,5 +10,8 @@ do_unpack
 tar xf "$SRCDIR"/bash-4.2dfsg.tar.xz -C "$SRCDIR"
 SRCDIR="$SRCDIR"/bash-4.2
 do_debianize
+pushd_src
+rm -rf bash
+popd_src
 do_compile
 
