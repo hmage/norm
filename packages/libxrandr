@@ -7,7 +7,7 @@ depends_on xproto
 depends_on libxext
 depends_on libxrender
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxrandr/libxrandr_1.3.2.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxrandr/libxrandr_1.3.2-2+deb7u1.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxrandr/libxrandr_1.3.2.orig.tar.gz 74d90555bf0772e25a5228c8dbad9d43fdd35b4f
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxrandr/libxrandr_1.3.2-2+deb7u1.diff.gz ddd60e90b7f0ed35689245e9fc4cbc0a987d604e
 
 do_undebian_compile

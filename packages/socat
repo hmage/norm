@@ -4,7 +4,7 @@ depends_on openssl
 depends_on libwrap
 depends_on libreadline
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/s/socat/socat_1.7.1.3.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/s/socat/socat_1.7.1.3-1.4.debian.tar.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/s/socat/socat_1.7.1.3.orig.tar.gz 5a42275da0d8a5182452b36535a74c3cdf21793b
+fetch_debian http://ftp.de.debian.org/debian/pool/main/s/socat/socat_1.7.1.3-1.4.debian.tar.gz 34aef0eedf63c87a7efe384efb6213a8089e886c
 
 do_undebian_compile

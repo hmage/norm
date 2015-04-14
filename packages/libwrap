@@ -1,7 +1,7 @@
 #!/bin/bash
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/t/tcp-wrappers/tcp-wrappers_7.6.q.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/t/tcp-wrappers/tcp-wrappers_7.6.q-24.debian.tar.xz
+fetch_source http://ftp.de.debian.org/debian/pool/main/t/tcp-wrappers/tcp-wrappers_7.6.q.orig.tar.gz 61689ec85b80f4ca0560aef3473eccd9e9e80481
+fetch_debian http://ftp.de.debian.org/debian/pool/main/t/tcp-wrappers/tcp-wrappers_7.6.q-24.debian.tar.xz f85a0359b14506822102cfbd132c7b5cd82d9c9f
 
 BUILD_SYSTEM=generic
 [[ $OSTYPE == *linux* ]] && BUILD_SYSTEM=linux

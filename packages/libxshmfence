@@ -4,8 +4,8 @@ depends_on pkg-config
 depends_on xorg-macros
 depends_on xproto
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxshmfence/libxshmfence_1.1.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxshmfence/libxshmfence_1.1-4.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxshmfence/libxshmfence_1.1.orig.tar.gz 71641e9ec82333ee44ad452d48037330c5b18804
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxshmfence/libxshmfence_1.1-4.diff.gz 211272197ce7b56baa336be95c93f109d652bae0
 
 do_undebian_compile
 

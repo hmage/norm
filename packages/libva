@@ -8,5 +8,5 @@ depends_on libx11
 depends_on libxext
 depends_on libxfixes
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libv/libva/libva_1.0.15.orig.tar.bz2
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libv/libva/libva_1.0.15-4.debian.tar.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/libv/libva/libva_1.0.15.orig.tar.bz2 f65a477b8a42b07aa3a78890df49b36d88b4bb07
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libv/libva/libva_1.0.15-4.debian.tar.gz c2706418b820e1abeddef9b2ffffbb3e175eb931

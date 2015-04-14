@@ -7,7 +7,7 @@ depends_on libxt
 depends_on libx11
 depends_on xproto
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxmu/libxmu_1.1.1.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxmu/libxmu_1.1.1-1.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxmu/libxmu_1.1.1.orig.tar.gz 1b97699f58efd178a571ca4dd75426625f6f6902
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxmu/libxmu_1.1.1-1.diff.gz 6d24e83c9077cb8cf6d57dbdd53841134975c86c
 
 do_undebian_compile

@@ -10,7 +10,7 @@ depends_on libxcb
 depends_on libxau
 depends_on libxdmcp
 
-fetch_source http://dbus.freedesktop.org/releases/dbus/dbus-1.8.16.tar.gz
+fetch_source http://dbus.freedesktop.org/releases/dbus/dbus-1.8.16.tar.gz 1504f03289dc4a694dae4980a773f63dd7fd1a01
 
 do_unpack_compile --disable-modular-tests --disable-libaudit --disable-xml-docs --disable-doxygen-docs
 

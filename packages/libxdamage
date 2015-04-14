@@ -5,7 +5,7 @@ depends_on xorg-macros
 depends_on xproto
 depends_on libx11 libxfixes
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxdamage/libxdamage_1.1.3.orig.tar.gz
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxdamage/libxdamage_1.1.3-2.diff.gz
+fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxdamage/libxdamage_1.1.3.orig.tar.gz df63681b7d60802e27cdec5cbff9ab209e641a6a
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxdamage/libxdamage_1.1.3-2.diff.gz 53295dc71a0954fad7b3a29132e7e0a61f958602
 
 do_undebian_compile
