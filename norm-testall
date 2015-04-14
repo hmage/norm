@@ -59,8 +59,6 @@ set +eE
 LIST="$@"
 [ -z "$LIST" ] && LIST=`find "$NORMDIR"/packages -maxdepth 1 -type f|sort -u`
 
-rm -rf "$LOGPATH"/*.err
-
 ##
 ## compile each package and save logs
 for file in $LIST; do
@@ -76,6 +74,7 @@ for file in $LIST; do
 
     # start afresh
     rm -rf "$HOME/$NORMTEST_PREFIX"
+    rm -f "$LOGPATH/$FORMULA"*.err
 
     # attempt to build the FORMULA
     $NORMDIR/norm -p "$HOME/$NORMTEST_PREFIX" install "$FORMULA"
