@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 depends_on autoconf automake libtool
 depends_on pkg-config
 depends_on xproto
@@ -19,16 +18,22 @@ depends_on bison
 depends_on flex
 
 DISABLE_GALLIUM=
-if have_gcc 4.7; then
-    depends_on libllvm
-else
-    DISABLE_GALLIUM="--with-gallium-drivers="
-    add_caveat "You don't have GCC 4.7 or newer -- gallium in mesa was disabled."
+is_without gallium && DISABLE_GALLIUM="--with-gallium-drivers="
+
+if [ -z "$DISABLE_GALLIUM" ]; then
+    if ! test_cc_value "fcntl.h" "O_CLOEXEC"; then
+        DISABLE_GALLIUM="--with-gallium-drivers="
+        add_caveat "gallium in mesa was disabled -- your libc headers are too old."
+    fi
 fi
 
-if ! test_cc_value "fcntl.h" "O_CLOEXEC"; then
-    DISABLE_GALLIUM="--with-gallium-drivers="
-    add_caveat "gallium in mesa was disabled -- your libc headers are too old."
+if [ -z "$DISABLE_GALLIUM" ]; then
+    if have_gcc 4.7; then
+        depends_on libllvm
+    else
+        DISABLE_GALLIUM="--with-gallium-drivers="
+        add_caveat "You don't have GCC 4.7 or newer -- gallium in mesa was disabled."
+    fi
 fi
 
 fetch_source ftp://ftp.freedesktop.org/pub/mesa/10.5.3/mesa-10.5.3.tar.xz 16ae80abe85b29fa118e1910a224c883964ae6c0
