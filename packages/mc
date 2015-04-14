@@ -2,6 +2,9 @@
 
 depends_on pkg-config
 depends_on libslang glib
+depends_on libmount
+depends_on libblkid
+depends_on libuuid
 
 fetch_source http://ftp.midnight-commander.org/mc-4.8.14.tar.xz ae64b22a213fac8b8231b5407b8aa312ca25c38f
 do_unpack_compile --without-x --with-screen=slang --without-gpm-mouse
