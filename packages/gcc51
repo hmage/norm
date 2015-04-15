@@ -1,0 +1,77 @@
+#!/bin/bash
+
+depends_on zlib
+
+## build all languages except java
+LANGUAGES=--enable-languages=c,c++,fortran,lto,objc,obj-c++
+
+## enable machine and OS specific features
+WITH_ARCH=
+HASH_STYLE=
+EXTRA_CONFOPTS=
+[[ $HOSTTYPE == i?86 ]] && WITH_ARCH=--with-arch=i686
+[[ $OSTYPE == *linux* ]] && HASH_STYLE=--with-linker-hash-style=both
+
+
+if test_cc_value "fcntl.h" "AT_FDCWD"; then
+    LANGUAGES="$LANGUAGES,go"
+else
+    add_caveat "go language was disabled -- your libc headers are too old"
+fi
+
+if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
+    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-libsanitizer"
+    add_caveat "Sanitizer support was disabled -- your linux headers are too old"
+fi
+
+if test_cc 'main() { return 0;}' -m64 && test_cc 'main() { return 0;}' -m32; then
+    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --enable-multilib"
+else
+    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-multilib"
+    add_caveat "Multilib support was disabled -- your current compiler doesn't support multilib"
+fi
+
+fetch_source ftp://gcc.gnu.org/pub/gcc/snapshots/5.1.0-RC-20150412/gcc-5.1.0-RC-20150412.tar.bz2 405c12ba75a30d52ed3e0b369e84e36a6ec7d6a4
+do_unpack
+
+fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.2.tar.xz 03e593cc6e26639ef5e60be1af8dc527209e5172
+intree_unpack mpfr
+
+fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.2.tar.gz 5072d82ab50ec36cc8c0e320b5c377adb48abe70
+intree_unpack mpc
+
+fetch_source http://ftpmirror.gnu.org/gmp/gmp-6.0.0a.tar.xz 1aaf78358ab9e34aeb61f3ae08174ee9118ece98
+intree_unpack gmp
+
+fetch_source 'http://www.bastoul.net/cloog/pages/download/count.php3?url=./cloog-0.18.1.tar.gz' 2dc70313e8e2c6610b856d627bce9c9c3f848077
+intree_unpack cloog
+
+fetch_source http://isl.gforge.inria.fr/isl-0.12.2.tar.bz2 ca98a91e35fb3ded10d080342065919764d6f928
+intree_unpack isl
+
+TARNAME=gcc-5.1.0-RC-20150412.tar.bz2
+
+## 'plugin' is gcc, 'plugins' is binutils.
+do_compile_outside \
+                   --program-suffix=-5.1.0 \
+                   --enable-__cxa_atexit --with-tune=generic \
+                   --enable-checking=release \
+                   $LANGUAGES \
+                   --enable-plugin \
+                   --enable-plugins \
+                   --enable-lto \
+                   --enable-threads=posix \
+                   $HASH_STYLE $WITH_ARCH \
+                   --enable-multiarch \
+                   --enable-clocale=generic \
+                   $EXTRA_CONFOPTS \
+                   --disable-werror # otherwise compilation fails because of binutils
+
+add_to_ccache g++-5.1.0 gcc-5.1.0
+
+add_caveat "This is a GCC 5.1.0 release candidate, so it won't replace your default gcc" \
+           "All gcc binaries have suffix, so to use this gcc, call gcc-5.1.0 or g++-5.1.0"
+
+add_caveat "Remember -- you can't use this build of gcc on any other machine" \
+           "Do not move it away from $PREFIX either -- paths are hardcoded" \
+
