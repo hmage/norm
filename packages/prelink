@@ -1,0 +1,11 @@
+#!/bin/bash
+
+depends_on libelf
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/p/prelink/prelink_0.0.20090925.orig.tar.gz 875dea2c62a7fc0f3580c220ff28bee404ce9135
+fetch_debian http://ftp.de.debian.org/debian/pool/main/p/prelink/prelink_0.0.20090925-6.diff.gz 78be6f0b4970b32f54e638b86fccc563494e8684
+
+do_undebian
+do_autoreconf
+do_compile
+
