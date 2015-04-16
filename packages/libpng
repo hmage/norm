@@ -1,13 +1,16 @@
 #!/bin/bash
 depends_on zlib
 
-fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.2.52.tar.xz 8d19d762f836bb8900efc79ef8f1c3b64ee9f658
-fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.4.14.tar.xz 402271bcd9af622e2f3ff378d57cd73c2dda7ad5
-fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.5.21.tar.xz 51eafc6bbf5a7af289f1bf6e108948f0f4b42644
-fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.6.16.tar.xz 31855a8438ae795d249574b0da15b34eb0922e13
-
 ## install several versions of libpng because of different .so's -- latest last
-do_unpack_compile libpng-1.2.52.tar.xz # libpng12.so
-do_unpack_compile libpng-1.4.14.tar.xz # libpng14.so
-do_unpack_compile libpng-1.5.21.tar.xz # libpng15.so
-do_unpack_compile libpng-1.6.16.tar.xz # libpng16.so
+
+fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.2.53.tar.xz 1668ea8522144bc1a206f000892cf0fec0b61037
+do_unpack_compile
+
+fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.4.16.tar.xz 4492cfbe3617758678b178e5f521893611fa2d13
+do_unpack_compile
+
+fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.5.22.tar.xz 9c41d643793135db1ffa644534abaee778422fc1
+do_unpack_compile
+
+fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.6.17.tar.xz 6394f3c0847c3b9ea69f4f972dddae3786592050
+do_unpack_compile
