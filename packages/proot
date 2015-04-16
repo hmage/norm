@@ -2,7 +2,7 @@
 
 depends_on libtalloc
 
-fetch_source https://github.com/cedric-vincent/PRoot/archive/v5.1.0.tar.gz
+fetch_source https://github.com/cedric-vincent/PRoot/archive/v5.1.0.tar.gz 7aaffddb8f955dc1015402846768a5e755294579
 
 do_unpack
 pushd_src
