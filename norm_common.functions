@@ -135,7 +135,7 @@ do_unpack() {
     [ -f "$TARDIR/$1" ] && TARNAME="$1" && shift
     [ -z "$TARNAME" ] && log "TARNAME is empty!" && return 1
 
-    SRCDIR="$COMPILEDIR/$TARNAME"
+    SRCDIR="$COMPILEDIR/$FORMULA/$TARNAME"
 
     log "Unpacking $TARNAME"
     rm -rf "$SRCDIR"  || return 1
@@ -301,7 +301,7 @@ compile_package() {
         log_success
         touch "$STATEDIR/$FORMULA".installed
         ## remove artifacts
-        [ -z "$norm_keep_sources" -a -n "$COMPILEDIR" -a -n "$TARNAME" ] && rm -rf "$COMPILEDIR/$TARNAME"
+        [[ -z "$norm_keep_sources" && -n "$COMPILEDIR" && -n "$FORMULA" ]] && rm -rf "$COMPILEDIR/$FORMULA"
     else
         [ -z "$COMPILING_FOR" ] && log "Package already installed: $FORMULA"
     fi
