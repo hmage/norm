@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/t/tidy/tidy_20091223cvs.orig.tar.gz 76fb4887bc08628e3dd6a26e0ebe48cf2d14fa05
+fetch_debian http://ftp.de.debian.org/debian/pool/main/t/tidy/tidy_20091223cvs-1.4.diff.gz af4be6fd73c09e8c5ecb798d558d57b23c3c2ac2
+
+do_undebian_compile
