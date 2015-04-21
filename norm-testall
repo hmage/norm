@@ -100,13 +100,13 @@ for file in $LIST; do
     unset ldd_status
 done
 
-ERRORS=`find "$LOGPATH" -name '*.err' -type f`
+ERRORS=($LOGPATH/*.err)
 if [ -n "$ERRORS" ]; then
     echo These packages have failed to build:
-    for file in $ERRORS; do
-        FORMULA=${file#$NORMDIR/packages/}
-        FORMULA=${FORMULA%.err}
-        echo $formula
+    for file in "${ERRORS[@]}"; do
+        FORMULA=${file%.*.log.err}
+        FORMULA=${FORMULA#$LOGPATH/}
+        echo $FORMULA
     done
     exit 1
 fi
