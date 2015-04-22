@@ -63,6 +63,8 @@ if ($verbose) {
 
 print "Found " . scalar(@files) . " files, checking if they have dependencies outside norm's prefix...\n";
 
+delete $ENV{'LD_LIBRARY_PATH'};
+
 my $filtered_prefix = quotemeta($prefix);
 foreach my $arg (@files) {
     my $output = `ldd "$arg" 2>&1`;
