@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on libattr
 depends_on python
 
 fetch_source https://www.samba.org/ftp/talloc/talloc-2.1.2.tar.gz a02ffe90c3dd31fbe14ecaa79912437bdf7295c1
