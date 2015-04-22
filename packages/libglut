@@ -6,6 +6,7 @@ depends_on mesa
 depends_on autoconf automake libtool
 depends_on libxi
 depends_on libxxf86vm
+depends_on libglu
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/f/freeglut/freeglut_2.6.0.orig.tar.gz 68306c4486c13d005a4e4d54035e0c0b1bdc220b
 fetch_debian http://ftp.de.debian.org/debian/pool/main/f/freeglut/freeglut_2.6.0-4.debian.tar.gz 05e1b9b6b0a7d8f316a1e87a68fe923dd53a9090
