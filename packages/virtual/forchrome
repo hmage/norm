@@ -9,11 +9,11 @@ depends_on freetype
 depends_on libpango
 depends_on libx11
 depends_on libxi
-#depends_on libxcursor
+depends_on libxcursor
 depends_on libxext
 depends_on libxfixes
 depends_on libxrender
-#depends_on libxcomposite
+depends_on libxcomposite
 depends_on libasound
 depends_on libxdamage
 depends_on libxtst
@@ -37,6 +37,6 @@ depends_on libxdmcp
 depends_on openssl
 depends_on libattr
 #depends_on libatk
-#depends_on libxinerama
+depends_on libxinerama
 depends_on libxxf86vm
 depends_on libdrm
