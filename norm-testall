@@ -93,7 +93,7 @@ for file in $LIST; do
         cat "$TMPFILE" >> "$LOGFILE"
         mv -f "$LOGFILE"{,.err} # install failure, rename the log to indicate that
         pushd $HOME
-        tar zcvf "norm-fail-$MACHINEID-$FORMULA.tar.gz" "$NORMTEST_PREFIX"
+        tar zcf "norm-fail-$MACHINEID-$FORMULA.tar.gz" "$NORMTEST_PREFIX"
         popd
     fi
     rm -f "$TMPFILE"
