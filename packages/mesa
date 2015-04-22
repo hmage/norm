@@ -38,4 +38,12 @@ fi
 
 fetch_source ftp://ftp.freedesktop.org/pub/mesa/10.5.3/mesa-10.5.3.tar.xz 16ae80abe85b29fa118e1910a224c883964ae6c0
 
-do_unpack_compile $DISABLE_GALLIUM --enable-osmesa
+do_unpack_compile $DISABLE_GALLIUM \
+                  --enable-gles1 \
+                  --enable-gles2 \
+                  --enable-osmesa \
+                  --enable-xa \
+                  --enable-glx-tls \
+                  --enable-gbm \
+                  --enable-sysfs \
+                  --enable-texture-float

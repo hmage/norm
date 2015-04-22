@@ -1,0 +1,11 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on libx11
+depends_on libxrender
+depends_on libxfixes
+
+fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxcursor/libxcursor_1.1.13.orig.tar.gz 703c8809d34648607072036b02264cdf0c2ad5ff
+fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxcursor/libxcursor_1.1.13-1+deb7u1.diff.gz f4fea35a431ce07fd4a22857f29158e5984277ae
+
+do_undebian_compile

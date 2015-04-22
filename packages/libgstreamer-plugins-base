@@ -1,0 +1,14 @@
+#!/bin/bash
+
+depends_on libgstreamer
+depends_on libasound
+depends_on libogg
+depends_on libtheora
+depends_on libvorbis
+
+fetch_source http://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-0.10.36.tar.xz
+
+EXTRAFLAGS=
+cc_addflag EXTRAFLAGS -march=native -msse2 -msse
+
+CPPFLAGS="$CPPFLAGS $EXTRAFLAGS" do_unpack_compile
