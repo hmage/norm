@@ -4,6 +4,7 @@ depends_on automake autoconf libtool
 depends_on libdb
 depends_on openssl
 depends_on libpam
+depends_on groff
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/c/cyrus-sasl2/cyrus-sasl2_2.1.25.dfsg1.orig.tar.gz 1ac1f1408643aa6687af5f2f763d9ff2a64304c8
 fetch_debian http://ftp.de.debian.org/debian/pool/main/c/cyrus-sasl2/cyrus-sasl2_2.1.25.dfsg1-6+deb7u1.debian.tar.gz 8cfc6b2b53e9d6abac604e0c3f0fcfcf229eb301
