@@ -36,8 +36,6 @@ You can add `norm` and everything it installs into your `PATH` manually or you c
 
 `norm` installs packages to your home directory, leaving system-wide programs intact and untouched — you probably don't have permissions to change them anyway. By default, install prefix is `~/norm`, but you can change that. See output of `norm --help`.
 
-Minimum requirements — a working C compiler, curl and perl. If your compiler works and can compile a simple "hello world" program, you can compile [any package listed here](https://github.com/hmage/norm/tree/master/packages).
-
 The compiled binaries are not for distribution — they won't work on any other location or another machine (because most programs hardcode their paths during compilation and add checks to glibc version used for building).
 
 Since `norm` uses `curl` to download source code, it supports proxies. Just set up appropriate environment variables if you already haven't done so, like this:
