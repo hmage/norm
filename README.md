@@ -11,26 +11,40 @@ All you need is a working compiler.
 ```bash
 git clone https://github.com/hmage/norm ~/norm
 . ~/norm/.bashrc
-norm install ffmpeg
-ffmpeg -version
+norm install gcc-5.1
 ```
 
-Now you have ffmpeg in `~/norm` with all it's dependencies.
-
-You can add `norm` and everything it installs into your `PATH` manually or you can use provided bashrc helper to do it for you — just add this line to your `.bashrc`:
+After everything is done, you will have gcc 5.1 in `~/norm` with all it's dependencies:
 
 ```
+$ gcc-5.1 --version
+gcc-5.1 (GCC) 5.1.0
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+$ echo 'main() {printf("Hello, world!\n");}' | gcc-5.1 -x c - -o hello && ./hello
+<stdin>:1:1: warning: return type defaults to 'int' [-Wimplicit-int]
+<stdin>: In function 'main':
+<stdin>:1:9: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+<stdin>:1:9: warning: incompatible implicit declaration of built-in function 'printf'
+<stdin>:1:9: note: include '<stdio.h>' or provide a declaration of 'printf'
+Hello, world!
+```
+You can add everything installed by `norm` into your `PATH` manually or you can use bashrc helper to do it for you — add this line to your `.bashrc`:
+
+```bash
 [[ -e ~/norm/.bashrc ]] && . ~/norm/.bashrc
 ```
 
 ## More examples
- * [`norm install gcc`](https://github.com/hmage/norm/tree/master/packages/gcc) — downloads, compiles and installs gcc 4.9. Great way to try out new compiler.
- * [`norm install ffmpeg`](https://github.com/hmage/norm/tree/master/packages/ffmpeg) — if you're on Debian wheezy, then your ffmpeg is _very_ outdated. This will gets you the newest ffmpeg with support for x264, x265, webm, opus and AAC.
- * [`norm install git`](https://github.com/hmage/norm/tree/master/packages/git) — similarly, your system copy of git might not support new features like push to deploy, reference cloning and shallow cloning.
- * [`norm install dovecot`](https://github.com/hmage/norm/tree/master/packages/dovecot) — you don't need root to spin up your own IMAP server, either. Change the listening port to something higher than 1024, set up virtual accounts and you're good to go.
- * [`norm install mc`](https://github.com/hmage/norm/tree/master/packages/mc) — latest midnight commander is much nicer than it was a few years ago, don't be stuck in the past.
- * [`norm install openssh`](https://github.com/hmage/norm/tree/master/packages/openssh) — your system openssh client might not support ECDSA and ed25519, which is increasingly problematic as the world around you moves away from DSA and RSA.
- * [`norm install fontconfig`](https://github.com/hmage/norm/tree/master/packages/fontconfig) — if font rendering on your machine looks horrible, install this, set up `LD_LIBRARY_PATH` to `~/norm/lib` in your `.bashrc` (before interactive check cutoff) and restart X session.
+ * [`norm install gcc`](tree/master/packages/gcc) — downloads, compiles and installs gcc 4.9. Great way to try out new compiler.
+ * [`norm install ffmpeg`](tree/master/packages/ffmpeg) — if you're on Debian wheezy, then your ffmpeg is _very_ outdated. This will gets you the newest ffmpeg with support for x264, x265, webm, opus and AAC.
+ * [`norm install git`](tree/master/packages/git) — similarly, your system copy of git might not support new features like push to deploy, reference cloning and shallow cloning.
+ * [`norm install dovecot`](tree/master/packages/dovecot) — you don't need root to spin up your own IMAP server, either. Change the listening port to something higher than 1024, set up virtual accounts and you're good to go.
+ * [`norm install mc`](tree/master/packages/mc) — latest midnight commander is much nicer than it was a few years ago, don't be stuck in the past.
+ * [`norm install openssh`](tree/master/packages/openssh) — your system openssh client might not support ECDSA and ed25519, which is increasingly problematic as the world around you moves away from DSA and RSA.
+ * [`norm install fontconfig`](tree/master/packages/fontconfig) — if font rendering on your machine looks horrible, install this, set up `LD_LIBRARY_PATH` to `~/norm/lib` in your `.bashrc` (before interactive check cutoff) and restart X session.
 
 ## About
 
@@ -49,7 +63,7 @@ export ftp_proxy=$http_proxy
 Replace the IP address and port with appropriate values for your proxy. You can add this to your `.bashrc` if you haven't done so.
 
 ## Packages
-`norm` packages are bash scripts, [example](https://github.com/hmage/norm/tree/master/packages/tar):
+`norm` packages are bash scripts, [example](tree/master/packages/tar):
 
 ```bash
 #!/bin/bash
@@ -64,11 +78,10 @@ This particular packages uses only commands that are specific to `norm`:
  * `fetch_source` — downloads the source and verifies SHA1 checksum.
  * `do_unpack_compile` — unpacks the source code, runs `configure`, `make` and `make install`.
 
-If software uses autotools to configure itself, no other bash functions are needed to successfully compile. [Other functions](https://github.com/hmage/norm/blob/master/norm_common.functions) should be self explanatory.
+If software uses autotools to configure itself, no other bash functions are needed to successfully compile. [Other functions](tree/master/norm_common.functions) should be self explanatory.
 
-To see a more complex example, you can take a look at [how gcc is built](https://github.com/hmage/norm/tree/master/packages/gcc).
-
+To see a more complex example, you can take a look at [how gcc is built](tree/master/packages/gcc).
 
 ## Adding new packages
 
-If you want some package to be added to `norm`, you can either let me know by [opening an issue](https://github.com/hmage/norm/issues) or you can do it yourself and then [open a pull request](https://github.com/hmage/norm/compare).
+If you want some package to be added to `norm`, you can either let me know by [opening an issue](issues) or you can do it yourself and then [open a pull request](compare).
