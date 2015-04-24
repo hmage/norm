@@ -2,7 +2,7 @@
 
 Don't have root?
 
-Not a problem -- `norm` installs stuff you need that your sysadmin didn't.
+Not a problem — `norm` installs stuff you need that your sysadmin didn't.
 
 All you need is a working compiler.
 
@@ -17,7 +17,7 @@ ffmpeg -version
 
 Now you have ffmpeg in `~/norm` with all it's dependencies.
 
-You can add `norm` and everything it installs into your `PATH` manually or you can use the bashrc helper provided to do it for you -- just add this line to your `.bashrc`:
+You can add `norm` and everything it installs into your `PATH` manually or you can use the bashrc helper provided to do it for you — just add this line to your `.bashrc`:
 
 ```
 [[ -e ~/norm/.bashrc ]] && . ~/norm/.bashrc
@@ -34,9 +34,9 @@ You can add `norm` and everything it installs into your `PATH` manually or you c
 
 ## About
 
-`norm` installs packages to your home directory, leaving system-wide programs intact and untouched -- you probably don't have permissions to change them anyway. By default, install prefix is `~/norm`, but you can change that. See output of `norm --help`.
+`norm` installs packages to your home directory, leaving system-wide programs intact and untouched — you probably don't have permissions to change them anyway. By default, install prefix is `~/norm`, but you can change that. See output of `norm --help`.
 
-Minimum requirements -- a working C compiler, curl and perl. If your compiler works and can compile a simple "hello world" program, you can compile [any package listed here](https://github.com/hmage/norm/tree/master/packages).
+Minimum requirements — a working C compiler, curl and perl. If your compiler works and can compile a simple "hello world" program, you can compile [any package listed here](https://github.com/hmage/norm/tree/master/packages).
 
 The compiled binaries are not for distribution — they won't work on any other location or another machine (because most programs hardcode their paths during compilation and add checks to glibc version used for building).
 
