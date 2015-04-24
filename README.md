@@ -17,7 +17,7 @@ ffmpeg -version
 
 Now you have ffmpeg in `~/norm` with all it's dependencies.
 
-You can add `norm` and everything it installs into your `PATH` manually or you can use the bashrc helper provided to do it for you — just add this line to your `.bashrc`:
+You can add `norm` and everything it installs into your `PATH` manually or you can use provided bashrc helper to do it for you — just add this line to your `.bashrc`:
 
 ```
 [[ -e ~/norm/.bashrc ]] && . ~/norm/.bashrc
