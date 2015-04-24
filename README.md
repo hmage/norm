@@ -14,23 +14,10 @@ git clone https://github.com/hmage/norm ~/norm
 norm install gcc-5.1
 ```
 
-After everything is done, you will have gcc 5.1 in `~/norm` with all it's dependencies:
+After everything is done, you will have gcc 5.1 in `~/norm` with all it's dependencies, like this:
 
-```
-$ gcc-5.1 --version
-gcc-5.1 (GCC) 5.1.0
-Copyright (C) 2015 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+![Example of gcc-5.1 output](http://hmage.github.io/norm/images/gcc-5.1.png)
 
-$ echo 'main() {printf("Hello, world!\n");}' | gcc-5.1 -x c - -o hello && ./hello
-<stdin>:1:1: warning: return type defaults to 'int' [-Wimplicit-int]
-<stdin>: In function 'main':
-<stdin>:1:9: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
-<stdin>:1:9: warning: incompatible implicit declaration of built-in function 'printf'
-<stdin>:1:9: note: include '<stdio.h>' or provide a declaration of 'printf'
-Hello, world!
-```
 You can add everything installed by `norm` into your `PATH` manually or you can use bashrc helper to do it for you — add this line to your `.bashrc`:
 
 ```bash
