@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://www.ivarch.com/programs/sources/pv-1.5.7.tar.bz2 173d87d11d02a524037228f6495c46cad3214b7d
+fetch_source http://www.ivarch.com/programs/sources/pv-1.6.0.tar.bz2 748280662bdc318c876cc9e759b52050c76f81ee
 
 do_unpack_compile
