@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/g/gzip/gzip_1.5.orig.tar.gz 56a80da7b032107372d3f3343bed7c7af452a826
-fetch_debian http://ftp.de.debian.org/debian/pool/main/g/gzip/gzip_1.5-1.1.debian.tar.gz a7b9c4b2397a51ba042049679542472ae65e8321
+fetch_source http://http.debian.net/debian/pool/main/g/gzip/gzip_1.6.orig.tar.gz 7ec6403090b3eaeb53ef017223cb8034eebc1f49
+fetch_debian http://http.debian.net/debian/pool/main/g/gzip/gzip_1.6-4.debian.tar.xz a9cc02481afb6d72367c6ed1e9b1a9f80b54f8aa
 
 do_undebian_compile
