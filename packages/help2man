@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/h/help2man/help2man_1.40.10.tar.gz ea71464a518b48385b572bdcee33dabc8631b87c
+fetch_source http://http.debian.net/debian/pool/main/h/help2man/help2man_1.46.4.tar.xz 7eebb6ead072b19863f28acca051bc3e3c40fdf9
 
 do_unpack_compile
