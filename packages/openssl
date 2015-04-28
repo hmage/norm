@@ -2,13 +2,13 @@
 depends_on zlib
 
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
-fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e.orig.tar.gz 3f1b1223c9e8189bfe4e186d86449775bd903460
-fetch_debian http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e-2+deb7u16.debian.tar.gz 3e284fe63bbc521c5f67bda8243080383fe757ae
+fetch_source http://http.debian.net/debian/pool/main/o/openssl/openssl_1.0.1k.orig.tar.gz 19d818e202558c212a9583fcdaf876995a633ddf
+fetch_debian http://http.debian.net/debian/pool/main/o/openssl/openssl_1.0.1k-3.debian.tar.xz 9729cc7b412160d54a84a39a906de8e60e2319c0
 
 BUILDCONF=gcc
 cc_addflags EXTRAFLAGS -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing
 cc_addflag EXTRAFLAGS -march=native -march=i686
-SSLCONFIG="no-ssl2 threads zlib --openssldir=$PREFIX/etc/ssl"
+SSLCONFIG="no-ssl2 no-ssl3 threads zlib --openssldir=$PREFIX/etc/ssl"
 
 [[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == i?86 ]] && BUILDCONF=linux-elf
 [[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == x86_64 ]] && BUILDCONF=debian-amd64 && SSLCONFIG="$SSLCONFIG enable-ec_nistp_64_gcc_128"
@@ -17,11 +17,6 @@ SSLCONFIG="no-ssl2 threads zlib --openssldir=$PREFIX/etc/ssl"
 do_undebian
 
 fix_makefile() {
-    # get rid of built-in O3, omit-frame-pointer and arch/cpu/machine settings -> faster binary
-    sed -i -e 's:-fomit-frame-pointer ::g' \
-           -e 's:-O[0-9] ::g' \
-           -e 's:-m(arch|cpu)=[-a-z0-9]* ::g' \
-           -e 's:-m[a-z0-9]* ::g' Makefile || false
     sed -i "s:^CFLAG=.*\$:& $EXTRAFLAGS:" Makefile || false
 }
 
