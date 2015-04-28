@@ -2,12 +2,13 @@
 
 depends_on pkg-config
 
-fetch_source http://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.42.12/e2fsprogs-1.42.12.tar.gz 083c1bb0d1e85672e8038a2fadf70b24e7409db7
+fetch_source http://http.debian.net/debian/pool/main/e/e2fsprogs/e2fsprogs_1.42.12.orig.tar.gz 083c1bb0d1e85672e8038a2fadf70b24e7409db7
+fetch_debian http://http.debian.net/debian/pool/main/e/e2fsprogs/e2fsprogs_1.42.12-1.1.debian.tar.xz ac1ed4de29699af07b17fa0f37389af8c863ee09
 
 CONFFLAGS="--disable-defrag --enable-symlink-install"
 [[ $OSTYPE == *linux* ]] && CONFFLAGS="$CONFFLAGS --enable-elf-shlibs"
 
-do_unpack
+do_undebian
 pushd_src
 mkdir -p build
 cd build
