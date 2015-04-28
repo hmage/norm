@@ -1,7 +1,7 @@
 #!/bin/bash
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/g/gperf/gperf_3.0.3.orig.tar.gz 3c535d2727eb0dca10ca87cefa03720a8280c7a2
-fetch_debian http://ftp.de.debian.org/debian/pool/main/g/gperf/gperf_3.0.3-1.diff.gz f09acbef1d9c8431c59f807f1b13fd9ba3e9fc54
+fetch_source http://http.debian.net/debian/pool/main/g/gperf/gperf_3.0.4.orig.tar.gz e32d4aff8f0c730c9a56554377b2c6d82d0951b8
+fetch_debian http://http.debian.net/debian/pool/main/g/gperf/gperf_3.0.4-1.debian.tar.gz cd562c0c65b990fb509402280e6dce04c285b92c
 
 do_undebian_compile
 
