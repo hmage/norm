@@ -37,6 +37,8 @@ EOF
             -Duseshrplib -Dusethreads -Duselargefiles -Duse64bitint \
             -Dcc=gcc
 do_make
-http_proxy= https_proxy= ftp_proxy= do_make test ## a lot of stuff depends on perl, so it must pass all self checks
+## a lot of stuff depends on perl, so it must pass all self checks
+## in order to do so, it must be run in clean environment so it won't try to use proxies
+env - make test
 do_install
 popd
