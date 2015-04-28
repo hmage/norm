@@ -1,32 +1,13 @@
 #!/bin/bash
 
-fetch_source http://bash-completion.alioth.debian.org/files/bash-completion-1.3.tar.bz2 6a46b93f44c56cc336632ab28d90c0595fbcc98f
+fetch_source http://http.debian.net/debian/pool/main/b/bash-completion/bash-completion_2.1.orig.tar.bz2 b74bf7d83646e1412bb07dbb1de09db1c9715599
+fetch_debian http://http.debian.net/debian/pool/main/b/bash-completion/bash-completion_2.1-4.debian.tar.xz b6730161a33f4f3f6ac6731c95f2fd999b8fea64
 
-do_unpack
-pushd_src
-sed -i "s|/etc/bash_completion|$PREFIX/etc/bash_completion|" -- bash_completion
-sed -i "s|readlink -f|readlink|" -- bash_completion
-do_patch_inline << 'EOF'
---- a/bash_completion.orig        2015-01-24 20:29:19.255591000 +0300
-+++ b/bash_completion     2015-01-24 20:30:09.831591000 +0300
-@@ -1334,7 +1334,7 @@
+do_undebian_compile
 
-     # append any available aliases from config files
-     if [[ ${#config[@]} -gt 0 && -n "$aliases" ]]; then
--        local hosts=$( sed -ne 's/^[ \t]*[Hh][Oo][Ss][Tt]\([Nn][Aa][Mm][Ee]\)\{0,1\}['"$'\t '"']\{1,\}\([^#*?]*\)\(#.*\)\{0,1\}$/\2/p' "${config[@]}" )
-+        local hosts=$( sed -ne 's/^['"$'\t '"']*[Hh][Oo][Ss][Tt]\([Nn][Aa][Mm][Ee]\)\{0,1\}['"$'\t '"']\{1,\}\([^#*?]*\)\(#.*\)\{0,1\}$/\2/p' "${config[@]}" )
-         COMPREPLY=( "${COMPREPLY[@]}" $( compgen  -P "$prefix$user" \
-             -S "$suffix" -W "$hosts" -- "$cur" ) )
-     fi
-EOF
-popd
-
-do_compile
-
-cat << EOF
------------------------------
-Add following line to your .bash_profile:
-
-[ -f $PREFIX/etc/bash_completion ] && . $PREFIX/etc/bash_completion
------------------------------
-EOF
+add_caveat \
+"-----------------------------" \
+"Add following line to your .bash_profile:" \
+"" \
+"[ -f $PREFIX/etc/bash_completion ] && . $PREFIX/etc/bash_completion" \
+"-----------------------------"
