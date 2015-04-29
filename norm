@@ -4,13 +4,13 @@ set -eE
 DIRNAME=`dirname "$0"`
 READLINK=`readlink "$0" || true`
 LINKDIRNAME=`dirname "$READLINK"`
-NORMDIR=$LINKDIRNAME
+NORMDIR="$LINKDIRNAME"
 [ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
 NORMDIR=`cd "$NORMDIR"; pwd`
 
-. $NORMDIR/norm_common
+. "$NORMDIR"/norm_common
 
-PREFIX=$DEFAULT_PREFIX
+PREFIX="$DEFAULT_PREFIX"
 
 ## root users must use distro's package manager
 [ $EUID == "0" ] && log "Error: I will not run for root user." && exit 1
@@ -103,7 +103,7 @@ cmd_ldd() {
             ;;
         esac
     done
-    $NORMDIR/norm-ldd $verbose "$PREFIX"
+    "$NORMDIR"/norm-ldd $verbose "$PREFIX"
 }
 
 cmd_list() {

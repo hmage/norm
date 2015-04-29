@@ -16,8 +16,8 @@ hash $SHASUM_BIN 2>/dev/null || SHASUM_BIN=sha1sum
 CONFIGURE_FILTER=norm-configure-filter
 perl ' use v5.10.0; ' 2>/dev/null || CONFIGURE_FILTER=cat
 
-. $NORMDIR/norm_common.functions
-. $NORMDIR/norm_common.prefix
+. "$NORMDIR"/norm_common.functions
+. "$NORMDIR"/norm_common.prefix
 
 onerror() {
     log "Package $FORMULA failed to build"
