@@ -4,7 +4,10 @@ depends_on pkg-config
 depends_on libidn
 depends_on openssl
 
-fetch_source http://curl.haxx.se/download/curl-7.39.0.tar.bz2 80c6eadcc6ca526d1e1862c2234f33c7b7d10950
+fetch_source http://curl.haxx.se/download/curl-7.42.1.tar.gz eff27e4527388895638103c6133cf79130025555
+
 do_unpack_compile --disable-ldap --enable-optimize --with-ca-bundle=$PREFIX/etc/ssl/cert.pem
+
+## install ca-certificates so curl can use HTTPS
 mkdir -p $PREFIX/etc/ssl/certs
-curl -L -R 'http://curl.haxx.se/ca/cacert.pem' -o $PREFIX/etc/ssl/cert.pem
+$PREFIX/bin/curl -L -R 'http://curl.haxx.se/ca/cacert.pem' -o $PREFIX/etc/ssl/cert.pem
