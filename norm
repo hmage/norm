@@ -7,24 +7,8 @@ LINKDIRNAME=`dirname "$READLINK"`
 NORMDIR=$LINKDIRNAME
 [ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
 NORMDIR=`cd "$NORMDIR"; pwd`
-OURNAME=`basename -- $0`
-TARDIR="$HOME/.cache/norm"
-LIBSUFFIX=so
-[[ $OSTYPE == *darwin* ]] && LIBSUFFIX=dylib
 
-. $NORMDIR/norm_common.functions
-. $NORMDIR/norm_common.prefix
-
-COMPILEDIR="$DEFAULT_PREFIX/tmp/compile"
-NUMCPU=`getconf _NPROCESSORS_ONLN`
-[ -z "$NUMCPU" ] && NUMCPU=1
-NUMJOBS=$(( $NUMCPU * 2 ))
-
-## find shasum binary
-SHASUM_BIN=shasum
-hash $SHASUM_BIN 2>/dev/null || SHASUM_BIN=sha1sum
-CONFIGURE_FILTER=norm-configure-filter
-perl ' use v5.10.0; ' 2>/dev/null || CONFIGURE_FILTER=cat
+. $NORMDIR/norm_common
 
 PREFIX=$DEFAULT_PREFIX
 
