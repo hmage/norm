@@ -7,14 +7,7 @@ depends_on libreadline
 depends_on zlib
 depends_on openssl
 depends_on libffi
-#depends_on libyaml
 
-fetch_source http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.1.tar.gz 12376b79163e02bc9bd1a39329d67c3d19ccace9
+fetch_source http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.2.tar.gz 29c51a17639d921b1ae51cd80a9d7584f67d5e1c
 
-do_unpack
-pushd_src
-do_configure
-do_make
-do_make check
-do_install
-popd
+do_unpack_compile
