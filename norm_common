@@ -14,6 +14,11 @@ NUMJOBS=$(( $NUMCPU * 2 ))
 SHASUM_BIN=shasum
 hash $SHASUM_BIN 2>/dev/null || SHASUM_BIN=sha1sum
 
+## get machine id for later
+MACHINEID="$HOSTNAME.${BASH_VERSINFO[5]}"
+[ -z "${debian_chroot:-}" -a -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
+[ -n "$debian_chroot" ] && MACHINEID+=".$debian_chroot"
+
 . "$NORMDIR"/norm_common.functions
 . "$NORMDIR"/norm_common.prefix
 

@@ -6,15 +6,11 @@ NORMDIR="$LINKDIRNAME"
 [ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
 NORMDIR=`cd "$NORMDIR"; pwd`
 
-SHASUM_BIN=shasum
-hash $SHASUM_BIN 2>/dev/null || SHASUM_BIN=sha1sum
+. "$NORMDIR"/norm_common
 
 ##
 ## set up logging
 ##
-MACHINEID="$HOSTNAME.${BASH_VERSINFO[5]}"
-[ -z "${debian_chroot:-}" -a -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
-[ -n "$debian_chroot" ] && MACHINEID+=".$debian_chroot"
 LOGPATH="$NORMDIR/testlogs.$MACHINEID"
 BOOTSTRAP_PREFIX="normstrap.$MACHINEID"
 BOOTSTRAP_GZ="$BOOTSTRAP_PREFIX.tar.gz"
