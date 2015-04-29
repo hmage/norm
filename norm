@@ -46,6 +46,7 @@ usage() {
     echo
     echo "ldd options:"
     echo "    -v          -- show list of files that will be fed to ldd"
+    echo "    -q          -- output only ldd results"
     echo
     echo "Maintainer commands:"
     echo "    $OURNAME testall  -- compile every package and save the result into separate logfiles"
@@ -88,15 +89,18 @@ cmd_sub() {
 }
 
 cmd_ldd() {
-    local verbose
-    while getopts "v" opt; do
+    local LDDOPTS=()
+    while getopts "qv" opt; do
         case $opt in
         v)
-            verbose=-v
+            LDDOPTS+=(-v)
+            ;;
+        q)
+            LDDOPTS+=(-q)
             ;;
         esac
     done
-    "$NORMDIR"/norm-ldd $verbose "$PREFIX"
+    "$NORMDIR"/norm-ldd "${LDDOPTS[@]}" "$PREFIX"
 }
 
 cmd_list() {

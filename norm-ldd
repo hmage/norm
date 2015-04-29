@@ -7,12 +7,14 @@ use Getopt::Long;
 use File::Find;
 
 sub usage {
-    print "Usage: $0 <full-prefix-path>\n";
+    print "Usage: $0 [-v] [-q] <full-prefix-path>\n";
     exit 64;
 }
 
 my $verbose = '';
+my $quiet = '';
 GetOptions ("verbose+" => \$verbose) or usage();
+GetOptions ("quiet+" => \$quiet) or usage();
 
 if (@ARGV < 1) {
     usage();
@@ -61,7 +63,9 @@ if ($verbose) {
     print join("\n", @files) . "\n";
 }
 
-print "Found " . scalar(@files) . " files, checking if they have dependencies outside norm's prefix...\n";
+if (!$quiet) {
+    print "Found " . scalar(@files) . " files, checking if they have dependencies outside norm's prefix...\n";
+}
 
 delete $ENV{'LD_LIBRARY_PATH'};
 
