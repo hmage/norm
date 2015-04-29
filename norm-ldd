@@ -69,6 +69,7 @@ if (!$quiet) {
 
 delete $ENV{'LD_LIBRARY_PATH'};
 
+my $retstatus = 0;
 my $filtered_prefix = quotemeta($prefix);
 foreach my $arg (@files) {
     my $output = `ldd "$arg" 2>&1`;
@@ -87,5 +88,8 @@ foreach my $arg (@files) {
     if (length $filtered_output) {
 	print "$arg:\n";
 	print $filtered_output;
+	$retstatus = 1;
     }
 }
+
+exit $retstatus;
