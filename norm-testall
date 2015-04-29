@@ -36,8 +36,9 @@ set -eE
 rm -rf $HOME/"$BOOTSTRAP_PREFIX"
 if [ ! -e "$LOGPATH/$BOOTSTRAP_GZ" ]; then
     pushd "$HOME"
-    $NORMDIR/norm -p "$HOME/$BOOTSTRAP_PREFIX" install ccache
-    $NORMDIR/norm -p "$HOME/$BOOTSTRAP_PREFIX" install tar xz bzip2 gzip curl
+    $NORMDIR/norm -p "$HOME/$BOOTSTRAP_PREFIX" install ccache # needs to be installed first
+    $NORMDIR/norm -p "$HOME/$BOOTSTRAP_PREFIX" install tar # old tar won't support xz, fix that and make other compilations use it
+    $NORMDIR/norm -p "$HOME/$BOOTSTRAP_PREFIX" install xz bzip2 gzip curl
     $NORMDIR/norm -p "$HOME/$BOOTSTRAP_PREFIX" install gcc
 
     ## bin will be in PATH, so remove stuff that will get in our way
