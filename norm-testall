@@ -50,7 +50,6 @@ if [ ! -e "$LOGPATH/$BOOTSTRAP_GZ" ]; then
     cd $HOME
     mkdir -p $LOGPATH
     tar zcf "$LOGPATH/$BOOTSTRAP_GZ" "$BOOTSTRAP_PREFIX"
-    popd
 fi
 export PATH="$HOME/$BOOTSTRAP_PREFIX/bin/ccache_wrap:$HOME/$BOOTSTRAP_PREFIX/bin:$PATH"
 tar xf "$LOGPATH/$BOOTSTRAP_GZ" -C "$HOME"
