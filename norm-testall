@@ -12,8 +12,9 @@ NORMDIR=`cd "$NORMDIR"; pwd`
 ## set up logging
 ##
 LOGPATH="$NORMDIR/testlogs.$MACHINEID"
-BOOTSTRAP_PREFIX="normstrap.$MACHINEID"
-BOOTSTRAP_GZ="$BOOTSTRAP_PREFIX.tar.gz"
+BOOTSTRAP_NAME="normstrap.$MACHINEID"
+BOOTSTRAP_PREFIX="$HOME/$BOOTSTRAP_NAME"
+BOOTSTRAP_GZ="$BOOTSTRAP_NAME.tar.gz"
 NORMTEST_PREFIX="normtest.$MACHINEID"
 mkdir -p "$LOGPATH"
 LOGFILE=
@@ -29,27 +30,27 @@ trap sigint SIGINT
 ## prepare norm bootstrap
 ##
 set -eE
-rm -rf $HOME/"$BOOTSTRAP_PREFIX"
+rm -rf "$BOOTSTRAP_PREFIX"
 if [ ! -e "$LOGPATH/$BOOTSTRAP_GZ" ]; then
     pushd "$HOME"
-    $NORMDIR/norm -p "$HOME/$BOOTSTRAP_PREFIX" install ccache # needs to be installed first
-    $NORMDIR/norm -p "$HOME/$BOOTSTRAP_PREFIX" install tar # old tar won't support xz, fix that and make other compilations use it
-    $NORMDIR/norm -p "$HOME/$BOOTSTRAP_PREFIX" install xz bzip2 gzip curl
-    $NORMDIR/norm -p "$HOME/$BOOTSTRAP_PREFIX" install gcc
+    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install ccache # needs to be installed first
+    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install tar # old tar won't support xz, fix that and make other compilations use it
+    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install xz bzip2 gzip curl
+    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install gcc
 
     ## bin will be in PATH, so remove stuff that will get in our way
-    cd "$HOME/$BOOTSTRAP_PREFIX/bin"
+    cd "$BOOTSTRAP_PREFIX/bin"
     rm -vf attr c_rehash chacl curl-config getfacl getfattr idn setfacl setfattr *pkg-config
     cd ..
     strip -gp libexec/gcc/*/*/* || true
     rm -rf tmp/compile
     cd $HOME
     mkdir -p $LOGPATH
-    tar zcf "$LOGPATH/$BOOTSTRAP_GZ" "$BOOTSTRAP_PREFIX"
+    tar zcf "$LOGPATH/$BOOTSTRAP_GZ" "$BOOTSTRAP_NAME"
 fi
-export PATH="$HOME/$BOOTSTRAP_PREFIX/bin/ccache_wrap:$HOME/$BOOTSTRAP_PREFIX/bin:$PATH"
+export PATH="$BOOTSTRAP_PREFIX/bin/ccache_wrap:$BOOTSTRAP_PREFIX/bin:$PATH"
 tar xf "$LOGPATH/$BOOTSTRAP_GZ" -C "$HOME"
-export LD_LIBRARY_PATH="$HOME/$BOOTSTRAP_PREFIX/lib"
+export LD_LIBRARY_PATH="$BOOTSTRAP_PREFIX/lib"
 set +eE
 
 LIST="$@"
