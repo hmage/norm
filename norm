@@ -26,7 +26,7 @@ hash $SHASUM_BIN 2>/dev/null || SHASUM_BIN=sha1sum
 CONFIGURE_FILTER=norm-configure-filter
 perl ' use v5.10.0; ' 2>/dev/null || CONFIGURE_FILTER=cat
 
-newprefix=$DEFAULT_PREFIX
+PREFIX=$DEFAULT_PREFIX
 
 ## root users must use distro's package manager
 [ $EUID == "0" ] && log "Error: I will not run for root user." && exit 1
@@ -95,7 +95,7 @@ cmd_install() {
     [ -n "$force" ] && log "Forcing reinstall of packages: $@" \
                     || log "Installing packages: $@"
     setup_traps
-    setup_prefix "$newprefix"
+    setup_prefix "$PREFIX"
     for FORMULA; do
         [[ "$FORMULA" == --* ]] && continue ## ignore flags
         setup_logs "$FORMULA"
@@ -106,7 +106,7 @@ cmd_install() {
 
 cmd_sub() {
     log "Creating subshell so you can compile and link against norm libs"
-    setup_prefix "$newprefix"
+    setup_prefix "$PREFIX"
     $SHELL -i
 }
 
@@ -119,11 +119,11 @@ cmd_ldd() {
             ;;
         esac
     done
-    $NORMDIR/norm-ldd $verbose "$newprefix"
+    $NORMDIR/norm-ldd $verbose "$PREFIX"
 }
 
 cmd_list() {
-    local STATEDIR="$newprefix"/var/norm
+    local STATEDIR="$PREFIX"/var/norm
     for file in "$STATEDIR"/*installed; do
         [ -e "$file" ] || continue
         basename -- "$file" .installed
@@ -139,8 +139,8 @@ cmd_testall() {
 while getopts ":p:" opt; do
     case $opt in
     p)
-        newprefix="$OPTARG"
-        [ "${newprefix:0:1}" != "/" ] && newprefix="$PWD"/"$OPTARG"
+        PREFIX="$OPTARG"
+        [ "${PREFIX:0:1}" != "/" ] && PREFIX="$PWD"/"$OPTARG"
         ;;
     \?)
         echo "Invalid option: -$OPTARG" >&2
