@@ -126,7 +126,18 @@ cmd_list() {
     local STATEDIR="$PREFIX"/var/norm
     for file in "$STATEDIR"/*installed; do
         [ -e "$file" ] || continue
-        basename -- "$file" .installed
+        basename -- "$file" .installed | perl -pe 's/\.[0-9a-f]{40}$//'
+    done
+}
+
+cmd_upgrade() {
+    local STATEDIR="$PREFIX"/var/norm
+    for file in "$STATEDIR"/*installed; do
+        [ -e "$file" ] || continue
+        FORMULA=`basename -- "$file" .installed | perl -pe 's/\.[0-9a-f]{40}$//'`
+        setup_logs "$FORMULA"
+        compile_package "$FORMULA"
+        finish_logs
     done
 }
 
@@ -176,6 +187,10 @@ case "$1" in
     list)
         shift
         cmd_list "$@"
+        ;;
+    upgrade)
+        shift
+        cmd_upgrade "$@"
         ;;
     reinstall)
         shift
