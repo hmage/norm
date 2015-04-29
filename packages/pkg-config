@@ -4,4 +4,5 @@
 
 fetch_source http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz 71853779b12f958777bffcb8ca6d849b4d3bed46
 
+LN="ln -f" \
 do_unpack_compile --with-internal-glib
