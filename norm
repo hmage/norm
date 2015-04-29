@@ -116,13 +116,14 @@ cmd_list() {
 
 cmd_upgrade() {
     local STATEDIR="$PREFIX"/var/norm
+    local FORMULAS=()
     for file in "$STATEDIR"/*installed; do
         [ -e "$file" ] || continue
-        FORMULA=`basename -- "$file" .installed | perl -pe 's/\.[0-9a-f]{40}$//'`
-        setup_logs "$FORMULA"
-        compile_package "$FORMULA"
-        finish_logs
+        local formula=`basename -- "$file" .installed | perl -pe 's/\.[0-9a-f]{40}$//'`
+        ## TODO: add SHA1SUM check
+        FORMULAS+=($formula)
     done
+    cmd_install "$@" "${FORMULAS[@]}"
 }
 
 cmd_testall() {
