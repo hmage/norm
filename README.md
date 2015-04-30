@@ -25,8 +25,8 @@ You can add everything installed by `norm` into your `PATH` manually or you can 
 ```
 
 ## More examples
- * [`norm install gcc`](packages/gcc) — downloads, compiles and installs gcc 4.9. Great way to try out new compiler.
- * [`norm install ffmpeg`](packages/ffmpeg) — if you're on Debian wheezy, then your ffmpeg is _very_ outdated. This will gets you the newest ffmpeg with support for x264, x265, webm, opus and AAC.
+ * [`norm install gcc`](packages/gcc) — downloads, compiles and installs gcc 4.9.2. Great way to try out latest stable compiler.
+ * [`norm install ffmpeg`](packages/ffmpeg) — if you're on Ubuntu or Debian, then your ffmpeg can be either _very_ outdated or not present at all. This will get you the newest ffmpeg with support for x264, x265, webm, opus and AAC.
  * [`norm install git`](packages/git) — similarly, your system copy of git might not support new features like push to deploy, reference cloning and shallow cloning.
  * [`norm install dovecot`](packages/dovecot) — you don't need root to spin up your own IMAP server, either. Change the listening port to something higher than 1024, set up virtual accounts and you're good to go.
  * [`norm install mc`](packages/mc) — latest midnight commander is much nicer than it was a few years ago, don't be stuck in the past.
