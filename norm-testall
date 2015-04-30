@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -eE
+
 DIRNAME=`dirname "$0"`
 READLINK=`readlink "$0" || true`
 LINKDIRNAME=`dirname "$READLINK"`
@@ -9,99 +11,92 @@ NORMDIR=`cd "$NORMDIR"; pwd`
 . "$NORMDIR"/norm_common
 
 ##
-## set up logging
-##
-LOGPATH="$NORMDIR/testlogs.$MACHINEID"
-BOOTSTRAP_NAME="normstrap.$MACHINEID"
+## set up variables
+
+## in $HOME:
+## norm.bootstrap.$MACHINEID <-- bootstrap prefix -- gcc and tools needed to work
+## norm.test.$MACHINEID      <-- prefix, completely deleted between formulas
+
+## in $NORMDIR:
+## normtest/$MACHINEID.tar.xz             <-- bootstrap archive
+## normtest/$MACHINEID/$FORMULA_ID.log.gz <-- log for each formula
+BOOTSTRAP_NAME="norm.bootstrap.$MACHINEID"
+BOOTSTRAP_ARCHIVE="$NORMDIR/normtest/$MACHINEID.tar.xz"
 BOOTSTRAP_PREFIX="$HOME/$BOOTSTRAP_NAME"
-BOOTSTRAP_GZ="$BOOTSTRAP_NAME.tar.gz"
-NORMTEST_PREFIX="normtest.$MACHINEID"
-mkdir -p "$LOGPATH"
-LOGFILE=
-sigint() {
-    echo "Cancelled compilation of $file"
-    [ -e "$INPUT_LOG" ] && cp -f "$INPUT_LOG" "$LOGPATH/$LOGNAME.cancelled"
-    exit 1
-}
-trap sigint SIGINT
-
+NORMTEST_PREFIX="$HOME/norm.test.$MACHINEID"
+LOGPATH="$NORMDIR/normtest/$MACHINEID"
 
 ##
-## prepare norm bootstrap
-##
-set -eE
-rm -rf "$BOOTSTRAP_PREFIX"
-if [ ! -e "$LOGPATH/$BOOTSTRAP_GZ" ]; then
-    pushd "$HOME"
+## prepare bootstrap
+if [ ! -e "$BOOTSTRAP_ARCHIVE" ]; then
+    rm -rf "$BOOTSTRAP_PREFIX"
+    ## we do not have bootstrap archive, make our own
     "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install ccache # needs to be installed first
     "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install tar # old tar won't support xz, fix that and make other compilations use it
     "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install xz bzip2 gzip curl
     "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install gcc
 
-    ## bin will be in PATH, so remove stuff that will get in our way
-    cd "$BOOTSTRAP_PREFIX/bin"
-    rm -vf attr c_rehash chacl curl-config getfacl getfattr idn setfacl setfattr *pkg-config
-    cd ..
-    strip -gp libexec/gcc/*/*/* || true
-    rm -rf tmp/compile
-    cd $HOME
-    mkdir -p $LOGPATH
-    tar zcf "$LOGPATH/$BOOTSTRAP_GZ" "$BOOTSTRAP_NAME"
+    ## bootstrap's bin will be in PATH, so remove stuff that will get in our way
+    rm -vf "$BOOTSTRAP_PREFIX"/bin/{attr,c_rehash,chacl,curl-config,getfacl,getfattr,idn,setfacl,setfattr}
+    rm -vf "$BOOTSTRAP_PREFIX"/bin/*pkg-config
+    ## compiled gcc is very big, strip out the debug symbols
+    strip -gp "$BOOTSTRAP_PREFIX"/bin/* || true
+    strip -gp "$BOOTSTRAP_PREFIX"/libexec/gcc/*/*/* || true
+    ## archive the bootstrap
+    mkdir -p "$NORMDIR/normtest"
+    tar cf - -C "$HOME" "$BOOTSTRAP_NAME" | xz > "$BOOTSTRAP_ARCHIVE"
 fi
-export PATH="$BOOTSTRAP_PREFIX/bin/ccache_wrap:$BOOTSTRAP_PREFIX/bin:$PATH"
-tar xf "$LOGPATH/$BOOTSTRAP_GZ" -C "$HOME"
-export LD_LIBRARY_PATH="$BOOTSTRAP_PREFIX/lib"
-set +eE
-
-LIST="$@"
-[ -z "$LIST" ] && LIST=`find "$NORMDIR"/packages -maxdepth 1 -type f|sort -u`
+##
+## unpack bootstrap into clean location
+rm -rf "$BOOTSTRAP_PREFIX"
+xzcat "$BOOTSTRAP_ARCHIVE" | tar xf - -C "$HOME"
 
 ##
 ## compile each package and save logs
-for file in $LIST; do
-    # calculate names and paths
-    FORMULA=${file#$NORMDIR/packages/}
-    SHA1SUM=`$SHASUM_BIN "$NORMDIR/packages/$FORMULA" | cut -f1 -d' '`
-    INPUT_LOG="$HOME/$NORMTEST_PREFIX/var/log/norm/$FORMULA.$SHA1SUM.log"
-    LOGNAME=`basename -- "$INPUT_LOG"`
-    LOGFILE="$LOGPATH/$LOGNAME"
-    TMPFILE=`mktemp -t norm-testall-XXXXXXXXX`
+export PATH="$BOOTSTRAP_PREFIX/bin/ccache_wrap:$BOOTSTRAP_PREFIX/bin:$PATH"
 
-    [ -f "$LOGFILE" -o -f "$LOGFILE".gz ] && continue # successful logfile exists, skip the package
+LIST=($@)
+[ -z "$LIST" ] && LIST=("$NORMDIR"/packages/*)
+for FORMULA_NAME in "${LIST[@]}"; do
+    # calculate formula name and file path
+    FORMULA_NAME=${FORMULA_NAME#$NORMDIR/packages/} ## get rid of paths if any
+    FORMULA_FILE="$NORMDIR/packages/$FORMULA_NAME"  ## we want full path here
+    [ -f "$FORMULA_FILE" ] || continue              ## must be a file
 
-    # start afresh
-    rm -rf "$HOME/$NORMTEST_PREFIX"
-    rm -f "$LOGPATH/$FORMULA"*.err
+    # calculate formula ID
+    SHA1SUM=`$SHASUM_BIN "$FORMULA_FILE" | cut -f1 -d' '`
+    FORMULA_ID="$FORMULA_NAME.$SHA1SUM"
 
-    # attempt to build the FORMULA
-    $NORMDIR/norm -p "$HOME/$NORMTEST_PREFIX" install "$FORMULA"
-    install_status=$?
-    if [ "$install_status" == "0" ]; then
-        LD_LIBRARY_PATH= LD_PRELOAD= $NORMDIR/norm -p "$HOME/$NORMTEST_PREFIX" ldd 2>&1 | fgrep -v 'files, checking if' > "$TMPFILE"
-        [ -e "$TMPFILE" -a ! -s "$TMPFILE" ] && ldd_status=0
-    fi
-    if [ "$ldd_status" == "0" ]; then
-        # norm ldd output is ok, time to handle the log
-        cp -f "$INPUT_LOG" "$LOGPATH/"
-        gzip "$LOGFILE"
-    else
-        # either norm install or norm ldd failed -- save the log and build environment
-        cp "$INPUT_LOG" "$LOGPATH/"
-        cat "$TMPFILE" >> "$LOGFILE"
-        mv -f "$LOGFILE"{,.err} # install failure, rename the log to indicate that
-        pushd $HOME
-        tar zcf "norm-fail-$MACHINEID-$FORMULA.tar.gz" "$NORMTEST_PREFIX"
-        popd
-    fi
-    rm -f "$TMPFILE"
-    unset ldd_status
+    # check if we've done this formula before
+    [ -f "$LOGPATH/$FORMULA_ID.log.gz" ] && continue ## successful logfile exists, skip the formula
+
+    mkdir -p "$LOGPATH"
+
+    # clean up output prefix
+    rm -rf "$NORMTEST_PREFIX"
+    # clean up output logfiles
+    rm -f "$LOGPATH/$FORMULA_NAME".*
+
+    # do it
+    "$NORMDIR/norm" -p "$NORMTEST_PREFIX" install "$FORMULA_NAME" 2>&1 | tee "$LOGPATH/$FORMULA_ID.log"
+    [ "${PIPESTATUS[0]}" != "0" ] && continue ## compilation failed, nothing else to do
+
+    # compile success, check if ldd has any output
+    env - "$NORMDIR/norm-ldd" -q "$NORMTEST_PREFIX" | tee -a "$LOGPATH/$FORMULA_ID.log"
+    [ "${PIPESTATUS[0]}" != "0" ] && continue ## ldd reports dependencies outside of prefix -- failed
+
+    gzip "$LOGPATH/$FORMULA_ID.log"
 done
 
-ERRORS=($LOGPATH/*.err)
-if [ -n "$ERRORS" ]; then
+##
+## list package names that didn't build cleanly
+ERRORS=($LOGPATH/*.log)
+if [ -n "$ERRORS" ] && [ -e "$ERRORS" ]; then
     echo These packages have failed to build:
     for file in "${ERRORS[@]}"; do
-        FORMULA=${file%.*.log.err}
+        [ -e "$file" ] || continue
+        # normalize the formula name out of the logpath
+        FORMULA=${file%.*.log}
         FORMULA=${FORMULA#$LOGPATH/}
         echo $FORMULA
     done
