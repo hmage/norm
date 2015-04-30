@@ -22,30 +22,40 @@ NORMDIR=`cd "$NORMDIR"; pwd`
 ## normtest/$MACHINEID/$FORMULA_ID.log.gz <-- log for each formula
 BOOTSTRAP_NAME="norm.bootstrap.$MACHINEID"
 BOOTSTRAP_ARCHIVE="$NORMDIR/normtest/$MACHINEID.tar.xz"
+BOOTSTRAP_LOG="$NORMDIR/normtest/$MACHINEID.log"
 BOOTSTRAP_PREFIX="$HOME/$BOOTSTRAP_NAME"
 NORMTEST_PREFIX="$HOME/norm.test.$MACHINEID"
 LOGPATH="$NORMDIR/normtest/$MACHINEID"
 
+## create output directories
+mkdir -p "$NORMDIR/normtest"
+mkdir -p "$LOGPATH"
+
 ##
 ## prepare bootstrap
-if [ ! -e "$BOOTSTRAP_ARCHIVE" ]; then
+if [ ! -e "$BOOTSTRAP_ARCHIVE" ]; then ## we do not have bootstrap archive, make our own
+    ## get everything out of the way
     rm -rf "$BOOTSTRAP_PREFIX"
-    ## we do not have bootstrap archive, make our own
-    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install ccache # needs to be installed first
-    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install tar # old tar won't support xz, fix that and make other compilations use it
-    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install xz bzip2 gzip curl
-    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install gcc
+
+    ## build the set that can compile all our formulas
+    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install ccache        2>&1 | tee    "$BOOTSTRAP_LOG" # speeds up recompilation of formulas
+    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install tar           2>&1 | tee -a "$BOOTSTRAP_LOG" # the system's tar might not support xz, we need that
+    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install xz bzip2 gzip 2>&1 | tee -a "$BOOTSTRAP_LOG" # the system might not have recent enough versions of these
+    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install curl          2>&1 | tee -a "$BOOTSTRAP_LOG" # the system's curl might not support HTTPS, we need that
+    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install gcc           2>&1 | tee -a "$BOOTSTRAP_LOG" # we have some formulas that require new gcc, can't test them otherwise
 
     ## bootstrap's bin will be in PATH, so remove stuff that will get in our way
     rm -vf "$BOOTSTRAP_PREFIX"/bin/{attr,c_rehash,chacl,curl-config,getfacl,getfattr,idn,setfacl,setfattr}
     rm -vf "$BOOTSTRAP_PREFIX"/bin/*pkg-config
+
     ## compiled gcc is very big, strip out the debug symbols
     strip -gp "$BOOTSTRAP_PREFIX"/bin/* || true
     strip -gp "$BOOTSTRAP_PREFIX"/libexec/gcc/*/*/* || true
+
     ## archive the bootstrap
-    mkdir -p "$NORMDIR/normtest"
     tar cf - -C "$HOME" "$BOOTSTRAP_NAME" | xz > "$BOOTSTRAP_ARCHIVE"
 fi
+
 ##
 ## unpack bootstrap into clean location
 rm -rf "$BOOTSTRAP_PREFIX"
@@ -69,8 +79,6 @@ for FORMULA_NAME in "${LIST[@]}"; do
 
     # check if we've done this formula before
     [ -f "$LOGPATH/$FORMULA_ID.log.gz" ] && continue ## successful logfile exists, skip the formula
-
-    mkdir -p "$LOGPATH"
 
     # clean up output prefix
     rm -rf "$NORMTEST_PREFIX"
