@@ -11,7 +11,7 @@ All you need is a working compiler.
 ```bash
 git clone https://github.com/hmage/norm ~/norm
 . ~/norm/.bashrc
-norm install gcc
+norm install gcc-5.1
 ```
 
 After everything is done, you will have gcc 5.1 in `~/norm` with all it's dependencies, like this:
@@ -25,7 +25,7 @@ You can add everything installed by `norm` into your `PATH` manually or you can 
 ```
 
 ## More examples
- * [`norm install gcc`](packages/gcc) — downloads, compiles and installs gcc 5.1. Great way to try out new compiler.
+ * [`norm install gcc`](packages/gcc) — downloads, compiles and installs gcc 4.9. Great way to try out new compiler.
  * [`norm install ffmpeg`](packages/ffmpeg) — if you're on Debian wheezy, then your ffmpeg is _very_ outdated. This will gets you the newest ffmpeg with support for x264, x265, webm, opus and AAC.
  * [`norm install git`](packages/git) — similarly, your system copy of git might not support new features like push to deploy, reference cloning and shallow cloning.
  * [`norm install dovecot`](packages/dovecot) — you don't need root to spin up your own IMAP server, either. Change the listening port to something higher than 1024, set up virtual accounts and you're good to go.

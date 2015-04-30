@@ -1,5 +1,7 @@
 #!/bin/bash
 
+depends_on zlib
+
 ## build all languages except java
 LANGUAGES=--enable-languages=c,c++,fortran,lto,objc,obj-c++
 
@@ -29,26 +31,45 @@ else
     add_caveat "Multilib support was disabled -- your current compiler doesn't support multilib"
 fi
 
-fetch_source http://ftp.gnu.org/gnu/gcc/gcc-5.1.0/gcc-5.1.0.tar.bz2 b6c947b09adf780fe02065d0c48bfd7b4bdddfa3
+fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz 7eef0c5876fa21e36d1c638653b1b7454c21b40f
 do_unpack
+
+## binutils 2.25 doesn't compile in-tree with gcc 4.9.2
+fetch_source http://ftpmirror.gnu.org/binutils/binutils-2.24.tar.bz2 7ac75404ddb3c4910c7594b51ddfc76d4693debb
+intree_unpack
 
 fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.2.tar.xz 03e593cc6e26639ef5e60be1af8dc527209e5172
 intree_unpack mpfr
 
-fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.3.tar.gz b8be66396c726fdc36ebb0f692ed8a8cca3bcc66
+fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.2.tar.gz 5072d82ab50ec36cc8c0e320b5c377adb48abe70
 intree_unpack mpc
 
 fetch_source http://ftpmirror.gnu.org/gmp/gmp-6.0.0a.tar.xz 1aaf78358ab9e34aeb61f3ae08174ee9118ece98
 intree_unpack gmp
 
-fetch_source http://isl.gforge.inria.fr/isl-0.14.tar.xz 259678a0b1d12f8bc45b9aaeaa14feded9d5b3e1
+fetch_source 'http://www.bastoul.net/cloog/pages/download/count.php3?url=./cloog-0.18.1.tar.gz' 2dc70313e8e2c6610b856d627bce9c9c3f848077
+intree_unpack cloog
+
+fetch_source http://isl.gforge.inria.fr/isl-0.12.2.tar.bz2 ca98a91e35fb3ded10d080342065919764d6f928
 intree_unpack isl
 
+TARNAME=gcc-4.9.2.tar.gz
+
+do_patch binutils-2.24-vparams.patch        ## remove macros removed from gcc 4.9.2
+do_patch binutils-2.24-multiarch.patch      ## add support for multiarch
+do_patch gcc-4.9.2-multiarch.patch -p2      ## add support for multiarch
+do_patch gcc-4.7.1-startfiles_fix-1.patch   ## search for files in $PREFIX as well
+do_patch gcc-4.9.2-sanitizer-offsetof.patch ## old headers fail to detect presence of __builtin_offsetof
+do_patch gcc-4.9.2-cilk-pthread.patch       ## old headers don't implicitly include pthread.h
+
+## 'plugin' is gcc, 'plugins' is binutils.
 do_compile_outside \
                    --enable-__cxa_atexit --with-tune=generic \
                    --enable-checking=release \
+                   --with-system-zlib \
                    $LANGUAGES \
                    --enable-plugin \
+                   --enable-plugins \
                    --enable-lto \
                    --enable-threads=posix \
                    $HASH_STYLE $WITH_ARCH \
@@ -60,4 +81,4 @@ do_compile_outside \
 ln -sf $PREFIX/bin/gcc $PREFIX/bin/cc
 
 add_caveat "Remember -- you can't use this build of gcc on any other machine" \
-           "Do not move it away from $PREFIX either -- paths are hardcoded" \
+           "Do not move it away from $PREFIX either -- paths are hardcoded"
