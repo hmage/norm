@@ -13,8 +13,8 @@ sub usage {
 
 my $verbose = '';
 my $quiet = '';
-GetOptions ("verbose+" => \$verbose) or usage();
-GetOptions ("quiet+" => \$quiet) or usage();
+GetOptions ("verbose+" => \$verbose,
+            "quiet+" => \$quiet) or usage();
 
 if (@ARGV < 1) {
     usage();
