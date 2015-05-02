@@ -16,5 +16,5 @@ touch --date="Jan 01 2000" \
         "$SRCDIR"/doc/*.texi "$SRCDIR"/doc/bison.texi \
         "$SRCDIR"/build-aux/cross-options.pl \
         "$SRCDIR"/src/getargs.c
-
+AUTOMAKE=: \
 do_compile
