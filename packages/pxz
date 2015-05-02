@@ -4,7 +4,9 @@ requires_gcc 4.2 for -fopenmp support
 
 depends_on xz
 
-fetch_source https://github.com/jnovy/pxz/archive/ae808463c2950edfdedb8fb49f95006db0a18667.tar.gz 1892ff1c648159b9aec3496170907cb2ae3f057a
+fetch_source http://http.debian.net/debian/pool/main/p/pxz/pxz_4.999.99~beta3+git659fc9b.orig.tar.bz2
+fetch_debian http://http.debian.net/debian/pool/main/p/pxz/pxz_4.999.99~beta3+git659fc9b-3.debian.tar.xz
+
 do_unpack
 pushd_src
 sed -i "s|/usr/|$PREFIX/|" Makefile
