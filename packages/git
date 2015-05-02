@@ -9,7 +9,7 @@ depends_on openssl
 depends_on curl
 depends_on libexpat
 
-fetch_source https://www.kernel.org/pub/software/scm/git/git-2.3.6.tar.xz 7fda9e3d9d4f51f26e84a75f02d3a19c727566f3
+fetch_source https://www.kernel.org/pub/software/scm/git/git-2.4.0.tar.xz f8ee686edc87efd6eafa35323d1646b12dc12ace
 do_unpack_compile
 
 ## install bash completion
