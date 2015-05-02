@@ -54,6 +54,8 @@ if [ ! -e "$BOOTSTRAP_ARCHIVE" ]; then ## we do not have bootstrap archive, make
 
     ## archive the bootstrap
     tar cf - -C "$HOME" "$BOOTSTRAP_NAME" | xz > "$BOOTSTRAP_ARCHIVE"
+    ## compress bootstrap compile log
+    xz "$BOOTSTRAP_LOG"
 fi
 
 ##
@@ -64,6 +66,7 @@ xzcat "$BOOTSTRAP_ARCHIVE" | tar xf - -C "$HOME"
 ##
 ## compile each package and save logs
 export PATH="$BOOTSTRAP_PREFIX/bin/ccache_wrap:$BOOTSTRAP_PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$BOOTSTRAP_PREFIX/lib${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH:-}"
 
 LIST=($@)
 [ -z "$LIST" ] && LIST=("$NORMDIR"/packages/*)
