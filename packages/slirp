@@ -1,7 +1,7 @@
 #!/bin/bash
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/s/slirp/slirp_1.0.17.orig.tar.gz 9b660f5365f1d9536d9171c1e0de490ab2232ec8
-fetch_debian http://ftp.de.debian.org/debian/pool/main/s/slirp/slirp_1.0.17-6.debian.tar.gz 3da79bc4cf0a93de2201540705b3385a26c9dbc6
+fetch_source http://http.debian.net/debian/pool/main/s/slirp/slirp_1.0.17.orig.tar.gz 9b660f5365f1d9536d9171c1e0de490ab2232ec8
+fetch_debian http://http.debian.net/debian/pool/main/s/slirp/slirp_1.0.17-7.debian.tar.gz 66ad8c71e222b830d076b93b168f2095bef0c6ed
 
 do_undebian
 mkdir -p $PREFIX/share/man/man1
