@@ -3,35 +3,11 @@
 depends_on zlib
 depends_on xz liblzo
 
-fetch_source http://downloads.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz a615979db9cee82e4a934a1455577f597d290b41
+fetch_source http://http.debian.net/debian/pool/main/s/squashfs-tools/squashfs-tools_4.2+20130409.orig.tar.xz
+fetch_debian http://http.debian.net/debian/pool/main/s/squashfs-tools/squashfs-tools_4.2+20130409-2.debian.tar.xz
 
-do_unpack
-do_patch_inline << 'EOF'
---- squashfs4.3.tar.gz/squashfs-tools/mksquashfs.c	2014-05-13 02:18:20.000000000 +0400
-+++ squashfs4.3.tar.gz.new/squashfs-tools/mksquashfs.c	2015-02-07 08:08:59.000000000 +0300
-@@ -1436,7 +1436,7 @@
- 	cache_unlock(buffer);
- 	cache_block_put(compressed_buffer);
- 
--finished:
-+finished:;
- 	pthread_cleanup_pop(0);
- 
- 	return buffer;
---- squashfs4.3.tar.gz/squashfs-tools/process_fragments.c	2014-05-10 08:54:13.000000000 +0400
-+++ squashfs4.3.tar.gz.new/squashfs-tools/process_fragments.c	2015-02-07 08:09:16.000000000 +0300
-@@ -209,7 +209,7 @@
- 	cache_unlock(buffer);
- 	cache_block_put(compressed_buffer);
- 
--finished:
-+finished:;
- 	pthread_cleanup_pop(0);
- 
- 	return buffer;
-EOF
+do_undebian
 pushd_src
-cd squashfs-tools
 sed -i 's|#XZ_SUPPORT|XZ_SUPPORT|' Makefile
 sed -i 's|#LZO_SUPPORT|LZO_SUPPORT|' Makefile
 sed -i "s|/usr/local|$PREFIX/|" Makefile
