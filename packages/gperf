@@ -3,5 +3,10 @@
 fetch_source http://http.debian.net/debian/pool/main/g/gperf/gperf_3.0.4.orig.tar.gz e32d4aff8f0c730c9a56554377b2c6d82d0951b8
 fetch_debian http://http.debian.net/debian/pool/main/g/gperf/gperf_3.0.4-1.debian.tar.gz cd562c0c65b990fb509402280e6dce04c285b92c
 
-do_undebian_compile
+do_undebian
+pushd_src
+# inhibit makeinfo invocation in the build process.
+touch --date="Jan 01 2000" doc/gperf.texi
+popd_src
+do_compile
 
