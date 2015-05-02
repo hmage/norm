@@ -10,6 +10,6 @@ depends_on glib
 depends_on liblzo
 depends_on libnss
 
-fetch_source http://wiki.qemu-project.org/download/qemu-2.2.1.tar.bz2 4d1cefc9861fb90979497e8c0bffd223103aa240
+fetch_source http://wiki.qemu-project.org/download/qemu-2.3.0.tar.bz2 373d74bfafce1ca45f85195190d0a5e22b29299e
 
 do_unpack_compile --disable-sdl --disable-gtk --disable-vnc --disable-attr --with-system-pixman
