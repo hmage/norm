@@ -1,0 +1,17 @@
+#!/bin/bash
+
+depends_on zlib
+
+fetch_source http://http.debian.net/debian/pool/main/p/pigz/pigz_2.3.1.orig.tar.gz 2d5c9a70a6afcf1d8986890026d70c96b9346c07
+fetch_debian http://http.debian.net/debian/pool/main/p/pigz/pigz_2.3.1-2.debian.tar.xz 49577b466c87ccfd931e3ab3480406085156ecf0
+
+do_undebian
+pushd_src
+do_make
+mkdir -p "$PREFIX/bin"
+cp -fl pigz "$PREFIX/bin/pigz"
+cp -fl pigz "$PREFIX/bin/unpigz"
+mkdir -p "$PREFIX/share/man/man1"
+cp -fl pigz.1 "$PREFIX/share/man/man1/pigz.1"
+cp -fl pigz.1 "$PREFIX/share/man/man1/unpigz.1"
+popd_src
