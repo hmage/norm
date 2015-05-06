@@ -64,13 +64,19 @@ fi
 rm -rf "$BOOTSTRAP_PREFIX"
 xzcat "$BOOTSTRAP_ARCHIVE" | tar xf - -C "$HOME"
 
-##
-## compile each package and save logs
+## we don't want pipefail anymore -- failures to compile are handles by ourselves from now on
+set +o pipefail
+
+## we want access to bootstrap's gcc and it's libraries (libstdc++.so, for example)
 export PATH="$BOOTSTRAP_PREFIX/bin/ccache_wrap:$BOOTSTRAP_PREFIX/bin:$PATH"
 export LD_LIBRARY_PATH="$BOOTSTRAP_PREFIX/lib${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH:-}"
 
+## check if were given list of packages, if not, try all of them
 LIST=($@)
 [ -z "$LIST" ] && LIST=("$NORMDIR"/packages/*)
+
+##
+## compile each package and save logs
 for FORMULA_NAME in "${LIST[@]}"; do
     # calculate formula name and file path
     FORMULA_NAME=${FORMULA_NAME#$NORMDIR/packages/} ## get rid of paths if any
