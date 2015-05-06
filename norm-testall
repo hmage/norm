@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -eE
+set -o pipefail
 
 DIRNAME=`dirname "$0"`
 READLINK=`readlink "$0" || true`
