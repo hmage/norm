@@ -4,6 +4,18 @@ requires_gcc 4.7
 
 depends_on python ## needs python 2.7 to compile
 depends_on groff  ## for installing manpages
+depends_on libxml ## c-index-test has dynamic dependency on it
+
+ENABLE_SANITIZER=yes
+if ! test_cc_value "linux/perf_event.h" "PERF_TYPE_HARDWARE"; then
+    ENABLE_SANITIZER=no
+    add_caveat "Your headers are missing <linux/perf_event.h>, sanitizer support was disabled."
+fi
+
+if ! test_cc_value "linux/mroute6.h" "MRT6_BASE"; then
+    ENABLE_SANITIZER=no
+    add_caveat "Your headers are missing <linux/mroute6.h>, sanitizer support was disabled."
+fi
 
 fetch_source http://llvm.org/releases/3.6.0/llvm-3.6.0.src.tar.xz 6eb2b7381d924bb3f267281c9058c817d825d824
 do_unpack
@@ -11,8 +23,10 @@ do_unpack
 fetch_source http://llvm.org/releases/3.6.0/cfe-3.6.0.src.tar.xz 06b252867a3d118c95ca279fd3c4ac05f6730551
 intree_unpack tools/clang
 
-fetch_source http://llvm.org/releases/3.6.0/compiler-rt-3.6.0.src.tar.xz 771cbf0535dce1ca3a3be022377781e32fdea70e
-intree_unpack projects/compiler-rt
+if [[ $ENABLE_SANITIZER == yes ]]; then
+    fetch_source http://llvm.org/releases/3.6.0/compiler-rt-3.6.0.src.tar.xz 771cbf0535dce1ca3a3be022377781e32fdea70e
+    intree_unpack projects/compiler-rt
+fi
 
 TARNAME=clang-3.6.0
 
