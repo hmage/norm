@@ -2,6 +2,11 @@
 
 depends_on openssl libidn
 
+## wget will link against these libraries if they're installed in the system, so better provide our own
+depends_on libuuid ## what for?
+depends_on libpcre ## regexp in wget, what for?
+depends_on bzip2   ## bzip2 in wget, what for?
+
 fetch_source http://http.debian.net/debian/pool/main/w/wget/wget_1.16.orig.tar.gz 3be03c3efda97fdce0a1fbab815a16314354667c
 fetch_debian http://http.debian.net/debian/pool/main/w/wget/wget_1.16-1.debian.tar.xz 1a343d30a5d978306ad2937baf0b25a65152c87f
 
