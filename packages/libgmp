@@ -1,0 +1,7 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/g/gmp/gmp_6.0.0+dfsg.orig.tar.xz 3db72ae4686773a26149e95fd225637b90c373ce
+fetch_debian http://http.debian.net/debian/pool/main/g/gmp/gmp_6.0.0+dfsg-6.debian.tar.xz 4c94c495b33c6da6cd8e7ce601d86e43810a2e02
+
+do_undebian
+do_compile_test
