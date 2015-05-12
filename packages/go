@@ -1,0 +1,36 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on bison
+depends_on libpcre
+
+fetch_source http://http.debian.net/debian/pool/main/g/golang/golang_1.4.2.orig.tar.gz 460caac03379f746c473814a65223397e9c9a2f6
+
+do_unpack
+## some kernels might not have multicast compiled in
+if [ ! -f /proc/net/igmp -o ! -f /proc/net/igmp6 ]; then
+    do_patch_inline << 'EOF'
+diff -urw golang_1.4.2.orig.tar.gz-orig/src/net/multicast_test.go golang_1.4.2.orig.tar.gz/src/net/multicast_test.go
+--- golang_1.4.2.orig.tar.gz-orig/src/net/multicast_test.go	2015-02-18 07:38:34.000000000 +0300
++++ golang_1.4.2.orig.tar.gz/src/net/multicast_test.go	2015-05-12 18:05:19.194086565 +0300
+@@ -165,10 +165,8 @@
+ 	case "dragonfly", "netbsd", "openbsd", "plan9", "solaris", "windows":
+ 		return true, nil // not implemented yet
+ 	case "linux":
+-		if runtime.GOARCH == "arm" || runtime.GOARCH == "alpha" {
+ 			return true, nil // not implemented yet
+ 		}
+-	}
+ 	ift, err := Interfaces()
+ 	if err != nil {
+ 		return false, err
+EOF
+    add_caveat "Your kernel lacks multicast support (no /proc/net/igmp and /proc/net/igmp6), multicast test was disabled"
+fi
+pushd_src
+cd src
+GOROOT_FINAL="$PREFIX/go" GOBIN="$PREFIX/bin" GO_LDFLAGS="-L $PREFIX/lib" GO_CCFLAGS="-I $PREFIX/include" GO_DISTFLAGS="-s" ./all.bash
+popd_src
+rm -rf "$PREFIX/go"
+mkdir -p "$PREFIX/go"
+cp -pr "$SRCDIR"/ "$PREFIX/go"
