@@ -1,0 +1,7 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/m/mlocate/mlocate_0.26.orig.tar.gz c3d7d0aebdad84d0ec600145127d1ccedb88f6d2
+fetch_debian http://http.debian.net/debian/pool/main/m/mlocate/mlocate_0.26-1.diff.gz d5056b60c866236a4217ecf278d9d2dca2fe37fb
+
+do_undebian_compile
+
