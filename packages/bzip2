@@ -1,12 +1,11 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/b/bzip2/bzip2_1.0.6.orig.tar.bz2 3725a0554fa6bb654ef2728fef36bc06aed4e388
-fetch_debian http://http.debian.net/debian/pool/main/b/bzip2/bzip2_1.0.6-7.debian.tar.bz2 e5169afbee8f9ee603c253e03421364819a14c12
+fetch_source http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz 3f89f861209ce81a6bab1fd1998c0ef311712002
 
 ## these files break reinstall/upgrade
 rm -f $PREFIX/bin/{bunzip2,bzcat}
 
-do_undebian
+do_unpack
 pushd_src
 sed -i 's/^CFLAGS=/CFLAGS=-fpic -fPIC /' Makefile
 do_make
