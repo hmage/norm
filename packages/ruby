@@ -7,6 +7,7 @@ depends_on libreadline
 depends_on zlib
 depends_on openssl
 depends_on libffi
+depends_on libgmp
 
 fetch_source http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.2.tar.gz 29c51a17639d921b1ae51cd80a9d7584f67d5e1c
 
