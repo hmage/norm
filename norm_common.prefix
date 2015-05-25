@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEFAULT_PREFIX="$HOME/norm"
+DEFAULT_PREFIX="$HOME/norm.$MACHINEID"
 
 addpath() {
     [ -z "$1" -o -z "$2" ] && return

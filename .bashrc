@@ -1,7 +1,12 @@
 ## add this to your .bashrc
 ## [ -f $HOME/work/norm/.bashrc ] && . $HOME/work/norm/.bashrc
 
-NORMPREFIX="$HOME/norm"
+## get machine id for later
+MACHINEID="$HOSTNAME.${BASH_VERSINFO[5]}"
+[ -z "${debian_chroot:-}" -a -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
+[ -n "$debian_chroot" ] && MACHINEID+=".$debian_chroot"
+
+NORMPREFIX="$HOME/norm.$MACHINEID"
 DIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 
 addpath() {

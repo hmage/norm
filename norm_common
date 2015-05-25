@@ -5,7 +5,6 @@ TARDIR="$HOME/.cache/norm"
 LIBSUFFIX=so
 [[ $OSTYPE == *darwin* ]] && LIBSUFFIX=dylib
 
-COMPILEDIR="$DEFAULT_PREFIX/tmp/compile"
 NUMCPU=`getconf _NPROCESSORS_ONLN`
 [ -z "$NUMCPU" ] && NUMCPU=1
 NUMJOBS=$(( $NUMCPU * 2 ))
@@ -24,6 +23,8 @@ MACHINEID="$HOSTNAME.${BASH_VERSINFO[5]}"
 
 . "$NORMDIR"/norm_common.functions
 . "$NORMDIR"/norm_common.prefix
+
+COMPILEDIR="$DEFAULT_PREFIX/tmp/compile"
 
 onerror() {
     log "Package $FORMULA failed to build"

@@ -38,11 +38,11 @@ usage() {
     echo "    $OURNAME sub                               -- subshell with all prefix variables set"
     echo
     echo "Common options:"
-    echo "    -p <prefix> -- full path to custom prefix instead of default one"
+    echo "    -p <prefix> -- full path to custom prefix (default: '$DEFAULT_PREFIX')"
     echo
     echo "Install options:"
     echo "    -f          -- force install, same as reinstall command"
-    echo "    -k          -- after successful install, keep source code in $COMPILEDIR"
+    echo "    -k          -- after successful install, keep source code in \$PREFIX/tmp/compile"
     echo
     echo "ldd options:"
     echo "    -v          -- show list of files that will be fed to ldd"
