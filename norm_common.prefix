@@ -40,7 +40,6 @@ setup_prefix() {
 
     ## set runtime flags
     addpath PATH "$PREFIX/bin" "$PREFIX/sbin" "$PREFIX/bin/ccache_wrap"
-    addpath LD_LIBRARY_PATH "$PREFIX/lib"
     addpath LD_RUN_PATH "$PREFIX/lib"
     addpath PKG_CONFIG_PATH "$PREFIX/share/pkgconfig" "$PREFIX/lib/pkgconfig"
     addpath ACLOCAL_PATH "$default_aclocal"
