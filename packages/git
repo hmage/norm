@@ -2,20 +2,19 @@
 
 ## TODO: libldap.so, liblber.so
 depends_on zlib
-depends_on gettext
 
 ## https support
 depends_on openssl
 depends_on curl
 depends_on libexpat
 
-fetch_source https://www.kernel.org/pub/software/scm/git/git-2.4.1.tar.xz 57c6d886fd5412664335e966954f2c384cfa1ee1
-do_unpack_compile
+fetch_source https://www.kernel.org/pub/software/scm/git/git-2.4.3.tar.xz e576ca012e838685feabcfa30162122cecf8e074
+do_unpack_compile --disable-nls
 
 ## install bash completion
 install -D $SRCDIR/contrib/completion/git-completion.bash $PREFIX/etc/bash_completion.d/git-completion.bash
 
 ## install git manpages
-fetch_source https://www.kernel.org/pub/software/scm/git/git-manpages-2.4.1.tar.xz a09f8f355fb910239e183e378e9fe98a3f3d4ca6
+fetch_source https://www.kernel.org/pub/software/scm/git/git-manpages-2.4.3.tar.xz 5dc684ab16c09122f8e67a53ee65d337dd1202c6
 mkdir -p "$PREFIX/share/man"
 tar xvf "$TARDIR/$TARNAME" -C "$PREFIX/share/man"
