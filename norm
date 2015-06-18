@@ -105,9 +105,19 @@ cmd_ldd() {
 
 cmd_list() {
     local STATEDIR="$PREFIX"/var/norm
-    for file in "$STATEDIR"/*installed; do
-        [ -e "$file" ] || continue
-        basename -- "$file" .installed | perl -pe 's/\.[0-9a-f]{40}$//'
+    local FILES=("$STATEDIR"/*installed)
+    declare -A PACKAGES
+    for file in "${FILES[@]}"; do
+        local filename="${file##*/}"
+        local pkgname="${filename%.*.*}"
+        NEEDED_FOR=`cat "$file" | perl -pe 's/.*Needed for //g'|xargs`
+        PACKAGES[$pkgname]+="$NEEDED_FOR"
+        # echo $pkgname
+    done
+    for package in "${!PACKAGES[@]}"; do
+        local dependencies=`echo "${PACKAGES[$package]}"|xargs -n1|sort -u|xargs`
+        [[ -z $dependencies ]] && echo $package
+        [[ -n $dependencies ]] && printf "%-15s - Needed for %s\n" "$package" "$dependencies"
     done
 }
 
