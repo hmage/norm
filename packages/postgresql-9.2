@@ -1,7 +1,8 @@
 #!/bin/bash
 
-depends_on libreadline libncurses
+depends_on libreadline
+depends_on zlib
 
-fetch_source https://ftp.postgresql.org/pub/source/v9.2.12/postgresql-9.2.12.tar.bz2
+fetch_source https://ftp.postgresql.org/pub/source/v9.2.13/postgresql-9.2.13.tar.bz2 8078c44b092dc25b8d338110e80872682fa42a2b
 
 do_unpack_compile
