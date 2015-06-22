@@ -8,8 +8,7 @@ depends_on libserf # for HTTP
 depends_on file    # specifically, libmagic
 depends_on swig    # for perl bindings
 
-fetch_source http://http.debian.net/debian/pool/main/s/subversion/subversion_1.8.10.orig.tar.gz 8e1e1e5fd97c3f575a81d66232c62dc902257a17
-fetch_debian http://http.debian.net/debian/pool/main/s/subversion/subversion_1.8.10-6.diff.gz 59eff0583ec60ad831d9e0aa972d28c7cb867057
+fetch_source http://www.eu.apache.org/dist/subversion/subversion-1.8.13.tar.bz2 aa0bd14ac6a8f0fb178cc9ff325387de01cd7452
 
 do_unpack
 pushd_src
