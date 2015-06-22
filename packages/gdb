@@ -2,9 +2,10 @@
 
 depends_on libncurses
 depends_on texinfo
-depends_on python
+depends_on zlib
+depends_on xz
 
 fetch_source http://ftp.gnu.org/gnu/gdb/gdb-7.9.tar.xz 1dabff2168bd8fe3cadf9386e47a47c527ea99ba
 
-do_unpack_compile
+do_unpack_compile --disable-python --without-python
 
