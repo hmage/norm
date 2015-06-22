@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on autoconf automake gettext ## for autoreconf
+depends_on autoconf automake  ## for autoreconf
 
 fetch_source http://http.debian.net/debian/pool/main/m/mlocate/mlocate_0.26.orig.tar.gz c3d7d0aebdad84d0ec600145127d1ccedb88f6d2
 fetch_debian http://http.debian.net/debian/pool/main/m/mlocate/mlocate_0.26-1.diff.gz d5056b60c866236a4217ecf278d9d2dca2fe37fb
@@ -8,9 +8,8 @@ fetch_debian http://http.debian.net/debian/pool/main/m/mlocate/mlocate_0.26-1.di
 do_undebian
 pushd_src
 GROUPNAME=$(id -gn)
-sed -i "s:groupname = mlocate:groupname = $GROUPNAME:" Makefile.am
-do_autoreconf
-do_compile
+sed -i "s:groupname = mlocate:groupname = $GROUPNAME:" Makefile.in
+do_compile --disable-nls
 if [ ! -e "$PREFIX"/etc/updatedb.conf ]; then
     mkdir -p "$PREFIX"/etc
     install -m644 debian/updatedb.conf "$PREFIX"/etc/updatedb.conf
