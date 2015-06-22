@@ -1,0 +1,12 @@
+#!/bin/bash
+
+depends_on python
+
+fetch_source http://http.debian.net/debian/pool/main/s/scons/scons_2.3.1.orig.tar.gz 775e715e49fe5fd8e1d29551a296fdc9267509e7
+fetch_debian http://http.debian.net/debian/pool/main/s/scons/scons_2.3.1-2.debian.tar.xz cd421dab4603916934dcde3669153d5cbbe2df73
+
+do_undebian
+pushd_src
+python setup.py install --prefix="$PREFIX"
+popd_src
+

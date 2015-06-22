@@ -1,0 +1,24 @@
+#!/bin/bash
+
+depends_on libapr
+depends_on libaprutil
+depends_on sqlite3
+depends_on zlib
+depends_on libserf # for HTTP
+depends_on file    # specifically, libmagic
+depends_on swig    # for perl bindings
+
+fetch_source http://http.debian.net/debian/pool/main/s/subversion/subversion_1.8.10.orig.tar.gz 8e1e1e5fd97c3f575a81d66232c62dc902257a17
+fetch_debian http://http.debian.net/debian/pool/main/s/subversion/subversion_1.8.10-6.diff.gz 59eff0583ec60ad831d9e0aa972d28c7cb867057
+
+do_unpack
+pushd_src
+do_configure
+do_make
+do_install
+do_make swig-pl-lib
+do_make install-swig-pl-lib
+cd subversion/bindings/swig/perl/native
+perl Makefile.PL PREFIX="$PREFIX" LDFLAGS=override
+do_install
+popd_src

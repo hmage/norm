@@ -1,0 +1,9 @@
+#!/bin/bash
+
+depends_on zlib
+
+fetch_source ftp://ftp.astron.com/pub/file/file-5.22.tar.gz
+fetch_debian http://http.debian.net/debian/pool/main/f/file/file_5.22+15-2.debian.tar.xz
+
+do_undebian_compile
+
