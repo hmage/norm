@@ -108,6 +108,7 @@ cmd_list() {
     local FILES=("$STATEDIR"/*installed)
     declare -A PACKAGES
     for file in "${FILES[@]}"; do
+        [ ! -e "$file" ] && continue
         local filename="${file##*/}"
         local pkgname="${filename%.*.*}"
         NEEDED_FOR=`cat "$file" | perl -pe 's/.*Needed for //g'|xargs`
