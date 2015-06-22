@@ -2,9 +2,16 @@
 ## [ -f $HOME/work/norm/.bashrc ] && . $HOME/work/norm/.bashrc
 
 ## get machine id for later
-MACHINEID="$HOSTNAME.${BASH_VERSINFO[5]}"
-[ -z "${debian_chroot:-}" -a -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
-[ -n "$debian_chroot" ] && MACHINEID+=".$debian_chroot"
+## get machine id for later
+case $OSTYPE in
+    *linux*)   SYSTEM_VERSION=.$(getconf GNU_LIBC_VERSION|awk '{ print $NF }') ;; #$($(ldd /bin/sh|fgrep /libc.so|awk '{ print $3 }') | fgrep 'GNU C Library'|perl -pe 's/GNU C Library.*version ([^ ,]+).*/$1/') ;;
+    *freebsd*) SYSTEM_VERSION= ;;
+    *openbsd*) SYSTEM_VERSION= ;;
+    *darwin*)  SYSTEM_VERSION= ;;
+    *)        SYSTEM_VERSION=.unknown ;;
+esac
+MACHINEID="${BASH_VERSINFO[5]}$SYSTEM_VERSION"
+unset SYSTEM_VERSION
 
 NORMPREFIX="$HOME/norm.$MACHINEID"
 DIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
