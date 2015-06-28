@@ -33,7 +33,7 @@ unset SYSTEM_VERSION
 COMPILEDIR="$DEFAULT_PREFIX/tmp/compile"
 
 onerror() {
-    log "Package $FORMULA failed to build"
+    log "Formula $FORMULA failed to build"
 }
 
 onexit() {
@@ -54,6 +54,6 @@ log() {
 }
 
 log_success() {
-    log "Package $FORMULA -- success"
+    log "Formula $FORMULA -- success"
 }
 

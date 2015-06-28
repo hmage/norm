@@ -13,5 +13,5 @@ install -d $PREFIX/lib
 install -m 755 shared/libwrap* $PREFIX/lib/
 cp -fd shared/libwrap.so.0 $PREFIX/lib/
 install -m 644 libwrap.a $PREFIX/lib/
-## don't install the executables because this package provides only libwrap
+## don't install the executables because this formula provides only libwrap
 popd

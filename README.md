@@ -35,7 +35,7 @@ You can add everything installed by `norm` into your `PATH` manually or you can 
 
 ## About
 
-`norm` installs packages to your home directory, leaving system-wide programs intact and untouched — you probably don't have permissions to change them anyway. By default, install prefix is `~/norm`, but you can change that. See output of `norm --help`.
+`norm` installs formulas to your home directory, leaving system-wide programs intact and untouched — you probably don't have permissions to change them anyway. By default, install prefix is `~/norm`, but you can change that. See output of `norm --help`.
 
 The compiled binaries are not for distribution — they won't work on any other location or another machine (because most programs hardcode their paths during compilation and add checks to glibc version used for building).
 
@@ -49,8 +49,8 @@ export ftp_proxy=$http_proxy
 
 Replace the IP address and port with appropriate values for your proxy. You can add this to your `.bashrc` if you haven't done so.
 
-## Packages
-`norm` packages are bash scripts, [example](packages/tar):
+## Formulas
+`norm` formulas are bash scripts, [example](packages/tar):
 
 ```bash
 #!/bin/bash
@@ -60,8 +60,8 @@ fetch_source http://ftpmirror.gnu.org/tar/tar-1.28.tar.gz cd30a13bbfefb54b17e039
 do_unpack_compile
 ```
 
-This particular packages uses only commands that are specific to `norm`:
- * `depends_on` — compiles the listed packages first.
+This particular formula uses only commands that are specific to `norm`:
+ * `depends_on` — compiles the listed formulas first.
  * `fetch_source` — downloads the source and verifies SHA1 checksum.
  * `do_unpack_compile` — unpacks the source code, runs `configure`, `make` and `make install`.
 
@@ -69,6 +69,6 @@ If software uses autotools to configure itself, no other bash functions are need
 
 To see a more complex example, you can take a look at [how gcc is built](packages/gcc).
 
-## Adding new packages
+## Adding new formulas
 
-If you want some package to be added to `norm`, you can either let me know by [opening an issue](https://github.com/hmage/norm/issues) or you can do it yourself and then [open a pull request](https://github.com/hmage/norm/compare).
+If you want some formula to be added to `norm`, you can either let me know by [opening an issue](https://github.com/hmage/norm/issues) or you can do it yourself and then [open a pull request](https://github.com/hmage/norm/compare).

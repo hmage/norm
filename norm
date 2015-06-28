@@ -31,9 +31,9 @@ fi
 
 usage() {
     echo "Usage:"
-    echo "    $OURNAME install <package> [package ...]   -- install package(s)"
-    echo "    $OURNAME reinstall <package> [package ...] -- reinstall already installed package(s)"
-    echo "    $OURNAME list                              -- list all installed packages"
+    echo "    $OURNAME install <formula> [formula ...]   -- install formula(s)"
+    echo "    $OURNAME reinstall <formula> [formula ...] -- reinstall already installed formula(s)"
+    echo "    $OURNAME list                              -- list all installed formulas"
     echo "    $OURNAME ldd                               -- check for dynamic dependencies outside of prefix"
     echo "    $OURNAME sub                               -- subshell with all prefix variables set"
     echo
@@ -49,7 +49,7 @@ usage() {
     echo "    -q          -- output only ldd results"
     echo
     echo "Maintainer commands:"
-    echo "    $OURNAME testall  -- compile every package and save the result into separate logfiles"
+    echo "    $OURNAME testall  -- compile every formula and save the result into separate logfiles"
 }
 
 cmd_install() {
@@ -71,14 +71,14 @@ cmd_install() {
         [[ "$argument" == --with-* ]] && set_with "${argument#--with-}"
         [[ "$argument" == --without-* ]] && set_without "${argument#--without-}"
     done
-    [ -z "$1" ] && log "Need package names" && exit 64
-    [ -n "$force" ] && log "Forcing reinstall of packages: $@" \
-                    || log "Installing packages: $@"
+    [ -z "$1" ] && log "Need formula names" && exit 64
+    [ -n "$force" ] && log "Forcing reinstall of formulas: $@" \
+                    || log "Installing formulas: $@"
     setup_traps
     setup_prefix "$PREFIX"
     for FORMULA; do
         [[ "$FORMULA" == --* ]] && continue ## ignore flags
-        compile_package $force "$FORMULA"
+        compile_formula $force "$FORMULA"
     done
 }
 
@@ -106,19 +106,18 @@ cmd_ldd() {
 cmd_list() {
     local STATEDIR="$PREFIX"/var/norm
     local FILES=("$STATEDIR"/*installed)
-    declare -A PACKAGES
+    declare -A FORMULAS
     for file in "${FILES[@]}"; do
         [ ! -e "$file" ] && continue
         local filename="${file##*/}"
-        local pkgname="${filename%.*.*}"
+        local formula_name="${filename%.*.*}"
         NEEDED_FOR=`cat "$file" | perl -pe 's/.*Needed for //g'|xargs`
-        PACKAGES[$pkgname]+="$NEEDED_FOR"
-        # echo $pkgname
+        FORMULAS[$formula_name]+="$NEEDED_FOR"
     done
-    for package in "${!PACKAGES[@]}"; do
-        local dependencies=`echo "${PACKAGES[$package]}"|xargs -n1|sort -u|xargs`
-        [[ -z $dependencies ]] && echo $package
-        [[ -n $dependencies ]] && printf "%-15s - Needed for %s\n" "$package" "$dependencies"
+    for formula in "${!FORMULAS[@]}"; do
+        local dependencies=`echo "${FORMULAS[$formula]}"|xargs -n1|sort -u|xargs`
+        [[ -z $dependencies ]] && echo $formula
+        [[ -n $dependencies ]] && printf "%-15s - Needed for %s\n" "$formula" "$dependencies"
     done
 }
 

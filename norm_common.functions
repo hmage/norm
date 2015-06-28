@@ -94,9 +94,9 @@ do_unpack() {
 }
 
 ##
-## unpacks source code inside other package's source code
+## unpacks source code inside other formula's source code
 ##
-## usage: intree_unpack <-- unpacks into same directory of do_unpack'ed package
+## usage: intree_unpack <-- unpacks into same directory of do_unpack'ed formula
 ## usage: intree_unpack tools/clang <-- unpacks into tools/clang subdirectory
 intree_unpack() {
   log "Unpacking $TARNAME into $SRCDIR/$1"
@@ -231,9 +231,9 @@ do_autoreconf() {
     popd || return 1
 }
 
-## usage: compile_package FORMULA [what formula asked for this one]
-## note about force option -- it's passed as parameter so forcing package A won't force package B that A depends on
-compile_package() {
+## usage: compile_formula FORMULA [what formula asked for this one]
+## note about force option -- it's passed as parameter so forcing formula A won't force formula B that A depends on
+compile_formula() {
     local COMPILING_FOR force FORMULA
     local DATE=`LANG=C LC_ALL=C date`
     [ "$1" == "-f" ] && force=-f && shift
@@ -244,9 +244,9 @@ compile_package() {
     [ -n "$2" ] && COMPILING_FOR="$2"
     local STATEDIR="$PREFIX"/var/norm
     if [ ! -e "$STATEDIR"/"$FORMULA_ID".installed -o -n "$force" ]; then
-        [ -z "$COMPILING_FOR" ] && log "Building package: $FORMULA" \
-                                || log "Building package: $FORMULA -- dependency of $COMPILING_FOR"
-        [ ! -e "$NORMDIR"/packages/"$FORMULA" ] && log "Error: Package file '$FORMULA' does not exist" && return 1
+        [ -z "$COMPILING_FOR" ] && log "Building formula: $FORMULA" \
+                                || log "Building formula: $FORMULA -- dependency of $COMPILING_FOR"
+        [ ! -e "$NORMDIR"/packages/"$FORMULA" ] && log "Error: Formula file '$FORMULA' does not exist" && return 1
         . "$NORMDIR"/packages/"$FORMULA"
         mkdir -p `dirname "$STATEDIR/$FORMULA"`
         log_success
@@ -254,14 +254,14 @@ compile_package() {
         ## remove artifacts
         [[ -z "$norm_keep_sources" && -n "$COMPILEDIR" && -n "$FORMULA" ]] && rm -rf "$COMPILEDIR/$FORMULA"
     else
-        [ -z "$COMPILING_FOR" ] && log "Package already installed: $FORMULA"
+        [ -z "$COMPILING_FOR" ] && log "Formula already installed: $FORMULA"
     fi
     [ -n "$COMPILING_FOR" ] && echo "[$DATE] Needed for $COMPILING_FOR" >> "$STATEDIR/$FORMULA_ID".installed || true
 }
 
 depends_on() {
     for i; do
-        compile_package "$i" $FORMULA
+        compile_formula "$i" $FORMULA
     done
 }
 
@@ -378,11 +378,11 @@ requires_gcc() {
         local NEED_GCC_RAW="$1"
         shift
         local HAVE_GCC_RAW=`"$CC" -dumpversion`
-        log "Package $FORMULA needs GCC at least $NEED_GCC_RAW $@"
+        log "Formula $FORMULA needs GCC at least $NEED_GCC_RAW $@"
         log "You have $HAVE_GCC_RAW"
         log ""
         log "Type 'norm install gcc' to install fresh gcc"
-        exit 1 ## we don't want onerror() to type 'package failed to build'
+        exit 1 ## we don't want onerror() to type 'formula failed to build'
     fi
     return 0
 }
