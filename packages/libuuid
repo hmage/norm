@@ -6,7 +6,7 @@ fetch_source https://www.kernel.org/pub/linux/utils/util-linux/v2.25/util-linux-
 
 do_unpack
 pushd_src
-do_configure --disable-all-programs --enable-libuuid --without-ncurses --without-python
+do_configure --disable-all-programs --enable-libuuid --without-ncurses --without-python --with-bashcompletiondir=$PREFIX/share/bash-completion/completions
 do_make
 do_install
 popd
