@@ -19,17 +19,17 @@ NORMDIR=`cd "$NORMDIR"; pwd`
 ## norm.test.$MACHINEID      <-- prefix, completely deleted between formulas
 
 ## in $NORMDIR:
-## normtest/$MACHINEID.tar.xz             <-- bootstrap archive
-## normtest/$MACHINEID/$FORMULA_ID.log.gz <-- log for each formula
+## testlogs/$MACHINEID.tar.xz             <-- bootstrap archive
+## testlogs/$MACHINEID/$FORMULA_ID.log.gz <-- log for each formula
 BOOTSTRAP_NAME="norm.bootstrap.$MACHINEID"
-BOOTSTRAP_ARCHIVE="$NORMDIR/normtest/$MACHINEID.tar.xz"
-BOOTSTRAP_LOG="$NORMDIR/normtest/$MACHINEID.log"
+BOOTSTRAP_ARCHIVE="$NORMDIR/testlogs/$MACHINEID.tar.xz"
+BOOTSTRAP_LOG="$NORMDIR/testlogs/$MACHINEID.log"
 BOOTSTRAP_PREFIX="$HOME/$BOOTSTRAP_NAME"
 NORMTEST_PREFIX="$HOME/norm.test.$MACHINEID"
-LOGPATH="$NORMDIR/normtest/$MACHINEID"
+LOGPATH="$NORMDIR/testlogs/$MACHINEID"
 
 ## create output directories
-mkdir -p "$NORMDIR/normtest"
+mkdir -p "$NORMDIR/testlogs"
 mkdir -p "$LOGPATH"
 
 ##
