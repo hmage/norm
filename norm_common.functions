@@ -73,6 +73,28 @@ do_compile_outside() {
     popd || return 1
 }
 
+do_untar() {
+    [ -z "$1" ] && set -- "$TARDIR/$TARNAME"
+    [ -z "$2" ] && set -- "$1" "$SRCDIR"
+
+    local INPUT_TARFILE="$1"
+    local OUTPUT_DIR="$2"
+    shift 2
+    local INPUT_FILTER="cat"
+
+    ## we can't rely on tar being able to identify .xz -- some users had systems that had tar so old it didn't know about .xz or .bz2
+    case "$TARNAME" in
+        *.tar.gz |*.tgz) INPUT_FILTER="gzip -d"  ;;
+        *.tar.bz2|*.tbz) INPUT_FILTER="bzip2 -d" ;;
+        *.tar.xz |*.txz) INPUT_FILTER="xz -d"    ;;
+        *) log "Couldn't identify tar format for $INPUT_TARFILE" && return 1;;
+    esac
+
+    cat "$INPUT_TARFILE" | $INPUT_FILTER | tar xf - -C "$OUTPUT_DIR" --strip-components 1 "$@" || return 1
+
+    return 0
+}
+
 ##
 ## unpacks source code
 ## sets global SRCDIR and TARNAME
@@ -89,7 +111,7 @@ do_unpack() {
     log "Unpacking $TARNAME"
     rm -rf "$SRCDIR"  || return 1
     mkdir -p "$SRCDIR"  || return 1
-    tar -xf "$TARDIR/$TARNAME" -C "$SRCDIR" --strip-components 1 "$@" || return 1
+    do_untar "$TARDIR/$TARNAME" "$SRCDIR" || return 1
     log "Unpacked $TARNAME"
 }
 
@@ -103,12 +125,12 @@ intree_unpack() {
   pushd_src
   if [ -n "$1" ]; then
     mkdir -p "$1"
-    tar xf "$TARDIR/$TARNAME" --strip-components 1 -C "$1"
+    do_untar "$TARDIR/$TARNAME" "$1"
   fi
   if [ -z "$1" ]; then
     # mv -n would've worked better, but not all versions of mv have that flag
     mkdir -p "$TARNAME"
-    tar xf "$TARDIR/$TARNAME" --strip-components 1 -C "$TARNAME"
+    do_untar "$TARDIR/$TARNAME" "$TARNAME"
     for x in "$TARNAME"/*; do
       local file=${x#$TARNAME/}
       [ ! -e "$file" ] && ln -s "$x" .
@@ -151,10 +173,15 @@ do_undebian_overlay() {
     [ -f "$TARDIR/$1" ] && DEBPATCH="$1"
 
     ## unpack debian overlay -- try tar, gzip, xz, bz
-    tar -xf "$TARDIR/$DEBPATCH" -C "$SRCDIR" ||
-    gzip -cd "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" ||
-    xzcat "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" ||
-    bzcat "$TARDIR/$DEBPATCH" | patch -f -p1 -i - -d "$SRCDIR" || return 1
+    local INPUT_FILTER="cat"
+    case "$DEBPATCH" in
+        *.diff) INPUT_FILTER="cat" ;;
+        *.diff.gz) INPUT_FILTER="gzip -d" ;;
+        *.diff.xz) INPUT_FILTER="xz -d" ;;
+        *.diff.bz2) INPUT_FILTER="bzip2 -d" ;;
+        *) do_untar "$TARDIR/$DEBPATCH" "$SRCDIR" && return 0 ;;
+    esac
+    cat "$TARDIR/$DEBPATCH" | $INPUT_FILTER | patch -f -p1 -i - -d "$SRCDIR" || return 1
 }
 
 do_debian_patches() {
