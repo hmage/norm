@@ -363,7 +363,7 @@ int main() { $2; return 0;}"
 ## Example: have_gcc 4.7
 have_gcc() {
     [ -z "$1" ] && log "have_gcc() needs an argument" && return 1
-    local HAVE_GCC_RAW=`"$CC" -dumpversion`
+    local HAVE_GCC_RAW=`$CC -dumpversion`
     local HAVE_GCC=`echo "$HAVE_GCC_RAW" | sed -e 's/\.\([0-9][0-9]\)/\1/g' -e 's/\.\([0-9]\)/0\1/g' -e 's/^[0-9]\{3,4\}$/&00/'`
     local ASKED_GCC=`echo "$1" | sed -e 's/\.\([0-9][0-9]\)/\1/g' -e 's/\.\([0-9]\)/0\1/g' -e 's/^[0-9]\{3,4\}$/&00/'`
     [ "$HAVE_GCC" -lt "$ASKED_GCC" ] && return 1
@@ -377,7 +377,7 @@ requires_gcc() {
     if ! have_gcc "$1"; then
         local NEED_GCC_RAW="$1"
         shift
-        local HAVE_GCC_RAW=`"$CC" -dumpversion`
+        local HAVE_GCC_RAW=`$CC -dumpversion`
         log "Formula $FORMULA needs GCC at least $NEED_GCC_RAW $@"
         log "You have $HAVE_GCC_RAW"
         log ""
