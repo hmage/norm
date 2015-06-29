@@ -17,4 +17,5 @@ touch --date="Jan 01 2000" \
         "$SRCDIR"/build-aux/cross-options.pl \
         "$SRCDIR"/src/getargs.c
 AUTOMAKE=: \
+NOPARALLEL=1 \
 do_compile
