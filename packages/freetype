@@ -17,7 +17,7 @@ do_unpack_compile $FREETYPE_OPTS
 
 ## harfbuzz with freshly built freetype
 fetch_source http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-0.9.38.tar.bz2 00c24a228206a5646166630e02b542d7d3fb4544
-do_unpack_compile
+do_unpack_compile --without-glib
 
 ## freetype #2 with freshly built harfbuzz
 fetch_source http://download.savannah.gnu.org/releases/freetype/freetype-2.5.5.tar.bz2 7b7460ef51a8fdb17baae53c6658fc1ad000a1c2
