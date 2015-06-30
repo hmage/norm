@@ -179,7 +179,7 @@ do_undebian_overlay() {
         *.diff.gz) INPUT_FILTER="gzip -d" ;;
         *.diff.xz) INPUT_FILTER="xz -d" ;;
         *.diff.bz2) INPUT_FILTER="bzip2 -d" ;;
-        *) do_untar "$TARDIR/$DEBPATCH" "$SRCDIR" && return 0 ;;
+        *) do_untar "$TARDIR/$DEBPATCH" "$SRCDIR" --strip-components 0 && return 0 ;;
     esac
     cat "$TARDIR/$DEBPATCH" | $INPUT_FILTER | patch -f -p1 -i - -d "$SRCDIR" || return 1
 }
