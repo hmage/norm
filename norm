@@ -106,17 +106,16 @@ cmd_ldd() {
 cmd_list() {
     local STATEDIR="$PREFIX"/var/norm
     local FILES=("$STATEDIR"/*installed)
+    local FORMULAS=()
     for file in "${FILES[@]}"; do
         [ ! -e "$file" ] && continue
         local filename="${file##*/}"
         local formula_name="${filename%.*.*}"
-        NEEDED_FOR=$(cat "$file" | perl -pe 's/.*Needed for //g'|xargs)
-        local formula_var=FORMULAS_${formula_name}
-        declare ${formula_var}="${!formula_var} $NEEDED_FOR"
+        in_array FORMULAS "$formula_name" || FORMULAS+=("$formula_name")
     done
-    for formula_var in ${!FORMULAS_*}; do
-        local formula=${formula_var#FORMULAS_}
-        local dependencies=$(echo "${!formula_var}"|xargs -n1|sort -u|xargs)
+    local FORMULAS_SORTED=($(printf '%s\n' "${FORMULAS[@]}"|sort))
+    for formula in "${FORMULAS_SORTED[@]}"; do
+        local dependencies=$(cat "$STATEDIR/$formula".*.installed | perl -pe 's/.*Needed for //g'|xargs)
         [[ -z $dependencies ]] && echo $formula
         [[ -n $dependencies ]] && printf "%-15s - Needed for %s\n" "$formula" "$dependencies"
     done
