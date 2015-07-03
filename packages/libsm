@@ -5,6 +5,7 @@ depends_on xorg-macros
 depends_on xproto
 depends_on libice
 depends_on xtrans
+depends_on libuuid
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/libs/libsm/libsm_1.2.1.orig.tar.gz 25dabbc359b6ef992bdbb210a5dced11eaa6493f
 fetch_debian http://ftp.de.debian.org/debian/pool/main/libs/libsm/libsm_1.2.1-2.diff.gz b857458530fe6548d090f5d164fef7dbe3781f1e
