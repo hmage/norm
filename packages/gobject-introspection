@@ -6,6 +6,7 @@ depends_on flex
 depends_on bison
 depends_on python
 depends_on glib
+depends_on libffi
 
 ## newer gobject-introspection depends on newer glib, but newer glib doesn't compile on old gcc
 fetch_source http://ftp.de.debian.org/debian/pool/main/g/gobject-introspection/gobject-introspection_1.32.1.orig.tar.xz 289df976328490a2d5d4187032cf6d429dcef121
