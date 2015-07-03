@@ -11,6 +11,7 @@ depends_on libncurses
 depends_on libexpat
 depends_on libgdbm
 depends_on sqlite3
+depends_on libffi
 
 fetch_source https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tar.xz 3172f6e957713c2d9fca462cc16068222fd1b9d3
 
