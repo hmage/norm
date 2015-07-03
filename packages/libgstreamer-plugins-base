@@ -6,7 +6,7 @@ depends_on libogg
 depends_on libtheora
 depends_on libvorbis
 
-fetch_source http://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-0.10.36.tar.xz
+fetch_source http://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-0.10.36.tar.xz 2c4b34245107395bc9103649bb2af1c1088a3f7c
 
 EXTRAFLAGS=
 cc_addflag EXTRAFLAGS -march=native -msse2 -msse

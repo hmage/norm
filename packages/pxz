@@ -4,8 +4,8 @@ requires_gcc 4.2 for -fopenmp support
 
 depends_on xz
 
-fetch_source http://http.debian.net/debian/pool/main/p/pxz/pxz_4.999.99~beta3+git659fc9b.orig.tar.bz2
-fetch_debian http://http.debian.net/debian/pool/main/p/pxz/pxz_4.999.99~beta3+git659fc9b-3.debian.tar.xz
+fetch_source http://http.debian.net/debian/pool/main/p/pxz/pxz_4.999.99~beta3+git659fc9b.orig.tar.bz2 ab4937e9bf1930117148a95a54e098fcab0c5954
+fetch_debian http://http.debian.net/debian/pool/main/p/pxz/pxz_4.999.99~beta3+git659fc9b-3.debian.tar.xz 30f7e3fc5f95269b8dcefbd031930af36c8ec57e
 
 do_unpack
 pushd_src

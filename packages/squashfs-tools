@@ -3,8 +3,8 @@
 depends_on zlib
 depends_on xz liblzo
 
-fetch_source http://http.debian.net/debian/pool/main/s/squashfs-tools/squashfs-tools_4.2+20130409.orig.tar.xz
-fetch_debian http://http.debian.net/debian/pool/main/s/squashfs-tools/squashfs-tools_4.2+20130409-2.debian.tar.xz
+fetch_source http://http.debian.net/debian/pool/main/s/squashfs-tools/squashfs-tools_4.2+20130409.orig.tar.xz 16baded334d37d332034fc903c7c03194186d6a7
+fetch_debian http://http.debian.net/debian/pool/main/s/squashfs-tools/squashfs-tools_4.2+20130409-2.debian.tar.xz beedb0a23f99dacf2d7ad81563ce9b96b11005c8
 
 do_undebian
 pushd_src
