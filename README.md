@@ -1,8 +1,6 @@
 # Norm
 
-Don't have root?
-
-Not a problem — `norm` installs stuff you need that your sysadmin didn't.
+Don't have root? Not a problem — `norm` will install stuff rootlessly into your home directory.
 
 All you need is a working compiler.
 
@@ -35,9 +33,9 @@ You can add everything installed by `norm` into your `PATH` manually or you can 
 
 ## About
 
-`norm` installs formulas to your home directory, leaving system-wide programs intact and untouched — you probably don't have permissions to change them anyway. By default, install prefix is `~/norm`, but you can change that. See output of `norm --help`.
+`norm` installs formulas to your home directory, leaving system-wide programs intact and untouched. By default, install prefix is `~/norm.$MACHTYPE.$GLIBC_VERSION`, but you can change that. See output of `norm --help`.
 
-The compiled binaries are not for distribution — they won't work on any other location or another machine (because most programs hardcode their paths during compilation and add checks to glibc version used for building).
+The compiled binaries will not work properly on older version of glibc or in another location, they also might hardcode the user ID or name they were built with, so please treat them as your own personal builds (which they are).
 
 Since `norm` uses `curl` to download source code, it supports proxies. Just set up appropriate environment variables if you already haven't done so, like this:
 
@@ -47,10 +45,10 @@ export https_proxy=$http_proxy
 export ftp_proxy=$http_proxy
 ```
 
-Replace the IP address and port with appropriate values for your proxy. You can add this to your `.bashrc` if you haven't done so.
+Replace the IP address and port number with appropriate values for your proxy. You can add this to your `.bashrc` if you haven't done so.
 
 ## Formulas
-`norm` formulas are bash scripts, [example](packages/tar):
+`norm` formulas are bash scripts, here's a pretty [minimal example](packages/tar):
 
 ```bash
 #!/bin/bash
@@ -60,15 +58,19 @@ fetch_source http://ftpmirror.gnu.org/tar/tar-1.28.tar.gz cd30a13bbfefb54b17e039
 do_unpack_compile
 ```
 
-This particular formula uses only commands that are specific to `norm`:
- * `depends_on` — compiles the listed formulas first.
+To simplify these formulas, `norm` provides functions that reduce number of lines required to build most software:
+ * `depends_on` — does the listed formulas.
  * `fetch_source` — downloads the source and verifies SHA1 checksum.
  * `do_unpack_compile` — unpacks the source code, runs `configure`, `make` and `make install`.
 
-If software uses autotools to configure itself, no other bash functions are needed to successfully compile. [Other functions](norm_common.functions) should be self explanatory.
+If software uses autotools to configure itself, no other bash functions are needed to successfully compile. There are [other functions](norm_common.functions) in case you need to do more, their names and comments should be self explanatory.
 
-To see a more complex example, you can take a look at [how gcc is built](packages/gcc).
+To see a complex example, you can take a look at [how gcc is built](packages/gcc) with in-tree compilation of it's dependencies.
 
 ## Adding new formulas
 
-If you want some formula to be added to `norm`, you can either let me know by [opening an issue](https://github.com/hmage/norm/issues) or you can do it yourself and then [open a pull request](https://github.com/hmage/norm/compare).
+If you want some formula to be added to `norm`, you can either let me know by [opening an issue](https://github.com/hmage/norm/issues) telling me that you'd like to see X or Y added to norm.
+
+[Patches welcome](mailto:hmage@hmage.net).
+
+You can also, of course, fork the source, add the package yourself and then [open a pull request here](https://github.com/hmage/norm/compare).
