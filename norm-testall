@@ -2,6 +2,16 @@
 set -eE
 set -o pipefail
 
+unset ABORT_ON_FAIL
+while getopts "a" opt; do
+    case $opt in
+    a)
+        ABORT_ON_FAIL=true
+        shift
+        ;;
+    esac
+done
+
 DIRNAME=`dirname "$0"`
 READLINK=`readlink "$0" || true`
 LINKDIRNAME=`dirname "$READLINK"`
@@ -93,7 +103,9 @@ for FORMULA_NAME in "${LIST[@]}"; do
 
     # do it
     "$NORMDIR/norm" -p "$NORMTEST_PREFIX" install "$FORMULA_NAME" 2>&1 | tee "$LOGPATH/$FORMULA_ID.log"
-    [ "${PIPESTATUS[0]}" != "0" ] && continue ## compilation failed, nothing else to do
+    BUILDSTATUS="${PIPESTATUS[0]}"
+    [[ $BUILDSTATUS != 0 && -n $ABORT_ON_FAIL ]] && echo "Formula $FORMULA_NAME failed to build, aborting" && exit 1
+    [ $BUILDSTATUS != 0 ] && continue ## compilation failed, nothing else to do
 
     # compile success, check if ldd has any output
     env - "$NORMDIR/norm-ldd" -q "$NORMTEST_PREFIX" | tee -a "$LOGPATH/$FORMULA_ID.log"
