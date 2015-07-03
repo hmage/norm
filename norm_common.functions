@@ -83,7 +83,7 @@ do_untar() {
     local INPUT_FILTER="cat"
 
     ## we can't rely on tar being able to identify .xz -- some users had systems that had tar so old it didn't know about .xz or .bz2
-    case "$TARNAME" in
+    case "$INPUT_TARFILE" in
         *.tar.gz |*.tgz) INPUT_FILTER="gzip -d"  ;;
         *.tar.bz2|*.tbz) INPUT_FILTER="bzip2 -d" ;;
         *.tar.xz |*.txz) INPUT_FILTER="xz -d"    ;;
