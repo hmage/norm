@@ -49,7 +49,7 @@ setup_traps() {
 }
 
 log() {
-    local DATE=`LANG=C date '+%d/%b/%Y:%T %z'`
+    local DATE=`LANG=C LC_ALL=C date '+%d/%b/%Y:%T %z'`
     echo "[$DATE] [norm] $@"
 }
 
