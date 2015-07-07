@@ -115,7 +115,7 @@ cmd_list() {
     done
     local FORMULAS_SORTED=($(printf '%s\n' "${FORMULAS[@]}"|sort))
     for formula in "${FORMULAS_SORTED[@]}"; do
-        local dependencies=$(cat "$STATEDIR/$formula".*.installed | perl -pe 's/.*Needed for //g'|xargs)
+        local dependencies=$(cat "$STATEDIR/$formula".*.installed | fgrep 'Needed for ' | perl -pe 's/.*Needed for //g'|sort -u|xargs)
         [[ -z $dependencies ]] && echo $formula
         [[ -n $dependencies ]] && printf "%-15s - Needed for %s\n" "$formula" "$dependencies"
     done
