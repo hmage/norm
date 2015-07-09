@@ -1,9 +1,19 @@
 #!/bin/bash
-depends_on autoconf texinfo
 
-mkdir -p $PREFIX/share/aclocal
+depends_on autoconf
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/a/automake1.11/automake1.11_1.11.6.orig.tar.xz 765cd19ffefb57604b7208f925b56803166484e9
-fetch_debian http://ftp.de.debian.org/debian/pool/main/a/automake1.11/automake1.11_1.11.6-1.debian.tar.bz2 ab4e8ac687014cdd32c7c51f69b3f46c77ca5e03
+mkdir -p "$PREFIX/share/aclocal"
 
-do_undebian_compile
+fetch_source http://http.debian.net/debian/pool/main/a/automake-1.14/automake-1.14_1.14.1.orig.tar.xz 2ced676f6b792a95c5919243f81790b1172c7f5b
+fetch_debian http://http.debian.net/debian/pool/main/a/automake-1.14/automake-1.14_1.14.1-4.debian.tar.xz 5aebcc2c746316468cb5a37f1e47a8de8cd51e8c
+
+do_undebian
+pushd_src
+touch aclocal.m4 Makefile.in
+MAKEINFO=true do_compile
+cat <<EOF > "$PREFIX/share/aclocal/dirlist"
+$PREFIX/share/aclocal
+/usr/local/share/aclocal
+/usr/share/aclocal
+EOF
+popd_src
