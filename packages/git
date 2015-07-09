@@ -3,6 +3,9 @@
 ## TODO: libldap.so, liblber.so
 depends_on zlib
 
+## needed for generating manpages
+depends_on gettext
+
 ## https support
 depends_on openssl
 depends_on curl
