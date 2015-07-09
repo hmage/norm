@@ -20,11 +20,11 @@ fi
 fetch_source http://llvm.org/releases/3.6.1/llvm-3.6.1.src.tar.xz 01ecab99adc9030ee34e9a2e19e65dfe64e1affe
 do_unpack
 
-fetch_source http://llvm.org/releases/3.6.1/cfe-3.6.1.src.tar.xz 06b252867a3d118c95ca279fd3c4ac05f6730551
+fetch_source http://llvm.org/releases/3.6.1/cfe-3.6.1.src.tar.xz b7221d8fdd27e3ed519d0281646e82e17b51122c
 intree_unpack tools/clang
 
 if [[ $ENABLE_SANITIZER == yes ]]; then
-    fetch_source http://llvm.org/releases/3.6.1/compiler-rt-3.6.1.src.tar.xz 771cbf0535dce1ca3a3be022377781e32fdea70e
+    fetch_source http://llvm.org/releases/3.6.1/compiler-rt-3.6.1.src.tar.xz 85dccdc6ccd9675e871dfd2786b45fbf53518485
     intree_unpack projects/compiler-rt
 fi
 
