@@ -43,3 +43,8 @@ install -p -m755 apps/openssl.static $PREFIX/bin/openssl
 install -p -m644 libcrypto.static $PREFIX/lib/libcrypto.a
 install -p -m644 libssl.static $PREFIX/lib/libssl.a
 popd
+
+## install root certificates so curl and others can use HTTPS
+mkdir -p $PREFIX/etc/ssl/certs
+fetch_file http://curl.haxx.se/ca/cacert.pem 0efaf600cbbe99354ced7f87c8331b033865b7bd
+install -m 644 "$TARDIR/cacert.pem" "$PREFIX/etc/ssl/cert.pem"
