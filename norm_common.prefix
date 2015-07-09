@@ -33,7 +33,6 @@ setup_prefix() {
     [[ $OSTYPE == *linux* ]] && default_ldflags+=" -Wl,-rpath=$PREFIX/lib -Wl,-rpath-link=$PREFIX/lib"
     [[ $OSTYPE == *darwin* ]] && default_ldflags+=" -Wl,-rpath,$PREFIX/lib"
     default_cppflags="-I$PREFIX/include -pipe"
-    default_aclocal="$PREFIX/share/aclocal"
 
     addflags LDFLAGS $default_ldflags
     cc_addflags CPPFLAGS $default_cppflags
@@ -42,7 +41,6 @@ setup_prefix() {
     addpath PATH "$PREFIX/bin" "$PREFIX/sbin" "$PREFIX/bin/ccache_wrap"
     addpath LD_RUN_PATH "$PREFIX/lib"
     addpath PKG_CONFIG_PATH "$PREFIX/share/pkgconfig" "$PREFIX/lib/pkgconfig"
-    addpath ACLOCAL_PATH "$default_aclocal"
     addpath PERL5LIB "$PREFIX/lib/perl5"
 
     ## create files if they don't exist
