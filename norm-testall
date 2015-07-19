@@ -29,10 +29,10 @@ NORMDIR=`cd "$NORMDIR"; pwd`
 ## norm.test.$MACHINEID      <-- prefix, completely deleted between formulas
 
 ## in $NORMDIR:
-## testlogs/$MACHINEID.tar.xz             <-- bootstrap archive
+## testlogs/$MACHINEID.tar.gz             <-- bootstrap archive
 ## testlogs/$MACHINEID/$FORMULA_ID.log.gz <-- log for each formula
 BOOTSTRAP_NAME="norm.bootstrap.$MACHINEID"
-BOOTSTRAP_ARCHIVE="$NORMDIR/testlogs/$MACHINEID.tar.xz"
+BOOTSTRAP_ARCHIVE="$NORMDIR/testlogs/$MACHINEID.tar.gz"
 BOOTSTRAP_LOG="$NORMDIR/testlogs/$MACHINEID.log"
 BOOTSTRAP_PREFIX="$HOME/$BOOTSTRAP_NAME"
 NORMTEST_PREFIX="$HOME/norm.test.$MACHINEID"
@@ -50,6 +50,7 @@ if [ ! -e "$BOOTSTRAP_ARCHIVE" ]; then ## we do not have bootstrap archive, make
 
     ## build the set that can compile all our formulas
     "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install ccache        2>&1 | tee    "$BOOTSTRAP_LOG" # speeds up recompilation of formulas
+    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install curl xz bzip2 2>&1 | tee -a "$BOOTSTRAP_LOG" # speeds up recompilation of formulas
 
     ## bootstrap's bin will be in PATH, so remove stuff that will get in our way
     rm -vf "$BOOTSTRAP_PREFIX"/bin/{attr,c_rehash,chacl,curl-config,getfacl,getfattr,idn,setfacl,setfattr}
@@ -60,15 +61,15 @@ if [ ! -e "$BOOTSTRAP_ARCHIVE" ]; then ## we do not have bootstrap archive, make
     strip -gp "$BOOTSTRAP_PREFIX"/libexec/gcc/*/*/* || true
 
     ## archive the bootstrap
-    tar cf - -C "$HOME" "$BOOTSTRAP_NAME" | xz > "$BOOTSTRAP_ARCHIVE"
+    tar zcf "$BOOTSTRAP_ARCHIVE" -C "$HOME" "$BOOTSTRAP_NAME"
     ## compress bootstrap compile log
-    xz "$BOOTSTRAP_LOG"
+    gzip "$BOOTSTRAP_LOG"
 fi
 
 ##
 ## unpack bootstrap into clean location
 rm -rf "$BOOTSTRAP_PREFIX"
-xzcat "$BOOTSTRAP_ARCHIVE" | tar xf - -C "$HOME"
+tar zxf "$BOOTSTRAP_ARCHIVE" -C "$HOME"
 
 ## we don't want pipefail anymore -- failures to compile are handles by ourselves from now on
 set +o pipefail
