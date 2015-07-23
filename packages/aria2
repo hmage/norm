@@ -11,4 +11,4 @@ depends_on libgcrypt
 
 fetch_source http://downloads.sourceforge.net/project/aria2/stable/aria2-1.18.10/aria2-1.18.10.tar.xz c5879835807b33d5b81c8da873e3824660a61d94
 
-do_unpack_compile
+do_unpack_compile --without-gnutls
