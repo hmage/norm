@@ -23,8 +23,19 @@ if ! test_cc_func "stdio.h" 'printf("Hello, world!\n");'; then
 fi
 
 ## curl availability check
-if ! hash curl 2>/dev/null; then
-    log "Error: you don't have curl installed in your PATH"
+unset DOWNLOADER
+
+if hash aria2c 2>/dev/null; then
+    DOWNLOADER=aria2c
+elif hash wget 2>/dev/null; then
+    DOWNLOADER=wget
+elif hash curl 2>/dev/null; then
+    DOWNLOADER=curl
+fi
+
+if [[ -z $DOWNLOADER ]]; then
+    log "Error: couldn't find a tool to download source code"
+    log "You need either curl, wget or aria2c in your PATH"
     log "Can't compile anything, sorry"
     exit 1
 fi

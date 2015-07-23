@@ -292,22 +292,37 @@ depends_on() {
     done
 }
 
+do_download() {
+    [[ -z $2 ]] && log "do_download() needs two arguments" && return 1
+    local URL="$1"
+    local SAVETO="$2"
+    local SAVETO_FILE=`basename "$2"`
+    local SAVETO_DIR=`dirname "$2"`
+    case "$DOWNLOADER" in
+        aria2c) aria2c "$URL" --allow-overwrite -o "$SAVETO_FILE" -d "$SAVETO_DIR" ;;
+        wget)   wget "$URL" -O "$SAVETO" ;;
+        curl)   curl -L -R "$URL" -o "$SAVETO" ;;
+        *) log "\$DOWNLOADER is unknown ($DOWNLOADER)" && return 1 ;;
+    esac
+}
+
 fetch_file() {
     [ -z "$1" ] && log "fetch_file() needs at least 1 argument" && return 1
     local URL="$1"
     local SHA1="$2"
     local FILENAME=`basename -- "$URL"`
     mkdir -p "$TARDIR"
-    if [ ! -e "$TARDIR"/$FILENAME ]; then
+    if [ ! -s "$TARDIR/$FILENAME" ]; then
         log "Downloading $URL"
-        curl -L -R "$URL" -o "$TARDIR"/$FILENAME.temp || (rm -f "$TARDIR"/$FILENAME.temp && return 1)
-        mv -f "$TARDIR"/$FILENAME{.temp,}
+        local TEMPFILE=`mktemp "$TARDIR/$FILENAME.XXXXXX"`
+        do_download "$URL" "$TEMPFILE" || (rm -f "$TEMPFILE" && return 1)
+        mv -f "$TEMPFILE" "$TARDIR/$FILENAME"
     fi
     SHA1SUM=`$SHASUM_BIN "$TARDIR/$FILENAME" | cut -f1 -d' '`
     [ -z "$SHA1" ] && log "For future -- SHA1 of $FILENAME is $SHA1SUM"
     if [ ! -z "$SHA1" ] && [ "$SHA1SUM" != "$SHA1" ]; then
         log "SHA1sum mismatch! $SHA1SUM vs $SHA1"
-        false
+        return 1
     fi
 }
 
