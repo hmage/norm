@@ -1,0 +1,8 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/a/a52dec/a52dec_0.7.4.orig.tar.gz 79b33bd8d89dad7436f85b9154ad35667aa37321
+fetch_debian http://http.debian.net/debian/pool/main/a/a52dec/a52dec_0.7.4-17.diff.gz a897960d521d50df92ea5ac9e3011436df141be3
+
+do_undebian
+do_autoreconf
+do_compile --enable-shared

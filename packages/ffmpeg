@@ -30,6 +30,7 @@ have_gcc 4.4 && X265_CONFIGURE=--enable-libx265
 fetch_source https://www.ffmpeg.org/releases/ffmpeg-2.7.1.tar.bz2 ae84d7f51ff25be5160387282a1ca7be6cdbf6bf
 
 do_unpack_compile --enable-pthreads --enable-gpl --enable-version3 \
+                  --enable-shared \
                   --enable-hardcoded-tables --enable-avresample \
                   --enable-nonfree \
                   --enable-libx264 \

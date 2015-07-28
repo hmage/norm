@@ -1,5 +1,15 @@
 #!/bin/bash
 
-fetch_source http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-0.10.36.tar.xz 27931b00eb5d50bc477e32e2dda7440f4179e7ac
+depends_on pkg-config
+depends_on autoconf automake libtool
+depends_on libxml
+depends_on zlib
+depends_on glib
+depends_on libgmp
+depends_on bison
+depends_on flex
 
-do_unpack_compile
+fetch_source http://http.debian.net/debian/pool/main/g/gstreamer0.10/gstreamer0.10_0.10.36.orig.tar.bz2 ff95b5316b920e7c2836588bba18fa61395fbd03
+fetch_debian http://http.debian.net/debian/pool/main/g/gstreamer0.10/gstreamer0.10_0.10.36-1.5.debian.tar.xz ee01cbd57aa94e3e9786c3304211095ce7514b2c
+
+do_undebian_compile
