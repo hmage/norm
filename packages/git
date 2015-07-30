@@ -11,13 +11,13 @@ depends_on openssl
 depends_on curl
 depends_on libexpat
 
-fetch_source https://www.kernel.org/pub/software/scm/git/git-2.4.5.tar.xz 7692de65cd48fe66acc19ef5a898b6408e16b67b
+fetch_source https://www.kernel.org/pub/software/scm/git/git-2.5.0.tar.xz c5fbfa92adbb0b0841095c2ada3ccd569ae6700d
 do_unpack_compile --disable-nls
 
 ## install bash completion
 install -D $SRCDIR/contrib/completion/git-completion.bash $PREFIX/etc/bash_completion.d/git-completion.bash
 
 ## install git manpages
-fetch_source https://www.kernel.org/pub/software/scm/git/git-manpages-2.4.5.tar.xz e6ad6859a75c4865fcdfff454fa3739d45d1087e
+fetch_source https://www.kernel.org/pub/software/scm/git/git-manpages-2.5.0.tar.xz f2893e9fc7981af9d8b2d32571fe3baef3689dc3
 mkdir -p "$PREFIX/share/man"
 cat "$TARDIR/$TARNAME" | xz -d | tar xf - -C "$PREFIX/share/man"
