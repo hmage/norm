@@ -13,12 +13,6 @@ EXTRA_CONFOPTS=
 [[ $OSTYPE == *linux* ]] && HASH_STYLE=--with-linker-hash-style=both
 
 
-if test_cc_value "fcntl.h" "AT_FDCWD"; then
-    LANGUAGES="$LANGUAGES,go"
-else
-    add_caveat "go language was disabled -- your libc headers are too old"
-fi
-
 if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
     EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-libsanitizer"
     add_caveat "Sanitizer support was disabled -- your linux headers are too old"
