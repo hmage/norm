@@ -1,8 +1,11 @@
 #!/bin/bash
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/n/nspr/nspr_4.9.2.orig.tar.gz 52e4c4b44398e2f5eb9430fd28d44083fbde880f
-fetch_debian http://ftp.de.debian.org/debian/pool/main/n/nspr/nspr_4.9.2-1+deb7u2.debian.tar.gz 0fb08d3f9abd784f56888395a8a272f720a8034a
+fetch_source http://http.debian.net/debian/pool/main/n/nspr/nspr_4.10.7.orig.tar.gz f62972d7c66d4621d6262c5bd9b5723fa67b6bff
+fetch_debian http://http.debian.net/debian/pool/main/n/nspr/nspr_4.10.7-1.debian.tar.xz cd410765e1f08b41f4e6d7edecdfe0bb3c60a0f6
+
+EXTRA_OPTIONS=
+[[ $HOSTTYPE == *64* ]] && EXTRA_OPTIONS=--enable-64bit
 
 do_undebian
-SRCDIR=$SRCDIR/mozilla/nsprpub
-do_compile --enable-pthreads --enable-ipv6
+SRCDIR=$SRCDIR/nspr
+do_compile --enable-pthreads --enable-ipv6 --enable-optimize --disable-debug $EXTRA_OPTIONS
