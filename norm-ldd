@@ -78,8 +78,7 @@ foreach my $arg (@files) {
 	next if /not a dynamic executable/;
 	next if /statically linked/;
 	next if m|$filtered_prefix/|;
-	next if /^[\t]linux-vdso\.so\.1 \(/;
-	next if /^[\t]linux-gate\.so\.1 =>  \(/;
+	next if /^[\t]linux-(gate|vdso)\.so\.1 (=>  )?\(/;
 	next if /^[\t]lib(c|m|dl|rt|pthread|resolv|crypt|util|nsl)\.so/;
 	next if /^[\t]lib(gcc_s|stdc\+\+|ssp|gomp)\.so/;
 	next if /^[\t]\/lib\/ld-linux\.so\.2/;
