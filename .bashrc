@@ -11,6 +11,8 @@ case $OSTYPE in
     *)        SYSTEM_VERSION=.unknown ;;
 esac
 MACHINEID="${BASH_VERSINFO[5]}$SYSTEM_VERSION"
+[ -z "${debian_chroot:-}" -a -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
+[ -n "$debian_chroot" ] && MACHINEID+=".$debian_chroot"
 unset SYSTEM_VERSION
 
 NORMPREFIX="$HOME/norm.$MACHINEID"
