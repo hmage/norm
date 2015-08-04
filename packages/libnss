@@ -6,12 +6,17 @@ depends_on sqlite3
 fetch_source http://ftp.de.debian.org/debian/pool/main/n/nss/nss_3.14.5.orig.tar.gz d977d50bbd78c7cae520a57781c19c07927f5b7e
 fetch_debian http://ftp.de.debian.org/debian/pool/main/n/nss/nss_3.14.5-1+deb7u3.debian.tar.gz e2b1d6c03bca782f703379ee62c24c599dc3fdaf
 
+EXTRA_OPTIONS=
+[[ $HOSTTYPE == *64* ]] && EXTRA_OPTIONS="USE_64=1"
+
+
 do_undebian
 pushd_src
 make -C mozilla/security/nss build_coreconf build_dbm all \
                                          MOZILLA_CLIENT=1 NSPR_INCLUDE_DIR=$PREFIX/include/nspr \
                                          NSPR_LIB_DIR=$PREFIX/lib BUILD_OPT=1 NS_USE_GCC=1 \
                                          NSS_USE_SYSTEM_SQLITE=1 NSS_ENABLE_ECC=1 CHECKLOC= \
+                                         $EXTRA_OPTIONS \
                                          USE_SYSTEM_ZLIB=1 OPTIMIZER="$CFLAGS $CPPFLAGS"
 
 cat debian/nss.pc.in     | perl -pe "s|prefix=/usr|prefix=$PREFIX|;s|/\@DEB_HOST_MULTIARCH\@||;s/\@VERSION\@/3.14.5/" > debian/nss.pc
