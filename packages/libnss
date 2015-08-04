@@ -3,8 +3,8 @@ depends_on libnspr
 depends_on zlib
 depends_on sqlite3
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/n/nss/nss_3.14.5.orig.tar.gz d977d50bbd78c7cae520a57781c19c07927f5b7e
-fetch_debian http://ftp.de.debian.org/debian/pool/main/n/nss/nss_3.14.5-1+deb7u3.debian.tar.gz e2b1d6c03bca782f703379ee62c24c599dc3fdaf
+fetch_source http://http.debian.net/debian/pool/main/n/nss/nss_3.17.2.orig.tar.gz c518e0726e89210219e3c583bfa08e40fb39385a
+fetch_debian http://http.debian.net/debian/pool/main/n/nss/nss_3.17.2-1.1.debian.tar.xz e81f735d4338b97b2c1da9e66be3e8ede6cf84ee
 
 EXTRA_OPTIONS=
 [[ $HOSTTYPE == *64* ]] && EXTRA_OPTIONS="USE_64=1"
@@ -12,7 +12,7 @@ EXTRA_OPTIONS=
 
 do_undebian
 pushd_src
-make -C mozilla/security/nss build_coreconf build_dbm all \
+make -C nss all \
                                          MOZILLA_CLIENT=1 NSPR_INCLUDE_DIR=$PREFIX/include/nspr \
                                          NSPR_LIB_DIR=$PREFIX/lib BUILD_OPT=1 NS_USE_GCC=1 \
                                          NSS_USE_SYSTEM_SQLITE=1 NSS_ENABLE_ECC=1 CHECKLOC= \
@@ -22,7 +22,7 @@ make -C mozilla/security/nss build_coreconf build_dbm all \
 cat debian/nss.pc.in     | perl -pe "s|prefix=/usr|prefix=$PREFIX|;s|/\@DEB_HOST_MULTIARCH\@||;s/\@VERSION\@/3.14.5/" > debian/nss.pc
 cat debian/nss-config.in | perl -pe "s|prefix=/usr|prefix=$PREFIX|;s|/\@DEB_HOST_MULTIARCH\@||;s/\@VERSION\@/3.14.5/;s/\@MOD_MAJOR_VERSION\@/3/;s/\@MOD_MINOR_VERSION\@/14/;s/\@MOD_PATCH_VERSION\@/5/" > debian/nss-config
 
-DISTDIR=mozilla/dist/Linux*_OPT.OBJ
+DISTDIR=dist/Linux*_OPT.OBJ
 
 mkdir -p $PREFIX/bin
 mkdir -p $PREFIX/lib
@@ -43,7 +43,7 @@ ln -fs nss/libfreebl3.so $PREFIX/lib
 ln -fs nss/libsoftokn3.so $PREFIX/lib
 ln -fs nss/libnssdbm3.so $PREFIX/lib
 ln -fs nss/libnssckbi.so $PREFIX/lib
-install -m 644 -t $PREFIX/include/nss mozilla/dist/public/nss/*
+install -m 644 -t $PREFIX/include/nss dist/public/nss/*
 install -m 644 -t $PREFIX/lib $DISTDIR/lib/libcrmf.a
 install -m 644 -t $PREFIX/lib/pkgconfig debian/nss.pc
 install -m 755 -t $PREFIX/bin debian/nss-config
