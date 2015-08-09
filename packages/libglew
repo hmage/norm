@@ -1,14 +1,15 @@
 #!/bin/bash
 
 depends_on mesa
-depends_on libxmu
+depends_on libx11
+depends_on libglu
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/g/glew/glew_1.7.0.orig.tar.gz 9266f2360c1687a96f2ea06419671d370b2928d1
 fetch_debian http://ftp.de.debian.org/debian/pool/main/g/glew/glew_1.7.0-3.debian.tar.gz dd9ee235a95efb18f7026493fa34994c73c78daf
 
 do_undebian
 pushd_src
-do_make GLEW_DEST=$PREFIX GL_LDFLAGS=-lX11
-do_install GLEW_DEST=$PREFIX GL_LDFLAGS=-lX11
+do_make CFLAGS.EXTRA="-I$PREFIX/include" LDFLAGS.EXTRA="-L$PREFIX/lib"
+do_install GLEW_DEST=$PREFIX LIBDIR="$PREFIX/lib"
 popd
 
