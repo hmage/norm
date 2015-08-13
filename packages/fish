@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://fishshell.com/files/2.2.0/fish-2.2.0.tar.gz cd7935b3301444afa88afb272d8db5542085c9f2
+
+do_unpack_compile
