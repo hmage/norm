@@ -27,6 +27,7 @@ All neccessary dependencies to compile `ffmpeg` will be automatically done for y
  * [`norm install openssh`](packages/openssh) — your system openssh client might not support ECDSA and ed25519, which is increasingly problematic as the world around you moves away from DSA and RSA.
  * [`norm install aria2`](packages/aria2) — this is much nicer than curl or wget and can do parallel downloads.
  * [`norm install go`](packages/go) — you don't need root to have go language, either.
+
 ## About
 
 `norm` installs formulas to your home directory, leaving system-wide programs intact and untouched. By default, install prefix is `~/norm.$MACHTYPE.$GLIBC_VERSION`, but you can change that. See output of `norm --help`.
