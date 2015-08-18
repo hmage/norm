@@ -2,6 +2,21 @@
 depends_on zlib
 
 fetch_source http://samba.org/ftp/ccache/ccache-3.2.3.tar.gz e394759b0b77b9fff878513ee9b99c0087f20d53
-do_unpack_compile
+do_unpack
+do_patch_inline << 'EOF'
+diff -urw ccache-3.2.3.tar.gz-orig/Makefile.in ccache-3.2.3.tar.gz/Makefile.in
+--- ccache-3.2.3.tar.gz-orig/Makefile.in	2015-08-16 15:12:05.000000000 +0300
++++ ccache-3.2.3.tar.gz/Makefile.in	2015-08-18 18:40:07.712717083 +0300
+@@ -52,7 +52,7 @@
+ .PHONY: all
+ all: ccache$(EXEEXT)
+ 
+-ccache$(EXEEXT): $(ccache_objs) $(extra_libs)
++ccache$(EXEEXT): $(ccache_objs)
+ 	$(CC) $(all_cflags) -o $@ $(ccache_objs) $(all_ldflags) $(extra_libs) $(LIBS)
+ 
+ .PHONY: install
+EOF
+do_compile
 
 add_to_ccache cc cpp gcov c++ g++ gcc gcc-ar gcc-nm gcc-ranlib
