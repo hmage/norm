@@ -3,8 +3,8 @@ depends_on libnspr
 depends_on zlib
 depends_on sqlite3
 
-fetch_source http://http.debian.net/debian/pool/main/n/nss/nss_3.17.2.orig.tar.gz c518e0726e89210219e3c583bfa08e40fb39385a
-fetch_debian http://http.debian.net/debian/pool/main/n/nss/nss_3.17.2-1.1.debian.tar.xz e81f735d4338b97b2c1da9e66be3e8ede6cf84ee
+fetch_source http://security.debian.org/debian-security/pool/updates/main/n/nss/nss_3.17.2.orig.tar.gz c518e0726e89210219e3c583bfa08e40fb39385a
+fetch_debian http://security.debian.org/debian-security/pool/updates/main/n/nss/nss_3.17.2-1.1+deb8u1.debian.tar.xz b030d8ca3ffb69a9e942210643f23608af024a95
 
 EXTRA_OPTIONS=
 [[ $HOSTTYPE == *64* ]] && EXTRA_OPTIONS="USE_64=1"
