@@ -13,7 +13,7 @@ depends_on libgdbm
 depends_on sqlite3
 depends_on libffi
 
-fetch_source https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tar.xz 3172f6e957713c2d9fca462cc16068222fd1b9d3
+fetch_source https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tar.xz ee5a50c5562e7448f037d35fdedc18d95c748b9e
 
 do_unpack
 do_patch_inline << 'EOF'
