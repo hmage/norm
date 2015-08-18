@@ -91,6 +91,7 @@ cmd_install() {
         [[ "$FORMULA" == --* ]] && continue ## ignore flags
         compile_formula $force "$FORMULA"
     done
+    log "You can find $@ in $PREFIX"
 }
 
 cmd_sub() {

@@ -39,8 +39,10 @@ onerror() {
 }
 
 onexit() {
-    for line in "${CAVEATS[@]}"; do log $line; done
-    log "Exiting"
+    EXITCODE=$?
+    if [[ $EXITCODE == 0 ]]; then
+        for line in "${CAVEATS[@]}"; do log $line; done
+    fi
 }
 
 setup_traps() {
