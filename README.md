@@ -64,8 +64,8 @@ If software uses autotools to configure itself, no other bash functions are need
 
 To see a complex example, you can take a look at [how gcc is built](packages/gcc) with in-tree compilation of it's dependencies.
 
-If you want some formula to be added to `norm`, you can either let me know by [opening an issue](https://github.com/hmage/norm/issues) telling me that you'd like to see X or Y added to norm.
+## Reporting bugs
 
-[Patches welcome](mailto:hmage@hmage.net).
+See https://github.com/hmage/norm/issues.
 
-You can also, of course, fork the source, add the package yourself and then [open a pull request here](https://github.com/hmage/norm/compare).
+Also you contact me at [hmage@hmage.net](mailto:hmage@hmage.net).
