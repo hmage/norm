@@ -62,7 +62,7 @@ To simplify these formulas, `norm` provides functions that reduce number of line
 
 If software uses autotools to configure itself, no other bash functions are needed to successfully compile. There are [other functions](norm_common.functions) in case you need to do more, their names and comments should be self explanatory.
 
-To see a complex example, you can take a look at [how gcc is built](packages/gcc) with in-tree compilation of it's dependencies.
+To see a more complex example, take a look at [how vlc is built](packages/vlc).
 
 ## Reporting bugs
 
