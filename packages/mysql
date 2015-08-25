@@ -1,0 +1,14 @@
+#!/bin/bash
+
+depends_on cmake
+depends_on libncurses
+
+fetch_source https://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.26.tar.gz 1f266a2782e13d4f5a2614d91ed5861e524c9467
+
+do_unpack
+pushd_src
+cmake . -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON
+do_make
+env - PATH="$PATH" make test
+do_install
+popd
