@@ -6,3 +6,4 @@ fetch_source http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz 71
 
 LN="ln -f" \
 do_unpack_compile --with-internal-glib --with-pc-path="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig"
+mkdir -p "$PREFIX"/lib/pkgconfig
