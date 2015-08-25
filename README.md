@@ -68,4 +68,4 @@ To see a more complex example, take a look at [how vlc is built](packages/vlc).
 
 See https://github.com/hmage/norm/issues.
 
-Also you contact me at [hmage@hmage.net](mailto:hmage@hmage.net).
+Also, you can contact me at [hmage@hmage.net](mailto:hmage@hmage.net).
