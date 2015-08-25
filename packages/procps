@@ -1,12 +1,67 @@
 #!/bin/bash
 
+depends_on autoconf automake libtool
+depends_on gettext # for autoreconf
 depends_on libncurses
 
 fetch_source http://http.debian.net/debian/pool/main/p/procps/procps_3.3.9.orig.tar.xz 088c77631745fc75ee41fc29c254a4069be4869a
 fetch_debian http://http.debian.net/debian/pool/main/p/procps/procps_3.3.9-9.debian.tar.xz 3135ba90f18279521853cc60958187184a9fc523
 
 do_undebian
-pushd_src
-sed -i 's:/usr/bin:/bin:' configure
-do_compile
-popd_src
+do_patch_inline << 'EOF' ## upstream doesn't respect ncurses CFLAGS
+--- procps_3.3.9.orig.tar.xz-orig/configure.ac	2015-08-25 22:40:21.864966752 +0300
++++ procps_3.3.9.orig.tar.xz/configure.ac	2015-08-25 22:30:47.556997180 +0300
+@@ -70,7 +70,7 @@
+ AC_FUNC_REALLOC
+ AC_FUNC_STRTOD
+ 
+-usrbin_execdir='${exec_prefix}/bin'
++usrbin_execdir='${exec_prefix}/usr/bin'
+ AC_SUBST([usrbin_execdir])
+ 
+ AM_GNU_GETTEXT_VERSION([0.14.1])
+@@ -138,15 +138,17 @@
+   ])
+   AM_CONDITIONAL(WITH_NCURSES, true)
+   if test "$enable_watch8bit" = yes; then
+-    PKG_CHECK_MODULES([NCURSESW], [ncursesw], [WATCH_NCURSES_LIBS="$NCURSESW_LIBS"], [
++    PKG_CHECK_MODULES([NCURSESW], [ncursesw], [WATCH_NCURSES_LIBS="$NCURSESW_LIBS"; WATCH_NCURSES_CFLAGS="$NCURSESW_CFLAGS"], [
+       AC_CHECK_LIB([ncursesw], [addwstr], [WATCH_NCURSES_LIBS=-lncursesw],
+                    [AC_MSG_ERROR([Cannot find ncurses wide library ncursesw with --enable-watch8bit])])
+     ])
+   else
++    WATCH_NCURSES_CFLAGS="$NCURSES_CFLAGS"
+     WATCH_NCURSES_LIBS="$NCURSES_LIBS"
+   fi
+ fi
+ AC_SUBST([NCURSES_LIBS])
++AC_SUBST([WATCH_NCURSES_CFLAGS])
+ AC_SUBST([WATCH_NCURSES_LIBS])
+ 
+ AC_ARG_WITH([systemd],
+--- procps_3.3.9.orig.tar.xz-orig/Makefile.am	2013-10-11 03:09:07.000000000 +0400
++++ procps_3.3.9.orig.tar.xz/Makefile.am	2015-08-25 22:30:55.428996763 +0300
+@@ -76,8 +76,10 @@
+ 	slabtop.1 \
+ 	watch.1
+ slabtop_SOURCES = slabtop.c $(top_srcdir)/lib/strutils.c $(top_srcdir)/lib/fileutils.c
++slabtop_CFLAGS = @NCURSES_CFLAGS@
+ slabtop_LDADD = @NCURSES_LIBS@
+ watch_SOURCES = watch.c $(top_srcdir)/lib/strutils.c $(top_srcdir)/lib/fileutils.c
++watch_CFLAGS = @WATCH_NCURSES_CFLAGS@
+ watch_LDADD = @WATCH_NCURSES_LIBS@
+ endif
+ 
+--- procps_3.3.9.orig.tar.xz-orig/top/Makefile.am	2013-05-26 01:39:45.000000000 +0400
++++ procps_3.3.9.orig.tar.xz/top/Makefile.am	2015-08-25 22:27:57.181006207 +0300
+@@ -21,6 +21,7 @@
+ 	top.1
+ 
+ top_LDADD = @NCURSES_LIBS@
++top_CFLAGS = @NCURSES_CFLAGS@
+ endif
+ 
+ EXTRA_DIST =
+EOF
+do_autoreconf
+do_compile --enable-watch8bit --enable-skill --enable-w-from
