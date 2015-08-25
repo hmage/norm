@@ -3,6 +3,6 @@
 depends_on libreadline
 depends_on zlib
 
-fetch_source https://ftp.postgresql.org/pub/source/v9.2.13/postgresql-9.2.13.tar.bz2 8078c44b092dc25b8d338110e80872682fa42a2b
+fetch_source https://ftp.postgresql.org/pub/source/v9.4.4/postgresql-9.4.4.tar.bz2 e295fee0f1bace740b2db1eaa64ac060e277d5a7
 
 do_unpack_compile
