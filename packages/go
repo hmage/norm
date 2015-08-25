@@ -19,8 +19,8 @@ diff -urw golang_1.4.2.orig.tar.gz-orig/src/net/multicast_test.go golang_1.4.2.o
  	case "linux":
 -		if runtime.GOARCH == "arm" || runtime.GOARCH == "alpha" {
  			return true, nil // not implemented yet
- 		}
--	}
+-		}
+ 	}
  	ift, err := Interfaces()
  	if err != nil {
  		return false, err
