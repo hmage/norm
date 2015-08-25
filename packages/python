@@ -32,6 +32,6 @@ pushd_src
 do_configure --enable-ipv6 --enable-unicode=ucs4 --with-system-expat --with-system-ffi \
                   --with-dbmliborder=bdb:gdbm --with-fpectl --enable-shared --with-threads
 do_make
-is_with tests && http_proxy= https_proxy= ftp_proxy= do_make test
+env - PATH="$PATH" make test EXTRATESTOPTS='--exclude test_mhlib'
 do_install
 popd
