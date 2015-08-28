@@ -10,7 +10,7 @@ depends_on glib
 depends_on liblzo
 depends_on libnss
 
-fetch_source http://wiki.qemu-project.org/download/qemu-2.3.0.tar.bz2 373d74bfafce1ca45f85195190d0a5e22b29299e
+fetch_source http://wiki.qemu-project.org/download/qemu-2.4.0.tar.bz2 27c4651243ad885a2a3b35fe6d2532e6a7f0711e
 
 do_unpack_compile --disable-sdl --disable-gtk --disable-vnc --disable-attr --with-system-pixman \
                   --extra-cflags="$CPPFLAGS" --extra-ldflags="$LDFLAGS"
