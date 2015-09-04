@@ -32,7 +32,7 @@ sub eachFile {
     return if not -f;
     return if -l;
     return if /(README|INSTALL|COPYING)$/;
-    return if /\.(py|pyo|pyc)$/; ## 3900 files
+    return if /\.(py|pyo|pyc|ri|rb|js|rhtml)$/;
     return if /\.(def|decTest|m4|txt|pc|la|syntax|installed)$/;
     return if /\.(c|h|fon|am|pm|tcl|sl|xml|sh|msg|map|info|pem|ini|hlp|mo|po)$/;
     return if /\.(sample|ttf|css|html|pub|ac|in|inc|sub|conf|site|cnf|pod|el)$/;
