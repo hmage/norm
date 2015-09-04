@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on openssl
+depends_on e2fsprogs
+
+fetch_source https://www.tarsnap.com/download/tarsnap-autoconf-1.0.36.1.tgz d678c2d7701f013901540dab6899aca9ea5e146f
+
+do_unpack_compile
