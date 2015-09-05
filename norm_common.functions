@@ -301,7 +301,7 @@ do_download() {
     case "$DOWNLOADER" in
         aria2c) aria2c "$URL" --allow-overwrite -o "$SAVETO_FILE" -d "$SAVETO_DIR" ;;
         wget)   wget "$URL" -O "$SAVETO" ;;
-        curl)   curl -L -R "$URL" -o "$SAVETO" ;;
+        curl)   curl --fail -L -R "$URL" -o "$SAVETO" ;;
         *) log "\$DOWNLOADER is unknown ($DOWNLOADER)" && return 1 ;;
     esac
 }
