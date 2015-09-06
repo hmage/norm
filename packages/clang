@@ -17,21 +17,24 @@ if ! test_cc_value "linux/mroute6.h" "MRT6_BASE"; then
     add_caveat "Your headers are missing <linux/mroute6.h>, sanitizer support was disabled."
 fi
 
-fetch_source http://llvm.org/releases/3.6.1/llvm-3.6.1.src.tar.xz 01ecab99adc9030ee34e9a2e19e65dfe64e1affe
+fetch_source http://llvm.org/releases/3.7.0/llvm-3.7.0.src.tar.xz 0355c2fe01a8d17c3315069e6f2ef80c281e7dad
 do_unpack
 
-fetch_source http://llvm.org/releases/3.6.1/cfe-3.6.1.src.tar.xz b7221d8fdd27e3ed519d0281646e82e17b51122c
+fetch_source http://llvm.org/releases/3.7.0/cfe-3.7.0.src.tar.xz 4ff8100565528b13d99a73f807e9b426c3b3bed9
 intree_unpack tools/clang
 
 if [[ $ENABLE_SANITIZER == yes ]]; then
-    fetch_source http://llvm.org/releases/3.6.1/compiler-rt-3.6.1.src.tar.xz 85dccdc6ccd9675e871dfd2786b45fbf53518485
+    fetch_source http://llvm.org/releases/3.7.0/compiler-rt-3.7.0.src.tar.xz b61362b409bb7909a6d11097b5f69fded061073c
     intree_unpack projects/compiler-rt
 fi
 
-TARNAME=clang-3.6.1
+TARNAME=clang-3.7.0
 
-pushd_src
-do_configure --enable-optimized --disable-assertions --disable-libedit
+BUILDDIR="$SRCDIR"-build
+rm -rf "$BUILDDIR"
+mkdir -p "$BUILDDIR"
+pushd "$BUILDDIR"
+do_configure_outside --enable-optimized --disable-assertions --disable-libedit
 do_make clang-only
 do_make install-clang
 popd
