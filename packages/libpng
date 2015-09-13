@@ -1,16 +1,7 @@
 #!/bin/bash
 depends_on zlib
 
-## install several versions of libpng because of different .so's -- latest last
-
-fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.2.53.tar.xz 1668ea8522144bc1a206f000892cf0fec0b61037
-do_unpack_compile
-
-fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.4.16.tar.xz 4492cfbe3617758678b178e5f521893611fa2d13
-do_unpack_compile
-
-fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.5.22.tar.xz 9c41d643793135db1ffa644534abaee778422fc1
-do_unpack_compile
-
-fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.6.17.tar.xz 6394f3c0847c3b9ea69f4f972dddae3786592050
-do_unpack_compile
+fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.6.18.tar.xz c6e06510d30beba08c96c468ab269fafb2bb256f
+do_unpack
+do_compile_test
+install -D "$SRCDIR"/pngbar.png "$PREFIX"/var/norm/pngbar.png
