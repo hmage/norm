@@ -2,8 +2,8 @@
 
 depends_on autoconf automake libtool # otherwise compile errors
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libg/libgpg-error/libgpg-error_1.10.orig.tar.bz2 95b324359627fbcb762487ab6091afbe59823b29
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libg/libgpg-error/libgpg-error_1.10-3.1.debian.tar.gz b958decf8c5e9613c583d02670e141f121cb543c
+fetch_source http://http.debian.net/debian/pool/main/libg/libgpg-error/libgpg-error_1.17.orig.tar.bz2 ba5858b2947e7272dd197c87bac9f32caf29b256
+fetch_debian http://http.debian.net/debian/pool/main/libg/libgpg-error/libgpg-error_1.17-3.debian.tar.xz 904747acfa9cb9a4a2e17a6b0db0c8c812fbcb23
 
 do_undebian
 do_compile --disable-nls
