@@ -1,0 +1,7 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/a/atk1.0/atk1.0_2.4.0.orig.tar.xz ca13d01660bdcd5262ef6cedb8a64542ff8aa804
+fetch_debian http://http.debian.net/debian/pool/main/a/atk1.0/atk1.0_2.4.0-2.debian.tar.gz f8a49c13805da5151d2299cbd2c50f202550206c
+
+do_undebian_compile
+

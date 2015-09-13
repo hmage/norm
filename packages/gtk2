@@ -1,0 +1,17 @@
+#!/bin/bash
+
+depends_on autoconf automake libtool
+depends_on libpango
+depends_on gdk-pixbuf
+depends_on libatk
+depends_on gtk-doc
+depends_on libx11
+depends_on libxi
+depends_on gobject-introspection
+
+fetch_source http://http.debian.net/debian/pool/main/g/gtk+2.0/gtk+2.0_2.24.25.orig.tar.xz 017ee13f172a64026c4e77c3744eeabd5e017694
+fetch_debian http://http.debian.net/debian/pool/main/g/gtk+2.0/gtk+2.0_2.24.25-3.debian.tar.xz f0fe0ad25840952120ce9c7d62a8855601c38c3b
+
+do_undebian
+do_autoreconf
+do_compile_outside --enable-introspection=yes --with-xinput=yes --enable-shared --disable-static
