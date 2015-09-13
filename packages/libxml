@@ -3,12 +3,13 @@
 depends_on zlib
 depends_on xz
 depends_on pkg-config
+depends_on python
 
 fetch_source http://xmlsoft.org/sources/libxml2-2.9.2.tar.gz f46a37ea6d869f702e03f393c376760f3cbee673
 do_unpack
 pushd_src
 rm -f test/errors/name2.xml # broken
-do_configure --with-zlib=$PREFIX --without-python
+do_configure --with-zlib=$PREFIX
 do_make
 env - PATH="$PATH" make check
 do_install
