@@ -15,6 +15,6 @@ do_unpack
 pushd_src
 do_configure
 do_make
-is_with tests && env - PATH="$PATH" make test
+! is_without tests && env - PATH="$PATH" make test
 do_install
 popd

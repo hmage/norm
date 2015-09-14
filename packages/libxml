@@ -11,6 +11,6 @@ pushd_src
 rm -f test/errors/name2.xml # broken
 do_configure --with-zlib=$PREFIX
 do_make
-is_with tests && env - PATH="$PATH" make check
+! is_without tests && env - PATH="$PATH" make check
 do_install
 popd_src

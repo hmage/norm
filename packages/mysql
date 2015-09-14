@@ -9,6 +9,6 @@ do_unpack
 pushd_src
 cmake . -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON
 do_make
-is_with tests && env - PATH="$PATH" make test
+! is_without tests && env - PATH="$PATH" make test
 do_install
 popd

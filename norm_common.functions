@@ -56,7 +56,7 @@ do_compile_test() {
     pushd_src || return 1
     do_configure "$@" || return 1
     do_make || return 1
-    if is_with tests; then
+    if ! is_without tests; then
         set +e
         TARGET=test
         make -q test

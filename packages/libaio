@@ -6,6 +6,6 @@ fetch_debian http://http.debian.net/debian/pool/main/liba/libaio/libaio_0.3.110-
 do_undebian
 pushd_src
 do_make prefix="$PREFIX"
-is_with tests && do_make check prefix="$PREFIX"
+! is_without tests && do_make check prefix="$PREFIX"
 do_make install prefix="$PREFIX"
 popd
