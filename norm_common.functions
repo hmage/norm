@@ -257,6 +257,18 @@ do_unpack_compile() {
 }
 
 ##
+## same as do_unpack_compile, but build outside of source directory
+##
+do_unpack_compile_outside() {
+    if [ -f "$TARDIR/$1" ]; then
+        TARNAME="$1"
+        shift 1
+    fi
+    do_unpack "$TARNAME"
+    do_compile_outside "$@"
+}
+
+##
 ## same as do_unpack_compile, but run test suite before install
 ##
 do_unpack_compile_test() {
