@@ -36,6 +36,8 @@ BOOTSTRAP_ARCHIVE="$NORMDIR/testlogs/$MACHINEID.tar.gz"
 BOOTSTRAP_LOG="$NORMDIR/testlogs/$MACHINEID.log"
 BOOTSTRAP_PREFIX="$HOME/$BOOTSTRAP_NAME"
 NORMTEST_PREFIX="$HOME/norm.test.$MACHINEID"
+NORMTEST_PREFIXNAME=`basename "$NORMTEST_PREFIX"`
+NORMTEST_PREFIXDIR=`dirname "$NORMTEST_PREFIX"`
 LOGPATH="$NORMDIR/testlogs/$MACHINEID"
 
 ## create output directories
@@ -106,13 +108,17 @@ for FORMULA_NAME in "${LIST[@]}"; do
     "$NORMDIR/norm" -p "$NORMTEST_PREFIX" install "$FORMULA_NAME" 2>&1 | tee "$LOGPATH/$FORMULA_ID.log"
     BUILDSTATUS="${PIPESTATUS[0]}"
     [[ $BUILDSTATUS != 0 && -n $ABORT_ON_FAIL ]] && echo "Formula $FORMULA_NAME failed to build, aborting" && exit 1
-    [ $BUILDSTATUS != 0 ] && continue ## compilation failed, nothing else to do
+    if [ $BUILDSTATUS != 0 ]; then
+        tar zcvf "$LOGPATH/$FORMULA_ID.tar.gz" -C "$NORMTEST_PREFIXDIR" "$NORMTEST_PREFIXNAME"
+        continue ## compilation failed, nothing else to do
+    fi
 
     # compile success, check if ldd has any output
     env - "$NORMDIR/norm-ldd" -q "$NORMTEST_PREFIX" | tee -a "$LOGPATH/$FORMULA_ID.log"
     [ "${PIPESTATUS[0]}" != "0" ] && continue ## ldd reports dependencies outside of prefix -- failed
 
     gzip "$LOGPATH/$FORMULA_ID.log"
+    tar zcvf "$LOGPATH/$FORMULA_ID.tar.gz" -C "$NORMTEST_PREFIXDIR" "$NORMTEST_PREFIXNAME"
 done
 
 ##
