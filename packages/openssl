@@ -28,7 +28,7 @@ log "Configuring static openssl"
 ./Configure no-shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG $BUILDCONF
 fix_makefile
 NOPARALLEL=1 do_make all
-NOPARALLEL=1 do_make test
+is_with tests && NOPARALLEL=1 do_make test
 mv apps/openssl apps/openssl.static
 mv libcrypto.a libcrypto.static
 mv libssl.a libssl.static
@@ -37,7 +37,7 @@ log "Configuring shared openssl"
 ./Configure shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG $BUILDCONF
 fix_makefile
 NOPARALLEL=1 do_make all
-NOPARALLEL=1 do_make test
+is_with tests && NOPARALLEL=1 do_make test
 do_install MANDIR=$PREFIX/share/man
 mkdir -p $PREFIX/lib $PREFIX/bin
 install -p -m755 apps/openssl.static $PREFIX/bin/openssl

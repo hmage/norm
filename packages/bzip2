@@ -9,7 +9,7 @@ do_unpack
 pushd_src
 sed -i 's/^CFLAGS=/CFLAGS=-fpic -fPIC /' Makefile
 do_make
-do_make test
+is_with tests && do_make test
 do_install PREFIX=$PREFIX
 
 ## shared library needs to be built and installed manually

@@ -39,6 +39,6 @@ EOF
 do_make
 ## a lot of stuff depends on perl, so it must pass all self checks
 ## in order to do so, it must be run in clean environment so it won't try to use proxies
-env - PATH="$PATH" make test
+is_with tests && env - PATH="$PATH" make test
 do_install
 popd
