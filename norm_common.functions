@@ -221,6 +221,19 @@ do_undebian_compile() {
 }
 
 ##
+## same as do_undebian_compile, but run test suite before install
+##
+do_undebian_compile_test() {
+    if [ -f "$TARDIR/$1" -a -f "$TARDIR/$2" ]; then
+        TARNAME="$1"
+        DEBPATCH="$2"
+        shift 2
+    fi
+    do_undebian
+    do_compile_test "$@"
+}
+
+##
 ## unpacks source code, runs configure, make, install
 ##
 ## usage: do_unpack_compile <-- gets filename from fetch_source
@@ -233,6 +246,18 @@ do_unpack_compile() {
     fi
     do_unpack "$TARNAME"
     do_compile "$@"
+}
+
+##
+## same as do_unpack_compile, but run test suite before install
+##
+do_unpack_compile_test() {
+    if [ -f "$TARDIR/$1" ]; then
+        TARNAME="$1"
+        shift 1
+    fi
+    do_unpack "$TARNAME"
+    do_compile_test "$@"
 }
 
 ##
