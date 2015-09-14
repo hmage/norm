@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/libs/libsdl1.2/libsdl1.2_1.2.15.orig.tar.gz 0c5f193ced810b0d7ce3ab06d808cbb5eef03a2c
+fetch_debian http://http.debian.net/debian/pool/main/libs/libsdl1.2/libsdl1.2_1.2.15-10.debian.tar.xz 79c62066192373f90134fed8d7be01e668839d7a
+
+do_undebian_compile
