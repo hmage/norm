@@ -4,4 +4,4 @@ depends_on zlib
 
 fetch_source http://ftpmirror.gnu.org/binutils/binutils-2.25.tar.bz2 b46cc90ebaba7ffcf6c6d996d60738881b14e50d
 
-do_unpack_compile
+do_unpack_compile --with-sysroot=/ # enables sysroot support
