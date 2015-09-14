@@ -1,6 +1,9 @@
 #!/bin/bash
 
 depends_on binutils ## system binutils might not support hash-style=both
+depends_on zlib
+depends_on flex
+depends_on gettext
 
 ## build all languages except java
 LANGUAGES=--enable-languages=c,c++,fortran,lto,objc,obj-c++
@@ -44,6 +47,9 @@ do_compile_outside \
                    --program-suffix=-5.2 \
                    --enable-__cxa_atexit --with-tune=generic \
                    --enable-checking=release \
+                   --with-system-zlib \
+                   --with-sysroot=/ \
+                   --without-included-gettext \
                    $LANGUAGES \
                    --enable-plugin \
                    --enable-plugins \
