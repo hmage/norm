@@ -45,6 +45,8 @@ setup_prefix() {
 
     ## create files if they don't exist
     [ ! -e "$PREFIX/share/man" ] && mkdir -p "$PREFIX/share/man" || true
+    [ ! -e "$PREFIX/share/pkgconfig" ] && mkdir -p "$PREFIX/share/pkgconfig" || true
+    [ ! -e "$PREFIX/lib/pkgconfig" ] && mkdir -p "$PREFIX/lib/pkgconfig" || true
     [ ! -e "$PREFIX/man" ] && ln -s share/man $PREFIX/man || true
     [ ! -e "$PREFIX/lib" ] && mkdir -p "$PREFIX/lib" || true
     [ ! -e "$PREFIX/share/config.site" ] && generate_config_site || true
