@@ -5,8 +5,8 @@ depends_on libjpeg
 depends_on zlib
 depends_on libjbig
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/t/tiff/tiff_4.0.2.orig.tar.gz d84b7b33a6cfb3d15ca386c8c16b05047f8b5352
-fetch_debian http://ftp.de.debian.org/debian/pool/main/t/tiff/tiff_4.0.2-6+deb7u3.debian.tar.gz 99ab6e9a5e8a491055255a1972f97821adf84b59
+fetch_source http://http.debian.net/debian/pool/main/t/tiff/tiff_4.0.3.orig.tar.gz 652e97b78f1444237a82cbcfe014310e776eb6f0
+fetch_debian http://http.debian.net/debian/pool/main/t/tiff/tiff_4.0.3-12.3.debian.tar.xz 165fc4d6182dc81fbeaab7f8ed668bb805a932c8
 
 do_undebian_compile --without-x
 
