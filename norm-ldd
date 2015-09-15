@@ -37,10 +37,11 @@ sub eachFile {
     return if /\.(c|h|fon|am|pm|tcl|sl|xml|sh|msg|map|info|pem|ini|hlp|mo|po)$/;
     return if /\.(sample|ttf|css|html|pub|ac|in|inc|sub|conf|site|cnf|pod|el)$/;
     return if /\.(gir|cmake|rules|pickle|tmpl|typelib|packlist)$/;
-    return if /\.(gif|png|jpg|jpeg|bmp|pbm|pgm|ppm|ras|sgi|tiff|xbm)$/;
+    return if /\.(gif|png|jpg|jpeg|bmp|pbm|pgm|ppm|ras|sgi|tiff?|xbm|svg)$/;
     return if /\.(aiff|au|wav|aifc|aif)$/;
     return if /\.(x|xbn|xc|xd|xdc|xdw|xn|xr|xs|xsc|xsw|xu|xw)$/;
     return if /\.(a|gox)$/;
+    return if /\.(xsl|xsd|rng|docbook|ent|mod|cat)$/;
 
     my $fullpath = $File::Find::name;
     return if ($fullpath =~ m"/include/");
