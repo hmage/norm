@@ -28,11 +28,13 @@ setup_prefix() {
     STAGE="$DESTDIR/$PREFIX"
     COMPILEDIR="$PREFIX/tmp/compile"
 
+    printf -v ESCAPED_PREFIX "%q" "$PREFIX"
+
     ## set compile flags
-    default_ldflags="-L$PREFIX/lib"
-    [[ $OSTYPE == *linux* ]] && default_ldflags+=" -Wl,-rpath=$PREFIX/lib -Wl,-rpath-link=$PREFIX/lib"
-    [[ $OSTYPE == *darwin* ]] && default_ldflags+=" -Wl,-rpath,$PREFIX/lib"
-    default_cppflags="-I$PREFIX/include -pipe"
+    default_ldflags="-L$ESCAPED_PREFIX/lib"
+    [[ $OSTYPE == *linux* ]] && default_ldflags+=" -Wl,-rpath=$ESCAPED_PREFIX/lib -Wl,-rpath-link=$ESCAPED_PREFIX/lib"
+    [[ $OSTYPE == *darwin* ]] && default_ldflags+=" -Wl,-rpath,$ESCAPED_PREFIX/lib"
+    default_cppflags="-I$ESCAPED_PREFIX/include -pipe"
 
     addflags LDFLAGS $default_ldflags
     cc_addflags CPPFLAGS $default_cppflags
