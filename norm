@@ -134,6 +134,12 @@ cmd_list() {
     done
 }
 
+cmd_update() {
+    pushd "$NORMDIR"
+    git pull
+    popd
+}
+
 cmd_upgrade() {
     local STATEDIR="$PREFIX"/var/norm
     local FORMULAS=()
@@ -192,6 +198,10 @@ case "$1" in
     list)
         shift
         cmd_list "$@"
+        ;;
+    update)
+        shift
+        cmd_update "$@"
         ;;
     upgrade)
         shift
