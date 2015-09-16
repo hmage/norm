@@ -1,6 +1,7 @@
 #!/bin/bash
 
 depends_on python
+depends_on libxml
 
 fetch_source http://http.debian.net/debian/pool/main/i/itstool/itstool_2.0.2.orig.tar.gz 1e5f48ada9ee386a23e86a279b341e57fd7c131f
 fetch_debian http://http.debian.net/debian/pool/main/i/itstool/itstool_2.0.2-2.debian.tar.xz f28887103482b3de15f121a2b7cef68eaee11e5f
