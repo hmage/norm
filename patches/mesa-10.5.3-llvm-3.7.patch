@@ -79,3 +79,64 @@ diff -urw mesa-10.5.3-orig/src/gallium/drivers/radeon/radeon_llvm_emit.c mesa-10
  		initialized = 1;
  	}
  }
+--- mesa-10.5.3.tar.xz-orig/src/gallium/auxiliary/gallivm/lp_bld_debug.cpp	2015-09-15 20:11:42.000000000 +0300
++++ mesa-10.5.3.tar.xz/src/gallium/auxiliary/gallivm/lp_bld_debug.cpp	2015-09-15 20:21:58.904000000 +0300
+@@ -256,8 +256,13 @@
+    }
+ 
+ 
++#if HAVE_LLVM >= 0x0307
++   OwningPtr<MCInstPrinter> Printer(
++         T->createMCInstPrinter(llvm::Triple(Triple), AsmPrinterVariant, *AsmInfo, *MII, *MRI));
++#else
+    OwningPtr<MCInstPrinter> Printer(
+          T->createMCInstPrinter(AsmPrinterVariant, *AsmInfo, *MII, *MRI, *STI));
++#endif
+    if (!Printer) {
+       Out << "error: no instruction printer for target " << Triple.c_str() << "\n";
+       Out.flush();
+@@ -278,12 +283,6 @@
+ #endif
+    OwningPtr<TargetMachine> TM(T->createTargetMachine(Triple, sys::getHostCPUName(), "", options));
+ 
+-#if HAVE_LLVM >= 0x0306
+-   const TargetInstrInfo *TII = TM->getSubtargetImpl()->getInstrInfo();
+-#else
+-   const TargetInstrInfo *TII = TM->getInstrInfo();
+-#endif
+-
+    /*
+     * Wrap the data in a MemoryObject
+     */
+@@ -330,7 +329,11 @@
+       /*
+        * Print the instruction.
+        */
++#if HAVE_LLVM >= 0x0307
++      Printer->printInst(&Inst, Out, "", *STI);
++#else
+       Printer->printInst(&Inst, Out, "");
++#endif
+ 
+       /*
+        * Advance.
+@@ -338,7 +341,7 @@
+ 
+       pc += Size;
+ 
+-      const MCInstrDesc &TID = TII->get(Inst.getOpcode());
++      const MCInstrDesc &TID = MII->get(Inst.getOpcode());
+ 
+       /*
+        * Keep track of forward jumps to a nearby address.
+--- mesa-10.5.3.tar.xz-orig/src/gallium/auxiliary/gallivm/lp_bld_misc.cpp	2015-09-15 20:11:42.000000000 +0300
++++ mesa-10.5.3.tar.xz/src/gallium/auxiliary/gallivm/lp_bld_misc.cpp	2015-09-15 20:22:51.640000000 +0300
+@@ -429,7 +429,7 @@
+ #endif
+ #endif
+ 
+-#if defined(DEBUG)
++#if defined(DEBUG) && HAVE_LLVM < 0x0307
+    options.JITEmitDebugInfo = true;
+ #endif
+ 

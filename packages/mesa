@@ -51,4 +51,5 @@ do_compile $DISABLE_GALLIUM \
                   --enable-glx-tls \
                   --enable-gbm \
                   --enable-sysfs \
+                  --disable-debug \
                   --enable-texture-float
