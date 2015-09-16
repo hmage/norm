@@ -1,5 +1,7 @@
 #!/bin/bash
 
+depends_on python
+
 fetch_source http://http.debian.net/debian/pool/main/libc/libcap-ng/libcap-ng_0.7.4.orig.tar.gz 51ee5833fb69fa918ae0f08642850a1c41b8f1da
 fetch_debian http://http.debian.net/debian/pool/main/libc/libcap-ng/libcap-ng_0.7.4-2.debian.tar.xz ecd884e03ffdef2512151c14e7ec954937f5e6d0
 
