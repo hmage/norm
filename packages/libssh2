@@ -1,0 +1,9 @@
+#!/bin/bash
+
+depends_on libgcrypt
+depends_on zlib
+
+fetch_source http://http.debian.net/debian/pool/main/libs/libssh2/libssh2_1.4.3.orig.tar.gz c27ca83e1ffeeac03be98b6eef54448701e044b0
+fetch_debian http://http.debian.net/debian/pool/main/libs/libssh2/libssh2_1.4.3-4.1.debian.tar.xz 9bc1aab69dd8db3e7c62d1262e467fe22bcfc8e5
+
+do_undebian_compile
