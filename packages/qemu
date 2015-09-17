@@ -1,5 +1,8 @@
 #!/bin/bash
 
+depends_on pkg-config
+depends_on zlib
+depends_on libaio
 depends_on libuuid
 depends_on curl
 depends_on libpng
@@ -8,10 +11,13 @@ depends_on libasound
 depends_on pixman
 depends_on glib
 depends_on liblzo
-depends_on libnss
-depends_on gtk2
+depends_on libseccomp
+depends_on libcap-ng
+depends_on libsdl
+depends_on libncurses
+depends_on libssh2
 
 fetch_source http://wiki.qemu-project.org/download/qemu-2.4.0.tar.bz2 27c4651243ad885a2a3b35fe6d2532e6a7f0711e
 
 do_unpack_compile --with-system-pixman \
-                  --extra-cflags="$CPPFLAGS" --extra-ldflags="$LDFLAGS"
+                  --extra-cflags="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" --extra-ldflags="$LDFLAGS"
