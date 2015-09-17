@@ -3,6 +3,7 @@
 depends_on pkg-config
 depends_on libidn
 depends_on openssl
+depends_on libssh2
 
 fetch_source http://curl.haxx.se/download/curl-7.42.1.tar.gz eff27e4527388895638103c6133cf79130025555
 
