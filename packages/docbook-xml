@@ -8,15 +8,18 @@ fetch_debian http://http.debian.net/debian/pool/main/d/docbook-xml/docbook-xml_4
 do_undebian
 mkdir -p "$PREFIX/etc/xml"
 pushd_src
-for version in 4.2 4.3 4.4 4.5; do
+for version in 4.2 4.1.2 4.3 4.4 4.5; do
     pushd docbook-"$version"
     rm -rf docs
     CATALOGDIR="$PREFIX"/share/docbook/"$version"
     mkdir -p "$CATALOGDIR"
     cp -pr * "$CATALOGDIR"
+    if [ $version == 4.1.2 ]; then
+        cp -f "$PREFIX"/share/docbook/4.2/catalog.xml "$CATALOGDIR"/catalog.xml
+        sed -i "s/V4\.2 \.\./V4.1.2 /;s/4\.2/4.1.2/" "$CATALOGDIR"/catalog.xml
+    fi
     XML_CATALOG_FILES="" xmlcatalog --noout --del "file://$CATALOGDIR/catalog.xml" "$PREFIX/etc/xml/catalog"
     XML_CATALOG_FILES="" xmlcatalog --noout --add nextCatalog "" "file://$CATALOGDIR/catalog.xml" "$PREFIX/etc/xml/catalog"
     popd
 done
 popd
-
