@@ -1,0 +1,17 @@
+#!/bin/bash
+
+depends_on bzip2
+depends_on cmake
+depends_on libcap
+
+fetch_source http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz 3f7ddc06db0272942e1a4cd98c3c96462df77387
+fetch_debian http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11-3.diff.gz c45fb87648a85b4a31c56ee899b958e821128866
+
+do_undebian
+pushd_src
+mkdir build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS"
+do_make
+make install
+popd
