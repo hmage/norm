@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on perl
 depends_on libpcre
 
 fetch_source http://http.debian.net/debian/pool/main/s/swig2.0/swig2.0_2.0.12.orig.tar.gz 4203c68f79012a2951f542018ff4358d838b5035
