@@ -12,12 +12,12 @@ fetch_source http://www.eu.apache.org/dist/subversion/subversion-1.9.0.tar.bz2 2
 
 do_unpack
 pushd_src
-do_configure
+do_configure --disable-debug --disable-mod-activation --disable-nls --without-apache-libexecdir --with-apxs=no
 do_make
 do_install
-do_make swig-pl-lib
-do_make install-swig-pl-lib
-cd subversion/bindings/swig/perl/native
-perl Makefile.PL PREFIX="$PREFIX" LDFLAGS=override
-do_install
+do_make tools
+do_make install-tools
+cat Makefile|fgrep -A3 SWIG_PL_INCLUDES
+do_make swig-pl
+do_make install-swig-pl
 popd_src
