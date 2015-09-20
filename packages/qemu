@@ -17,6 +17,7 @@ depends_on libsdl
 depends_on libncurses
 depends_on libssh2
 depends_on bison
+depends_on flex
 
 fetch_source http://wiki.qemu-project.org/download/qemu-2.4.0.tar.bz2 27c4651243ad885a2a3b35fe6d2532e6a7f0711e
 
