@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ $HOSTTYPE == x86_64 ]] && ! test_cc 'main() { return 0;}' -m32; then
+    log "Your compiler doesn't know how to make 32-bit binaries. Wine is 32-bit application. Aborting."
+    exit 1
+fi
+
 depends_on flex bison
 depends_on libx11
 depends_on freetype
@@ -23,7 +28,6 @@ depends_on mesa
 depends_on libglu
 depends_on libgstreamer-plugins-base
 
-fetch_source http://prdownloads.sourceforge.net/wine/wine-1.7.50.tar.bz2 fef9e2e54dca8fe783ece06f153a62d7a5d48ce3
+fetch_source http://prdownloads.sourceforge.net/wine/wine-1.7.51.tar.bz2 ab034fb73cf8628a9def648e7712d3db75393716
 
 do_unpack_compile
-
