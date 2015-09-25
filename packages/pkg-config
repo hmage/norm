@@ -4,6 +4,8 @@
 
 fetch_source http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz 71853779b12f958777bffcb8ca6d849b4d3bed46
 
+SYSPCPATH="/usr/local/lib/$MACHTYPE/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:/usr/lib/$MACHTYPE/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig"
+
 LN="ln -f" \
-do_unpack_compile --with-internal-glib --with-pc-path="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig"
+do_unpack_compile --with-internal-glib --with-pc-path="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig:$SYSPCPATH"
 mkdir -p "$PREFIX"/lib/pkgconfig
