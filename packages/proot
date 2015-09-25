@@ -6,7 +6,34 @@ fetch_source https://github.com/cedric-vincent/PRoot/archive/v5.1.0.tar.gz 7aaff
 
 do_unpack
 pushd_src
+do_patch_inline << 'EOF'
+diff -urw v5.1.0.tar.gz-orig/src/syscall/heap.c v5.1.0.tar.gz/src/syscall/heap.c
+--- v5.1.0.tar.gz-orig/src/syscall/heap.c	2015-09-24 14:58:51.451491411 +0300
++++ v5.1.0.tar.gz/src/syscall/heap.c	2015-09-24 14:58:38.515491639 +0300
+@@ -41,7 +41,7 @@
+  * mapping is discarded in order to emulate an empty heap.  */
+ static word_t heap_offset = 0;
+ 
+-#define PREALLOCATED_HEAP_SIZE (16 * 1024 * 1024)
++#define PREALLOCATED_HEAP_SIZE (32 * 1024 * 1024)
+ 
+ /**
+  * Emulate the brk(2) syscall with mmap(2) and/or mremap(2); this is
+diff -urw v5.1.0.tar.gz-orig/src/syscall/socket.c v5.1.0.tar.gz/src/syscall/socket.c
+--- v5.1.0.tar.gz-orig/src/syscall/socket.c	2014-12-15 17:18:11.000000000 +0300
++++ v5.1.0.tar.gz/src/syscall/socket.c	2015-09-24 15:00:42.195489455 +0300
+@@ -120,7 +120,7 @@
+ 		if (shorter_host_path == NULL || strlen(shorter_host_path) > sizeof_path)
+ 			return -EINVAL;
+ 
+-		(void) mktemp(shorter_host_path);
++		(void) mkstemp(shorter_host_path);
+ 
+ 		if (strlen(shorter_host_path) > sizeof_path)
+ 			return -EINVAL;
+EOF
 cd src
+
 do_make
 do_install PREFIX=$PREFIX
 install -m 644 -D ../doc/proot/man.1 $PREFIX/share/man/man1/proot.1
