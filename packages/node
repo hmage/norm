@@ -1,9 +1,8 @@
 #!/bin/bash
 
 depends_on python
-depends_on zlib
 
 fetch_source https://nodejs.org/dist/v4.1.0/node-v4.1.0.tar.xz 3a44fabe7eb3a8a12010c586ad8c00a4ea53f75a
 
-do_unpack_compile --shared-zlib
+do_unpack_compile
 
