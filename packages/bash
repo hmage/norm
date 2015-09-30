@@ -6,5 +6,5 @@ depends_on libncurses
 fetch_source http://http.debian.net/debian/pool/main/b/bash/bash_4.3.orig.tar.gz a44778703fa80ba13baa9134f9086ad09cc5147a
 fetch_debian http://http.debian.net/debian/pool/main/b/bash/bash_4.3-11.debian.tar.xz 1d761a503adb5769a2233a566f055d0c4c62f383
 
-do_undebian_compile_test
+do_undebian_compile_test --with-curses --enable-largefile
 
