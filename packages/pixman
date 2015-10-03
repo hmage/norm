@@ -2,7 +2,7 @@
 
 depends_on pkg-config
 
-fetch_source http://cairographics.org/releases/pixman-0.32.6.tar.gz 8791343cbf6d99451f4d08e8209d6ac11bf96df2
+fetch_source http://cairographics.org/releases/pixman-0.32.8.tar.gz c1119bbdb587c56009b653e6f81c083f98a20135
 
 do_unpack_compile
 
