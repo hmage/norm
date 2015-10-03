@@ -9,6 +9,6 @@ depends_on sqlite3
 depends_on openssl
 depends_on libgcrypt
 
-fetch_source http://downloads.sourceforge.net/project/aria2/stable/aria2-1.19.0/aria2-1.19.0.tar.xz 00143240025c2b06f729c7c3e36e06ac1d1ff634
+fetch_source https://github.com/tatsuhiro-t/aria2/releases/download/release-1.19.1/aria2-1.19.1.tar.xz 6e8144b56c5142f5516d25d3b418bd01ff76eabd
 
 do_unpack_compile --without-gnutls
