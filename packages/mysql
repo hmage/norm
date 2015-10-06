@@ -3,7 +3,7 @@
 depends_on cmake
 depends_on libncurses
 
-fetch_source https://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.26.tar.gz 1f266a2782e13d4f5a2614d91ed5861e524c9467
+fetch_source https://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.27.tar.gz 92402a41f708e3473ab2831033c7c0af84f61027
 
 do_unpack
 pushd_src
