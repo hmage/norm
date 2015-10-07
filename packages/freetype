@@ -21,9 +21,5 @@ do_unpack_compile --without-glib
 
 ## freetype #2 with freshly built harfbuzz
 fetch_source http://mirror.unicorncloud.org/savannah-nongnu/freetype/freetype-2.6.1.tar.bz2 393447fbf64c107b20a1ccc9e9a9a52f39786ae0
-do_unpack
-pushd_src
-echo '#define FT_CONFIG_OPTION_SUBPIXEL_RENDERING 1' >> include/config/ftoption.h
-popd
-do_compile $FREETYPE_OPTS --with-harfbuzz
+do_unpack_compile $FREETYPE_OPTS --with-harfbuzz
 
