@@ -23,6 +23,7 @@ have_gcc 4.7 && depends_on libva ## mesa wants 4.7
 depends_on libasound
 depends_on bison
 depends_on flex
+depends_on rtmpdump
 
 X265_CONFIGURE=
 have_gcc 4.4 && X265_CONFIGURE=--enable-libx265
@@ -43,4 +44,5 @@ do_unpack_compile --enable-pthreads --enable-gpl --enable-version3 \
                   --enable-ffplay \
                   --enable-libspeex \
                   --enable-libopus \
+                  --enable-librtmp \
                   --enable-libwebp
