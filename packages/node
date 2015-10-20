@@ -2,7 +2,7 @@
 
 depends_on python
 
-fetch_source https://nodejs.org/dist/v4.1.2/node-v4.1.2.tar.xz cd7165e2abf5794b08b87071a1964c8ae82d6ba6
+fetch_source https://nodejs.org/dist/v4.2.1/node-v4.2.1.tar.xz 0e27350a9c9d39d94c9e1f8671623c8fd3a6ef87
 
 do_unpack_compile
 
