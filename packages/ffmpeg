@@ -28,7 +28,7 @@ depends_on rtmpdump
 X265_CONFIGURE=
 have_gcc 4.4 && X265_CONFIGURE=--enable-libx265
 
-fetch_source https://www.ffmpeg.org/releases/ffmpeg-2.8.tar.xz 874ab3a10181e6f2c6aee768944539383bac1d3d
+fetch_source https://www.ffmpeg.org/releases/ffmpeg-2.8.1.tar.xz 21839f56cf0242732696758cdaf2480a2f8d7de7
 
 do_unpack_compile --enable-pthreads --enable-gpl --enable-version3 \
                   --enable-shared \
