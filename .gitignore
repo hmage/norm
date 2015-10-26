@@ -1,1 +1,3 @@
-testlogs/
+/testlogs/
+/.stfolder
+/.sync
