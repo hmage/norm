@@ -11,6 +11,31 @@ pushd_src
 sed -i 's|#XZ_SUPPORT|XZ_SUPPORT|' Makefile
 sed -i 's|#LZO_SUPPORT|LZO_SUPPORT|' Makefile
 sed -i "s|/usr/local|$PREFIX/|" Makefile
+
+do_patch_inline << 'EOF' # fix compilation on gcc 4.1.2
+diff -urw squashfs-tools_4.2+20130409.orig.tar.xz.orig/mksquashfs.c squashfs-tools_4.2+20130409.orig.tar.xz/mksquashfs.c
+--- a/mksquashfs.c	2015-10-29 20:53:16.000000000 +0300
++++ b/mksquashfs.c	2015-10-29 20:55:48.548843198 +0300
+@@ -555,15 +555,14 @@
+ 		ERROR("read_fs_bytes: Lseek on destination failed because %s, "
+ 			"offset=0x%llx\n", strerror(errno), off);
+ 		res = 0;
+-		goto mutex_unlock;
+-	}
++	} else {
+ 
+ 	if(read_bytes(fd, buff, bytes) < bytes) {
+ 		ERROR("Read on destination failed\n");
+ 		res = 0;
+ 	}
++	}
+ 
+-mutex_unlock:
+ 	pthread_cleanup_pop(1);
+ 	return res;
+ }
+EOF
+
 do_make EXTRA_CFLAGS="$CPPFLAGS -std=gnu99" EXTRA_LDFLAGS="$LDFLAGS"
 do_install
 popd
