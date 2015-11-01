@@ -28,6 +28,6 @@ depends_on mesa
 depends_on libglu
 depends_on libgstreamer-plugins-base
 
-fetch_source http://prdownloads.sourceforge.net/wine/wine-1.7.53.tar.bz2 d13fa9152e23f0ab2a31bef70c5d381e795013a2
+fetch_source http://prdownloads.sourceforge.net/wine/wine-1.7.54.tar.bz2 22cff4bab88658f7d7157403f51d8820b378699e
 
 do_unpack_compile
