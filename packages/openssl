@@ -10,7 +10,7 @@ cc_addflags EXTRAFLAGS -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wform
 cc_addflag EXTRAFLAGS -march=native -march=i686
 SSLCONFIG="--openssldir=$PREFIX/etc/ssl no-idea no-mdc2 no-rc5 no-zlib enable-tlsext no-ssl2 no-ssl3"
 
-[[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == i?86 ]] && BUILDCONF=linux-elf
+[[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == i?86 ]] && BUILDCONF=debian-i386
 [[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == x86_64 ]] && BUILDCONF=debian-amd64 && SSLCONFIG="$SSLCONFIG enable-ec_nistp_64_gcc_128"
 [[ $OSTYPE == *darwin* ]] && BUILDCONF=darwin64-x86_64-cc
 
