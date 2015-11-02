@@ -1,5 +1,4 @@
 #!/bin/bash
-depends_on zlib
 
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
 fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1k.orig.tar.gz 19d818e202558c212a9583fcdaf876995a633ddf
@@ -9,7 +8,7 @@ fetch_file   http://curl.haxx.se/ca/cacert.pem 059a6ec0d34e492043a2b11d81d0ab254
 BUILDCONF=gcc
 cc_addflags EXTRAFLAGS -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing
 cc_addflag EXTRAFLAGS -march=native -march=i686
-SSLCONFIG="no-ssl2 no-ssl3 threads zlib --openssldir=$PREFIX/etc/ssl"
+SSLCONFIG="--openssldir=$PREFIX/etc/ssl no-idea no-mdc2 no-rc5 no-zlib enable-tlsext no-ssl2 no-ssl3"
 
 [[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == i?86 ]] && BUILDCONF=linux-elf
 [[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == x86_64 ]] && BUILDCONF=debian-amd64 && SSLCONFIG="$SSLCONFIG enable-ec_nistp_64_gcc_128"
