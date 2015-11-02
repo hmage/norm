@@ -19,6 +19,11 @@ popd_src() {
 }
 
 do_configure() {
+    fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=1e80063123b47b97d25dfeded8dd92a19dafab66' f88f556ad963c766262fbf6120dacdcb8ffdf5ea config.guess
+    fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=1e80063123b47b97d25dfeded8dd92a19dafab66' 2934b873fe10c796db0e66a3cdfe57baf2372654 config.sub
+    # replace config.sub and config.guess with newer ones
+    find . -name config.sub -exec install -v "$TARDIR/config.sub" {} \;
+    find . -name config.guess -exec install -v "$TARDIR/config.guess" {} \;
     log "Configuring $FORMULA $@"
     ./configure --prefix="$PREFIX" "$@" || return 1
 }
@@ -381,6 +386,7 @@ fetch_file() {
     local URL="$1"
     local SHA1="$2"
     local FILENAME=`basename -- "$URL"`
+    [ -n "$3" ] && FILENAME="$3"
     local FILEPATH="$TARDIR/$FILENAME"
     mkdir -p "$TARDIR"
     if ! check_sha1 "$FILEPATH" "$SHA1"; then
