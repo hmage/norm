@@ -48,4 +48,4 @@ popd
 
 ## install root certificates so curl and others can use HTTPS
 mkdir -p $PREFIX/etc/ssl/certs
-install -m 644 "$TARDIR/cacert.pem" "$PREFIX/etc/ssl/cert.pem"
+install -m 644 "$CACHEDIR/cacert.pem" "$PREFIX/etc/ssl/cert.pem"

@@ -22,8 +22,8 @@ do_configure() {
     fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=1e80063123b47b97d25dfeded8dd92a19dafab66' f88f556ad963c766262fbf6120dacdcb8ffdf5ea config.guess
     fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=1e80063123b47b97d25dfeded8dd92a19dafab66' 2934b873fe10c796db0e66a3cdfe57baf2372654 config.sub
     # replace config.sub and config.guess with newer ones
-    find . -name config.sub -exec install -v "$TARDIR/config.sub" {} \;
-    find . -name config.guess -exec install -v "$TARDIR/config.guess" {} \;
+    find . -name config.sub -exec install -v "$CACHEDIR/config.sub" {} \;
+    find . -name config.guess -exec install -v "$CACHEDIR/config.guess" {} \;
     log "Configuring $FORMULA $@"
     ./configure --prefix="$PREFIX" "$@" || return 1
 }
@@ -87,7 +87,7 @@ do_compile_outside() {
 }
 
 do_untar() {
-    [ -z "$1" ] && set -- "$TARDIR/$TARNAME"
+    [ -z "$1" ] && set -- "$CACHEDIR/$TARNAME"
     [ -z "$2" ] && set -- "$1" "$SRCDIR"
 
     local INPUT_TARFILE="$1"
@@ -116,7 +116,7 @@ do_untar() {
 ##
 ## alternative usage: do_unpack foo-1.2.3.tar.bz2
 do_unpack() {
-    [ -f "$TARDIR/$1" ] && TARNAME="$1" && shift
+    [ -f "$CACHEDIR/$1" ] && TARNAME="$1" && shift
     [ -z "$TARNAME" ] && log "TARNAME is empty!" && return 1
 
     SRCDIR="$COMPILEDIR/$FORMULA/$TARNAME"
@@ -124,7 +124,7 @@ do_unpack() {
     log "Unpacking $TARNAME"
     rm -rf "$SRCDIR"  || return 1
     mkdir -p "$SRCDIR"  || return 1
-    do_untar "$TARDIR/$TARNAME" "$SRCDIR" || return 1
+    do_untar "$CACHEDIR/$TARNAME" "$SRCDIR" || return 1
     log "Unpacked $TARNAME"
 }
 
@@ -138,12 +138,12 @@ intree_unpack() {
   pushd_src
   if [ -n "$1" ]; then
     mkdir -p "$1"
-    do_untar "$TARDIR/$TARNAME" "$1"
+    do_untar "$CACHEDIR/$TARNAME" "$1"
   fi
   if [ -z "$1" ]; then
     # mv -n would've worked better, but not all versions of mv have that flag
     mkdir -p "$TARNAME"
-    do_untar "$TARDIR/$TARNAME" "$TARNAME"
+    do_untar "$CACHEDIR/$TARNAME" "$TARNAME"
     for x in "$TARNAME"/*; do
       local file=${x#$TARNAME/}
       [ ! -e "$file" ] && ln -s "$x" .
@@ -161,8 +161,8 @@ intree_unpack() {
 ##
 ## alternative usage: do_undebian foo-1.2.3.orig.tar.bz2 foo-1.2.3.debian.tar.gz
 do_undebian() {
-    [ -f "$TARDIR/$1" ] && TARNAME="$1"
-    [ -f "$TARDIR/$2" ] && DEBPATCH="$2"
+    [ -f "$CACHEDIR/$1" ] && TARNAME="$1"
+    [ -f "$CACHEDIR/$2" ] && DEBPATCH="$2"
 
     ## sets SRCDIR
     do_unpack "$TARNAME" || return 1
@@ -176,14 +176,14 @@ do_undebian() {
 ##
 ## alternative usage: do_debianize foo-1.2.3.debian.tar.gz
 do_debianize() {
-    [ -f "$TARDIR/$1" ] && DEBPATCH="$1"
+    [ -f "$CACHEDIR/$1" ] && DEBPATCH="$1"
 
     do_undebian_overlay "$DEBPATCH"
     do_debian_patches
 }
 
 do_undebian_overlay() {
-    [ -f "$TARDIR/$1" ] && DEBPATCH="$1"
+    [ -f "$CACHEDIR/$1" ] && DEBPATCH="$1"
 
     ## unpack debian overlay -- try tar, gzip, xz, bz
     local INPUT_FILTER="cat"
@@ -192,9 +192,9 @@ do_undebian_overlay() {
         *.diff.gz) INPUT_FILTER="gzip -d" ;;
         *.diff.xz) INPUT_FILTER="xz -d" ;;
         *.diff.bz2) INPUT_FILTER="bzip2 -d" ;;
-        *) do_untar "$TARDIR/$DEBPATCH" "$SRCDIR" --strip-components 0 && return 0 ;;
+        *) do_untar "$CACHEDIR/$DEBPATCH" "$SRCDIR" --strip-components 0 && return 0 ;;
     esac
-    cat "$TARDIR/$DEBPATCH" | $INPUT_FILTER | patch -f -p1 -i - -d "$SRCDIR" || return 1
+    cat "$CACHEDIR/$DEBPATCH" | $INPUT_FILTER | patch -f -p1 -i - -d "$SRCDIR" || return 1
 }
 
 do_debian_patches() {
@@ -224,7 +224,7 @@ do_debian_patches() {
 ##
 ## alternative usage: do_undebian_compile foo-1.2.3.orig.tar.bz2 foo-1.2.3.debian.tar.gz
 do_undebian_compile() {
-    if [ -f "$TARDIR/$1" -a -f "$TARDIR/$2" ]; then
+    if [ -f "$CACHEDIR/$1" -a -f "$CACHEDIR/$2" ]; then
         TARNAME="$1"
         DEBPATCH="$2"
         shift 2
@@ -237,7 +237,7 @@ do_undebian_compile() {
 ## same as do_undebian_compile, but run test suite before install
 ##
 do_undebian_compile_test() {
-    if [ -f "$TARDIR/$1" -a -f "$TARDIR/$2" ]; then
+    if [ -f "$CACHEDIR/$1" -a -f "$CACHEDIR/$2" ]; then
         TARNAME="$1"
         DEBPATCH="$2"
         shift 2
@@ -253,7 +253,7 @@ do_undebian_compile_test() {
 ##
 ## alternative usage: do_unpack_compile foo-1.2.3.tar.bz2
 do_unpack_compile() {
-    if [ -f "$TARDIR/$1" ]; then
+    if [ -f "$CACHEDIR/$1" ]; then
         TARNAME="$1"
         shift 1
     fi
@@ -265,7 +265,7 @@ do_unpack_compile() {
 ## same as do_unpack_compile, but build outside of source directory
 ##
 do_unpack_compile_outside() {
-    if [ -f "$TARDIR/$1" ]; then
+    if [ -f "$CACHEDIR/$1" ]; then
         TARNAME="$1"
         shift 1
     fi
@@ -277,7 +277,7 @@ do_unpack_compile_outside() {
 ## same as do_unpack_compile, but run test suite before install
 ##
 do_unpack_compile_test() {
-    if [ -f "$TARDIR/$1" ]; then
+    if [ -f "$CACHEDIR/$1" ]; then
         TARNAME="$1"
         shift 1
     fi
@@ -387,8 +387,8 @@ fetch_file() {
     local SHA1="$2"
     local FILENAME=`basename -- "$URL"`
     [ -n "$3" ] && FILENAME="$3"
-    local FILEPATH="$TARDIR/$FILENAME"
-    mkdir -p "$TARDIR"
+    local FILEPATH="$CACHEDIR/$FILENAME"
+    mkdir -p "$CACHEDIR"
     if ! check_sha1 "$FILEPATH" "$SHA1"; then
         log "Downloading $URL"
         rm -f "$FILEPATH"

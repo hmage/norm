@@ -20,4 +20,4 @@ install -D $SRCDIR/contrib/completion/git-completion.bash $PREFIX/etc/bash_compl
 ## install git manpages
 fetch_source https://www.kernel.org/pub/software/scm/git/git-manpages-2.6.2.tar.xz c80917c2ab3c712169eb016348af8d19533226f7
 mkdir -p "$PREFIX/share/man"
-cat "$TARDIR/$TARNAME" | xz -d | tar xf - -C "$PREFIX/share/man"
+cat "$CACHEDIR/$TARNAME" | xz -d | tar xf - -C "$PREFIX/share/man"
