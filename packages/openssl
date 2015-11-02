@@ -4,7 +4,7 @@ depends_on zlib
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
 fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1k.orig.tar.gz 19d818e202558c212a9583fcdaf876995a633ddf
 fetch_debian http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1k-3+deb8u1.debian.tar.xz db5b45d90bf9d20e3e94161c96efe5fcaec5bbc3
-fetch_file   http://curl.haxx.se/ca/cacert.pem ecf8b8f6b31edf0e376b7e3b3a95f2d4e7b41c2d # as of 2015-09-07
+fetch_file   http://curl.haxx.se/ca/cacert.pem 059a6ec0d34e492043a2b11d81d0ab254846de3c # as of 2015-10-30
 
 BUILDCONF=gcc
 cc_addflags EXTRAFLAGS -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing
