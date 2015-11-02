@@ -12,6 +12,7 @@ SSLCONFIG="--openssldir=$PREFIX/etc/ssl no-idea no-mdc2 no-rc5 no-zlib enable-tl
 
 [[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == i?86 ]] && BUILDCONF=debian-i386
 [[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == x86_64 ]] && BUILDCONF=debian-amd64 && SSLCONFIG="$SSLCONFIG enable-ec_nistp_64_gcc_128"
+[[ $OSTYPE == *linux* ]] && [[ -z $BUILDCONF ]] && BUILDCONF=linux-elf
 [[ $OSTYPE == *darwin* ]] && BUILDCONF=darwin64-x86_64-cc
 
 do_undebian
