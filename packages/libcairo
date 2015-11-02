@@ -6,7 +6,7 @@ depends_on libpng
 depends_on pixman
 depends_on glib
 depends_on libxext
-depends_on freetype
+depends_on fontconfig
 depends_on libxrender
 depends_on xz
 depends_on liblzo
