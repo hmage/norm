@@ -350,22 +350,48 @@ do_download() {
     esac
 }
 
+check_sha1() {
+    local FILEPATH="$1"
+    local SHA1="$2"
+
+    ## if file does not exist, do nothing
+    [ -s "$FILEPATH" ] || return 1
+
+    ## get SHA1
+    local SHA1SUM=`$SHASUM_BIN "$FILEPATH" | cut -f1 -d' '`
+
+    ## if no hash provided, print it and do nothing
+    if [ -z "$SHA1" ]; then
+        log "For future -- SHA1 of $FILENAME is $SHA1SUM"
+        return 1
+    fi
+
+    ## we're good to go, compare the checksums
+    if [ "$SHA1SUM" != "$SHA1" ]; then
+        log "SHA1sum mismatch! $SHA1SUM vs $SHA1 for file $FILEPATH"
+        return 1
+    fi
+
+    ## they match
+    return 0;
+}
+
 fetch_file() {
     [ -z "$1" ] && log "fetch_file() needs at least 1 argument" && return 1
     local URL="$1"
     local SHA1="$2"
     local FILENAME=`basename -- "$URL"`
+    local FILEPATH="$TARDIR/$FILENAME"
     mkdir -p "$TARDIR"
-    if [ ! -s "$TARDIR/$FILENAME" ]; then
+    if ! check_sha1 "$FILEPATH" "$SHA1"; then
         log "Downloading $URL"
-        local TEMPFILE=`mktemp "$TARDIR/$FILENAME.XXXXXX"`
+        rm -f "$FILEPATH"
+        local TEMPFILE=`mktemp "$FILEPATH.XXXXXX"`
         do_download "$URL" "$TEMPFILE" || (rm -f "$TEMPFILE" && return 1)
-        mv -f "$TEMPFILE" "$TARDIR/$FILENAME"
+        mv -f "$TEMPFILE" "$FILEPATH"
     fi
-    SHA1SUM=`$SHASUM_BIN "$TARDIR/$FILENAME" | cut -f1 -d' '`
-    [ -z "$SHA1" ] && log "For future -- SHA1 of $FILENAME is $SHA1SUM"
-    if [ ! -z "$SHA1" ] && [ "$SHA1SUM" != "$SHA1" ]; then
-        log "SHA1sum mismatch! $SHA1SUM vs $SHA1"
+
+    if ! check_sha1 "$FILEPATH" "$SHA1"; then
         return 1
     fi
 }
