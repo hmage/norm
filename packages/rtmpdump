@@ -1,12 +1,18 @@
 #!/bin/bash
 
 depends_on openssl
+depends_on zlib
 
 fetch_source http://http.debian.net/debian/pool/main/r/rtmpdump/rtmpdump_2.4+20150115.gita107cef.orig.tar.gz a49454d252f8ced046f57ebc2c8569eae43d2eaf
 fetch_debian http://http.debian.net/debian/pool/main/r/rtmpdump/rtmpdump_2.4+20150115.gita107cef-1.debian.tar.xz 8d7bc5b6929536e7a9e746de109e351caebfcd3d
 
 do_undebian
 pushd_src
-do_make
+cd librtmp
+do_make LIB_OPENSSL="-L$ESCAPED_PREFIX/lib -lssl -lcrypto -lz"
+do_install prefix=$PREFIX
+cd ..
+sed -i '/@cd librtmp;/d' Makefile
+do_make LIB_OPENSSL="-L$ESCAPED_PREFIX/lib -lssl -lcrypto -lz" LIB_RTMP="-L$ESCAPED_PREFIX/lib -lrtmp"
 do_install prefix=$PREFIX
 popd_src
