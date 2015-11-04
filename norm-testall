@@ -104,20 +104,22 @@ for FORMULA_NAME in "${LIST[@]}"; do
     # clean up output logfiles
     rm -f "$LOGPATH/$FORMULA_NAME".*
 
+    unset FAILURE
+
     # do it
     "$NORMDIR/norm" -p "$NORMTEST_PREFIX" install "$FORMULA_NAME" 2>&1 | tee "$LOGPATH/$FORMULA_ID.log"
     BUILDSTATUS="${PIPESTATUS[0]}"
     [[ $BUILDSTATUS != 0 && -n $ABORT_ON_FAIL ]] && echo "Formula $FORMULA_NAME failed to build, aborting" && exit 1
-    if [ $BUILDSTATUS != 0 ]; then
-        tar zcvf "$LOGPATH/$FORMULA_ID.tar.gz" -C "$NORMTEST_PREFIXDIR" "$NORMTEST_PREFIXNAME"
-        continue ## compilation failed, nothing else to do
-    fi
+    [ $BUILDSTATUS != 0 ] && FAILURE=1
 
     # compile success, check if ldd has any output
     env - "$NORMDIR/norm-ldd" -q "$NORMTEST_PREFIX" | tee -a "$LOGPATH/$FORMULA_ID.log"
-    [ "${PIPESTATUS[0]}" != "0" ] && continue ## ldd reports dependencies outside of prefix -- failed
+    [ "${PIPESTATUS[0]}" != "0" ] && FAILURE=1
 
-    gzip "$LOGPATH/$FORMULA_ID.log"
+    # write list of packages that had been built
+    "$NORMDIR/norm" -p "$NORMTEST_PREFIX" list 2>&1 | tee -a "$LOGPATH/$FORMULA_ID.log"
+
+    [ -z "$FAILURE" ] && gzip "$LOGPATH/$FORMULA_ID.log"
     tar zcvf "$LOGPATH/$FORMULA_ID.tar.gz" -C "$NORMTEST_PREFIXDIR" "$NORMTEST_PREFIXNAME"
 done
 
