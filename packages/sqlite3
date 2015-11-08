@@ -2,5 +2,5 @@
 
 depends_on libreadline
 
-fetch_source https://www.sqlite.org/2015/sqlite-autoconf-3090100.tar.gz 6b7d22c24c9695118a2706c8e026fb3c31780a30
+fetch_source https://www.sqlite.org/2015/sqlite-autoconf-3090200.tar.gz dae1ae5297fece9671ae0c434a7ecd0cda09c76a
 NOPARALLEL=1 do_unpack_compile --enable-threadsafe
