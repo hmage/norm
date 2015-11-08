@@ -14,4 +14,5 @@ depends_on liblzo
 fetch_source http://cairographics.org/releases/cairo-1.12.18.tar.xz a76940b58da9c83b8934264617135326c0918f9d
 
 do_unpack_compile --enable-xlib --enable-pdf --enable-ps --enable-png --enable-tee --enable-xlib \
+                  --disable-trace \
                   --enable-svg --enable-xcb --enable-xlib-xcb --enable-gobject=yes --enable-pthread
