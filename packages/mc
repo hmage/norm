@@ -6,5 +6,6 @@ depends_on libmount
 depends_on libblkid
 depends_on libuuid
 
-fetch_source http://ftp.midnight-commander.org/mc-4.8.14.tar.xz ae64b22a213fac8b8231b5407b8aa312ca25c38f
+fetch_source http://ftp.midnight-commander.org/mc-4.8.15.tar.xz cd122d30f93db66f5153700500c3253653245542
+
 do_unpack_compile --without-x --with-screen=slang --without-gpm-mouse
