@@ -1,5 +1,7 @@
 #!/bin/bash
 
+requires_gcc 4.8
+
 depends_on python
 
 fetch_source https://nodejs.org/dist/v4.2.1/node-v4.2.1.tar.xz 0e27350a9c9d39d94c9e1f8671623c8fd3a6ef87
