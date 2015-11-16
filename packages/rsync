@@ -1,6 +1,15 @@
 #!/bin/bash
 
+depends_on zlib
+depends_on autoconf
+
 fetch_source http://http.debian.net/debian/pool/main/r/rsync/rsync_3.1.1.orig.tar.gz c84faba04f721d393feccfa0476bfeed9b5b5250
 fetch_debian http://http.debian.net/debian/pool/main/r/rsync/rsync_3.1.1-3.debian.tar.xz d762d84817fa06ed43d6dc15b64be8a9235b54b5
 
-do_undebian_compile
+do_undebian
+do_autoreconf
+pushd_src
+do_configure --without-included-zlib
+make reconfigure
+do_make_and_install
+popd_src
