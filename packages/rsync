@@ -7,6 +7,7 @@ fetch_source http://http.debian.net/debian/pool/main/r/rsync/rsync_3.1.1.orig.ta
 fetch_debian http://http.debian.net/debian/pool/main/r/rsync/rsync_3.1.1-3.debian.tar.xz d762d84817fa06ed43d6dc15b64be8a9235b54b5
 
 do_undebian
+do_patch rsync-reflink.patch
 do_autoreconf
 pushd_src
 do_configure --without-included-zlib

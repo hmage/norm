@@ -1,0 +1,506 @@
+diff --git a/configure.ac b/configure.ac
+index 5c557a8..e9efcf8 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1089,6 +1089,54 @@ else
+     esac
+ fi
+ 
++#################################################
++# check for reflink support
++AC_MSG_NOTICE(checking for reflink support)
++AC_ARG_ENABLE(reflink,
++    AC_HELP_STRING([--disable-reflink],
++	    [disable reflink support (where available)]),
++    [], [enable_reflink=maybe])
++AH_TEMPLATE([SUPPORT_REFLINK],
++[Define to 1 to add support for reflinking])
++AH_TEMPLATE([HAVE_BTRFS_IOC_CLONE], "Btrfs clone IOCTL for reflinking")
++if test x"$enable_reflink" != x"no"; then
++    case "$host_os" in
++    *linux*)
++        AC_MSG_CHECKING(for BTRFS_IOC_CLONE)
++        AC_COMPILE_IFELSE([
++                AC_LANG_PROGRAM(
++                    [[
++                        #include <unistd.h>
++                        #include <linux/btrfs.h>
++                    ]],
++                    [[
++                        int request = BTRFS_IOC_CLONE;
++                    ]]
++                )
++            ],
++            [
++                AC_MSG_RESULT(yes)
++                AC_DEFINE(HAVE_BTRFS_IOC_CLONE, 1)
++                support_reflinks=yes
++            ],
++            [AC_MSG_RESULT(no)]
++        )
++	;;
++    esac
++fi
++
++AC_MSG_CHECKING(whether to enable reflink support)
++if test "x$support_reflinks" = xyes; then
++    AC_DEFINE(SUPPORT_REFLINK, 1)
++    AC_MSG_RESULT(yes)
++elif test "x$enable_reflink" = xyes; then
++    AC_MSG_ERROR(failed to find reflink support)
++elif test "x$enable_reflink" = xno; then
++    AC_MSG_RESULT(no)
++else
++    AC_MSG_RESULT(no reflink support found)
++fi
++
+ if test x"$enable_acl_support" = x"no" -o x"$enable_xattr_support" = x"no" -o x"$enable_iconv" = x"no"; then
+     AC_MSG_CHECKING([whether $CC supports -Wno-unused-parameter])
+     OLD_CFLAGS="$CFLAGS"
+diff --git a/options.c b/options.c
+index 19c2b7d..56ab095 100644
+--- a/options.c
++++ b/options.c
+@@ -123,6 +123,7 @@ int modify_window = 0;
+ int blocking_io = -1;
+ int checksum_seed = 0;
+ int inplace = 0;
++int reflink = 0;
+ int delay_updates = 0;
+ long block_size = 0; /* "long" because popt can't set an int32. */
+ char *skip_compress = NULL;
+@@ -303,6 +304,7 @@ static int refused_delete, refused_archive_part, refused_compress;
+ static int refused_partial, refused_progress, refused_delete_before;
+ static int refused_delete_during;
+ static int refused_inplace, refused_no_iconv;
++static int refused_reflink;
+ static BOOL usermap_via_chown, groupmap_via_chown;
+ #ifdef HAVE_SETVBUF
+ static char *outbuf_mode;
+@@ -566,6 +568,7 @@ static void print_rsync_version(enum logcode f)
+ 	char *subprotocol = "";
+ 	char const *got_socketpair = "no ";
+ 	char const *have_inplace = "no ";
++	char const *have_reflink = "no ";
+ 	char const *hardlinks = "no ";
+ 	char const *prealloc = "no ";
+ 	char const *symtimes = "no ";
+@@ -586,6 +589,9 @@ static void print_rsync_version(enum logcode f)
+ #ifdef HAVE_FTRUNCATE
+ 	have_inplace = "";
+ #endif
++#ifdef SUPPORT_REFLINK
++	have_reflink = "";
++#endif
+ #ifdef SUPPORT_HARD_LINKS
+ 	hardlinks = "";
+ #endif
+@@ -623,8 +629,8 @@ static void print_rsync_version(enum logcode f)
+ 		(int)(sizeof (int64) * 8));
+ 	rprintf(f, "    %ssocketpairs, %shardlinks, %ssymlinks, %sIPv6, batchfiles, %sinplace,\n",
+ 		got_socketpair, hardlinks, links, ipv6, have_inplace);
+-	rprintf(f, "    %sappend, %sACLs, %sxattrs, %siconv, %ssymtimes, %sprealloc\n",
+-		have_inplace, acls, xattrs, iconv, symtimes, prealloc);
++	rprintf(f, "    %sappend, %sACLs, %sxattrs, %siconv, %ssymtimes, %sprealloc, %sreflink\n",
++		have_inplace, acls, xattrs, iconv, symtimes, prealloc, have_reflink);
+ 
+ #ifdef MAINTAINER_MODE
+ 	rprintf(f, "Panic Action: \"%s\"\n", get_panic_action());
+@@ -685,6 +691,10 @@ void usage(enum logcode F)
+   rprintf(F,"     --inplace               update destination files in-place (SEE MAN PAGE)\n");
+   rprintf(F,"     --append                append data onto shorter files\n");
+   rprintf(F,"     --append-verify         like --append, but with old data in file checksum\n");
++#ifdef SUPPORT_REFLINK
++  rprintf(F,"     --reflink               clone existing files and update in-place\n");
++  rprintf(F,"     --reflink-always        like --reflink, but don't fall-back to normal sync\n");
++#endif
+   rprintf(F," -d, --dirs                  transfer directories without recursing\n");
+   rprintf(F," -l, --links                 copy symlinks as symlinks\n");
+   rprintf(F," -L, --copy-links            transform symlink into referent file/dir\n");
+@@ -930,6 +940,9 @@ static struct poptOption long_options[] = {
+   {"append",           0,  POPT_ARG_NONE,   0, OPT_APPEND, 0, 0 },
+   {"append-verify",    0,  POPT_ARG_VAL,    &append_mode, 2, 0, 0 },
+   {"no-append",        0,  POPT_ARG_VAL,    &append_mode, 0, 0, 0 },
++  {"reflink",          0,  POPT_ARG_VAL,    &reflink, 1, 0, 0 },
++  {"reflink-always",   0,  POPT_ARG_VAL,    &reflink, 2, 0, 0 },
++  {"no-reflink",       0,  POPT_ARG_VAL,    &reflink, 0, 0, 0 },
+   {"del",              0,  POPT_ARG_NONE,   &delete_during, 0, 0, 0 },
+   {"delete",           0,  POPT_ARG_NONE,   &delete_mode, 0, 0, 0 },
+   {"delete-before",    0,  POPT_ARG_NONE,   &delete_before, 0, 0, 0 },
+@@ -1177,6 +1190,8 @@ static void set_refuse_options(char *bp)
+ 						refused_progress = op->val;
+ 					else if (wildmatch("inplace", op->longName))
+ 						refused_inplace = op->val;
++					else if (wildmatch("reflink", op->longName))
++						refused_reflink = op->val;
+ 					else if (wildmatch("no-iconv", op->longName))
+ 						refused_no_iconv = op->val;
+ 					break;
+@@ -2227,11 +2242,11 @@ int parse_arguments(int *argc_p, const char ***argv_p)
+ 			bwlimit_writemax = 512;
+ 	}
+ 
+-	if (sparse_files && inplace) {
++	if (sparse_files && (inplace || reflink)) {
+ 		/* Note: we don't check for this below, because --append is
+ 		 * OK with --sparse (as long as redos are handled right). */
+ 		snprintf(err_buf, sizeof err_buf,
+-			 "--sparse cannot be used with --inplace\n");
++			 "--sparse cannot be used with --inplace or --reflink\n");
+ 		return 0;
+ 	}
+ 
+@@ -2275,6 +2290,14 @@ int parse_arguments(int *argc_p, const char ***argv_p)
+ 		return 0;
+ #endif
+ 	} else {
++#ifndef SUPPORT_REFLINK
++		 if (!am_sender && (reflink > 1)) {
++			snprintf(err_buf, sizeof err_buf,
++				 "--reflink is not supported on receiving %s\n",
++				 am_server ? "server" : "client");
++			return 0;
++		}
++#endif
+ 		if (keep_partial && !partial_dir && !am_server) {
+ 			if ((arg = getenv("RSYNC_PARTIAL_DIR")) != NULL && *arg)
+ 				partial_dir = strdup(arg);
+@@ -2722,6 +2745,11 @@ void server_options(char **args, int *argc_p)
+ 				args[ac++] = basis_dir[i];
+ 			}
+ 		}
++
++		if (reflink > 1)
++			args[ac++] = "--reflink-always";
++		else if (reflink)
++			args[ac++] = "--reflink";
+ 	}
+ 
+ 	/* What flags do we need to send to the other side? */
+diff --git a/receiver.c b/receiver.c
+index 571b7da..27a3f44 100644
+--- a/receiver.c
++++ b/receiver.c
+@@ -51,6 +51,7 @@ extern int keep_partial;
+ extern int checksum_len;
+ extern int checksum_seed;
+ extern int inplace;
++extern int reflink;
+ extern int allowed_lull;
+ extern int delay_updates;
+ extern mode_t orig_umask;
+@@ -67,6 +68,7 @@ static int phase = 0, redoing = 0;
+ static flist_ndx_list batch_redo_list;
+ /* We're either updating the basis file or an identical copy: */
+ static int updating_basis_or_equiv;
++static int reflink_this_file;
+ 
+ #define TMPNAME_SUFFIX ".XXXXXX"
+ #define TMPNAME_SUFFIX_LEN ((int)sizeof TMPNAME_SUFFIX - 1)
+@@ -245,7 +247,8 @@ static int receive_data(int f_in, char *fname_r, int fd_r, OFF_T size_r,
+ 	OFF_T preallocated_len = 0;
+ #endif
+ 
+-	if (preallocate_files && fd != -1 && total_size > 0 && (!inplace || total_size > size_r)) {
++	if (preallocate_files && fd != -1 && total_size > 0 &&
++			(!(inplace || reflink_this_file) || total_size > size_r)) {
+ 		/* Try to preallocate enough space for file's eventual length.  Can
+ 		 * reduce fragmentation on filesystems like ext4, xfs, and NTFS. */
+ 		if (do_fallocate(fd, 0, total_size) == 0) {
+@@ -370,10 +373,10 @@ static int receive_data(int f_in, char *fname_r, int fd_r, OFF_T size_r,
+ 		goto report_write_error;
+ 
+ #ifdef HAVE_FTRUNCATE
+-	/* inplace: New data could be shorter than old data.
++	/* inplace/reflink: New data could be shorter than old data.
+ 	 * preallocate_files: total_size could have been an overestimate.
+ 	 *     Cut off any extra preallocated zeros from dest file. */
+-	if ((inplace
++	if ((inplace || reflink_this_file
+ #ifdef PREALLOCATE_NEEDS_TRUNCATE
+ 	  || preallocated_len > offset
+ #endif
+@@ -765,7 +768,7 @@ int recv_files(int f_in, int f_out, char *local_name)
+ 			}
+ 		}
+ 
+-		updating_basis_or_equiv = inplace
++		updating_basis_or_equiv = (inplace || reflink)
+ 		    && (fnamecmp == fname || fnamecmp_type == FNAMECMP_BACKUP);
+ 
+ 		if (fd1 == -1) {
+@@ -818,6 +821,7 @@ int recv_files(int f_in, int f_out, char *local_name)
+ 		}
+ 
+ 		/* We now check to see if we are writing the file "inplace" */
++		reflink_this_file = 0;
+ 		if (inplace)  {
+ 			fd2 = do_open(fname, O_WRONLY|O_CREAT, 0600);
+ 			if (fd2 == -1) {
+@@ -829,6 +833,31 @@ int recv_files(int f_in, int f_out, char *local_name)
+ 			fd2 = open_tmpfile(fnametmp, fname, file);
+ 			if (fd2 != -1)
+ 				cleanup_set(fnametmp, partialptr, file, fd1, fd2);
++			if (reflink) {
++				int fd_tmp = dup(fd2);
++				int ret;
++				OFF_T pos;
++
++				reflink = -reflink;
++				ret = copy_file(fname, fnametmp, fd_tmp, 0);
++				reflink = -reflink;
++				if (ret == 0) {
++					reflink_this_file = 1;
++				} else {
++					if (reflink > 1) {
++						rsyserr(FERROR_XFER, errno, "reflink of %s failed",
++							full_fname(fnametmp));
++						do_unlink(fnametmp);
++						close(fd2);
++						fd2 = -1;
++					}
++					updating_basis_or_equiv = 0;
++				}
++				if ((fd2 != -1) && (pos = do_lseek(fd2, 0, SEEK_SET)) != 0) {
++					rsyserr(FERROR_XFER, errno, "lseek of %s returned %s, not %s",
++						full_fname(fnametmp), big_num(pos), big_num(0));
++				}
++			}
+ 		}
+ 
+ 		if (fd2 == -1) {
+diff --git a/rsync.yo b/rsync.yo
+index 20300eb..9582823 100644
+--- a/rsync.yo
++++ b/rsync.yo
+@@ -352,6 +352,8 @@ to the detailed description below for a complete description.  verb(
+      --inplace               update destination files in-place
+      --append                append data onto shorter files
+      --append-verify         --append w/old data in file checksum
++     --reflink               clone existing files and update in-place
++     --reflink-always        like --reflink, but don't fall-back
+  -d, --dirs                  transfer directories without recursing
+  -l, --links                 copy symlinks as symlinks
+  -L, --copy-links            transform symlink into referent file/dir
+@@ -880,6 +882,42 @@ bf(--append-verify), so if you are interacting with an older rsync (or the
+ transfer is using a protocol prior to 30), specifying either append option
+ will initiate an bf(--append-verify) transfer.
+ 
++dit(bf(--reflink)) This option changes how rsync transfers a file when
++its data needs to be updated: instead of the default method of creating
++a new copy of the file from scratch, a reflink (Copy on Write) copy
++of the file is created and then updated in place.  Once the update is
++complete it is moved into place as normal.  This is currently only
++supported where the destination is a Btrfs filesystem.  Where the
++reflink operation is unsupported or fails, rsync will fall back to
++the normal bf(--no-reflink) behaviour (but see bf(--reflink-always)
++below).
++
++This is similar to the bf(--inplace) option, but has fewer drawbacks:
++
++quote(itemization(
++  it() Hard links will be broken correctly.
++  it() In-use binaries can be updated normally.
++  it() The file will not be in an inconsistent state during the
++  transfer, and a partial transfer will not affect it.
++  it() As the original file is still there, the efficiency of the
++  delta-transfer algorithm is unaffected.
++))
++
++As with bf(--inplace) this option is useful for transferring large files
++with block-based changes, where the system is disk bound, not network
++bound.  As it relies on copy-on-write filesystem semantics, it is
++particularly useful to avoid the entire contents of files diverging
++between snapshots.
++
++The option is incompatible with the bf(--inplace) or bf(--sparse) options.
++The bf(--sparse) option could sensibly apply when writing new files or
++appending to an existing file, but this is not currently supported.
++
++Backup copies of files created using bf(--backup) will also use reflinks.
++
++dit(bf(--reflink-always)) This works just like the bf(--reflink) option,
++but if rsync is unable to create a reflink copy the transfer will fail.
++
+ dit(bf(-d, --dirs)) Tell the sending side to include any directories that
+ are encountered.  Unlike bf(--recursive), a directory's contents are not copied
+ unless the directory name specified is "." or ends with a trailing slash
+diff --git a/util.c b/util.c
+index 05aa86a..1456c75 100644
+--- a/util.c
++++ b/util.c
+@@ -25,6 +25,13 @@
+ #include "itypes.h"
+ #include "inums.h"
+ 
++#ifdef SUPPORT_REFLINK
++#ifdef HAVE_BTRFS_IOC_CLONE
++#include <sys/ioctl.h>
++#include <linux/btrfs.h>
++#endif
++#endif
++
+ extern int dry_run;
+ extern int module_id;
+ extern int protect_args;
+@@ -33,6 +40,7 @@ extern int relative_paths;
+ extern int preserve_times;
+ extern int preserve_xattrs;
+ extern int preallocate_files;
++extern int reflink;
+ extern char *module_dir;
+ extern unsigned int module_dirlen;
+ extern char *partial_dir;
+@@ -314,8 +322,8 @@ static int safe_read(int desc, char *ptr, size_t len)
+  * In either case, if --xattrs are being preserved, the dest file will
+  * have its xattrs set from the source file.
+  *
+- * This is used in conjunction with the --temp-dir, --backup, and
+- * --copy-dest options. */
++ * This is used in conjunction with the --temp-dir, --backup, --copy-dest
++ * and --reflink[-always] options. */
+ int copy_file(const char *source, const char *dest, int ofd, mode_t mode)
+ {
+ 	int ifd;
+@@ -324,10 +332,15 @@ int copy_file(const char *source, const char *dest, int ofd, mode_t mode)
+ #ifdef PREALLOCATE_NEEDS_TRUNCATE
+ 	OFF_T preallocated_len = 0, offset = 0;
+ #endif
++#ifdef SUPPORT_REFLINK
++	int reflink_ok = 0;
++#endif
+ 
+ 	if ((ifd = do_open(source, O_RDONLY, 0)) < 0) {
+ 		int save_errno = errno;
+ 		rsyserr(FERROR_XFER, errno, "open %s", full_fname(source));
++		if (ofd >= 0)
++			close(ofd);
+ 		errno = save_errno;
+ 		return -1;
+ 	}
+@@ -354,63 +367,87 @@ int copy_file(const char *source, const char *dest, int ofd, mode_t mode)
+ 		}
+ 	}
+ 
++#ifdef SUPPORT_REFLINK
++	if (reflink) {
++#ifdef HAVE_BTRFS_IOC_CLONE
++		if (ioctl(ofd, BTRFS_IOC_CLONE, ifd) == 0) {
++			reflink_ok = 1;
++		}
++#endif
++		if (!reflink_ok) {
++			/* <0: try reflink only, then stop (quietly)*/
++			if (reflink < 0 || reflink > 1) {
++				int save_errno = errno;
++				if (reflink > 0)
++					rsyserr(FERROR_XFER, errno, "reflink %s", full_fname(dest));
++				close(ifd);
++				close(ofd);
++				errno = save_errno;
++				return -1;
++			}
++		}
++	}
++
++	if (!reflink_ok)
++#endif
++	{
+ #ifdef SUPPORT_PREALLOCATION
+-	if (preallocate_files) {
+-		STRUCT_STAT srcst;
+-
+-		/* Try to preallocate enough space for file's eventual length.  Can
+-		 * reduce fragmentation on filesystems like ext4, xfs, and NTFS. */
+-		if (do_fstat(ifd, &srcst) < 0)
+-			rsyserr(FWARNING, errno, "fstat %s", full_fname(source));
+-		else if (srcst.st_size > 0) {
+-			if (do_fallocate(ofd, 0, srcst.st_size) == 0) {
++		if (preallocate_files) {
++			STRUCT_STAT srcst;
++
++			/* Try to preallocate enough space for file's eventual length.  Can
++			 * reduce fragmentation on filesystems like ext4, xfs, and NTFS. */
++			if (do_fstat(ifd, &srcst) < 0)
++				rsyserr(FWARNING, errno, "fstat %s", full_fname(source));
++			else if (srcst.st_size > 0) {
++				if (do_fallocate(ofd, 0, srcst.st_size) == 0) {
+ #ifdef PREALLOCATE_NEEDS_TRUNCATE
+-				preallocated_len = srcst.st_size;
++					preallocated_len = srcst.st_size;
+ #endif
+-			} else
+-				rsyserr(FWARNING, errno, "do_fallocate %s", full_fname(dest));
++				} else
++					rsyserr(FWARNING, errno, "do_fallocate %s", full_fname(dest));
++			}
+ 		}
+-	}
+ #endif
+ 
+-	while ((len = safe_read(ifd, buf, sizeof buf)) > 0) {
+-		if (full_write(ofd, buf, len) < 0) {
++		while ((len = safe_read(ifd, buf, sizeof buf)) > 0) {
++			if (full_write(ofd, buf, len) < 0) {
++				int save_errno = errno;
++				rsyserr(FERROR_XFER, errno, "write %s", full_fname(dest));
++				close(ifd);
++				close(ofd);
++				errno = save_errno;
++				return -1;
++			}
++#ifdef PREALLOCATE_NEEDS_TRUNCATE
++			offset += len;
++#endif
++		}
++
++		if (len < 0) {
+ 			int save_errno = errno;
+-			rsyserr(FERROR_XFER, errno, "write %s", full_fname(dest));
++			rsyserr(FERROR_XFER, errno, "read %s", full_fname(source));
+ 			close(ifd);
+ 			close(ofd);
+ 			errno = save_errno;
+ 			return -1;
+ 		}
++
+ #ifdef PREALLOCATE_NEEDS_TRUNCATE
+-		offset += len;
++		/* Source file might have shrunk since we fstatted it.
++		 * Cut off any extra preallocated zeros from dest file. */
++		if (offset < preallocated_len && do_ftruncate(ofd, offset) < 0) {
++			/* If we fail to truncate, the dest file may be wrong, so we
++			 * must trigger the "partial transfer" error. */
++			rsyserr(FERROR_XFER, errno, "ftruncate %s", full_fname(dest));
++		}
+ #endif
+ 	}
+ 
+-	if (len < 0) {
+-		int save_errno = errno;
+-		rsyserr(FERROR_XFER, errno, "read %s", full_fname(source));
+-		close(ifd);
+-		close(ofd);
+-		errno = save_errno;
+-		return -1;
+-	}
+-
+ 	if (close(ifd) < 0) {
+-		rsyserr(FWARNING, errno, "close failed on %s",
+-			full_fname(source));
++		rsyserr(FWARNING, errno, "close failed on %s", full_fname(source));
+ 	}
+ 
+-#ifdef PREALLOCATE_NEEDS_TRUNCATE
+-	/* Source file might have shrunk since we fstatted it.
+-	 * Cut off any extra preallocated zeros from dest file. */
+-	if (offset < preallocated_len && do_ftruncate(ofd, offset) < 0) {
+-		/* If we fail to truncate, the dest file may be wrong, so we
+-		 * must trigger the "partial transfer" error. */
+-		rsyserr(FERROR_XFER, errno, "ftruncate %s", full_fname(dest));
+-	}
+-#endif
+-
+ 	if (close(ofd) < 0) {
+ 		int save_errno = errno;
+ 		rsyserr(FERROR_XFER, errno, "close failed on %s",
