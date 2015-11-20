@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://nmap.org/dist/nmap-7.00.tar.bz2 cf04e64632e44a972cf894379cb5205c79c45fe8
+
+do_unpack_compile
