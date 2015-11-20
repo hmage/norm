@@ -1,7 +1,9 @@
 #!/bin/bash
 depends_on zlib
 
-fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.6.18.tar.xz c6e06510d30beba08c96c468ab269fafb2bb256f
+fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.6.19.tar.xz 483d72ced11c9258f9d1119105273d9af9ff151c
+
 do_unpack
 do_compile_test
+
 install -D "$SRCDIR"/pngbar.png "$PREFIX"/var/norm/pngbar.png
