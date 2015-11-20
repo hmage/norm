@@ -23,3 +23,5 @@ rm $PREFIX/lib/libncurses{,w}.so
 echo "INPUT(libncurses.so.5 -ltinfo)" > $PREFIX/lib/libncurses.so
 echo "INPUT(libncursesw.so.5 -ltinfo)" > $PREFIX/lib/libncursesw.so
 echo "INPUT(libtinfo.so)" > $PREFIX/lib/libtermcap.so
+ln -fs libncurses.a $PREFIX/lib/libcurses.a
+ln -fs libncurses.so $PREFIX/lib/libcurses.so
