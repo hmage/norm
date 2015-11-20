@@ -3,8 +3,8 @@
 depends_on pkg-config
 depends_on libtool
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/n/ncurses/ncurses_5.9.orig.tar.gz 2888200a4106435bc5ba8658c8434761a662b7ac
-fetch_debian http://ftp.de.debian.org/debian/pool/main/n/ncurses/ncurses_5.9-10.debian.tar.gz ffa0366c4a4378175b65497ccd4305b7bf8e0576
+fetch_source http://http.debian.net/debian/pool/main/n/ncurses/ncurses_5.9+20140913.orig.tar.gz 790ac6ad9d6988e4cd7009919427493ba96d3a8c
+fetch_debian http://http.debian.net/debian/pool/main/n/ncurses/ncurses_5.9+20140913-1.debian.tar.xz 0cbfc254c8a68cc7ee74ec7b6d80ca7d160f41d6
 
 CONFIGURE_OPTIONS="--with-libtool --enable-rpath --enable-pc-files --enable-const \
                     --enable-symlinks --without-ada --without-cxx-binding --with-termlib --with-shared --without-debug"
@@ -22,3 +22,4 @@ do_undebian_compile $CONFIGURE_OPTIONS --enable-widec
 rm $PREFIX/lib/libncurses{,w}.so
 echo "INPUT(libncurses.so.5 -ltinfo)" > $PREFIX/lib/libncurses.so
 echo "INPUT(libncursesw.so.5 -ltinfo)" > $PREFIX/lib/libncursesw.so
+echo "INPUT(libtinfo.so)" > $PREFIX/lib/libtermcap.so
