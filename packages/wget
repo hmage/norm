@@ -8,8 +8,7 @@ depends_on libpcre ## regexp in wget, what for?
 depends_on bzip2   ## bzip2 in wget, what for?
 depends_on zlib
 
-fetch_source http://http.debian.net/debian/pool/main/w/wget/wget_1.16.orig.tar.gz 3be03c3efda97fdce0a1fbab815a16314354667c
-fetch_debian http://http.debian.net/debian/pool/main/w/wget/wget_1.16-1.debian.tar.xz 1a343d30a5d978306ad2937baf0b25a65152c87f
+fetch_source http://ftp.gnu.org/gnu/wget/wget-1.17.tar.gz ebb8df8ee6a0c2d11be9e250cae55d8502bc1ee6
 
 MAKEINFO=true \
-do_undebian_compile --enable-ipv6 --with-ssl=openssl --with-libidn
+do_unpack_compile --enable-ipv6 --with-ssl=openssl --with-libidn
