@@ -4,7 +4,7 @@ depends_on zlib
 depends_on xz
 depends_on pkg-config
 
-fetch_source http://xmlsoft.org/sources/libxml2-2.9.2.tar.gz f46a37ea6d869f702e03f393c376760f3cbee673
+fetch_source http://xmlsoft.org/sources/libxml2-2.9.3.tar.gz 0301ce933637e0ceda049047dbefd18714f59b6e
 do_unpack
 pushd_src
 rm -f test/errors/name2.xml # broken
