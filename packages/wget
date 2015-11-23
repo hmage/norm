@@ -11,4 +11,6 @@ depends_on zlib
 fetch_source http://ftp.gnu.org/gnu/wget/wget-1.17.tar.gz ebb8df8ee6a0c2d11be9e250cae55d8502bc1ee6
 
 MAKEINFO=true \
+POD2MAN=no \
+ac_cv_path_POD2MAN=no \
 do_unpack_compile --enable-ipv6 --with-ssl=openssl --with-libidn
