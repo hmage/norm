@@ -28,10 +28,10 @@ fi
 ## curl availability check
 unset DOWNLOADER
 
-if hash wget 2>/dev/null; then
-    DOWNLOADER=wget
-elif hash curl 2>/dev/null; then
+if hash curl 2>/dev/null; then
     DOWNLOADER=curl
+elif hash wget 2>/dev/null; then
+    DOWNLOADER=wget
 fi
 
 if [[ -z $DOWNLOADER ]]; then
