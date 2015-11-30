@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://downloads.xiph.org/releases/opus/opus-1.1.tar.gz 35005f5549e2583f5770590135984dcfce6f3d58
+fetch_source http://downloads.xiph.org/releases/opus/opus-1.1.1.tar.gz 33f83cdccc36e875fea378425003bba448b15b8b
 
 do_unpack_compile --disable-extra-programs
 
