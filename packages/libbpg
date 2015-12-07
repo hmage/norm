@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://bellard.org/bpg/libbpg-0.9.6.tar.gz 72354ec7b07286c250f62648c098d41835c61fc5
+
+do_unpack_compile
