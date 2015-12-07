@@ -5,6 +5,10 @@ depends_on libasound
 depends_on libogg
 depends_on libtheora
 depends_on libvorbis
+depends_on libsm
+depends_on libx11
+depends_on libxext
+depends_on libxv
 
 fetch_source http://http.debian.net/debian/pool/main/g/gst-plugins-base0.10/gst-plugins-base0.10_0.10.36.orig.tar.bz2 e675401b62a6bf2e5ea966e833afd005a585e978
 fetch_debian http://http.debian.net/debian/pool/main/g/gst-plugins-base0.10/gst-plugins-base0.10_0.10.36-2.debian.tar.xz b3ec7e6753057c53ccd1e908e00e329b1f13d24c
