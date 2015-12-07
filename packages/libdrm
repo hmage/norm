@@ -6,8 +6,7 @@ depends_on libtool
 depends_on libpciaccess
 depends_on pthread-stubs
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libd/libdrm/libdrm_2.4.58.orig.tar.gz a53df9c326062f0ab0da8cfb8ccc843fe1accedc
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libd/libdrm/libdrm_2.4.58-2.diff.gz 5d3241b6a702d5e689f7ead7f6b686df9100ac10
+fetch_source http://dri.freedesktop.org/libdrm/libdrm-2.4.65.tar.gz 0a6f2c6d4a47fce5c3b4f12cbda28a0d29b23271
 
 do_undebian
 do_patch_inline << 'EOF'
