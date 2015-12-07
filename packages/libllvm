@@ -12,4 +12,4 @@ do_unpack
 
 CC=gcc CXX=g++ \
 do_compile_outside --disable-assertions --enable-optimized --enable-targets=host \
-                   --enable-shared --disable-libedit
+                   --enable-shared --disable-libedit --disable-bindings
