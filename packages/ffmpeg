@@ -25,6 +25,7 @@ depends_on bison
 depends_on flex
 depends_on rtmpdump
 depends_on libxv
+depends_on libsdl
 
 X265_CONFIGURE=
 have_gcc 4.4 && X265_CONFIGURE=--enable-libx265
