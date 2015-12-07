@@ -8,7 +8,7 @@ depends_on pthread-stubs
 
 fetch_source http://dri.freedesktop.org/libdrm/libdrm-2.4.65.tar.gz 0a6f2c6d4a47fce5c3b4f12cbda28a0d29b23271
 
-do_undebian
+do_unpack
 do_patch_inline << 'EOF'
 diff -ur libdrm_2.4.40.orig.tar.gz.orig/radeon/radeon_bo_gem.c libdrm_2.4.40.orig.tar.gz/radeon/radeon_bo_gem.c
 --- a/radeon/radeon_bo_gem.c       2012-08-24 18:51:13.000000000 +0400
