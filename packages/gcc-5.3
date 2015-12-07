@@ -27,24 +27,24 @@ else
     add_caveat "Multilib support was disabled -- your current compiler doesn't support multilib"
 fi
 
-fetch_source http://ftp.gnu.org/gnu/gcc/gcc-5.2.0/gcc-5.2.0.tar.bz2 fe3f5390949d47054b613edc36c557eb1d51c18e
+fetch_source http://ftp.gnu.org/gnu/gcc/gcc-5.3.0/gcc-5.3.0.tar.bz2 0612270b103941da08376df4d0ef4e5662a2e9eb
 do_unpack
 
-fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.2.tar.xz 03e593cc6e26639ef5e60be1af8dc527209e5172
+fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.3.tar.xz 383303f9de5ebe055b03b94642b03465baf9e6c7
 intree_unpack mpfr
 
 fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.3.tar.gz b8be66396c726fdc36ebb0f692ed8a8cca3bcc66
 intree_unpack mpc
 
-fetch_source http://ftpmirror.gnu.org/gmp/gmp-6.0.0a.tar.xz 1aaf78358ab9e34aeb61f3ae08174ee9118ece98
+fetch_source http://ftpmirror.gnu.org/gmp/gmp-6.1.0.tar.xz 99d691607613e749aa5d7c0c2a89aeab38fec070
 intree_unpack gmp
 
-fetch_source http://isl.gforge.inria.fr/isl-0.14.tar.xz 259678a0b1d12f8bc45b9aaeaa14feded9d5b3e1
+fetch_source http://isl.gforge.inria.fr/isl-0.15.tar.xz b6f66c4eaf26f8ab697a3a853fe692256a027e9d
 intree_unpack isl
 
 ## 'plugin' is gcc, 'plugins' is binutils.
 do_compile_outside \
-                   --program-suffix=-5.2 \
+                   --program-suffix=-5.3 \
                    --enable-__cxa_atexit --with-tune=generic \
                    --enable-checking=release \
                    --with-system-zlib \
@@ -61,10 +61,10 @@ do_compile_outside \
                    $EXTRA_CONFOPTS \
                    --disable-werror # otherwise compilation fails because of binutils
 
-add_to_ccache g++-5.2 gcc-5.2
+add_to_ccache g++-5.3 gcc-5.3
 ln -sf $PREFIX/bin/gcc $PREFIX/bin/cc
 
-add_caveat "GCC 5.2 is too fresh, so it has a separate name. Run gcc-5.2 or g++-5.2 to use it"
+add_caveat "GCC 5.3 is too fresh, so it has a separate name. Run gcc-5.3 or g++-5.3 to use it"
 
 add_caveat "Remember -- you can't use this build of gcc on any other machine" \
            "Do not move it away from $PREFIX either -- paths are hardcoded" \
