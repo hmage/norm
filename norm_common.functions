@@ -373,7 +373,7 @@ check_sha1() {
     ## if no hash provided, print it and do nothing
     if [ -z "$SHA1" ]; then
         log "For future -- SHA1 of $FILENAME is $SHA1SUM"
-        return 1
+        return 0
     fi
 
     ## we're good to go, compare the checksums
