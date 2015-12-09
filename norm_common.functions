@@ -390,7 +390,7 @@ fetch_file() {
     [ -z "$1" ] && log "fetch_file() needs at least 1 argument" && return 1
     local URL="$1"
     local SHA1="$2"
-    local FILENAME=`basename -- "$URL"`
+    FILENAME=`basename -- "$URL"`
     [ -n "$3" ] && FILENAME="$3"
     local FILEPATH="$CACHEDIR/$FILENAME"
     mkdir -p "$CACHEDIR"
