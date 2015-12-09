@@ -51,9 +51,10 @@ if [ ! -e "$BOOTSTRAP_ARCHIVE" ]; then ## we do not have bootstrap archive, make
     rm -rf "$BOOTSTRAP_PREFIX"
 
     ## build the set that can compile all our formulas
+    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install xz            2>&1 | tee    "$BOOTSTRAP_LOG" # speeds up recompilation of formulas
     "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install ccache        2>&1 | tee    "$BOOTSTRAP_LOG" # speeds up recompilation of formulas
     "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install curl wget     2>&1 | tee -a "$BOOTSTRAP_LOG" # to be able to fetch
-    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install xz bzip2      2>&1 | tee -a "$BOOTSTRAP_LOG" # distro might not have these
+    "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install bzip2         2>&1 | tee -a "$BOOTSTRAP_LOG" # distro might not have these
 
     ## bootstrap's bin will be in PATH, so remove stuff that will get in our way
     rm -vf "$BOOTSTRAP_PREFIX"/bin/{attr,c_rehash,chacl,curl-config,getfacl,getfattr,idn,setfacl,setfattr}
