@@ -7,6 +7,6 @@ fetch_source ftp://ftp.freedesktop.org/pub/mesa/demos/8.3.0/mesa-demos-8.3.0.tar
 do_unpack
 pushd_src
 cd src/xdemos
-cc -O3 $CPPFLAGS glxgears.c $LDFLAGS -lGL -lX11 -lm -o glxgears
+$CC -O3 $CPPFLAGS glxgears.c $LDFLAGS -lGL -lX11 -lm -o glxgears
 install -m 755 glxgears $PREFIX/bin/glxgears
 popd
