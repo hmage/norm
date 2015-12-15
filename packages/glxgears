@@ -2,10 +2,9 @@
 
 depends_on mesa
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/m/mesa-demos/mesa-demos_8.2.0.orig.tar.gz d15728d32d5cc6078decbac7f425dc8ee81a8e12
-fetch_debian http://ftp.de.debian.org/debian/pool/main/m/mesa-demos/mesa-demos_8.2.0-1.diff.gz fdd7797cb5e28d2a185eb5995c383ddb445e76b8
+fetch_source ftp://ftp.freedesktop.org/pub/mesa/demos/8.3.0/mesa-demos-8.3.0.tar.bz2 468a8f24938ab07e2e31828cf961515371d45b56
 
-do_undebian
+do_unpack
 pushd_src
 cd src/xdemos
 cc -O3 $CPPFLAGS glxgears.c $LDFLAGS -lGL -lX11 -lm -o glxgears
