@@ -34,7 +34,7 @@ setup_prefix() {
     default_ldflags="-L$ESCAPED_PREFIX/lib"
     [[ $OSTYPE == *linux* ]] && default_ldflags+=" -Wl,-rpath=$ESCAPED_PREFIX/lib -Wl,-rpath-link=$ESCAPED_PREFIX/lib"
     [[ $OSTYPE == *darwin* ]] && default_ldflags+=" -Wl,-rpath,$ESCAPED_PREFIX/lib"
-    default_cppflags="-I$ESCAPED_PREFIX/include -pipe"
+    default_cppflags="-I$ESCAPED_PREFIX/include -pipe -march=native"
 
     addflags LDFLAGS $default_ldflags
     cc_addflags CPPFLAGS $default_cppflags
