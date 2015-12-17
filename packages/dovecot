@@ -9,7 +9,7 @@ depends_on sqlite3
 depends_on libexpat
 depends_on libpam
 
-fetch_source http://dovecot.org/releases/2.2/dovecot-2.2.15.tar.gz 10c90f1f08797b5931703d52a871437e6561d76f
+fetch_source http://dovecot.org/releases/2.2/dovecot-2.2.21.tar.gz 1153fb7eb990053379b99821c7eaf5b63cd6818a
 
 do_undebian
 do_patch_inline << 'EOF' ## work around old libc that can't handle const int
