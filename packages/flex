@@ -2,7 +2,6 @@
 
 depends_on m4
 
-fetch_source http://http.debian.net/debian/pool/main/f/flex/flex_2.5.39.orig.tar.gz 7202933960a6c1d64adb50860a870b4cf1e93fd2
-fetch_debian http://http.debian.net/debian/pool/main/f/flex/flex_2.5.39-8.debian.tar.xz c61df31ab947e5446484b60041609d37813b7723
+fetch_source https://downloads.sourceforge.net/flex/flex-2.6.0.tar.bz2 159af4b68e562872049b9907f530c757156409ee
 
-do_undebian_compile
+do_unpack_compile
