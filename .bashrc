@@ -1,7 +1,9 @@
 ## add this to your .bashrc
 ## [ -f $HOME/work/norm/.bashrc ] && . $HOME/work/norm/.bashrc
 
-## get machine id for later
+## since we use -march=native, i7 binaries won't run on core2 -- add arch to machine id
+GCCARCH=$(gcc -march=native -Q --help=target 2>&1 | grep march | awk '{ print $2 }')
+
 ## get machine id for later
 case $OSTYPE in
     *linux*)   SYSTEM_VERSION=.$(getconf GNU_LIBC_VERSION|awk '{ print $NF }') ;; #$($(ldd /bin/sh|fgrep /libc.so|awk '{ print $3 }') | fgrep 'GNU C Library'|perl -pe 's/GNU C Library.*version ([^ ,]+).*/$1/') ;;
@@ -11,9 +13,10 @@ case $OSTYPE in
     *)        SYSTEM_VERSION=.unknown ;;
 esac
 MACHINEID="${BASH_VERSINFO[5]}$SYSTEM_VERSION"
+[ -n "$GCCARCH" ] && MACHINEID+=".$GCCARCH"
 [ -z "${debian_chroot:-}" -a -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
 [ -n "$debian_chroot" ] && MACHINEID+=".$debian_chroot"
-unset SYSTEM_VERSION
+unset SYSTEM_VERSION GCCARCH
 
 NORMPREFIX="$HOME/norm.$MACHINEID"
 DIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
