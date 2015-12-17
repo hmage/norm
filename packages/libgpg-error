@@ -1,9 +1,5 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool # otherwise compile errors
+fetch_source https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.21.tar.bz2 ef1dfb2f8761f019091180596e9e638d8cc37513
 
-fetch_source http://http.debian.net/debian/pool/main/libg/libgpg-error/libgpg-error_1.17.orig.tar.bz2 ba5858b2947e7272dd197c87bac9f32caf29b256
-fetch_debian http://http.debian.net/debian/pool/main/libg/libgpg-error/libgpg-error_1.17-3.debian.tar.xz 904747acfa9cb9a4a2e17a6b0db0c8c812fbcb23
-
-do_undebian
-do_compile --disable-nls
+do_unpack_compile
