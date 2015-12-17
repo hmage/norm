@@ -24,7 +24,7 @@ addpath() {
     shift
     for value; do
         [ -z "${!VARNAME}" ] && export $VARNAME="$value" && continue
-        [[ ! "${!VARNAME}" =~ (^|:)$value(:|$) ]] && export $VARNAME="$value:${!VARNAME}"
+        [[ ! "${!VARNAME}" =~ "(^|:)$value(:|$)" ]] && export $VARNAME="$value:${!VARNAME}"
     done
 }
 
