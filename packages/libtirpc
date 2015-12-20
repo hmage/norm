@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/libt/libtirpc/libtirpc_0.2.5.orig.tar.xz 4bb728ecbab16ed510eb8deeedb58c24772cad96
+fetch_debian http://http.debian.net/debian/pool/main/libt/libtirpc/libtirpc_0.2.5-1.debian.tar.xz 03286353267047c23e71402915ac5f6d0fdcd755
+
+do_undebian_compile
