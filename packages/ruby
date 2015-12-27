@@ -9,7 +9,7 @@ depends_on openssl
 depends_on libffi
 depends_on libgmp
 
-fetch_source http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.4.tar.gz 818e5e157f76d4912ba3a7c7b4fc5156105e83c3
+fetch_source http://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.0.tar.gz 2dfcf7f33bda4078efca30ae28cb89cd0e36ddc4
 
 do_unpack
 pushd_src
