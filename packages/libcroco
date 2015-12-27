@@ -9,5 +9,5 @@ if ! cc_checkflags -Wl,-Bsymbolic-functions; then
     add_caveat "Your linker doesn't support -Bsymbolic-functions, support for it was disabled"
 fi
 
-fetch_source http://ftp.gnome.org/pub/gnome/sources/libcroco/0.6/libcroco-0.6.8.tar.xz 23a5c33a2a86d5e46173234f5fa88ac1e15de035
+fetch_source http://ftp.gnome.org/pub/gnome/sources/libcroco/0.6/libcroco-0.6.11.tar.xz 35203ccb3c30ae1d0956a362c6aabe6109e582f3
 do_unpack_compile $CONFIGURE_FLAGS
