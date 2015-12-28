@@ -5,7 +5,7 @@ requires_gcc 4.4 for atomic builtins on 64-bit integers
 depends_on yasm
 depends_on cmake
 
-fetch_source http://ftp.videolan.org/pub/videolan/x265/x265_1.7.tar.gz ee078ffe6858d17a25a268b69a1c651ef3b63945
+fetch_source http://ftp.videolan.org/pub/videolan/x265/x265_1.8.tar.gz 10092d220cd361868672641b8ce7b575cb42bb82
 
 do_unpack
 pushd_src
