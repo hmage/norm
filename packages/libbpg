@@ -1,5 +1,46 @@
 #!/bin/bash
 
+depends_on libpng
+depends_on libjpeg
+
 fetch_source http://bellard.org/bpg/libbpg-0.9.6.tar.gz 72354ec7b07286c250f62648c098d41835c61fc5
 
-do_unpack_compile
+do_unpack
+pushd_src
+do_patch_inline << 'EOF'
+--- libbpg-0.9.6/Makefile	2015-09-20 19:21:52.000000000 +0300
++++ libbpg-0.9.6-norm/Makefile	2016-01-09 13:59:21.000000000 +0300
+@@ -190,13 +190,13 @@
+ 	$(AR) rcs $@ $^
+ 
+ bpgdec$(EXE): bpgdec.o libbpg.a
+-	$(CC) $(LDFLAGS) -o $@ $^ $(BPGDEC_LIBS)
++	$(CC) $(LDFLAGS) $(LDLIBS) -o $@ $^ $(BPGDEC_LIBS)
+ 
+ bpgenc$(EXE): $(BPGENC_OBJS)
+-	$(CXX) $(LDFLAGS) -o $@ $^ $(BPGENC_LIBS)
++	$(CXX) $(LDFLAGS) $(LDLIBS) -o $@ $^ $(BPGENC_LIBS)
+ 
+ bpgview$(EXE): bpgview.o libbpg.a
+-	$(CC) $(LDFLAGS) -o $@ $^ $(BPGVIEW_LIBS)
++	$(CC) $(LDFLAGS) $(LDLIBS) -o $@ $^ $(BPGVIEW_LIBS)
+ 
+ bpgdec.js: $(LIBBPG_JS_OBJS) post.js
+ 	$(EMCC) $(EMLDFLAGS) -s TOTAL_MEMORY=33554432 -o $@ $(LIBBPG_JS_OBJS)
+@@ -224,10 +224,10 @@
+           $(addsuffix /*.a, $(CLEAN_DIRS))
+ 
+ %.o: %.c
+-	$(CC) $(CFLAGS) -c -o $@ $<
++	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
+ 
+ %.o: %.cpp
+-	$(CXX) $(CXXFLAGS) -c -o $@ $<
++	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
+ 
+ %.js.o: %.c
+ 	$(EMCC) $(EMCFLAGS) -c -o $@ $<
+EOF
+do_make LDLIBS="$LDFLAGS" CPPFLAGS="$CPPFLAGS" USE_JCTVC=y USE_X265= USE_BPGVIEW= prefix="$PREFIX"
+do_install LDLIBS="$LDFLAGS" CPPFLAGS="$CPPFLAGS" USE_JCTVC=y USE_X265= USE_BPGVIEW= prefix="$PREFIX"
+popd
