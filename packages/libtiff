@@ -8,5 +8,7 @@ depends_on libjbig
 fetch_source http://http.debian.net/debian/pool/main/t/tiff/tiff_4.0.3.orig.tar.gz 652e97b78f1444237a82cbcfe014310e776eb6f0
 fetch_debian http://http.debian.net/debian/pool/main/t/tiff/tiff_4.0.3-12.3.debian.tar.xz 165fc4d6182dc81fbeaab7f8ed668bb805a932c8
 
-do_undebian_compile --without-x
+do_undebian
+do_autoreconf
+do_compile --without-x
 
