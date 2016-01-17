@@ -30,7 +30,7 @@ depends_on libsdl
 X265_CONFIGURE=
 have_gcc 4.4 && X265_CONFIGURE=--enable-libx265
 
-fetch_source https://www.ffmpeg.org/releases/ffmpeg-2.8.4.tar.xz 5c1d76f503c76c9a1f497656a8248e1354b2e15a
+fetch_source https://www.ffmpeg.org/releases/ffmpeg-2.8.5.tar.xz 5f46c7e1d80f37e41f69f5eadbdd6f97f56eca39
 
 do_unpack_compile --enable-pthreads --enable-gpl --enable-version3 \
                   --enable-shared \
