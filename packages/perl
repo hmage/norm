@@ -22,6 +22,17 @@ index e39c8b2..0b933ce 100644
      foreach my $thislib ( split ' ', $potential_libs ) {
 
          # Handle possible linker path arguments.
+--- a/t/porting/customized.dat	2015-10-31 16:36:16.000000000 +0300
++++ b/t/porting/customized.dat	2016-01-19 02:15:20.116000000 +0300
+@@ -1,7 +1,7 @@
+ CPAN cpan/CPAN/lib/CPAN.pm ce62c43d72f101c011184dbbc59e21c2790826f0
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Command/MM.pm 7f4dfd0fe884bd42412bcf04ca80ef97b39c1d54
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist.pm bef099988b15fb0b2a1f5ac48c01af1f7f36d329
+-ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm 8168e18f0e3ce3ece4bb7e7c72d57ec07c67c402
++ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm 3493ae6f93264e967f58dedaa3dbf3dbcb249853
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm 7115e97a53559cb3ec061dd6f7f344e522724c4a
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker/Config.pm f8db8d4245bf0684b8210c811f50d7cfb1a27d78
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker/FAQ.pod 757bffb47857521311f8f3bde43ebe165f8d5191
 EOF
 
 ## perl's build system doesn't honor CPPFLAGS and LDFLAGS environment variables, so it will link against system libraries only
@@ -37,9 +48,8 @@ EOF
             -Duseshrplib -Dusethreads -Duselargefiles -Duse64bitint \
             -Dcc=gcc
 do_make
-#rm -f "$SRCDIR"/t/porting/customized.t
 ## a lot of stuff depends on perl, so it must pass all self checks
 ## in order to do so, it must be run in clean environment so it won't try to use proxies
-#! is_without tests && env - PATH="$PATH" make test
+! is_without tests && env - PATH="$PATH" make test
 do_install
 popd
