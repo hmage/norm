@@ -5,6 +5,6 @@ depends_on curl
 depends_on zlib
 depends_on bzip2
 
-fetch_source http://www.cmake.org/files/v3.4/cmake-3.4.2.tar.gz 1c779a411c48fc10f485e6fdbc416bb57283b0dc
+fetch_source http://www.cmake.org/files/v3.4/cmake-3.4.3.tar.gz 49e4f05d46d4752e514b19ba36bf97d20a7da66a
 
 do_unpack_compile --system-curl --system-zlib --system-bzip2
