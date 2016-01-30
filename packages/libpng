@@ -1,4 +1,4 @@
-ç#!/bin/bash
+#!/bin/bash
 depends_on zlib
 
 fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.6.21.tar.xz 978b2f4e007eda56032001493ddb97d20f0ab291
