@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://downloads.sourceforge.net/project/opencore-amr/fdk-aac/fdk-aac-0.1.4.tar.gz 9215d19bdd911954fd5bc879c707ab571716ba0d
+
+do_unpack_compile
