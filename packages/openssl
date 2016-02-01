@@ -3,7 +3,7 @@
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
 fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1k.orig.tar.gz 19d818e202558c212a9583fcdaf876995a633ddf
 fetch_debian http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1k-3+deb8u2.debian.tar.xz d4361a2c10b419aa081cb13d506bb4c4f0da1e8f
-fetch_file   http://curl.haxx.se/ca/cacert.pem 059a6ec0d34e492043a2b11d81d0ab254846de3c # as of 2015-10-30
+fetch_file   http://curl.haxx.se/ca/cacert.pem 18377b10a901da25144cd4d535ae4d653d4692a2 # as of 2016-02-01
 
 BUILDCONF=gcc
 cc_addflags EXTRAFLAGS -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing
