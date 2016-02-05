@@ -19,7 +19,7 @@ depends_on libx11
 depends_on libxext
 depends_on libxau
 depends_on libxdmcp
-have_gcc 4.7 && depends_on libva ## mesa wants 4.7
+#have_gcc 4.7 && depends_on libva ## mesa wants 4.7
 depends_on libasound
 depends_on bison
 depends_on flex
@@ -31,7 +31,7 @@ depends_on libfdk-aac
 X265_CONFIGURE=
 have_gcc 4.4 && X265_CONFIGURE=--enable-libx265
 
-fetch_source https://www.ffmpeg.org/releases/ffmpeg-2.8.5.tar.xz 5f46c7e1d80f37e41f69f5eadbdd6f97f56eca39
+fetch_source https://www.ffmpeg.org/releases/ffmpeg-2.8.6.tar.xz 5720c4204ed0b72513fa2fd6e4dcaed6ebb7f35c
 
 do_unpack_compile --enable-pthreads --enable-gpl --enable-version3 \
                   --enable-shared \
