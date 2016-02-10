@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source http://downloads.xiph.org/releases/speex/speexdsp-1.2rc3.tar.gz 818403a21ec428feb39fe58f6cb6836d595e639b
+
+do_unpack_compile
+

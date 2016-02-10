@@ -2,6 +2,7 @@
 
 depends_on pkg-config
 depends_on libogg
+depends_on libspeexdsp
 
 fetch_source http://downloads.xiph.org/releases/speex/speex-1.2rc2.tar.gz 03ce8418c4e05cb166374bfadef46e7646da62e1
 
