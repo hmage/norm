@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/s/sysfsutils/sysfsutils_2.1.0+repack.orig.tar.gz b3cb316c652b09ec66f93f4ea98a93a7a1001678
+fetch_debian http://http.debian.net/debian/pool/main/s/sysfsutils/sysfsutils_2.1.0+repack-4.debian.tar.xz 0fb4f3b4df6da16485a25eece7963abc2018eeda
+
+do_undebian_compile
