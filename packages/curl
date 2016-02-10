@@ -5,6 +5,6 @@ depends_on libidn
 depends_on openssl
 depends_on zlib
 
-fetch_source http://curl.haxx.se/download/curl-7.47.0.tar.gz 2f8d3edacb1073e1c8f67dc68bba6dc5f3fdbf85
+fetch_source http://curl.haxx.se/download/curl-7.47.1.tar.gz 09952f607522e39b82a72c604df276255cdb9918
 
 do_unpack_compile --disable-ldap --enable-optimize --without-libssh2 --with-ca-bundle=$PREFIX/etc/ssl/cert.pem
