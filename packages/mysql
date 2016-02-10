@@ -3,11 +3,11 @@
 depends_on cmake
 depends_on libncurses
 
-fetch_source https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.11.tar.gz 79e2b44e19e0beaddf8b84d555bf2ef2d009d454
+fetch_source https://cdn.mysql.com/Downloads/MySQL-5.7/mysql-boost-5.7.11.tar.gz e8854bf1ebdd89c0e2cef129ff7883bce17633ea
 
 do_unpack
 pushd_src
-cmake . -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON
+cmake . -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON -DWITH_BOOST=boost
 do_make
 ! is_without tests && env - PATH="$PATH" make test
 do_install
