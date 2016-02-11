@@ -7,55 +7,25 @@ depends_on libpciaccess
 depends_on pthread-stubs
 depends_on xorg-macros
 
-fetch_source http://dri.freedesktop.org/libdrm/libdrm-2.4.65.tar.gz 0a6f2c6d4a47fce5c3b4f12cbda28a0d29b23271
+fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.66.tar.bz2 6637cc2d71b0011516804cc223a521bf301a9910
 
 do_unpack
 do_patch_inline << 'EOF'
-diff -ur libdrm_2.4.40.orig.tar.gz.orig/radeon/radeon_bo_gem.c libdrm_2.4.40.orig.tar.gz/radeon/radeon_bo_gem.c
---- a/radeon/radeon_bo_gem.c       2012-08-24 18:51:13.000000000 +0400
-+++ b/radeon/radeon_bo_gem.c    2015-01-27 18:33:25.752000000 +0300
-@@ -46,6 +46,11 @@
- #include "radeon_bo_int.h"
- #include "radeon_bo_gem.h"
- #include <fcntl.h>
-+
-+#if !defined(O_CLOEXEC) && defined(__linux__)
-+#define O_CLOEXEC 02000000
-+#endif
-+
- struct radeon_bo_gem {
-     struct radeon_bo_int base;
-     uint32_t            name;
-diff -urw libdrm_2.4.58.orig.tar.gz.orig/intel/intel_bufmgr_gem.c libdrm_2.4.58.orig.tar.gz/intel/intel_bufmgr_gem.c
---- a/intel/intel_bufmgr_gem.c     2015-01-29 22:17:58.000000000 +0300
-+++ b/intel/intel_bufmgr_gem.c  2015-01-29 22:20:35.636000000 +0300
-@@ -83,6 +83,11 @@
+diff -urw libdrm-2.4.65.tar.gz.orig/libdrm_macros.h libdrm-2.4.65.tar.gz/libdrm_macros.h
+--- libdrm-2.4.65.tar.gz.orig/libdrm_macros.h	2015-05-04 18:47:43.000000000 +0300
++++ libdrm-2.4.65.tar.gz/libdrm_macros.h	2016-02-11 22:05:00.892000000 +0300
+@@ -29,6 +29,11 @@
+ #  define drm_private
+ #endif
  
- #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
- 
++#include <fcntl.h>
 +/* XXX hack for old libc */
 +#if !defined(O_CLOEXEC) && defined(__linux__)
 +#define O_CLOEXEC 02000000
 +#endif
-+
- typedef struct _drm_intel_bo_gem drm_intel_bo_gem;
  
- struct drm_intel_gem_bo_bucket {
-diff -urw libdrm_2.4.58.orig.tar.gz.orig/nouveau/nouveau.c libdrm_2.4.58.orig.tar.gz/nouveau/nouveau.c
---- a/nouveau/nouveau.c	2014-09-28 20:19:54.000000000 +0400
-+++ b/nouveau/nouveau.c	2015-01-29 22:23:53.004000000 +0300
-@@ -44,6 +44,11 @@
- #include "nouveau.h"
- #include "private.h"
- 
-+/* XXX hack for old libc */
-+#if !defined(O_CLOEXEC) && defined(__linux__)
-+#define O_CLOEXEC 02000000
-+#endif
-+
- #ifdef DEBUG
- uint32_t nouveau_debug = 0;
- 
+ /**
+  * Static (compile-time) assertion.
 EOF
 do_autoreconf
 do_compile
