@@ -1,7 +1,7 @@
 #!/bin/bash
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/d/db/db_5.1.29.orig.tar.gz 42dc96c71873c7fde543c916ed866cadee6fa51d
-fetch_debian http://ftp.de.debian.org/debian/pool/main/d/db/db_5.1.29-5.debian.tar.gz 85cadf2cbcfee9df053ff6ede42081538ca7a8fc
+fetch_source http://http.debian.net/debian/pool/main/d/db5.3/db5.3_5.3.28.orig.tar.xz 054638fd2c161147f60ad66c70a9b15d29d7f658
+fetch_debian http://http.debian.net/debian/pool/main/d/db5.3/db5.3_5.3.28-9.debian.tar.xz 5f69b10973430e2a4e723957a470e9cb893b846b
 
 ## TODO: create macros to configure outside of 'dist' subdir but inside source tree
 do_undebian
@@ -14,8 +14,8 @@ popd
 
 ln -fs libdb.so $PREFIX/lib/libdb.so.2
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/d/db1-compat/db1-compat_2.1.3.orig.tar.gz 1dbe9b1a1bbeb44e0ce2e234e6e3d06b308664ed
-fetch_debian http://ftp.de.debian.org/debian/pool/main/d/db1-compat/db1-compat_2.1.3-16.debian.tar.gz 773c7e2c9706bc1ca3125043a04ac599f1fc0d04
+fetch_source http://http.debian.net/debian/pool/main/d/db1-compat/db1-compat_2.1.3.orig.tar.gz 1dbe9b1a1bbeb44e0ce2e234e6e3d06b308664ed
+fetch_debian http://http.debian.net/debian/pool/main/d/db1-compat/db1-compat_2.1.3-17.debian.tar.gz 71b2fef87659ebc974b88196cc6263f9a6dd9a21
 
 do_undebian
 pushd_src
