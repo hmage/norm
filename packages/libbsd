@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libb/libbsd/libbsd_0.4.2.orig.tar.gz b9dd0b0d217642bf6519b4a5e386b30a73ad5c08
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libb/libbsd/libbsd_0.4.2-1.debian.tar.gz 6f6e1c34b0da0b55703df8efec09aaf29b7a1794
+fetch_source http://http.debian.net/debian/pool/main/libb/libbsd/libbsd_0.7.0.orig.tar.xz 3039eb71dc72fd892c6ac7ef0eedbd288f8d5e25
+fetch_debian http://http.debian.net/debian/pool/main/libb/libbsd/libbsd_0.7.0-2.debian.tar.xz 33b1afd3b7a875e497ed6e89fdb9a319362b3eb1
 
 CFLAGS="-O2 -g $CFLAGS -std=c99" do_undebian_compile
