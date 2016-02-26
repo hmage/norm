@@ -8,6 +8,7 @@ LIBSUFFIX=so
 NUMCPU=`getconf _NPROCESSORS_ONLN`
 [ -z "$NUMCPU" ] && NUMCPU=1
 NUMJOBS=$(( $NUMCPU * 2 ))
+[[ $CC == distcc* ]] && NUMJOBS=`distcc -j`
 
 ## find shasum binary
 SHASUM_BIN=shasum
@@ -28,7 +29,7 @@ MACHINEID="${BASH_VERSINFO[5]}$SYSTEM_VERSION"
 [ -n "$GCCARCH" ] && MACHINEID+=".$GCCARCH"
 [ -z "${debian_chroot:-}" -a -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
 [ -n "$debian_chroot" ] && MACHINEID+=".$debian_chroot"
-unset SYSTEM_VERSION GCCARCH
+unset SYSTEM_VERSION
 
 ## allow user to set compiler
 [[ -z "$CC" ]] && CC=gcc
