@@ -6,7 +6,6 @@ fetch_debian http://security.debian.org/debian-security/pool/updates/main/o/open
 
 BUILDCONF=gcc
 cc_addflags EXTRAFLAGS -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing
-cc_addflag EXTRAFLAGS -march=native -march=i686
 SSLCONFIG="--openssldir=$PREFIX/etc/ssl no-idea no-mdc2 no-rc5 no-zlib enable-tlsext no-ssl2 no-ssl3"
 
 [[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == i?86 ]] && BUILDCONF=debian-i386
