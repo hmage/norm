@@ -22,7 +22,6 @@ depends_on libgcrypt
 
 DISABLE_GALLIUM=
 is_without gallium && DISABLE_GALLIUM="--with-gallium-drivers="
-cc_addflag EXTRAFLAGS -march=native -msse2 -msse
 
 if [ -z "$DISABLE_GALLIUM" ]; then
     if ! test_cc_value "fcntl.h" "O_CLOEXEC"; then
@@ -44,7 +43,6 @@ fetch_source ftp://ftp.freedesktop.org/pub/mesa/11.1.1/mesa-11.1.1.tar.xz 77eeb7
 
 do_unpack
 do_autoreconf
-CPPFLAGS="$CPPFLAGS $EXTRAFLAGS" \
 do_compile $DISABLE_GALLIUM \
                   --enable-gles1 \
                   --enable-gles2 \
