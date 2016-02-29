@@ -12,3 +12,6 @@ fetch_debian http://security.debian.org/debian-security/pool/updates/main/c/curl
 do_undebian
 do_autoreconf
 do_compile --disable-ldap --enable-optimize --without-libssh2 --with-ca-bundle=$PREFIX/etc/ssl/cert.pem
+for i in a la so so.4; do
+    ln -fs libcurl-nss.$i $PREFIX/lib/libcurl.$i
+done
