@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if ! test_cc_value linux/capability.h CAP_LAST_CAP; then
+    log "libcap-ng requires linux kernel headers that define CAP_LAST_CAP"
+    false
+fi
+
 depends_on python
 
 fetch_source http://http.debian.net/debian/pool/main/libc/libcap-ng/libcap-ng_0.7.4.orig.tar.gz 51ee5833fb69fa918ae0f08642850a1c41b8f1da
