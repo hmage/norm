@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if ! test_cc_value asm/bitsperlong.h __BITS_PER_LONG; then
+    log "libguestfs requires linux kernel headers that have asm/bitsperlong.h"
+    false
+fi
+
 depends_on perl
 depends_on augeas
 depends_on qemu
