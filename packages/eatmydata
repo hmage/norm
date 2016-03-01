@@ -1,0 +1,10 @@
+#!/bin/bash
+
+depends_on automake
+
+fetch_source http://http.debian.net/debian/pool/main/libe/libeatmydata/libeatmydata_105.orig.tar.gz ae0308d9bf06a5008a468128e28a6cefc08647a8
+fetch_debian http://http.debian.net/debian/pool/main/libe/libeatmydata/libeatmydata_105-1.debian.tar.xz ccd26d57d16541b0b23f0d143f68e2ee46cc27b0
+
+do_undebian
+do_autoreconf
+do_compile
