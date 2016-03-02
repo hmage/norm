@@ -4,7 +4,7 @@ depends_on zlib
 depends_on openssl
 
 fetch_source http://http.debian.net/debian/pool/main/o/openssh/openssh_6.7p1.orig.tar.gz 14e5fbed710ade334d65925e080d1aaeb9c85bf6
-fetch_debian http://http.debian.net/debian/pool/main/o/openssh/openssh_6.7p1-5.debian.tar.xz c6b2ba45a7b2c00e93c6a47d06a5dcfc2802429f
+fetch_debian http://http.debian.net/debian/pool/main/o/openssh/openssh_6.7p1-5+deb8u1.debian.tar.xz f112857cb5bf9e59097f1356e5b61cfbaaf13680
 
 ## this file breaks reinstallation/upgrade
 rm -f $PREFIX/share/man/man5/authorized_keys.5
