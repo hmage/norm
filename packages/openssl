@@ -1,19 +1,14 @@
 #!/bin/bash
 
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
-fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1k.orig.tar.gz 19d818e202558c212a9583fcdaf876995a633ddf
-fetch_debian http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1k-3+deb8u4.debian.tar.xz f2c79ae4d05550f4c4fedaf0b418dbd10951a8b1
+fetch_source http://www.openssl.org/source/openssl-1.0.2g.tar.gz 36af23887402a5ea4ebef91df8e61654906f58f2
 
-BUILDCONF=gcc
-cc_addflags EXTRAFLAGS -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing
+cc_addflags EXTRAFLAGS -g -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing
 SSLCONFIG="--openssldir=$PREFIX/etc/ssl no-idea no-mdc2 no-rc5 no-zlib enable-tlsext no-ssl2 no-ssl3"
 
-[[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == i?86 ]] && BUILDCONF=debian-i386
-[[ $OSTYPE == *linux* ]] && [[ $HOSTTYPE == x86_64 ]] && BUILDCONF=debian-amd64 && SSLCONFIG="$SSLCONFIG enable-ec_nistp_64_gcc_128"
-[[ $OSTYPE == *linux* ]] && [[ -z $BUILDCONF ]] && BUILDCONF=linux-elf
-[[ $OSTYPE == *darwin* ]] && BUILDCONF=darwin64-x86_64-cc
+[[ $HOSTTYPE == x86_64 ]] && SSLCONFIG="$SSLCONFIG enable-ec_nistp_64_gcc_128"
 
-do_undebian
+do_unpack
 
 fix_makefile() {
     sed -i "s:^CFLAG=.*\$:& $EXTRAFLAGS:" Makefile || false
@@ -23,7 +18,7 @@ pushd_src
 
 ## make both static and shared versions
 log "Configuring static openssl"
-./Configure no-shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG $BUILDCONF
+./config no-shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG
 fix_makefile
 NOPARALLEL=1 do_make depend
 NOPARALLEL=1 do_make all
@@ -33,7 +28,7 @@ mv libcrypto.a libcrypto.static
 mv libssl.a libssl.static
 do_make -f Makefile clean
 log "Configuring shared openssl"
-./Configure shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG $BUILDCONF
+./config shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG
 fix_makefile
 NOPARALLEL=1 do_make depend
 NOPARALLEL=1 do_make all
