@@ -1,5 +1,9 @@
 #!/bin/bash
 
+WITHOUT_PYTHON=--without-python
+OURNAME=`basename "${BASH_SOURCE[0]}"`
+[[ $OURNAME == python-libxml ]] && depends_on python && unset WITHOUT_PYTHON
+
 depends_on zlib
 depends_on xz
 depends_on pkg-config
@@ -8,7 +12,7 @@ fetch_source http://xmlsoft.org/sources/libxml2-2.9.3.tar.gz 0301ce933637e0ceda0
 do_unpack
 pushd_src
 rm -f test/errors/name2.xml # broken
-do_configure --with-zlib=$PREFIX --without-python
+do_configure --with-zlib=$PREFIX $WITHOUT_PYTHON
 do_make
 ! is_without tests && env - PATH="$PATH" make check
 do_install
