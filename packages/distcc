@@ -1,0 +1,10 @@
+#!/bin/bash
+
+depends_on python
+
+fetch_source http://http.debian.net/debian/pool/main/d/distcc/distcc_3.1.orig.tar.gz c40b69a44f6f4392cdcf703093cb36f6fd927e7d
+fetch_debian http://http.debian.net/debian/pool/main/d/distcc/distcc_3.1-6.1.debian.tar.xz cbadff141c1b66ec56967f2c01d33690eab57dfc
+
+do_undebian
+SRCDIR="$SRCDIR/source"
+do_compile --disable-Werror
