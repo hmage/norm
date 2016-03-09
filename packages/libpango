@@ -9,7 +9,6 @@ depends_on glib
 depends_on gobject-introspection
 depends_on zlib
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/p/pango1.0/pango1.0_1.30.0.orig.tar.xz d49c1ef1cbbe326b5d70e32d84f7163e7064c77c
-fetch_debian http://ftp.de.debian.org/debian/pool/main/p/pango1.0/pango1.0_1.30.0-1.debian.tar.xz e1b72f8e1985da071f571aca6b80884860cf72b7
-do_undebian
-do_compile --enable-introspection=yes --with-xft
+fetch_source http://ftp.gnome.org/pub/GNOME/sources/pango/1.39/pango-1.39.0.tar.xz a7780148eb6e246e0249c064f70e1e88bab6e65a
+
+do_unpack_compile --enable-introspection=yes --with-xft
