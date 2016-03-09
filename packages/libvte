@@ -1,0 +1,12 @@
+#!/bin/bash
+
+depends_on autoconf automake libtool
+depends_on gtk2
+depends_on intltool
+
+fetch_source http://http.debian.net/debian/pool/main/v/vte/vte_0.28.2.orig.tar.xz b0af0701ef9d6c7ede9c578366b12a70ac47ab66
+fetch_debian http://http.debian.net/debian/pool/main/v/vte/vte_0.28.2-5.debian.tar.gz 6eb2530cc3e66b9025152131518dea718e2b9f4f
+
+do_undebian
+do_autoreconf
+do_compile
