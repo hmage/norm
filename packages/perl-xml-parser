@@ -1,0 +1,14 @@
+#!/bin/bash
+
+depends_on perl
+depends_on libexpat
+
+fetch_source http://http.debian.net/debian/pool/main/libx/libxml-parser-perl/libxml-parser-perl_2.41.orig.tar.gz 68c7ee61b413c2e8255699b1987fca598e0a39d8
+fetch_debian http://http.debian.net/debian/pool/main/libx/libxml-parser-perl/libxml-parser-perl_2.41-3.debian.tar.xz 580e64b45c8741a978f0c15f69d16ed5d674801a
+
+do_undebian
+pushd_src
+perl Makefile.PL INSTALL_BASE=$PREFIX
+do_make
+do_install
+popd_src
