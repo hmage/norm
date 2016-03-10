@@ -1,13 +1,1 @@
-#!/bin/bash
-
-depends_on pkg-config
-
-fetch_source https://www.kernel.org/pub/linux/utils/util-linux/v2.25/util-linux-2.25.2.tar.xz 854f37255ca8098e88fb4220c244b727f5dd6d58
-
-do_unpack
-pushd_src
-do_configure --disable-all-programs --enable-libblkid --without-ncurses --without-python
-do_make
-do_install
-popd
-
+util-linux
