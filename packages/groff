@@ -1,6 +1,8 @@
 #!/bin/bash
 
+depends_on texinfo
+
 fetch_source http://http.debian.net/debian/pool/main/g/groff/groff_1.22.2.orig.tar.gz 37223941e25bb504bf54631daaabb01b147dc1d3
 fetch_debian http://http.debian.net/debian/pool/main/g/groff/groff_1.22.2-8.debian.tar.xz 73f68bf1608261dd9d55d72295bd79b2fda0493a
 
-do_unpack_compile --without-x
+do_undebian_compile --without-x
