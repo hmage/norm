@@ -11,5 +11,5 @@ OURNAME=`basename "${BASH_SOURCE[0]}"`
 
 fetch_source https://www.kernel.org/pub/linux/utils/util-linux/v2.27/util-linux-2.27.1.tar.xz 462bca6320535d39b62216d8609da5531bfef0bb
 
-do_unpack_compile $EXTRAOPTIONS --with-bashcompletiondir=$PREFIX/share/bash-completion/completions
-
+CFLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncursesw -O2 -g" \
+do_unpack_compile $EXTRAOPTIONS --with-bashcompletiondir=$PREFIX/share/bash-completion/completions --disable-use-tty-group
