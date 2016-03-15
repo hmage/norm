@@ -1,0 +1,13 @@
+#!/bin/bash
+
+depends_on curl
+depends_on openssl
+
+fetch_source https://github.com/nicehash/cpuminer-multi/archive/windows.tar.gz
+
+unset EXTRAFLAGS
+cc_addflags EXTRAFLAGS -Ofast -march=$GCCARCH -flto -fuse-linker-plugin -ftree-loop-if-convert-stores -pg -DUSE_ASM
+
+do_unpack
+do_autoreconf
+do_compile --with-crypto --with-curl
