@@ -39,6 +39,7 @@ setup_prefix() {
     addflags LDFLAGS $default_ldflags
     cc_addflags CPPFLAGS $default_cppflags
     [[ -n $GCCARCH ]] && cc_addflags CPPFLAGS "-march=$GCCARCH"
+    [[ -z $GCCARCH ]] && cc_addflags CPPFLAGS "-march=native"
 
     ## set runtime flags
     addpath PATH "$PREFIX/bin" "$PREFIX/sbin" "$PREFIX/bin/ccache_wrap"
