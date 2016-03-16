@@ -6,12 +6,14 @@ fetch_source http://www.openssl.org/source/openssl-1.0.2g.tar.gz 36af23887402a5e
 cc_addflags EXTRAFLAGS -g -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing -Ofast
 SSLCONFIG="--openssldir=$PREFIX/etc/ssl no-idea no-mdc2 no-rc5 no-zlib enable-tlsext no-ssl2 no-ssl3"
 
-[[ $HOSTTYPE == x86_64 ]] && SSLCONFIG="$SSLCONFIG enable-ec_nistp_64_gcc_128"
+[[ $HOSTTYPE == x86_64 ]] && SSLCONFIG="$SSLCONFIG enable-ec_nistp_64_gcc_128" && export KERNEL_BITS=64
 
 do_unpack
 
 fix_makefile() {
-    sed -i "s:^CFLAG=.*\$:& $EXTRAFLAGS:" Makefile || false
+    SED=sed
+    command -v gsed >/dev/null && SED=gsed
+    $SED -i "s:^CFLAG=.*\$:& $EXTRAFLAGS:" Makefile || false
 }
 
 pushd_src
