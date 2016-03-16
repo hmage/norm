@@ -2,6 +2,7 @@
 
 depends_on curl
 depends_on openssl
+depends_on libjansson
 
 fetch_source https://github.com/nicehash/cpuminer-multi/archive/windows.tar.gz
 
