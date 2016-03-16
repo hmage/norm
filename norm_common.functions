@@ -424,8 +424,10 @@ fetch_debian() {
 test_cc() {
     CODE="$1"
     shift
-    echo "$CODE" | $CC -x c "$@" -o /dev/null - || true
+    TEMPFILE=`mktemp`
+    echo "$CODE" | $CC -x c "$@" -o "$TEMPFILE" - || true
     local STATUS=${PIPESTATUS[1]}
+    rm -f "$TEMPFILE"
     [ -n "$STATUS" ] && return $STATUS
     return 1
 }
