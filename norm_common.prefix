@@ -12,16 +12,6 @@ addpath() {
     done
 }
 
-addflags() {
-    [ -z "$1" -o -z "$2" ] && return
-    local value VARNAME=$1
-    shift
-    for value; do
-        [ -z "${!VARNAME}" ] && export $VARNAME="$value" && continue || true
-        [[ ! "${!VARNAME}" =~ "(^| )$value( |$)" ]] && export $VARNAME="$value ${!VARNAME}" || true
-    done
-}
-
 setup_prefix() {
     PREFIX="$1"
     DESTDIR="$PREFIX/tmp/stage"
@@ -36,7 +26,7 @@ setup_prefix() {
     [[ $OSTYPE == *darwin* ]] && default_ldflags+=" -Wl,-rpath,$ESCAPED_PREFIX/lib"
     default_cppflags="-I$ESCAPED_PREFIX/include -pipe"
 
-    addflags LDFLAGS $default_ldflags
+    cc_addflags LDFLAGS $default_ldflags
     cc_addflags CPPFLAGS $default_cppflags
     [[ -n $GCCARCH ]] && cc_addflags CPPFLAGS "-march=$GCCARCH"
     [[ -z $GCCARCH ]] && cc_addflags CPPFLAGS "-march=native"
