@@ -31,7 +31,7 @@ setup_prefix() {
     printf -v ESCAPED_PREFIX "%q" "$PREFIX"
 
     ## set compile flags
-    default_ldflags="-L$ESCAPED_PREFIX/lib"
+    default_ldflags="-L$ESCAPED_PREFIX/lib -Qunused-arguments"
     [[ $OSTYPE == *linux* ]] && default_ldflags+=" -Wl,-rpath=$ESCAPED_PREFIX/lib -Wl,-rpath-link=$ESCAPED_PREFIX/lib"
     [[ $OSTYPE == *darwin* ]] && default_ldflags+=" -Wl,-rpath,$ESCAPED_PREFIX/lib"
     default_cppflags="-I$ESCAPED_PREFIX/include -pipe"

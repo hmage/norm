@@ -425,7 +425,7 @@ test_cc() {
     CODE="$1"
     shift
     TEMPFILE=`mktemp`
-    echo "$CODE" | $CC -x c "$@" -o "$TEMPFILE" - || true
+    echo "$CODE" | $CC -x c "$@" -Werror -o "$TEMPFILE" - || true
     local STATUS=${PIPESTATUS[1]}
     rm -f "$TEMPFILE"
     [ -n "$STATUS" ] && return $STATUS
@@ -435,7 +435,7 @@ test_cc() {
 ##
 ## example: cc_checkflags -Wl,-Bsymbolic -O2
 cc_checkflags() {
-    test_cc 'int main() { int i; return 0;}' "$@"
+    test_cc 'int main() { int i = 0; return i;}' "$@"
 }
 
 ##
