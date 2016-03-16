@@ -10,4 +10,5 @@ cc_addflags EXTRAFLAGS -Ofast -flto -fuse-linker-plugin -ftree-loop-if-convert-s
 
 do_unpack
 do_autoreconf
+CPPFLAGS="$CPPFLAGS $EXTRAFLAGS" \
 do_compile --with-crypto --with-curl
