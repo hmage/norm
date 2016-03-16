@@ -3,7 +3,7 @@
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
 fetch_source http://www.openssl.org/source/openssl-1.0.2g.tar.gz 36af23887402a5ea4ebef91df8e61654906f58f2
 
-cc_addflags EXTRAFLAGS -g -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing -march=$GCCARCH -Ofast
+cc_addflags EXTRAFLAGS -g -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing -Ofast
 SSLCONFIG="--openssldir=$PREFIX/etc/ssl no-idea no-mdc2 no-rc5 no-zlib enable-tlsext no-ssl2 no-ssl3"
 
 [[ $HOSTTYPE == x86_64 ]] && SSLCONFIG="$SSLCONFIG enable-ec_nistp_64_gcc_128"
