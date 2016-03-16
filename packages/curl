@@ -13,5 +13,5 @@ do_undebian
 do_autoreconf
 do_compile --disable-ldap --enable-optimize --without-libssh2 --with-ca-bundle=$PREFIX/etc/ssl/cert.pem
 for i in a la so so.4 dylib; do
-    [[ -e $PREFIX/lib/libcurl-nss.$i ]] && ln -fs libcurl-nss.$i $PREFIX/lib/libcurl.$i
+    if [[ -e $PREFIX/lib/libcurl-nss.$i ]]; then ln -fs libcurl-nss.$i $PREFIX/lib/libcurl.$i; fi
 done
