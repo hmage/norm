@@ -17,14 +17,14 @@ if ! test_cc_value "linux/mroute6.h" "MRT6_BASE"; then
     add_caveat "Your headers are missing <linux/mroute6.h>, sanitizer support was disabled."
 fi
 
-fetch_source http://llvm.org/releases/3.7.1/llvm-3.7.1.src.tar.xz 5dbdcafac105273dcbff94c68837a66c6dd78cef
+fetch_source http://llvm.org/releases/3.8.0/llvm-3.8.0.src.tar.xz 723ac918979255706434a05f5af34b71c49c9971
 do_unpack
 
-fetch_source http://llvm.org/releases/3.7.1/cfe-3.7.1.src.tar.xz 15475a2c1e750a13755812785a4796cf4d9fa4c2
+fetch_source http://llvm.org/releases/3.8.0/cfe-3.8.0.src.tar.xz 2230ef962f2df3c13ec93f5b04b0e3cdff94b2ce
 intree_unpack tools/clang
 
 if [[ $ENABLE_SANITIZER == yes ]]; then
-    fetch_source http://llvm.org/releases/3.7.1/compiler-rt-3.7.1.src.tar.xz 8ad98fcc0bc801ba448c9bc43942fd3f545a6923
+    fetch_source http://llvm.org/releases/3.8.0/compiler-rt-3.8.0.src.tar.xz 480ea09e369dac6de1f3759b27fa19417b26b69e
     intree_unpack projects/compiler-rt
 fi
 
