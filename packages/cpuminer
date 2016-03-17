@@ -10,6 +10,62 @@ unset EXTRAFLAGS
 cc_addflags EXTRAFLAGS -Ofast -flto -fuse-linker-plugin -ftree-loop-if-convert-stores -DUSE_ASM
 
 do_unpack
+do_patch_inline << 'EOF'
+--- a/algo/axiom.c
++++ b/algo/axiom.c
+@@ -301,6 +301,15 @@
+ 	}
+ }
+ 
++#ifndef HAVE_ALIGNED_ALLOC
++static inline void* aligned_alloc(size_t alignment, size_t size) {
++    void* ptr = NULL;
++    int retval = posix_memalign(&ptr, alignment, size);
++    if (retval != 0) return NULL;
++    return ptr;
++}
++#endif
++
+ int scanhash_axiom(int thr_id, uint32_t *pdata, const uint32_t *ptarget,
+ 	uint32_t max_nonce, uint64_t *hashes_done, uint32_t *nonces, int *nonces_len)
+ {
+--- a/algo/cryptonight.c
++++ b/algo/cryptonight.c
+@@ -85,8 +85,8 @@
+ #define fast_aesb_pseudo_round_mut aesb_pseudo_round_mut
+ #endif
+ 
+-#ifdef NOASM
+-static uint64_t mul128(uint64_t multiplier, uint64_t multiplicand, uint64_t* product_hi) {
++#if defined(NOASM) || defined(__i386__)
++static inline uint64_t mul128(uint64_t multiplier, uint64_t multiplicand, uint64_t* product_hi) {
+ 	// multiplier   = ab = a * 2^32 + b
+ 	// multiplicand = cd = c * 2^32 + d
+ 	// ab * cd = a * c * 2^64 + (a * d + b * c) * 2^32 + b * d
+--- a/configure.ac
++++ b/configure.ac
+@@ -39,7 +39,7 @@
+ ])
+ 
+ AC_FUNC_ALLOCA
+-AC_CHECK_FUNCS([getopt_long])
++AC_CHECK_FUNCS([getopt_long aligned_alloc])
+ 
+ MINGW_TARGET=`$CC -dumpmachine 2>&1`
+ case $MINGW_TARGET in
+--- a/crypto/int-util.h
++++ b/crypto/int-util.h
+@@ -51,7 +51,9 @@
+   return val & 0xFFFFFFFF;
+ }
+ 
++#if !defined(NOASM) && !defined(__i386__)
+ extern uint64_t mul128(uint64_t multiplier, uint64_t multiplicand, uint64_t* product_hi);
++#endif
+ 
+ static inline uint64_t div_with_reminder(uint64_t dividend, uint32_t divisor, uint32_t* remainder) {
+   dividend |= ((uint64_t)*remainder) << 32;
+EOF
 do_autoreconf
 CFLAGS="$CPPFLAGS $EXTRAFLAGS" \
 do_compile --with-crypto --with-curl
