@@ -3,38 +3,51 @@
 requires_gcc 4.7
 
 depends_on python ## needs python 2.7 to compile
-depends_on groff  ## for installing manpages
-depends_on libxml ## c-index-test has dynamic dependency on it
+if [[ ${BASH_SOURCE##*/} == libllvm ]]; then
+    depends_on zlib
+    depends_on libncurses
+else
+    depends_on groff  ## for installing manpages
+    depends_on libxml ## c-index-test has dynamic dependency on it
 
-ENABLE_SANITIZER=yes
-if ! test_cc_value "linux/perf_event.h" "PERF_TYPE_HARDWARE"; then
-    ENABLE_SANITIZER=no
-    add_caveat "Your headers are missing <linux/perf_event.h>, sanitizer support was disabled."
+    ENABLE_SANITIZER=yes
+    if ! test_cc_value "linux/perf_event.h" "PERF_TYPE_HARDWARE"; then
+        ENABLE_SANITIZER=no
+        add_caveat "Your headers are missing <linux/perf_event.h>, sanitizer support was disabled."
+    fi
+
+    if ! test_cc_value "linux/mroute6.h" "MRT6_BASE"; then
+        ENABLE_SANITIZER=no
+        add_caveat "Your headers are missing <linux/mroute6.h>, sanitizer support was disabled."
+    fi
 fi
 
-if ! test_cc_value "linux/mroute6.h" "MRT6_BASE"; then
-    ENABLE_SANITIZER=no
-    add_caveat "Your headers are missing <linux/mroute6.h>, sanitizer support was disabled."
-fi
+CONFIGURE_FLAGS="--enable-optimized --disable-assertions --disable-libedit"
 
 fetch_source http://llvm.org/releases/3.8.0/llvm-3.8.0.src.tar.xz 723ac918979255706434a05f5af34b71c49c9971
 do_unpack
 
-fetch_source http://llvm.org/releases/3.8.0/cfe-3.8.0.src.tar.xz 2230ef962f2df3c13ec93f5b04b0e3cdff94b2ce
-intree_unpack tools/clang
+if [[ ${BASH_SOURCE##*/} == libllvm ]]; then
+    TARGET_BUILD=all
+    TARGET_INSTALL=install
+    CONFIGURE_FLAGS+=" --enable-shared --disable-bindings"
+else
+    fetch_source http://llvm.org/releases/3.8.0/cfe-3.8.0.src.tar.xz 2230ef962f2df3c13ec93f5b04b0e3cdff94b2ce
+    intree_unpack tools/clang
 
-if [[ $ENABLE_SANITIZER == yes ]]; then
-    fetch_source http://llvm.org/releases/3.8.0/compiler-rt-3.8.0.src.tar.xz 480ea09e369dac6de1f3759b27fa19417b26b69e
-    intree_unpack projects/compiler-rt
+    if [[ $ENABLE_SANITIZER == yes ]]; then
+        fetch_source http://llvm.org/releases/3.8.0/compiler-rt-3.8.0.src.tar.xz 480ea09e369dac6de1f3759b27fa19417b26b69e
+        intree_unpack projects/compiler-rt
+    fi
+    TARGET_BUILD=clang-only
+    TARGET_INSTALL=install-clang
 fi
-
-TARNAME=clang-3.7.0
 
 BUILDDIR="$SRCDIR"-build
 rm -rf "$BUILDDIR"
 mkdir -p "$BUILDDIR"
 pushd "$BUILDDIR"
-do_configure_outside --enable-optimized --disable-assertions --disable-libedit
-do_make clang-only
-do_make install-clang
+do_configure_outside $CONFIGURE_FLAGS
+do_make $TARGET_BUILD
+do_make $TARGET_INSTALL
 popd
