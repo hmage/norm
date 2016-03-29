@@ -46,3 +46,22 @@ do_make
 ! is_without tests && env - PATH="$PATH" make test EXTRATESTOPTS='--exclude test_mhlib --exclude test_gdb --exclude test_complex'
 do_install
 popd
+
+SETUP_ARGS="-s setup.py --no-user-cfg install --force --verbose --install-scripts=$PREFIX/bin"
+fetch_source https://pypi.python.org/packages/source/s/setuptools/setuptools-19.4.tar.gz 5eae2728b7ed5bafb3fe9e97f69371310efceaa9
+do_unpack
+pushd_src
+$PREFIX/bin/python $SETUP_ARGS
+popd_src
+
+fetch_source https://pypi.python.org/packages/source/p/pip/pip-8.0.2.tar.gz 974a8c345d272b9d9072287f399aab8410067f7e
+do_unpack
+pushd_src
+$PREFIX/bin/python $SETUP_ARGS
+popd_src
+
+fetch_source https://pypi.python.org/packages/source/w/wheel/wheel-0.26.0.tar.gz 751cf98212e3988229b9b434a6ba298760d632fe
+do_unpack
+pushd_src
+$PREFIX/bin/python $SETUP_ARGS
+popd_src
