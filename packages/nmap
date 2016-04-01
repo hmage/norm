@@ -4,6 +4,6 @@ depends_on libpcre
 depends_on openssl
 depends_on zlib
 
-fetch_source https://nmap.org/dist/nmap-7.01.tar.bz2 c1a44558c72aed3c78d63d54b5b008db69f0aaac
+fetch_source https://nmap.org/dist/nmap-7.11.tar.bz2 9d06e5ef40cff8e540d1bf9113482a5b4755cf2f
 
 do_unpack_compile
