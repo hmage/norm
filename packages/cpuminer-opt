@@ -12,6 +12,7 @@ cc_addflags EXTRAFLAGS -Ofast -flto -fuse-linker-plugin -ftree-loop-if-convert-s
 do_unpack
 do_autoreconf
 pushd_src
+sed -i.bak 's/aligned (16)/aligned (16),used/g' algo/groestl/sse2/grsotab.h
 CFLAGS="$CPPFLAGS $EXTRAFLAGS" \
 LDFLAGS="$LDFLAGS $CPPFLAGS $EXTRAFLAGS" \
 do_configure --with-crypto --with-curl
