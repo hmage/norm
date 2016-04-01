@@ -14,7 +14,7 @@ do_autoreconf
 pushd_src
 sed -i.bak 's/aligned (16)/aligned (16),used/g' algo/groestl/sse2/grsotab.h
 CFLAGS="$CPPFLAGS $EXTRAFLAGS" \
-LDFLAGS="$LDFLAGS $CPPFLAGS $EXTRAFLAGS" \
+CXXFLAGS="$CPPFLAGS $EXTRAFLAGS" \
 do_configure --with-crypto --with-curl
 do_make
 install cpuminer $PREFIX/bin/cpuminer-opt
