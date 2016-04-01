@@ -7,7 +7,7 @@ depends_on libjansson
 fetch_source https://github.com/hmage/cpuminer-opt/archive/6e4b537ffba29263fedfabbf776aac8b81e169f8.tar.gz 1305d7096485be93817547dbfa3abd3c23d78772
 
 unset EXTRAFLAGS
-cc_addflags EXTRAFLAGS -Ofast -flto -fuse-linker-plugin -ftree-loop-if-convert-stores -DUSE_ASM
+cc_addflags EXTRAFLAGS -O2 -flto -fuse-linker-plugin -ftree-loop-if-convert-stores -DUSE_ASM
 
 do_unpack
 do_autoreconf
