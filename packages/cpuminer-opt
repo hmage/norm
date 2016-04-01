@@ -4,7 +4,7 @@ depends_on curl
 depends_on openssl
 depends_on libjansson
 
-fetch_source https://github.com/hmage/cpuminer-opt/archive/45e917364df458aa986ecaed427c083ec3b68f3b.tar.gz be4b98b5538b2206aea3cb51fed7f29787a2de85
+fetch_source https://github.com/hmage/cpuminer-opt/archive/6e4b537ffba29263fedfabbf776aac8b81e169f8.tar.gz 1305d7096485be93817547dbfa3abd3c23d78772
 
 unset EXTRAFLAGS
 cc_addflags EXTRAFLAGS -Ofast -flto -fuse-linker-plugin -ftree-loop-if-convert-stores -DUSE_ASM
@@ -12,7 +12,6 @@ cc_addflags EXTRAFLAGS -Ofast -flto -fuse-linker-plugin -ftree-loop-if-convert-s
 do_unpack
 do_autoreconf
 pushd_src
-sed -i.bak 's/aligned (16)/aligned (16),used/g' algo/groestl/sse2/grsotab.h
 CFLAGS="$CPPFLAGS $EXTRAFLAGS" \
 CXXFLAGS="$CPPFLAGS $EXTRAFLAGS" \
 do_configure --with-crypto --with-curl
