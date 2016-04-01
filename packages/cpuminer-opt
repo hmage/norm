@@ -11,5 +11,10 @@ cc_addflags EXTRAFLAGS -Ofast -flto -fuse-linker-plugin -ftree-loop-if-convert-s
 
 do_unpack
 do_autoreconf
+pushd_src
 CFLAGS="$CPPFLAGS $EXTRAFLAGS" \
-do_compile --with-crypto --with-curl
+LDFLAGS="$LDFLAGS $CPPFLAGS $EXTRAFLAGS" \
+do_configure --with-crypto --with-curl
+do_make
+install cpuminer $PREFIX/bin/cpuminer-opt
+popd_src
