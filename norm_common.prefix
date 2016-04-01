@@ -26,6 +26,7 @@ setup_prefix() {
     [[ $OSTYPE == *darwin* ]] && default_ldflags+=" -Wl,-rpath,$ESCAPED_PREFIX/lib"
     default_cppflags="-I$ESCAPED_PREFIX/include -pipe"
 
+    unset LDFLAGS CPPFLAGS
     cc_addflags LDFLAGS $default_ldflags
     cc_addflags CPPFLAGS $default_cppflags
     [[ -n $GCCARCH ]] && cc_addflags CPPFLAGS "-march=$GCCARCH"
@@ -56,8 +57,8 @@ generate_config_site() {
 ## generate config.site
 mkdir -p $PREFIX/share
 cat << EOF > $PREFIX/share/config.site
-[ -z "\$CPPFLAGS" ] && CPPFLAGS="$default_cppflags"
-[ -z "\$LDFLAGS" ] && LDFLAGS="$default_ldflags"
+[ -z "\$CPPFLAGS" ] && CPPFLAGS="$CPPFLAGS"
+[ -z "\$LDFLAGS" ] && LDFLAGS="$LDFLAGS"
 [ -z "\$ACLOCAL_PATH" ] && ACLOCAL_PATH="$default_aclocal"
 true
 EOF
