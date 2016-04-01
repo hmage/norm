@@ -25,5 +25,6 @@ do_patch_inline << 'EOF'
  # Prevent make dist stupidity
 EOF
 do_autoreconf
+NOPARALLEL=1 \
 do_compile --disable-gssapi --enable-shared --enable-static
 
