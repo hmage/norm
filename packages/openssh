@@ -3,13 +3,12 @@
 depends_on zlib
 depends_on openssl
 
-fetch_source http://http.debian.net/debian/pool/main/o/openssh/openssh_6.7p1.orig.tar.gz 14e5fbed710ade334d65925e080d1aaeb9c85bf6
-fetch_debian http://http.debian.net/debian/pool/main/o/openssh/openssh_6.7p1-5+deb8u1.debian.tar.xz f112857cb5bf9e59097f1356e5b61cfbaaf13680
+fetch_source http://mirror.yandex.ru/pub/OpenBSD/OpenSSH/portable/openssh-7.2p2.tar.gz 70e35d7d6386fe08abbd823b3a12a3ca44ac6d38
 
 ## this file breaks reinstallation/upgrade
 rm -f $PREFIX/share/man/man5/authorized_keys.5
 
-do_undebian
+do_unpack
 do_compile --with-privsep-path=$PREFIX/var/empty --without-kerberos5 --sysconfdir=$PREFIX/etc/ssh \
            --with-pid-dir=$PREFIX/var/run  --with-mantype=doc --with-ssl-engine \
            --with-ldflags="-Wl,--as-needed $LDFLAGS"
