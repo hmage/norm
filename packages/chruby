@@ -9,7 +9,7 @@ popd_src
 
 add_caveat \
 "-----------------------------" \
-"Add following lines to your .bashrc or .bash_profile:" \
+"Add following line to your .bashrc or .bash_profile:" \
 "" \
 "[[ -f \$NORMPREFIX/share/chruby/chruby.sh ]] && . \"\$NORMPREFIX/share/chruby/chruby.sh\"" \
 "-----------------------------"
