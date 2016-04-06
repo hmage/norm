@@ -6,3 +6,10 @@ do_unpack
 pushd_src
 do_install PREFIX="$PREFIX"
 popd_src
+
+add_caveat \
+"-----------------------------" \
+"Add following lines to your .bashrc or .bash_profile:" \
+"" \
+"[[ -f \$NORMPREFIX/share/chruby/chruby.sh ]] && . \"\$NORMPREFIX/share/chruby/chruby.sh\"" \
+"-----------------------------"
