@@ -6,13 +6,8 @@ depends_on libidn
 depends_on openssl
 depends_on zlib
 
-# we're using http mirror because with old curl we might not be able to fetch over https!
-fetch_source http://security.debian.org/debian-security/pool/updates/main/c/curl/curl_7.38.0.orig.tar.gz 40d8ec9063f076005535139c9229ac77c57f0300
-fetch_debian http://security.debian.org/debian-security/pool/updates/main/c/curl/curl_7.38.0-4+deb8u3.debian.tar.xz 357580f1f162f0930566ca3bf5f53d4fe57b98d0
+fetch_source http://dl.uxnr.de/mirror/curl/curl-7.48.0.tar.gz eac95625b849408362cf6edb0bc9489da317ba30
 
-do_undebian
+do_unpack
 do_autoreconf
 do_compile --disable-ldap --enable-optimize --without-libssh2 --with-ca-bundle=$PREFIX/etc/ssl/cert.pem
-for i in a la so so.4 dylib; do
-    if [[ -e $PREFIX/lib/libcurl-nss.$i ]]; then ln -fs libcurl-nss.$i $PREFIX/lib/libcurl.$i; fi
-done
