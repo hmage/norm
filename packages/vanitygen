@@ -1,0 +1,15 @@
+#!/bin/bash
+
+depends_on libpcre
+
+fetch_source https://github.com/WyseNynja/vanitygen/archive/a9987b2814d6fd1e431733f4ce25dbfeb0431860.tar.gz afa7a4e5349d3c681ec38d4df4fce588db744c46
+
+unset EXTRAFLAGS
+cc_addflags EXTRAFLAGS -Ofast -flto -fuse-linker-plugin -ftree-loop-if-convert-stores
+
+do_unpack
+pushd_src
+do_make CFLAGS="$CPPFLAGS $EXTRAFLAGS -pthread" LIBS="$LDFLAGS -lcrypto -lm -lpcre" vanitygen keyconv
+install -d $PREFIX/bin
+install vanitygen keyconv $PREFIX/bin/
+popd_src
