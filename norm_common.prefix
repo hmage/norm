@@ -20,15 +20,19 @@ setup_prefix() {
 
     printf -v ESCAPED_PREFIX "%q" "$PREFIX"
 
-    ## set compile flags
-    default_ldflags="-L$ESCAPED_PREFIX/lib -Qunused-arguments"
-    [[ $OSTYPE == *linux* ]] && default_ldflags+=" -Wl,-rpath=$ESCAPED_PREFIX/lib -Wl,-rpath-link=$ESCAPED_PREFIX/lib"
-    [[ $OSTYPE == *darwin* ]] && default_ldflags+=" -Wl,-rpath,$ESCAPED_PREFIX/lib"
-    default_cppflags="-I$ESCAPED_PREFIX/include -pipe"
+    ## default flags, if compiler doesn't support these, we can't operate
+    default_ldflags="-L$ESCAPED_PREFIX/lib"
+    default_cppflags="-I$ESCAPED_PREFIX/include"
 
-    unset LDFLAGS CPPFLAGS
+    ## set compile flags
     cc_addflags LDFLAGS $default_ldflags
-    cc_addflags CPPFLAGS $default_cppflags
+    cc_addflags CPPFLAGS $default_cppflags -pipe -Qunused-arguments
+
+    ## also try other flags if compiler supports them
+    cc_addflags LDFLAGS -Wl,-rpath=$ESCAPED_PREFIX/lib -Wl,-rpath-link=$ESCAPED_PREFIX/lib -Qunused-arguments -Wl,-O1 -Wl,--as-needed -Wl,--gc-sections
+    cc_addflags CPPFLAGS -pipe -Qunused-arguments
+
+    ## see if we can use -march=$GCCARCH or -march=native
     [[ -n $GCCARCH ]] && cc_addflags CPPFLAGS "-march=$GCCARCH"
     [[ -z $GCCARCH ]] && cc_addflags CPPFLAGS "-march=native"
 
@@ -50,16 +54,14 @@ setup_prefix() {
 use_clang() {
     export CC=clang
     export CXX=clang++
-    export CPPFLAGS="$CPPFLAGS -Qunused-arguments -Wno-gnu-variable-sized-type-not-at-end"
 }
 
 generate_config_site() {
 ## generate config.site
 mkdir -p $PREFIX/share
 cat << EOF > $PREFIX/share/config.site
-[ -z "\$CPPFLAGS" ] && CPPFLAGS="$CPPFLAGS"
-[ -z "\$LDFLAGS" ] && LDFLAGS="$LDFLAGS"
-[ -z "\$ACLOCAL_PATH" ] && ACLOCAL_PATH="$default_aclocal"
+[ -z "\$CPPFLAGS" ] && CPPFLAGS="$default_cppflags"
+[ -z "\$LDFLAGS" ] && LDFLAGS="$default_ldflags"
 true
 EOF
 }
