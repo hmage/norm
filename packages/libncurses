@@ -9,14 +9,43 @@ fetch_debian http://http.debian.net/debian/pool/main/n/ncurses/ncurses_5.9+20140
 CONFIGURE_OPTIONS="--with-libtool --enable-rpath --enable-pc-files --enable-const \
                     --enable-symlinks --without-ada --without-cxx-binding --with-termlib --with-shared --without-debug"
 
+do_undebian
+pushd_src
+do_patch_inline << 'EOF'
+--- ncurses_5.9+20140913.orig.tar.gz.orig/misc/gen-pkgconfig.in	2014-01-19 00:21:45.000000000 +0400
++++ ncurses_5.9+20140913.orig.tar.gz/misc/gen-pkgconfig.in	2016-04-08 22:19:10.273916838 +0300
+@@ -49,7 +49,7 @@
+ 
+ prefix="@prefix@"
+ exec_prefix="@exec_prefix@"
+-includedir="@includedir@@includesubdir@"
++includedir="@includedir@"
+ libdir="@libdir@"
+ 
+ show_prefix='@prefix@'
+@@ -64,9 +64,9 @@
+ FORM_LIBRARY="${FORM_NAME}@DFT_ARG_SUFFIX@"
+ 
+ if test "$includedir" = "/usr/include" ; then
+-	CFLAGS=
++	CFLAGS="-I\${includedir}@includesubdir@"
+ else
+-	CFLAGS="-I\${includedir}"
++	CFLAGS="-I\${includedir} -I\${includedir}@includesubdir@"
+ fi
+ 
+ if test "$libdir" = "/usr/lib" ; then
+EOF
 PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
+do_configure $CONFIGURE_OPTIONS
 NOPARALLEL=1 \
-do_undebian_compile $CONFIGURE_OPTIONS
-
+do_make_and_install
+PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
 ## build wide version of ncurses
-PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
+do_configure $CONFIGURE_OPTIONS --enable-widec
 NOPARALLEL=1 \
-do_undebian_compile $CONFIGURE_OPTIONS --enable-widec
+do_make_and_install
+popd_src
 
 # link tinfo when linking ncurses
 rm $PREFIX/lib/libncurses{,w}.so
