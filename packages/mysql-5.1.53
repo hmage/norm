@@ -1,0 +1,35 @@
+#!/bin/bash
+
+fetch_source http://downloads.mysql.com/archives/get/file/mysql-5.1.53.tar.gz 24064a4c0f8b88b30acb6ddb03f32e897ef061f3
+
+do_unpack
+do_patch_inline << 'EOF'
+--- a/mysql-test/r/events_1.result
++++ b/mysql-test/r/events_1.result
+@@ -113,7 +113,7 @@
+ drop event if exists event3;
+ Warnings:
+ Note	1305	Event event3 does not exist
+-create event event3 on schedule every 50 + 10 minute starts date_add("20100101", interval 5 minute) ends date_add("20151010", interval 5 day) comment "portokala_comment" DO insert into t_event3 values (unix_timestamp(), rand());
++create event event3 on schedule every 50 + 10 minute starts date_add("20100101", interval 5 minute) ends date_add("20201010", interval 5 day) comment "portokala_comment" DO insert into t_event3 values (unix_timestamp(), rand());
+ select count(*) from t_event3;
+ count(*)
+ 0
+--- a/mysql-test/t/events_1.test
++++ b/mysql-test/t/events_1.test
+@@ -123,7 +123,7 @@
+ 
+ create table t_event3 (a int, b float);
+ drop event if exists event3;
+-create event event3 on schedule every 50 + 10 minute starts date_add("20100101", interval 5 minute) ends date_add("20151010", interval 5 day) comment "portokala_comment" DO insert into t_event3 values (unix_timestamp(), rand());
++create event event3 on schedule every 50 + 10 minute starts date_add("20100101", interval 5 minute) ends date_add("20201010", interval 5 day) comment "portokala_comment" DO insert into t_event3 values (unix_timestamp(), rand());
+ let $wait_condition=SELECT count(*)=0 from t_event3;
+ --source include/wait_condition.inc
+ select count(*) from t_event3;
+EOF
+pushd_src
+do_configure --with-extra-charsets=all
+do_make
+! is_without tests && env - PATH="$PATH" make test
+do_install
+popd
