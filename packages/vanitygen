@@ -9,6 +9,22 @@ cc_addflags EXTRAFLAGS -Ofast -flto -fuse-linker-plugin -ftree-loop-if-convert-s
 
 do_unpack
 pushd_src
+do_patch_inline << EOF
+--- a/vanitygen.c
++++ b/vanitygen.c
+@@ -520,9 +520,9 @@
+ 	{
+ #if !defined(_WIN32)
+ 	 struct stat st;
+-	 if (stat("/dev/random", &st) == 0)
++	 if (stat("/dev/urandom", &st) == 0)
+ 	 {
+-	     seedfile = "/dev/random";
++	     seedfile = "/dev/urandom";
+ 	 }
+ #endif
+ 	}
+EOF
 do_make CFLAGS="$CPPFLAGS $EXTRAFLAGS -pthread" LIBS="$LDFLAGS -lcrypto -lm -lpcre" vanitygen keyconv
 install -d $PREFIX/bin
 install vanitygen keyconv $PREFIX/bin/
