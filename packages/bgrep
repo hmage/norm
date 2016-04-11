@@ -5,5 +5,6 @@ fetch_source https://github.com/tmbinc/bgrep/archive/5ca1302382bd50c1c58055a0755
 do_unpack
 pushd_src
 $CC $CPPFLAGS -o bgrep bgrep.c
+mkdir -p $PREFIX/bin
 install bgrep $PREFIX/bin/bgrep
 popd_src
