@@ -1,7 +1,12 @@
 #!/bin/bash
 
-depends_on asciidoc
-
 fetch_source https://github.com/tinyproxy/tinyproxy/releases/download/1.8.4/tinyproxy-1.8.4.tar.xz 2ecc31268b386c282f4c9f4ed53dd9b76f3c3aee
 
-do_unpack_compile
+do_unpack
+pushd_src
+do_configure
+cd src
+do_make tinyproxy
+mkdir -p $PREFIX/bin
+install tinyproxy $PREFIX/bin/tinyproxy
+popd_src
