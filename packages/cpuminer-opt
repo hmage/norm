@@ -6,14 +6,16 @@ depends_on libjansson
 
 fetch_source https://github.com/hmage/cpuminer-opt/archive/d01b290b9126adf016816d5efca99705b419d0b6.tar.gz a007beb0627ec5a9dc10cd629834f5172db382a3
 
-unset EXTRAFLAGS
+unset EXTRAFLAGS EXTRALD
 cc_addflags EXTRAFLAGS -O2 -flto -fuse-linker-plugin -ftree-loop-if-convert-stores -DUSE_ASM
+cc_addflags EXTRALD -Wl,--no-as-needed
 
 do_unpack
 do_autoreconf
 pushd_src
 CFLAGS="$CPPFLAGS $EXTRAFLAGS" \
 CXXFLAGS="$CPPFLAGS $EXTRAFLAGS" \
+LDFLAGS="$LDFLAGS $EXTRALD" \
 do_configure --with-crypto --with-curl
 do_make
 install cpuminer $PREFIX/bin/cpuminer-opt
