@@ -9,7 +9,7 @@ OURNAME=`basename "${BASH_SOURCE[0]}"`
 [[ $OURNAME == lib* ]] && EXTRAOPTIONS+=" --without-python --without-ncurses --disable-all-programs --enable-$OURNAME"
 [[ $OURNAME == libmount ]] && EXTRAOPTIONS+=" --enable-libblkid"
 
-fetch_source https://www.kernel.org/pub/linux/utils/util-linux/v2.27/util-linux-2.27.1.tar.xz 462bca6320535d39b62216d8609da5531bfef0bb
+fetch_source https://www.kernel.org/pub/linux/utils/util-linux/v2.28/util-linux-2.28.tar.xz 9720d4ea99f8aff018ea6732dcc5c1fc853f39b3
 
 CFLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncursesw -O2 -g" \
 do_unpack_compile $EXTRAOPTIONS --with-bashcompletiondir=$PREFIX/share/bash-completion/completions --disable-use-tty-group
