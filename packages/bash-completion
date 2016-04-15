@@ -1,9 +1,8 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/b/bash-completion/bash-completion_2.1.orig.tar.bz2 b74bf7d83646e1412bb07dbb1de09db1c9715599
-fetch_debian http://http.debian.net/debian/pool/main/b/bash-completion/bash-completion_2.1-4.debian.tar.xz b6730161a33f4f3f6ac6731c95f2fd999b8fea64
+fetch_source https://github.com/scop/bash-completion/releases/download/2.3/bash-completion-2.3.tar.xz 6b42d6747dab48bdc983627e8ce69283ff0e6b79
 
-do_undebian_compile
+do_unpack_compile
 
 add_caveat \
 "-----------------------------" \
