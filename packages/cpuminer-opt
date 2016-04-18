@@ -7,14 +7,14 @@ depends_on libjansson
 fetch_source https://github.com/hmage/cpuminer-opt/archive/74a153a42d656d868b98bd7ecd967e3e0d2b3f7d.tar.gz 293fe4d638213fe541bd88b5206254be602327d0
 
 unset EXTRAFLAGS EXTRALD
-cc_addflags EXTRAFLAGS -O3 -flto -fuse-linker-plugin -ftree-loop-if-convert-stores -DUSE_ASM
+cc_addflags EXTRAFLAGS -O3 -ftree-loop-if-convert-stores -DUSE_ASM
 cc_addflags EXTRALD -Wl,--no-as-needed
 
 do_unpack
 do_autoreconf
 pushd_src
 CFLAGS="$CPPFLAGS $EXTRAFLAGS" \
-CXXFLAGS="$CPPFLAGS $EXTRAFLAGS" \
+CXXFLAGS="$CPPFLAGS $EXTRAFLAGS -std=gnu++11" \
 LDFLAGS="$LDFLAGS $EXTRALD" \
 do_configure --with-crypto --with-curl
 do_make
