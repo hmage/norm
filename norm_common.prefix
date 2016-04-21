@@ -26,11 +26,12 @@ setup_prefix() {
 
     ## set compile flags
     cc_addflags LDFLAGS $default_ldflags
-    cc_addflags CPPFLAGS $default_cppflags -pipe -Qunused-arguments
+    cc_addflags CPPFLAGS $default_cppflags -pipe
 
     ## also try other flags if compiler supports them
-    cc_addflags LDFLAGS -Wl,-rpath=$ESCAPED_PREFIX/lib -Wl,-rpath-link=$ESCAPED_PREFIX/lib -Qunused-arguments -Wl,-O1 -Wl,--as-needed -Wl,--gc-sections
-    cc_addflags CPPFLAGS -pipe -Qunused-arguments
+    cc_addflags LDFLAGS -Wl,-rpath=$ESCAPED_PREFIX/lib -Wl,-rpath-link=$ESCAPED_PREFIX/lib -Wl,-O1 -Wl,--as-needed -Wl,--gc-sections
+    cc_addflags CPPFLAGS -pipe
+    is_cc_clang && cc_addflags CPPFLAGS -Qunused-arguments
 
     ## see if we can use -march=$GCCARCH or -march=native
     [[ -n $GCCARCH ]] && cc_addflags CPPFLAGS "-march=$GCCARCH"

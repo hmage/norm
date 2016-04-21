@@ -484,6 +484,11 @@ test_cc_func() {
 int main() { $2; return 0;}"
 }
 
+is_cc_clang() {
+    RES=`$CC --version 2>&1 | fgrep clang | wc -l`
+    [[ $RES == 1 ]] && return 0
+    return 1
+}
 
 ## Example: have_gcc 4.7
 have_gcc() {
