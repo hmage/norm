@@ -13,7 +13,7 @@ do_unpack
 fix_makefile() {
     SED=sed
     command -v gsed >/dev/null && SED=gsed
-    $SED -i "s:^CFLAG=.*\$:& $EXTRAFLAGS:" Makefile || false
+    $SED -i.bak "s:^CFLAG=.*\$:& $EXTRAFLAGS:" Makefile || false
 }
 
 pushd_src
