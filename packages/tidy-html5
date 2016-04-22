@@ -1,0 +1,12 @@
+#!/bin/bash
+
+depends_on cmake
+
+fetch_source https://github.com/htacg/tidy-html5/archive/5.2.0.tar.gz c1571eafa928390feee9e03445bf806127852288
+
+do_unpack
+pushd_src
+cmake . -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS" -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS"
+do_make
+do_install
+popd_src
