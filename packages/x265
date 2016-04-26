@@ -4,6 +4,7 @@ requires_gcc 4.4 for atomic builtins on 64-bit integers
 
 depends_on yasm
 depends_on cmake
+depends_on libnuma
 
 fetch_source https://bitbucket.org/multicoreware/x265/downloads/x265_1.9.tar.gz 8c9aa3b87b0f0a418bbb9782e9354d112d75e003
 
