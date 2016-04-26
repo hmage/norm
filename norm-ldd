@@ -42,6 +42,7 @@ sub eachFile {
     return if /\.(x|xbn|xc|xd|xdc|xdw|xn|xr|xs|xsc|xsw|xu|xw)$/;
     return if /\.(a|gox)$/;
     return if /\.(xsl|xsd|rng|docbook|ent|mod|cat)$/;
+    return if /\.(o|cc|test|result|sql|class|java|pl|cfg|opt)$/;
 
     my $fullpath = $File::Find::name;
     return if ($fullpath =~ m"/include/");
@@ -52,8 +53,10 @@ sub eachFile {
     return if ($fullpath =~ m"/share/man");
     return if ($fullpath =~ m"/share/terminfo/");
     return if ($fullpath =~ m"/share/X11/locale/");
+    return if ($fullpath =~ m"/share/bash-completion/");
     return if ($fullpath =~ m"/bash_completion.d/");
     return if ($fullpath =~ m"/var/cache/");
+    return if ($fullpath =~ m"/mysql-test/");
     return if ($fullpath =~ m"/tmp/compile/");
     push (@files, $fullpath);
 }
