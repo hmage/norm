@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/j/jemalloc/jemalloc_3.6.0.orig.tar.bz2 40c0892b172e5dc14a6cea6fe4edda7dea4f3a68
+fetch_debian http://http.debian.net/debian/pool/main/j/jemalloc/jemalloc_3.6.0-3.debian.tar.xz 75147d65dc84af2be4e8aa91d81f0bf01272864e
+
+do_undebian_compile
