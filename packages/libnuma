@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/n/numactl/numactl_2.0.10.orig.tar.gz 166d94d3e5e1d6130a75fda1642f457cc5c19c29
+fetch_debian http://http.debian.net/debian/pool/main/n/numactl/numactl_2.0.10-1.diff.gz b8374c68ba30fe2e855182a0985024f9e8af3dac
+
+do_undebian_compile
