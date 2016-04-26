@@ -3,7 +3,7 @@
 depends_on cmake
 depends_on libncurses
 
-fetch_source https://cdn.mysql.com/Downloads/MySQL-5.7/mysql-boost-5.7.11.tar.gz e8854bf1ebdd89c0e2cef129ff7883bce17633ea
+fetch_source https://cdn.mysql.com/Downloads/MySQL-5.7/mysql-boost-5.7.12.tar.gz 2eb273dee08ab4ba7d8b235a0a973fe730a6e50f
 
 do_unpack
 pushd_src
