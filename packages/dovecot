@@ -8,10 +8,11 @@ depends_on openssl
 depends_on sqlite3
 depends_on libexpat
 depends_on libpam
+depends_on libicu
 
 fetch_source http://dovecot.org/releases/2.2/dovecot-2.2.23.tar.gz 65be594f78975dc74cddb8f4454a84c124bc4b32
 
-do_undebian
+do_unpack
 do_patch_inline << 'EOF' ## work around old libc that can't handle const int
 --- dovecot-2.2.15.tar.gz.orig/src/auth/db-checkpassword.c      2014-06-02 15:50:10.000000000 +0400
 +++ dovecot-2.2.15.tar.gz/src/auth/db-checkpassword.c   2015-02-14 15:40:33.972000000 +0300
