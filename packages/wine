@@ -28,6 +28,6 @@ depends_on mesa
 depends_on libglu
 depends_on libgstreamer-plugins-base
 
-fetch_source http://dl.winehq.org/wine/source/1.9/wine-1.9.7.tar.bz2 094c6e8bfd751c6cd101bba476442e9ec95497b3
+fetch_source http://dl.winehq.org/wine/source/1.9/wine-1.9.8.tar.bz2 bf7add8cb045ee9696bacd98be6ab6792cb80566
 
 do_unpack_compile
