@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.1.13/source/mariadb-10.1.13.tar.gz b89f92afedcb2de00f31f2ccec8aa1b4b17534b7
+
+do_unpack_compile
