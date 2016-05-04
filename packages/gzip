@@ -1,9 +1,8 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/g/gzip/gzip_1.6.orig.tar.gz 7ec6403090b3eaeb53ef017223cb8034eebc1f49
-fetch_debian http://http.debian.net/debian/pool/main/g/gzip/gzip_1.6-4.debian.tar.xz a9cc02481afb6d72367c6ed1e9b1a9f80b54f8aa
+fetch_source http://ftpmirror.gnu.org/gzip/gzip-1.8.tar.gz 969cc5f8e452aa66b01ca258084400c1cc8f2eca
 
-do_undebian
+do_unpack
 pushd_src
 ## inhibit invocation of makeinfo
 touch --date="Jan 01 2000" doc/gzip.info doc/*.texi
