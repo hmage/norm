@@ -67,5 +67,9 @@ do_patch_inline << 'EOF'
    dividend |= ((uint64_t)*remainder) << 32;
 EOF
 do_autoreconf
+pushd_src
 CFLAGS="$CPPFLAGS $EXTRAFLAGS" \
-do_compile --with-crypto --with-curl
+do_configure --with-crypto --with-curl
+do_make
+install cpuminer $PREFIX/bin/cpuminer-nicehash
+popd_src
