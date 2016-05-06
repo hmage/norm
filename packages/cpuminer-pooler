@@ -1,0 +1,22 @@
+#!/bin/bash
+
+depends_on curl
+depends_on openssl
+depends_on libjansson
+
+fetch_source https://github.com/pooler/cpuminer/archive/96c3676d884acf2e1d967f383c9fbf0e055d7792.tar.gz a1130463a66edd8a6beea667aa9ab7876e154746
+
+unset EXTRAFLAGS EXTRALD
+cc_addflags EXTRAFLAGS -Ofast -flto -fuse-linker-plugin -ftree-loop-if-convert-stores -DUSE_ASM
+cc_addflags EXTRALD -Wl,--no-as-needed
+
+do_unpack
+do_autoreconf
+pushd_src
+CFLAGS="$CPPFLAGS $EXTRAFLAGS" \
+CXXFLAGS="$CPPFLAGS $EXTRAFLAGS -std=gnu++11" \
+LDFLAGS="$LDFLAGS $EXTRALD" \
+do_configure --with-crypto --with-curl
+do_make
+install minerd $PREFIX/bin/cpuminer-pooler
+popd_src
