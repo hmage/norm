@@ -1,0 +1,70 @@
+#!/bin/bash
+
+depends_on binutils ## system binutils might not support hash-style=both
+depends_on zlib
+depends_on flex
+depends_on gettext
+
+## build all languages except java
+LANGUAGES=--enable-languages=c,c++,fortran,lto,objc,obj-c++
+
+## enable machine and OS specific features
+WITH_ARCH=
+HASH_STYLE=
+EXTRA_CONFOPTS=
+[[ $HOSTTYPE == i?86 ]] && WITH_ARCH=--with-arch=i686
+[[ $OSTYPE == *linux* ]] && HASH_STYLE=--with-linker-hash-style=both
+
+if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
+    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-libsanitizer"
+    add_caveat "Sanitizer support was disabled -- your linux headers are too old"
+fi
+
+if test_cc 'main() { return 0;}' -m64 && test_cc 'main() { return 0;}' -m32; then
+    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --enable-multilib"
+else
+    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-multilib"
+    add_caveat "Multilib support was disabled -- your current compiler doesn't support multilib"
+fi
+
+fetch_source http://ftpmirror.gnu.org/gcc/gcc-6.1.0/gcc-6.1.0.tar.bz2 e0cdec515a54ce979ad52f9c784d3e142c76553a
+do_unpack
+
+fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.4.tar.xz cedc0055d55b6ee4cd17e1e6119ed412520ff81a
+intree_unpack mpfr
+
+fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.3.tar.gz b8be66396c726fdc36ebb0f692ed8a8cca3bcc66
+intree_unpack mpc
+
+fetch_source http://ftpmirror.gnu.org/gmp/gmp-6.1.0.tar.xz 99d691607613e749aa5d7c0c2a89aeab38fec070
+intree_unpack gmp
+
+fetch_source http://isl.gforge.inria.fr/isl-0.17.tar.xz b30a923be188b1a8dda2b49d48fc8b5b6288f779
+intree_unpack isl
+
+## 'plugin' is gcc, 'plugins' is binutils.
+do_compile_outside \
+                   --program-suffix=-6.1 \
+                   --enable-__cxa_atexit --with-tune=generic \
+                   --enable-checking=release \
+                   --with-system-zlib \
+                   --with-sysroot=/ \
+                   --without-included-gettext \
+                   $LANGUAGES \
+                   --enable-plugin \
+                   --enable-plugins \
+                   --enable-lto \
+                   --enable-threads=posix \
+                   $HASH_STYLE $WITH_ARCH \
+                   --enable-multiarch \
+                   --enable-clocale=generic \
+                   $EXTRA_CONFOPTS \
+                   --disable-werror # otherwise compilation fails because of binutils
+
+add_to_ccache g++-6.1 gcc-6.1
+ln -sf $PREFIX/bin/gcc $PREFIX/bin/cc
+
+add_caveat "GCC 6.1 is too fresh, so it has a separate name. Use gcc-6.1 or g++-6.1 to run it"
+
+add_caveat "Remember -- you can't use this build of gcc on any other machine" \
+           "Do not move it away from $PREFIX either -- paths are hardcoded" \
