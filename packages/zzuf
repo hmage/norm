@@ -1,0 +1,4 @@
+#!/bin/bash
+
+fetch_source https://github.com/samhocevar/zzuf/releases/download/v0.15/zzuf-0.15.tar.bz2 2fdff5ae6e5bae39eb49a97e6394f90623c2f07a
+do_unpack_compile
