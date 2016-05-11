@@ -4,7 +4,7 @@ depends_on curl
 depends_on openssl
 depends_on libjansson
 
-fetch_source https://github.com/hmage/cpuminer-opt/archive/74a153a42d656d868b98bd7ecd967e3e0d2b3f7d.tar.gz 293fe4d638213fe541bd88b5206254be602327d0
+fetch_source https://github.com/hmage/cpuminer-opt/archive/67a99799d0940ff2b80e83cf324d9f3ea42e3476.tar.gz f6fce994cc50765cc4ec0b6191cb005e157a21a4
 
 unset EXTRAFLAGS EXTRALD
 cc_addflags EXTRAFLAGS -O3 -ftree-loop-if-convert-stores -DUSE_ASM
