@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://downloads.sourceforge.net/expat/expat-2.1.0.tar.gz b08197d146930a5543a7b99e871cba3da614f6f0
+fetch_source http://downloads.sourceforge.net/expat/expat-2.1.1.tar.bz2 ff91419882ac52151050dad0ee8190645fbeee08
 
 do_unpack_compile
