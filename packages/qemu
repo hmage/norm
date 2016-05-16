@@ -19,7 +19,7 @@ depends_on libssh2
 depends_on bison
 depends_on flex
 
-fetch_source http://wiki.qemu-project.org/download/qemu-2.5.0.tar.bz2 ed6c02a267f9edf98058743f0f76a25743a0dfe7
+fetch_source http://wiki.qemu-project.org/download/qemu-2.6.0.tar.bz2 d558a11d681dd095b1d7cb03c5b723c9d3045020
 
 do_unpack_compile --with-system-pixman \
                   --extra-cflags="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" --extra-ldflags="$LDFLAGS"
