@@ -3,6 +3,7 @@
 depends_on curl
 depends_on openssl
 depends_on libjansson
+depends_on libgmp
 
 fetch_source https://github.com/hmage/cpuminer-opt/archive/67a99799d0940ff2b80e83cf324d9f3ea42e3476.tar.gz f6fce994cc50765cc4ec0b6191cb005e157a21a4
 
