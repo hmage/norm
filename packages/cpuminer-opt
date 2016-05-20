@@ -5,7 +5,7 @@ depends_on openssl
 depends_on libjansson
 depends_on libgmp
 
-fetch_source https://github.com/hmage/cpuminer-opt/archive/67a99799d0940ff2b80e83cf324d9f3ea42e3476.tar.gz f6fce994cc50765cc4ec0b6191cb005e157a21a4
+fetch_source https://github.com/hmage/cpuminer-opt/archive/6b0447ebcc3c199123fc4872b3ee3ed8a56111c4.tar.gz 5ac52913165d7a095ddc493cda8990bca8428476
 
 unset EXTRAFLAGS EXTRALD
 cc_addflags EXTRAFLAGS -O3 -ftree-loop-if-convert-stores -DUSE_ASM
