@@ -6,7 +6,7 @@ depends_on libidn
 depends_on openssl
 depends_on zlib
 
-fetch_source http://dl.uxnr.de/mirror/curl/curl-7.48.0.tar.gz eac95625b849408362cf6edb0bc9489da317ba30
+fetch_source http://dl.uxnr.de/mirror/curl/curl-7.49.0.tar.gz df31c8534ade02b138b6a5680b17e334b5e12a68
 
 do_unpack
 do_autoreconf
