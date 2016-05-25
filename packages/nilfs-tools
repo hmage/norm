@@ -1,0 +1,27 @@
+#!/bin/bash
+
+depends_on autoconf automake libtool
+depends_on libmount libuuid
+
+fetch_source http://http.debian.net/debian/pool/main/n/nilfs-tools/nilfs-tools_2.2.1.orig.tar.bz2 ad6eb209d47b2ccfc2116cdc0ea4ba25618199cc
+fetch_debian http://http.debian.net/debian/pool/main/n/nilfs-tools/nilfs-tools_2.2.1-1.debian.tar.xz 8270a1fd5d8f0597e1aee097806745488d99b5d0
+
+do_undebian
+do_patch_inline << 'EOF'
+--- a/configure.ac
++++ b/configure.ac
+@@ -168,10 +168,8 @@
+ AC_PREFIX_DEFAULT([/usr])
+ test "x$prefix" = "xNONE" && prefix="/usr"
+ test "x$exec_prefix" = "xNONE" && exec_prefix="${prefix}"
+-AC_SUBST([root_sbindir], [/sbin])
++AC_SUBST([root_sbindir], [${exec_prefix}/sbin])
+ AC_SUBST([sbindir], [${exec_prefix}/sbin])
+-AC_SUBST([sysconfdir], [/etc])
+-AC_SUBST([localstatedir], [/var])
+ 
+ AC_CONFIG_FILES([Makefile
+ 		 bin/Makefile
+EOF
+do_autoreconf
+do_compile --enable-libmount=yes --sysconfdir="$ESCAPED_PREFIX"/etc
