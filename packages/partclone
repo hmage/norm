@@ -9,4 +9,4 @@ depends_on btrfs-tools
 
 fetch_source http://downloads.sourceforge.net/project/partclone/stable/0.2.88/partclone-0.2.88.tar.gz 83e4b5e30ffa34167a94d1d6814ca81193b4b0d5
 
-do_unpack_compile --enable-extfs --enable-xfs --enable-hfsp --enable-fat --enable-exfat --enable-f2fs --enable-nilfs2 --enable-ntfs --enable-jfs --enable-btrfs
+do_unpack_compile --enable-extfs --enable-xfs --enable-hfsp --enable-fat --enable-exfat --enable-f2fs --enable-nilfs2 --enable-ntfs --enable-jfs --enable-btrfs --enable-minix
