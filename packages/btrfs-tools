@@ -1,0 +1,16 @@
+#!/bin/bash
+
+depends_on liblzo
+depends_on libacl
+depends_on libuuid libblkid
+depends_on zlib
+depends_on e2fsprogs
+
+fetch_source http://http.debian.net/debian/pool/main/b/btrfs-tools/btrfs-tools_3.17.orig.tar.xz 09bdb95277031e3206707db9c92da649d5fb4300
+fetch_debian http://http.debian.net/debian/pool/main/b/btrfs-tools/btrfs-tools_3.17-1.1.debian.tar.xz 5b6ea2d5d711800ca69bbffbfb7de7e91a3db0dd
+
+do_undebian
+pushd_src
+do_make all btrfs-select-super btrfs-calc-size BUILD_VERBOSE=1 DISABLE_DOCUMENTATION=1 CFLAGS="-g -O2 $CPPFLAGS"
+do_install prefix="$ESCAPED_PREFIX" BUILD_VERBOSE=1 DISABLE_DOCUMENTATION=1
+popd_src
