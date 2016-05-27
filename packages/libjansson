@@ -1,6 +1,6 @@
 #!/bin/bash
 
 fetch_source http://http.debian.net/debian/pool/main/j/jansson/jansson_2.7.orig.tar.gz 7d8686d84fd46c7c28d70bf2d5e8961bc002845e
-fetch_debian http://http.debian.net/debian/pool/main/j/jansson/jansson_2.7-1.debian.tar.xz 98985e26eb45ca655fec37d6cbb64beb0c6fd31f
+fetch_debian http://security.debian.org/debian-security/pool/updates/main/j/jansson/jansson_2.7-1+deb8u1.debian.tar.xz f653c0af7c2c6c2dfc9bec5c0087462378a00ae1
 
 do_undebian_compile
