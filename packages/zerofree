@@ -5,10 +5,13 @@ depends_on e2fsprogs
 fetch_source http://ftp.de.debian.org/debian/pool/main/z/zerofree/zerofree_1.0.2.orig.tar.gz fa105eb93540199aa27d5d563089f5b15869b92f
 fetch_debian http://ftp.de.debian.org/debian/pool/main/z/zerofree/zerofree_1.0.2-1.debian.tar.gz 3ca2bd90c80e82a6cd6a38c6d57c42a0bc17fe62
 
+unset EXTRALD
+cc_addflags EXTRALD -Wl,--no-as-needed
+
 do_undebian
 pushd_src
 sed -i 's:$(CC) -o zerofree:$(CC) $(CPPFLAGS) $(LDFLAGS) -o zerofree:' Makefile
-do_make LDFLAGS="$LDFLAGS" CPPFLAGS="$CPPFLAGS"
+do_make LDFLAGS="$LDFLAGS $EXTRALD" CPPFLAGS="$CPPFLAGS"
 install -m755 zerofree $PREFIX/bin/zerofree
 popd
 
