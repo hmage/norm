@@ -35,6 +35,6 @@ diff -urw lame-3.99.5.tar.gz-orig/configure.in lame-3.99.5.tar.gz/configure.in
  		case ${host_os} in
  		*cygwin*)
 EOF
-LDFLAGS="$LDFLAGS -Wl,-O1 -Wl,-z,defs -Wl,--as-needed" \
+LDFLAGS="$LDFLAGS -Wl,-z,defs" \
 CFLAGS="$CFLAGS $EXTRAFLAGS" \
 do_compile --disable-debug --enable-nasm --enable-expopt=full

@@ -10,8 +10,7 @@ rm -f $PREFIX/share/man/man5/authorized_keys.5
 
 do_unpack
 do_compile --with-privsep-path=$PREFIX/var/empty --without-kerberos5 --sysconfdir=$PREFIX/etc/ssh \
-           --with-pid-dir=$PREFIX/var/run  --with-mantype=doc --with-ssl-engine \
-           --with-ldflags="-Wl,--as-needed $LDFLAGS"
+           --with-pid-dir=$PREFIX/var/run  --with-mantype=doc --with-ssl-engine
 
 ## we disabled kerberos5, so remove the config values as well
 sed -i 's/^[^#][ \t]*GSSAPI.*/#&/' $PREFIX/etc/ssh/ssh_config
