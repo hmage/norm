@@ -1,0 +1,7 @@
+#!/bin/bash
+
+depends_on libpcre
+
+fetch_source http://nginx.org/download/nginx-1.11.1.tar.gz 6b6172b26628b95c4ad0d6cb5b11eb4aa59c2a83
+
+do_unpack_compile --with-pcre="$PREFIX"
