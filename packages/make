@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://ftpmirror.gnu.org/make/make-4.2.tar.bz2 d78b84a219b4c16593544f541dff7eb765ce3d74
+
+do_unpack_compile
