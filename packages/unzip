@@ -3,7 +3,7 @@
 depends_on bzip2
 
 fetch_source http://http.debian.net/debian/pool/main/u/unzip/unzip_6.0.orig.tar.gz abf7de8a4018a983590ed6f5cbd990d4740f8a22
-fetch_debian http://http.debian.net/debian/pool/main/u/unzip/unzip_6.0-16.debian.tar.xz 35c40905a631a32aa61241ceb7d72e66b29ddfb1
+fetch_debian http://http.debian.net/debian/pool/main/u/unzip/unzip_6.0-16+deb8u2.debian.tar.xz 8f08c258b24e5f92754eece3573b42dbc3bf09ea
 
 do_undebian
 pushd_src
