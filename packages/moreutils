@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/m/moreutils/moreutils_0.59.orig.tar.gz 7bd78e051efd0f9fa2d027c0c14a37998fc6e930
+
+do_unpack_compile
