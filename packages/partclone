@@ -9,4 +9,27 @@ depends_on btrfs-tools
 
 fetch_source http://downloads.sourceforge.net/project/partclone/stable/0.2.88/partclone-0.2.88.tar.gz 83e4b5e30ffa34167a94d1d6814ca81193b4b0d5
 
-do_unpack_compile --enable-extfs --enable-xfs --enable-hfsp --enable-fat --enable-exfat --enable-f2fs --enable-nilfs2 --enable-ntfs --enable-jfs --enable-btrfs --enable-minix
+do_unpack
+pushd_src
+sed -i.bak "s|/var/log/partclone.log|$PREFIX/var/log/partclone.log|g" src/{info,main,partclone}.c
+do_patch_inline << 'EOF'
+--- partclone-0.2.88.tar.gz.orig/src/main.c
++++ partclone-0.2.88.tar.gz/src/main.c
+@@ -199,13 +199,6 @@
+ 	/// print partclone info
+ 	print_partclone_info(opt);
+ 
+-#ifndef CHKIMG
+-	if (geteuid() != 0)
+-		log_mesg(0, 1, 1, debug, "You are not logged as root. You may have \"access denied\" errors when working.\n");
+-	else
+-		log_mesg(1, 0, 0, debug, "UID is root.\n");
+-#endif
+-
+ 	/// ignore crc check
+ 	if (opt.ignore_crc)
+ 		log_mesg(1, 0, 1, debug, "Ignore CRC errors\n");
+EOF
+do_compile --enable-extfs --enable-xfs --enable-hfsp --enable-fat --enable-exfat --enable-f2fs --enable-nilfs2 --enable-ntfs --enable-jfs --enable-btrfs --enable-minix
+install -d "$PREFIX"/var/log
+popd_src
