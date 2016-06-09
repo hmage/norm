@@ -1,5 +1,6 @@
 #!/bin/bash
 
-fetch_source http://downloads.sourceforge.net/expat/expat-2.1.1.tar.bz2 ff91419882ac52151050dad0ee8190645fbeee08
+fetch_source http://security.debian.org/debian-security/pool/updates/main/e/expat/expat_2.1.0.orig.tar.gz b08197d146930a5543a7b99e871cba3da614f6f0
+fetch_debian http://security.debian.org/debian-security/pool/updates/main/e/expat/expat_2.1.0-6+deb8u3.debian.tar.xz 179fc9f741568aaec4e7df179c9546e2d81918c5
 
-do_unpack_compile
+do_undebian_compile
