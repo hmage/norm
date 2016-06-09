@@ -29,6 +29,66 @@ do_patch_inline << 'EOF'
  	/// ignore crc check
  	if (opt.ignore_crc)
  		log_mesg(1, 0, 1, debug, "Ignore CRC errors\n");
+--- partclone-0.2.88.tar.gz.orig/src/partclone.c
++++ partclone-0.2.88.tar.gz/src/partclone.c
+@@ -48,7 +48,6 @@
+ #endif
+ 
+ 
+-FILE* msg = NULL;
+ #ifdef HAVE_LIBNCURSESW
+ #include <ncurses.h>
+ WINDOW *log_win;
+@@ -546,11 +545,6 @@
+  * close_log	- to close file /home/bujak_e/norm.x86_64-pc-linux-gnu.2.19.core2/var/log/partclone.log
+  */
+ void open_log(char* source) {
+-	msg = fopen(source,"w");
+-	if (msg == NULL) {
+-		fprintf(stderr, "open logfile %s error\n", source);
+-		exit(0);
+-	}
+ }
+ 
+ void log_mesg(int log_level, int log_exit, int log_stderr, int debug, const char *fmt, ...) {
+@@ -591,13 +585,6 @@
+ 			fprintf(stderr, "%s", tmp_str);
+ 	}
+ 
+-	/// write log to logfile if debug is true
+-	if (log_level <= debug)
+-		fprintf(msg, "%s", tmp_str);
+-
+-	/// clear message
+-	fflush(msg);
+-
+ 	/// exit if lexit true
+ 	if ((!opt.force) && log_exit) {
+ 		close_ncurses();
+@@ -607,7 +594,6 @@
+ }
+ 
+ void close_log(void) {
+-	fclose(msg);
+ }
+ 
+ /// get image_head from image file
+@@ -877,7 +863,6 @@
+ 
+ 		if (check_mount(source, mp) == 1) {
+ 			log_mesg(0, 0, 1, debug, "device (%s) is mounted at %s\n", source, mp);
+-			free(mp);
+ 			log_mesg(0, 1, 1, debug, "error exit\n");
+ 		}
+ 		free(mp);
+@@ -949,7 +934,6 @@
+ 			log_mesg(0, 1, 1, debug, "%s, %i, not enough memory\n", __func__, __LINE__);
+ 		if (check_mount(target, mp)) {
+ 			log_mesg(0, 0, 1, debug, "device (%s) is mounted at %s\n", target, mp);
+-			free(mp);
+ 			log_mesg(0, 1, 1, debug, "error exit\n");
+ 		}
+ 		free(mp);
 EOF
 do_compile --enable-extfs --enable-xfs --enable-hfsp --enable-fat --enable-exfat --enable-f2fs --enable-nilfs2 --enable-ntfs --enable-jfs --enable-btrfs --enable-minix
 install -d "$PREFIX"/var/log
