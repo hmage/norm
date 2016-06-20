@@ -1,7 +1,30 @@
 #!/bin/bash
 
 depends_on libpcre
+depends_on zlib
+depends_on openssl
 
 fetch_source http://nginx.org/download/nginx-1.11.1.tar.gz 6b6172b26628b95c4ad0d6cb5b11eb4aa59c2a83
 
-do_unpack_compile --with-pcre="$PREFIX"
+do_unpack_compile --with-cc-opt="$CPPFLAGS" --with-ld-opt="$LDFLAGS" \
+                  --with-pcre-jit \
+                  --with-ipv6 \
+                  --with-http_ssl_module \
+                  --with-http_stub_status_module \
+                  --with-http_realip_module \
+                  --with-http_gzip_static_module \
+                  --with-http_addition_module \
+                  --with-http_dav_module \
+                  --with-http_gunzip_module \
+                  --with-http_v2_module \
+                  --with-http_sub_module \
+                  --with-stream \
+                  --with-stream_ssl_module \
+                  --with-mail \
+                  --with-mail_ssl_module \
+                  --with-threads \
+                  --with-http_flv_module \
+                  --with-http_mp4_module \
+                  --with-http_random_index_module \
+                  --with-http_secure_link_module \
+                  --with-http_auth_request_module
