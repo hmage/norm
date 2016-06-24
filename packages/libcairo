@@ -11,8 +11,12 @@ depends_on libxrender
 depends_on xz
 depends_on liblzo
 
+unset EXTRALD
+cc_addflags EXTRALD -Wl,--no-gc-sections
+
 fetch_source http://cairographics.org/releases/cairo-1.14.6.tar.xz 0a59324e6cbe031b5b898ff8b9e2ffceb9d114f5
 
+LDFLAGS="$LDFLAGS $EXTRALD" \
 do_unpack_compile --enable-xlib --enable-pdf --enable-ps --enable-png --enable-tee --enable-xlib \
                   --disable-trace \
                   --enable-svg --enable-xcb --enable-xlib-xcb --enable-gobject=yes --enable-pthread
