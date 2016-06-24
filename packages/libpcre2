@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://downloads.sourceforge.net/project/pcre/pcre2/10.21/pcre2-10.21.tar.bz2 51c0dee71f50f22cd42b2f73920cee95b707abdc
+
+do_unpack_compile --enable-pcre2-16 --enable-pcre2-32 --enable-jit
