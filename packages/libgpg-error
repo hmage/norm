@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.22.tar.bz2 c40015ed88bf5f50fa58d02252d75cf20b858951
+fetch_source https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.23.tar.bz2 c6a0c49211955e924593527b32e4b2736cafcda5
 
 do_unpack_compile
