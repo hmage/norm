@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/help2man/help2man-1.47.3.tar.xz eec547bc2832d47a23437b680232339862d8ca4c
+fetch_source http://ftpmirror.gnu.org/help2man/help2man-1.47.4.tar.xz 5bc859694eb7b8f7196514bf42c449b7dd6cfc27
 
 do_unpack_compile
