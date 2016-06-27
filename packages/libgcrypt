@@ -2,7 +2,6 @@
 
 depends_on libgpg-error
 
-fetch_source http://http.debian.net/debian/pool/main/libg/libgcrypt20/libgcrypt20_1.6.3.orig.tar.bz2 9456e7b64db9df8360a1407a38c8c958da80bbf1
-fetch_debian http://http.debian.net/debian/pool/main/libg/libgcrypt20/libgcrypt20_1.6.3-2.debian.tar.xz 39ac6750ef66c0cb18b5051df2ef47f4c911d280
+fetch_source https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.7.1.tar.bz2 b688add52b622bb96bbd823ba21aa05a116d442f
 
-do_undebian_compile
+do_unpack_compile
