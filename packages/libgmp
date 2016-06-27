@@ -2,8 +2,7 @@
 
 depends_on m4
 
-fetch_source http://http.debian.net/debian/pool/main/g/gmp/gmp_6.0.0+dfsg.orig.tar.xz 3db72ae4686773a26149e95fd225637b90c373ce
-fetch_debian http://http.debian.net/debian/pool/main/g/gmp/gmp_6.0.0+dfsg-6.debian.tar.xz 4c94c495b33c6da6cd8e7ce601d86e43810a2e02
+fetch_source https://gmplib.org/download/gmp/gmp-6.1.1.tar.xz 4da491d63ef850a7662f41da27ad1ba99c2dbaa1
 
-do_undebian
+do_unpack
 do_compile_test
