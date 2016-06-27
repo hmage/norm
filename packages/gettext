@@ -5,6 +5,6 @@ depends_on libncurses
 
 ## don't add libcroco dependency -- it depends on glib, and glib depends on gettext
 
-fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.19.7.tar.xz 4b2574b76d14c98270bf607a2a62f033524d8e8c
+fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.19.8.1.tar.xz e0fe90ede22f7f16bbde7bdea791a835f2773fc9
 
 do_unpack_compile --without-emacs --disable-libasprintf --with-included-glib --with-included-libcroco
