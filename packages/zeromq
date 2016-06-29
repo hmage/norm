@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on libuuid
+
+fetch_source http://http.debian.net/debian/pool/main/z/zeromq/zeromq_2.2.0+dfsg.orig.tar.gz 9a10bb6d9854078e218d6407aa0e20b2f7b88974
+fetch_debian http://http.debian.net/debian/pool/main/z/zeromq/zeromq_2.2.0+dfsg-6.debian.tar.xz f60b5b414c504f988863db3080bdab9e5aaf9557
+
+do_undebian_compile_test
