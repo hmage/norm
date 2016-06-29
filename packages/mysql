@@ -7,7 +7,7 @@ fetch_source https://cdn.mysql.com/Downloads/MySQL-5.7/mysql-boost-5.7.13.tar.gz
 
 do_unpack
 pushd_src
-cmake . -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON -DWITH_BOOST=boost -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS" -DCMAKE_CXX_FLAGS="-g -O2 $CPPFLAGS" -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS"
+cmake . -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON -DWITH_BOOST=boost -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS" -DCMAKE_CXX_FLAGS="-g -O2 $CPPFLAGS" -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" -DCURSES_INCLUDE_PATH="$ESCAPED_PREFIX/include/ncurses" -DENABLE_DOWNLOADS=1
 do_make
 ! is_without tests && env - PATH="$PATH" make test
 do_install
