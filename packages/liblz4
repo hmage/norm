@@ -1,0 +1,11 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/l/lz4/lz4_0.0~r122.orig.tar.gz 11d63415b9341194d6742fef73d6282a96ddcb1d
+fetch_debian http://http.debian.net/debian/pool/main/l/lz4/lz4_0.0~r122-2.debian.tar.xz 14f78edb46025c78ef3c76c2d94874de911fc5db
+
+do_undebian
+pushd_src
+do_make
+! is_without tests && env - PATH="$PATH" make test -C examples
+do_install PREFIX="$PREFIX"
+popd_src
