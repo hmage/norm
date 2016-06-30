@@ -7,8 +7,8 @@ addpath() {
     local value VARNAME=$1
     shift
     for value; do
-        [ -z "${!VARNAME}" ] && export $VARNAME="$value" && continue || true
-        [[ ! "${!VARNAME}" =~ "(^|:)$value(:|$)" ]] && export $VARNAME="$value:${!VARNAME}" || true
+        [ -z "${!VARNAME}" ] && declare -x "$VARNAME=$value" && continue || true
+        [[ ! "${!VARNAME}" =~ (^|:)$value(:|$) ]] && declare -x "$VARNAME=$value:${!VARNAME}" || true
     done
 }
 
@@ -25,11 +25,11 @@ setup_prefix() {
     default_cppflags="-I$ESCAPED_PREFIX/include"
 
     ## set compile flags
-    cc_addflags LDFLAGS $default_ldflags
-    cc_addflags CPPFLAGS $default_cppflags -pipe
+    cc_addflags LDFLAGS "$default_ldflags"
+    cc_addflags CPPFLAGS "$default_cppflags" -pipe
 
     ## also try other flags if compiler supports them
-    cc_addflags LDFLAGS -Wl,-rpath=$ESCAPED_PREFIX/lib -Wl,-rpath-link=$ESCAPED_PREFIX/lib -Wl,-O1 -Wl,--as-needed -Wl,--gc-sections
+    cc_addflags LDFLAGS -Wl,-rpath="$ESCAPED_PREFIX/lib" -Wl,-rpath-link="$ESCAPED_PREFIX/lib" -Wl,-O1 -Wl,--as-needed -Wl,--gc-sections
     cc_addflags CPPFLAGS -pipe
     is_cc_clang && cc_addflags CPPFLAGS -Qunused-arguments
 
@@ -47,7 +47,7 @@ setup_prefix() {
     [ ! -e "$PREFIX/share/man" ] && mkdir -p "$PREFIX/share/man" || true
     [ ! -e "$PREFIX/share/pkgconfig" ] && mkdir -p "$PREFIX/share/pkgconfig" || true
     [ ! -e "$PREFIX/lib/pkgconfig" ] && mkdir -p "$PREFIX/lib/pkgconfig" || true
-    [ ! -e "$PREFIX/man" ] && ln -s share/man $PREFIX/man || true
+    [ ! -e "$PREFIX/man" ] && ln -s share/man "$PREFIX/man" || true
     [ ! -e "$PREFIX/lib" ] && mkdir -p "$PREFIX/lib" || true
     [ ! -e "$PREFIX/share/config.site" ] && generate_config_site || true
 }
@@ -59,7 +59,7 @@ use_clang() {
 
 generate_config_site() {
 ## generate config.site
-mkdir -p $PREFIX/share
+mkdir -p "$PREFIX"/share
 cat << EOF > $PREFIX/share/config.site
 [ -z "\$CPPFLAGS" ] && CPPFLAGS="$default_cppflags"
 [ -z "\$LDFLAGS" ] && LDFLAGS="$default_ldflags"
