@@ -7,7 +7,7 @@ pushd() {
 }
 
 popd() {
-    command popd > /dev/null
+    command popd "$@" > /dev/null
 }
 
 pushd_src() {
@@ -24,7 +24,7 @@ do_configure() {
     # replace config.sub and config.guess with newer ones
     find . -name config.sub -exec install -v "$CACHEDIR/config.sub" {} \;
     find . -name config.guess -exec install -v "$CACHEDIR/config.guess" {} \;
-    log "Configuring $FORMULA" "$@"
+    log "Configuring $FORMULA $@"
     ./configure --prefix="$PREFIX" "$@" || return 1
 }
 
@@ -34,25 +34,25 @@ do_configure_outside() {
     # replace config.sub and config.guess with newer ones
     find "$SRCDIR" -name config.sub -exec install -v "$CACHEDIR/config.sub" {} \;
     find "$SRCDIR" -name config.guess -exec install -v "$CACHEDIR/config.guess" {} \;
-    log "Configuring $FORMULA" "$@"
+    log "Configuring $FORMULA $@"
     "$SRCDIR"/configure --prefix="$PREFIX" "$@" || return 1
 }
 
 do_make() {
-    log "Making $FORMULA" "$@"
+    log "Making $FORMULA $@"
     local PARALLEL="-j$NUMJOBS"
     [ "$NOPARALLEL" = "1" ] && PARALLEL=
-    make "$PARALLEL" "$@" || return 1
+    make $PARALLEL "$@" || return 1
 }
 
 do_install() {
-    log "Installing $FORMULA" "$@"
+    log "Installing $FORMULA $@"
     make install "$@" || return 1
 }
 
 do_make_and_install() {
-    do_make || return 1
-    do_install || return 1
+    do_make "$@" || return 1
+    do_install "$@" || return 1
 }
 
 do_compile() {
@@ -160,9 +160,15 @@ intree_unpack() {
 
 ##
 ## unpacks source code and applies debian patches
+## sets global TARNAME and DEBPATCH
 ##
 ## usage: do_undebian <-- gets filenames from fetch_source and fetch_debian
+##
+## alternative usage: do_undebian foo-1.2.3.orig.tar.bz2 foo-1.2.3.debian.tar.gz
 do_undebian() {
+    [ -f "$CACHEDIR/$1" ] && TARNAME="$1"
+    [ -f "$CACHEDIR/$2" ] && DEBPATCH="$2"
+
     ## sets SRCDIR
     do_unpack "$TARNAME" || return 1
     do_debianize "$DEBPATCH" || return 1
@@ -294,7 +300,7 @@ do_unpack_compile_test() {
 do_patch() {
     local PATCHNAME="$1"
     shift
-    patch -p1 -f -i "$NORMDIR/patches/$PATCHNAME" -d "$SRCDIR" "$@"
+    patch -p1 -f -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" "$@"
 }
 
 do_patch_inline() {
@@ -322,9 +328,9 @@ compile_formula() {
     if [ ! -e "$STATEDIR"/"$FORMULA_ID".installed -o -n "$force" ]; then
         [ -z "$COMPILING_FOR" ] && log "Building formula: $FORMULA" \
                                 || log "Building formula: $FORMULA -- dependency of $COMPILING_FOR"
-        [ ! -e "$NORMDIR/packages/$FORMULA" ] && log "Error: Formula file '$FORMULA' does not exist" && return 1
-        . "$NORMDIR/packages/$FORMULA"
-        mkdir -p "`dirname "$STATEDIR/$FORMULA"`"
+        [ ! -e "$NORMDIR"/packages/"$FORMULA" ] && log "Error: Formula file '$FORMULA' does not exist" && return 1
+        . "$NORMDIR"/packages/"$FORMULA"
+        mkdir -p `dirname "$STATEDIR/$FORMULA"`
         log_success
         touch "$STATEDIR/$FORMULA_ID".installed
         ## remove artifacts
@@ -337,7 +343,7 @@ compile_formula() {
 
 depends_on() {
     for i; do
-        compile_formula "$i" "$FORMULA"
+        compile_formula "$i" $FORMULA
     done
 }
 
@@ -345,6 +351,8 @@ do_download() {
     [[ -z $2 ]] && log "do_download() needs two arguments" && return 1
     local URL="$1"
     local SAVETO="$2"
+    local SAVETO_FILE=`basename "$2"`
+    local SAVETO_DIR=`dirname "$2"`
     case "$DOWNLOADER" in
         wget)   wget "$URL" -O "$SAVETO" ;;
         curl)   curl --fail -L -R "$URL" -o "$SAVETO" ;;
@@ -420,7 +428,7 @@ test_cc() {
     echo "$CODE" | $CC -x c "$@" -Werror -o "$TEMPFILE" - || true
     local STATUS=${PIPESTATUS[1]}
     rm -f "$TEMPFILE"
-    [ -n "$STATUS" ] && return "$STATUS"
+    [ -n "$STATUS" ] && return $STATUS
     return 1
 }
 
@@ -441,9 +449,9 @@ cc_addflag() {
     local value VARNAME=$1
     shift 1
     for value; do
-        [[ "${!VARNAME}" =~ (^| )$value( |$) ]] && return # already have it
+        [[ "${!VARNAME}" =~ "(^| )$value( |$)" ]] && return # already have it
         cc_checkflags $CFLAGS ${!VARNAME} $value || continue
-        declare -x "$VARNAME=${!VARNAME} $value"
+        export $VARNAME="${!VARNAME} $value"
         return
     done
 }
@@ -456,9 +464,9 @@ cc_addflags() {
     local value VARNAME=$1
     shift 1
     for value; do
-        [[ "${!VARNAME}" =~ (^| )$value( |$) ]] && continue # already have it
+        [[ "${!VARNAME}" =~ "(^| )$value( |$)" ]] && continue # already have it
         cc_checkflags $CFLAGS ${!VARNAME} $value || continue
-        declare -x "$VARNAME=${!VARNAME} $value"
+        export $VARNAME="${!VARNAME} $value"
     done
 }
 
@@ -500,7 +508,7 @@ requires_gcc() {
         local NEED_GCC_RAW="$1"
         shift
         local HAVE_GCC_RAW=`$CC -dumpversion`
-        log "Formula $FORMULA needs GCC at least $NEED_GCC_RAW" "$@"
+        log "Formula $FORMULA needs GCC at least $NEED_GCC_RAW $@"
         log "You have $HAVE_GCC_RAW"
         log ""
         log "Type 'norm install gcc' to install fresh gcc"
@@ -510,9 +518,9 @@ requires_gcc() {
 }
 
 add_to_ccache() {
-    mkdir -p "$PREFIX"/bin/ccache_wrap
+    mkdir -p $PREFIX/bin/ccache_wrap
     for name in "$@"; do
-        ln -fs ../ccache "$PREFIX/bin/ccache_wrap/$name"
+        ln -fs ../ccache $PREFIX/bin/ccache_wrap/"$name"
     done
 }
 
@@ -558,7 +566,7 @@ in_array() {
     local haystack="${1}[@]"
     local needle="${2}"
     for i in ${!haystack}; do
-        if [[ ${i} == "${needle}" ]]; then
+        if [[ ${i} == ${needle} ]]; then
             return 0
         fi
     done
