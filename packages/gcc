@@ -1,6 +1,9 @@
 #!/bin/bash
 
+depends_on binutils ## system binutils might not support hash-style=both
 depends_on zlib
+depends_on flex
+depends_on gettext
 
 ## build all languages except java
 LANGUAGES=--enable-languages=c,c++,fortran,lto,objc,obj-c++
@@ -11,7 +14,6 @@ HASH_STYLE=
 EXTRA_CONFOPTS=
 [[ $HOSTTYPE == i?86 ]] && WITH_ARCH=--with-arch=i686
 [[ $OSTYPE == *linux* ]] && HASH_STYLE=--with-linker-hash-style=both
-
 
 if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
     EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-libsanitizer"
@@ -25,42 +27,29 @@ else
     add_caveat "Multilib support was disabled -- your current compiler doesn't support multilib"
 fi
 
-fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.3/gcc-4.9.3.tar.gz 8cd8fd546fada384bf3d5b3439d6825669c29a9d
+fetch_source http://ftpmirror.gnu.org/gcc/gcc-6.1.0/gcc-6.1.0.tar.bz2 e0cdec515a54ce979ad52f9c784d3e142c76553a
 do_unpack
 
-## binutils 2.25 doesn't compile in-tree with gcc 4.9.2
-fetch_source http://ftpmirror.gnu.org/binutils/binutils-2.24.tar.bz2 7ac75404ddb3c4910c7594b51ddfc76d4693debb
-intree_unpack
-
-fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.2.tar.xz 03e593cc6e26639ef5e60be1af8dc527209e5172
+fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.4.tar.xz cedc0055d55b6ee4cd17e1e6119ed412520ff81a
 intree_unpack mpfr
 
-fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.2.tar.gz 5072d82ab50ec36cc8c0e320b5c377adb48abe70
+fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.3.tar.gz b8be66396c726fdc36ebb0f692ed8a8cca3bcc66
 intree_unpack mpc
 
-fetch_source http://ftpmirror.gnu.org/gmp/gmp-6.0.0a.tar.xz 1aaf78358ab9e34aeb61f3ae08174ee9118ece98
+fetch_source http://ftpmirror.gnu.org/gmp/gmp-6.1.0.tar.xz 99d691607613e749aa5d7c0c2a89aeab38fec070
 intree_unpack gmp
 
-fetch_source 'http://www.bastoul.net/cloog/pages/download/count.php3?url=./cloog-0.18.1.tar.gz' 2dc70313e8e2c6610b856d627bce9c9c3f848077
-intree_unpack cloog
-
-fetch_source http://isl.gforge.inria.fr/isl-0.12.2.tar.bz2 ca98a91e35fb3ded10d080342065919764d6f928
+fetch_source http://isl.gforge.inria.fr/isl-0.17.tar.xz b30a923be188b1a8dda2b49d48fc8b5b6288f779
 intree_unpack isl
-
-TARNAME=gcc-4.9.3.tar.gz
-
-do_patch binutils-2.24-vparams.patch        ## remove macros removed from gcc 4.9.2
-do_patch binutils-2.24-multiarch.patch      ## add support for multiarch
-do_patch gcc-4.9.2-multiarch.patch -p2      ## add support for multiarch
-do_patch gcc-4.7.1-startfiles_fix-1.patch   ## search for files in $PREFIX as well
-do_patch gcc-4.9.2-sanitizer-offsetof.patch ## old headers fail to detect presence of __builtin_offsetof
-do_patch gcc-4.9.2-cilk-pthread.patch       ## old headers don't implicitly include pthread.h
 
 ## 'plugin' is gcc, 'plugins' is binutils.
 do_compile_outside \
+                   --program-suffix=-6.1 \
                    --enable-__cxa_atexit --with-tune=generic \
                    --enable-checking=release \
                    --with-system-zlib \
+                   --with-sysroot=/ \
+                   --without-included-gettext \
                    $LANGUAGES \
                    --enable-plugin \
                    --enable-plugins \
@@ -72,7 +61,10 @@ do_compile_outside \
                    $EXTRA_CONFOPTS \
                    --disable-werror # otherwise compilation fails because of binutils
 
+add_to_ccache g++-6.1 gcc-6.1
 ln -sf $PREFIX/bin/gcc $PREFIX/bin/cc
 
+add_caveat "GCC 6.1 is too fresh, so it has a separate name. Use gcc-6.1 or g++-6.1 to run it"
+
 add_caveat "Remember -- you can't use this build of gcc on any other machine" \
-           "Do not move it away from $PREFIX either -- paths are hardcoded"
+           "Do not move it away from $PREFIX either -- paths are hardcoded" \
