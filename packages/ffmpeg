@@ -31,7 +31,7 @@ depends_on libfdk-aac
 X265_CONFIGURE=
 have_gcc 4.4 && X265_CONFIGURE=--enable-libx265
 
-fetch_source https://www.ffmpeg.org/releases/ffmpeg-3.1.tar.xz 9be76a6d596eb2c8f4d0e0029bdbf77a95a748b2
+fetch_source https://www.ffmpeg.org/releases/ffmpeg-3.1.1.tar.xz bedb7fe26b8a3b34b13345e89ac65169cf6da1b7
 
 do_unpack_compile --enable-pthreads --enable-gpl --enable-version3 \
                   --enable-shared \
