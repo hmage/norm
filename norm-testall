@@ -51,7 +51,7 @@ if [ ! -e "$BOOTSTRAP_ARCHIVE" ]; then ## we do not have bootstrap archive, make
     rm -rf "$BOOTSTRAP_PREFIX"
 
     BOOTSTRAP_FORMULAS=(xz ccache curl wget bzip2)
-    have_gcc 4.9 || BOOTSTRAP_FORMULAS+=(gcc)
+    have_gcc 6.1 || BOOTSTRAP_FORMULAS+=(gcc)
 
     ## clear the bootstrap log
     > "$BOOTSTRAP_LOG"
