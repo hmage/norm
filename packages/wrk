@@ -1,0 +1,12 @@
+#!/bin/bash
+
+depends_on openssl
+
+fetch_source https://github.com/wg/wrk/archive/4.0.2.tar.gz 668c337da14fcc0facbc07e8c9e862ba786e3409
+
+do_unpack
+pushd_src
+do_make WITH_OPENSSL="$ESCAPED_PREFIX" CPPFLAGS="$CPPFLAGS" LDLIBS="$LDFLAGS"
+mkdir -p "$PREFIX/bin"
+install -m 755 wrk "$PREFIX/bin/wrk"
+popd_src
