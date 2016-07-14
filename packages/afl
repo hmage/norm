@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://lcamtuf.coredump.cx/afl/releases/afl-2.15b.tgz b7d0afa5fff68874953fc95fb7ff54c43acffb0f
+fetch_source http://lcamtuf.coredump.cx/afl/releases/afl-2.19b.tgz 315a1783fc667cda791683e786cc5024a5075b44
 
 do_unpack
 pushd_src
