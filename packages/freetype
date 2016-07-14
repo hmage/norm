@@ -13,7 +13,7 @@ depends_on glib
 FREETYPE_OPTS="--with-zlib --without-bzip2 --with-png"
 
 ## freetype #1 for harfbuzz
-fetch_source http://mirror.unicorncloud.org/savannah-nongnu/freetype/freetype-2.6.3.tar.bz2 6c98bd5d0be313207c37ca23d25faf983486aee5
+fetch_source http://mirror.unicorncloud.org/savannah-nongnu/freetype/freetype-2.6.5.tar.bz2 5db38ae2308c5a2c519c8e071e98b70d61585201
 do_unpack_compile $FREETYPE_OPTS
 
 ## harfbuzz with freshly built freetype
@@ -21,6 +21,6 @@ fetch_source http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.2.7
 do_unpack_compile
 
 ## freetype #2 with freshly built harfbuzz
-fetch_source http://mirror.unicorncloud.org/savannah-nongnu/freetype/freetype-2.6.3.tar.bz2 6c98bd5d0be313207c37ca23d25faf983486aee5
+fetch_source http://mirror.unicorncloud.org/savannah-nongnu/freetype/freetype-2.6.5.tar.bz2 5db38ae2308c5a2c519c8e071e98b70d61585201
 do_unpack_compile $FREETYPE_OPTS --with-harfbuzz
 
