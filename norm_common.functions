@@ -386,13 +386,14 @@ check_sha1() {
 
 ##
 ## usage: fetch_file http://example.com/file.tar.gz AABBCC [optional_output_filename]
+## sets FILENAME
 fetch_file() {
     [ -z "$1" ] && log "fetch_file() needs at least 1 argument" && return 1
     local URL="$1"
     local SHA1="$2"
-    FILENAME=`basename -- "$URL"`
+    FILENAME="${FORMULA}"_`basename -- "$URL"`
     [ -n "$3" ] && FILENAME="$3"
-    local FILEPATH="$CACHEDIR/${FORMULA}_$FILENAME"
+    local FILEPATH="$CACHEDIR/$FILENAME"
     mkdir -p "$CACHEDIR"
     if ! check_sha1 "$FILEPATH" "$SHA1"; then
         log "Downloading $URL"
@@ -409,6 +410,7 @@ fetch_file() {
 
 ##
 ## usage: fetch_source http://example.com/file.tar.gz AABBCC [optional_output_filename]
+## sets TARNAME
 fetch_source() {
     local URL="$1"
     TARNAME="${FORMULA}"_`basename -- "$URL"`
@@ -417,6 +419,7 @@ fetch_source() {
 
 ##
 ## usage: fetch_debian http://example.com/file.tar.gz AABBCC [optional_output_filename]
+## sets DEBPATCH
 fetch_debian() {
     local URL="$1"
     DEBPATCH="${FORMULA}_"`basename -- "$URL"`
