@@ -6,7 +6,7 @@ depends_on zlib
 depends_on xz
 depends_on libexpat
 
-fetch_source http://ftpmirror.gnu.org/gdb/gdb-7.11.tar.xz 466208d771d97d3dfcf965d5c835a669cff8d847
+fetch_source http://ftpmirror.gnu.org/gdb/gdb-7.11.1.tar.xz df23fde077df1b8555949281bc963596f70de3ec
 
 do_unpack_compile --disable-python --without-python
 
