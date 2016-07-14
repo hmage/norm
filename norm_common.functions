@@ -351,8 +351,6 @@ do_download() {
     [[ -z $2 ]] && log "do_download() needs two arguments" && return 1
     local URL="$1"
     local SAVETO="$2"
-    local SAVETO_FILE=`basename "$2"`
-    local SAVETO_DIR=`dirname "$2"`
     case "$DOWNLOADER" in
         wget)   wget "$URL" -O "$SAVETO" ;;
         curl)   curl --fail -L -R "$URL" -o "$SAVETO" ;;
@@ -386,13 +384,15 @@ check_sha1() {
     return 0;
 }
 
+##
+## usage: fetch_file http://example.com/file.tar.gz AABBCC [optional_output_filename]
 fetch_file() {
     [ -z "$1" ] && log "fetch_file() needs at least 1 argument" && return 1
     local URL="$1"
     local SHA1="$2"
     FILENAME=`basename -- "$URL"`
     [ -n "$3" ] && FILENAME="$3"
-    local FILEPATH="$CACHEDIR/$FILENAME"
+    local FILEPATH="$CACHEDIR/${FORMULA}_$FILENAME"
     mkdir -p "$CACHEDIR"
     if ! check_sha1 "$FILEPATH" "$SHA1"; then
         log "Downloading $URL"
@@ -407,15 +407,19 @@ fetch_file() {
     fi
 }
 
+##
+## usage: fetch_source http://example.com/file.tar.gz AABBCC [optional_output_filename]
 fetch_source() {
     local URL="$1"
-    TARNAME=`basename -- "$URL"`
+    TARNAME="${FORMULA}"_`basename -- "$URL"`
     fetch_file "$@"
 }
 
+##
+## usage: fetch_debian http://example.com/file.tar.gz AABBCC [optional_output_filename]
 fetch_debian() {
     local URL="$1"
-    DEBPATCH=`basename -- "$URL"`
+    DEBPATCH="${FORMULA}_"`basename -- "$URL"`
     fetch_file "$@"
 }
 
