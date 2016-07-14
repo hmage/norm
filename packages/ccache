@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://samba.org/ftp/ccache/ccache-3.2.5.tar.gz 9e47d681076a54217a0c24d372222a8eefa837c7
+fetch_source http://samba.org/ftp/ccache/ccache-3.2.6.tar.gz 5cfe2f3253d5ef10eacaaa1b38bc080f1a7c2dbe
 
 do_unpack_compile --with-bundled-zlib
 
