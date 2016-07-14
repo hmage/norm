@@ -1,11 +1,5 @@
 #!/bin/bash
 
-depends_on gettext
-depends_on libncurses
-depends_on help2man
+fetch_source https://ftpmirror.gnu.org/texinfo/texinfo-6.1.tar.xz d39c2e35ddb0aff6ebdd323ce53729bd215534fa
 
-fetch_source http://http.debian.net/debian/pool/main/t/texinfo/texinfo_5.2.0.dfsg.1.orig.tar.xz b04330d3763982eefa4c0cf06de4bff6cfe1ec4c
-fetch_debian http://http.debian.net/debian/pool/main/t/texinfo/texinfo_5.2.0.dfsg.1-6.debian.tar.xz 45e14a9d50bf5993e655ff8703313f68f3cd051b
-
-do_undebian
-do_compile
+do_unpack_compile
