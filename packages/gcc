@@ -44,7 +44,6 @@ intree_unpack isl
 
 ## 'plugin' is gcc, 'plugins' is binutils.
 do_compile_outside \
-                   --program-suffix=-6.1 \
                    --enable-__cxa_atexit --with-tune=generic \
                    --enable-checking=release \
                    --with-system-zlib \
@@ -61,10 +60,7 @@ do_compile_outside \
                    $EXTRA_CONFOPTS \
                    --disable-werror # otherwise compilation fails because of binutils
 
-add_to_ccache g++-6.1 gcc-6.1
 ln -sf $PREFIX/bin/gcc $PREFIX/bin/cc
-
-add_caveat "GCC 6.1 is too fresh, so it has a separate name. Use gcc-6.1 or g++-6.1 to run it"
 
 add_caveat "Remember -- you can't use this build of gcc on any other machine" \
            "Do not move it away from $PREFIX either -- paths are hardcoded" \
