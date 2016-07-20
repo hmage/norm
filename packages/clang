@@ -24,7 +24,7 @@ fi
 
 CONFIGURE_FLAGS="--enable-optimized --disable-assertions --disable-libedit"
 
-fetch_source http://llvm.org/releases/3.8.0/llvm-3.8.0.src.tar.xz 723ac918979255706434a05f5af34b71c49c9971
+fetch_source http://llvm.org/releases/3.8.1/llvm-3.8.1.src.tar.xz e0c48c4c182424b99999367d688cd8ce7876827b
 do_unpack
 
 if [[ ${BASH_SOURCE##*/} == libllvm ]]; then
@@ -32,11 +32,11 @@ if [[ ${BASH_SOURCE##*/} == libllvm ]]; then
     TARGET_INSTALL=install
     CONFIGURE_FLAGS+=" --enable-shared --disable-bindings"
 else
-    fetch_source http://llvm.org/releases/3.8.0/cfe-3.8.0.src.tar.xz 2230ef962f2df3c13ec93f5b04b0e3cdff94b2ce
+    fetch_source http://llvm.org/releases/3.8.1/cfe-3.8.1.src.tar.xz b5ff24dc6ad8f84654f4859389990bace1cfb6d5
     intree_unpack tools/clang
 
     if [[ $ENABLE_SANITIZER == yes ]]; then
-        fetch_source http://llvm.org/releases/3.8.0/compiler-rt-3.8.0.src.tar.xz 480ea09e369dac6de1f3759b27fa19417b26b69e
+        fetch_source http://llvm.org/releases/3.8.1/compiler-rt-3.8.1.src.tar.xz be5fefcef9d035ea2db97f3396ea5ff11fdc35ed
         intree_unpack projects/compiler-rt
     fi
     TARGET_BUILD=clang-only
