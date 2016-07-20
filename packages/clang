@@ -39,8 +39,8 @@ else
         fetch_source http://llvm.org/releases/3.8.1/compiler-rt-3.8.1.src.tar.xz be5fefcef9d035ea2db97f3396ea5ff11fdc35ed
         intree_unpack projects/compiler-rt
     fi
-    TARGET_BUILD=clang-only
-    TARGET_INSTALL=install-clang
+    TARGET_BUILD=all
+    TARGET_INSTALL=install
 fi
 
 BUILDDIR="$SRCDIR"-build
