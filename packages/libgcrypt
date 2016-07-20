@@ -2,6 +2,6 @@
 
 depends_on libgpg-error
 
-fetch_source https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.7.1.tar.bz2 b688add52b622bb96bbd823ba21aa05a116d442f
+fetch_source https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.7.2.tar.bz2 85a6a936bcab4c3c05f5efbf6ce847f23d35c0c4
 
 do_unpack_compile
