@@ -61,6 +61,7 @@ do_patch gcc-4.9.2-cilk-pthread.patch       ## old headers don't implicitly incl
 
 ## 'plugin' is gcc, 'plugins' is binutils.
 do_compile_outside \
+                   --program-suffix=-4.9 \
                    --enable-__cxa_atexit --with-tune=generic \
                    --enable-checking=release \
                    --with-system-zlib \
@@ -76,6 +77,8 @@ do_compile_outside \
                    --disable-werror # otherwise compilation fails because of binutils
 
 ln -sf $PREFIX/bin/gcc $PREFIX/bin/cc
+
+add_caveat "GCC 4.9 was installed under separate name. Run gcc-4.9 or g++-4.9 to use it"
 
 add_caveat "Remember -- you can't use this build of gcc on any other machine" \
            "Do not move it away from $PREFIX either -- paths are hardcoded"
