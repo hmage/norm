@@ -431,18 +431,34 @@ fetch_debian() {
 test_cc() {
     CODE="$1"
     shift
+    [[ -z $QUIET ]] && echo -n "Testing if $CC compiles '$CODE' $@... "
     TEMPFILE=`mktemp`
-    echo "$CODE" | $CC -x c "$@" -Werror -o "$TEMPFILE" - || true
+    ERRFILE=`mktemp`
+    echo "$CODE" | $CC -x c "$@" -Werror -o "$TEMPFILE" - 2>"$ERRFILE" || true
     local STATUS=${PIPESTATUS[1]}
-    rm -f "$TEMPFILE"
+    rm -f "$TEMPFILE" "$ERRFILE"
+    [[ -z $QUIET && $STATUS == 0 ]] && echo "yes"
+    [[ -z $QUIET && $STATUS != 0 ]] && echo "no"
     [ -n "$STATUS" ] && return $STATUS
     return 1
 }
 
 ##
+## example: test_cc 'int main() { return 0;}' -O2
+test_cc_quiet() {
+    local QUIET=1
+    test_cc "$@"
+}
+
+##
 ## example: cc_checkflags -Wl,-Bsymbolic -O2
 cc_checkflags() {
-    test_cc 'int main() { int i = 0; return i;}' "$@"
+    echo -n "Testing if $CC supports $@... "
+    test_cc_quiet 'int main() { return 0;}' "$@"
+    local STATUS=$?
+    [[ $STATUS == 0 ]] && echo "yes"
+    [[ $STATUS != 0 ]] && echo "no"
+    return $STATUS
 }
 
 ##
@@ -456,7 +472,7 @@ cc_addflag() {
     local value VARNAME=$1
     shift 1
     for value; do
-        [[ "${!VARNAME}" =~ "(^| )$value( |$)" ]] && return # already have it
+        [[ "${!VARNAME}" =~ (^| )$value( |$) ]] && return # already have it
         cc_checkflags $CFLAGS ${!VARNAME} $value || continue
         export $VARNAME="${!VARNAME} $value"
         return
@@ -471,7 +487,7 @@ cc_addflags() {
     local value VARNAME=$1
     shift 1
     for value; do
-        [[ "${!VARNAME}" =~ "(^| )$value( |$)" ]] && continue # already have it
+        [[ "${!VARNAME}" =~ (^| )$value( |$) ]] && continue # already have it
         cc_checkflags $CFLAGS ${!VARNAME} $value || continue
         export $VARNAME="${!VARNAME} $value"
     done
