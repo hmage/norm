@@ -5,18 +5,18 @@
 GCCARCH=$(gcc -march=native -Q --help=target 2>&1 | grep -- '^ *-march=' | awk '{ print $2 }')
 
 ## get machine id for later
+LIBC_VERSION=
 case $OSTYPE in
-    *linux*)   SYSTEM_VERSION=.$(getconf GNU_LIBC_VERSION|awk '{ print $NF }') ;; #$($(ldd /bin/sh|fgrep /libc.so|awk '{ print $3 }') | fgrep 'GNU C Library'|perl -pe 's/GNU C Library.*version ([^ ,]+).*/$1/') ;;
-    *freebsd*) SYSTEM_VERSION= ;;
-    *openbsd*) SYSTEM_VERSION= ;;
-    *darwin*)  SYSTEM_VERSION= ;;
-    *)        SYSTEM_VERSION=.unknown ;;
+    *linux*)
+        LIBC_VERSION=$(getconf GNU_LIBC_VERSION 2>/dev/null|awk '{ print $NF }')
+        [[ -n $LIBC_VERSION ]] && LIBC_VERSION=".$LIBC_VERSION"
+        ;;
 esac
-MACHINEID="${BASH_VERSINFO[5]}$SYSTEM_VERSION"
+MACHINEID="${BASH_VERSINFO[5]}$LIBC_VERSION"
 [ -n "$GCCARCH" ] && MACHINEID+=".$GCCARCH"
 [ -z "${debian_chroot:-}" -a -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
 [ -n "$debian_chroot" ] && MACHINEID+=".$debian_chroot"
-unset SYSTEM_VERSION GCCARCH
+unset LIBC_VERSION GCCARCH
 
 NORMPREFIX="$HOME/norm.$MACHINEID"
 DIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
