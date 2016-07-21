@@ -427,7 +427,7 @@ fetch_debian() {
 }
 
 ##
-## example: test_cc 'main() { return 0;}' -O2
+## example: test_cc 'int main() { return 0;}' -O2
 test_cc() {
     CODE="$1"
     shift

@@ -19,7 +19,7 @@ if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
     add_caveat "Sanitizer support was disabled -- your linux headers are too old"
 fi
 
-if test_cc 'main() { return 0;}' -m64 && test_cc 'main() { return 0;}' -m32; then
+if test_cc 'int main() { return 0;}' -m64 && test_cc 'int main() { return 0;}' -m32; then
     EXTRA_CONFOPTS="$EXTRA_CONFOPTS --enable-multilib"
 else
     EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-multilib"

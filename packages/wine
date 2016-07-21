@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ $HOSTTYPE == x86_64 ]] && ! test_cc 'main() { return 0;}' -m32; then
+if [[ $HOSTTYPE == x86_64 ]] && ! test_cc 'int main() { return 0;}' -m32; then
     log "Your compiler doesn't know how to make 32-bit binaries. Wine is 32-bit application. Aborting."
     exit 1
 fi
