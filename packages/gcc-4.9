@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on binutils ## system binutils might not support hash-style=both
 depends_on zlib
 
 ## build all languages except java
@@ -27,10 +28,6 @@ fi
 
 fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.3/gcc-4.9.3.tar.gz 8cd8fd546fada384bf3d5b3439d6825669c29a9d
 do_unpack
-
-## binutils 2.25 doesn't compile in-tree with gcc 4.9.2
-fetch_source http://ftpmirror.gnu.org/binutils/binutils-2.24.tar.bz2 7ac75404ddb3c4910c7594b51ddfc76d4693debb
-intree_unpack
 
 fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.2.tar.xz 03e593cc6e26639ef5e60be1af8dc527209e5172
 intree_unpack mpfr
