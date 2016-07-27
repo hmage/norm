@@ -182,43 +182,12 @@ OPTIND=1
 
 [ -z "$1" ] && echo "No command specified" >&2 && usage && exit 64
 
-case "$1" in
-    install)
-        shift
-        cmd_install "$@"
-        ;;
-    sub)
-        shift
-        cmd_sub "$@"
-        ;;
-    ldd)
-        shift
-        cmd_ldd "$@"
-        ;;
-    list)
-        shift
-        cmd_list "$@"
-        ;;
-    update)
-        shift
-        cmd_update "$@"
-        ;;
-    upgrade)
-        shift
-        cmd_upgrade "$@"
-        ;;
-    reinstall)
-        shift
-        cmd_install -f "$@"
-        ;;
-    testall)
-        shift
-        cmd_testall "$@"
-        ;;
-    *)
-        echo "Unknown command: $1" >&2
-        usage
-        exit 64
-        ;;
-esac
-
+if declare -f cmd_"$1" >/dev/null; then
+    COMMAND=cmd_"$1"
+    shift
+    "$COMMAND" "$@"
+else
+    echo "Unknown command: $1" >&2
+    usage
+    exit 64
+fi
