@@ -2,6 +2,6 @@
 
 depends_on pkg-config
 
-fetch_source http://ftp.gnu.org/gnu/libidn/libidn-1.29.tar.gz e0959eec9a03fd8053379b0aeab447c546c05ab2
+fetch_source http://ftp.gnu.org/gnu/libidn/libidn-1.33.tar.gz 57872fdc665dcc585e16f4ac0bb35374b1103f7e
 
 do_unpack_compile
