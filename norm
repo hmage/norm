@@ -134,6 +134,31 @@ cmd_list() {
     done
 }
 
+cmd_dot() {
+    local STATEDIR="$PREFIX"/var/norm
+    local FILES=("$STATEDIR"/*installed)
+    local FORMULAS=()
+    for file in "${FILES[@]}"; do
+        [ ! -e "$file" ] && continue
+        local filename="${file##*/}"
+        local formula_name="${filename%.*.*}"
+        in_array FORMULAS "$formula_name" || FORMULAS+=("$formula_name")
+    done
+    local FORMULAS_SORTED=($(printf '%s\n' "${FORMULAS[@]}"|sort))
+    echo 'digraph norm {'
+    for formula in "${FORMULAS_SORTED[@]}"; do
+        local dependencies=$(cat "$STATEDIR/$formula".*.installed | fgrep 'Needed for ' | perl -pe 's/.*Needed for //g'|sort -u|xargs)
+        if [[ -n $dependencies ]]; then
+            for dependency in $dependencies; do
+                echo \"$dependency\" "->" \"$formula\"
+            done
+        else
+            echo \"$formula\"
+        fi
+    done
+    echo '}'
+}
+
 cmd_update() {
     pushd "$NORMDIR"
     git pull
