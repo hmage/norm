@@ -95,6 +95,10 @@ cmd_install() {
     log "You can find $@ in $PREFIX"
 }
 
+cmd_reinstall() {
+    cmd_install -f "$@"
+}
+
 cmd_sub() {
     log "Creating subshell so you can compile and link against norm libs"
     setup_prefix "$PREFIX"
