@@ -25,7 +25,9 @@ do_configure() {
     find . -name config.sub -exec install -v "$CACHEDIR/config.sub" {} \;
     find . -name config.guess -exec install -v "$CACHEDIR/config.guess" {} \;
     log "Configuring $FORMULA $@"
-    ./configure --prefix="$PREFIX" "$@" || return 1
+    local SILENT_RULES=
+    if fgrep -q disable-silent-rules configure ; then SILENT_RULES=--disable-silent-rules; fi
+    ./configure $SILENT_RULES --prefix="$PREFIX" "$@" || return 1
 }
 
 do_configure_outside() {
@@ -35,7 +37,9 @@ do_configure_outside() {
     find "$SRCDIR" -name config.sub -exec install -v "$CACHEDIR/config.sub" {} \;
     find "$SRCDIR" -name config.guess -exec install -v "$CACHEDIR/config.guess" {} \;
     log "Configuring $FORMULA $@"
-    "$SRCDIR"/configure --prefix="$PREFIX" "$@" || return 1
+    local SILENT_RULES=
+    if fgrep -q disable-silent-rules "$SRCDIR/configure" ; then SILENT_RULES=--disable-silent-rules; fi
+    "$SRCDIR"/configure $SILENT_RULES --prefix="$PREFIX" "$@" || return 1
 }
 
 do_make() {
