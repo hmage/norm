@@ -8,7 +8,6 @@ OURNAME=`basename "${BASH_SOURCE[0]}"`
 [[ $OURNAME != lib* ]] && depends_on python libncurses
 [[ $OURNAME == lib* ]] && EXTRAOPTIONS+=" --without-python --without-ncurses --disable-all-programs --enable-$OURNAME"
 [[ $OURNAME == libmount ]] && EXTRAOPTIONS+=" --enable-libblkid"
-[[ $OURNAME == libuuid ]] && depends_on libncurses
 
 fetch_source https://www.kernel.org/pub/linux/utils/util-linux/v2.28/util-linux-2.28.tar.xz 9720d4ea99f8aff018ea6732dcc5c1fc853f39b3
 
