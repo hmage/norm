@@ -3,5 +3,30 @@ depends_on liblzo
 
 fetch_source http://www.lzop.org/download/lzop-1.03.tar.gz 4ee0b49b2a6b0a13572ddca5785ee48ef4c8f80f
 
-do_unpack_compile
+do_unpack
+do_patch_inline << EOF
+--- a/src/miniacc.h
++++ b/src/miniacc.h
+@@ -1699,6 +1699,9 @@ extern "C" {
+ #  endif
+ #endif
+ #if !defined(ACC_COMPILE_TIME_ASSERT_HEADER)
++# define ACC_COMPILE_TIME_ASSERT_HEADER(e) _Static_assert(e, #e);
++#endif
++#if !defined(ACC_COMPILE_TIME_ASSERT_HEADER)
+ #  if (ACC_CC_AZTECC || ACC_CC_ZORTECHC)
+ #    define ACC_COMPILE_TIME_ASSERT_HEADER(e)  extern int __acc_cta[1-!(e)];
+ #  elif (ACC_CC_DMC || ACC_CC_SYMANTECC)
+@@ -1710,6 +1713,9 @@ extern "C" {
+ #  endif
+ #endif
+ #if !defined(ACC_COMPILE_TIME_ASSERT)
++# define ACC_COMPILE_TIME_ASSERT(e) _Static_assert(e, #e);
++#endif
++#if !defined(ACC_COMPILE_TIME_ASSERT)
+ #  if (ACC_CC_AZTECC)
+ #    define ACC_COMPILE_TIME_ASSERT(e)  {typedef int __acc_cta_t[1-!(e)];}
+ #  elif (ACC_CC_DMC || ACC_CC_PACIFICC || ACC_CC_SYMANTECC || ACC_CC_ZORTECHC)
+EOF
+do_compile
 
