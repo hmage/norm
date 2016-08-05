@@ -1,16 +1,7 @@
 #!/usr/bin/env bash
+
 set -eE
 set -o pipefail
-
-unset ABORT_ON_FAIL
-while getopts "a" opt; do
-    case $opt in
-    a)
-        ABORT_ON_FAIL=true
-        shift
-        ;;
-    esac
-done
 
 DIRNAME=`dirname "$0"`
 READLINK=`readlink "$0" || true`
@@ -23,69 +14,69 @@ NORMDIR=`cd "$NORMDIR"; pwd`
 
 ##
 ## set up variables
-
-## in $HOME:
-## norm.bootstrap.$MACHINEID <-- bootstrap prefix -- gcc and tools needed to work
-## norm.test.$MACHINEID      <-- prefix, completely deleted between formulas
-
-## in $NORMDIR:
-## testlogs/$MACHINEID.tar.gz             <-- bootstrap archive
-## testlogs/$MACHINEID/$FORMULA_ID.log.gz <-- log for each formula
-BOOTSTRAP_NAME="norm.bootstrap.$MACHINEID"
-BOOTSTRAP_ARCHIVE="$NORMDIR/testlogs/$MACHINEID.tar.gz"
-BOOTSTRAP_LOG="$NORMDIR/testlogs/$MACHINEID.log"
-BOOTSTRAP_PREFIX="$HOME/$BOOTSTRAP_NAME"
 NORMTEST_PREFIX="$HOME/norm.test.$MACHINEID"
 NORMTEST_PREFIXNAME=`basename "$NORMTEST_PREFIX"`
-NORMTEST_PREFIXDIR=`dirname "$NORMTEST_PREFIX"`
 LOGPATH="$NORMDIR/testlogs/$MACHINEID"
 
 ## create output directories
 mkdir -p "$NORMDIR/testlogs"
 mkdir -p "$LOGPATH"
 
-##
-## prepare bootstrap
-if [ ! -e "$BOOTSTRAP_ARCHIVE" ]; then ## we do not have bootstrap archive, make our own
-    ## get everything out of the way
-    rm -rf "$BOOTSTRAP_PREFIX"
+# Usage: JAILPATH=$(jailpath tools)
+jailpath() {
+    [[ -z $1 ]] && log "SHOULD NOT HAPPEN: invalid usage of jailname()!" && exit 1
+    JAILNAME="$1"
+    JAILPATH="norm.jail.$JAILNAME.$MACHINEID"
+    echo $JAILPATH
+}
 
-    BOOTSTRAP_FORMULAS=(xz ccache curl wget bzip2)
-    have_gcc 6.1 || BOOTSTRAP_FORMULAS+=(gcc)
+do_strip() {
+    strip -gp "$@" || true
+}
 
+# Usage: prepare_jail tools xz ccache curl bzip2
+prepare_jail() {
+    [[ -z $2 ]] && log "SHOULD NOT HAPPEN: invalid usage of prepare_jail()!" && exit 1
+    JAILNAME="$1"
+    JAILPATH=$(jailpath "$JAILNAME")
+    JAILFULLPATH="$HOME/$JAILPATH"
+    JAILLOG="$NORMDIR/testlogs/$JAILPATH.log"
+    JAILARCHIVE="$NORMDIR/testlogs/$JAILPATH.tar.gz"
+    shift
+    rm -rf "$JAILFULLPATH"
+    ## if have archive, extract and done
+    if [[ -e $JAILARCHIVE ]]; then
+        tar xf "$JAILARCHIVE" -C "$HOME"
+        return 0
+    fi
     ## clear the bootstrap log
-    > "$BOOTSTRAP_LOG"
+    > "$JAILLOG"
+    FORMULAS=("$@")
+    echo Will build in $JAILPATH:
+    printf " * %s\n" "${FORMULAS[@]}"
 
-    ## build the set that can compile all our formulas
-    for formula in "${BOOTSTRAP_FORMULAS[@]}"; do
-        "$NORMDIR"/norm -p "$BOOTSTRAP_PREFIX" install "$formula" 2>&1 | tee -a "$BOOTSTRAP_LOG"
-    done
+    "$NORMDIR"/norm -p "$JAILFULLPATH" install "${FORMULAS[@]}" 2>&1 | tee -a "$JAILLOG"
+    rm -vf   "$JAILFULLPATH"/bin/{aclocal*,auto*,c_rehash,*-config,idn,ifnames,libtool,libtoolize,m4,openssl}
+    do_strip "$JAILFULLPATH"/{bin,lib,lib32}/*
+    do_strip "$JAILFULLPATH"/libexec/gcc/*/*/*
 
-    ## bootstrap's bin will be in PATH, so remove stuff that will get in our way
-    rm -vf "$BOOTSTRAP_PREFIX"/bin/{attr,c_rehash,chacl,curl-config,getfacl,getfattr,idn,setfacl,setfattr}
-    rm -vf "$BOOTSTRAP_PREFIX"/bin/*pkg-config
 
-    ## compiled gcc is very big, strip out the debug symbols
-    strip -gp "$BOOTSTRAP_PREFIX"/bin/* || true
-    strip -gp "$BOOTSTRAP_PREFIX"/libexec/gcc/*/*/* || true
+    tar zcf "$JAILARCHIVE" -C "$HOME" "$JAILPATH"
+}
 
-    ## archive the bootstrap
-    tar zcf "$BOOTSTRAP_ARCHIVE" -C "$HOME" "$BOOTSTRAP_NAME"
-    ## compress bootstrap compile log
-    gzip "$BOOTSTRAP_LOG"
+## build the set that can compile all our formulas
+prepare_jail tools xz curl bzip2
+JAIL_TOOLS=$(jailpath tools)
+if ! have_gcc 6.1; then
+    prepare_jail gcc gcc ccache
+    JAIL_GCC=$(jailpath gcc)
+    addpath PATH $HOME/$JAIL_GCC/bin{,/ccache_wrap}
 fi
 
-##
-## unpack bootstrap into clean location
-rm -rf "$BOOTSTRAP_PREFIX"
-tar zxf "$BOOTSTRAP_ARCHIVE" -C "$HOME"
+addpath PATH $HOME/$JAIL_TOOLS/bin{,/ccache_wrap}
 
 ## we don't want pipefail anymore -- failures to compile are handles by ourselves from now on
 set +o pipefail
-
-## we want access to bootstrap's gcc and it's libraries (libstdc++.so, for example)
-export PATH="$BOOTSTRAP_PREFIX/bin/ccache_wrap:$BOOTSTRAP_PREFIX/bin:$PATH"
-export LD_LIBRARY_PATH="$BOOTSTRAP_PREFIX/lib${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH:-}"
 
 ## check if were given list of packages, if not, try all of them
 LIST=($@)
@@ -116,7 +107,6 @@ for FORMULA_NAME in "${LIST[@]}"; do
     # do it
     "$NORMDIR/norm" -p "$NORMTEST_PREFIX" install "$FORMULA_NAME" 2>&1 | tee "$LOGPATH/$FORMULA_ID.log"
     BUILDSTATUS="${PIPESTATUS[0]}"
-    [[ $BUILDSTATUS != 0 && -n $ABORT_ON_FAIL ]] && echo "Formula $FORMULA_NAME failed to build, aborting" && exit 1
     [ $BUILDSTATUS != 0 ] && FAILURE=1
 
     # compile success, check if ldd has any output
@@ -126,10 +116,13 @@ for FORMULA_NAME in "${LIST[@]}"; do
     # write list of packages that had been built
     "$NORMDIR/norm" -p "$NORMTEST_PREFIX" list 2>&1 | tee -a "$LOGPATH/$FORMULA_ID.log"
 
+    # write list of packages that had been built
+    "$NORMDIR/norm" -p "$NORMTEST_PREFIX" dot 2>&1 | tee -a "$LOGPATH/$FORMULA_ID.log"
+
     if [ -z "$FAILURE" ]; then
         gzip "$LOGPATH/$FORMULA_ID.log"
-    else
-        tar zcvf "$LOGPATH/$FORMULA_ID.tar.gz" -C "$NORMTEST_PREFIXDIR" "$NORMTEST_PREFIXNAME"
+    elif [ -e "$HOME/$NORMTEST_PREFIXNAME" ]; then
+        tar zcvf "$LOGPATH/$FORMULA_ID.tar.gz" -C "$HOME" "$NORMTEST_PREFIXNAME"
     fi
 done
 
