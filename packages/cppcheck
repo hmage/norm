@@ -1,0 +1,12 @@
+#!/bin/bash
+
+depends_on libpcre
+
+fetch_source http://downloads.sourceforge.net/project/cppcheck/cppcheck/1.75/cppcheck-1.75.tar.gz cade13ad8b9f817f87d3c3756c1ddbf04abe02df
+
+do_unpack
+pushd_src
+do_make HAVE_RULES=yes
+do_test HAVE_RULES=yes
+do_install PREFIX=$ESCAPED_PREFIX
+popd_src
