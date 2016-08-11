@@ -66,10 +66,7 @@ do_compile() {
     popd || return 1
 }
 
-do_compile_test() {
-    pushd_src || return 1
-    do_configure "$@" || return 1
-    do_make || return 1
+do_test() {
     if ! is_without tests; then
         set +e
         TARGET=test
@@ -77,8 +74,15 @@ do_compile_test() {
         local status=$?
         if [ $status -ne 1 ]; then TARGET=check; fi
         set -e
-        env - PATH="$PATH" make "$TARGET"
+        env - PATH="$PATH" make "$TARGET" "$@"
     fi
+}
+
+do_compile_test() {
+    pushd_src || return 1
+    do_configure "$@" || return 1
+    do_make || return 1
+    do_test || return 1
     do_install || return 1
     popd || return 1
 }
