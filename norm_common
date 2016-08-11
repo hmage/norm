@@ -9,6 +9,8 @@ NUMCPU=`getconf _NPROCESSORS_ONLN`
 [ -z "$NUMCPU" ] && NUMCPU=1
 NUMJOBS=$NUMCPU
 [[ $CC == distcc* ]] && NUMJOBS=`distcc -j`
+[[ -z $CC ]] && export CC=gcc
+[[ -z $CXX ]] && export CXX=g++
 
 ## find shasum binary
 SHASUM_BIN=shasum
