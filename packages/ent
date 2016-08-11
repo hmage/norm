@@ -1,0 +1,11 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/e/ent/ent_1.1debian.orig.tar.gz 970d81216e07ceb5c09f3d4c241058ccd4f09e94
+fetch_debian http://http.debian.net/debian/pool/main/e/ent/ent_1.1debian-4.debian.tar.xz 9679d8c78bf8d96c32c8958faed847abd251a93f
+
+do_undebian
+pushd_src
+do_make ent
+do_test
+install -D ent $PREFIX/bin/
+popd_src
