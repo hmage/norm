@@ -122,7 +122,7 @@ for FORMULA_NAME in "${LIST[@]}"; do
     if [ -z "$FAILURE" ]; then
         gzip "$LOGPATH/$FORMULA_ID.log"
     elif [ -e "$HOME/$NORMTEST_PREFIXNAME" ]; then
-        tar zcvf "$LOGPATH/$FORMULA_ID.tar.gz" -C "$HOME" "$NORMTEST_PREFIXNAME"
+        tar zcf "$LOGPATH/$FORMULA_ID.tar.gz" -C "$HOME" "$NORMTEST_PREFIXNAME"
     fi
 done
 
