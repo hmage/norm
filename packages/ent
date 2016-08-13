@@ -7,5 +7,5 @@ do_undebian
 pushd_src
 do_make ent
 do_test
-install -D ent $PREFIX/bin/
+install -D ent $PREFIX/bin/ent
 popd_src
