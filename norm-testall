@@ -67,8 +67,8 @@ prepare_jail() {
 ## build the set that can compile all our formulas
 prepare_jail tools xz curl bzip2
 JAIL_TOOLS=$(jailpath tools)
-if ! have_gcc 6.1; then
-    prepare_jail gcc gcc ccache
+if ! have_gcc 4.9; then
+    prepare_jail gcc gcc-4.9 ccache
     JAIL_GCC=$(jailpath gcc)
     addpath PATH $HOME/$JAIL_GCC/bin{,/ccache_wrap}
 fi
