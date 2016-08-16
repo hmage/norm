@@ -5,5 +5,10 @@ depends_on autoconf
 fetch_source http://http.debian.net/debian/pool/main/libt/libtool/libtool_2.4.2.orig.tar.gz 22b71a8b5ce3ad86e1094e7285981cae10e6ff88
 fetch_debian http://http.debian.net/debian/pool/main/libt/libtool/libtool_2.4.2-1.11.debian.tar.xz 8d1450b3e3ef8e62c92c8f6be51214039353ad11
 
-do_undebian_compile --enable-shared --enable-static --with-shared --with-static \
+unset EXTRALD
+cc_addflags EXTRALD -Wl,--no-gc-sections
+
+do_undebian
+LDFLAGS="$LDFLAGS $EXTRALD" \
+do_compile_test --enable-shared --enable-static --with-shared --with-static \
                     --enable-ltdl-install
