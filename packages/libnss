@@ -19,8 +19,8 @@ make -C nss all \
                                          $EXTRA_OPTIONS \
                                          USE_SYSTEM_ZLIB=1 OPTIMIZER="$CFLAGS $CPPFLAGS"
 
-cat debian/nss.pc.in     | perl -pe "s|prefix=/usr|prefix=$PREFIX|;s|/\@DEB_HOST_MULTIARCH\@||;s/\@VERSION\@/3.14.5/" > debian/nss.pc
-cat debian/nss-config.in | perl -pe "s|prefix=/usr|prefix=$PREFIX|;s|/\@DEB_HOST_MULTIARCH\@||;s/\@VERSION\@/3.14.5/;s/\@MOD_MAJOR_VERSION\@/3/;s/\@MOD_MINOR_VERSION\@/14/;s/\@MOD_PATCH_VERSION\@/5/" > debian/nss-config
+cat debian/nss.pc.in     | sed -E "s|prefix=/usr|prefix=$PREFIX|;s|/\@DEB_HOST_MULTIARCH\@||;s/\@VERSION\@/3.14.5/" > debian/nss.pc
+cat debian/nss-config.in | sed -E "s|prefix=/usr|prefix=$PREFIX|;s|/\@DEB_HOST_MULTIARCH\@||;s/\@VERSION\@/3.14.5/;s/\@MOD_MAJOR_VERSION\@/3/;s/\@MOD_MINOR_VERSION\@/14/;s/\@MOD_PATCH_VERSION\@/5/" > debian/nss-config
 
 DISTDIR=dist/Linux*_OPT.OBJ
 
