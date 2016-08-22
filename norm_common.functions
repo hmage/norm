@@ -216,9 +216,9 @@ do_debian_patches() {
     local SERIES2="$SRCDIR"/debian/patches-applied/series
     local PATCHES="$SRCDIR"/debian/patches/*.patch
     if [ -e "$SERIES" ]; then
-        PATCHES=`cat "$SERIES"|perl -pe "s/#.*$//g;s|^|$SRCDIR/debian/patches/|"`
+        PATCHES=`cat "$SERIES"|sed -E "s/#.*$//g;s|^|$SRCDIR/debian/patches/|"`
     elif [ -e "$SERIES2" ]; then
-        PATCHES=`cat "$SERIES2"|perl -pe "s/#.*$//g;s|^|$SRCDIR/debian/patches-applied/|"`
+        PATCHES=`cat "$SERIES2"|sed -E "s/#.*$//g;s|^|$SRCDIR/debian/patches-applied/|"`
     fi
     for i in $PATCHES; do
         [ -e "$i" ] || continue
