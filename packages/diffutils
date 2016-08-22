@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://ftpmirror.gnu.org/diffutils/diffutils-3.5.tar.xz 1169cce8eaaf7290dc087d65db7ed75de0dceb93
+
+do_unpack_compile
