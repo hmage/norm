@@ -5,7 +5,7 @@ depends_on freetype
 depends_on libxml
 depends_on libexpat
 
-fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.11.1.tar.bz2 08565feea5a4e6375f9d8a7435dac04e52620ff2
+fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.12.1.tar.bz2 30d832b754fb10a3b70ebac750a38a0275438ad8
 do_unpack_compile --disable-docs
 
 ln -fs ../../../share/fontconfig/conf.avail/70-no-bitmaps.conf $PREFIX/etc/fonts/conf.d/
