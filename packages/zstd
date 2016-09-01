@@ -1,0 +1,10 @@
+#!/bin/bash
+
+fetch_source https://github.com/facebook/zstd/archive/v1.0.0.tar.gz 4865e52b308fccbf8cabf704f63cadbeccb1b6d9
+
+do_unpack
+pushd_src
+do_make CFLAGS="-O3 $CPPFLAGS"
+do_install PREFIX="$ESCAPED_PREFIX"
+popd_src
+
