@@ -29,7 +29,7 @@ intree_unpack mpfr
 fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.3.tar.gz b8be66396c726fdc36ebb0f692ed8a8cca3bcc66
 intree_unpack mpc
 
-fetch_source http://ftpmirror.gnu.org/gmp/gmp-6.1.0.tar.xz 99d691607613e749aa5d7c0c2a89aeab38fec070
+fetch_source http://ftpmirror.gnu.org/gmp/gmp-6.1.1.tar.xz 4da491d63ef850a7662f41da27ad1ba99c2dbaa1
 intree_unpack gmp
 
 fetch_source http://isl.gforge.inria.fr/isl-0.17.tar.xz b30a923be188b1a8dda2b49d48fc8b5b6288f779
