@@ -18,7 +18,7 @@ depends_on msgpack
 depends_on libevent
 depends_on openssl
 
-fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.1.16/source/mariadb-10.1.16.tar.gz 725739d36e24bfa1156f92b0c5a57fcc379f4e91
+fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.1.17/source/mariadb-10.1.17.tar.gz 65d3bd1c253c3b1440dc9a628986257ffb92586f
 
 do_unpack
 pushd_src
