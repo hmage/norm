@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on libjpeg
+
+fetch_source https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.4.tar.gz 54faade809d5ca854294b902ad5ccc88c021ee40
+
+do_unpack_compile
+
