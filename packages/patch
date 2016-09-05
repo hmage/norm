@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source http://ftpmirror.gnu.org/patch/patch-2.7.5.tar.gz 04d23f6e48e95efb07d12ccf44d1f35fb210f457
+
+do_unpack_compile
+
