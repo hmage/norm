@@ -2,7 +2,7 @@
 
 depends_on yasm
 
-fetch_source http://ftp.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-20160510-2245-stable.tar.bz2 e6924dd1e1d264e4ab102bf4351e0fbccf1f013e
+fetch_source http://ftp.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-20161009-2245-stable.tar.bz2 c982e01e15fcca2f5d57544e0b4a30eeda89d3ec
 
 do_unpack_compile --enable-shared --enable-static --enable-strip --disable-lavf
 
