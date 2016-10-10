@@ -4,7 +4,7 @@ requires_gcc 4.8
 
 depends_on python
 
-fetch_source https://nodejs.org/dist/v6.5.0/node-v6.5.0.tar.xz 256aeb2bb546641900b2295986deec817a16f5b9
+fetch_source https://nodejs.org/dist/v6.7.0/node-v6.7.0.tar.xz 674568b61841f8bbfc6b7fd5f21591f8561834e2
 
 do_unpack_compile
 
