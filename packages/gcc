@@ -23,7 +23,7 @@ fi
 fetch_source http://ftpmirror.gnu.org/gcc/gcc-6.2.0/gcc-6.2.0.tar.bz2 583e29c7fe69d9a1031a89752c2551ab5aeacb91
 do_unpack
 
-fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.4.tar.xz cedc0055d55b6ee4cd17e1e6119ed412520ff81a
+fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.5.tar.xz c0fab77c6da4cb710c81cc04092fb9bea11a9403
 intree_unpack mpfr
 
 fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.3.tar.gz b8be66396c726fdc36ebb0f692ed8a8cca3bcc66
