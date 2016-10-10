@@ -4,7 +4,7 @@ depends_on libpcre
 depends_on zlib
 depends_on openssl
 
-fetch_source http://nginx.org/download/nginx-1.11.1.tar.gz 6b6172b26628b95c4ad0d6cb5b11eb4aa59c2a83
+fetch_source http://nginx.org/download/nginx-1.11.4.tar.gz c7744e5dadaae090adfabca27e18aca67ce7be9a
 
 do_unpack_compile --with-cc-opt="$CPPFLAGS" --with-ld-opt="$LDFLAGS" \
                   --with-pcre-jit \
