@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/facebook/zstd/archive/v1.0.0.tar.gz 4865e52b308fccbf8cabf704f63cadbeccb1b6d9
+fetch_source https://github.com/facebook/zstd/archive/v1.1.0.tar.gz 6c24a604cf71a961d4172cbced6b10470d1b416e
 
 do_unpack
 pushd_src
