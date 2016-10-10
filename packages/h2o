@@ -4,7 +4,7 @@ depends_on cmake
 depends_on pkg-config
 depends_on openssl
 
-fetch_source https://github.com/h2o/h2o/archive/v2.0.2.tar.gz 650a185e7d2fa9e5be48dcebc30e364973b58b7e
+fetch_source https://github.com/h2o/h2o/archive/v2.0.4.tar.gz 31137ba524ae5281061c6a91cdc756d06d86e8ce
 
 do_unpack
 pushd_src
