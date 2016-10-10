@@ -2,6 +2,6 @@
 depends_on libgcrypt
 depends_on libxml
 
-fetch_source ftp://xmlsoft.org/libxslt/libxslt-1.1.28.tar.gz 4df177de629b2653db322bfb891afa3c0d1fa221
+fetch_source http://xmlsoft.org/sources/libxslt-1.1.29.tar.gz edcaeabb3555ae44853bdc406ee9521fb65c620d
 
 do_unpack_compile
