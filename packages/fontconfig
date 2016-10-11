@@ -6,6 +6,46 @@ depends_on libxml
 depends_on libexpat
 
 fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.12.1.tar.bz2 30d832b754fb10a3b70ebac750a38a0275438ad8
-do_unpack_compile --disable-docs
+do_unpack
+do_patch_inline << EOF
+diff --git a/src/fccache.c b/src/fccache.c
+index 02ec301..7e4e600 100644
+--- a/src/fccache.c
++++ b/src/fccache.c
+@@ -640,6 +640,8 @@ FcCacheOffsetsValid (FcCache *cache)
+             FcPattern		*font = FcFontSetFont (fs, i);
+             FcPatternElt	*e;
+             FcValueListPtr	 l;
++	    ssize_t              c;
++	    char                *begin;
+ 
+             if ((char *) font < base ||
+                 (char *) font > end - sizeof (FcFontSet) ||
+@@ -653,11 +655,18 @@ FcCacheOffsetsValid (FcCache *cache)
+             if (e->values != 0 && !FcIsEncodedOffset(e->values))
+                 return FcFalse;
+ 
+-            for (j = font->num, l = FcPatternEltValues(e); j >= 0 && l; j--, l = FcValueListNext(l))
+-                if (l->next != NULL && !FcIsEncodedOffset(l->next))
+-                    break;
+-            if (j < 0)
+-                return FcFalse;
++	    for (j = 0; j < font->num; j++)
++	    {
++		begin = (char *)FcPatternEltValues(&e[j]);
++		c = (end - begin) / sizeof (FcValueList);
++		for (l = FcPatternEltValues(&e[j]); l; l = FcValueListNext(l))
++		{
++		    if ((char *) l < begin || (char *)l > end - sizeof (*l) ||
++			(l->next != NULL && !FcIsEncodedOffset(l->next)) ||
++			c-- <= 0)
++			return FcFalse;
++		}
++	    }
+         }
+     }
+ 
+EOF
+do_compile --disable-docs
 
 ln -fs ../../../share/fontconfig/conf.avail/70-no-bitmaps.conf $PREFIX/etc/fonts/conf.d/
