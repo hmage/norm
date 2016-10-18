@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://download.qt.io/official_releases/qt/5.7/5.7.0/single/qt-everywhere-opensource-src-5.7.0.tar.gz dec1bf8f97bc969291a7e6745a0a007d34e66a30
+
+do_unpack_compile -opensource -confirm-license
