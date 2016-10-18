@@ -2,7 +2,7 @@
 
 depends_on libreadline
 
-fetch_source https://www.sqlite.org/2016/sqlite-autoconf-3140200.tar.gz 5d3a6bccd9154963641960db61df901a4e0b3ca0
+fetch_source https://www.sqlite.org/2016/sqlite-autoconf-3150000.tar.gz b34cb4ee9710368598c62df0222f5c24dfc9c860
 
 CPPFLAGS="$CPPFLAGS -DSQLITE_MAX_VARIABLE_NUMBER=250000 -DSQLITE_ENABLE_COLUMN_METADATA=1 -DSQLITE_MAX_DEFAULT_PAGE_SIZE=32768" \
 NOPARALLEL=1 do_unpack_compile --enable-threadsafe
