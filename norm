@@ -132,7 +132,7 @@ cmd_list() {
     done
     local FORMULAS_SORTED=($(printf '%s\n' "${FORMULAS[@]}"|sort))
     for formula in "${FORMULAS_SORTED[@]}"; do
-        local dependencies=$(cat "$STATEDIR/$formula".*.installed | fgrep 'Needed for ' | sed -E 's/.*Needed for //g'|sort -u|xargs)
+        local dependencies=$(cat "$STATEDIR/$formula".*.installed | fgrep 'Needed for ' | sed 's/.*Needed for //g'|sort -u|xargs)
         [[ -z $dependencies ]] && echo $formula
         [[ -n $dependencies ]] && printf "%-15s - Needed for %s\n" "$formula" "$dependencies"
     done
@@ -151,7 +151,7 @@ cmd_dot() {
     local FORMULAS_SORTED=($(printf '%s\n' "${FORMULAS[@]}"|sort))
     echo 'digraph norm {'
     for formula in "${FORMULAS_SORTED[@]}"; do
-        local dependencies=$(cat "$STATEDIR/$formula".*.installed | fgrep 'Needed for ' | sed -E 's/.*Needed for //g'|sort -u|xargs)
+        local dependencies=$(cat "$STATEDIR/$formula".*.installed | fgrep 'Needed for ' | sed 's/.*Needed for //g'|sort -u|xargs)
         if [[ -n $dependencies ]]; then
             for dependency in $dependencies; do
                 echo \"$dependency\" "->" \"$formula\"
@@ -174,7 +174,7 @@ cmd_upgrade() {
     local FORMULAS=()
     for file in "$STATEDIR"/*installed; do
         [ -e "$file" ] || continue
-        local formula=`basename -- "$file" .installed | sed -E 's/\.[0-9a-f]{40}$//'`
+        local formula=`basename -- "$file" .installed | perl -pe 's/\.[0-9a-f]{40}$//'`
         ## TODO: add SHA1SUM check
         FORMULAS+=($formula)
     done
