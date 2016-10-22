@@ -1,4 +1,10 @@
 #!/bin/bash
+
 fetch_source ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz 280c265b789e041c02e5c97815793dfc283fb1e6
 
-do_unpack_compile --with-gcc-arch=$GCCARCH
+do_unpack
+pushd_src
+sed -e '/^includesdir/ s/$(libdir).*$/$(includedir)/' -i include/Makefile.in
+sed -e '/^includedir/ s/=.*$/=@includedir@/' -e 's/^Cflags: -I${includedir}/Cflags:/' -i libffi.pc.in
+do_compile --with-gcc-arch=$GCCARCH
+popd_src
