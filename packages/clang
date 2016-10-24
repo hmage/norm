@@ -2,6 +2,7 @@
 
 requires_gcc 4.7
 
+depends_on cmake  ## since llvm 3.9, cmake is the only way to build this
 depends_on python ## needs python 2.7 to compile
 if [[ ${BASH_SOURCE##*/} == libllvm ]]; then
     depends_on zlib
@@ -47,7 +48,9 @@ BUILDDIR="$SRCDIR"-build
 rm -rf "$BUILDDIR"
 mkdir -p "$BUILDDIR"
 pushd "$BUILDDIR"
-do_configure_outside $CONFIGURE_FLAGS
+cmake "$SRCDIR" -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' \
+                -DCMAKE_BUILD_TYPE=Release \
+                -DLLVM_BUILD_LLVM_DYLIB=ON
 do_make $TARGET_BUILD
 do_make $TARGET_INSTALL
 popd
