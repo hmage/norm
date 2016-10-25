@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://valgrind.org/downloads/valgrind-3.11.0.tar.bz2 340757e91d9e83591158fe8bb985c6b11bc53de5
+fetch_source http://valgrind.org/downloads/valgrind-3.12.0.tar.bz2 7a6878bf998c60d1e377a4f22ebece8d9305bda4
 
 do_unpack_compile
