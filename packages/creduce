@@ -4,4 +4,7 @@ depends_on libllvm clang
 
 fetch_source http://embed.cs.utah.edu/creduce/creduce-2.5.0.tar.gz 3b0400bf9163ff707d9a046b501b75a233f73533
 
-do_unpack_compile
+do_unpack
+do_patch creduce-2.5-llvm-3.9-p1.patch ## creduce 2.5 doesn't support LLVM 3.9 API, fix that
+do_patch creduce-2.5-llvm-3.9-p2.patch
+do_compile
