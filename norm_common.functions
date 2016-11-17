@@ -59,23 +59,21 @@ do_make_and_install() {
     do_install "$@" || return 1
 }
 
-do_compile() {
+
+do_test() {
+    if ! is_without tests; then
+        log "Doing tests for $FORMULA"
+        env - PATH="$PATH" HOME="$HOME" make check "$@" ||
+        env - PATH="$PATH" HOME="$HOME" make test "$@" ||
+        env - PATH="$PATH" HOME="$HOME" make tests "$@"
+    fi
+}
+
+do_compile_notest() {
     pushd_src || return 1
     do_configure "$@" || return 1
     do_make_and_install || return 1
     popd || return 1
-}
-
-do_test() {
-    if ! is_without tests; then
-        set +e
-        TARGET=test
-        make -q test
-        local status=$?
-        if [ $status -ne 1 ]; then TARGET=check; fi
-        set -e
-        env - PATH="$PATH" make "$TARGET" "$@"
-    fi
 }
 
 do_compile_test() {
@@ -87,8 +85,7 @@ do_compile_test() {
     popd || return 1
 }
 
-
-do_compile_outside() {
+do_compile_outside_notest() {
     local BUILDDIR="$SRCDIR"-build
 
     rm -rf "$BUILDDIR" || return 1
@@ -96,6 +93,19 @@ do_compile_outside() {
     pushd "$BUILDDIR" || return 1
     do_configure_outside "$@" || return 1
     do_make_and_install || return 1
+    popd || return 1
+}
+
+do_compile_outside_test() {
+    local BUILDDIR="$SRCDIR"-build
+
+    rm -rf "$BUILDDIR" || return 1
+    mkdir -p "$BUILDDIR" || return 1
+    pushd "$BUILDDIR" || return 1
+    do_configure_outside "$@" || return 1
+    do_make || return 1
+    do_test || return 1
+    do_install || return 1
     popd || return 1
 }
 
@@ -236,19 +246,6 @@ do_debian_patches() {
 ## usage: do_undebian_compile <-- gets filenames from fetch_source and fetch_debian
 ##
 ## alternative usage: do_undebian_compile foo-1.2.3.orig.tar.bz2 foo-1.2.3.debian.tar.gz
-do_undebian_compile() {
-    if [ -f "$CACHEDIR/$1" -a -f "$CACHEDIR/$2" ]; then
-        TARNAME="$1"
-        DEBPATCH="$2"
-        shift 2
-    fi
-    do_undebian
-    do_compile "$@"
-}
-
-##
-## same as do_undebian_compile, but run test suite before install
-##
 do_undebian_compile_test() {
     if [ -f "$CACHEDIR/$1" -a -f "$CACHEDIR/$2" ]; then
         TARNAME="$1"
@@ -260,35 +257,22 @@ do_undebian_compile_test() {
 }
 
 ##
-## unpacks source code, runs configure, make, install
+## same as do_undebian_compile, but run test suite before install
+##
+do_undebian_compile_notest() {
+    if [ -f "$CACHEDIR/$1" -a -f "$CACHEDIR/$2" ]; then
+        TARNAME="$1"
+        DEBPATCH="$2"
+        shift 2
+    fi
+    do_undebian
+    do_compile_notest "$@"
+}
+
+##
+## unpacks source code, runs do_compile_test
 ##
 ## usage: do_unpack_compile <-- gets filename from fetch_source
-##
-## alternative usage: do_unpack_compile foo-1.2.3.tar.bz2
-do_unpack_compile() {
-    if [ -f "$CACHEDIR/$1" ]; then
-        TARNAME="$1"
-        shift 1
-    fi
-    do_unpack "$TARNAME"
-    do_compile "$@"
-}
-
-##
-## same as do_unpack_compile, but build outside of source directory
-##
-do_unpack_compile_outside() {
-    if [ -f "$CACHEDIR/$1" ]; then
-        TARNAME="$1"
-        shift 1
-    fi
-    do_unpack "$TARNAME"
-    do_compile_outside "$@"
-}
-
-##
-## same as do_unpack_compile, but run test suite before install
-##
 do_unpack_compile_test() {
     if [ -f "$CACHEDIR/$1" ]; then
         TARNAME="$1"
@@ -296,6 +280,18 @@ do_unpack_compile_test() {
     fi
     do_unpack "$TARNAME"
     do_compile_test "$@"
+}
+
+##
+## same as do_unpack_compile_test, but doesn't run test suite before install
+##
+do_unpack_compile_notest() {
+    if [ -f "$CACHEDIR/$1" ]; then
+        TARNAME="$1"
+        shift 1
+    fi
+    do_unpack "$TARNAME"
+    do_compile_notest "$@"
 }
 
 ##
@@ -603,3 +599,9 @@ in_array() {
     done
     return 1
 }
+
+## oneliners that control default behaviour
+do_compile() { do_compile_notest "$@" || return 1; }
+do_compile_outside() { do_compile_outside_notest "$@" || return 1; }
+do_undebian_compile() { do_undebian_compile_notest "$@"; }
+do_unpack_compile() { do_unpack_compile_notest "$@"; }
