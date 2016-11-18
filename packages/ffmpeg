@@ -9,7 +9,6 @@ depends_on x264
 have_gcc 4.4 && depends_on x265
 depends_on libvorbis
 depends_on libxvid
-depends_on libfaac
 depends_on libtheora
 depends_on lame
 depends_on zlib
@@ -43,7 +42,6 @@ do_unpack_compile --enable-pthreads --enable-gpl --enable-version3 \
                   --enable-libxvid \
                   --enable-libtheora \
                   --enable-libvorbis \
-                  --enable-libfaac \
                   --enable-ffplay \
                   --enable-libspeex \
                   --enable-libopus \
