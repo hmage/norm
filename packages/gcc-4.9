@@ -1,7 +1,10 @@
 #!/bin/bash
 
 depends_on binutils ## system binutils might not support hash-style=both
+depends_on libmpfr
+depends_on libgmp
 depends_on zlib
+! is_without tests && depends_on autogen ## needed to run tests
 
 ## build all languages except java
 LANGUAGES=--enable-languages=c,c++,fortran,lto,objc,obj-c++
@@ -29,14 +32,8 @@ fi
 fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.4/gcc-4.9.4.tar.gz a7846bf717e3727989aa7f4d975a1364b70768df
 do_unpack
 
-fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.5.tar.xz c0fab77c6da4cb710c81cc04092fb9bea11a9403
-intree_unpack mpfr
-
 fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.2.tar.gz 5072d82ab50ec36cc8c0e320b5c377adb48abe70
 intree_unpack mpc
-
-fetch_source http://ftpmirror.gnu.org/gmp/gmp-6.0.0a.tar.xz 1aaf78358ab9e34aeb61f3ae08174ee9118ece98
-intree_unpack gmp
 
 fetch_source 'http://www.bastoul.net/cloog/pages/download/count.php3?url=./cloog-0.18.1.tar.gz' 2dc70313e8e2c6610b856d627bce9c9c3f848077
 intree_unpack cloog
@@ -73,7 +70,7 @@ do_compile_outside \
 
 ln -sf $PREFIX/bin/gcc $PREFIX/bin/cc
 
-add_caveat "GCC 4.9 was installed under separate name. Run gcc-4.9 or g++-4.9 to use it"
+add_caveat "To not clash with system-installed default gcc, GCC 4.9 was installed with a suffix, run gcc-4.9 or g++-4.9"
 
 add_caveat "Remember -- you can't use this build of gcc on any other machine" \
            "Do not move it away from $PREFIX either -- paths are hardcoded"

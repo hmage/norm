@@ -1,9 +1,12 @@
 #!/bin/bash
 
 depends_on binutils ## system binutils might not support hash-style=both
+depends_on libmpfr
+depends_on libgmp
 depends_on zlib
 depends_on flex
 depends_on gettext
+! is_without tests && depends_on autogen ## needed to run tests
 
 ## build all languages except java
 LANGUAGES=--enable-languages=c,c++,fortran,lto,objc,obj-c++
@@ -30,14 +33,8 @@ fi
 fetch_source http://ftp.gnu.org/gnu/gcc/gcc-5.3.0/gcc-5.3.0.tar.bz2 0612270b103941da08376df4d0ef4e5662a2e9eb
 do_unpack
 
-fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.5.tar.xz c0fab77c6da4cb710c81cc04092fb9bea11a9403
-intree_unpack mpfr
-
 fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.3.tar.gz b8be66396c726fdc36ebb0f692ed8a8cca3bcc66
 intree_unpack mpc
-
-fetch_source http://ftpmirror.gnu.org/gmp/gmp-6.1.0.tar.xz 99d691607613e749aa5d7c0c2a89aeab38fec070
-intree_unpack gmp
 
 fetch_source http://isl.gforge.inria.fr/isl-0.15.tar.xz b6f66c4eaf26f8ab697a3a853fe692256a027e9d
 intree_unpack isl
@@ -67,8 +64,7 @@ do_compile_outside \
 add_to_ccache g++-5.3 gcc-5.3
 ln -sf $PREFIX/bin/gcc $PREFIX/bin/cc
 
-add_caveat "GCC 5.3 is too fresh, so it has a separate name. Run gcc-5.3 or g++-5.3 to use it"
+add_caveat "To not clash with system-installed default gcc, GCC 5.3 was installed with a suffix, run gcc-5.3 or g++-5.3"
 
 add_caveat "Remember -- you can't use this build of gcc on any other machine" \
            "Do not move it away from $PREFIX either -- paths are hardcoded" \
-
