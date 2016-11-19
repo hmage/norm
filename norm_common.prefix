@@ -32,9 +32,8 @@ setup_prefix() {
     cc_addflags LDFLAGS -Wl,-rpath=$ESCAPED_PREFIX/lib -Wl,-rpath-link=$ESCAPED_PREFIX/lib -Wl,-O1 -Wl,--as-needed -Wl,--gc-sections
     is_cc_clang && cc_addflags CPPFLAGS -Qunused-arguments
 
-    ## see if we can use -march=$GCCARCH or -march=native
-    [[ -n $GCCARCH ]] && cc_addflags CPPFLAGS "-march=$GCCARCH"
-    [[ -z $GCCARCH ]] && cc_addflags CPPFLAGS "-march=native"
+    ## since we're building for this specific machine, we can do -march=native
+    cc_addflags CPPFLAGS "-march=native"
 
     ## set runtime flags
     addpath PATH "$PREFIX/bin" "$PREFIX/sbin" "$PREFIX/bin/ccache_wrap"
