@@ -1,0 +1,6 @@
+#!/bin/bash
+
+depends_on libgmp
+
+fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-3.1.5.tar.xz c0fab77c6da4cb710c81cc04092fb9bea11a9403
+do_unpack_compile
