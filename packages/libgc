@@ -1,0 +1,7 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/libg/libgc/libgc_7.2d.orig.tar.gz b43573800e27361da78f05a2e98394521cfa04fc
+fetch_debian http://http.debian.net/debian/pool/main/libg/libgc/libgc_7.2d-6.4.debian.tar.xz 515921180c767add2ef2a73db4f0b5f3ff8d57eb
+
+do_undebian_compile
+

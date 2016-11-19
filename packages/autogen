@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on autoconf automake libtool
+depends_on libguile
+
+fetch_source http://ftpmirror.gnu.org/autogen/rel5.18.12/autogen-5.18.12.tar.xz 6b88bb1e3d3e789d721d0000d2aff963eff60bab
+
+do_unpack_compile_notest # vendor test fails on minimal debian for some reason, TODO: investigate and fix
