@@ -2,4 +2,4 @@
 
 fetch_source http://ftpmirror.gnu.org/help2man/help2man-1.47.4.tar.xz 5bc859694eb7b8f7196514bf42c449b7dd6cfc27
 
-do_unpack_compile
+do_unpack_compile_notest # help2man doesn't have tests
