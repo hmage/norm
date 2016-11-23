@@ -65,7 +65,7 @@ do_test() {
         log "Doing tests for $FORMULA"
         env - PATH="$PATH" HOME="$HOME" make check "$@" ||
         env - PATH="$PATH" HOME="$HOME" make test "$@" ||
-        env - PATH="$PATH" HOME="$HOME" make tests "$@"
+        env - PATH="$PATH" HOME="$HOME" make tests "$@" || return 1
     fi
 }
 
