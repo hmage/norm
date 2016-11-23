@@ -4,5 +4,5 @@ fetch_source https://www.kernel.org/pub/linux/docs/man-pages/man-pages-4.07.tar.
 
 do_unpack
 pushd_src
-make install prefix=$PREFIX
+do_install prefix="$PREFIX"
 popd
