@@ -1,0 +1,24 @@
+#!/bin/bash
+
+mkdir -p "$PREFIX"/include/CL
+
+fetch_file https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/opencl21/opencl.h 992cc230862e57f05cddee630d8907276b44938f
+install -m644 "$CACHEDIR/$FILENAME" "$PREFIX"/include/CL/
+fetch_file https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/opencl21/cl_platform.h 70d6b3b5a35dab41e70b8deac43d1e229383e327
+install -m644 "$CACHEDIR/$FILENAME" "$PREFIX"/include/CL/
+fetch_file https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/opencl21/cl.h 9a57502aa6604da005cac3d97d99750bd73e7713
+install -m644 "$CACHEDIR/$FILENAME" "$PREFIX"/include/CL/
+fetch_file https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/opencl21/cl_ext.h c93d81026d8e97e585b71e705395131093cf4922
+install -m644 "$CACHEDIR/$FILENAME" "$PREFIX"/include/CL/
+fetch_file https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/opencl21/cl_egl.h 097e73592609bcbc7dd8d7af46c550510f04d2b6
+install -m644 "$CACHEDIR/$FILENAME" "$PREFIX"/include/CL/
+fetch_file https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/opencl21/cl_dx9_media_sharing.h 644283c4be17c99f60e0bc91f357f6e5b03a0a51
+install -m644 "$CACHEDIR/$FILENAME" "$PREFIX"/include/CL/
+fetch_file https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/opencl21/cl_d3d10.h 519ce983284eb6ffa6402d2978fa89d677dd6c66
+install -m644 "$CACHEDIR/$FILENAME" "$PREFIX"/include/CL/
+fetch_file https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/opencl21/cl_d3d11.h 7bd649ceb81bbd68b487f7e1910bc82bb5621892
+install -m644 "$CACHEDIR/$FILENAME" "$PREFIX"/include/CL/
+fetch_file https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/opencl21/cl_gl.h 7eab9b09c55c29fb3c2da60c13341230e2c631b1
+install -m644 "$CACHEDIR/$FILENAME" "$PREFIX"/include/CL/
+fetch_file https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/opencl21/cl_gl_ext.h 322570655a1581558c7a4e7d4651b538e2ff7082
+install -m644 "$CACHEDIR/$FILENAME" "$PREFIX"/include/CL/
