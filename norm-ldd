@@ -43,6 +43,7 @@ sub eachFile {
     return if /\.(a|gox)$/;
     return if /\.(xsl|xsd|rng|docbook|ent|mod|cat)$/;
     return if /\.(o|cc|test|result|sql|class|java|pl|cfg|opt)$/;
+    return if /\.(enc|exp|aug|rlib|json)$/;
 
     my $fullpath = $File::Find::name;
     return if ($fullpath =~ m"/include/");
