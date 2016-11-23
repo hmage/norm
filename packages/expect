@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on tcl
+
+fetch_source http://http.debian.net/debian/pool/main/e/expect/expect_5.45.orig.tar.gz e634992cab35b7c6931e1f21fbb8f74d464bd496
+fetch_debian http://http.debian.net/debian/pool/main/e/expect/expect_5.45-6.debian.tar.xz 872a1d8ed54ba43cf5eee6f274d137cfe9e7876d
+
+do_undebian_compile
