@@ -32,7 +32,13 @@ do_configure() {
 
 do_cmake() {
     log "Configuring $FORMULA $@"
-    cmake "$SRCDIR" -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS" -DCMAKE_CXX_FLAGS="-g -O2 $CPPFLAGS" -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" "$@"
+    cmake "$SRCDIR" -DCMAKE_INSTALL_PREFIX=$ESCAPED_PREFIX \
+                    -DCMAKE_BUILD_TYPE=Release \
+                    -DCMAKE_INCLUDE_PATH=$ESCAPED_PREFIX/include \
+                    -DCMAKE_LIBRARY_PATH=$ESCAPED_PREFIX/lib \
+                    -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS" \
+                    -DCMAKE_CXX_FLAGS="-g -O2 $CPPFLAGS" \
+                    -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" "$@"
 }
 
 do_auto_configure() {
