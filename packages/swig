@@ -7,4 +7,4 @@ depends_on zlib
 fetch_source http://http.debian.net/debian/pool/main/s/swig2.0/swig2.0_2.0.12.orig.tar.gz 4203c68f79012a2951f542018ff4358d838b5035
 fetch_debian http://http.debian.net/debian/pool/main/s/swig2.0/swig2.0_2.0.12-1.debian.tar.xz d82b439e48c000989ea08fe00040881483634c17
 
-do_undebian_compile
+do_undebian_compile_notest ## swig's C++ tests require boost/shared_ptr.hpp
