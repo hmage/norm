@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on libevdev
+
+fetch_source http://http.debian.net/debian/pool/main/libi/libinput/libinput_0.6.0+dfsg.orig.tar.xz eb51a66f39eb70509ee9ce848d141e66d84ee0e4
+fetch_debian http://http.debian.net/debian/pool/main/libi/libinput/libinput_0.6.0+dfsg-2.debian.tar.xz 2e552bec24438fc30d0f2d4b2a12dc5c2705a67b
+
+do_undebian_compile
