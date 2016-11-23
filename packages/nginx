@@ -6,7 +6,8 @@ depends_on openssl
 
 fetch_source http://nginx.org/download/nginx-1.11.5.tar.gz 3658724f3c6d049cd1d24f02f1acb7f9be250886
 
-do_unpack_compile --with-cc-opt="$CPPFLAGS" --with-ld-opt="$LDFLAGS" \
+## nginx has no tests?
+do_unpack_compile_notest --with-cc-opt="$CPPFLAGS" --with-ld-opt="$LDFLAGS" \
                   --with-pcre-jit \
                   --with-ipv6 \
                   --with-http_ssl_module \
