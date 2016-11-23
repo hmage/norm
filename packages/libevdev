@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://www.freedesktop.org/software/libevdev/libevdev-1.5.4.tar.xz 9bba13e9712b545f418fbe3344e807fb16b810de
+
+do_unpack_compile
