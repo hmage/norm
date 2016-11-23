@@ -8,4 +8,4 @@ EXTRA_OPTIONS=
 
 do_undebian
 SRCDIR=$SRCDIR/nspr
-do_compile --enable-pthreads --enable-ipv6 --enable-optimize --disable-debug $EXTRA_OPTIONS
+do_compile_notest --enable-pthreads --enable-ipv6 --enable-optimize --disable-debug $EXTRA_OPTIONS ## does not have tests
