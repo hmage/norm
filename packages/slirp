@@ -6,4 +6,4 @@ fetch_debian http://http.debian.net/debian/pool/main/s/slirp/slirp_1.0.17-7.debi
 do_undebian
 mkdir -p $PREFIX/share/man/man1
 SRCDIR="$SRCDIR"/src
-CFLAGS="$CFLAGS -DFULL_BOLT -fno-strict-aliasing" do_compile
+CFLAGS="$CFLAGS -DFULL_BOLT -fno-strict-aliasing" do_compile_notest ## has no tests
