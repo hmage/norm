@@ -1,18 +1,7 @@
 #!/bin/bash
 
 depends_on zlib
-depends_on autoconf
-depends_on libattr libacl
-depends_on libpopt
 
-fetch_source http://http.debian.net/debian/pool/main/r/rsync/rsync_3.1.1.orig.tar.gz c84faba04f721d393feccfa0476bfeed9b5b5250
-fetch_debian http://http.debian.net/debian/pool/main/r/rsync/rsync_3.1.1-3.debian.tar.xz d762d84817fa06ed43d6dc15b64be8a9235b54b5
+fetch_source https://download.samba.org/pub/rsync/src/rsync-3.1.2.tar.gz 0d4c7fb7fe3fc80eeff922a7c1d81df11dbb8a1a
 
-do_undebian
-do_patch rsync-reflink.patch
-do_autoreconf
-pushd_src
-do_configure --without-included-zlib
-make reconfigure
-do_make_and_install
-popd_src
+do_unpack_compile --without-included-zlib
