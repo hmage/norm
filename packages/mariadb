@@ -24,6 +24,6 @@ do_unpack
 pushd_src
 cmake . -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DBUILD_CONFIG=mysql_release -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" -DCMAKE_CXX_FLAGS="-g -O2 $CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" -DCURSES_INCLUDE_PATH="$ESCAPED_PREFIX/include/ncurses" -DWITH_SSL=system -DWITH_ZLIB=system -DWITH_LIBEVENT=system -DWITH_JEMALLOC=system -DWITH_PCRE=system
 do_make
-! is_without tests && env - PATH="$PATH" make test
+do_test
 do_install
 popd
