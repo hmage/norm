@@ -399,7 +399,7 @@ fetch_file() {
     [ -z "$1" ] && log "fetch_file() needs at least 1 argument" && return 1
     local URL="$1"
     local SHA1="$2"
-    FILENAME="${FORMULA}"_`basename -- "$URL"`
+    FILENAME=`basename -- "$URL"`
     [ -n "$3" ] && FILENAME="$3"
     local FILEPATH="$CACHEDIR/$FILENAME"
     mkdir -p "$CACHEDIR"
@@ -421,8 +421,11 @@ fetch_file() {
 ## sets TARNAME
 fetch_source() {
     local URL="$1"
+    local CHECKSUM="$2"
+    local NEWNAME="$3"
     TARNAME="${FORMULA}"_`basename -- "$URL"`
-    fetch_file "$@"
+    [ -z "$NEWNAME" ] && NEWNAME="$TARNAME"
+    fetch_file "$URL" "$CHECKSUM" "$NEWNAME"
 }
 
 ##
@@ -430,8 +433,11 @@ fetch_source() {
 ## sets DEBPATCH
 fetch_debian() {
     local URL="$1"
+    local CHECKSUM="$2"
+    local NEWNAME="$3"
     DEBPATCH="${FORMULA}_"`basename -- "$URL"`
-    fetch_file "$@"
+    [ -z "$NEWNAME" ] && NEWNAME="$DEBPATCH"
+    fetch_file "$URL" "$CHECKSUM" "$NEWNAME"
 }
 
 ##
