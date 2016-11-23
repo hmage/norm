@@ -11,4 +11,4 @@ rm -f "$PREFIX"/share/man/man3/pcre16_*
 
 do_undebian
 do_autoreconf
-do_compile --enable-utf8 --enable-unicode-properties --disable-cpp
+do_compile --enable-utf8 --enable-unicode-properties --enable-jit --enable-pcre16 --enable-pcre32
