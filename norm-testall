@@ -71,6 +71,8 @@ if ! have_gcc 4.9; then
     prepare_jail gcc gcc-4.9 ccache
     JAIL_GCC=$(jailpath gcc)
     addpath PATH $HOME/$JAIL_GCC/bin{,/ccache_wrap}
+    export CC=gcc-4.9
+    export CXX=g++-4.9
 fi
 
 addpath PATH $HOME/$JAIL_TOOLS/bin{,/ccache_wrap}
