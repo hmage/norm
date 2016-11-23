@@ -14,7 +14,7 @@ do_undebian
 pushd_src
 mkdir -p build
 cd build
-do_configure_outside $CONFFLAGS
+do_configure $CONFFLAGS
 do_make
 do_install
 make install-libs

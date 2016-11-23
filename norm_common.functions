@@ -22,18 +22,6 @@ do_configure() {
     fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=1e80063123b47b97d25dfeded8dd92a19dafab66' f88f556ad963c766262fbf6120dacdcb8ffdf5ea config.guess
     fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=1e80063123b47b97d25dfeded8dd92a19dafab66' 2934b873fe10c796db0e66a3cdfe57baf2372654 config.sub
     # replace config.sub and config.guess with newer ones
-    find . -name config.sub -exec install -v "$CACHEDIR/config.sub" {} \;
-    find . -name config.guess -exec install -v "$CACHEDIR/config.guess" {} \;
-    log "Configuring $FORMULA $@"
-    local SILENT_RULES=
-    if fgrep -q disable-silent-rules configure ; then SILENT_RULES=--disable-silent-rules; fi
-    ./configure $SILENT_RULES --prefix="$PREFIX" "$@" || return 1
-}
-
-do_configure_outside() {
-    fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=1e80063123b47b97d25dfeded8dd92a19dafab66' f88f556ad963c766262fbf6120dacdcb8ffdf5ea config.guess
-    fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=1e80063123b47b97d25dfeded8dd92a19dafab66' 2934b873fe10c796db0e66a3cdfe57baf2372654 config.sub
-    # replace config.sub and config.guess with newer ones
     find "$SRCDIR" -name config.sub -exec install -v "$CACHEDIR/config.sub" {} \;
     find "$SRCDIR" -name config.guess -exec install -v "$CACHEDIR/config.guess" {} \;
     log "Configuring $FORMULA $@"
@@ -91,7 +79,7 @@ do_compile_outside_notest() {
     rm -rf "$BUILDDIR" || return 1
     mkdir -p "$BUILDDIR" || return 1
     pushd "$BUILDDIR" || return 1
-    do_configure_outside "$@" || return 1
+    do_configure "$@" || return 1
     do_make_and_install || return 1
     popd || return 1
 }
@@ -102,7 +90,7 @@ do_compile_outside_test() {
     rm -rf "$BUILDDIR" || return 1
     mkdir -p "$BUILDDIR" || return 1
     pushd "$BUILDDIR" || return 1
-    do_configure_outside "$@" || return 1
+    do_configure "$@" || return 1
     do_make || return 1
     do_test || return 1
     do_install || return 1
