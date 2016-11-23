@@ -6,6 +6,6 @@ fetch_debian http://http.debian.net/debian/pool/main/l/lz4/lz4_0.0~r122-2.debian
 do_undebian
 pushd_src
 do_make
-! is_without tests && env - PATH="$PATH" make test -C examples
+do_test -C examples
 do_install PREFIX="$PREFIX"
 popd_src
