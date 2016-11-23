@@ -1,0 +1,11 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/t/tcl8.6/tcl8.6_8.6.2+dfsg.orig.tar.gz edce0e90c157b04466f1cb61b53bba7c0f304eff
+fetch_debian http://http.debian.net/debian/pool/main/t/tcl8.6/tcl8.6_8.6.2+dfsg-2.debian.tar.xz a94ea6a27e8973417626713fac785f7d2b36107a
+
+do_undebian
+SRCDIR="$SRCDIR/unix"
+pushd_src
+do_compile --enable-shared --enable-threads --enable-dll-unloading --enable-man-symlinks --without-tzdata
+do_make install-private-headers
+popd_src
