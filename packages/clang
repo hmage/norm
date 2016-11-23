@@ -4,44 +4,22 @@ requires_gcc 4.7
 
 depends_on cmake  ## since llvm 3.9, cmake is the only way to build this
 depends_on python ## needs python 2.7 to compile
-if [[ ${BASH_SOURCE##*/} == libllvm ]]; then
-    depends_on zlib
-    depends_on libncurses
-else
-    depends_on groff  ## for installing manpages
-    depends_on libxml ## c-index-test has dynamic dependency on it
-
-    ENABLE_SANITIZER=yes
-    if ! test_cc_value "linux/perf_event.h" "PERF_TYPE_HARDWARE"; then
-        ENABLE_SANITIZER=no
-        add_caveat "Your headers are missing <linux/perf_event.h>, sanitizer support was disabled."
-    fi
-
-    if ! test_cc_value "linux/mroute6.h" "MRT6_BASE"; then
-        ENABLE_SANITIZER=no
-        add_caveat "Your headers are missing <linux/mroute6.h>, sanitizer support was disabled."
-    fi
-fi
+depends_on zlib
 
 CONFIGURE_FLAGS="--enable-optimized --disable-assertions --disable-libedit"
 
 fetch_source http://llvm.org/releases/3.9.0/llvm-3.9.0.src.tar.xz da792f11a208d5b994c4fe1c8faa20f90ff0e4a3
 do_unpack
 
-if [[ ${BASH_SOURCE##*/} == libllvm ]]; then
-    TARGET_BUILD=all
-    TARGET_INSTALL=install
-    CONFIGURE_FLAGS+=" --enable-shared --disable-bindings"
-else
+if [[ ${BASH_SOURCE##*/} == clang ]]; then
     fetch_source http://llvm.org/releases/3.9.0/cfe-3.9.0.src.tar.xz 00d49ee82451130a8e1e7b1d56cffa37b783bcb2
     intree_unpack tools/clang
 
-    if [[ $ENABLE_SANITIZER == yes ]]; then
-        fetch_source http://llvm.org/releases/3.9.0/compiler-rt-3.9.0.src.tar.xz a306d576e84b7ee048ebb0ae5ca72e6ec9e1c549
-        intree_unpack projects/compiler-rt
-    fi
-    TARGET_BUILD=all
-    TARGET_INSTALL=install
+    fetch_source http://llvm.org/releases/3.9.0/compiler-rt-3.9.0.src.tar.xz a306d576e84b7ee048ebb0ae5ca72e6ec9e1c549
+    intree_unpack projects/compiler-rt
+
+    fetch_source http://llvm.org/releases/3.9.0/clang-tools-extra-3.9.0.src.tar.xz 396ad1af7a8d3cff015a644e595f35553a7548c4
+    intree_unpack tools/clang/tools/extra
 fi
 
 BUILDDIR="$SRCDIR"-build
@@ -50,7 +28,10 @@ mkdir -p "$BUILDDIR"
 pushd "$BUILDDIR"
 cmake "$SRCDIR" -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' \
                 -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS" \
+                -DCMAKE_CXX_FLAGS="-g -O2 $CPPFLAGS" \
+                -DLLVM_OPTIMIZED_TABLEGEN=ON \
                 -DLLVM_BUILD_LLVM_DYLIB=ON
-do_make $TARGET_BUILD
-do_make $TARGET_INSTALL
+do_make all
+do_install
 popd
