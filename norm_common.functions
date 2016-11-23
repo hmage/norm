@@ -30,6 +30,22 @@ do_configure() {
     "$SRCDIR"/configure $SILENT_RULES --prefix="$PREFIX" "$@" || return 1
 }
 
+do_cmake() {
+    log "Configuring $FORMULA $@"
+    cmake "$SRCDIR" -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS" -DCMAKE_CXX_FLAGS="-g -O2 $CPPFLAGS" -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" "$@"
+}
+
+do_auto_configure() {
+    if [ -e "$SRCDIR"/configure ]; then
+        do_configure "$@" || return 1
+    elif [ -e "$SRCDIR"/CMakeLists.txt ]; then
+        do_cmake "$@" || return 1
+    else
+        log "Couldn't figure out how to configure formula '$FORMULA', bailing out"
+        return 1
+    fi
+}
+
 do_make() {
     log "Making $FORMULA $@"
     local PARALLEL="-j$NUMJOBS"
@@ -59,14 +75,14 @@ do_test() {
 
 do_compile_notest() {
     pushd_src || return 1
-    do_configure "$@" || return 1
+    do_auto_configure "$@" || return 1
     do_make_and_install || return 1
     popd || return 1
 }
 
 do_compile_test() {
     pushd_src || return 1
-    do_configure "$@" || return 1
+    do_auto_configure "$@" || return 1
     do_make || return 1
     do_test || return 1
     do_install || return 1
@@ -79,7 +95,7 @@ do_compile_outside_notest() {
     rm -rf "$BUILDDIR" || return 1
     mkdir -p "$BUILDDIR" || return 1
     pushd "$BUILDDIR" || return 1
-    do_configure "$@" || return 1
+    do_auto_configure "$@" || return 1
     do_make_and_install || return 1
     popd || return 1
 }
@@ -90,7 +106,7 @@ do_compile_outside_test() {
     rm -rf "$BUILDDIR" || return 1
     mkdir -p "$BUILDDIR" || return 1
     pushd "$BUILDDIR" || return 1
-    do_configure "$@" || return 1
+    do_auto_configure "$@" || return 1
     do_make || return 1
     do_test || return 1
     do_install || return 1

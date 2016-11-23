@@ -22,16 +22,4 @@ if [[ ${BASH_SOURCE##*/} == clang ]]; then
     intree_unpack tools/clang/tools/extra
 fi
 
-BUILDDIR="$SRCDIR"-build
-rm -rf "$BUILDDIR"
-mkdir -p "$BUILDDIR"
-pushd "$BUILDDIR"
-cmake "$SRCDIR" -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' \
-                -DCMAKE_BUILD_TYPE=Release \
-                -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS" \
-                -DCMAKE_CXX_FLAGS="-g -O2 $CPPFLAGS" \
-                -DLLVM_OPTIMIZED_TABLEGEN=ON \
-                -DLLVM_BUILD_LLVM_DYLIB=ON
-do_make all
-do_install
-popd
+do_compile_outside -DLLVM_OPTIMIZED_TABLEGEN=ON -DLLVM_BUILD_LLVM_DYLIB=ON

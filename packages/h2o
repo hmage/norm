@@ -6,9 +6,4 @@ depends_on openssl
 
 fetch_source https://github.com/h2o/h2o/archive/v2.0.4.tar.gz 31137ba524ae5281061c6a91cdc756d06d86e8ce
 
-do_unpack
-pushd_src
-cmake . -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS" -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS"
-do_make
-do_install
-popd
+do_unpack_compile_notest ## TODO: h2o tests require perl and libtest-tcp-perl to be installed, quite heavy dependency

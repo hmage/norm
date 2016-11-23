@@ -5,10 +5,4 @@ depends_on libncurses
 
 fetch_source http://cdn.mysql.com/Downloads/MySQL-5.7/mysql-boost-5.7.16.tar.gz 42d15b07bed4d364a9eff294b0a198d2b9f71fe3
 
-do_unpack
-pushd_src
-cmake . -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON -DWITH_BOOST=boost -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS" -DCMAKE_CXX_FLAGS="-g -O2 $CPPFLAGS" -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" -DCURSES_INCLUDE_PATH="$ESCAPED_PREFIX/include/ncurses" -DENABLE_DOWNLOADS=1
-do_make
-do_test
-do_install
-popd
+do_unpack_compile -DWITH_BOOST=boost -DCURSES_INCLUDE_PATH="$ESCAPED_PREFIX/include/ncurses" -DENABLE_DOWNLOADS=1

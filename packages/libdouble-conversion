@@ -4,10 +4,4 @@ depends_on cmake
 
 fetch_source https://github.com/google/double-conversion/archive/v2.0.1.tar.gz a590b4e9e1509bcf48da79a9c0571cfe218920f4
 
-do_unpack
-pushd_src
-cmake . -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS" -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" -DBUILD_SHARED_LIBS=ON
-do_make
-do_test
-do_install
-popd_src
+do_unpack_compile -DBUILD_SHARED_LIBS=ON

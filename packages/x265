@@ -8,10 +8,4 @@ depends_on libnuma
 
 fetch_source https://bitbucket.org/multicoreware/x265/downloads/x265_2.1.tar.gz 37ed92b83dbe9e1420e1c226d35caeea16d4b0e4
 
-do_unpack
-pushd_src
-cmake source -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON
-do_make
-do_install
-popd
-
+do_unpack_compile

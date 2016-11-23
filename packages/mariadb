@@ -20,10 +20,4 @@ depends_on openssl
 
 fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.1.18/source/mariadb-10.1.18.tar.gz 345a108fd92474abc760ca803c121f76c8abef3c
 
-do_unpack
-pushd_src
-cmake . -DCMAKE_INSTALL_PREFIX=\'"$PREFIX"\' -DBUILD_CONFIG=mysql_release -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" -DCMAKE_CXX_FLAGS="-g -O2 $CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" -DCURSES_INCLUDE_PATH="$ESCAPED_PREFIX/include/ncurses" -DWITH_SSL=system -DWITH_ZLIB=system -DWITH_LIBEVENT=system -DWITH_JEMALLOC=system -DWITH_PCRE=system
-do_make
-do_test
-do_install
-popd
+do_unpack_compile -DBUILD_CONFIG=mysql_release -DCURSES_INCLUDE_PATH="$ESCAPED_PREFIX/include/ncurses" -DWITH_SSL=system -DWITH_ZLIB=system -DWITH_LIBEVENT=system -DWITH_JEMALLOC=system -DWITH_PCRE=system
