@@ -4,5 +4,6 @@ depends_on yasm
 
 fetch_source http://ftp.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-20161009-2245-stable.tar.bz2 c982e01e15fcca2f5d57544e0b4a30eeda89d3ec
 
-do_unpack_compile --enable-shared --enable-static --enable-strip --disable-lavf
+# x264 has no tests in makefile
+do_unpack_compile_notest --enable-shared --enable-static --enable-strip --disable-lavf
 
