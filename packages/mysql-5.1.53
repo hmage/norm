@@ -32,6 +32,6 @@ EOF
 pushd_src
 do_configure --with-extra-charsets=all
 do_make
-! is_without tests && env - PATH="$PATH" make test
+do_test
 do_install
 popd
