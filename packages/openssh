@@ -9,7 +9,8 @@ fetch_source http://mirrors.evowise.com/pub/OpenBSD/OpenSSH/portable/openssh-7.3
 rm -f $PREFIX/share/man/man5/authorized_keys.5
 
 do_unpack
-do_compile --with-privsep-path=$PREFIX/var/empty --without-kerberos5 --sysconfdir=$PREFIX/etc/ssh \
+# tests require root
+do_compile_notest --with-privsep-path=$PREFIX/var/empty --without-kerberos5 --sysconfdir=$PREFIX/etc/ssh \
            --with-pid-dir=$PREFIX/var/run  --with-mantype=doc --with-ssl-engine
 
 ## we disabled kerberos5, so remove the config values as well
