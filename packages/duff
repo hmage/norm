@@ -3,6 +3,5 @@
 fetch_source http://ftp.de.debian.org/debian/pool/main/d/duff/duff_0.5.2.orig.tar.bz2 5e2f3b785bf57d38cda0b124f18ddeecbc90bfa6
 fetch_debian http://ftp.de.debian.org/debian/pool/main/d/duff/duff_0.5.2-1.debian.tar.gz 44548b5b8b1450c91420397a83e5d8ed3f9b62e1
 
-do_undebian
-do_compile
+do_undebian_compile
 
