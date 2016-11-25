@@ -1,15 +1,11 @@
 #!/bin/bash
 
-depends_on automake
 depends_on xz
 depends_on libjpeg
 depends_on zlib
 depends_on libjbig
 
-fetch_source http://http.debian.net/debian/pool/main/t/tiff/tiff_4.0.3.orig.tar.gz 652e97b78f1444237a82cbcfe014310e776eb6f0
-fetch_debian http://http.debian.net/debian/pool/main/t/tiff/tiff_4.0.3-12.3+deb8u1.debian.tar.xz 16b525b3b71102ba1992427c85ffea6d5fa7044a
+fetch_source http://download.osgeo.org/libtiff/tiff-4.0.7.tar.gz 2c1b64478e88f93522a42dd5271214a0e5eae648
 
-do_undebian
-do_autoreconf
-do_compile --without-x
+do_unpack_compile --without-x
 
