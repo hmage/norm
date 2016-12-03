@@ -4,6 +4,7 @@ depends_on libidn libncurses
 depends_on curl
 depends_on zlib
 depends_on bzip2
+! is_without tests && depends_on file ## tests will not work without 'file' command
 
 fetch_source http://www.cmake.org/files/v3.7/cmake-3.7.0.tar.gz 53e2437a2644fc02eff34dc4904739e2e26e0556
 
