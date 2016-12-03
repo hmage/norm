@@ -68,12 +68,16 @@ EOF
 PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
 do_configure $CONFIGURE_OPTIONS
 NOPARALLEL=1 \
-do_make_and_install
+do_make
+do_test
+do_install
 PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
 ## build wide version of ncurses
 do_configure $CONFIGURE_OPTIONS --enable-widec
 NOPARALLEL=1 \
-do_make_and_install
+do_make
+do_test
+do_install
 popd_src
 
 # link tinfo when linking ncurses
