@@ -12,5 +12,6 @@ fetch_debian http://http.debian.net/debian/pool/main/b/btrfs-tools/btrfs-tools_3
 do_undebian
 pushd_src
 do_make all btrfs-select-super btrfs-calc-size BUILD_VERBOSE=1 DISABLE_DOCUMENTATION=1 CFLAGS="-g -O2 $CPPFLAGS"
+do_test
 do_install prefix="$ESCAPED_PREFIX" BUILD_VERBOSE=1 DISABLE_DOCUMENTATION=1
 popd_src
