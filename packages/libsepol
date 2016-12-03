@@ -7,4 +7,5 @@ do_undebian
 pushd_src
 sed -i 's|ln -sf ../../`basename $(SHLIBDIR)`/$(LIBSO)|ln -sf $(LIBSO)|' src/Makefile
 make install PREFIX="$PREFIX" SHLIBDIR="$PREFIX/lib" MAN8DIR=$PREFIX/share/man/man8 MAN3DIR=$PREFIX/share/man/man3
+do_test
 popd
