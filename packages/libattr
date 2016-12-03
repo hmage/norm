@@ -5,6 +5,7 @@ do_unpack
 pushd_src
 do_configure --enable-gettext=no
 do_make
+do_test
 do_install
 make install-dev
 make install-lib
