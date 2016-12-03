@@ -16,6 +16,7 @@ mkdir -p build
 cd build
 do_configure $CONFFLAGS
 do_make
+do_test
 do_install
 make install-libs
 popd
