@@ -59,5 +59,6 @@ index 2e7a412..fa5769f 100644
  
 EOF
 do_make linux CPPFLAGS="$CPPFLAGS -fPIC -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" MYLDFLAGS="$LDFLAGS"
+do_test
 do_make install INSTALL_TOP="$PREFIX" TO_LIB="liblua.a liblua.so liblua.so.$pkgvershort liblua.so.$pkgver"
 popd_src
