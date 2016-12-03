@@ -42,10 +42,10 @@ do_cmake() {
 }
 
 do_auto_configure() {
-    if [ -e "$SRCDIR"/CMakeLists.txt ] && hash cmake 2>/dev/null; then
-        do_cmake "$@" || return 1
-    elif [ -e "$SRCDIR"/configure ]; then
+    if [ -e "$SRCDIR"/configure ]; then
         do_configure "$@" || return 1
+    elif [ -e "$SRCDIR"/CMakeLists.txt ] && hash cmake 2>/dev/null; then
+        do_cmake "$@" || return 1
     else
         log "Couldn't figure out how to configure formula '$FORMULA', bailing out"
         return 1
