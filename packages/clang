@@ -10,7 +10,7 @@ CONFIGURE_FLAGS="--enable-optimized --disable-assertions --disable-libedit"
 
 fetch_source http://llvm.org/releases/3.9.0/llvm-3.9.0.src.tar.xz da792f11a208d5b994c4fe1c8faa20f90ff0e4a3
 do_unpack
-
+rm -f "$SRCDIR"/configure
 if [[ ${BASH_SOURCE##*/} == clang ]]; then
     fetch_source http://llvm.org/releases/3.9.0/cfe-3.9.0.src.tar.xz 00d49ee82451130a8e1e7b1d56cffa37b783bcb2
     intree_unpack tools/clang
@@ -22,4 +22,5 @@ if [[ ${BASH_SOURCE##*/} == clang ]]; then
     intree_unpack tools/clang/tools/extra
 fi
 
+NOPARALLEL=1 \
 do_compile_outside -DLLVM_OPTIMIZED_TABLEGEN=ON -DLLVM_BUILD_LLVM_DYLIB=ON
