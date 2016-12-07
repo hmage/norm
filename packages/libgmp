@@ -4,5 +4,4 @@ depends_on m4
 
 fetch_source https://gmplib.org/download/gmp/gmp-6.1.1.tar.xz 4da491d63ef850a7662f41da27ad1ba99c2dbaa1
 
-do_unpack
-do_compile_test
+do_unpack_compile
