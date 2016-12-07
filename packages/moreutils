@@ -9,6 +9,7 @@ fetch_source http://http.debian.net/debian/pool/main/m/moreutils/moreutils_0.59.
 do_unpack
 pushd_src
 do_make DOCBOOKXSL="$PREFIX"/share/docbook-xsl
+do_test
 do_install PREFIX="$PREFIX"
 popd_src
 
