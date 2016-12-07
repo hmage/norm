@@ -8,6 +8,7 @@ fetch_debian http://http.debian.net/debian/pool/main/p/pigz/pigz_2.3.1-2.debian.
 do_undebian
 pushd_src
 do_make
+do_test
 mkdir -p "$PREFIX/bin"
 cp -fl pigz "$PREFIX/bin/pigz"
 cp -fl pigz "$PREFIX/bin/unpigz"
