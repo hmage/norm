@@ -14,4 +14,4 @@ install -m 755 shared/libwrap* $PREFIX/lib/
 cp -fd shared/libwrap.so.0 $PREFIX/lib/
 install -m 644 libwrap.a $PREFIX/lib/
 ## don't install the executables because this formula provides only libwrap
-popd
+popd_src
