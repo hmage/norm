@@ -10,5 +10,6 @@ do_undebian
 pushd_src
 perl Makefile.PL INSTALL_BASE=$PREFIX
 do_make
+do_test
 do_install
 popd_src
