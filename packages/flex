@@ -1,7 +1,7 @@
 #!/bin/bash
 
-depends_on m4
 depends_on bison
+depends_on help2man
 
 fetch_source https://github.com/westes/flex/releases/download/v2.6.2/flex-2.6.2.tar.gz 9eab5eddb6efb34d420b3162fd619a01940b9438
 
