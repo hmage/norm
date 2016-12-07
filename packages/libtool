@@ -10,5 +10,5 @@ cc_addflags EXTRALD -Wl,--no-gc-sections
 
 do_undebian
 LDFLAGS="$LDFLAGS $EXTRALD" \
-do_compile_test --enable-shared --enable-static --with-shared --with-static \
+do_compile --enable-shared --enable-static --with-shared --with-static \
                     --enable-ltdl-install
