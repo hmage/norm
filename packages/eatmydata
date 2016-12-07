@@ -2,8 +2,9 @@
 
 depends_on automake libtool
 
-fetch_source https://launchpad.net/libeatmydata/trunk/release-105/+download/libeatmydata-105.tar.gz ae0308d9bf06a5008a468128e28a6cefc08647a8
+fetch_source http://http.debian.net/debian/pool/main/libe/libeatmydata/libeatmydata_105.orig.tar.gz ae0308d9bf06a5008a468128e28a6cefc08647a8
+fetch_debian http://http.debian.net/debian/pool/main/libe/libeatmydata/libeatmydata_105-5.debian.tar.xz 6c443bff68e02761f4580d4deba0c597311f6c04
 
-do_unpack
+do_undebian
 do_autoreconf
 do_compile
