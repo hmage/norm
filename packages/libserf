@@ -11,5 +11,6 @@ fetch_debian http://http.debian.net/debian/pool/main/s/serf/serf_1.3.8-1.diff.gz
 do_undebian
 pushd_src
 scons APR="$PREFIX" APU="$PREFIX" OPENSSL="$PREFIX" PREFIX="$PREFIX" CFLAGS="-O2 -g $CPPFLAGS" LINKFLAGS="$LDFLAGS"
+scons test
 scons install
 popd_src
