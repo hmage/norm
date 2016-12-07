@@ -3,4 +3,4 @@
 fetch_source http://http.debian.net/debian/pool/main/libe/libevent/libevent_2.0.21-stable.orig.tar.gz 3e6674772eb77de24908c6267c698146420ab699
 fetch_debian http://http.debian.net/debian/pool/main/libe/libevent/libevent_2.0.21-stable-2.debian.tar.xz 4be8e5b3968240d240e592e577f59da7d59afca4
 
-do_undebian_compile_test
+do_undebian_compile
