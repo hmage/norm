@@ -6,6 +6,7 @@ pushd_src
 sed -i "s|/usr/|$PREFIX/|" Makefile # no way provided to set a prefix -> patch makefile
 sed -i 's|install -o root -g root|install|' Makefile # unnecessarily assumption that it's done only by root
 do_make
+do_test
 do_install
 popd
 
