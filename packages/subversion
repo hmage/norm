@@ -14,6 +14,7 @@ do_unpack
 pushd_src
 do_configure --disable-debug --disable-mod-activation --disable-nls --without-apache-libexecdir --with-apxs=no
 do_make
+do_test
 do_install
 do_make tools
 do_make install-tools
