@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on pkg-config
 depends_on libpng
 
 fetch_source https://github.com/FLIF-hub/FLIF/archive/v0.2.2.tar.gz 2a026dcf5f5c2b757abd7f3ee95470333dc38dcb
