@@ -4,4 +4,4 @@ depends_on cmake
 
 fetch_source https://github.com/htacg/tidy-html5/archive/5.2.0.tar.gz c1571eafa928390feee9e03445bf806127852288
 
-do_unpack_compile
+do_unpack_compile_notest
