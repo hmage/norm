@@ -47,6 +47,9 @@ do_compile $DISABLE_GALLIUM \
                   --enable-gles1 \
                   --enable-gles2 \
                   --enable-osmesa \
+                  --enable-egl \
+                  --enable-dri \
+                  --enable-shared-glapi \
                   --enable-xa \
                   --enable-glx-tls \
                   --enable-gbm \
