@@ -26,7 +26,7 @@ setup_prefix() {
 
     ## set compile flags
     cc_addflags LDFLAGS $default_ldflags
-    cc_addflags CPPFLAGS $default_cppflags -pipe
+    cc_addflags CPPFLAGS $default_cppflags
 
     ## also try other flags if compiler supports them
     cc_addflags LDFLAGS -Wl,-rpath=$ESCAPED_PREFIX/lib -Wl,-rpath-link=$ESCAPED_PREFIX/lib -Wl,-O1 -Wl,--as-needed -Wl,--gc-sections
