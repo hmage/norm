@@ -5,6 +5,7 @@ fetch_source https://github.com/facebook/zstd/archive/v1.1.0.tar.gz 6c24a604cf71
 do_unpack
 pushd_src
 do_make CFLAGS="-O3 $CPPFLAGS"
+do_test
 do_install PREFIX="$ESCAPED_PREFIX"
 popd_src
 
