@@ -9,6 +9,7 @@ pushd_src
 do_configure
 cd src
 do_make tinyproxy
+do_test
 mkdir -p $PREFIX/bin
 install tinyproxy $PREFIX/bin/tinyproxy
 popd_src
