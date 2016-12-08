@@ -13,3 +13,4 @@ sed -i "s|/usr/|$PREFIX/|" jail/Makefile
 sed -i 's:install -o 0755:install -m 0755:' humfsify/Makefile
 do_make CFLAGS="$CPPFLAGS $LDFLAGS -g -Wall" # these makefiles don't know of anything but CFLAGS
 do_install
+popd_src
