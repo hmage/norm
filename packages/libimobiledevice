@@ -2,7 +2,8 @@
 
 depends_on pkg-config
 depends_on libusbmuxd
+depends_on openssl
 
 fetch_source http://www.libimobiledevice.org/downloads/libimobiledevice-1.2.0.tar.bz2 a8e3f21180b1d6df754d04a4080a29cf6891e701
 
-do_unpack_compile
+do_unpack_compile --without-cython
