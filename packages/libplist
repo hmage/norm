@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://www.libimobiledevice.org/downloads/libplist-1.12.tar.bz2 48f071c723387637ef2cc2980d4ca0627aab067b
+
+do_unpack_compile
