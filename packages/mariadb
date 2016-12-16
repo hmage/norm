@@ -18,6 +18,6 @@ depends_on msgpack
 depends_on libevent
 depends_on openssl
 
-fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.1.18/source/mariadb-10.1.18.tar.gz 345a108fd92474abc760ca803c121f76c8abef3c
+fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.1.20/source/mariadb-10.1.20.tar.gz 13dd9efcc41bbb7affe4032108a6227d5a567ccc
 
 do_unpack_compile -DBUILD_CONFIG=mysql_release -DCURSES_INCLUDE_PATH="$ESCAPED_PREFIX/include/ncurses" -DWITH_SSL=system -DWITH_ZLIB=system -DWITH_LIBEVENT=system -DWITH_JEMALLOC=system -DWITH_PCRE=system
