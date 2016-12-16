@@ -4,7 +4,7 @@ depends_on libpcre
 depends_on zlib
 depends_on openssl
 
-fetch_source http://nginx.org/download/nginx-1.11.5.tar.gz 3658724f3c6d049cd1d24f02f1acb7f9be250886
+fetch_source http://nginx.org/download/nginx-1.11.7.tar.gz 6a0efd3ba54721620e775820c0505a95e99863cd
 
 ## nginx has no tests?
 do_unpack_compile_notest --with-cc-opt="$CPPFLAGS" --with-ld-opt="$LDFLAGS" \
