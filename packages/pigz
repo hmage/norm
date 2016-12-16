@@ -2,10 +2,9 @@
 
 depends_on zlib
 
-fetch_source http://http.debian.net/debian/pool/main/p/pigz/pigz_2.3.1.orig.tar.gz 2d5c9a70a6afcf1d8986890026d70c96b9346c07
-fetch_debian http://http.debian.net/debian/pool/main/p/pigz/pigz_2.3.1-2.debian.tar.xz 49577b466c87ccfd931e3ab3480406085156ecf0
+fetch_source http://zlib.net/pigz/pigz-2.3.4.tar.gz 98c30f710514c54ce8a31784347412eeec0f08eb
 
-do_undebian
+do_unpack
 pushd_src
 do_make
 do_test
