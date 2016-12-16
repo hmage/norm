@@ -8,7 +8,7 @@ depends_on libserf # for HTTP
 depends_on file    # specifically, libmagic
 depends_on swig    # for perl bindings
 
-fetch_source http://archive.apache.org/dist/subversion/subversion-1.9.4.tar.bz2 bc7d51fdda43bea01e1272dfe9d23d0a9d6cd11c
+fetch_source http://archive.apache.org/dist/subversion/subversion-1.9.5.tar.bz2 8bd6a44a1aed30c4c6b6b068488dafb44eaa6adf
 
 do_unpack
 pushd_src
