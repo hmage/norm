@@ -3,7 +3,7 @@
 depends_on libpng
 depends_on libjpeg
 
-fetch_source http://bellard.org/bpg/libbpg-0.9.6.tar.gz 72354ec7b07286c250f62648c098d41835c61fc5
+fetch_source http://bellard.org/bpg/libbpg-0.9.7.tar.gz e36b9c8ee364b7340b37a7622a53ba4b440c9b04
 
 do_unpack
 pushd_src
