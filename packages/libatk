@@ -3,8 +3,7 @@
 depends_on pkg-config
 depends_on glib
 
-fetch_source http://http.debian.net/debian/pool/main/a/atk1.0/atk1.0_2.14.0.orig.tar.xz b803d055c8e2f786782803b7d21e413718321db7
-fetch_debian http://http.debian.net/debian/pool/main/a/atk1.0/atk1.0_2.14.0-1.debian.tar.xz 13d315a66c504fa2bcf05e5ed1dfa98d26a06566
+fetch_source http://ftp.gnome.org/pub/gnome/sources/atk/2.22/atk-2.22.0.tar.xz bcb9ee62a0fd1d9262684d20b429bc8f5b2c4eaa
 
-do_undebian_compile
+do_unpack_compile
 
