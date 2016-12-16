@@ -1,21 +1,17 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
 depends_on zlib
 depends_on libffi libelf
 depends_on pkg-config
 depends_on gettext
 depends_on libpcre
 depends_on python # for mandatory tests to build
+depends_on libmount
 
-## use debian stable. newer glib requires pthread functions that don't exist on older libc and gcc
-fetch_source http://http.debian.net/debian/pool/main/g/glib2.0/glib2.0_2.42.1.orig.tar.xz b5158fd434f01e84259155c04ff93026a090e586
-fetch_debian http://http.debian.net/debian/pool/main/g/glib2.0/glib2.0_2.42.1-1.debian.tar.xz ed50af4b22b5db075b1880aaa02873dc839c57db
+fetch_source https://download.gnome.org/sources/glib/2.50/glib-2.50.2.tar.xz 948a768931ca321a35e16556a1c8adcae04babf2
 
 unset EXTRAFLAGS NEW_LDFLAGS
 cc_addflags EXTRAFLAGS -Wno-format-nonliteral ## gcc 6.1 is too strict for this old glib
 cc_addflags NEW_LDFLAGS -Wl,-z,defs
 
-do_undebian
-do_autoreconf
-CPPFLAGS="$CPPFLAGS $EXTRAFLAGS" LDFLAGS="$NEW_LDFLAGS" do_compile --disable-fam --with-pcre=system
+CPPFLAGS="$CPPFLAGS $EXTRAFLAGS" LDFLAGS="$NEW_LDFLAGS" do_unpack_compile --disable-fam --with-pcre=system
