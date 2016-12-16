@@ -5,8 +5,7 @@ depends_on libtiff
 depends_on libpng
 depends_on gobject-introspection
 
-fetch_source http://http.debian.net/debian/pool/main/g/gdk-pixbuf/gdk-pixbuf_2.31.1.orig.tar.xz c715e21cacb939d2015c26124640b0aad6ad1986
-fetch_debian http://http.debian.net/debian/pool/main/g/gdk-pixbuf/gdk-pixbuf_2.31.1-2+deb8u4.debian.tar.xz ca5a417c05d0156b9908d7e1e90d41e7be8c64fe
+fetch_source http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.36/gdk-pixbuf-2.36.1.tar.xz 88bd54ef813f2461b455db43d6d0604898ee89dc
 
-do_undebian_compile --enable-debug=no --disable-Bsymbolic --enable-introspection=yes
+do_unpack_compile --enable-debug=no --disable-Bsymbolic --enable-introspection=yes
 gdk-pixbuf-csource --raw --build-list apple_red "$PREFIX"/var/norm/pngbar.png
