@@ -10,7 +10,7 @@ depends_on libexpat
 depends_on libpam
 depends_on libicu
 
-fetch_source http://dovecot.org/releases/2.2/dovecot-2.2.25.tar.gz 7fd23e4fef4f6f25a43196d36686449d6515f2b8
+fetch_source http://dovecot.org/releases/2.2/dovecot-2.2.27.tar.gz e007081c43b06fa2670d556de7a62bbb87fc637c
 
 do_unpack
 do_patch_inline << 'EOF' ## work around old libc that can't handle const int
