@@ -4,6 +4,20 @@ depends_on bison
 depends_on libncurses
 
 fetch_source http://ftpmirror.gnu.org/bash/bash-4.4.tar.gz 8de012df1e4f3e91f571c3eb8ec45b43d7c747eb
+PATCHES=(
+"http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-001 b0a20634e049a7b747703235b96ac0da10215d99"
+"http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-002 c9b7329897295301879a9600d96b2182ea2023b1"
+"http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-003 21cf7e0c6151de7fe8aca0bab8deb601bac2849e"
+"http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-004 32789657933c288d81210dd96a6b08e67207b593"
+"http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-005 8eee9cf9997215bd14f53dfc25c97186cee9437c"
+)
 
-do_undebian_compile --with-curses --enable-largefile
+do_unpack
+
+for patchline in "${PATCHES[@]}"; do
+    fetch_file $patchline
+    do_patch "$FILENAME" -p0
+done
+
+do_compile --with-curses --enable-largefile
 
