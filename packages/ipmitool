@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://prdownloads.sourceforge.net/ipmitool/ipmitool/1.8.18/ipmitool-1.8.18.tar.bz2 ff4781bb78f264d44fa4bf1767f268d4079d87ba
+
+do_unpack_compile
