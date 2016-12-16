@@ -314,11 +314,19 @@ do_unpack_compile_notest() {
 do_patch() {
     local PATCHNAME="$1"
     shift
-    patch -p1 -f -i "$NORMDIR"/patches/"$PATCHNAME" -d "$SRCDIR" "$@"
+    local FULLPATH="$NORMDIR/patches/$PATCHNAME"
+    if [ ! -e "$FULLPATH" ]; then
+        FULLPATH="$CACHEDIR/$PATCHNAME"
+    fi
+    if [ ! -e "$FULLPATH" ]; then
+        log "do_patch() was given a filename that doesn't exist"
+        return 1
+    fi
+    patch -p1 -f -i "$FULLPATH" -d "$SRCDIR" "$@" || return 1
 }
 
 do_patch_inline() {
-    patch -p1 -l -N -f -d "$SRCDIR" "$@"
+    patch -p1 -l -N -f -d "$SRCDIR" "$@" || return 1
 }
 
 do_autoreconf() {
