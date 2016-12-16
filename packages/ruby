@@ -11,10 +11,4 @@ depends_on libgmp
 
 fetch_source http://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.3.tar.gz 1014ee699071aa2ddd501907d18cbe15399c997d
 
-do_unpack
-pushd_src
-do_configure
-do_make
-do_test
-do_install
-popd
+do_unpack_compile
