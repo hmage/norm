@@ -6,7 +6,7 @@ fetch_source http://zlib.net/pigz/pigz-2.3.4.tar.gz 98c30f710514c54ce8a317843474
 
 do_unpack
 pushd_src
-do_make
+do_make CFLAGS="-O3 -Wall -Wextra -g3 $CPPFLAGS" LDFLAGS="$LDFLAGS"
 do_test
 mkdir -p "$PREFIX/bin"
 cp -fl pigz "$PREFIX/bin/pigz"
