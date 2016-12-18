@@ -6,4 +6,5 @@ depends_on libaio
 
 fetch_source http://cdn.mysql.com/Downloads/MySQL-5.7/mysql-5.7.17.tar.gz 7d159e2d056ab6e10c89e0c8ef12ee7af3b99ef0
 
-do_unpack_compile -DWITH_BOOST=boost -DCURSES_INCLUDE_PATH="$ESCAPED_PREFIX/include/ncurses" -DENABLE_DOWNLOADS=1 -DDOWNLOAD_BOOST=1 -DBUILD_CONFIG=mysql_release -DFEATURE_SET=community
+## tests are broken as of 5.7.17, disable
+do_unpack_compile_notest -DWITH_BOOST=boost -DCURSES_INCLUDE_PATH="$ESCAPED_PREFIX/include/ncurses" -DENABLE_DOWNLOADS=1 -DDOWNLOAD_BOOST=1 -DBUILD_CONFIG=mysql_release -DFEATURE_SET=community
