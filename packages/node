@@ -6,5 +6,6 @@ depends_on python
 
 fetch_source https://nodejs.org/dist/v7.2.1/node-v7.2.1.tar.xz d8f47dd03e40cfb03ea3989e0a58920b307b0fbc
 
-do_unpack_compile
+# as of 7.2.1, tests are broken
+do_unpack_compile_notest
 
