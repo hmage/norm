@@ -2,6 +2,7 @@
 
 depends_on cmake
 depends_on libncurses
+depends_on libaio
 
 fetch_source http://cdn.mysql.com/Downloads/MySQL-5.7/mysql-5.7.17.tar.gz 7d159e2d056ab6e10c89e0c8ef12ee7af3b99ef0
 
