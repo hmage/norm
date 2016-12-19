@@ -1,0 +1,15 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on glib
+depends_on libatk
+depends_on libpango
+depends_on libcairo
+depends_on gdk-pixbuf
+depends_on libxi
+depends_on libepoxy
+depends_on libat-spi2-atk
+
+fetch_source http://ftp.gnome.org/pub/gnome/sources/gtk+/3.22/gtk+-3.22.5.tar.xz 458f9de1033059e984fb768043b874be165448f6
+
+do_unpack_compile
