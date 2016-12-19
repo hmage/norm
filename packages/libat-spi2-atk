@@ -1,0 +1,11 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on libdbus
+depends_on glib
+depends_on libat-spi2
+depends_on libatk
+
+fetch_source http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.22/at-spi2-atk-2.22.0.tar.xz 9896c6d8130ba167eba084fdf1cd47ed774be147
+
+do_unpack_compile
