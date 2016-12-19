@@ -21,7 +21,7 @@ unset LIBC_VERSION GCCARCH
 NORMPREFIX="$HOME/norm.$MACHINEID"
 DIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 
-addpath() {
+norm_addpath() {
     [ -z "$1" -o -z "$2" ] && return
     local value VARNAME=$1
     shift
@@ -32,6 +32,6 @@ addpath() {
 }
 
 ## add ourselves to the PATH if we're not there yet
-addpath PATH "$DIR" "$NORMPREFIX/bin" "$NORMPREFIX/sbin" "$NORMPREFIX/bin/ccache_wrap"
+norm_addpath PATH "$DIR" "$NORMPREFIX/bin" "$NORMPREFIX/sbin" "$NORMPREFIX/bin/ccache_wrap"
 
-unset -f addpath
+unset -f norm_addpath
