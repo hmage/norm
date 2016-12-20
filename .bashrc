@@ -2,7 +2,7 @@
 ## [ -f $HOME/work/norm/.bashrc ] && . $HOME/work/norm/.bashrc
 
 ## since we use -march=native, i7 binaries won't run on core2 -- add arch to machine id
-GCCARCH=`(gcc -march=native -Q --help=target || true) 2>&1 | grep -- '^ *-march=' | awk '{ print $2 }'`
+GCCARCH=`(gcc -march=native -Q --help=target || true) 2>&1 | grep -- '^ *-march=' | awk '{ print $2 }' || true`
 
 ## get machine id for later
 LIBC_VERSION=
