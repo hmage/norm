@@ -1,13 +1,17 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on autoconf automake libtool
-depends_on libidn
-depends_on openssl
+[[ $OSTYPE != *darwin* ]] && depends_on openssl
 depends_on zlib
 
 fetch_source http://curl.mirror.anstey.ca/curl-7.51.0.tar.gz d967f37db1a2b49eb3ccc682b97c46e948dfd19a
 
-do_unpack
-do_autoreconf
-do_compile --disable-ldap --enable-optimize --without-libssh2 --with-ca-bundle=$PREFIX/etc/ssl/cert.pem
+CONFIGURE=(
+--disable-ldap
+--enable-optimize
+--without-libssh2
+)
+
+[[ $OSTYPE != *darwin* ]] && CONFIGURE+=("--with-ca-bundle=$PREFIX/etc/ssl/cert.pem")
+[[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--with-darwinssl --without-ca-bundle)
+
+do_unpack_compile "${CONFIGURE[@]}"
