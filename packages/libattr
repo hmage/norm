@@ -3,6 +3,8 @@ fetch_source http://mirror.unicorncloud.org/savannah-nongnu//attr/attr-2.4.47.sr
 
 do_unpack
 pushd_src
+# this will remove glibc-specific code from the file
+sed -i.bak 's/ __THROW//g;s/__BEGIN_DECLS/#ifdef __cplusplus\nextern "C" {\n#endif/;s/__END_DECLS/#ifdef __cplusplus\n}\n#endif/' include/xattr.h
 do_configure --enable-gettext=no
 do_make
 do_test
