@@ -7,5 +7,5 @@ depends_on opencv
 fetch_source https://github.com/tanakamura/waifu2x-converter-cpp/archive/f89dd6191bc71f2ae81adbdb9e4c34cc2aaed917.tar.gz 3409e369629e1accb8b6b19ff01951e9cbb9060c
 
 do_unpack
-sed -i "s/waifu2x-converter-cpp/waifu2x/g" "$SRCDIR"/CMakeLists.txt
+sed -ibak "s/waifu2x-converter-cpp/waifu2x/g" "$SRCDIR"/CMakeLists.txt
 do_compile -DINSTALL_MODELS=on

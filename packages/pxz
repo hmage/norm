@@ -9,9 +9,9 @@ fetch_debian http://http.debian.net/debian/pool/main/p/pxz/pxz_4.999.99~beta3+gi
 
 do_unpack
 pushd_src
-sed -i "s|/usr/|$PREFIX/|" Makefile
-sed -i 's|cp $(NAME) |install -m 0755 $(NAME) |' Makefile
-sed -i 's|cp $(NAME).1 |install -m 0644 $(NAME).1 |' Makefile
+sed -ibak "s|/usr/|$PREFIX/|" Makefile
+sed -ibak 's|cp $(NAME) |install -m 0755 $(NAME) |' Makefile
+sed -ibak 's|cp $(NAME).1 |install -m 0644 $(NAME).1 |' Makefile
 do_make
 do_install
 popd

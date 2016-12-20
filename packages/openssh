@@ -14,4 +14,4 @@ do_compile_notest --with-privsep-path=$PREFIX/var/empty --without-kerberos5 --sy
            --with-pid-dir=$PREFIX/var/run  --with-mantype=doc --with-ssl-engine
 
 ## we disabled kerberos5, so remove the config values as well
-sed -i 's/^[^#][ \t]*GSSAPI.*/#&/' $PREFIX/etc/ssh/ssh_config
+sed -ibak 's/^[^#][ \t]*GSSAPI.*/#&/' $PREFIX/etc/ssh/ssh_config

@@ -17,7 +17,7 @@ for version in 4.2 4.1.2 4.3 4.4 4.5; do
     cp -pr * "$CATALOGDIR"
     if [ $version == 4.1.2 ]; then
         cp -f "$PREFIX"/share/docbook/4.2/catalog.xml "$CATALOGDIR"/catalog.xml
-        sed -i "s/V4\.2 \.\./V4.1.2 /;s/4\.2/4.1.2/" "$CATALOGDIR"/catalog.xml
+        sed -ibak "s/V4\.2 \.\./V4.1.2 /;s/4\.2/4.1.2/" "$CATALOGDIR"/catalog.xml
     fi
     XML_CATALOG_FILES="" xmlcatalog --noout --del "file://$CATALOGDIR/catalog.xml" "$CATFILE" || true
     if [[ ! -s "$CATFILE" ]]; then

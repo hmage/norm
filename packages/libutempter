@@ -7,7 +7,7 @@ rm -f $PREFIX/lib/libutempter.so{,.0}
 
 do_undebian
 pushd_src
-sed -i "s|/usr/|$PREFIX/|" Makefile
+sed -ibak "s|/usr/|$PREFIX/|" Makefile
 do_make
 do_install
 popd

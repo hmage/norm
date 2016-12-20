@@ -11,7 +11,7 @@ tar xf "$SRCDIR"/fam-2.7.0.tar.gz -C "$SRCDIR"
 SRCDIR="$SRCDIR"/fam-2.7.0
 do_debianize
 pushd_src
-sed -i 's|AC_DEFINE(USE_DNOTIFY)|AC_DEFINE(USE_DNOTIFY,, Use dnotify)|' configure.ac ## update for newer autoheader
+sed -ibak 's|AC_DEFINE(USE_DNOTIFY)|AC_DEFINE(USE_DNOTIFY,, Use dnotify)|' configure.ac ## update for newer autoheader
 popd
 do_autoreconf
 do_compile

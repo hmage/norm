@@ -12,7 +12,7 @@ cd librtmp
 do_make LIB_OPENSSL="-L$ESCAPED_PREFIX/lib -lssl -lcrypto -lz"
 do_install prefix=$PREFIX
 cd ..
-sed -i '/@cd librtmp;/d' Makefile
+sed -ibak '/@cd librtmp;/d' Makefile
 do_make LIB_OPENSSL="-L$ESCAPED_PREFIX/lib -lssl -lcrypto -lz" LIB_RTMP="-L$ESCAPED_PREFIX/lib -lrtmp"
 do_install prefix=$PREFIX
 popd_src

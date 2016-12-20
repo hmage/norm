@@ -8,9 +8,9 @@ fetch_debian http://http.debian.net/debian/pool/main/s/squashfs-tools/squashfs-t
 
 do_undebian
 pushd_src
-sed -i 's|#XZ_SUPPORT|XZ_SUPPORT|' Makefile
-sed -i 's|#LZO_SUPPORT|LZO_SUPPORT|' Makefile
-sed -i "s|/usr/local|$PREFIX/|" Makefile
+sed -ibak 's|#XZ_SUPPORT|XZ_SUPPORT|' Makefile
+sed -ibak 's|#LZO_SUPPORT|LZO_SUPPORT|' Makefile
+sed -ibak "s|/usr/local|$PREFIX/|" Makefile
 
 do_patch_inline << 'EOF' # fix compilation on gcc 4.1.2
 diff -urw squashfs-tools_4.2+20130409.orig.tar.xz.orig/mksquashfs.c squashfs-tools_4.2+20130409.orig.tar.xz/mksquashfs.c

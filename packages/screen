@@ -11,7 +11,7 @@ fetch_debian http://security.debian.org/debian-security/pool/updates/main/s/scre
 do_undebian
 pushd_src
 do_autoreconf
-sed -i 's|/usr/lib/terminfo|@prefix@/lib/terminfo|' Makefile.in ## upstream forgot about a prefix here
+sed -ibak 's|/usr/lib/terminfo|@prefix@/lib/terminfo|' Makefile.in ## upstream forgot about a prefix here
 popd
 do_compile
 pushd_src

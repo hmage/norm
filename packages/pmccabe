@@ -3,8 +3,8 @@ fetch_source http://ftp.de.debian.org/debian/pool/main/p/pmccabe/pmccabe_2.6.tar
 
 do_unpack
 pushd_src
-sed -i "s|/usr/|$PREFIX/|" Makefile # no way provided to set a prefix -> patch makefile
-sed -i 's|install -o root -g root|install|' Makefile # unnecessarily assumption that it's done only by root
+sed -ibak "s|/usr/|$PREFIX/|" Makefile # no way provided to set a prefix -> patch makefile
+sed -ibak 's|install -o root -g root|install|' Makefile # unnecessarily assumption that it's done only by root
 do_make
 do_test
 do_install

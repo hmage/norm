@@ -8,8 +8,8 @@ mkdir -p $PREFIX/sbin
 
 do_undebian
 pushd_src
-sed -i 's|ln -sf ../../`basename $(SHLIBDIR)`/$(LIBSO)|ln -sf $(LIBSO)|' src/Makefile
-sed -i 's|%as|%ms|g' src/*.c
+sed -ibak 's|ln -sf ../../`basename $(SHLIBDIR)`/$(LIBSO)|ln -sf $(LIBSO)|' src/Makefile
+sed -ibak 's|%as|%ms|g' src/*.c
 make install PREFIX="$PREFIX" SHLIBDIR="$PREFIX/lib" MAN8DIR=$PREFIX/share/man/man8 MAN3DIR=$PREFIX/share/man/man3 \
              _BINDIR="$PREFIX/sbin" MAN5DIR=$PREFIX/share/man/man5
 do_test

@@ -8,7 +8,7 @@ fetch_debian http://ftp.de.debian.org/debian/pool/main/j/jbigkit/jbigkit_2.0-2+d
 do_undebian
 pushd_src
 cd libjbig
-sed -i "s|/usr/|$PREFIX/|" Makefile
+sed -ibak "s|/usr/|$PREFIX/|" Makefile
 do_make CC=$CC CXX=$CXX
 do_test CC=$CC CXX=$CXX
 install -d $PREFIX/lib

@@ -8,7 +8,7 @@ fetch_debian http://http.debian.net/debian/pool/main/m/mlocate/mlocate_0.26-1.di
 do_undebian
 pushd_src
 GROUPNAME=$(id -gn)
-sed -i "s:groupname = mlocate:groupname = $GROUPNAME:" Makefile.in
+sed -ibak "s:groupname = mlocate:groupname = $GROUPNAME:" Makefile.in
 do_compile --disable-nls
 if [ ! -e "$PREFIX"/etc/updatedb.conf ]; then
     mkdir -p "$PREFIX"/etc

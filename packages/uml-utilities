@@ -7,10 +7,10 @@ fetch_debian http://ftp.de.debian.org/debian/pool/main/u/uml-utilities/uml-utili
 
 do_undebian
 pushd_src
-sed -i "s|/usr/|$PREFIX/|" Makefile
-sed -i "s:umlfs::" Makefile
-sed -i "s|/usr/|$PREFIX/|" jail/Makefile
-sed -i 's:install -o 0755:install -m 0755:' humfsify/Makefile
+sed -ibak "s|/usr/|$PREFIX/|" Makefile
+sed -ibak "s:umlfs::" Makefile
+sed -ibak "s|/usr/|$PREFIX/|" jail/Makefile
+sed -ibak 's:install -o 0755:install -m 0755:' humfsify/Makefile
 do_make CFLAGS="$CPPFLAGS $LDFLAGS -g -Wall" # these makefiles don't know of anything but CFLAGS
 do_install
 popd_src
