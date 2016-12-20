@@ -14,7 +14,7 @@ depends_on sqlite3
 depends_on libffi
 depends_on file # libmagic
 
-fetch_source https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tar.xz 05360b8ade117b35e266b2004a7f1f11250c6dcd
+fetch_source https://www.python.org/ftp/python/2.7.13/Python-2.7.13.tar.xz 18a8f30a0356c751b8d0ea6f76e764cab13ee046
 
 do_unpack
 do_patch_inline << EOF
