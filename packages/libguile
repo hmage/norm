@@ -7,6 +7,6 @@ depends_on libgmp
 depends_on libunistring
 depends_on libffi
 
-fetch_source http://ftpmirror.gnu.org/guile/guile-2.0.9.tar.xz a2275c23c4a03e8dbd5e500c47af694e14d2365b
+fetch_source http://ftpmirror.gnu.org/guile/guile-2.0.13.tar.xz 627f7b5004f01b7e2c074e03fff3eda235c0d9ab
 
 do_unpack_compile
