@@ -91,7 +91,7 @@ foreach my $arg (@files) {
 	next if /^[\t]\/lib\/ld-musl-x86_64\.so\.1/;
 	next if /^[\t]\/usr\/lib\/lib(System\.B|iconv\.2)\.dylib/;
 	next if /^[\t]\/System\/Library\/Frameworks\/(Carbon|Foundation|CoreFoundation|CoreServices)\.framework\//;
-	next if /^[\t]\/lib64\/ld-linux-x86-64\.so\.2/;
+	next if /^[\t](usr\/)?\/lib64\/ld-linux-x86-64\.so\.2/;
 	$filtered_output .= $_ . "\n";
     }
     if (length $filtered_output) {
