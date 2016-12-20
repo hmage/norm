@@ -6,7 +6,7 @@ fetch_debian http://http.debian.net/debian/pool/main/g/gperf/gperf_3.0.4-1.debia
 do_undebian
 pushd_src
 # inhibit makeinfo invocation in the build process.
-touch --date="2000-01-01" doc/gperf.texi
+touch -t 200001010000 doc/gperf.texi
 popd_src
 do_compile
 
