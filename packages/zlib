@@ -3,4 +3,17 @@
 fetch_source http://http.debian.net/debian/pool/main/z/zlib/zlib_1.2.8.dfsg.orig.tar.gz c7c723de179c0d1f3c9d59646a398649b16206b7
 fetch_debian http://http.debian.net/debian/pool/main/z/zlib/zlib_1.2.8.dfsg-2.debian.tar.xz 1025717923817210046e1b661443490d1296546d
 
-do_undebian_compile
+do_undebian
+do_patch_inline -p0 << 'EOF'
+--- configure
++++ configure
+@@ -159,6 +159,7 @@ case "$cc" in
+ esac
+ case `$cc -v 2>&1` in
+   *gcc*) gcc=1 ;;
++  *clang*) gcc=1 ;;
+ esac
+ 
+ show $cc -c $test.c
+EOF
+do_compile
