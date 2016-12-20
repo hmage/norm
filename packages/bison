@@ -10,7 +10,7 @@ do_undebian
 # Touch all files in the dependency tree of bison.info to
 # inhibit makeinfo invocation in the build process.
 install -d "$SRCDIR"/doc/figs
-touch --date="Jan 01 2000" \
+touch --date="2000-01-01" \
         "$SRCDIR"/doc/bison.{info,help} \
         "$SRCDIR"/doc/figs/example{,-reduce,-shift}.txt \
         "$SRCDIR"/doc/*.texi "$SRCDIR"/doc/bison.texi \
