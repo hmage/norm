@@ -5,6 +5,6 @@ fetch_source http://ftpmirror.gnu.org/gzip/gzip-1.8.tar.gz 969cc5f8e452aa66b01ca
 do_unpack
 pushd_src
 ## inhibit invocation of makeinfo
-touch --date="Jan 01 2000" doc/gzip.info doc/*.texi
+touch --date="2000-01-01" doc/gzip.info doc/*.texi
 popd_src
 do_compile
