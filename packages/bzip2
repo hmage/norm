@@ -7,17 +7,19 @@ rm -f $PREFIX/bin/{bunzip2,bzcat}
 
 do_unpack
 pushd_src
-sed -i 's/^CFLAGS=/CFLAGS=-fpic -fPIC /' Makefile
+sed -ibak 's/^CFLAGS=/CFLAGS=-fpic -fPIC /' Makefile
 do_make
 do_test
 do_install PREFIX=$PREFIX
 
-## shared library needs to be built and installed manually
-do_make -f Makefile-libbz2_so clean
-do_make -f Makefile-libbz2_so
-install -d $PREFIX/lib
-install -m 755 libbz2.so.* $PREFIX/lib
-cp -fd libbz2.so.1.0 $PREFIX/lib/
-ln -fs libbz2.so.1.0 $PREFIX/lib/libbz2.so.1
+if [[ $OSTYPE != *darwin* ]]; then
+    ## shared library needs to be built and installed manually
+    do_make -f Makefile-libbz2_so clean
+    do_make -f Makefile-libbz2_so
+    install -d $PREFIX/lib
+    install -m 755 libbz2.so.* $PREFIX/lib
+    cp -fd libbz2.so.1.0 $PREFIX/lib/
+    ln -fs libbz2.so.1.0 $PREFIX/lib/libbz2.so.1
+fi
 
 popd
