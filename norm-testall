@@ -57,6 +57,10 @@ prepare_jail() {
 
     "$NORMDIR"/norm -p "$JAILFULLPATH" install "${FORMULAS[@]}" 2>&1 | tee -a "$JAILLOG"
     rm -vf   "$JAILFULLPATH"/bin/{aclocal*,auto*,c_rehash,*-config,idn,ifnames,libtool,libtoolize,m4,openssl}
+    rm -rvf  "$JAILFULLPATH"/{include,tmp,var/norm}
+    rm -rvf  "$JAILFULLPATH"/lib/*.{a,la}
+    rm -rvf  "$JAILFULLPATH"/{lib,share}/pkgconfig
+    rm -rvf  "$JAILFULLPATH"/share/{aclocal,doc,locale,man}
     do_strip "$JAILFULLPATH"/{bin,lib,lib32}/*
     do_strip "$JAILFULLPATH"/libexec/gcc/*/*/*
 
