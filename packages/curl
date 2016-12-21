@@ -3,7 +3,7 @@
 [[ $OSTYPE != *darwin* ]] && depends_on openssl
 depends_on zlib
 
-fetch_source http://curl.mirror.anstey.ca/curl-7.51.0.tar.gz d967f37db1a2b49eb3ccc682b97c46e948dfd19a
+fetch_source http://curl.mirror.anstey.ca/curl-7.52.0.tar.gz 3245279c34b058357ca2cdb0126dd25162e7610f
 
 CONFIGURE=(
 --disable-ldap
