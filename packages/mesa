@@ -39,7 +39,7 @@ if [ -z "$DISABLE_GALLIUM" ]; then
     fi
 fi
 
-fetch_source ftp://ftp.freedesktop.org/pub/mesa/12.0.3/mesa-12.0.3.tar.xz 3c36c91faf4d06a3d5e7bdaf3b2eabb28b21c2a9
+fetch_source https://mesa.freedesktop.org/archive/13.0.2/mesa-13.0.2.tar.xz 457331f16b229e02594477307604b0a92a155fd2
 
 do_unpack
 do_autoreconf
