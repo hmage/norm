@@ -8,17 +8,17 @@ depends_on zlib
 
 CONFIGURE_FLAGS="--enable-optimized --disable-assertions --disable-libedit"
 
-fetch_source http://llvm.org/releases/3.9.0/llvm-3.9.0.src.tar.xz da792f11a208d5b994c4fe1c8faa20f90ff0e4a3
+fetch_source http://llvm.org/releases/3.9.1/llvm-3.9.1.src.tar.xz ce801cf456b8dacd565ce8df8288b4d90e7317ff
 do_unpack
 rm -f "$SRCDIR"/configure
 if [[ ${BASH_SOURCE##*/} == clang ]]; then
-    fetch_source http://llvm.org/releases/3.9.0/cfe-3.9.0.src.tar.xz 00d49ee82451130a8e1e7b1d56cffa37b783bcb2
+    fetch_source http://llvm.org/releases/3.9.1/cfe-3.9.1.src.tar.xz 95e4be54b70f32cf98a8de36821ea5495b84add8
     intree_unpack tools/clang
 
-    fetch_source http://llvm.org/releases/3.9.0/compiler-rt-3.9.0.src.tar.xz a306d576e84b7ee048ebb0ae5ca72e6ec9e1c549
+    fetch_source http://llvm.org/releases/3.9.1/compiler-rt-3.9.1.src.tar.xz 938921d076e28943f5d5b653514f2ce36a88a55e
     intree_unpack projects/compiler-rt
 
-    fetch_source http://llvm.org/releases/3.9.0/clang-tools-extra-3.9.0.src.tar.xz 396ad1af7a8d3cff015a644e595f35553a7548c4
+    fetch_source http://llvm.org/releases/3.9.1/clang-tools-extra-3.9.1.src.tar.xz f24e5ceb226a72e781cefde4e30f2d7be09ea305
     intree_unpack tools/clang/tools/extra
 fi
 
