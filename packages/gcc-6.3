@@ -1,0 +1,48 @@
+#!/bin/bash
+
+depends_on binutils ## system binutils might not support hash-style=both
+depends_on libmpfr
+depends_on libgmp
+! is_without tests && depends_on autogen ## needed to run tests
+
+CONFIGURE_OPTIONS=(
+--program-suffix=-6.3    # version suffix to all binaries
+--enable-__cxa_atexit    # for fully standards-compliant destructors, requires libc to have __cxa_atexit
+--enable-languages=c,c++ # only C and C++, gcc is barely used for anything else
+)
+
+## if user wants to speed things up and trusts the system compiler
+is_without bootstrap && CONFIGURE_OPTIONS+=(--disable-bootstrap)
+
+if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
+    CONFIGURE_OPTIONS+=(--disable-libsanitizer)
+    add_caveat "Sanitizer support was disabled -- your linux headers are too old"
+fi
+
+if cc_checkflags -m64 && cc_checkflags -m32; then
+    CONFIGURE_OPTIONS+=(--enable-multilib)
+else
+    CONFIGURE_OPTIONS+=(--disable-multilib)
+    add_caveat "Multilib support was disabled -- your current compiler doesn't support multilib"
+fi
+
+fetch_source http://ftp.gnu.org/gnu/gcc/gcc-6.3.0/gcc-6.3.0.tar.bz2 928ab552666ee08eed645ff20ceb49d139205dea
+do_unpack
+
+fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.3.tar.gz b8be66396c726fdc36ebb0f692ed8a8cca3bcc66
+intree_unpack mpc
+
+fetch_source http://isl.gforge.inria.fr/isl-0.18.tar.xz 13237a66fc623517fc570408b90a11e60eb6b4b9
+intree_unpack isl
+
+# We install 64-bit linux libraries into $PREFIX/lib
+[[ $HOSTTYPE == "x86_64" ]] && sed -ibak '/m64=/s/lib64/lib/' "$SRCDIR"/gcc/config/i386/t-linux64
+
+do_compile_outside "${CONFIGURE_OPTIONS[@]}"
+
+add_to_ccache g++-6.3 gcc-6.3
+
+add_caveat "To not clash with system-installed default gcc, GCC 6.2 was installed with a suffix, run gcc-6.2 or g++-6.2"
+
+add_caveat "Remember -- you can't use this build of gcc on any other machine" \
+           "Do not move it away from $PREFIX either -- paths are hardcoded" \
