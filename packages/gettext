@@ -2,6 +2,7 @@
 depends_on libacl
 depends_on libxml
 depends_on libncurses
+depends_on libunistring
 
 ## don't add libcroco dependency -- it depends on glib, and glib depends on gettext
 
