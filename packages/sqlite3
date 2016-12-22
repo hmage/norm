@@ -1,8 +1,6 @@
 #!/bin/bash
 
-depends_on libreadline
-
 fetch_source https://www.sqlite.org/2016/sqlite-autoconf-3150200.tar.gz 31f52169bcfeef9efb61480d0950e928ad059552
 
 CPPFLAGS="$CPPFLAGS -DSQLITE_MAX_VARIABLE_NUMBER=250000 -DSQLITE_ENABLE_COLUMN_METADATA=1 -DSQLITE_MAX_DEFAULT_PAGE_SIZE=32768" \
-NOPARALLEL=1 do_unpack_compile --enable-threadsafe
+NOPARALLEL=1 do_unpack_compile --enable-threadsafe --disable-readline --disable-editline
