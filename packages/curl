@@ -9,6 +9,8 @@ CONFIGURE=(
 --disable-ldap
 --enable-optimize
 --without-libssh2
+--without-rtmp
+--without-libpsl
 )
 
 [[ $OSTYPE != *darwin* ]] && CONFIGURE+=("--with-ca-bundle=$PREFIX/etc/ssl/cert.pem")
