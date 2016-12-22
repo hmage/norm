@@ -54,5 +54,5 @@ EOF
 do_compile --with-ssl=openssl --with-solr --with-sqlite --localstatedir=$PREFIX/var \
            --without-pam \
            --without-libcap \
-           --with-moduledir=$PREFIX/lib/dovecot/modules --sysconfdir=$PREFIX/etc --with-ioloop=best
+           --with-moduledir=$PREFIX/lib/dovecot/modules --sysconfdir=$PREFIX/etc
 mkdir -p $PREFIX/var/log
