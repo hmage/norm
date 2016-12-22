@@ -5,6 +5,7 @@ requires_gcc 4.7
 depends_on cmake  ## since llvm 3.9, cmake is the only way to build this
 depends_on python ## needs python 2.7 to compile
 depends_on zlib
+depends_on libffi
 
 CONFIGURE_FLAGS="--enable-optimized --disable-assertions --disable-libedit"
 
@@ -23,4 +24,11 @@ if [[ ${BASH_SOURCE##*/} == clang ]]; then
 fi
 
 NOPARALLEL=1 \
-do_compile_outside -DLLVM_OPTIMIZED_TABLEGEN=ON -DLLVM_BUILD_LLVM_DYLIB=ON
+do_compile_outside \
+	-DLLVM_OPTIMIZED_TABLEGEN=ON \
+	-DLLVM_BUILD_LLVM_DYLIB=ON \
+	-DLLVM_BUILD_TESTS=ON \
+	-DLLVM_BUILD_EXAMPLES=OFF \
+	-DLLVM_ENABLE_FFI=ON \
+	-DLLVM_ENABLE_ZLIB=ON \
+	-DLLVM_LINK_LLVM_DYLIB=ON
