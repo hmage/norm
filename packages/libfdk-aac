@@ -2,4 +2,5 @@
 
 fetch_source https://downloads.sourceforge.net/project/opencore-amr/fdk-aac/fdk-aac-0.1.4.tar.gz 9215d19bdd911954fd5bc879c707ab571716ba0d
 
+CXXFLAGS="-g -O2 -std=c++98" \
 do_unpack_compile
