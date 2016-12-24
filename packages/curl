@@ -3,13 +3,13 @@
 [[ $OSTYPE != *darwin* ]] && depends_on openssl
 depends_on zlib
 
-fetch_source http://curl.mirror.anstey.ca/curl-7.52.0.tar.gz 3245279c34b058357ca2cdb0126dd25162e7610f
+fetch_source http://curl.mirror.anstey.ca/curl-7.52.1.tar.gz 73097952ada80fbaff924c706ba57d1f77c38d00
 
 CONFIGURE=(
 --disable-ldap
 --enable-optimize
 --without-libssh2
---without-rtmp
+--without-librtmp
 --without-libpsl
 )
 
