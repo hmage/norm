@@ -1,14 +1,10 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
-
-fetch_source http://http.debian.net/debian/pool/main/p/pcre3/pcre3_8.35.orig.tar.gz 5a0efc7332c6741114372020a60acfed22befcb9
-fetch_debian http://http.debian.net/debian/pool/main/p/pcre3/pcre3_8.35-3.3+deb8u4.debian.tar.gz 4fc739987e165b16693de34c36a4ba59fff57b0f
+fetch_source http://downloads.sourceforge.net/pcre/pcre-8.39.tar.bz2 5e38289fd1b4ef3e8426f31a01e34b6924d80b90
 
 ## these symlinks prevent reinstallation
 rm -f "$PREFIX"/share/man/man3/pcre16_*
 
-do_undebian
-do_autoreconf
+do_unpack
 # tests fail for some reason, disable and figure out later
 do_compile_notest --enable-utf8 --enable-unicode-properties --enable-jit --enable-pcre16 --enable-pcre32 --disable-pcretest-libreadline
