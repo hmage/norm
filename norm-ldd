@@ -85,7 +85,7 @@ foreach my $arg (@files) {
 	next if m|fatal error: /Library/Developer/CommandLineTools/usr/bin/otool: internal objdump command failed|;
 	next if m|$filtered_prefix/|;
 	next if /^[\t]linux-(gate|vdso)\.so\.1 (=>  )?\(/;
-	next if /^[\t]lib(c|m|dl|rt|pthread|resolv|crypt|util|nsl)\.so/;
+	next if /^[\t]lib(c|m|dl|rt|pthread|resolv|crypt|util|nsl|mvec)\.so/;
 	next if /^[\t]libc.musl-x86_64\.so/;
 	next if /^[\t]lib(gcc_s|stdc\+\+|ssp|gomp)\.so/;
 	next if /^[\t]\/lib\/ld-linux\.so\.2/;
