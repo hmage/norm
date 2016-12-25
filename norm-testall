@@ -41,7 +41,7 @@ prepare_jail() {
     JAILPATH=$(jailpath "$JAILNAME")
     JAILFULLPATH="$HOME/$JAILPATH"
     JAILLOG="$NORMDIR/testlogs/$JAILPATH.log"
-    JAILARCHIVE="$NORMDIR/testlogs/$JAILPATH.tar.gz"
+    JAILARCHIVE="$NORMDIR/testlogs/$JAILPATH.tar.xz"
     shift
     rm -rf "$JAILFULLPATH"
     ## if have archive, extract and done
@@ -65,7 +65,7 @@ prepare_jail() {
     do_strip "$JAILFULLPATH"/libexec/gcc/*/*/*
 
 
-    tar zcf "$JAILARCHIVE" -C "$HOME" "$JAILPATH"
+    tar cf "$JAILARCHIVE" -I "$JAILFULLPATH/bin/xz" -C "$HOME" "$JAILPATH"
 }
 
 ## build the set that can compile all our formulas
@@ -128,7 +128,7 @@ for FORMULA_NAME in "${LIST[@]}"; do
     if [ -z "$FAILURE" ]; then
         gzip "$LOGPATH/$FORMULA_ID.log"
     elif [ -e "$HOME/$NORMTEST_PREFIXNAME" ]; then
-        tar zcf "$LOGPATH/$FORMULA_ID.tar.gz" -C "$HOME" "$NORMTEST_PREFIXNAME" || true
+        tar Jcf "$LOGPATH/$FORMULA_ID.tar.xz" -C "$HOME" "$NORMTEST_PREFIXNAME" || true
     fi
 done
 
