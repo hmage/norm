@@ -2,8 +2,8 @@
 depends_on libattr
 depends_on libpam
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libc/libcap2/libcap2_2.22.orig.tar.gz 7753165ca685a0c78735fa0db25b815d9576b1fe
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libc/libcap2/libcap2_2.22-1.2.debian.tar.gz 66cef9a752a186ff9966e5f22c8d1c110a180bbd
+fetch_source http://http.debian.net/debian/pool/main/libc/libcap2/libcap2_2.24.orig.tar.xz 89be2162e5b7479a9a2f95b488978ed76b3f4ce5
+fetch_debian http://http.debian.net/debian/pool/main/libc/libcap2/libcap2_2.24-8.debian.tar.xz 551a2b75d36700a183973549b2275d754e0003db
 
 do_undebian
 pushd_src
