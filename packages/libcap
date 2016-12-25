@@ -1,12 +1,18 @@
 #!/bin/bash
-depends_on libattr
-depends_on libpam
 
 fetch_source http://http.debian.net/debian/pool/main/libc/libcap2/libcap2_2.24.orig.tar.xz 89be2162e5b7479a9a2f95b488978ed76b3f4ce5
 fetch_debian http://http.debian.net/debian/pool/main/libc/libcap2/libcap2_2.24-8.debian.tar.xz 551a2b75d36700a183973549b2275d754e0003db
 
+MAKEFLAGS=(
+"prefix=$PREFIX"
+RAISE_SETFCAP=no
+PAM_CAP=no
+LIBATTR=no
+lib=lib
+)
+
 do_undebian
 pushd_src
-do_make LDFLAGS="$LDFLAGS"
-do_install prefix=$PREFIX RAISE_SETFCAP=no lib=lib
+do_make LDFLAGS="$LDFLAGS" "${MAKEFLAGS[@]}"
+do_install "${MAKEFLAGS[@]}"
 popd
