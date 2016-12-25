@@ -7,7 +7,7 @@ depends_on libpciaccess
 depends_on pthread-stubs
 depends_on xorg-macros
 
-fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.66.tar.bz2 6637cc2d71b0011516804cc223a521bf301a9910
+fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.74.tar.bz2 0d9c02d5d2c6c2fac862cb687bf45bc20d129017
 
 do_unpack
 do_patch_inline << 'EOF'
