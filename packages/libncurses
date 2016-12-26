@@ -1,89 +1,28 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on libtool
+depends_on pkg-config # otherwise it won't install .pc files
 
-fetch_source http://http.debian.net/debian/pool/main/n/ncurses/ncurses_5.9+20140913.orig.tar.gz 790ac6ad9d6988e4cd7009919427493ba96d3a8c
-fetch_debian http://http.debian.net/debian/pool/main/n/ncurses/ncurses_5.9+20140913-1.debian.tar.xz 0cbfc254c8a68cc7ee74ec7b6d80ca7d160f41d6
+fetch_source http://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.0.tar.gz acd606135a5124905da770803c05f1f20dd3b21c
 
-CONFIGURE_OPTIONS="--with-libtool --enable-rpath --enable-pc-files --enable-const \
-                    --enable-symlinks --without-ada --without-cxx-binding --with-termlib --with-shared --without-debug"
+CONFOPTS=(
+--enable-pc-files
+--disable-termcap
+--enable-rpath
+--enable-const
+--enable-symlinks
+--without-ada
+--without-cxx-binding
+--with-shared
+--without-debug
+--with-pkg-config-libdir="$PREFIX/lib/pkgconfig"
+--enable-widec
+)
 
-do_undebian
-pushd_src
-do_patch_inline << 'EOF'
---- a/misc/gen-pkgconfig.in
-+++ b/misc/gen-pkgconfig.in
-@@ -49,7 +49,7 @@
- 
- prefix="@prefix@"
- exec_prefix="@exec_prefix@"
--includedir="@includedir@@includesubdir@"
-+includedir="@includedir@"
- libdir="@libdir@"
- 
- show_prefix='@prefix@'
-@@ -64,9 +64,9 @@
- FORM_LIBRARY="${FORM_NAME}@DFT_ARG_SUFFIX@"
- 
- if test "$includedir" = "/usr/include" ; then
--	CFLAGS=
-+	CFLAGS="-I\${includedir}@includesubdir@"
- else
--	CFLAGS="-I\${includedir}"
-+	CFLAGS="-I\${includedir} -I\${includedir}@includesubdir@"
- fi
- 
- if test "$libdir" = "/usr/lib" ; then
---- a/ncurses/base/MKlib_gen.sh
-+++ b/ncurses/base/MKlib_gen.sh
-@@ -474,11 +474,22 @@ sed -n -f $ED1 \
- 	-e 's/gen_$//' \
- 	-e 's/  / /g' >>$TMP
- 
-+cat >$ED1 <<EOF
-+s/  / /g
-+s/^ //
-+s/ $//
-+s/P_NCURSES_BOOL/NCURSES_BOOL/g
-+EOF
-+
-+# A patch discussed here:
-+#	https://gcc.gnu.org/ml/gcc-patches/2014-06/msg02185.html
-+# introduces spurious #line markers.  Work around that by ignoring the system's
-+# attempt to define "bool" and using our own symbol here.
-+sed -e 's/bool/P_NCURSES_BOOL/g' $TMP > $ED2
-+cat $ED2 >$TMP
-+
- $preprocessor $TMP 2>/dev/null \
--| sed \
--	-e 's/  / /g' \
--	-e 's/^ //' \
--	-e 's/_Bool/NCURSES_BOOL/g' \
-+| sed -f $ED1 \
- | $AWK -f $AW2 \
- | sed -f $ED3 \
- | sed \
-EOF
-PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
-do_configure $CONFIGURE_OPTIONS
-NOPARALLEL=1 \
-do_make
-do_test
-do_install
-PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig \
-## build wide version of ncurses
-do_configure $CONFIGURE_OPTIONS --enable-widec
-NOPARALLEL=1 \
-do_make
-do_test
-do_install
-popd_src
+do_undebian_compile "${CONFOPTS[@]}"
 
-# link tinfo when linking ncurses
-rm $PREFIX/lib/libncurses{,w}.so
-echo "INPUT(libncurses.so.5 -ltinfo)" > $PREFIX/lib/libncurses.so
-echo "INPUT(libncursesw.so.5 -ltinfo)" > $PREFIX/lib/libncursesw.so
-echo "INPUT(libtinfo.so)" > $PREFIX/lib/libtermcap.so
-ln -fs libncurses.a $PREFIX/lib/libcurses.a
-ln -fs libncurses.so $PREFIX/lib/libcurses.so
+## force using widechar version
+for i in form menu ncurses panel; do
+    echo "INPUT(lib${i}w.so)" > "$PREFIX/lib/lib$i.so"
+    ln -fs lib${i}w.a "$PREFIX/lib/lib${i}.a"
+    ln -fs ${i}w.pc "$PREFIX/lib/pkgconfig/${i}.pc"
+done
