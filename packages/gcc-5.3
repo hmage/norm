@@ -39,6 +39,8 @@ intree_unpack mpc
 fetch_source http://isl.gforge.inria.fr/isl-0.15.tar.xz b6f66c4eaf26f8ab697a3a853fe692256a027e9d
 intree_unpack isl
 
+do_patch gcc-5.3-compile-with-gcc6.patch ## fix compilation with gcc 6
+
 # We install 64-bit linux libraries into $PREFIX/lib
 [[ $HOSTTYPE == "x86_64" ]] && sed -ibak '/m64=/s/lib64/lib/' "$SRCDIR"/gcc/config/i386/t-linux64
 
