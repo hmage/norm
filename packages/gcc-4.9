@@ -3,29 +3,26 @@
 depends_on binutils ## system binutils might not support hash-style=both
 depends_on libmpfr
 depends_on libgmp
-depends_on zlib
 ! is_without tests && depends_on autogen ## needed to run tests
 
-## build all languages except java
-LANGUAGES=--enable-languages=c,c++,fortran,lto,objc,obj-c++
+CONFIGURE_OPTIONS=(
+--program-suffix=-5.3    # version suffix to all binaries
+--enable-__cxa_atexit    # for fully standards-compliant destructors, requires libc to have __cxa_atexit
+--enable-languages=c,c++ # only C and C++, gcc is barely used for anything else
+)
 
-## enable machine and OS specific features
-WITH_ARCH=
-HASH_STYLE=
-EXTRA_CONFOPTS=
-[[ $HOSTTYPE == i?86 ]] && WITH_ARCH=--with-arch=i686
-[[ $OSTYPE == *linux* ]] && HASH_STYLE=--with-linker-hash-style=both
-
+## if user wants to speed things up and trusts the system compiler
+is_without bootstrap && CONFIGURE_OPTIONS+=(--disable-bootstrap)
 
 if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
-    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-libsanitizer"
+    CONFIGURE_OPTIONS+=(--disable-libsanitizer)
     add_caveat "Sanitizer support was disabled -- your linux headers are too old"
 fi
 
-if test_cc 'int main() { return 0;}' -m64 && test_cc 'int main() { return 0;}' -m32; then
-    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --enable-multilib"
+if cc_checkflags -m64 && cc_checkflags -m32; then
+    CONFIGURE_OPTIONS+=(--enable-multilib)
 else
-    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-multilib"
+    CONFIGURE_OPTIONS+=(--disable-multilib)
     add_caveat "Multilib support was disabled -- your current compiler doesn't support multilib"
 fi
 
@@ -41,8 +38,6 @@ intree_unpack cloog
 fetch_source http://isl.gforge.inria.fr/isl-0.12.2.tar.bz2 ca98a91e35fb3ded10d080342065919764d6f928
 intree_unpack isl
 
-TARNAME=gcc-4.9.3.tar.gz
-
 do_patch gcc-4.9.2-multiarch.patch -p2      ## add support for multiarch
 do_patch gcc-4.7.1-startfiles_fix-1.patch   ## search for files in $PREFIX as well
 do_patch gcc-4.9.2-sanitizer-offsetof.patch ## old headers fail to detect presence of __builtin_offsetof
@@ -51,24 +46,9 @@ do_patch gcc-4.9.2-cilk-pthread.patch       ## old headers don't implicitly incl
 # We install 64-bit linux libraries into $PREFIX/lib
 [[ $HOSTTYPE == "x86_64" ]] && sed -ibak '/m64=/s/lib64/lib/' "$SRCDIR"/gcc/config/i386/t-linux64
 
-## 'plugin' is gcc, 'plugins' is binutils.
-do_compile_outside \
-                   --program-suffix=-4.9 \
-                   --enable-__cxa_atexit --with-tune=generic \
-                   --enable-checking=release \
-                   --with-system-zlib \
-                   $LANGUAGES \
-                   --enable-plugin \
-                   --enable-plugins \
-                   --enable-lto \
-                   --enable-threads=posix \
-                   $HASH_STYLE $WITH_ARCH \
-                   --enable-multiarch \
-                   --enable-clocale=generic \
-                   $EXTRA_CONFOPTS \
-                   --disable-werror # otherwise compilation fails because of binutils
+do_compile_outside "${CONFIGURE_OPTIONS[@]}"
 
-ln -sf $PREFIX/bin/gcc $PREFIX/bin/cc
+add_to_ccache gcc-4.9 g++-4.9
 
 add_caveat "To not clash with system-installed default gcc, GCC 4.9 was installed with a suffix, run gcc-4.9 or g++-4.9"
 
