@@ -1,7 +1,6 @@
 #!/bin/bash
 
 depends_on pkg-config
-depends_on autoconf automake libtool
 depends_on flex
 depends_on bison
 depends_on python
@@ -9,9 +8,6 @@ depends_on glib
 depends_on libffi
 
 ## newer gobject-introspection depends on newer glib, but newer glib doesn't compile on old gcc
-fetch_source http://http.debian.net/debian/pool/main/g/gobject-introspection/gobject-introspection_1.42.0.orig.tar.xz b3e095004aa8321a5a814aacd019e6953d69c4eb
-fetch_debian http://http.debian.net/debian/pool/main/g/gobject-introspection/gobject-introspection_1.42.0-2.2.debian.tar.xz 902af2312f9ebd28aec727ed75fc60f53f637648
+fetch_source http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/1.51/gobject-introspection-1.51.1.tar.xz e8e4106a59f3c3e7f228a375189907aa884ce5da
 
-do_undebian
-do_autoreconf
-do_compile ## tests depend on libcairo
+do_unpack_compile
