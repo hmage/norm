@@ -7,5 +7,5 @@ fetch_debian http://ftp.de.debian.org/debian/pool/main/libe/libelf/libelf_0.8.13
 
 do_undebian
 do_autoreconf
-do_compile --enable-elf64 --enable-compat
+do_compile --enable-elf64 --enable-compat --disable-nls
 
