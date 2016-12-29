@@ -6,7 +6,9 @@ depends_on libpng
 depends_on libtiff
 depends_on libwebp
 depends_on libbpg
+depends_on zlib
+depends_on bzip2
 
 fetch_source http://sources.buildroot.net/ImageMagick-7.0.3-8.tar.xz 905487a2be68d36f98be474922dde548a94c5e25
 
-do_unpack_compile
+do_unpack_compile --without-x
