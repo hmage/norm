@@ -36,10 +36,12 @@ do_cmake() {
     log "Configuring $FORMULA $@"
     cmake "$SRCDIR" -DCMAKE_INSTALL_PREFIX=$ESCAPED_PREFIX \
                     -DCMAKE_BUILD_TYPE=Release \
+                    -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
                     -DCMAKE_INCLUDE_PATH=$ESCAPED_PREFIX/include \
+                    -DCMAKE_SKIP_RPATH=ON \
                     -DCMAKE_LIBRARY_PATH=$ESCAPED_PREFIX/lib \
-                    -DCMAKE_C_FLAGS="-g -O2 $CPPFLAGS" \
-                    -DCMAKE_CXX_FLAGS="-g -O2 $CPPFLAGS" \
+                    -DCMAKE_C_FLAGS="$CPPFLAGS" \
+                    -DCMAKE_CXX_FLAGS="$CPPFLAGS" \
                     -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" "$@"
 }
 
