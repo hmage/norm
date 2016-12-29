@@ -3,30 +3,26 @@
 depends_on binutils ## system binutils might not support hash-style=both
 depends_on libmpfr
 depends_on libgmp
-depends_on zlib
-depends_on flex
-depends_on gettext
 ! is_without tests && depends_on autogen ## needed to run tests
 
-## build all languages except java
-LANGUAGES=--enable-languages=c,c++,fortran,lto,objc,obj-c++
+CONFIGURE_OPTIONS=(
+--program-suffix=-5.3    # version suffix to all binaries
+--enable-__cxa_atexit    # for fully standards-compliant destructors, requires libc to have __cxa_atexit
+--enable-languages=c,c++ # only C and C++, gcc is barely used for anything else
+)
 
-## enable machine and OS specific features
-WITH_ARCH=
-HASH_STYLE=
-EXTRA_CONFOPTS=
-[[ $HOSTTYPE == i?86 ]] && WITH_ARCH=--with-arch=i686
-[[ $OSTYPE == *linux* ]] && HASH_STYLE=--with-linker-hash-style=both
+## if user wants to speed things up and trusts the system compiler
+is_without bootstrap && CONFIGURE_OPTIONS+=(--disable-bootstrap)
 
 if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
-    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-libsanitizer"
+    CONFIGURE_OPTIONS+=(--disable-libsanitizer)
     add_caveat "Sanitizer support was disabled -- your linux headers are too old"
 fi
 
-if test_cc 'int main() { return 0;}' -m64 && test_cc 'int main() { return 0;}' -m32; then
-    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --enable-multilib"
+if cc_checkflags -m64 && cc_checkflags -m32; then
+    CONFIGURE_OPTIONS+=(--enable-multilib)
 else
-    EXTRA_CONFOPTS="$EXTRA_CONFOPTS --disable-multilib"
+    CONFIGURE_OPTIONS+=(--disable-multilib)
     add_caveat "Multilib support was disabled -- your current compiler doesn't support multilib"
 fi
 
@@ -44,29 +40,11 @@ do_patch gcc-5.3-compile-with-gcc6.patch ## fix compilation with gcc 6
 # We install 64-bit linux libraries into $PREFIX/lib
 [[ $HOSTTYPE == "x86_64" ]] && sed -ibak '/m64=/s/lib64/lib/' "$SRCDIR"/gcc/config/i386/t-linux64
 
-## 'plugin' is gcc, 'plugins' is binutils.
-do_compile_outside \
-                   --program-suffix=-5.3 \
-                   --enable-__cxa_atexit --with-tune=generic \
-                   --enable-checking=release \
-                   --with-system-zlib \
-                   --with-sysroot=/ \
-                   --without-included-gettext \
-                   $LANGUAGES \
-                   --enable-plugin \
-                   --enable-plugins \
-                   --enable-lto \
-                   --enable-threads=posix \
-                   $HASH_STYLE $WITH_ARCH \
-                   --enable-multiarch \
-                   --enable-clocale=generic \
-                   $EXTRA_CONFOPTS \
-                   --disable-werror # otherwise compilation fails because of binutils
+do_compile_outside "${CONFIGURE_OPTIONS[@]}"
 
 add_to_ccache g++-5.3 gcc-5.3
-ln -sf $PREFIX/bin/gcc $PREFIX/bin/cc
 
 add_caveat "To not clash with system-installed default gcc, GCC 5.3 was installed with a suffix, run gcc-5.3 or g++-5.3"
 
 add_caveat "Remember -- you can't use this build of gcc on any other machine" \
-           "Do not move it away from $PREFIX either -- paths are hardcoded" \
+           "Do not move it away from $PREFIX either -- paths are hardcoded"
