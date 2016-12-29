@@ -6,7 +6,7 @@ fetch_source http://downloads.sourceforge.net/project/cppcheck/cppcheck/1.76.1/c
 
 do_unpack
 pushd_src
-do_make HAVE_RULES=yes
-do_test HAVE_RULES=yes
+do_make HAVE_RULES=yes LDFLAGS="$LDFLAGS"
+do_test HAVE_RULES=yes LDFLAGS="$LDFLAGS"
 do_install PREFIX=$ESCAPED_PREFIX
 popd_src
