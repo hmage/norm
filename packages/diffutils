@@ -2,4 +2,5 @@
 
 fetch_source http://ftpmirror.gnu.org/diffutils/diffutils-3.5.tar.xz 1169cce8eaaf7290dc087d65db7ed75de0dceb93
 
+ac_cv_libsigsegv=no \
 do_unpack_compile
