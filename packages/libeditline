@@ -1,5 +1,7 @@
 #!/bin/bash
 
+depends_on libncurses
+
 fetch_source https://github.com/troglobit/editline/releases/download/1.15.2/editline-1.15.2.tar.xz d14340867de01a3d6eb757b476569d2b5eed833d
 
 do_unpack_compile
