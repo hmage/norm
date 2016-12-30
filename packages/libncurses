@@ -15,14 +15,7 @@ CONFOPTS=(
 --with-shared
 --without-debug
 --with-pkg-config-libdir="$PREFIX/lib/pkgconfig"
---enable-widec
 )
 
-do_undebian_compile "${CONFOPTS[@]}"
-
-## force using widechar version
-for i in form menu ncurses panel; do
-    echo "INPUT(lib${i}w.so)" > "$PREFIX/lib/lib$i.so"
-    ln -fs lib${i}w.a "$PREFIX/lib/lib${i}.a"
-    ln -fs ${i}w.pc "$PREFIX/lib/pkgconfig/${i}.pc"
-done
+do_unpack_compile "${CONFOPTS[@]}"
+do_unpack_compile "${CONFOPTS[@]}" --enable-widec
