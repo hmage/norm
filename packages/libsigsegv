@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://ftpmirror.gnu.org/libsigsegv/libsigsegv-2.10.tar.gz b75a647a9ebda70e7a3b33583efdd550e0eac094
+
+do_unpack_compile --enable-shared
