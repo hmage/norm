@@ -25,7 +25,7 @@ depends_on openssl
 depends_on libpcre
 depends_on sqlite3
 
-fetch_source http://download.qt.io/official_releases/qt/5.7/5.7.0/single/qt-everywhere-opensource-src-5.7.0.tar.gz dec1bf8f97bc969291a7e6745a0a007d34e66a30
+fetch_source http://download.qt.io/official_releases/qt/5.7/5.7.1/single/qt-everywhere-opensource-src-5.7.1.tar.gz 6cee9860f32e346ad355f1bb3436207dca8d4369
 
 CFLAGS="-g -O2 $CPPFLAGS" \
 CXXFLAGS="-g -O2 $CPPFLAGS" \
