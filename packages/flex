@@ -3,6 +3,6 @@
 depends_on bison
 depends_on help2man
 
-fetch_source https://github.com/westes/flex/releases/download/v2.6.2/flex-2.6.2.tar.gz 9eab5eddb6efb34d420b3162fd619a01940b9438
+fetch_source https://github.com/westes/flex/releases/download/v2.6.3/flex-2.6.3.tar.gz 8008eb0e4ccc634c334ac1d9e04716be2ba527a9
 
 do_unpack_compile
