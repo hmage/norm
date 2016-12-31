@@ -266,8 +266,8 @@ do_undebian_compile_test() {
         DEBPATCH="$2"
         shift 2
     fi
-    do_undebian
-    do_compile_test "$@"
+    do_undebian || return 1
+    do_compile_test "$@" || return 1
 }
 
 ##
@@ -279,8 +279,8 @@ do_undebian_compile_notest() {
         DEBPATCH="$2"
         shift 2
     fi
-    do_undebian
-    do_compile_notest "$@"
+    do_undebian || return 1
+    do_compile_notest "$@" || return 1
 }
 
 ##
@@ -292,8 +292,8 @@ do_unpack_compile_test() {
         TARNAME="$1"
         shift 1
     fi
-    do_unpack "$TARNAME"
-    do_compile_test "$@"
+    do_unpack "$TARNAME" || return 1
+    do_compile_test "$@" || return 1
 }
 
 ##
@@ -304,8 +304,8 @@ do_unpack_compile_notest() {
         TARNAME="$1"
         shift 1
     fi
-    do_unpack "$TARNAME"
-    do_compile_notest "$@"
+    do_unpack "$TARNAME" || return 1
+    do_compile_notest "$@" || return 1
 }
 
 ##
