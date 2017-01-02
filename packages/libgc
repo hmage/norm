@@ -1,7 +1,11 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/libg/libgc/libgc_7.2d.orig.tar.gz b43573800e27361da78f05a2e98394521cfa04fc
-fetch_debian http://http.debian.net/debian/pool/main/libg/libgc/libgc_7.2d-6.4.debian.tar.xz 515921180c767add2ef2a73db4f0b5f3ff8d57eb
+fetch_source http://hboehm.info/gc/gc_source/gc-7.6.0.tar.gz bae6b3754ff8d3845b5171346bf924e13be6c693
+fetch_file   http://hboehm.info/gc/gc_source/libatomic_ops-7.4.4.tar.gz 426af02f1bb8b91979fa8794e9e0b29e2be1e47e
 
-do_undebian_compile
-
+do_unpack
+pushd_src
+mkdir -p libatomic_ops
+tar xvf "$CACHEDIR/$FILENAME" -C libatomic_ops --strip-components 1
+do_compile --enable-cplusplus --enable-single-obj-compilation --with-libatomic-ops=no
+popd_src
