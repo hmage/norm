@@ -10,4 +10,26 @@ depends_on libreadline
 
 fetch_source http://ftpmirror.gnu.org/guile/guile-2.0.13.tar.xz 627f7b5004f01b7e2c074e03fff3eda235c0d9ab
 
-do_unpack_compile
+do_unpack
+do_patch_inline -p0 << 'EOF'
+diff --git a/test-suite/tests/00-repl-server.test
+b/test-suite/tests/00-repl-server.test
+index 1f570a9..4b5ec0c 100644
+--- test-suite/tests/00-repl-server.test
++++ test-suite/tests/00-repl-server.test
+@@ -105,8 +105,14 @@ reached."
+       "scheme@(repl-server)> $1 = 42\n"
+     (with-repl-server socket
+       (read-until-prompt socket %last-line-before-prompt)
+-      (display "(+ 40 2)\n(quit)\n" socket)
+-      (read-string socket)))
++
++      ;; Wait until 'repl-reader' in boot-9 has written the prompt.
++      ;; Otherwise, if we write too quickly, 'repl-reader' checks for
++      ;; 'char-ready?' and doesn't print the prompt.
++      (match (select (list socket) '() (list socket) 3)
++        (((_) () ())
++         (display "(+ 40 2)\n(quit)\n" socket)
++         (read-string socket)))))
+EOF
+do_compile --disable-error-on-warning
