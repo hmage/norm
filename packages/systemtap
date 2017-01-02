@@ -5,6 +5,7 @@ depends_on libreadline
 depends_on gettext
 depends_on libnss
 depends_on bzip2
+depends_on m4
 
 fetch_source https://sourceware.org/systemtap/ftp/releases/systemtap-3.0.tar.gz 5ef3a2d9945b0f6bae0061e33811e25e5138f5b7
 fetch_file https://fedorahosted.org/releases/e/l/elfutils/0.167/elfutils-0.167.tar.bz2 91cec7fec0031758cc0c842a87ee8c5faa4d8107
