@@ -9,6 +9,6 @@ depends_on libbpg
 depends_on zlib
 depends_on bzip2
 
-fetch_source https://github.com/ImageMagick/ImageMagick/archive/7.0.4-0.tar.gz 1518a3545c6206c768a7b66a1beaa4a102b6669a
+fetch_source https://github.com/ImageMagick/ImageMagick/archive/7.0.4-2.tar.gz 6f26d190fac450dec941c726e6e652371746a422
 
 do_unpack_compile --without-x
