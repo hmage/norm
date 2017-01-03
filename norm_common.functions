@@ -39,7 +39,7 @@ do_cmake() {
                     -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
                     -DCMAKE_INCLUDE_PATH=$ESCAPED_PREFIX/include \
                     -DCMAKE_SKIP_RPATH=ON \
-                    -DCMAKE_LIBRARY_PATH=$ESCAPED_PREFIX/lib \
+                    -DCMAKE_LIBRARY_PATH:PATH="$PREFIX/lib" \
                     -DCMAKE_C_FLAGS="$CPPFLAGS" \
                     -DCMAKE_CXX_FLAGS="$CPPFLAGS" \
                     -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" "$@"
