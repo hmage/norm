@@ -5,4 +5,5 @@ fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.6.27.tar.xz af5d
 
 do_unpack_compile
 
-install -D "$SRCDIR"/pngbar.png "$PREFIX"/var/norm/pngbar.png
+mkdir -p "$PREFIX"/var/norm
+install -m 644 "$SRCDIR"/pngbar.png "$PREFIX"/var/norm/pngbar.png
