@@ -2,7 +2,6 @@
 
 depends_on libudev
 
-fetch_source http://http.debian.net/debian/pool/main/libu/libusb-1.0/libusb-1.0_1.0.19.orig.tar.bz2 c5d14ced155233ceeb5107c7eb3b94b16649ae05
-fetch_debian http://http.debian.net/debian/pool/main/libu/libusb-1.0/libusb-1.0_1.0.19-1.debian.tar.xz fd17e7258c2431dae4387a552f312b2101dfc6c2
+fetch_source https://prdownloads.sourceforge.net/libusb/libusb-1.0/libusb-1.0.21/libusb-1.0.21.tar.gz f5b2fbfda1993fbabbb5976048b29f14c3e9be2f
 
-do_undebian_compile
+do_unpack_compile
