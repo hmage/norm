@@ -1,7 +1,5 @@
 #!/bin/bash
 
-depends_on libudev
-
 fetch_source https://prdownloads.sourceforge.net/libusb/libusb-1.0/libusb-1.0.21/libusb-1.0.21.tar.gz f5b2fbfda1993fbabbb5976048b29f14c3e9be2f
 
-do_unpack_compile
+do_unpack_compile --disable-udev
