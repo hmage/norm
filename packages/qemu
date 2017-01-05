@@ -20,5 +20,6 @@ depends_on flex
 
 fetch_source http://wiki.qemu-project.org/download/qemu-2.8.0.tar.bz2 a5602f2ddb51d61b4c0e618b779fdb0dbdc9cc1f
 
-do_unpack_compile --with-system-pixman \
+## testing hangs because test scripts do not kill a qemu process
+do_unpack_compile_notest --with-system-pixman \
                   --extra-cflags="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" --extra-ldflags="$LDFLAGS"
