@@ -9,6 +9,10 @@ depends_on libx11
 depends_on libxcb
 depends_on libxau
 depends_on libxdmcp
+depends_on libcap
+depends_on xz
+depends_on liblz4
+depends_on libgcrypt
 
 fetch_source http://dbus.freedesktop.org/releases/dbus/dbus-1.11.8.tar.gz 3f90a3d2ae6c67d2d1637039be9125c295c85a1a
 
