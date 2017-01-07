@@ -1,4 +1,6 @@
 #!/bin/bash
+
+depends_on libnuma
 depends_on zlib
 depends_on libpciaccess
 
