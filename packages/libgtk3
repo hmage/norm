@@ -10,6 +10,6 @@ depends_on libxi
 depends_on libepoxy
 depends_on libat-spi2-atk
 
-fetch_source http://ftp.gnome.org/pub/gnome/sources/gtk+/3.22/gtk+-3.22.5.tar.xz 458f9de1033059e984fb768043b874be165448f6
+fetch_source http://ftp.gnome.org/pub/gnome/sources/gtk+/3.22/gtk+-3.22.6.tar.xz f16494bca63ac417dc91cb1ff62e2ed7dbb69f33
 
 do_unpack_compile
