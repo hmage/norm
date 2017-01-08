@@ -17,7 +17,7 @@ fetch_source http://mirror.unicorncloud.org/savannah-nongnu/freetype/freetype-2.
 do_unpack_compile $FREETYPE_OPTS
 
 ## harfbuzz with freshly built freetype
-fetch_source http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.3.4.tar.bz2 8d54bf6b4b3730f5c49054dc04aa4984fda640c7
+fetch_source http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.4.1.tar.bz2 aa0f33e41ab69b9004dfbcaa670004b3f4b698de
 do_unpack_compile --without-cairo
 
 ## freetype #2 with freshly built harfbuzz
