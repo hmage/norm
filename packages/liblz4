@@ -1,9 +1,8 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/l/lz4/lz4_0.0~r122.orig.tar.gz 11d63415b9341194d6742fef73d6282a96ddcb1d
-fetch_debian http://http.debian.net/debian/pool/main/l/lz4/lz4_0.0~r122-2.debian.tar.xz 14f78edb46025c78ef3c76c2d94874de911fc5db
+fetch_source https://github.com/lz4/lz4/archive/v1.7.5.tar.gz a710a7d45beb0951806d2b98f0c1739107e97c14
 
-do_undebian
+do_unpack
 pushd_src
 do_make
 do_test -C examples
