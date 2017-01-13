@@ -8,7 +8,11 @@ depends_on libxml ## c-index-test has dynamic dependency on it
 depends_on zlib
 depends_on libffi
 
-CONFIGURE_FLAGS="--enable-optimized --disable-assertions --disable-libedit"
+ENABLE_SANITIZER=yes
+if ! test_cc_expr "link.h" "Elf64_Dyn a = _DYNAMIC[0]"; then
+    ENABLE_SANITIZER=no
+    add_caveat "Your libc doesn't have _DYNAMIC in <link.h>, sanitizer support was disabled."
+fi
 
 fetch_source http://llvm.org/releases/3.9.1/llvm-3.9.1.src.tar.xz ce801cf456b8dacd565ce8df8288b4d90e7317ff
 do_unpack
@@ -17,12 +21,51 @@ if [[ ${BASH_SOURCE##*/} == clang ]]; then
     fetch_source http://llvm.org/releases/3.9.1/cfe-3.9.1.src.tar.xz 95e4be54b70f32cf98a8de36821ea5495b84add8
     intree_unpack tools/clang
 
-    fetch_source http://llvm.org/releases/3.9.1/compiler-rt-3.9.1.src.tar.xz 938921d076e28943f5d5b653514f2ce36a88a55e
-    intree_unpack projects/compiler-rt
+    if [[ $ENABLE_SANITIZER == yes ]]; then
+        fetch_source http://llvm.org/releases/3.9.1/compiler-rt-3.9.1.src.tar.xz 938921d076e28943f5d5b653514f2ce36a88a55e
+        intree_unpack projects/compiler-rt
+    fi
 
     fetch_source http://llvm.org/releases/3.9.1/clang-tools-extra-3.9.1.src.tar.xz f24e5ceb226a72e781cefde4e30f2d7be09ea305
     intree_unpack tools/clang/tools/extra
 fi
+
+## this fixes musl
+do_patch_inline -p0 << 'EOF'
+--- lib/Support/DynamicLibrary.cpp
++++ lib/Support/DynamicLibrary.cpp
+@@ -140,10 +140,10 @@
+ #define EXPLICIT_SYMBOL(SYM) \
+    if (!strcmp(symbolName, #SYM)) return &SYM
+ 
+-// On linux we have a weird situation. The stderr/out/in symbols are both
++// On GNU libc we have a weird situation. The stderr/out/in symbols are both
+ // macros and global variables because of standards requirements. So, we
+ // boldly use the EXPLICIT_SYMBOL macro without checking for a #define first.
+-#if defined(__linux__) and !defined(__ANDROID__)
++#if defined(__GLIBC__)
+   {
+     EXPLICIT_SYMBOL(stderr);
+     EXPLICIT_SYMBOL(stdout);
+--- include/llvm/Analysis/TargetLibraryInfo.h
++++ include/llvm/Analysis/TargetLibraryInfo.h
+@@ -18,6 +18,15 @@
+ #include "llvm/IR/Module.h"
+ #include "llvm/Pass.h"
+ 
++#undef fopen64
++#undef fseeko64
++#undef fstat64
++#undef fstatvfs64
++#undef ftello64
++#undef lstat64
++#undef stat64
++#undef tmpfile64
++
+ namespace llvm {
+ /// VecDesc - Describes a possible vectorization of a function.
+ /// Function 'VectorFnName' is equivalent to 'ScalarFnName' vectorized
+EOF
 
 NOPARALLEL=1 \
 do_compile_outside \
