@@ -4,7 +4,7 @@ requires_gcc 4.3 for -mssse3 support
 
 depends_on yasm
 
-fetch_source http://storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-1.6.0.tar.bz2 57ec789410151f2a17cb06cbd4a77a871dcaf3b2
+fetch_source http://storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-1.6.1.tar.bz2 a8bd0596915489d3bd8eded98d408ab8705e2f5d
 
 do_unpack_compile
 
