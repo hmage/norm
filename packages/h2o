@@ -4,6 +4,6 @@ depends_on cmake
 depends_on pkg-config
 depends_on openssl
 
-fetch_source https://github.com/h2o/h2o/archive/v2.0.5.tar.gz 46e27da585db248604d3943b2c6f2403c2b89ae9
+fetch_source https://github.com/h2o/h2o/archive/v2.0.6.tar.gz 4a0a1dcc8a05bf02b3e860f294beb0cfb3f5e72c
 
 do_unpack_compile_notest ## TODO: h2o tests require perl and libtest-tcp-perl to be installed, quite heavy dependency
