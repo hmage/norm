@@ -1,5 +1,11 @@
 #!/bin/bash
 
+depends_on pkg-config
+depends_on python
+depends_on glib
+depends_on libgtk3
+depends_on libpcap
+
 fetch_source https://1.na.dl.wireshark.org/src/wireshark-2.2.3.tar.bz2 98fa058e0b07ab97b6f0a670e5277203f0b80715
 
 do_unpack_compile
