@@ -524,18 +524,21 @@ cc_addflags() {
     done
 }
 
+## test_cc_expr "fcntl.h" "int a = O_CLOEXEC"
+test_cc_expr() {
+    test_cc "#define _GNU_SOURCE
+#include <$1>
+int main() { $2; return 0;}"
+}
 
 ## test_cc_value "fcntl.h" "O_CLOEXEC"
 test_cc_value() {
-    test_cc "#define _GNU_SOURCE
-#include <$1>
-int main() { int a = $2; return 0;}"
+    test_cc_expr "$1" "int a = $2"
 }
 
 ## test_cc_func "stdio.h" 'printf("Hello, world!\n");'
 test_cc_func() {
-    test_cc "#include <$1>
-int main() { $2; return 0;}"
+    test_cc_expr "$1" "$2"
 }
 
 is_cc_clang() {
