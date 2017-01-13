@@ -2,7 +2,7 @@
 
 WITHOUT_PYTHON=--without-python
 OURNAME=`basename "${BASH_SOURCE[0]}"`
-[[ $OURNAME == python-libxml ]] && depends_on python && unset WITHOUT_PYTHON
+[[ $OURNAME == python-libxml ]] && depends_on python && WITHOUT_PYTHON="--with-python=$PREFIX/bin/python"
 
 depends_on autoconf automake libtool
 depends_on zlib
