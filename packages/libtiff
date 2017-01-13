@@ -5,7 +5,8 @@ depends_on libjpeg
 depends_on zlib
 depends_on libjbig
 
-fetch_source http://download.osgeo.org/libtiff/tiff-4.0.7.tar.gz 2c1b64478e88f93522a42dd5271214a0e5eae648
+fetch_source http://http.debian.net/debian/pool/main/t/tiff/tiff_4.0.7.orig.tar.gz 2c1b64478e88f93522a42dd5271214a0e5eae648
+fetch_debian http://http.debian.net/debian/pool/main/t/tiff/tiff_4.0.7-4.debian.tar.xz c1a6d2538f74b644c3638aed9b9f79aea2fc53ef
 
-do_unpack_compile --without-x
+do_undebian_compile --without-x
 
