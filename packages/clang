@@ -4,6 +4,7 @@ requires_gcc 4.7
 
 depends_on cmake  ## since llvm 3.9, cmake is the only way to build this
 depends_on python ## needs python 2.7 to compile
+depends_on libxml ## c-index-test has dynamic dependency on it
 depends_on zlib
 depends_on libffi
 
