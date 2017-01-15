@@ -29,6 +29,7 @@ do_patch_inline -p0 << 'EOF'
  
 EOF
 do_autoreconf
+CPPFLAGS="$CPPFLAGS -DXML_XML_DEFAULT_CATALOG=\\\"file:///$ESCAPED_PREFIX/etc/xml/catalog\\\"" \
 do_configure --with-zlib=$PREFIX $WITHOUT_PYTHON
 do_make
 do_test

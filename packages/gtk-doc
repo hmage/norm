@@ -10,4 +10,4 @@ fetch_source http://http.debian.net/debian/pool/main/g/gtk-doc/gtk-doc_1.21.orig
 fetch_debian http://http.debian.net/debian/pool/main/g/gtk-doc/gtk-doc_1.21-2.debian.tar.xz d82f97c6a11a18cd11301a55fa4cc568211b294f
 
 ## gtk-doc doesn't have any tests
-XML_CATALOG_FILES="" do_undebian_compile_notest --with-xml-catalog="$PREFIX"/etc/xml/catalog
+do_undebian_compile_notest

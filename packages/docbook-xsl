@@ -13,8 +13,8 @@ for catalog in docbook-xsl docbook-xsl-ns; do
     CATALOGDIR="$PREFIX/share/$catalog"
     mkdir -p "$CATALOGDIR"
     cp -pr * "$CATALOGDIR/"
-    XML_CATALOG_FILES="" xmlcatalog --noout --del "file://$CATALOGDIR/catalog.xml" "$PREFIX/etc/xml/catalog"
-    XML_CATALOG_FILES="" xmlcatalog --noout --add nextCatalog "" "file://$CATALOGDIR/catalog.xml" "$PREFIX/etc/xml/catalog"
+    xmlcatalog --noout --del "file://$CATALOGDIR/catalog.xml" "$PREFIX/etc/xml/catalog"
+    xmlcatalog --noout --add nextCatalog "" "file://$CATALOGDIR/catalog.xml" "$PREFIX/etc/xml/catalog"
     popd
 done
 popd_src
