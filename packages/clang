@@ -7,6 +7,7 @@ depends_on python ## needs python 2.7 to compile
 depends_on libxml ## c-index-test has dynamic dependency on it
 depends_on zlib
 depends_on libffi
+depends_on libedit
 
 ENABLE_SANITIZER=yes
 if ! test_cc_expr "link.h" "Elf64_Dyn a = _DYNAMIC[0]"; then
