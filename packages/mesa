@@ -55,4 +55,5 @@ do_compile $DISABLE_GALLIUM \
                   --enable-gbm \
                   --enable-sysfs \
                   --disable-debug \
+                  --disable-shader-cache \
                   --enable-texture-float
