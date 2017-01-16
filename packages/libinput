@@ -3,8 +3,8 @@
 depends_on libevdev
 depends_on libmtdev
 depends_on libudev
+depends_on libwacom
 
-fetch_source http://http.debian.net/debian/pool/main/libi/libinput/libinput_0.6.0+dfsg.orig.tar.xz eb51a66f39eb70509ee9ce848d141e66d84ee0e4
-fetch_debian http://http.debian.net/debian/pool/main/libi/libinput/libinput_0.6.0+dfsg-2.debian.tar.xz 2e552bec24438fc30d0f2d4b2a12dc5c2705a67b
+fetch_source https://www.freedesktop.org/software/libinput/libinput-1.5.4.tar.xz 36800caa5c89b2e932f094ed18691591c4dbbbb0
 
-do_undebian_compile
+do_unpack_compile
