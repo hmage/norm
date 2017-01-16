@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://ftpmirror.gnu.org/texinfo/texinfo-6.1.tar.xz d39c2e35ddb0aff6ebdd323ce53729bd215534fa
+fetch_source https://ftpmirror.gnu.org/texinfo/texinfo-6.3.tar.xz 64568f2791d1309aaccc22e63758458fd249ec8b
 
 do_unpack_compile
