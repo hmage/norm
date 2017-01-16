@@ -1,16 +1,14 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
+depends_on autoconf automake
 depends_on curl
-depends_on openssl
-depends_on libjansson
 depends_on libgmp
 
-fetch_source https://github.com/hmage/cpuminer-opt/archive/6b0447ebcc3c199123fc4872b3ee3ed8a56111c4.tar.gz 5ac52913165d7a095ddc493cda8990bca8428476
+fetch_source https://github.com/JayDDee/cpuminer-opt/archive/badc80f071912faaa0d7fe2f09202e903de491df.tar.gz 246b7d81142a7918aa8df3f2b4cab46d40376f1b
 
 unset EXTRAFLAGS EXTRALD
 cc_addflags EXTRAFLAGS -O3 -ftree-loop-if-convert-stores -DUSE_ASM
-cc_addflags EXTRALD -Wl,--no-as-needed
+#cc_addflags EXTRALD -Wl,--no-as-needed
 
 do_unpack
 do_autoreconf
