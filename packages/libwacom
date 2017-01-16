@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on glib
+depends_on libgudev
+
+fetch_source http://downloads.sourceforge.net/linuxwacom/libwacom/libwacom-0.22.tar.bz2 5a0ec4e32de0b4f979d74f4b01299ec7d9dd79cf
+
+do_unpack_compile
