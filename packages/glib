@@ -7,7 +7,7 @@ depends_on gettext
 depends_on libpcre
 depends_on python # for mandatory tests to build
 
-fetch_source https://download.gnome.org/sources/glib/2.51/glib-2.51.0.tar.xz 20c85cd0bcf74f89bf8e2e18abdc006385562295
+fetch_source https://download.gnome.org/sources/glib/2.51/glib-2.51.1.tar.xz cc10b0dc8dd68b4333a6f33877e49a68b02eacfc
 
 unset EXTRAFLAGS NEW_LDFLAGS
 cc_addflags EXTRAFLAGS -Wno-format-nonliteral ## gcc 6.1 is too strict for this old glib
