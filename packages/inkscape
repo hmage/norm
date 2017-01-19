@@ -1,0 +1,24 @@
+#!/bin/bash
+
+depends_on autoconf automake libtool
+depends_on intltool
+depends_on freetype
+depends_on liblcms2
+depends_on libcairomm
+depends_on libglibmm
+depends_on libpango
+depends_on libxslt
+depends_on libgc
+depends_on libgsl
+depends_on libgtk2
+depends_on libgtkmm
+depends_on libboost
+depends_on libpopt
+
+fetch_source https://inkscape.org/gallery/item/10552/inkscape-0.92.0.tar.bz2 8f576bc828138e9c3c835a458c3cefd5801a907a
+
+do_unpack
+pushd_src
+./autogen.sh
+do_compile
+popd_src
