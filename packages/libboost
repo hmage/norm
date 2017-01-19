@@ -1,0 +1,14 @@
+#!/bin/bash
+
+depends_on zlib
+depends_on bzip2
+depends_on libicu
+
+fetch_source http://downloads.sourceforge.net/boost/boost_1_63_0.tar.bz2 08f7c517b9e91423e51f21acb3400f1592c9dd7c
+
+do_unpack
+pushd_src
+./bootstrap.sh --prefix="$PREFIX" cxxflags="$CPPFLAGS" linkflags="$LDFLAGS"
+./b2 --prefix="$PREFIX" cxxflags="$CPPFLAGS" linkflags="$LDFLAGS" -d+2 -j$NUMJOBS
+./b2 --prefix="$PREFIX" cxxflags="$CPPFLAGS" linkflags="$LDFLAGS" -d+2 -j$NUMJOBS install
+popd_src
