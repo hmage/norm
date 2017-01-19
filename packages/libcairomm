@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on libcairo
+depends_on libsigc++
+
+fetch_source http://cairographics.org/releases/cairomm-1.12.0.tar.gz 5a09a3f604cec2ddb4dfcace28dbe74a53585585
+
+do_unpack_compile
