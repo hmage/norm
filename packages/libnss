@@ -4,7 +4,7 @@ depends_on zlib
 depends_on sqlite3
 
 fetch_source http://http.debian.net/debian/pool/main/n/nss/nss_3.17.2.orig.tar.gz c518e0726e89210219e3c583bfa08e40fb39385a
-fetch_debian http://http.debian.net/debian/pool/main/n/nss/nss_3.17.2-1.1+deb8u2.debian.tar.xz 063fa85b303964cfde6e259b821242c0eedcd98e
+fetch_debian http://http.debian.net/debian/pool/main/n/nss/nss_3.17.2-1.1.debian.tar.xz e81f735d4338b97b2c1da9e66be3e8ede6cf84ee
 
 EXTRA_OPTIONS=
 [[ $HOSTTYPE == *64* ]] && EXTRA_OPTIONS="USE_64=1"
