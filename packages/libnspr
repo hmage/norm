@@ -1,11 +1,10 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/n/nspr/nspr_4.10.7.orig.tar.gz f62972d7c66d4621d6262c5bd9b5723fa67b6bff
-fetch_debian http://http.debian.net/debian/pool/main/n/nspr/nspr_4.10.7-1.debian.tar.xz cd410765e1f08b41f4e6d7edecdfe0bb3c60a0f6
+fetch_source https://ftp.mozilla.org/pub/nspr/releases/v4.13.1/src/nspr-4.13.1.tar.gz ec6660257d41267a0e6ee25812e9012cb9ddd274
 
 EXTRA_OPTIONS=
 [[ $HOSTTYPE == *64* ]] && EXTRA_OPTIONS=--enable-64bit
 
-do_undebian
+do_unpack
 SRCDIR=$SRCDIR/nspr
 do_compile_notest --enable-pthreads --enable-ipv6 --enable-optimize --disable-debug $EXTRA_OPTIONS ## does not have tests
