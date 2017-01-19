@@ -1,8 +1,11 @@
 #!/bin/bash
 
+depends_on autoconf automake libtool
 ! is_without tests && depends_on xmlto
 
 fetch_source http://http.debian.net/debian/pool/main/p/patchutils/patchutils_0.3.3.orig.tar.xz 89d3f8a454bacede1b9a112b3a13701ed876fcc1
 fetch_debian http://http.debian.net/debian/pool/main/p/patchutils/patchutils_0.3.3-1.debian.tar.xz 7b3539029e65a2169f40d38934fa25a63641c0e1
 
-do_undebian_compile
+do_undebian
+do_autoreconf
+do_compile
