@@ -1,16 +1,20 @@
 #!/bin/bash
+
 depends_on libnspr
 depends_on zlib
 depends_on sqlite3
 
-fetch_source http://http.debian.net/debian/pool/main/n/nss/nss_3.17.2.orig.tar.gz c518e0726e89210219e3c583bfa08e40fb39385a
-fetch_debian http://http.debian.net/debian/pool/main/n/nss/nss_3.17.2-1.1.debian.tar.xz e81f735d4338b97b2c1da9e66be3e8ede6cf84ee
+major=3
+minor=28
+patch=1
+
+fetch_source https://ftp.mozilla.org/pub/security/nss/releases/NSS_${major}_${minor}_${patch}_RTM/src/nss-${major}.${minor}.${patch}.tar.gz 75f220c1c20d8346cde43fb96726d3447c11cf22
 
 EXTRA_OPTIONS=
 [[ $HOSTTYPE == *64* ]] && EXTRA_OPTIONS="USE_64=1"
 
 
-do_undebian
+do_unpack
 pushd_src
 make -C nss all \
                                          MOZILLA_CLIENT=1 NSPR_INCLUDE_DIR=$PREFIX/include/nspr \
@@ -19,8 +23,9 @@ make -C nss all \
                                          $EXTRA_OPTIONS \
                                          USE_SYSTEM_ZLIB=1 OPTIMIZER="$CFLAGS $CPPFLAGS"
 
-cat debian/nss.pc.in     | sed -e "s|prefix=/usr|prefix=$PREFIX|" -e "s|/\@DEB_HOST_MULTIARCH\@||" -e "s/\@VERSION\@/3.17.2/" > debian/nss.pc
-cat debian/nss-config.in | sed -e "s|prefix=/usr|prefix=$PREFIX|" -e "s|/\@DEB_HOST_MULTIARCH\@||" -e "s/\@VERSION\@/3.17.2/" -e "s/\@MOD_MAJOR_VERSION\@/3/" -e "s/\@MOD_MINOR_VERSION\@/14/" -e "s/\@MOD_PATCH_VERSION\@/5/" > debian/nss-config
+
+cat nss/pkg/pkg-config/nss-config.in | sed -e "s|@prefix@|$PREFIX|" -e "s/@MOD_MAJOR_VERSION@/$major/" -e "s/@MOD_MINOR_VERSION@/$minor/" -e "s/@MOD_PATCH_VERSION@/$patch/" > nss/pkg/pkg-config/nss-config
+cat nss/pkg/pkg-config/nss.pc.in     | sed -e "s|%prefix%|$PREFIX|" -e 's|%NSS_VERSION%|3.28.1|' -e 's|%exec_prefix%|${prefix}|' -e 's|%libdir%|${prefix}/lib|' -e 's|%includedir%|${prefix}/include/nss|' -e 's| >= %NSPR_VERSION%||' > nss/pkg/pkg-config/nss.pc
 
 DISTDIR=dist/Linux*_OPT.OBJ
 
@@ -45,8 +50,8 @@ ln -fs nss/libnssdbm3.so $PREFIX/lib
 ln -fs nss/libnssckbi.so $PREFIX/lib
 install -m 644 -t $PREFIX/include/nss dist/public/nss/*
 install -m 644 -t $PREFIX/lib $DISTDIR/lib/libcrmf.a
-install -m 644 -t $PREFIX/lib/pkgconfig debian/nss.pc
-install -m 755 -t $PREFIX/bin debian/nss-config
+install -m 644 -t $PREFIX/lib/pkgconfig nss/pkg/pkg-config/nss.pc
+install -m 755 -t $PREFIX/bin nss/pkg/pkg-config/nss-config
 install -m 755 -s -t $PREFIX/bin $DISTDIR/bin/{certutil,cmsutil,crlutil,modutil,pk12util,shlibsign,signtool,signver,ssltap,pwdecrypt}
 popd
 
