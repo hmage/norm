@@ -1,0 +1,10 @@
+#!/bin/bash
+
+depends_on autoconf automake libtool
+depends_on mesa
+
+fetch_source https://github.com/divVerent/s2tc/archive/f6ec862d7594e29ae80a6e49f66ad4c76cf09abc.tar.gz 550037f880bbb32ac7c145b769998acf8817cb46
+
+do_unpack
+do_autoreconf
+do_compile
