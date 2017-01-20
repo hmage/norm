@@ -3,7 +3,7 @@
 depends_on libdb
 depends_on libgdbm
 
-fetch_source http://www.cpan.org/src/5.0/perl-5.24.0.tar.gz 35770ea5cf49a1082852c2300ccc3cbbc58b70fd
+fetch_source http://www.cpan.org/src/5.0/perl-5.24.1.tar.gz 19b218bbc3a63a8408ed56b93928fd9a4c1b5c83
 
 do_unpack
 pushd_src
