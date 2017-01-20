@@ -1,5 +1,9 @@
 #!/bin/bash
 
+depends_on pkg-config
+depends_on libatk
+depends_on libglibmm
+
 fetch_source http://ftp.gnome.org/pub/GNOME/sources/atkmm/2.24/atkmm-2.24.2.tar.xz e18e2145622d1ae9b32d0425aec1b4b74aeb1336
 
 do_unpack_compile
