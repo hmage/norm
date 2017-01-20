@@ -17,6 +17,7 @@ pushd_src
             -Accflags="$CPPFLAGS" \
             -Aldflags="$LDFLAGS" \
             -Alddlflags="-shared $LDFLAGS" \
+            -Dotherlibdirs="$PREFIX/lib/perl5" \
             -Duseshrplib -Dusethreads -Duselargefiles -Duse64bitint \
             -Dcc=gcc
 do_make
