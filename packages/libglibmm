@@ -1,5 +1,9 @@
 #!/bin/bash
 
+depends_on pkg-config
+depends_on libsigc++
+depends_on glib
+
 fetch_source http://ftp.gnome.org/pub/GNOME/sources/glibmm/2.49/glibmm-2.49.1.tar.xz 438ef9d4165475a35dc6a5f2f70a9b0c098a984d
 
 do_unpack_compile
