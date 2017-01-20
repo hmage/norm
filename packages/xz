@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://tukaani.org/xz/xz-5.2.2.tar.gz 14663612422ab61386673be78fbb2556f50a1f08
+fetch_source http://tukaani.org/xz/xz-5.2.3.tar.gz 529638eec3597e429cc54c74551ac0a89169e841
 
 do_unpack_compile
