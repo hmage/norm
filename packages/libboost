@@ -3,6 +3,7 @@
 depends_on zlib
 depends_on bzip2
 depends_on libicu
+depends_on python # boost.python needs it
 
 fetch_source http://downloads.sourceforge.net/boost/boost_1_63_0.tar.bz2 08f7c517b9e91423e51f21acb3400f1592c9dd7c
 
