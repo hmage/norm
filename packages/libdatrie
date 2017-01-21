@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://linux.thai.net/pub/thailinux/software/libthai/libdatrie-0.2.10.tar.xz 29162b5a63b75f54bb00f6b60fb8a9fb8502d89b
+
+do_unpack_compile
