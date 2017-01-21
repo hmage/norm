@@ -19,6 +19,7 @@ depends_on libexpat
 depends_on bison
 depends_on flex
 depends_on libgcrypt
+depends_on libnettle
 
 DISABLE_GALLIUM=
 is_without gallium && DISABLE_GALLIUM="--with-gallium-drivers="
