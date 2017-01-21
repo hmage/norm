@@ -1,5 +1,7 @@
 #!/bin/bash
 
+depends_on m4
+
 fetch_source http://ftp.gnome.org/pub/GNOME/sources/libsigc++/2.10/libsigc++-2.10.0.tar.xz 7807a12a1e90a98bd8c9440e5b312d3cb1121bf7
 
 do_unpack_compile
