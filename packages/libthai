@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on libdatrie
+
+fetch_source https://linux.thai.net/pub/thailinux/software/libthai/libthai-0.1.26.tar.xz 94a848fbfe7d0ab00a65fbc14978a3ee766d267d
+
+do_unpack_compile
