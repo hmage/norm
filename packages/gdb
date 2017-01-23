@@ -5,7 +5,6 @@ depends_on texinfo
 depends_on zlib
 depends_on xz
 depends_on libexpat
-depends_on perl
 depends_on libguile
 
 fetch_source http://ftpmirror.gnu.org/gdb/gdb-7.12.tar.xz 1a6a0f2fe04d6ac9ba85048af35610e0fc217300
