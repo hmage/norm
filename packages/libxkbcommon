@@ -3,7 +3,6 @@
 depends_on libxcb
 depends_on bison
 
-fetch_source http://http.debian.net/debian/pool/main/libx/libxkbcommon/libxkbcommon_0.4.3.orig.tar.gz 9a4e3965b3473ed07502ca047be4211ec4fe21fa
-fetch_debian http://http.debian.net/debian/pool/main/libx/libxkbcommon/libxkbcommon_0.4.3-2.diff.gz 7e4dde1c91f020c5fce280062decec6211afa593
+fetch_source http://xkbcommon.org/download/libxkbcommon-0.7.1.tar.xz 6c0007a0206cd8bc1fa68f50aa86627d669282a2
 
-do_undebian_compile_notest ## testing hangs
+do_unpack_compile_notest ## testing hangs
