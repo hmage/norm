@@ -44,7 +44,7 @@ do_configure --enable-ipv6 --enable-unicode=ucs4 --with-system-expat --with-syst
                   --with-dbmliborder=bdb:gdbm --with-fpectl --enable-shared --with-threads
 do_make
 ## the tests are known to fail and are not maintained by python dev team
-is_with tests && env - PATH="$PATH" make test
+is_with tests && make test
 do_install
 popd
 

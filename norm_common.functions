@@ -76,9 +76,9 @@ do_make_and_install() {
 do_test() {
     if ! is_without tests; then
         log "Doing tests for $FORMULA"
-        env - PATH="$PATH" HOME="$HOME" CTEST_OUTPUT_ON_FAILURE=1 make check "$@" ||
-        env - PATH="$PATH" HOME="$HOME" CTEST_OUTPUT_ON_FAILURE=1 make test "$@" ||
-        env - PATH="$PATH" HOME="$HOME" CTEST_OUTPUT_ON_FAILURE=1 make tests "$@" || return 1
+        CTEST_OUTPUT_ON_FAILURE=1 make check "$@" ||
+        CTEST_OUTPUT_ON_FAILURE=1 make test "$@" ||
+        CTEST_OUTPUT_ON_FAILURE=1 make tests "$@" || return 1
     fi
 }
 
