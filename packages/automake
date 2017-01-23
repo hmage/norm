@@ -1,16 +1,16 @@
 #!/bin/bash
 
-depends_on autoconf
+depends_on autoconf help2man
 
-mkdir -p "$PREFIX/share/aclocal"
+#mkdir -p "$PREFIX/share/aclocal"
 
-fetch_source http://http.debian.net/debian/pool/main/a/automake-1.14/automake-1.14_1.14.1.orig.tar.xz 2ced676f6b792a95c5919243f81790b1172c7f5b
-fetch_debian http://http.debian.net/debian/pool/main/a/automake-1.14/automake-1.14_1.14.1-4.debian.tar.xz 5aebcc2c746316468cb5a37f1e47a8de8cd51e8c
+fetch_source http://http.debian.net/debian/pool/main/a/automake-1.15/automake-1.15_1.15.orig.tar.xz c279b35ca6c410809dac8ade143b805fb48b7655
+fetch_debian http://http.debian.net/debian/pool/main/a/automake-1.15/automake-1.15_1.15-5.debian.tar.xz 4abf264ec47faa76427a5bf4b4f207b18dd49e98
 
 do_undebian
 pushd_src
-touch aclocal.m4 Makefile.in
-MAKEINFO=true do_compile_notest ## TODO: 7 tests fail on clean debian jessie, for some reason
+./bootstrap.sh
+MAKEINFO=true do_compile ## TODO: 7 tests fail on clean debian jessie, for some reason
 cat <<EOF > "$PREFIX/share/aclocal/dirlist"
 $PREFIX/share/aclocal
 /usr/local/share/aclocal
