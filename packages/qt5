@@ -132,6 +132,7 @@ pushd_src
                   -system-libjpeg \
                   -system-freetype \
                   -system-pcre \
+                  -system-sqlite \
                   -no-pch \
                   -pkg-config \
                   -nomake examples
