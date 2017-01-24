@@ -24,6 +24,10 @@ depends_on libdouble-conversion
 depends_on openssl
 depends_on libpcre
 depends_on sqlite3
+depends_on libdbus
+depends_on glib
+depends_on libicu
+depends_on libasound
 
 fetch_source http://download.qt.io/official_releases/qt/5.8/5.8.0/single/qt-everywhere-opensource-src-5.8.0.tar.xz 1a056ca4f731798e4142a691d0448c2c853228ca
 
