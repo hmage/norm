@@ -25,7 +25,7 @@ depends_on openssl
 depends_on libpcre
 depends_on sqlite3
 
-fetch_source http://download.qt.io/official_releases/qt/5.7/5.7.1/single/qt-everywhere-opensource-src-5.7.1.tar.gz 6cee9860f32e346ad355f1bb3436207dca8d4369
+fetch_source http://download.qt.io/official_releases/qt/5.8/5.8.0/single/qt-everywhere-opensource-src-5.8.0.tar.xz 1a056ca4f731798e4142a691d0448c2c853228ca
 
 CFLAGS="-g -O2 $CPPFLAGS" \
 CXXFLAGS="-g -O2 $CPPFLAGS" \
@@ -118,10 +118,12 @@ do_patch_inline << 'EOF'
             ../../corelib/codecs/qlatincodec.cpp \
             ../../corelib/codecs/qtextcodec.cpp \
 EOF
-do_compile \
+pushd_src
+./configure -prefix "$PREFIX" \
                   -verbose \
                   -I $ESCAPED_PREFIX/include \
                   -L $ESCAPED_PREFIX/lib \
+                  -R $ESCAPED_PREFIX/lib \
                   -release \
                   -opensource \
                   -confirm-license \
@@ -133,3 +135,7 @@ do_compile \
                   -no-pch \
                   -pkg-config \
                   -nomake examples
+do_make
+do_test
+do_install
+popd_src
