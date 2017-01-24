@@ -124,11 +124,9 @@ do_patch_inline << 'EOF'
 EOF
 pushd_src
 ./configure -prefix "$PREFIX" \
-                  -verbose \
                   -I $ESCAPED_PREFIX/include \
                   -L $ESCAPED_PREFIX/lib \
                   -R $ESCAPED_PREFIX/lib \
-                  -release \
                   -opensource \
                   -confirm-license \
                   -system-zlib \
