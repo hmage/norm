@@ -7,7 +7,7 @@ depends_on xz
 fetch_source http://http.debian.net/debian/pool/main/p/pxz/pxz_4.999.99~beta3+git659fc9b.orig.tar.bz2 ab4937e9bf1930117148a95a54e098fcab0c5954
 fetch_debian http://http.debian.net/debian/pool/main/p/pxz/pxz_4.999.99~beta3+git659fc9b-3.debian.tar.xz 30f7e3fc5f95269b8dcefbd031930af36c8ec57e
 
-do_unpack
+do_undebian
 pushd_src
 sed -ibak "s|/usr/|$PREFIX/|" Makefile
 sed -ibak 's|cp $(NAME) |install -m 0755 $(NAME) |' Makefile
