@@ -44,11 +44,15 @@ sub eachFile {
     return if /\.(xsl|xsd|rng|docbook|ent|mod|cat)$/;
     return if /\.(o|cc|test|result|sql|class|java|pl|cfg|opt)$/;
     return if /\.(enc|exp|aug|rlib|json)$/;
+    return if /\.(pri|prf|qm|i|swg|qml|prl|qdocconf|qdoc|qdocinc|qmltypes)$/;
+    return if /\.(gz|xz|y|e2x|sv|tablet|bat|htaccess|icns|lisp|tmp|dtd|rnc|tex)$/;
 
     my $fullpath = $File::Find::name;
     return if ($fullpath =~ m"/include/");
     return if ($fullpath =~ m"/share/cmake");
     return if ($fullpath =~ m"/share/doc/");
+    return if ($fullpath =~ m"/share/docbook-xsl/");
+    return if ($fullpath =~ m"/share/docbook-xsl-ns/");
     return if ($fullpath =~ m"/share/gtk-doc/");
     return if ($fullpath =~ m"/share/info/");
     return if ($fullpath =~ m"/share/man");
