@@ -6,7 +6,7 @@ fetch_debian http://ftp.de.debian.org/debian/pool/main/f/fam/fam_2.7.0-17.diff.g
 
 ## norm can't deal with CDBS yet, so do it semi-manually
 
-do_unpack
+do_undebian
 tar xf "$SRCDIR"/fam-2.7.0.tar.gz -C "$SRCDIR"
 SRCDIR="$SRCDIR"/fam-2.7.0
 do_debianize
