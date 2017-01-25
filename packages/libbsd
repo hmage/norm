@@ -1,6 +1,5 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/libb/libbsd/libbsd_0.7.0.orig.tar.xz 3039eb71dc72fd892c6ac7ef0eedbd288f8d5e25
-fetch_debian http://http.debian.net/debian/pool/main/libb/libbsd/libbsd_0.7.0-2.debian.tar.xz 33b1afd3b7a875e497ed6e89fdb9a319362b3eb1
+fetch_source https://libbsd.freedesktop.org/releases/libbsd-0.8.3.tar.xz 39fd9f427a202568f35622b754b547e1607419da
 
-CFLAGS="-O2 -g $CFLAGS -std=c99" do_undebian_compile
+CFLAGS="-O2 -g $CFLAGS -std=c99" do_unpack_compile
