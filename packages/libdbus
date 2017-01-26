@@ -17,4 +17,5 @@ depends_on libgcrypt
 fetch_source http://dbus.freedesktop.org/releases/dbus/dbus-1.11.8.tar.gz 3f90a3d2ae6c67d2d1637039be9125c295c85a1a
 
 do_unpack_compile --disable-modular-tests --disable-libaudit --disable-xml-docs --disable-doxygen-docs \
+                  --disable-systemd \
                   --with-systemdsystemunitdir="$PREFIX/lib/systemd/system"
