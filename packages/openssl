@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
-fetch_source http://www.openssl.org/source/openssl-1.0.2j.tar.gz bdfbdb416942f666865fa48fe13c2d0e588df54f
+fetch_source http://www.openssl.org/source/openssl-1.1.0d.tar.gz f423e9253ad8a8617fc9fb3562788a9fa066d46f
 
 cc_addflags EXTRAFLAGS -g -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing -Ofast
 SSLCONFIG="--openssldir=$PREFIX/etc/ssl no-rc5 no-zlib enable-tlsext no-ssl2 no-ssl3"
