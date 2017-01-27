@@ -12,6 +12,19 @@ NORMDIR=`cd "$NORMDIR"; pwd`
 
 . "$NORMDIR"/norm_common
 
+EXTRAFLAGS=()
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+    --with-*) echo "got with ${1#--without-}"; EXTRAFLAGS+=("$1") ;;
+    --without-*) echo "got without ${1#--without-}"; EXTRAFLAGS+=("$1") ;;
+    (--) shift; break;;
+    (-*) echo "$0: error -- unregoznied option $1" 1>&2; exit 64;;
+    (*) break;;
+    esac
+    shift
+done
+
 ##
 ## set up variables
 NORMTEST_PREFIX="$HOME/norm.test.$MACHINEID"
@@ -55,7 +68,7 @@ prepare_jail() {
     echo Will build in $JAILPATH:
     printf " * %s\n" "${FORMULAS[@]}"
 
-    "$NORMDIR"/norm -p "$JAILFULLPATH" install "${FORMULAS[@]}" 2>&1 | tee -a "$JAILLOG"
+    "$NORMDIR"/norm -p "$JAILFULLPATH" install ${EXTRAFLAGS[@]} "${FORMULAS[@]}" 2>&1 | tee -a "$JAILLOG"
     rm -vf   "$JAILFULLPATH"/bin/{aclocal*,auto*,c_rehash,*-config,idn,ifnames,libtool,libtoolize,m4,openssl}
     rm -rvf  "$JAILFULLPATH"/{include,tmp,var/norm}
     rm -rvf  "$JAILFULLPATH"/lib/*.{a,la}
@@ -111,7 +124,7 @@ for FORMULA_NAME in "${LIST[@]}"; do
     unset FAILURE
 
     # do it
-    "$NORMDIR/norm" -p "$NORMTEST_PREFIX" install "$FORMULA_NAME" 2>&1 | tee "$LOGPATH/$FORMULA_ID.log"
+    "$NORMDIR/norm" -p "$NORMTEST_PREFIX" install ${EXTRAFLAGS[@]} "$FORMULA_NAME" 2>&1 | tee "$LOGPATH/$FORMULA_ID.log"
     BUILDSTATUS="${PIPESTATUS[0]}"
     [ $BUILDSTATUS != 0 ] && FAILURE=1
 
