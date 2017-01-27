@@ -79,19 +79,24 @@ cmd_install() {
         log "Check that your have it installed correctly"
         exit 1
     fi
+
+    ## parse arguments
     local force
     norm_keep_sources=
-    while getopts "fkv" opt; do
-        case $opt in
-        f)
-            readonly force=-f
-            ;;
-        k)
-            readonly norm_keep_sources=1
-            ;;
+    while [ $# -gt 0 ]; do
+        case "$1" in
+        --with-*)    set_with    "${1#--with-}" ;;
+        --without-*) set_without "${1#--without-}" ;;
+        -f|--force)  readonly force=-f ;;
+        -k|--keep|--keep-sources) readonly norm_keep_sources=1;;
+        (--) shift; break;;
+        (-*) echo "$0: error -- unregoznied option $1" 1>&2; exit 64;;
+        (*) break;;
         esac
+        shift
     done
-    shift $((OPTIND-1))
+
+    ## --with-* and --without-* can be added anywhere else in the command line
     local argument
     for argument; do
         [[ "$argument" == --with-* ]] && set_with "${argument#--with-}"
