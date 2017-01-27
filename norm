@@ -58,6 +58,20 @@ usage() {
     echo "    $OURNAME testall  -- compile every formula and save the result into separate logfiles"
 }
 
+cmd_prefix() {
+    echo "$PREFIX"
+}
+
+cmd_cppflags() {
+    QUIET=1 setup_prefix "$PREFIX"
+    echo "$CPPFLAGS"
+}
+
+cmd_ldflags() {
+    QUIET=1 setup_prefix "$PREFIX"
+    echo "$LDFLAGS"
+}
+
 cmd_install() {
     ## cc sanity check
     if ! test_cc_func "stdio.h" 'printf("Hello, world!\n");'; then

@@ -484,11 +484,11 @@ test_cc_quiet() {
 ##
 ## example: cc_checkflags -Wl,-Bsymbolic -O2
 cc_checkflags() {
-    echo -n "Testing if $CC supports $@... "
+    [[ -z $QUIET ]] && echo -n "Testing if $CC supports $@... "
     test_cc_quiet 'int main() { return 0;}' "$@"
     local STATUS=$?
-    [[ $STATUS == 0 ]] && echo "yes"
-    [[ $STATUS != 0 ]] && echo "no"
+    [[ $STATUS == 0 ]] && [[ -z $QUIET ]] && echo "yes"
+    [[ $STATUS != 0 ]] && [[ -z $QUIET ]] && echo "no"
     return $STATUS
 }
 
