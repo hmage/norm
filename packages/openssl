@@ -4,7 +4,7 @@
 fetch_source http://www.openssl.org/source/openssl-1.1.0d.tar.gz f423e9253ad8a8617fc9fb3562788a9fa066d46f
 
 cc_addflags EXTRAFLAGS -g -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing -Ofast
-SSLCONFIG="--openssldir=$PREFIX/etc/ssl no-rc5 no-zlib no-ssl2 no-ssl3"
+SSLCONFIG="--openssldir=$PREFIX/etc/ssl no-rc5 no-zlib enable-tlsext no-ssl2 no-ssl3"
 
 [[ $HOSTTYPE == x86_64 ]] && SSLCONFIG="$SSLCONFIG enable-ec_nistp_64_gcc_128" && export KERNEL_BITS=64
 
@@ -17,6 +17,27 @@ fix_makefile() {
 }
 
 pushd_src
+do_patch_inline -p1 << "EOF"
+--- a/engines/ccgost/Makefile
++++ b/engines/ccgost/Makefile
+@@ -5,6 +5,7 @@
+ CFLAG=-g
+ MAKEFILE= Makefile
+ AR= ar r
++EX_LIBS=
+ CFLAGS= $(INCLUDES) $(CFLAG)
+ LIB=$(TOP)/libcrypto.a
+
+@@ -32,7 +33,7 @@
+                $(MAKE) -f $(TOP)/Makefile.shared -e \
+                        LIBNAME=$(LIBNAME) \
+                        LIBEXTRAS='$(LIBOBJ)' \
+-                       LIBDEPS='-L$(TOP) -lcrypto' \
++                       LIBDEPS='-L$(TOP) -lcrypto $(EX_LIBS)' \
+                        link_o.$(SHLIB_TARGET); \
+        else \
+                $(AR) $(LIB) $(LIBOBJ); \
+EOF
 ## make both static and shared versions
 log "Configuring static openssl"
 ./config no-shared --prefix=$PREFIX $LDFLAGS $SSLCONFIG
