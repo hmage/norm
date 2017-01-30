@@ -1,0 +1,10 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on libffi
+depends_on libexpat
+depends_on libxml
+
+fetch_source https://wayland.freedesktop.org/releases/wayland-1.11.1.tar.xz cf5c2719592ce324184a785b19a9547dc2d51377
+
+do_unpack_compile --disable-documentation
