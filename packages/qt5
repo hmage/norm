@@ -28,6 +28,14 @@ depends_on libdbus
 depends_on glib
 depends_on libicu
 depends_on libasound
+depends_on libproxy
+depends_on libsm
+depends_on libtiff
+depends_on libwebp
+depends_on libxcomposite
+depends_on libdbus
+depends_on libwayland
+depends_on libts
 
 fetch_source http://download.qt.io/official_releases/qt/5.8/5.8.0/single/qt-everywhere-opensource-src-5.8.0.tar.xz 1a056ca4f731798e4142a691d0448c2c853228ca
 
