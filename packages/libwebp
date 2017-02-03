@@ -3,8 +3,9 @@
 depends_on libpng
 depends_on libjpeg
 depends_on libtiff
+depends_on libgif
 
 fetch_source http://downloads.webmproject.org/releases/webp/libwebp-0.5.2.tar.gz c3adfa47f96a3909fb05e41636fdcbe3826edfbd
 
-do_unpack_compile --enable-libwebpmux --enable-libwebpdemux --enable-libwebpdecoder --enable-libwebpextras
+do_unpack_compile --enable-libwebpmux --enable-libwebpdemux --enable-libwebpdecoder --enable-libwebpextras --disable-gl
 
