@@ -29,7 +29,7 @@ setup_prefix() {
     cc_addflags CPPFLAGS $default_cppflags
 
     ## also try other flags if compiler supports them
-    cc_addflags LDFLAGS -Wl,-rpath,$ESCAPED_PREFIX/lib -Wl,-rpath-link=$ESCAPED_PREFIX/lib -Wl,-O1 -Wl,--as-needed -Wl,--gc-sections
+    cc_addflags LDFLAGS -Wl,-rpath,$ESCAPED_PREFIX/lib -Wl,-rpath-link,$ESCAPED_PREFIX/lib -Wl,-O1 -Wl,--as-needed -Wl,--gc-sections
     is_cc_clang && cc_addflags CPPFLAGS -Qunused-arguments
 
     ## since we're building for this specific machine, we can do -march=native
