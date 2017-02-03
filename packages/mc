@@ -5,6 +5,7 @@ depends_on libslang glib
 depends_on libmount
 depends_on libblkid
 depends_on libuuid
+depends_on libssh2
 
 fetch_source http://ftp.midnight-commander.org/mc-4.8.18.tar.xz e1e7bffe784aaec07eac537eb2ccdc2c5c36ef78
 
