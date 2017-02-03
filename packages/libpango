@@ -6,10 +6,9 @@ depends_on freetype
 depends_on libxft
 depends_on libcairo
 depends_on glib
-depends_on gobject-introspection
 depends_on zlib
 depends_on libthai
 
 fetch_source http://ftp.gnome.org/pub/GNOME/sources/pango/1.40/pango-1.40.3.tar.xz 18db616204416936ef969e1c387b7a2f4e8b039b
 
-do_unpack_compile --enable-introspection=yes --with-xft
+do_unpack_compile --disable-introspection --with-xft

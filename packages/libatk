@@ -2,9 +2,8 @@
 
 depends_on pkg-config
 depends_on glib
-depends_on gobject-introspection
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/atk/2.23/atk-2.23.4.tar.xz 8fb43be344432c0d19ddf3009cd653ec3d2fc062
 
-do_unpack_compile
+do_unpack_compile --disable-introspection
 
