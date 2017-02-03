@@ -24,4 +24,5 @@ do_patch_inline << 'EOF'
 EOF
 
 ## disable invokation of ghostscript, which is known to be segfault here in some older versions
+LDFLAGS="$LDFLAGS -lm" \
 do_compile --disable-spec
