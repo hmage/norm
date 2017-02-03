@@ -20,6 +20,8 @@ depends_on bison
 depends_on flex
 depends_on libgcrypt
 depends_on libnettle
+depends_on libxvmc
+depends_on libwayland
 
 DISABLE_GALLIUM=
 is_without gallium && DISABLE_GALLIUM="--with-gallium-drivers="
@@ -55,6 +57,7 @@ do_compile $DISABLE_GALLIUM \
                   --enable-glx-tls \
                   --enable-gbm \
                   --enable-sysfs \
+                  --with-egl-platforms=wayland,x11,drm \
                   --disable-debug \
                   --disable-shader-cache \
                   --enable-texture-float
