@@ -1,7 +1,8 @@
 #!/bin/bash
 
 depends_on gperf
+depends_on libblkid
 
 fetch_source http://dev.gentoo.org/~blueness/eudev/eudev-3.2.1.tar.gz 978c4b828cdb053d08ccd7f282aa2c2ebe27eabf
 
-do_unpack_compile --disable-hwdb
+do_unpack_compile --disable-hwdb --disable-kmod
