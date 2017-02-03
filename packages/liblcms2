@@ -1,5 +1,10 @@
 #!/bin/bash
 
+depends_on libtiff
+depends_on xz
+depends_on libjpeg
+depends_on zlib
+
 fetch_source http://www.littlecms.com/lcms2-2.8.tar.gz e9535ec4a572b8fc7a1c405c35e6f4dc97714197
 
 do_unpack_compile
