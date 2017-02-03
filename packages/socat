@@ -4,7 +4,7 @@ depends_on openssl
 depends_on libwrap
 depends_on libreadline
 
-fetch_source http://http.debian.net/debian/pool/main/s/socat/socat_1.7.2.4.orig.tar.bz2 55650f3c4c1a5cdc323b2e6eece416b6303d39b5
-fetch_debian http://http.debian.net/debian/pool/main/s/socat/socat_1.7.2.4-2.debian.tar.xz 3c405d805c9ec53b5e47ec53ebb6f4d18f12565a
+fetch_source http://http.debian.net/debian/pool/main/s/socat/socat_1.7.3.1.orig.tar.gz a6f1d8ab3e85f565dbe172f33a9be6708dd52ffb
+fetch_debian http://http.debian.net/debian/pool/main/s/socat/socat_1.7.3.1-2.debian.tar.xz f7bec9de84d31195d9abdb2920f7f64507e91e1e
 
 do_undebian_compile_notest # TODO: figure out why ssl tests fail
