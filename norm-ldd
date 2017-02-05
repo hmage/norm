@@ -86,7 +86,7 @@ foreach my $arg (@files) {
     foreach (split(/\n/, $output)) {
 	next if /not a dynamic executable/;
 	next if /statically linked/;
-	next if m|fatal error: /Library/Developer/CommandLineTools/usr/bin/otool: internal objdump command failed|;
+	next if m|fatal error: [^ ]+/otool: internal objdump command failed|;
 	next if m|$filtered_prefix/|;
 	next if /^[\t]linux-(gate|vdso)\.so\.1 (=>  )?\(/;
 	next if /^[\t]lib(c|m|dl|rt|pthread|resolv|crypt|util|nsl|mvec)\.so/;
