@@ -4,9 +4,10 @@
 depends_on libxslt
 depends_on docbook-xsl
 
-fetch_source http://http.debian.net/debian/pool/main/m/moreutils/moreutils_0.59.orig.tar.gz 7bd78e051efd0f9fa2d027c0c14a37998fc6e930
+fetch_source http://http.debian.net/debian/pool/main/m/moreutils/moreutils_0.60.orig.tar.xz 3af60490f763ece48b2fcba968903673c3e63495
+fetch_debian http://http.debian.net/debian/pool/main/m/moreutils/moreutils_0.60-1.debian.tar.xz a38f8bd2c9f9e1c5e12ac18f3ff35183db7d8d6a
 
-do_unpack
+do_undebian
 pushd_src
 do_make DOCBOOKXSL="$PREFIX"/share/docbook-xsl
 do_test
