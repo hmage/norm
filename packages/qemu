@@ -17,9 +17,18 @@ depends_on libncurses
 depends_on libssh2
 depends_on bison
 depends_on flex
+depends_on libepoxy
+depends_on python
+depends_on libnuma
+depends_on libsnappy
+depends_on libusb
+depends_on libsasl
 
 fetch_source http://wiki.qemu-project.org/download/qemu-2.8.0.tar.bz2 a5602f2ddb51d61b4c0e618b779fdb0dbdc9cc1f
 
 ## testing hangs because test scripts do not kill a qemu process
 do_unpack_compile_notest --with-system-pixman \
+                  --disable-libnfs \
+                  --disable-bluez \
+                  --enable-sdl --disable-gtk \
                   --extra-cflags="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" --extra-ldflags="$LDFLAGS"
