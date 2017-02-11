@@ -10,7 +10,7 @@ depends_on xz
 depends_on pkg-config
 
 fetch_source http://xmlsoft.org/sources/libxml2-2.9.4.tar.gz 958ae70baf186263a4bd801a81dd5d682aedd1db
-fetch_debian http://http.debian.net/debian/pool/main/libx/libxml2/libxml2_2.9.4+dfsg1-2.1.debian.tar.xz a87cdd246581b9c16e76d85f370ce940261570c8
+fetch_debian http://http.debian.net/debian/pool/main/libx/libxml2/libxml2_2.9.4+dfsg1-2.2.debian.tar.xz e62c2a7307487e9a46abe2a4feb28f8a7d0d0844
 
 do_undebian
 pushd_src
