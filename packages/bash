@@ -5,11 +5,18 @@ depends_on libncurses
 
 fetch_source http://ftpmirror.gnu.org/bash/bash-4.4.tar.gz 8de012df1e4f3e91f571c3eb8ec45b43d7c747eb
 PATCHES=(
-"http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-001 b0a20634e049a7b747703235b96ac0da10215d99"
-"http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-002 c9b7329897295301879a9600d96b2182ea2023b1"
-"http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-003 21cf7e0c6151de7fe8aca0bab8deb601bac2849e"
-"http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-004 32789657933c288d81210dd96a6b08e67207b593"
-"http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-005 8eee9cf9997215bd14f53dfc25c97186cee9437c"
+"http://ftpmirror.gnu.org/bash/bash-4.4-patches/bash44-001 b0a20634e049a7b747703235b96ac0da10215d99"
+"http://ftpmirror.gnu.org/bash/bash-4.4-patches/bash44-002 c9b7329897295301879a9600d96b2182ea2023b1"
+"http://ftpmirror.gnu.org/bash/bash-4.4-patches/bash44-003 21cf7e0c6151de7fe8aca0bab8deb601bac2849e"
+"http://ftpmirror.gnu.org/bash/bash-4.4-patches/bash44-004 32789657933c288d81210dd96a6b08e67207b593"
+"http://ftpmirror.gnu.org/bash/bash-4.4-patches/bash44-005 8eee9cf9997215bd14f53dfc25c97186cee9437c"
+"http://ftpmirror.gnu.org/bash/bash-4.4-patches/bash44-006 59d9e79adb1fc35e086caa0fa2af49381fe8b2f5"
+"http://ftpmirror.gnu.org/bash/bash-4.4-patches/bash44-007 8924cde74fbb4fafeaf0ff6b5e4e94fcd2c2b98a"
+"http://ftpmirror.gnu.org/bash/bash-4.4-patches/bash44-008 b38e9df20869643ef9388cbab585610a20ccc847"
+"http://ftpmirror.gnu.org/bash/bash-4.4-patches/bash44-009 4bd44109ff79f0d6da19c27948dc40db9598da85"
+"http://ftpmirror.gnu.org/bash/bash-4.4-patches/bash44-010 31180db58d25591f0744fc6923df1f8a97f0d19b"
+"http://ftpmirror.gnu.org/bash/bash-4.4-patches/bash44-011 240c287dc60cb69185a2a05b1341bfceafd1071a"
+"http://ftpmirror.gnu.org/bash/bash-4.4-patches/bash44-012 6dcceca364953498d3eb0c18c49fb0f3374fa3c2"
 )
 
 do_unpack
