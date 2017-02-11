@@ -17,6 +17,8 @@ depends_on zeromq
 depends_on msgpack
 depends_on libevent
 depends_on openssl
+depends_on libcap
+depends_on libpam
 
 fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.1.21/source/mariadb-10.1.21.tar.gz f9ccaa9881b98eeef68f4dbcf5ab9653c903819f
 
