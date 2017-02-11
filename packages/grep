@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on libpcre
+
+fetch_source https://ftpmirror.gnu.org/grep/grep-3.0.tar.xz 7b742a6278f28ff056da799c62c1b9e417fe86ba
+
+do_unpack_compile
