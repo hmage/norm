@@ -8,7 +8,7 @@ depends_on libpcre ## regexp in wget, what for?
 depends_on bzip2   ## bzip2 in wget, what for?
 depends_on zlib
 
-fetch_source http://ftp.gnu.org/gnu/wget/wget-1.18.tar.gz 28a82e7de2eed38516c7d6e172ec7b9e43dc6c66
+fetch_source http://ftp.gnu.org/gnu/wget/wget-1.19.1.tar.gz bc5d959b8f12484b68f0d4eb58daa9425dd0c0d7
 
 MAKEINFO=true \
 POD2MAN=no \
