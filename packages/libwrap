@@ -13,5 +13,7 @@ install -d $PREFIX/lib
 install -m 755 shared/libwrap* $PREFIX/lib/
 cp -fd shared/libwrap.so.0 $PREFIX/lib/
 install -m 644 libwrap.a $PREFIX/lib/
+install -d $PREFIX/include
+install -m 644 tcpd.h $PREFIX/include
 ## don't install the executables because this formula provides only libwrap
 popd_src
