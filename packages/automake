@@ -5,7 +5,7 @@ depends_on autoconf help2man
 #mkdir -p "$PREFIX/share/aclocal"
 
 fetch_source http://http.debian.net/debian/pool/main/a/automake-1.15/automake-1.15_1.15.orig.tar.xz c279b35ca6c410809dac8ade143b805fb48b7655
-fetch_debian http://http.debian.net/debian/pool/main/a/automake-1.15/automake-1.15_1.15-5.debian.tar.xz 4abf264ec47faa76427a5bf4b4f207b18dd49e98
+fetch_debian http://http.debian.net/debian/pool/main/a/automake-1.15/automake-1.15_1.15-6.debian.tar.xz 38b0c526c4eb86f3f33cee2e728555d4f91afb9a
 
 do_undebian
 pushd_src
