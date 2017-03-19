@@ -10,7 +10,7 @@ depends_on sqlite3
 depends_on libexpat
 depends_on libicu
 
-fetch_source http://dovecot.org/releases/2.2/dovecot-2.2.27.tar.gz e007081c43b06fa2670d556de7a62bbb87fc637c
+fetch_source http://dovecot.org/releases/2.2/dovecot-2.2.28.tar.gz ca417ebbfea30f71311a239e082adac81e989543
 
 do_unpack
 do_patch_inline << 'EOF' ## work around old libc that can't handle const int
