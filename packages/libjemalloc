@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/jemalloc/jemalloc/releases/download/4.4.0/jemalloc-4.4.0.tar.bz2 da45ab6ff17045031f33fff15007c56a7e4b07ea
+fetch_source https://github.com/jemalloc/jemalloc/releases/download/4.5.0/jemalloc-4.5.0.tar.bz2 e7714d070c623bff9acf682e9d52c930e491acd8
 
 do_unpack_compile
