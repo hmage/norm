@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on libwrap
+depends_on openssl
+
+fetch_source https://www.stunnel.org/downloads/stunnel-5.40.tar.gz 7dfbbcab4dd56458e74410c788ddc7bcbe2179ba
+
+do_unpack_compile --disable-systemd
