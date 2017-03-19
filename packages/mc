@@ -7,6 +7,6 @@ depends_on libblkid
 depends_on libuuid
 depends_on libssh2
 
-fetch_source http://ftp.midnight-commander.org/mc-4.8.18.tar.xz e1e7bffe784aaec07eac537eb2ccdc2c5c36ef78
+fetch_source http://ftp.midnight-commander.org/mc-4.8.19.tar.xz 850747ae43a5c81f1dd0d906dfa9e149eb19748a
 
 do_unpack_compile --without-x --with-screen=slang --without-gpm-mouse
