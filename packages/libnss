@@ -5,10 +5,10 @@ depends_on zlib
 depends_on sqlite3
 
 major=3
-minor=28
-patch=1
+minor=30
+patch=0
 
-fetch_source https://ftp.mozilla.org/pub/security/nss/releases/NSS_${major}_${minor}_${patch}_RTM/src/nss-${major}.${minor}.${patch}.tar.gz 75f220c1c20d8346cde43fb96726d3447c11cf22
+fetch_source https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_30_RTM/src/nss-3.30.tar.gz 58bcab5b9d5a28dc640e9bf5e7f44460f0db9512
 
 EXTRA_OPTIONS=
 [[ $HOSTTYPE == *64* ]] && EXTRA_OPTIONS="USE_64=1"
@@ -25,7 +25,7 @@ make -C nss all \
 
 
 cat nss/pkg/pkg-config/nss-config.in | sed -e "s|@prefix@|$PREFIX|" -e "s/@MOD_MAJOR_VERSION@/$major/" -e "s/@MOD_MINOR_VERSION@/$minor/" -e "s/@MOD_PATCH_VERSION@/$patch/" > nss/pkg/pkg-config/nss-config
-cat nss/pkg/pkg-config/nss.pc.in     | sed -e "s|%prefix%|$PREFIX|" -e 's|%NSS_VERSION%|3.28.1|' -e 's|%exec_prefix%|${prefix}|' -e 's|%libdir%|${prefix}/lib|' -e 's|%includedir%|${prefix}/include/nss|' -e 's| >= %NSPR_VERSION%||' > nss/pkg/pkg-config/nss.pc
+cat nss/pkg/pkg-config/nss.pc.in     | sed -e "s|%prefix%|$PREFIX|" -e "s|%NSS_VERSION%|$major.$minor.$patch|" -e 's|%exec_prefix%|${prefix}|' -e 's|%libdir%|${prefix}/lib|' -e 's|%includedir%|${prefix}/include/nss|' -e 's| >= %NSPR_VERSION%||' > nss/pkg/pkg-config/nss.pc
 
 DISTDIR=dist/Linux*_OPT.OBJ
 
