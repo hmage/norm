@@ -1,7 +1,6 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/l/lzo2/lzo2_2.08.orig.tar.gz 64c3e44843a44ffc4533aa89e41516f42bfefa76
-fetch_debian http://http.debian.net/debian/pool/main/l/lzo2/lzo2_2.08-1.2.debian.tar.xz 5145c7e5b4d707904e0cd78323afb38d717310a4
+fetch_source https://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz 4924676a9bae5db58ef129dc1cebce3baa3c4b5d
 
-do_undebian_compile --enable-shared
+do_unpack_compile --enable-shared
 
