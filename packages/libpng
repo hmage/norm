@@ -1,7 +1,7 @@
 #!/bin/bash
 depends_on zlib
 
-fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.6.28.tar.xz ff4dceadb15e2c929ad26283118d56f66f4a6cff
+fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.6.29.tar.xz 7dbe6a5088b938545fc0857c507d4e0cf5d9023e
 
 do_unpack_compile
 
