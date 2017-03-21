@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[[ $OSTYPE == *linux*] && depends_on libattr
+[[ $OSTYPE == *linux* ]] && depends_on libattr
 depends_on python
 depends_on libbsd
 
