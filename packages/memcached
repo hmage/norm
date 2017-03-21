@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://www.memcached.org/files/memcached-1.4.36.tar.gz 519b417515206b0b95ff9bf14106a891f6a2252e
+
+do_unpack_compile
