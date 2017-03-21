@@ -6,7 +6,7 @@ depends_on yasm
 depends_on cmake
 depends_on libnuma
 
-fetch_source https://bitbucket.org/multicoreware/x265/downloads/x265_2.2.tar.gz 709ddcf639b414c65867683419de82bc34b587ca
+fetch_source https://bitbucket.org/multicoreware/x265/downloads/x265_2.3.tar.gz 575003e50e7f06aa3c983679d4399581394adbf9
 
 do_unpack
 SRCDIR="$SRCDIR/source"
