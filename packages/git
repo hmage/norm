@@ -11,7 +11,7 @@ depends_on openssl
 depends_on curl
 depends_on libexpat
 
-fetch_source https://www.kernel.org/pub/software/scm/git/git-2.12.0.tar.xz 42aafae5c29324b1fee0264a6c804fdffbd1d8d1
+fetch_source https://www.kernel.org/pub/software/scm/git/git-2.12.1.tar.xz fe18ede3b2071293bbfa47d54ca6220cfdad8de3
 do_unpack
 do_patch_inline -p0 << EOF
 --- t/t9020-remote-svn.sh
@@ -35,6 +35,6 @@ do_compile --disable-nls
 install -D $SRCDIR/contrib/completion/git-completion.bash $PREFIX/etc/bash_completion.d/git-completion.bash
 
 ## install git manpages
-fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.12.0.tar.xz ce66bc131c64a47899166a6c364da174ecfa8b3c
+fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.12.1.tar.xz ef92ce7a1c713540d6e2c2b170c7d49dc328637f
 mkdir -p "$PREFIX/share/man"
 cat "$CACHEDIR/$FILENAME" | xz -d | tar xf - -C "$PREFIX/share/man"
