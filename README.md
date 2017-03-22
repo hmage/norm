@@ -26,15 +26,15 @@ To prevent problems with NFS-shared homes, it puts system identification in the 
 
 ## More examples
 
- * [`norm install gcc-6.3`](https://github.com/hmage/norm/blog/master/packages/gcc-6.3) — downloads, compiles and installs gcc 6.3. Great way to try it out without touching your system.
- * [`norm install ffmpeg`](https://github.com/hmage/norm/blog/master/packages/ffmpeg) — if you're on Ubuntu or Debian, then your `ffmpeg` version can be either _very_ outdated or not present at all. This will get you the newest ffmpeg with support for x264, x265, webm, opus and `fdk-aac`.
- * [`norm install git`](https://github.com/hmage/norm/blog/master/packages/git) — similarly, your system copy of git might not support new features.
- * [`norm install dovecot`](https://github.com/hmage/norm/blog/master/packages/dovecot) — you don't need root to spin up your own IMAP server, either. Change the listening port to something higher than 1024, set up virtual accounts and you're good to go.
- * [`norm install mc`](https://github.com/hmage/norm/blog/master/packages/mc) — latest midnight commander is much nicer than it was a few years ago.
- * [`norm install openssh`](https://github.com/hmage/norm/blog/master/packages/openssh) — your system openssh client might not support ECDSA and ed25519, which is increasingly problematic as the world around you moves away from DSA and RSA.
- * [`norm install aria2`](https://github.com/hmage/norm/blog/master/packages/aria2) — this is much nicer than curl or wget and can do parallel downloads.
- * [`norm install nginx`](https://github.com/hmage/norm/blog/master/packages/nginx) — you don't need root to spin up a webserver either.
- * [`norm install qemu`](https://github.com/hmage/norm/blog/master/packages/qemu) — you don't need root to run a VM too.
+ * [`norm install gcc-6.3`](https://github.com/hmage/norm/blob/master/packages/gcc-6.3) — downloads, compiles and installs gcc 6.3. Great way to try it out without touching your system.
+ * [`norm install ffmpeg`](https://github.com/hmage/norm/blob/master/packages/ffmpeg) — if you're on Ubuntu or Debian, then your `ffmpeg` version can be either _very_ outdated or not present at all. This will get you the newest ffmpeg with support for x264, x265, webm, opus and `fdk-aac`.
+ * [`norm install git`](https://github.com/hmage/norm/blob/master/packages/git) — similarly, your system copy of git might not support new features.
+ * [`norm install dovecot`](https://github.com/hmage/norm/blob/master/packages/dovecot) — you don't need root to spin up your own IMAP server, either. Change the listening port to something higher than 1024, set up virtual accounts and you're good to go.
+ * [`norm install mc`](https://github.com/hmage/norm/blob/master/packages/mc) — latest midnight commander is much nicer than it was a few years ago.
+ * [`norm install openssh`](https://github.com/hmage/norm/blob/master/packages/openssh) — your system openssh client might not support ECDSA and ed25519, which is increasingly problematic as the world around you moves away from DSA and RSA.
+ * [`norm install aria2`](https://github.com/hmage/norm/blob/master/packages/aria2) — this is much nicer than curl or wget and can do parallel downloads.
+ * [`norm install nginx`](https://github.com/hmage/norm/blob/master/packages/nginx) — you don't need root to spin up a webserver either.
+ * [`norm install qemu`](https://github.com/hmage/norm/blob/master/packages/qemu) — you don't need root to run a VM too.
 
 ## How it's done
 
@@ -60,7 +60,7 @@ Replace the IP address and port number with appropriate values for your proxy. Y
 
 ## Formula format
 
-`norm` formulae are bash scripts, here's a [working example](https://github.com/hmage/norm/blog/master/packages/file):
+`norm` formulae are bash scripts, here's a [working example](https://github.com/hmage/norm/blob/master/packages/file):
 
 ```bash
 #!/bin/bash
@@ -85,9 +85,9 @@ There are more, but these are the most commonly needed.
 
 If source code uses autotools or cmake, `norm` detects that and compiles appropriately.
 
-If the build system is something else, or extra steps are needed to successfully build the formula, there are [other functions](https://github.com/hmage/norm/blog/master/norm_common.functions) provided, their names and comments should be self explanatory.
+If the build system is something else, or extra steps are needed to successfully build the formula, there are [other functions](https://github.com/hmage/norm/blob/master/norm_common.functions) provided, their names and comments should be self explanatory.
 
-To see a more complex example, take a look at [how clang is built](https://github.com/hmage/norm/blog/master/packages/clang).
+To see a more complex example, take a look at [how clang is built](https://github.com/hmage/norm/blob/master/packages/clang).
 
 ## Reporting bugs
 
