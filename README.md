@@ -1,5 +1,5 @@
-NORM -- Non-root build Manager
-==============================
+NORM — Non-root build Manager
+=============================
 
  * Don't have root privileges?
  * Don't want to wait for your sysadmin to install something trivial like new version of midnight commander?
@@ -38,7 +38,7 @@ To prevent problems with NFS-shared homes, it puts system identification in the 
 
 ## How it's done
 
-`norm` downloads the source code and compiles almost all dependencies. This is to avoid problems when some application (for example `aria2`) detects that a system has an optional library `libpsl` but fails to compile because the system-provided library is too old.
+`norm` downloads the source code and compiles almost all dependencies. This is to avoid problems when some application (for example `aria2`) detects that a system has an optional library (for example `libpsl`) but fails to compile, because the system-provided library is too old.
 
 Please be aware that binaries that `norm` installs are not portable — the expected paths are usually absolute — just like `/usr`, but `/home/hmage/norm.x86_64-pc-linux-gnu.2.19.haswell`.  Moving them around will break things.
 
