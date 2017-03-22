@@ -40,7 +40,9 @@ To prevent problems with NFS-shared homes, it puts system identification in the 
 
 `norm` downloads the source code and compiles almost all dependencies. This is to avoid problems when some application (for example `aria2`) detects that a system has an optional library (for example `libpsl`) but fails to compile, because the system-provided library is too old.
 
-Please be aware that binaries that `norm` installs are not portable — the expected paths are usually absolute — just like `/usr`, but `/home/hmage/norm.x86_64-pc-linux-gnu.2.19.haswell`.  Moving them around will break things.
+Please be aware that binaries that `norm` installs are not portable — the expected paths are usually absolute — just like `/usr`, but for example in my case it'll be `/home/hmage/norm.x86_64-pc-linux-gnu.2.19.haswell`.
+
+Moving binaries around will most certainly break them.
 
 Please treat them as your own personal builds (which they are).
 
