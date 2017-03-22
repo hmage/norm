@@ -19,7 +19,7 @@ All neccessary dependencies to compile `ffmpeg` will be automatically done for y
 ```
 
 ## More examples
- * [`norm install gcc-6.2`](packages/gcc-6.2) — downloads, compiles and installs gcc 6.2. Great way to try it out without touching your system.
+ * [`norm install gcc-6.3`](packages/gcc-6.3) — downloads, compiles and installs gcc 6.3. Great way to try it out without touching your system.
  * [`norm install ffmpeg`](packages/ffmpeg) — if you're on Ubuntu or Debian, then your ffmpeg can be either _very_ outdated or not present at all. This will get you the newest ffmpeg with support for x264, x265, webm, opus and AAC.
  * [`norm install git`](packages/git) — similarly, your system copy of git might not support new features like push-to-deploy, reference cloning and shallow cloning.
  * [`norm install dovecot`](packages/dovecot) — you don't need root to spin up your own IMAP server, either. Change the listening port to something higher than 1024, set up virtual accounts and you're good to go.
