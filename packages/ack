@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_file https://beyondgrep.com/ack-2.16-single-file bb4f77095f10a946216c1bce79bb79d35e897dd4
+fetch_source https://beyondgrep.com/ack-2.18-single-file 24b7f290e47d8da8e4581830589811ca55473d18
 
 mkdir -p "$PREFIX"/bin
 install -m755 "$CACHEDIR/$FILENAME" "$PREFIX"/bin/ack
