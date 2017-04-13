@@ -2,11 +2,10 @@
 
 ## do not add glib -- it depends on pkg-config
 
-fetch_source http://http.debian.net/debian/pool/main/p/pkg-config/pkg-config_0.28.orig.tar.gz 71853779b12f958777bffcb8ca6d849b4d3bed46
-fetch_debian http://http.debian.net/debian/pool/main/p/pkg-config/pkg-config_0.28-1.diff.gz d6abc11827267ffae5703c1dc7f6d1cdcda75a0b
+fetch_source https://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz 76e501663b29cb7580245720edfb6106164fad2b
 
 SYSPCPATH="/usr/local/lib/$HOSTTYPE-$OSTYPE/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:/usr/lib/$HOSTTYPE-$OSTYPE/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig"
 
 LN="ln -f" \
-do_undebian_compile --with-internal-glib --with-pc-path="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig:$SYSPCPATH"
+do_unpack_compile --with-internal-glib --with-pc-path="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig:$SYSPCPATH"
 mkdir -p "$PREFIX"/lib/pkgconfig
