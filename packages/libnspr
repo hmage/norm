@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://ftp.mozilla.org/pub/nspr/releases/v4.13.1/src/nspr-4.13.1.tar.gz ec6660257d41267a0e6ee25812e9012cb9ddd274
+fetch_source https://ftp.mozilla.org/pub/nspr/releases/v4.14/src/nspr-4.14.tar.gz 4c9ffda940882229104090f8fc8539f6412e1ff7
 
 EXTRA_OPTIONS=
 [[ $HOSTTYPE == *64* ]] && EXTRA_OPTIONS=--enable-64bit
