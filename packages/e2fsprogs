@@ -4,13 +4,12 @@ depends_on pkg-config
 depends_on libuuid
 depends_on libblkid
 
-fetch_source http://http.debian.net/debian/pool/main/e/e2fsprogs/e2fsprogs_1.42.12.orig.tar.gz 083c1bb0d1e85672e8038a2fadf70b24e7409db7
-fetch_debian http://http.debian.net/debian/pool/main/e/e2fsprogs/e2fsprogs_1.42.12-1.1.debian.tar.xz ac1ed4de29699af07b17fa0f37389af8c863ee09
+fetch_source https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.42.13/e2fsprogs-1.42.13.tar.gz 77d1412472ac5a67f8954166ec16c37616074c37
 
 CONFFLAGS="--disable-defrag --enable-symlink-install --disable-libblkid --disable-uuidd --disable-fsck --disable-libuuid"
 [[ $OSTYPE == *linux* ]] && CONFFLAGS="$CONFFLAGS --enable-elf-shlibs"
 
-do_undebian
+do_unpack
 pushd_src
 mkdir -p build
 cd build
