@@ -4,7 +4,7 @@
 depends_on python
 depends_on libbsd
 
-fetch_source https://www.samba.org/ftp/talloc/talloc-2.1.2.tar.gz a02ffe90c3dd31fbe14ecaa79912437bdf7295c1
+fetch_source https://www.samba.org/ftp/talloc/talloc-2.1.9.tar.gz e1e79fec4c0b6bd92be904a9c03b0a168478711a
 
 do_unpack_compile
 
