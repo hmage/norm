@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://www.sqlite.org/2017/sqlite-autoconf-3160200.tar.gz 64ca578ad44a94115b1db0406740e14288f74bb8
+fetch_source https://www.sqlite.org/2017/sqlite-autoconf-3180000.tar.gz 74559194e1dd9b9d577cac001c0e9d370856671b
 
 CPPFLAGS="$CPPFLAGS -DSQLITE_MAX_VARIABLE_NUMBER=250000 -DSQLITE_ENABLE_COLUMN_METADATA=1 -DSQLITE_MAX_DEFAULT_PAGE_SIZE=32768" \
 NOPARALLEL=1 do_unpack_compile --enable-threadsafe --disable-readline --disable-editline
