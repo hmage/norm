@@ -9,6 +9,6 @@ depends_on glib
 depends_on zlib
 depends_on libthai
 
-fetch_source http://ftp.gnome.org/pub/GNOME/sources/pango/1.40/pango-1.40.4.tar.xz 761458faab28cb70ba62e01ec9379d03bc5339c0
+fetch_source http://ftp.gnome.org/pub/GNOME/sources/pango/1.40/pango-1.40.5.tar.xz 12494900f9cb3a8768795785b06b22bde2fedab3
 
 do_unpack_compile --disable-introspection --with-xft
