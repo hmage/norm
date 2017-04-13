@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://github.com/01org/hyperscan/archive/v4.4.1.tar.gz 1db29e8b7de5e0a515541f30559f2a93302a809c
+
+do_unpack_compile
