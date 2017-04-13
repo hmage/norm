@@ -1,0 +1,10 @@
+#!/bin/bash
+
+depends_on rust
+
+fetch_source https://github.com/BurntSushi/ripgrep/archive/0.5.1.tar.gz c507c19bf49c04a4b3079568ebb0f2920361743c
+
+do_unpack
+pushd_src
+./compile
+install -D ripgrep "$PREFIX/bin/rg"
