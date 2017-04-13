@@ -8,6 +8,6 @@ depends_on glib
 depends_on libffi
 
 ## newer gobject-introspection depends on newer glib, but newer glib doesn't compile on old gcc
-fetch_source http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/1.51/gobject-introspection-1.51.1.tar.xz e8e4106a59f3c3e7f228a375189907aa884ce5da
+fetch_source http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/1.52/gobject-introspection-1.52.0.tar.xz eb2f5c15aea339ff73245a19df71db02c497ce26
 
 do_unpack_compile
