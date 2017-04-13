@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://github.com/google/re2/archive/2017-04-01.tar.gz 4bc0093460dc25d3e959597199404df2ad34c67a
+
+do_unpack_compile
