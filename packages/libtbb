@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://github.com/01org/tbb/archive/2017_U5.tar.gz 26f720729d322913912e99d1e4a36bd10625d3ca
+
+do_unpack_compile
