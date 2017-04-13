@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://downloads.xiph.org/releases/icecast/icecast-2.4.3.tar.gz 230e2aa5abf80010c42d41cc7c0b078fb542b080
+
+do_unpack_compile
