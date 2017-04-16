@@ -5,7 +5,7 @@ depends_on libtiff
 depends_on libpng
 depends_on glib
 
-fetch_source http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.36/gdk-pixbuf-2.36.2.tar.xz 71102afa8bcd1c767ce416b99b3eb411e3a25fdd
+fetch_source http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.36/gdk-pixbuf-2.36.6.tar.xz 8caa99dbbb143cddbb896bf35e01da717bb1479f
 
 do_unpack_compile --enable-debug=no --disable-Bsymbolic --disable-introspection
 gdk-pixbuf-csource --raw --build-list apple_red "$PREFIX"/var/norm/pngbar.png
