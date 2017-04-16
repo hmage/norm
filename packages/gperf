@@ -1,9 +1,8 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/g/gperf/gperf_3.0.4.orig.tar.gz e32d4aff8f0c730c9a56554377b2c6d82d0951b8
-fetch_debian http://http.debian.net/debian/pool/main/g/gperf/gperf_3.0.4-1.debian.tar.gz cd562c0c65b990fb509402280e6dce04c285b92c
+fetch_source http://ftpmirror.gnu.org/gperf/gperf-3.1.tar.gz e3c0618c2d2e5586eda9498c867d5e4858a3b0e2
 
-do_undebian
+do_unpack
 pushd_src
 # inhibit makeinfo invocation in the build process.
 touch -t 200001010000 doc/gperf.texi
