@@ -1,0 +1,9 @@
+#!/bin/bash
+
+depends_on ntfs-3g
+depends_on libfuse
+depends_on libxml
+
+fetch_source https://wimlib.net/downloads/wimlib-1.11.0.tar.gz dbadf44ff8a991946495967c830f495231940851
+
+do_unpack_compile
