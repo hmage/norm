@@ -24,8 +24,9 @@ if [ ! -f /proc/net/igmp -o ! -f /proc/net/igmp6 ]; then
  	if err != nil {
  		return false, err
 EOF
+    add_caveat "Your kernel lacks multicast support (no /proc/net/igmp and /proc/net/igmp6), multicast test was disabled"
 fi
-do_patch_inline << EOF
+do_patch_inline << 'EOF'
 --- a/src/net/dial_test.go
 +++ b/src/net/dial_test.go
 @@ -32,6 +32,7 @@
@@ -54,8 +55,18 @@ do_patch_inline << EOF
  	// Issue 4064: handle locations without any zone transitions.
  	loc, err := LoadLocation("Etc/GMT+1")
  	if err != nil {
+--- a/src/make.bash
++++ b/src/make.bash
+@@ -129,7 +129,7 @@
+ if [ -z "$CC" -a -z "$(type -t gcc)" -a -n "$(type -t clang)" ]; then
+ 	export CC=clang CXX=clang++
+ fi
+-${CC:-gcc} $mflag -O2 -Wall -Werror -o cmd/dist/dist -Icmd/dist "$DEFGOROOT" cmd/dist/*.c
++${CC:-gcc} $mflag -O2 -Wall -o cmd/dist/dist -Icmd/dist "$DEFGOROOT" cmd/dist/*.c
+ 
+ # -e doesn't propagate out of eval, so check success by hand.
+ eval $(./cmd/dist/dist env -p || echo FAIL=true)
 EOF
-    add_caveat "Your kernel lacks multicast support (no /proc/net/igmp and /proc/net/igmp6), multicast test was disabled"
 pushd_src
 cd src
 GOROOT_FINAL="$PREFIX/go" GOBIN="$PREFIX/bin" GO_LDFLAGS="-L $PREFIX/lib" GO_CCFLAGS="-I $PREFIX/include" GO_DISTFLAGS="-s" ./all.bash
