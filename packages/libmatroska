@@ -1,5 +1,8 @@
 #!/bin/bash
 
+depends_on pkg-config
+depends_on libebml
+
 fetch_source https://dl.matroska.org/downloads/libmatroska/libmatroska-1.4.7.tar.bz2 e3f0ae60fbc7ccd54e69418750ae507c47df2211
 
 do_unpack_compile
