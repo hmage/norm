@@ -6,6 +6,6 @@ depends_on glib
 depends_on libat-spi2
 depends_on libatk
 
-fetch_source http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.22/at-spi2-atk-2.22.0.tar.xz 9896c6d8130ba167eba084fdf1cd47ed774be147
+fetch_source http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.24/at-spi2-atk-2.24.1.tar.xz 629d915918158b53d86a93b762feb1dedf44e15b
 
 do_unpack_compile
