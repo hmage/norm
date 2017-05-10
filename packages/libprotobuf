@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://github.com/google/protobuf/releases/download/v3.3.0/protobuf-cpp-3.3.0.tar.gz 4bbc45997f556515b94b7c816e1402b1bda4ccb2
+
+do_unpack_compile
