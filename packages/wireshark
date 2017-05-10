@@ -6,7 +6,7 @@ depends_on glib
 depends_on libgtk3
 depends_on libpcap
 
-fetch_source http://www.wireshark.org/download/src/wireshark-2.2.5.tar.bz2 cc3ae3fa640caee1fdb4499a4b70272934efad14
+fetch_source http://www.wireshark.org/download/src/wireshark-2.2.6.tar.bz2 608c0ece0d7c0f9c82f031e69c87c0de57c3f0dd
 
 do_unpack_compile
 
