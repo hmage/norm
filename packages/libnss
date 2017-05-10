@@ -6,9 +6,10 @@ depends_on sqlite3
 
 major=3
 minor=30
-patch=1
+patch=2
 
-fetch_source https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_30_1_RTM/src/nss-3.30.1.tar.gz 3e1207b1293605435106148aa8e7205b37aeae74
+## DO NOT FORGET TO UPDATE VARIABLES ABOVE
+fetch_source https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_30_2_RTM/src/nss-3.30.2.tar.gz e8ceea087e2ab2d53ffe156d8641007abad2b13f
 
 EXTRA_OPTIONS=
 [[ $HOSTTYPE == *64* ]] && EXTRA_OPTIONS="USE_64=1"
