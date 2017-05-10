@@ -1,5 +1,7 @@
 #!/bin/bash
 
+depends_on libprotobuf
+
 fetch_source https://mosh.org/mosh-1.3.0.tar.gz 846698806d940c84028c04f68e289e31d9540d5f
 
 do_unpack_compile
