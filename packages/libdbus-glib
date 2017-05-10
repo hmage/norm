@@ -3,9 +3,8 @@
 depends_on glib
 depends_on libdbus
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/d/dbus-glib/dbus-glib_0.100.2.orig.tar.gz 506c3ee32b45b565c3e81685af2510a50bf60b33
-fetch_debian http://ftp.de.debian.org/debian/pool/main/d/dbus-glib/dbus-glib_0.100.2-1.debian.tar.gz 9e370b641dac0761b2c7a6a66548dceb20ca2d76
+fetch_source https://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.108.tar.gz 5c851f3d457b46d5fa7f1e647d1141592d38cc53
 
-do_undebian
+do_unpack
 do_autoreconf
 do_compile
