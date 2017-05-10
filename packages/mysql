@@ -6,7 +6,7 @@ depends_on libaio
 depends_on libreadline
 depends_on libnuma
 
-fetch_source http://cdn.mysql.com/Downloads/MySQL-5.7/mysql-boost-5.7.17.tar.gz 6d848f7ea596a7a81a353415189f04452ef20df6
+fetch_source http://cdn.mysql.com/Downloads/MySQL-5.7/mysql-boost-5.7.18.tar.gz 346e91db0160434488493966054eb25f712c89c8
 
 CONFOPTS=(
 -DWITH_BOOST=boost
