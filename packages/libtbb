@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/01org/tbb/archive/2017_U5.tar.gz 26f720729d322913912e99d1e4a36bd10625d3ca
+fetch_source https://github.com/01org/tbb/archive/2017_U6.tar.gz 5b0909fbb1741724f7a0ce83232f50b166788af0
 
 do_unpack
 pushd_src
