@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://www.colm.net/files/ragel/ragel-6.10.tar.gz 946162090fb58b794ed53173fac13398d565b794
+
+do_unpack_compile
