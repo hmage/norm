@@ -2,6 +2,6 @@
 
 depends_on libllvm clang
 
-fetch_source http://embed.cs.utah.edu/creduce/creduce-2.6.0.tar.gz fb854cd012392deeb4718dbb2838ca2a77525020
+fetch_source http://embed.cs.utah.edu/creduce/creduce-2.7.0.tar.gz 45f473364f5e98b612e4244be648ce2cc45dd178
 
 do_unpack_compile
