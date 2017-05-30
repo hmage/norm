@@ -4,7 +4,7 @@ depends_on libnuma
 depends_on zlib
 depends_on libpciaccess
 
-fetch_source https://www.open-mpi.org/software/ompi/v2.0/downloads/openmpi-2.0.2.tar.bz2 80e39bc76ac2e3caf958a3db9985a9c81fddb8a6
+fetch_source https://www.open-mpi.org/software/ompi/v2.1/downloads/openmpi-2.1.1.tar.bz2 3aaee35c17b6ef02f4cee274f2670d5b7b2c968a
 
 do_unpack
 do_compile --disable-mpi-fortran
