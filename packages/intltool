@@ -2,7 +2,7 @@
 
 depends_on perl-xml-parser
 
-fetch_source http://http.debian.net/debian/pool/main/i/intltool/intltool_0.50.2.orig.tar.gz 7fddbd8e1bf94adbf1bc947cbf3b8ddc2453f8ad
-fetch_debian http://http.debian.net/debian/pool/main/i/intltool/intltool_0.50.2-2.debian.tar.gz d88dfe574fdef0f72a07e2cb1b0c9c136d0dc2a8
+fetch_source http://http.debian.net/debian/pool/main/i/intltool/intltool_0.51.0.orig.tar.gz a0c3bcb99d1bcfc5db70f8d848232a47c47da090
+fetch_debian http://http.debian.net/debian/pool/main/i/intltool/intltool_0.51.0-3.debian.tar.xz c1ce4efa4d9bcae0aa1747f58e4eb3abe546de16
 
 do_undebian_compile
