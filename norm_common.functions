@@ -122,6 +122,17 @@ do_compile_outside_test() {
     popd || return 1
 }
 
+check_input_filter_exists_and_set() {
+    if ! hash "$1" 2>/dev/null; then
+        log_error "Error: \"$1\" is not available, you must install it."
+        log_error
+        log_error Try:
+        log_error "    norm install $1"
+        exit 1
+    fi
+    export INPUT_FILTER="$@"
+}
+
 do_untar() {
     [ -z "$1" ] && set -- "$CACHEDIR/$TARNAME"
     [ -z "$2" ] && set -- "$1" "$SRCDIR"
@@ -129,13 +140,13 @@ do_untar() {
     local INPUT_TARFILE="$1"
     local OUTPUT_DIR="$2"
     shift 2
-    local INPUT_FILTER="cat"
+    INPUT_FILTER="cat"
 
     ## we can't rely on tar being able to identify .xz -- some users had systems that had tar so old it didn't know about .xz or .bz2
     case "$INPUT_TARFILE" in
-        *.tar.gz |*.tgz) INPUT_FILTER="gzip -d"  ;;
-        *.tar.bz2|*.tbz) INPUT_FILTER="bzip2 -d" ;;
-        *.tar.xz |*.txz) INPUT_FILTER="xz -d"    ;;
+        *.tar.gz |*.tgz) check_input_filter_exists_and_set gzip -d  ;;
+        *.tar.bz2|*.tbz) check_input_filter_exists_and_set bzip2 -d ;;
+        *.tar.xz |*.txz) check_input_filter_exists_and_set xz -d    ;;
         *) log "Couldn't identify tar format for $INPUT_TARFILE" && return 1;;
     esac
 
@@ -222,12 +233,12 @@ do_undebian_overlay() {
     [ -f "$CACHEDIR/$1" ] && DEBPATCH="$1"
 
     ## unpack debian overlay -- try tar, gzip, xz, bz
-    local INPUT_FILTER="cat"
+    INPUT_FILTER="cat"
     case "$DEBPATCH" in
-        *.diff) INPUT_FILTER="cat" ;;
-        *.diff.gz) INPUT_FILTER="gzip -d" ;;
-        *.diff.xz) INPUT_FILTER="xz -d" ;;
-        *.diff.bz2) INPUT_FILTER="bzip2 -d" ;;
+        *.diff)     check_input_filter_exists_and_set cat      ;;
+        *.diff.gz)  check_input_filter_exists_and_set gzip -d  ;;
+        *.diff.xz)  check_input_filter_exists_and_set xz -d    ;;
+        *.diff.bz2) check_input_filter_exists_and_set bzip2 -d ;;
         *) do_untar "$CACHEDIR/$DEBPATCH" "$SRCDIR" --strip-components 0 && return 0 ;;
     esac
     cat "$CACHEDIR/$DEBPATCH" | $INPUT_FILTER | patch -f -p1 -i - -d "$SRCDIR" || return 1

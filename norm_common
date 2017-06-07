@@ -64,6 +64,11 @@ log() {
     echo "[$DATE] [norm] $@"
 }
 
+log_error() {
+    local DATE=`LANG=C LC_ALL=C date '+%d/%b/%Y:%T %z'`
+    echo "[$DATE] [norm] $@" >&2
+}
+
 log_success() {
     log "Formula $FORMULA -- success"
 }
