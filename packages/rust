@@ -4,20 +4,7 @@ depends_on cmake
 depends_on python ## needs python to build
 ! is_without tests && depends_on flex bison gdb ## needed to run tests
 
-fetch_source https://static.rust-lang.org/dist/rustc-1.17.0-src.tar.gz 68dccc81901b75e0fce2a34c015d754593fa79c2
+fetch_source https://static.rust-lang.org/dist/rustc-1.18.0-src.tar.gz 1195775bea5c524d4033f03c7289b357d5dc4a84
 
 do_unpack
-do_patch_inline << 'EOF'
---- a/mk/tests.mk
-+++ b/mk/tests.mk
-@@ -162,7 +162,7 @@
- ######################################################################
- 
- # The main testing target. Tests lots of stuff.
--check: check-sanitycheck cleantmptestlogs cleantestlibs all check-stage2 tidy
-+check: check-sanitycheck cleantmptestlogs cleantestlibs all check-stage2
- 	$(Q)$(CFG_PYTHON) $(S)src/etc/check-summary.py tmp/*.log
- 
- # As above but don't bother running tidy.
-EOF
 do_compile
