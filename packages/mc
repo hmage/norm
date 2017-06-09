@@ -2,7 +2,7 @@
 
 depends_on pkg-config
 depends_on libslang glib
-depends_on libmount
+[[ $OSTYPE == *linux* ]] && depends_on libmount
 depends_on libblkid
 depends_on libuuid
 depends_on libssh2
