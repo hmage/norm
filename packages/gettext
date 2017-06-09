@@ -1,5 +1,6 @@
 #!/bin/bash
-depends_on libacl
+
+[[ $OSTYPE == *linux* ]] && depends_on libacl
 depends_on libxml
 depends_on libunistring
 
