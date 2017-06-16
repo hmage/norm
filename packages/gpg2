@@ -1,0 +1,9 @@
+#!/bin/bash
+
+depends_on libassuan
+depends_on libksba
+depends_on pinentry
+
+fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.1.21.tar.bz2 1852c066bc21893bc52026ead78edf50fdf15e13
+
+do_unpack_compile
