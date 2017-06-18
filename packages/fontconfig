@@ -5,7 +5,7 @@ depends_on freetype
 depends_on libxml
 depends_on libexpat
 
-fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.12.1.tar.bz2 30d832b754fb10a3b70ebac750a38a0275438ad8
+fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.12.3.tar.bz2 408f933548bdc9ad912bc66d0fba22a8a4612d8b
 do_unpack
 do_patch_inline << EOF
 diff --git a/src/fccache.c b/src/fccache.c
