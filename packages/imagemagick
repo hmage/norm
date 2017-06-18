@@ -9,6 +9,6 @@ depends_on libbpg
 depends_on zlib
 depends_on bzip2
 
-fetch_source https://dl.bintray.com/homebrew/mirror/imagemagick-7.0.5-9.tar.xz 6ca92e6714a3495eb0749c7a29a5f799484d57b7
+fetch_source https://dl.bintray.com/homebrew/mirror/imagemagick-7.0.6-0.tar.xz e9c6009b2b4139893ff76a0aa58d3b8e07a9084a
 
 do_unpack_compile --without-x
