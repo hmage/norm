@@ -7,7 +7,7 @@ depends_on xz
 depends_on libexpat
 depends_on libguile
 
-fetch_source http://ftpmirror.gnu.org/gdb/gdb-7.12.1.tar.xz ef77c5345d6f9fdcdf7a5d8503301242b701936e
+fetch_source http://ftpmirror.gnu.org/gdb/gdb-8.0.tar.xz 148c8e783ebf9b281241d0566db59961191ec64d
 
 ## gdb test suite is broken -- even their buildbot has failures that are ignored
 ## plus it needs python, rust, systemtap, gccgo and gfortran -- dependencies too heavy
