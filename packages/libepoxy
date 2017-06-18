@@ -2,6 +2,6 @@
 
 depends_on mesa
 
-fetch_source https://github.com/anholt/libepoxy/releases/download/1.4.2/libepoxy-1.4.2.tar.xz 62adecb7240477be93f10bdfd1c9052b28440acf
+fetch_source https://github.com/anholt/libepoxy/releases/download/1.4.3/libepoxy-1.4.3.tar.xz e29ebdba0d1d4601431639331d2e6f39f180972d
 
 do_unpack_compile
