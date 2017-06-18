@@ -4,7 +4,7 @@ requires_gcc 4.8
 
 depends_on python
 
-fetch_source https://nodejs.org/dist/v8.1.0/node-v8.1.0.tar.gz 021cea7ac78eb44fe0dc6f05d6641408e9d8bfdc
+fetch_source https://nodejs.org/dist/v8.1.2/node-v8.1.2.tar.gz e80d3e6ae766349a925911f0a8e5533827c58673
 
 # as of 7.2.1, tests are broken
 do_unpack_compile_notest
