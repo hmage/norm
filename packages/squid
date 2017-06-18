@@ -2,6 +2,6 @@
 
 depends_on libcppunit
 
-fetch_source http://www.squid-cache.org/Versions/v3/3.5/squid-3.5.25.tar.xz 63ea00cb918e3106fd91b286ec907f1681e0f0e8
+fetch_source http://www.squid-cache.org/Versions/v3/3.5/squid-3.5.26.tar.xz 51a664217957b35de8b7fae180b9f93a759a4204
 
 do_unpack_compile
