@@ -1,5 +1,7 @@
 #!/bin/bash
 
+depends_on libgpg-error
+
 fetch_source https://gnupg.org/ftp/gcrypt/libassuan/libassuan-2.4.3.tar.bz2 27391cf4a820b5350ea789c30661830c9a271518
 
 do_unpack_compile
