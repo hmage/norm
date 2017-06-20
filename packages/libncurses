@@ -2,7 +2,8 @@
 
 depends_on pkg-config # otherwise it won't install .pc files
 
-fetch_source http://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.0.tar.gz acd606135a5124905da770803c05f1f20dd3b21c
+fetch_source http://http.debian.net/debian/pool/main/n/ncurses/ncurses_6.0+20161126.orig.tar.gz 868589e7acb3a6cef5aa2827be8eb49aa4f1917b
+fetch_debian http://http.debian.net/debian/pool/main/n/ncurses/ncurses_6.0+20161126-1.debian.tar.xz 9bb9b5520d775592fcff2018bef5eb46c9f4eb99
 
 CONFOPTS=(
 --enable-pc-files
@@ -17,5 +18,5 @@ CONFOPTS=(
 --with-pkg-config-libdir="$PREFIX/lib/pkgconfig"
 )
 
-do_unpack_compile "${CONFOPTS[@]}"
-do_unpack_compile "${CONFOPTS[@]}" --enable-widec
+do_undebian_compile "${CONFOPTS[@]}"
+do_undebian_compile "${CONFOPTS[@]}" --enable-widec
