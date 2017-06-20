@@ -3,6 +3,7 @@
 [[ $OSTYPE == *linux* ]] && depends_on libattr
 depends_on python
 depends_on libbsd
+depends_on libacl
 
 fetch_source https://www.samba.org/ftp/talloc/talloc-2.1.9.tar.gz e1e79fec4c0b6bd92be904a9c03b0a168478711a
 
