@@ -2,4 +2,18 @@
 
 fetch_source http://downloads.sourceforge.net/expat/expat-2.2.1.tar.bz2 f45eb724f182776a9cacec9ed70d549e87198987
 
-do_unpack_compile
+do_unpack
+do_patch_inline << 'EOF'
+--- a/configure
++++ b/configure
+@@ -16341,7 +16341,7 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+   }
+ 
+ _ACEOF
+-if ac_fn_c_try_compile "$LINENO"; then :
++if ac_fn_c_try_link "$LINENO"; then :
+ 
+ 
+ $as_echo "#define HAVE_GETRANDOM 1" >>confdefs.h
+EOF
+do_compile
