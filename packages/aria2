@@ -1,6 +1,11 @@
 #!/bin/bash
 
-requires_gcc 4.7 for C++11 support
+#requires_gcc 4.7 for C++11 support
+if ! cc_checkflags -x c++ -std=c++11; then
+    log "Formula $FORMULA needs C++ compiler that support for C++11 standard"
+    log "Try installing newer version of gcc -- norm install gcc-7.1"
+    exit 1
+fi
 
 depends_on pkg-config
 depends_on zlib
