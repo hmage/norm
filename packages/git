@@ -29,10 +29,11 @@ do_patch_inline -p0 << EOF
  # Override svnrdump with our simulator
  PATH="$HOME:$PATH"
 EOF
-do_compile --disable-nls
+do_compile
 
 ## install bash completion
-install -D $SRCDIR/contrib/completion/git-completion.bash $PREFIX/etc/bash_completion.d/git-completion.bash
+mkdir -p "$PREFIX/etc/bash_completion.d"
+install "$SRCDIR/contrib/completion/git-completion.bash" "$PREFIX/etc/bash_completion.d/git-completion.bash"
 
 ## install git manpages
 fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.13.1.tar.xz 0db9fb02519bcda37d16c9d395532769660268e5
