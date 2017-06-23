@@ -35,3 +35,4 @@ norm_addpath() {
 norm_addpath PATH "$DIR" "$NORMPREFIX/bin" "$NORMPREFIX/sbin" "$NORMPREFIX/bin/ccache_wrap"
 
 unset -f norm_addpath
+unset DIR
