@@ -6,7 +6,11 @@ fetch_source http://download.oracle.com/berkeley-db/db-6.2.23.tar.gz 646c57b9979
 do_unpack
 SRCDIR=$SRCDIR/dist
 pushd_src
+sed -ibak 's|^docdir=.*$|docdir= @docdir@|' Makefile.in
 do_compile_outside --prefix=$PREFIX --mandir=$PREFIX/share/man --enable-compat185 --disable-java \
+                   --docdir=$PREFIX/share/doc/libdb \
+                   --enable-cxx \
+                   --enable-stl \
                    --enable-dbm
 popd
 
