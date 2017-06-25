@@ -1,7 +1,7 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/libc/libcap2/libcap2_2.24.orig.tar.xz 89be2162e5b7479a9a2f95b488978ed76b3f4ce5
-fetch_debian http://http.debian.net/debian/pool/main/libc/libcap2/libcap2_2.24-8.debian.tar.xz 551a2b75d36700a183973549b2275d754e0003db
+fetch_source http://http.debian.net/debian/pool/main/libc/libcap2/libcap2_2.25.orig.tar.xz f0b102e4a68e1bbdcb6b143b63c34a250e473088
+fetch_debian http://http.debian.net/debian/pool/main/libc/libcap2/libcap2_2.25-1.debian.tar.xz 52fa067e3e4125e184898b66890de5ffccff20cd
 
 MAKEFLAGS=(
 "prefix=$PREFIX"
