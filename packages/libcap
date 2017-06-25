@@ -13,6 +13,7 @@ lib=lib
 
 do_undebian
 pushd_src
+sed -i.bak 's|%{.*%}|%{\\n#include <stddef.h>\\n%}|' libcap/Makefile
 do_make LDFLAGS="$LDFLAGS" "${MAKEFLAGS[@]}"
 do_install "${MAKEFLAGS[@]}"
 popd
