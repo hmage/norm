@@ -7,7 +7,8 @@ fetch_source http://frodo.looijaard.name/system/files/software/getopt/getopt-1.1
 do_unpack
 pushd_src
 sed -ibak "s|^CPPFLAGS=|CPPFLAGS=-I${PREFIX}/include |" Makefile
-sed -ibak "s|^LDFLAGS=|LDFLAGS=-L${PREFIX}/lib -lintl |" Makefile
+[ $OSTYPE != *linux* ]] && sed -ibak "s|^LDFLAGS=|LDFLAGS=-lintl |" Makefile
+sed -ibak "s|^LDFLAGS=|LDFLAGS=-L${PREFIX}/lib |" Makefile
 do_make
 do_install prefix="$PREFIX" mandir="$PREFIX/share/man"
 popd_src
