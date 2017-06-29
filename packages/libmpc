@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on libgmp
+depends_on libmpfr
+
+fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.3.tar.gz b8be66396c726fdc36ebb0f692ed8a8cca3bcc66
+
+do_unpack_compile
