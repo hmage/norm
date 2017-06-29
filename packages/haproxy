@@ -1,0 +1,19 @@
+#!/bin/bash
+
+depends_on openssl
+depends_on libpcre
+depends_on zlib
+
+fetch_source https://www.haproxy.org/download/1.7/src/haproxy-1.7.7.tar.gz bc640e5e6fb3604430ad6a607a1bbdb3e129a938
+
+do_unpack
+pushd_src
+export TARGET=generic
+[[ $OSTYPE == *linux* ]] && TARGET=linux2628
+[[ $OSTYPE == *darwin* ]] && TARGET=osx
+do_make TARGET=$TARGET USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1
+mkdir -p "$PREFIX/bin"
+install -m755 haproxy "$PREFIX/bin/"
+mkdir -p "$PREFIX/share/man/man1"
+install -m644 doc/haproxy.1 "$PREFIX/share/man/man1/"
+popd_src
