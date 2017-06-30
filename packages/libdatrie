@@ -1,5 +1,6 @@
 #!/bin/bash
 
-fetch_source https://linux.thai.net/pub/thailinux/software/libthai/libdatrie-0.2.10.tar.xz 29162b5a63b75f54bb00f6b60fb8a9fb8502d89b
+fetch_source http://http.debian.net/debian/pool/main/libd/libdatrie/libdatrie_0.2.10.orig.tar.xz 29162b5a63b75f54bb00f6b60fb8a9fb8502d89b
+fetch_debian http://http.debian.net/debian/pool/main/libd/libdatrie/libdatrie_0.2.10-4.debian.tar.xz 6f6d08f70c75ad2c05bedb431fefa257304f7e81
 
 do_unpack_compile
