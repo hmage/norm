@@ -12,8 +12,9 @@ sed -ibak "s|/usr/|$PREFIX/|" Makefile
 do_make CC=$CC CXX=$CXX
 do_test CC=$CC CXX=$CXX
 install -d $PREFIX/lib
-[[ $OSTYPE == *linux* ]] && install -m 644 .libs/*.so* $PREFIX/lib
-install -m 644 .libs/*.a .libs/*.la $PREFIX/lib
+[[ $OSTYPE == *linux* ]] && install -m 644 .libs/*.so* .libs/*.la $PREFIX/lib
+[[ $OSTYPE == *darwin* ]] && install -m 644 .libs/*.dylib* .libs/*.la $PREFIX/lib
+install -m 644 .libs/*.a $PREFIX/lib
 install -d $PREFIX/include
 install -m 644 *.h $PREFIX/include
 popd
