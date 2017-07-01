@@ -8,6 +8,7 @@ fetch_debian http://http.debian.net/debian/pool/main/r/rtmpdump/rtmpdump_2.4+201
 
 do_undebian
 pushd_src
+[[ $OSTYPE == *darwin* ]] && sed -ibak 's|-Wl,-soname,$@||' "$SRCDIR"/librtmp/Makefile
 cd librtmp
 do_make LIB_OPENSSL="-L$ESCAPED_PREFIX/lib -lssl -lcrypto -lz"
 do_install prefix=$PREFIX
