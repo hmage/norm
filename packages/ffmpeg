@@ -19,7 +19,7 @@ depends_on libxext
 depends_on libxau
 depends_on libxdmcp
 have_gcc 4.7 && depends_on libva ## mesa wants 4.7
-depends_on libasound
+[[ $OSTYPE == *linux* ]] && depends_on libasound
 depends_on bison
 depends_on flex
 depends_on rtmpdump
