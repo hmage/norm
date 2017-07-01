@@ -5,8 +5,9 @@ depends_on nasm
 
 fetch_source https://downloads.sourceforge.net/sourceforge/lame/lame-3.99.5.tar.gz 03a0bfa85713adcc6b3383c12e2cc68a9cfbf4c4
 
-EXTRAFLAGS=
+unset EXTRALD EXTRAFLAGS
 cc_addflags EXTRAFLAGS -msse2 -msse
+cc_addflags EXTRALD -Wl,z,defs
 
 do_unpack
 do_patch_inline << 'EOF'
@@ -35,6 +36,7 @@ diff -urw lame-3.99.5.tar.gz-orig/configure.in lame-3.99.5.tar.gz/configure.in
  		case ${host_os} in
  		*cygwin*)
 EOF
-LDFLAGS="$LDFLAGS -Wl,-z,defs" \
+
+LDFLAGS="$LDFLAGS $EXTRALD" \
 CFLAGS="$CFLAGS $EXTRAFLAGS" \
 do_compile --disable-debug --enable-nasm --enable-expopt=full
