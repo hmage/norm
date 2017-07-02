@@ -3,6 +3,7 @@
 depends_on pkg-config
 depends_on libdatrie
 
-fetch_source https://linux.thai.net/pub/thailinux/software/libthai/libthai-0.1.26.tar.xz 94a848fbfe7d0ab00a65fbc14978a3ee766d267d
+fetch_source http://http.debian.net/debian/pool/main/libt/libthai/libthai_0.1.26.orig.tar.xz 94a848fbfe7d0ab00a65fbc14978a3ee766d267d
+fetch_debian http://http.debian.net/debian/pool/main/libt/libthai/libthai_0.1.26-1.debian.tar.xz 429f12058066d67f40db7e31c7bbea90a7a07cb8
 
-do_unpack_compile
+do_undebian_compile
