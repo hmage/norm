@@ -5,4 +5,18 @@ depends_on perl-xml-parser
 fetch_source http://http.debian.net/debian/pool/main/i/intltool/intltool_0.51.0.orig.tar.gz a0c3bcb99d1bcfc5db70f8d848232a47c47da090
 fetch_debian http://http.debian.net/debian/pool/main/i/intltool/intltool_0.51.0-3.debian.tar.xz c1ce4efa4d9bcae0aa1747f58e4eb3abe546de16
 
-do_undebian_compile
+do_undebian
+do_patch_inline << 'EOF'
+--- a/intltool-update.in
++++ b/intltool-update.in
+@@ -1068,7 +1068,7 @@
+ 	my $untouched = $1;
+ 	my $sub = "";
+         # Ignore recursive definitions of variables
+-        $sub = $varhash{$2} if defined $varhash{$2} and $varhash{$2} !~ /\${?$2}?/;
++        $sub = $varhash{$2} if defined $varhash{$2} and $varhash{$2} !~ /\$\{?$2}?/;
+ 
+ 	return SubstituteVariable ("$untouched$sub$rest");
+     }
+EOF
+do_compile
