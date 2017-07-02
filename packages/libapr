@@ -2,7 +2,6 @@
 
 depends_on libuuid
 
-fetch_source http://http.debian.net/debian/pool/main/a/apr/apr_1.5.1.orig.tar.bz2 f94e4e0b678282e0704e573b5b2fe6d48bd1c309
-fetch_debian http://http.debian.net/debian/pool/main/a/apr/apr_1.5.1-3.debian.tar.xz 23c327e0cb25d0bbfbce2dab2c1086f3554e52dc
+fetch_source http://www.mirrorservice.org/sites/ftp.apache.org/apr/apr-1.6.2.tar.bz2 01b0d4faa0194825e8e525b9ac7ccfb832471d50
 
-do_undebian_compile
+do_unpack_compile
