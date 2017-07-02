@@ -1,9 +1,5 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on bison
-depends_on libpcre
-
 fetch_source http://http.debian.net/debian/pool/main/g/golang/golang_1.4.2.orig.tar.gz 460caac03379f746c473814a65223397e9c9a2f6
 
 do_unpack
@@ -66,6 +62,16 @@ do_patch_inline << 'EOF'
  
  # -e doesn't propagate out of eval, so check success by hand.
  eval $(./cmd/dist/dist env -p || echo FAIL=true)
+--- a/src/time/format_test.go
++++ b/src/time/format_test.go
+@@ -184,6 +184,7 @@
+ }
+ 
+ func TestParseInLocation(t *testing.T) {
++	t.Skip("Skipping test because new tzdata changed AST to +03")
+ 	// Check that Parse (and ParseInLocation) understand that
+ 	// Feb 01 AST (Arabia Standard Time) and Feb 01 AST (Atlantic Standard Time)
+ 	// are in different time zones even though both are called AST
 EOF
 pushd_src
 cd src
