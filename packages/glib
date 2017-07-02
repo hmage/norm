@@ -15,7 +15,7 @@ cc_addflags EXTRAFLAGS -Wno-format-nonliteral ## gcc 6.1 is too strict for this 
 cc_addflags NEW_LDFLAGS -Wl,-z,defs
 
 do_unpack
-do_patch_inline << EOF
+do_patch_inline << 'EOF'
 --- a/gio/Makefile.am
 +++ b/gio/Makefile.am
 @@ -244,8 +244,6 @@
@@ -27,7 +27,43 @@ do_patch_inline << EOF
  if HAVE_FAM
  SUBDIRS += fam
  endif
+--- a/configure.ac
++++ b/configure.ac
+@@ -175,24 +175,7 @@
+ AC_SUBST(LIB_EXE_MACHINE_FLAG)
+ 
+ glib_have_carbon=no
+-AC_MSG_CHECKING([for Mac OS X Carbon support])
+-AC_TRY_CPP([
+-#include <Carbon/Carbon.h>
+-#include <CoreServices/CoreServices.h>
+-], glib_have_carbon=yes)
+-
+-AC_MSG_RESULT([$glib_have_carbon])
+-
+ glib_have_cocoa=no
+-AC_MSG_CHECKING([for Mac OS X Cocoa support])
+-AC_TRY_CPP([
+-#include <Cocoa/Cocoa.h>
+-#ifdef GNUSTEP_BASE_VERSION
+-#error "Detected GNUstep, not Cocoa"
+-#endif
+-], glib_have_cocoa=yes)
+-
+-AC_MSG_RESULT([$glib_have_cocoa])
+ 
+ AM_CONDITIONAL(OS_WIN32, [test "$glib_native_win32" = "yes"])
+ AM_CONDITIONAL(OS_WIN32_X64, [test "$LIB_EXE_MACHINE_FLAG" = "X64"])
+@@ -389,7 +389,7 @@
+ if test x"$PYTHON" = xyes; then
+   AC_MSG_ERROR([--with-python option requires a path or program argument])
+ fi
+-AM_PATH_PYTHON(2.5,,PYTHON="/usr/bin/env python2.5")
++AM_PATH_PYTHON(2.5,,PYTHON="/usr/bin/env true")
+ 
+ 
+ dnl ***********************
 EOF
 
 do_autoreconf
-PYTHON=/bin/true CPPFLAGS="$CPPFLAGS $EXTRAFLAGS" LDFLAGS="$NEW_LDFLAGS" do_compile --disable-fam --with-pcre=system --disable-libmount
+CPPFLAGS="$CPPFLAGS $EXTRAFLAGS" LDFLAGS="$NEW_LDFLAGS" do_compile --disable-fam --with-pcre=system --disable-libmount --disable-dtrace
