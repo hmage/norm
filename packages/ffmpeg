@@ -33,7 +33,38 @@ have_gcc 4.4 && X265_CONFIGURE=--enable-libx265
 
 fetch_source https://www.ffmpeg.org/releases/ffmpeg-3.3.2.tar.xz 9f199b5cbb5afbc0e154194d7e1dc0c80be5c8d3
 
-do_unpack_compile --enable-pthreads --enable-gpl --enable-version3 \
+do_unpack
+do_patch_inline << EOF
+--- a/libavcodec/vda.h
++++ b/libavcodec/vda.h
+@@ -38,6 +38,11 @@
+ #undef __GNUC_STDC_INLINE__
+ 
+ #define Picture QuickdrawPicture
++#include <sys/_types.h>
++#ifndef _UUID_STRING_T
++#define _UUID_STRING_T
++typedef __darwin_uuid_string_t  uuid_string_t;
++#endif /* _UUID_STRING_T */
+ #include <VideoDecodeAcceleration/VDADecoder.h>
+ #undef Picture
+ 
+--- a/libavcodec/videotoolbox.h
++++ b/libavcodec/videotoolbox.h
+@@ -32,6 +32,11 @@
+ #include <stdint.h>
+ 
+ #define Picture QuickdrawPicture
++#include <sys/_types.h>
++#ifndef _UUID_STRING_T
++#define _UUID_STRING_T
++typedef __darwin_uuid_string_t  uuid_string_t;
++#endif /* _UUID_STRING_T */
+ #include <VideoToolbox/VideoToolbox.h>
+ #undef Picture
+ 
+EOF
+do_compile --enable-pthreads --enable-gpl --enable-version3 \
                   --enable-shared \
                   --enable-hardcoded-tables --enable-avresample \
                   --enable-nonfree \
