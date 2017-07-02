@@ -4,7 +4,6 @@ depends_on libapr
 depends_on libexpat
 depends_on sqlite3
 
-fetch_source http://http.debian.net/debian/pool/main/a/apr-util/apr-util_1.5.4.orig.tar.bz2 b00038b5081472ed094ced28bcbf2b5bb56c589d
-fetch_debian http://http.debian.net/debian/pool/main/a/apr-util/apr-util_1.5.4-1.debian.tar.xz b9b6ac3f81bc1e92ed9c8fe76b169b6dfa622780
+fetch_source http://www.mirrorservice.org/sites/ftp.apache.org/apr/apr-util-1.6.0.tar.bz2 cc8a8e2cffc2e889bf215c5c40fa320635711cbf
 
-do_undebian_compile --with-apr="$PREFIX" --without-pgsql --without-odbc --without-freetds
+do_unpack_compile --with-apr="$PREFIX" --without-pgsql --without-odbc --without-freetds
