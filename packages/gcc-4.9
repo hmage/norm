@@ -6,7 +6,7 @@ depends_on libgmp
 ! is_without tests && depends_on autogen ## needed to run tests
 
 CONFIGURE_OPTIONS=(
---program-suffix=-5.3    # version suffix to all binaries
+--program-suffix=-4.9    # version suffix to all binaries
 --enable-__cxa_atexit    # for fully standards-compliant destructors, requires libc to have __cxa_atexit
 --enable-languages=c,c++ # only C and C++, gcc is barely used for anything else
 )
