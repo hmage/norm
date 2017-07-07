@@ -3,6 +3,6 @@
 depends_on pkg-config
 depends_on libpcre
 
-fetch_source https://ftpmirror.gnu.org/grep/grep-3.0.tar.xz 7b742a6278f28ff056da799c62c1b9e417fe86ba
+fetch_source https://ftpmirror.gnu.org/grep/grep-3.1.tar.xz d1d677e959c7d874e18e7e3839f26a0f0c1733d5
 
 do_unpack_compile
