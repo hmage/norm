@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://www.rarlab.com/rar/unrarsrc-5.5.5.tar.gz 819a168b5cc66861079c6d3057e4818b2e8dbfc0
+fetch_source http://www.rarlab.com/rar/unrarsrc-5.5.6.tar.gz c32c8c8dcd176bf155190f406dfa3eb5b0f79079
 
 do_unpack_compile
