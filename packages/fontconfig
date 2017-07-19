@@ -4,6 +4,7 @@ depends_on pkg-config
 depends_on freetype
 depends_on libxml
 depends_on libexpat
+depends_on gperf
 
 fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.12.4.tar.bz2 9f80cad3ff75efda34aef54020a4cd33ed469714
 do_unpack
