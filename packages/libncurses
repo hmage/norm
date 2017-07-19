@@ -16,6 +16,7 @@ CONFOPTS=(
 --with-shared
 --without-debug
 --with-pkg-config-libdir="$PREFIX/lib/pkgconfig"
+--with-termlib ## tinfo.pc from system if present will make things more difficult
 )
 
 do_undebian_compile "${CONFOPTS[@]}"
