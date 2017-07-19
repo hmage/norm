@@ -3,6 +3,7 @@
 depends_on binutils ## system binutils might not support hash-style=both
 depends_on libmpfr
 depends_on libgmp
+depends_on libmpc
 ! is_without tests && depends_on autogen ## needed to run tests
 
 CONFIGURE_OPTIONS=(
@@ -28,9 +29,6 @@ fi
 
 fetch_source http://ftpmirror.gnu.org/gcc/gcc-6.2.0/gcc-6.2.0.tar.bz2 583e29c7fe69d9a1031a89752c2551ab5aeacb91
 do_unpack
-
-fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.3.tar.gz b8be66396c726fdc36ebb0f692ed8a8cca3bcc66
-intree_unpack mpc
 
 fetch_source http://isl.gforge.inria.fr/isl-0.17.tar.xz b30a923be188b1a8dda2b49d48fc8b5b6288f779
 intree_unpack isl

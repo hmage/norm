@@ -3,6 +3,7 @@
 depends_on binutils ## system binutils might not support hash-style=both
 depends_on libmpfr
 depends_on libgmp
+depends_on libmpc
 ! is_without tests && depends_on autogen ## needed to run tests
 
 CONFIGURE_OPTIONS=(
@@ -28,9 +29,6 @@ fi
 
 fetch_source http://ftpmirror.gnu.org/gcc/gcc-4.9.4/gcc-4.9.4.tar.gz a7846bf717e3727989aa7f4d975a1364b70768df
 do_unpack
-
-fetch_source http://ftpmirror.gnu.org/mpc/mpc-1.0.2.tar.gz 5072d82ab50ec36cc8c0e320b5c377adb48abe70
-intree_unpack mpc
 
 fetch_source 'http://www.bastoul.net/cloog/pages/download/count.php3?url=./cloog-0.18.1.tar.gz' 2dc70313e8e2c6610b856d627bce9c9c3f848077
 intree_unpack cloog
