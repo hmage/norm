@@ -15,19 +15,19 @@ if ! test_cc_expr "link.h" "Elf64_Dyn a = _DYNAMIC[0]"; then
     add_caveat "Your libc doesn't have _DYNAMIC in <link.h>, sanitizer support was disabled."
 fi
 
-fetch_source http://releases.llvm.org/4.0.0/llvm-4.0.0.src.tar.xz aee4524e2407f9fe5afc6f70c753180b907011d0
+fetch_source http://releases.llvm.org/4.0.1/llvm-4.0.1.src.tar.xz ddbf4dab7ab1a4bdce5ed1227bf721cbb3533a6e
 do_unpack
 rm -f "$SRCDIR"/configure
 if [[ ${BASH_SOURCE##*/} == clang ]]; then
-    fetch_source http://releases.llvm.org/4.0.0/cfe-4.0.0.src.tar.xz e2762800c93d9335781ea6a45af3f80845542ef5
+    fetch_source http://releases.llvm.org/4.0.1/cfe-4.0.1.src.tar.xz d95d1f3a67b5448f25338bf657a7d379dbf2312f
     intree_unpack tools/clang
 
     if [[ $ENABLE_SANITIZER == yes ]]; then
-        fetch_source http://releases.llvm.org/4.0.0/compiler-rt-4.0.0.src.tar.xz a879b610e427ef3bba482bdc031ae371cabab81e
+        fetch_source http://releases.llvm.org/4.0.1/compiler-rt-4.0.1.src.tar.xz 002f2d6bbe140bb0db96b5fcf32dbedfe6dff440
         intree_unpack projects/compiler-rt
     fi
 
-    fetch_source http://releases.llvm.org/4.0.0/clang-tools-extra-4.0.0.src.tar.xz bdb543c4bb87bd80fe65711114ca0a5c25329ae3
+    fetch_source http://releases.llvm.org/4.0.1/clang-tools-extra-4.0.1.src.tar.xz 414ccbadc4ba0658b34421a3855784af4e767796
     intree_unpack tools/clang/tools/extra
 fi
 
