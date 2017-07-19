@@ -1,0 +1,9 @@
+#!/bin/bash
+
+depends_on libpangomm
+depends_on libatkmm
+depends_on libgtk3
+
+fetch_source http://ftp.gnome.org/pub/GNOME/sources/gtkmm/3.22/gtkmm-3.22.1.tar.xz cab922193a096db713fb38afbed49f5cdfa88ab8
+
+do_unpack_compile
