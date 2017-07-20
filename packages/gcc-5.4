@@ -36,6 +36,32 @@ intree_unpack isl
 # We install 64-bit linux libraries into $PREFIX/lib
 [[ $HOSTTYPE == "x86_64" ]] && sed -ibak '/m64=/s/lib64/lib/' "$SRCDIR"/gcc/config/i386/t-linux64
 
+do_patch_inline << 'EOF'
+--- a/Makefile.tpl
++++ b/Makefile.tpl
+@@ -1186,7 +1186,7 @@
+      s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
+      $(HOST_EXPORTS) \
+      (cd $(HOST_SUBDIR)/[+module+] && \
+-       $(MAKE) $(FLAGS_TO_PASS) [+extra_make_flags+] check); \
++       $(MAKE) $(FLAGS_TO_PASS) [+extra_make_flags+] $(EXTRA_BUILD_FLAGS) $(EXTRA_TARGET_FLAGS) check); \
+    fi
+ [+ ELSE check +]
+ check-[+module+]:
+@@ -1195,7 +1195,7 @@
+    s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
+    $(HOST_EXPORTS) \
+    (cd $(HOST_SUBDIR)/[+module+] && \
+-     $(MAKE) $(FLAGS_TO_PASS) [+extra_make_flags+] check)
++     $(MAKE) $(FLAGS_TO_PASS) [+extra_make_flags+] $(EXTRA_BUILD_FLAGS) $(EXTRA_TARGET_FLAGS) check)
+ [+ ENDIF no_check +]
+ @endif [+module+]
+ 
+EOF
+pushd_src
+! is_without tests && autogen Makefile.def
+popd_src
+
 do_compile_outside "${CONFIGURE_OPTIONS[@]}"
 
 add_to_ccache g++-5.4 gcc-5.4
