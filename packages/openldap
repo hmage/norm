@@ -6,7 +6,7 @@ depends_on openssl
 depends_on groff
 
 fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openldap/openldap_2.4.40+dfsg.orig.tar.gz b80c48f2b7cbf634a3d463b7eb4ca38f081ce2eb
-fetch_debian http://security.debian.org/debian-security/pool/updates/main/o/openldap/openldap_2.4.40+dfsg-1+deb8u1.diff.gz bed31b94ef1e525f565b22a55eb501aeb8b42c2b
+fetch_debian http://security.debian.org/debian-security/pool/updates/main/o/openldap/openldap_2.4.40+dfsg-1+deb8u3.diff.gz 94705cf6bd8b8672590e5b33a55a59033948af42
 
 do_undebian
 do_autoreconf
