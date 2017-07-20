@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://download.oracle.com/berkeley-db/db-6.2.23.tar.gz 646c57b99799dc300207976e2270cdaca1a2f198
+fetch_source http://download.oracle.com/berkeley-db/db-6.2.32.tar.gz 51824cee0a59cdcfb11413ac4558c851dda24551
 
 ## TODO: create macros to configure outside of 'dist' subdir but inside source tree
 do_unpack
