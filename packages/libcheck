@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://github.com/libcheck/check/releases/download/0.11.0/check-0.11.0.tar.gz 47cd68296182270b2fd6951b5dc2d0173d21e1c9
+
+do_unpack_compile
