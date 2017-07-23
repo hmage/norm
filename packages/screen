@@ -5,7 +5,7 @@ depends_on libncurses
 depends_on libelf
 depends_on libutempter
 
-fetch_source http://ftpmirror.gnu.org/screen/screen-4.5.1.tar.gz d096ea40c7a349ec46f3bd4fcc02fd6a873318e6
+fetch_source http://ftpmirror.gnu.org/screen/screen-4.6.1.tar.gz 444dae1c6d2ff0b7dfd774b4e53e49c69de811ee
 
 do_unpack
 pushd_src
