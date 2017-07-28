@@ -3,6 +3,6 @@
 depends_on libncurses
 depends_on perl # tries to build xs module if it finds perl
 
-fetch_source https://ftpmirror.gnu.org/texinfo/texinfo-6.3.tar.xz 64568f2791d1309aaccc22e63758458fd249ec8b
+fetch_source https://ftpmirror.gnu.org/texinfo/texinfo-6.4.tar.xz 0812ffd078fc1f3b7600d43eec25ba1bddd4d4bd
 
 do_unpack_compile
