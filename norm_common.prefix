@@ -31,7 +31,7 @@ setup_prefix() {
     ## also try other flags if compiler supports them
     [[ $OSTYPE == *darwin* ]] && cc_addflags LDFLAGS -Wl,-rpath,$ESCAPED_PREFIX/lib -Wl,-x -Wl,-dead_strip -Wl,-dead_strip_dylibs
     [[ $OSTYPE == *linux* ]] && cc_addflags LDFLAGS -Wl,-rpath,$ESCAPED_PREFIX/lib -Wl,-rpath-link,$ESCAPED_PREFIX/lib -Wl,-O1 -Wl,--as-needed -Wl,--gc-sections
-    [[ $OSTYPE == *darwin* ]] && export MACOSX_DEPLOYMENT_TARGET=10.5 ## needed for -rpath to work in CLT-only installs without xcode
+    [[ $OSTYPE == *darwin* ]] && export MACOSX_DEPLOYMENT_TARGET="$NORM_OSX_VERSION" ## needed for -rpath to work in CLT-only installs without xcode
     is_cc_clang && cc_addflags CPPFLAGS -Qunused-arguments
 
     ## since we're building for this specific machine, we can do -march=native
