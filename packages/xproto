@@ -54,9 +54,8 @@ fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-gl/x11proto-gl
 fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-gl/x11proto-gl_1.4.15-1.diff.gz 16b76a2858af36f33b145a75067f97af9e5ca98a
 do_undebian_compile
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-dri2/x11proto-dri2_2.6.orig.tar.gz ebce24ebc3c9674d40a9b100a4520e735670a23c
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-dri2/x11proto-dri2_2.6-2.diff.gz 5ab6b62f88769e38b510035f91bf344ba4532746
-do_undebian_compile
+fetch_source https://www.x.org/archive/individual/proto/dri2proto-2.8.tar.bz2 2bc4e8f00778b1f3fe58b4c4f93607ac2adafbbf
+do_unpack_compile
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-dri3/x11proto-dri3_1.0.orig.tar.gz d6d1ed90553370299c82446dac1dbcc76ddc53fd
 fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-dri3/x11proto-dri3_1.0-1.diff.gz da2a9f1bc6956b3d284567d54baa8d4732038431
