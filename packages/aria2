@@ -11,6 +11,7 @@ depends_on pkg-config
 depends_on zlib
 depends_on libxml
 depends_on openssl
+depends_on libgmp
 
 fetch_source https://github.com/tatsuhiro-t/aria2/releases/download/release-1.32.0/aria2-1.32.0.tar.xz 91afc96d5ac8b5fb96ff221fba1fe6109b6f8b17
 
