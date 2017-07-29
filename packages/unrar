@@ -1,5 +1,9 @@
 #!/bin/bash
 
-fetch_source http://www.rarlab.com/rar/unrarsrc-5.5.6.tar.gz c32c8c8dcd176bf155190f406dfa3eb5b0f79079
+fetch_source http://www.rarlab.com/rar/unrarsrc-5.5.7.tar.gz 12e40f066164fb8ef5c3a23771a8cf0d36b62390
 
-do_unpack_compile
+do_unpack
+pushd_src
+do_make
+do_install DESTDIR="$PREFIX"
+popd_src
