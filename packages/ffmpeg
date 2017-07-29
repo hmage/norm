@@ -31,7 +31,7 @@ depends_on libvdpau
 X265_CONFIGURE=
 have_gcc 4.4 && X265_CONFIGURE=--enable-libx265
 
-fetch_source https://www.ffmpeg.org/releases/ffmpeg-3.3.2.tar.xz 9f199b5cbb5afbc0e154194d7e1dc0c80be5c8d3
+fetch_source https://www.ffmpeg.org/releases/ffmpeg-3.3.3.tar.xz 699dc8ee6aa991986e5b0af22436e3214794b3c4
 
 do_unpack
 do_patch_inline << EOF
