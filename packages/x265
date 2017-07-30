@@ -1,10 +1,10 @@
 #!/bin/bash
 
-requires_gcc 4.4 for atomic builtins on 64-bit integers
+[[ $OSTYPE == *linux* ]] && requires_gcc 4.4 for atomic builtins on 64-bit integers
 
 depends_on yasm
 depends_on cmake
-depends_on libnuma
+[[ $OSTYPE == *linux* ]] && depends_on libnuma
 
 fetch_source https://bitbucket.org/multicoreware/x265/downloads/x265_2.5.tar.gz 239e51560a6bdde934142f1c6f884d6e37cbe755
 
