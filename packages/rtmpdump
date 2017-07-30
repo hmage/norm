@@ -8,12 +8,12 @@ fetch_debian http://http.debian.net/debian/pool/main/r/rtmpdump/rtmpdump_2.4+201
 
 do_undebian
 pushd_src
-[[ $OSTYPE == *darwin* ]] && sed -ibak 's|-Wl,-soname,$@||' "$SRCDIR"/librtmp/Makefile
+[[ $OSTYPE == *darwin* ]] && sed -ibak 's|-Wl,-soname,$@||;s|SYS=posix|SYS=darwin|g' "$SRCDIR"/librtmp/Makefile
 cd librtmp
-do_make LIB_OPENSSL="-L$ESCAPED_PREFIX/lib -lssl -lcrypto -lz"
+do_make LIB_OPENSSL="-L$ESCAPED_PREFIX/lib $LDFLAGS -lssl -lcrypto -lz" prefix="$PREFIX"
 do_install prefix=$PREFIX
 cd ..
 sed -ibak '/@cd librtmp;/d' Makefile
-do_make LIB_OPENSSL="-L$ESCAPED_PREFIX/lib -lssl -lcrypto -lz" LIB_RTMP="-L$ESCAPED_PREFIX/lib -lrtmp"
+do_make LIB_OPENSSL="-L$ESCAPED_PREFIX/lib $LDFLAGS -lssl -lcrypto -lz" LIB_RTMP="-L$ESCAPED_PREFIX/lib $LDFLAGS -lrtmp" prefix="$PREFIX"
 do_install prefix=$PREFIX
 popd_src
