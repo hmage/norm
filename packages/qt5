@@ -22,7 +22,7 @@ depends_on libmtdev
 depends_on libdrm
 depends_on libdouble-conversion
 depends_on openssl
-depends_on libpcre
+depends_on libpcre2
 depends_on sqlite3
 depends_on libdbus
 depends_on glib
@@ -37,7 +37,7 @@ depends_on libdbus
 depends_on libwayland
 depends_on libts
 
-fetch_source http://download.qt.io/official_releases/qt/5.9/5.9.0/single/qt-everywhere-opensource-src-5.9.0.tar.xz 6308cd1e95c64323490a9a526a7f0a380cdcfb6e
+fetch_source http://download.qt.io/official_releases/qt/5.9/5.9.1/single/qt-everywhere-opensource-src-5.9.1.tar.xz 8b9900cece0a18cf23d53a42379a628a1c1330ae
 
 CFLAGS="-g -O2 $CPPFLAGS" \
 CXXFLAGS="-g -O2 $CPPFLAGS" \
