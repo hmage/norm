@@ -6,7 +6,7 @@ depends_on libopus
 depends_on speex
 depends_on libwebp
 depends_on x264
-have_gcc 4.4 && depends_on x265
+depends_on x265
 depends_on libvorbis
 depends_on libxvid
 depends_on libtheora
@@ -27,9 +27,6 @@ depends_on libxv
 depends_on libsdl
 depends_on libfdk-aac
 depends_on libvdpau
-
-X265_CONFIGURE=
-have_gcc 4.4 && X265_CONFIGURE=--enable-libx265
 
 fetch_source https://www.ffmpeg.org/releases/ffmpeg-3.3.3.tar.xz 699dc8ee6aa991986e5b0af22436e3214794b3c4
 
@@ -69,7 +66,7 @@ do_compile --enable-pthreads --enable-gpl --enable-version3 \
                   --enable-hardcoded-tables --enable-avresample \
                   --enable-nonfree \
                   --enable-libx264 \
-                  $X265_CONFIGURE \
+                  --enable-libx265 \
                   --enable-libmp3lame \
                   --enable-libxvid \
                   --enable-libtheora \
