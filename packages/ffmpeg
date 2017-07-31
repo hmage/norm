@@ -24,7 +24,7 @@ depends_on bison
 depends_on flex
 depends_on rtmpdump
 depends_on libxv
-depends_on libsdl
+depends_on libsdl2
 depends_on libfdk-aac
 depends_on libvdpau
 
