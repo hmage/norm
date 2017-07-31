@@ -16,16 +16,19 @@ CONFOPTS=(
 --with-shared
 --without-debug
 --with-pkg-config-libdir="$PREFIX/lib/pkgconfig"
---with-termlib ## tinfo.pc from system if present will make things more difficult
 )
+
+[[ $OSTYPE == *linux* ]] && CONFOPTS+=(--with-termlib) ## tinfo.pc from system if present will make things more difficult
 
 do_undebian_compile "${CONFOPTS[@]}"
 do_undebian_compile "${CONFOPTS[@]}" --enable-widec
 # link tinfo when linking ncurses
 # lame, for example, doesn't link tinfo explicitly when linking ncurses
-rm $PREFIX/lib/libncurses{,w}.so
-echo "INPUT(libncurses.so.6 -ltinfo)" > $PREFIX/lib/libncurses.so
-echo "INPUT(libncursesw.so.6 -ltinfow)" > $PREFIX/lib/libncursesw.so
+if [[ $OSTYPE != *darwin* ]]; then
+    rm $PREFIX/lib/libncurses{,w}.so
+    echo "INPUT(libncurses.so.6 -ltinfo)" > $PREFIX/lib/libncurses.so
+    echo "INPUT(libncursesw.so.6 -ltinfow)" > $PREFIX/lib/libncursesw.so
+    echo -e "/* We use a linker script rather than a symlink to work around\n   an ldconfig bug, see http://bugs.debian.org/249122. */\nGROUP( libtinfo.so )" > $PREFIX/lib/libtermcap.so
+fi
 # alias termcap into tinfo -- libedit for example looks for it everywhere but tinfo
 ln -fs libtinfo.a $PREFIX/lib/libtermcap.a
-echo -e "/* We use a linker script rather than a symlink to work around\n   an ldconfig bug, see http://bugs.debian.org/249122. */\nGROUP( libtinfo.so )" > $PREFIX/lib/libtermcap.so
