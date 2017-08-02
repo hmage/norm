@@ -41,6 +41,8 @@ do_patch_inline << 'EOF'
  %.js.o: %.c
  	$(EMCC) $(EMCFLAGS) -c -o $@ $<
 EOF
-do_make LDLIBS="$LDFLAGS" CPPFLAGS="$CPPFLAGS" USE_JCTVC=y USE_X265= USE_BPGVIEW= prefix="$PREFIX"
-do_install LDLIBS="$LDFLAGS" CPPFLAGS="$CPPFLAGS" USE_JCTVC=y USE_X265= USE_BPGVIEW= prefix="$PREFIX"
+unset FLAGS
+[[ $OSTYPE == *darwin* ]] && FLAGS="CONFIG_APPLE=y"
+do_make USE_JCTVC=y USE_X265= USE_BPGVIEW= $FLAGS prefix="$PREFIX" LDLIBS="$LDFLAGS"
+do_install USE_JCTVC=y USE_X265= USE_BPGVIEW= $FLAGS prefix="$PREFIX" LDLIBS="$LDFLAGS"
 popd
