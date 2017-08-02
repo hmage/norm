@@ -1,7 +1,7 @@
 #!/bin/bash
 
 depends_on pkg-config
-depends_on libuuid
+[[ $OSTYPE == *linux* ]] && depends_on libuuid
 depends_on libblkid
 
 fetch_source https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.42.13/e2fsprogs-1.42.13.tar.gz 77d1412472ac5a67f8954166ec16c37616074c37

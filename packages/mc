@@ -4,7 +4,7 @@ depends_on pkg-config
 depends_on libslang glib
 [[ $OSTYPE == *linux* ]] && depends_on libmount
 depends_on libblkid
-depends_on libuuid
+[[ $OSTYPE == *linux* ]] && depends_on libuuid
 depends_on libssh2
 
 fetch_source http://ftp.midnight-commander.org/mc-4.8.19.tar.xz 850747ae43a5c81f1dd0d906dfa9e149eb19748a

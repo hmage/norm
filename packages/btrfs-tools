@@ -2,7 +2,8 @@
 
 depends_on liblzo
 depends_on libacl
-depends_on libuuid libblkid
+[[ $OSTYPE == *linux* ]] && depends_on libuuid
+depends_on libblkid
 depends_on zlib
 depends_on e2fsprogs
 

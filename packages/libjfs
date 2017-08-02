@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on libuuid
+[[ $OSTYPE == *linux* ]] && depends_on libuuid
 depends_on autoconf automake libtool
 
 fetch_source http://http.debian.net/debian/pool/main/j/jfsutils/jfsutils_1.1.15.orig.tar.gz 33c0ca2cfd4986a8a2d2218cde1d37f5a96b19e6

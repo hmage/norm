@@ -3,7 +3,7 @@
 depends_on openssl libidn
 
 ## wget will link against these libraries if they're installed in the system, so better provide our own
-depends_on libuuid ## what for?
+[[ $OSTYPE == *linux* ]] && depends_on libuuid ## what for?
 depends_on libpcre ## regexp in wget, what for?
 depends_on bzip2   ## bzip2 in wget, what for?
 depends_on zlib

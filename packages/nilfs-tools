@@ -1,7 +1,8 @@
 #!/bin/bash
 
 depends_on autoconf automake libtool
-depends_on libmount libuuid
+depends_on libmount
+[[ $OSTYPE == *linux* ]] && depends_on libuuid
 
 fetch_source http://http.debian.net/debian/pool/main/n/nilfs-tools/nilfs-tools_2.2.1.orig.tar.bz2 ad6eb209d47b2ccfc2116cdc0ea4ba25618199cc
 fetch_debian http://http.debian.net/debian/pool/main/n/nilfs-tools/nilfs-tools_2.2.1-1.debian.tar.xz 8270a1fd5d8f0597e1aee097806745488d99b5d0

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on libuuid
+[[ $OSTYPE == *linux* ]] && depends_on libuuid
 
 fetch_source http://www.mirrorservice.org/sites/ftp.apache.org/apr/apr-1.6.2.tar.bz2 01b0d4faa0194825e8e525b9ac7ccfb832471d50
 

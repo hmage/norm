@@ -2,7 +2,7 @@
 
 depends_on autoconf automake libtool
 depends_on pkg-config
-depends_on libuuid
+[[ $OSTYPE == *linux* ]] && depends_on libuuid
 depends_on libgcrypt
 
 fetch_source http://jp-andre.pagesperso-orange.fr/ntfs-3g_ntfsprogs-2016.2.22AR.3.tgz edff6ff6e3fcaf75745edb5decb0f9e62154af15
