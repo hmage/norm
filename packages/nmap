@@ -6,6 +6,6 @@ depends_on zlib
 depends_on libpcap
 depends_on lua
 
-fetch_source https://nmap.org/dist/nmap-7.50.tar.bz2 08a2f57bf8923f9f9fa80f3ec005020011a1d69a
+fetch_source https://nmap.org/dist/nmap-7.60.tar.bz2 5d36a55ce772ec24f7f50ab52780f932ee20529f
 
 do_unpack_compile --without-nmap-update
