@@ -1,9 +1,10 @@
 #!/bin/bash
 
 depends_on autoconf automake
+depends_on pkg-config ## macros for autoreconf
 
 fetch_source https://github.com/traviscross/mtr/archive/v0.92.tar.gz 81fe55d8d34cc65f1a03803ada95ce0d7332f8d0
 
 do_unpack
 do_autoreconf
-do_compile --without-gtk
+do_compile --without-gtk --with-bashcompletiondir="$PREFIX/etc/bash_completion.d"
