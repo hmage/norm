@@ -1,0 +1,14 @@
+#!/bin/bash
+
+depends_on libncurses
+depends_on libpcap
+
+fetch_source https://github.com/raboof/nethogs/archive/v0.8.5.tar.gz 531e44c0cc7d776730754a4d207e67aa456c0cb3
+
+do_unpack
+pushd_src
+cd src
+do_make -f MakeApp.mk CPPFLAGS="$CPPFLAGS -I$PREFIX/include/ncurses"
+do_install -f MakeApp.mk PREFIX="$PREFIX"
+popd_src
+
