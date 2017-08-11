@@ -9,7 +9,7 @@ depends_on file    # specifically, libmagic
 depends_on swig    # for perl bindings
 depends_on libsasl
 
-fetch_source http://archive.apache.org/dist/subversion/subversion-1.9.6.tar.bz2 3375e697805fcdf6dc8c9b52f4e6626f70cabcd6
+fetch_source http://archive.apache.org/dist/subversion/subversion-1.9.7.tar.bz2 874b81749cdc3e88152d103243c3623ac6338388
 
 do_unpack
 pushd_src
