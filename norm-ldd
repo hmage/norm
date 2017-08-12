@@ -101,7 +101,9 @@ foreach my $arg (@files) {
 	next if /^[\t]\/System\/Library\/Frameworks\/(ApplicationServices|SystemConfiguration|AppKit)\.framework\//;
 	next if /^[\t]\/System\/Library\/Frameworks\/(CoreGraphics|IOKit|CoreVideo|CoreMedia)\.framework\//;
 	next if /^[\t]\/System\/Library\/Frameworks\/(AudioToolbox|VideoToolbox|AVFoundation|Accelerate|OpenCL)\.framework\//;
-	next if /^[\t]\/System\/Library\/Frameworks\/(VideoDecodeAcceleration)\.framework\//;
+	next if /^[\t]\/System\/Library\/Frameworks\/(VideoDecodeAcceleration|OpenGL|CoreImage|CoreAudio)\.framework\//;
+	next if /^[\t]\/System\/Library\/Frameworks\/(ForceFeedback|Python|CoreText|JavaScriptCore|LDAP)\.framework\//;
+	next if /^[\t]\/System\/Library\/Frameworks\/(Cocoa|Tcl|Tk)\.framework\//;
 	next if /^[\t](\/usr)?\/lib64\/ld-linux-x86-64\.so\.2/;
 	next if /^[\t]\/lib\/ld-linux-armhf\.so\.3/;
 	next if /^[\t]ldd\b/;
