@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[[ $OSTYPE != *linux* ]] && log "libcap is a linux-only package, bailing out" && exit 64
+
 fetch_source http://http.debian.net/debian/pool/main/libc/libcap2/libcap2_2.25.orig.tar.xz f0b102e4a68e1bbdcb6b143b63c34a250e473088
 fetch_debian http://http.debian.net/debian/pool/main/libc/libcap2/libcap2_2.25-1.debian.tar.xz 52fa067e3e4125e184898b66890de5ffccff20cd
 
