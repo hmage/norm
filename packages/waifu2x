@@ -8,4 +8,32 @@ fetch_source https://github.com/tanakamura/waifu2x-converter-cpp/archive/f89dd61
 
 do_unpack
 sed -ibak "s/waifu2x-converter-cpp/waifu2x/g" "$SRCDIR"/CMakeLists.txt
+do_patch_inline << EOF
+--- a/src/common.cpp
++++ b/src/common.cpp
+@@ -198,6 +198,15 @@
+ 	struct stat src_st;
+ 	stat(src_path, &src_st);
+ 
++#ifdef __MACH__
++	if (src_st.st_mtimespec.tv_sec > dst_st.st_mtimespec.tv_sec) {
++		return true;
++	}
++
++	if (src_st.st_mtimespec.tv_nsec > dst_st.st_mtimespec.tv_nsec) {
++		return true;
++	}
++#else
+ 	if (src_st.st_mtim.tv_sec > dst_st.st_mtim.tv_sec) {
+ 		return true;
+ 	}
+@@ -205,6 +214,7 @@
+ 	if (src_st.st_mtim.tv_nsec > dst_st.st_mtim.tv_nsec) {
+ 		return true;
+ 	}
++#endif
+ 
+ 	return false;
+ #endif
+EOF
 do_compile -DINSTALL_MODELS=on
