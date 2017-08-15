@@ -16,6 +16,6 @@ depends_on libxcomposite
 depends_on libxkbcommon
 depends_on libwayland
 
-fetch_source http://ftp.gnome.org/pub/gnome/sources/gtk+/3.22/gtk+-3.22.17.tar.xz d9af05445d9478f211d9304333886f391d873bc0
+fetch_source http://ftp.gnome.org/pub/gnome/sources/gtk+/3.22/gtk+-3.22.18.tar.xz a5a7ef092293714f68333a6af7edbd689baa3135
 
 do_unpack_compile --disable-cloudprint --disable-cups
