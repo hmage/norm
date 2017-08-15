@@ -6,8 +6,7 @@ depends_on docbook-xsl
 depends_on itstool
 depends_on gettext
 
-fetch_source http://http.debian.net/debian/pool/main/g/gtk-doc/gtk-doc_1.21.orig.tar.xz 49b4fc9d4cf618c53f39f35f4cf2fc27b7b3dae4
-fetch_debian http://http.debian.net/debian/pool/main/g/gtk-doc/gtk-doc_1.21-2.debian.tar.xz d82f97c6a11a18cd11301a55fa4cc568211b294f
+fetch_source https://download.gnome.org/sources/gtk-doc/1.26/gtk-doc-1.26.tar.xz a34d5c4730c64c164d34dd3b16ed30f6e2451b1d
 
 ## gtk-doc doesn't have any tests
-do_undebian_compile_notest --with-xml-catalog="$PREFIX"/etc/xml/catalog
+do_unpack_compile_notest --with-xml-catalog="$PREFIX"/etc/xml/catalog
