@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://mediaarea.net/download/binary/mediainfo/0.7.97/MediaInfo_CLI_0.7.97_GNU_FromSource.tar.bz2 b6f78a0911242d69e65a7e1ce39cabcb5eacd852
+fetch_source https://mediaarea.net/download/binary/mediainfo/0.7.98/MediaInfo_CLI_0.7.98_GNU_FromSource.tar.bz2 61b3e157d616e6f0393204574f82d7e72fd29703
 
 do_unpack_compile
