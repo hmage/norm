@@ -2,7 +2,7 @@
 
 [[ $OSTYPE == *linux* ]] && depends_on libbsd
 
-fetch_source http://downloads.sourceforge.net/expat/expat-2.2.2.tar.bz2 891cee988b38d5d66953f62f94c3150b8810a70a
+fetch_source http://downloads.sourceforge.net/expat/expat-2.2.3.tar.bz2 e2be3a2aa8d12ce70184aab418d0d5d96ed86d0e
 
 CONFIGURE=(
 )
