@@ -4,7 +4,7 @@ depends_on pkg-config
 [[ $OSTYPE == *linux* ]] && depends_on libuuid
 depends_on libblkid
 
-fetch_source https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.42.13/e2fsprogs-1.42.13.tar.gz 77d1412472ac5a67f8954166ec16c37616074c37
+fetch_source https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.43.5/e2fsprogs-1.43.5.tar.gz dcf98fcb96f8a57c7083d54caee6af050f0025cf
 
 CONFFLAGS="--disable-defrag --enable-symlink-install --disable-libblkid --disable-uuidd --disable-fsck --disable-libuuid"
 [[ $OSTYPE == *linux* ]] && CONFFLAGS="$CONFFLAGS --enable-elf-shlibs"
