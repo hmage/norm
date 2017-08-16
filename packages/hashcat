@@ -1,0 +1,11 @@
+#!/bin/bash
+
+depends_on opencl-headers
+
+fetch_source https://hashcat.net/files/hashcat-3.6.0.tar.gz 1c6e8cc4180b149c1352e1bfc7a7084874d3ba8f
+
+do_unpack
+pushd_src
+do_install PREFIX="$PREFIX" OPENCL_HEADERS_KHRONOS="$PREFIX/include"
+popd_src
+
