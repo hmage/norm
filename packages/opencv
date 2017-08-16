@@ -8,9 +8,7 @@ depends_on libjpeg
 depends_on libpng
 depends_on ffmpeg
 
-fetch_source https://github.com/opencv/opencv/archive/3.2.0.tar.gz 1d148e6543f0f666a98e99b31a69cf74be4c4790
+fetch_source https://github.com/opencv/opencv/archive/3.3.0.tar.gz aed0ae4b475105b1c0297883007f59d427dd7502
 
 do_unpack
-## https://github.com/opencv/opencv/issues/8738 -- disable -march=native until new release is out
-CPPFLAGS="${CPPFLAGS/-march=native/}" \
 do_compile_outside_notest
