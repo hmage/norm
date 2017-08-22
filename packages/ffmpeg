@@ -30,50 +30,28 @@ depends_on libvdpau
 
 fetch_source https://www.ffmpeg.org/releases/ffmpeg-3.3.3.tar.xz 699dc8ee6aa991986e5b0af22436e3214794b3c4
 
-do_unpack
-do_patch_inline << EOF
---- a/libavcodec/vda.h
-+++ b/libavcodec/vda.h
-@@ -38,6 +38,11 @@
- #undef __GNUC_STDC_INLINE__
- 
- #define Picture QuickdrawPicture
-+#include <sys/_types.h>
-+#ifndef _UUID_STRING_T
-+#define _UUID_STRING_T
-+typedef __darwin_uuid_string_t  uuid_string_t;
-+#endif /* _UUID_STRING_T */
- #include <VideoDecodeAcceleration/VDADecoder.h>
- #undef Picture
- 
---- a/libavcodec/videotoolbox.h
-+++ b/libavcodec/videotoolbox.h
-@@ -32,6 +32,11 @@
- #include <stdint.h>
- 
- #define Picture QuickdrawPicture
-+#include <sys/_types.h>
-+#ifndef _UUID_STRING_T
-+#define _UUID_STRING_T
-+typedef __darwin_uuid_string_t  uuid_string_t;
-+#endif /* _UUID_STRING_T */
- #include <VideoToolbox/VideoToolbox.h>
- #undef Picture
- 
-EOF
-do_compile --enable-pthreads --enable-gpl --enable-version3 \
-                  --enable-shared \
-                  --enable-hardcoded-tables --enable-avresample \
-                  --enable-nonfree \
-                  --enable-libx264 \
-                  --enable-libx265 \
-                  --enable-libmp3lame \
-                  --enable-libxvid \
-                  --enable-libtheora \
-                  --enable-libvorbis \
-                  --enable-ffplay \
-                  --enable-libspeex \
-                  --enable-libopus \
-                  --enable-librtmp \
-                  --enable-libfdk-aac \
-                  --enable-libwebp
+CONFIGURE=(
+--enable-pthreads
+--enable-gpl
+--enable-version3
+--enable-shared
+--enable-hardcoded-tables
+--enable-avresample
+--enable-nonfree
+--enable-libx264
+--enable-libx265
+--enable-libmp3lame
+--enable-libxvid
+--enable-libtheora
+--enable-libvorbis
+--enable-ffplay
+--enable-libspeex
+--enable-libopus
+--enable-librtmp
+--enable-libfdk-aac
+--enable-libwebp
+)
+
+[[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--enable-videotoolbox)
+
+do_unpack_compile "${CONFIGURE[@]}"
