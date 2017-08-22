@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/facebook/zstd/archive/v1.3.0.tar.gz 1b254a1a7092886c7e17957b5f672b8c1b972b08
+fetch_source https://github.com/facebook/zstd/archive/v1.3.1.tar.gz bf944afb80907bc2c0ade0806d2558aa5b657f09
 
 do_unpack
 pushd_src
@@ -8,4 +8,3 @@ do_make CFLAGS="-O3 $CPPFLAGS"
 do_test
 do_install PREFIX="$ESCAPED_PREFIX"
 popd_src
-
