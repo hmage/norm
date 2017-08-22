@@ -2,7 +2,7 @@
 
 depends_on rust
 
-fetch_source https://github.com/BurntSushi/ripgrep/archive/0.5.1.tar.gz c507c19bf49c04a4b3079568ebb0f2920361743c
+fetch_source https://github.com/BurntSushi/ripgrep/archive/0.6.0.tar.gz 8d34abe5637c837d7800f528e68ecd25fe391b27
 
 do_unpack
 pushd_src
