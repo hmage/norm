@@ -23,8 +23,9 @@ do_patch_inline << 'EOF'
  install: all
  	install -d $(PREFIX)/bin $(PREFIX)/lib $(PREFIX)/share/man/man1
 -	install -s -m 755 flif viewflif $(PREFIX)/bin
-+	install -s -m 755 flif $(PREFIX)/bin
- 	install -s -m 755 libflif$(LIBEXT) libflif$(LIBEXTV) $(PREFIX)/lib
++	install -m 755 flif $(PREFIX)/bin
+-	install -s -m 755 libflif$(LIBEXT) libflif$(LIBEXTV) $(PREFIX)/lib
++	install -m 755 libflif$(LIBEXT) libflif$(LIBEXTV) $(PREFIX)/lib
  	install -m 644 ../doc/flif.1 $(PREFIX)/share/man/man1
  	install -m 755 ../tools/gif2flif $(PREFIX)/bin
 EOF
