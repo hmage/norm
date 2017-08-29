@@ -1,5 +1,8 @@
 #!/bin/bash
 
+depends_on zlib
+depends_on xz
+
 fetch_source https://github.com/facebook/zstd/archive/v1.3.1.tar.gz bf944afb80907bc2c0ade0806d2558aa5b657f09
 
 do_unpack
