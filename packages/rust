@@ -4,7 +4,7 @@ depends_on cmake
 depends_on python ## needs python to build
 ! is_without tests && depends_on flex bison gdb ## needed to run tests
 
-fetch_source https://static.rust-lang.org/dist/rustc-1.19.0-src.tar.gz 846b7a8ce1f33c3fc5e0d3b0b4258540515d67a9
+fetch_source https://static.rust-lang.org/dist/rustc-1.20.0-src.tar.gz 502e452e06104e336fcbf57e54b4d64db01c1ec2
 
 do_unpack
 do_compile
