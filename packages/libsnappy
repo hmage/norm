@@ -1,6 +1,5 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/s/snappy/snappy_1.1.2.orig.tar.gz a5f37487e7f1db923b00392e9a2ef556242c3634
-fetch_debian http://http.debian.net/debian/pool/main/s/snappy/snappy_1.1.2-3.diff.gz cc1971dfe4eb42e35d6024a5a99378b01462e307
+fetch_source https://github.com/google/snappy/archive/1.1.7.tar.gz 1ec676b842fc96fd8a95b03c12758935e7f257b0
 
-do_undebian_compile
+do_unpack_compile
