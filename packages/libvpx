@@ -1,10 +1,16 @@
 #!/bin/bash
 
-requires_gcc 4.3 for -mssse3 support
+if ! cc_checkflags -mssse3; then
+    log "Formula $FORMULA needs C compiler that supports -mssse3 flag"
+    log "Try installing newer version of gcc -- norm install gcc"
+    exit 1
+fi
 
 depends_on yasm
 
 fetch_source http://storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-1.6.1.tar.bz2 a8bd0596915489d3bd8eded98d408ab8705e2f5d
 
-do_unpack_compile --enable-shared
+CONFIGURE=()
+[[ $OSTYPE != *darwin* ]] && CONFIGURE+=(--enable-shared)
 
+do_unpack_compile "${CONFIGURE[@]}"
