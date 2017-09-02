@@ -2,6 +2,9 @@
 
 fetch_source http://download.oracle.com/berkeley-db/db-6.2.32.tar.gz 51824cee0a59cdcfb11413ac4558c851dda24551
 
+LIBEXT=.so
+[[ $OSTYPE == *darwin* ]] && LIBEXT=.dylib
+
 ## TODO: create macros to configure outside of 'dist' subdir but inside source tree
 do_unpack
 SRCDIR=$SRCDIR/dist
@@ -14,4 +17,4 @@ do_compile_outside --prefix=$PREFIX --mandir=$PREFIX/share/man --enable-compat18
                    --enable-dbm
 popd
 
-ln -fs libdb.so $PREFIX/lib/libdb.so.2
+ln -fs libdb$LIBEXT $PREFIX/lib/libdb$LIBEXT.2
