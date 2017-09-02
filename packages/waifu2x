@@ -2,7 +2,7 @@
 
 depends_on cmake
 depends_on opencl-headers
-depends_on opencv
+depends_on opencv2
 
 fetch_source https://github.com/tanakamura/waifu2x-converter-cpp/archive/f89dd6191bc71f2ae81adbdb9e4c34cc2aaed917.tar.gz 3409e369629e1accb8b6b19ff01951e9cbb9060c
 
