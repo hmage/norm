@@ -1,6 +1,10 @@
 #!/bin/bash
 
-requires_gcc 4.2 for -fopenmp support
+if ! cc_checkflags -fopenmp; then
+    log "Formula $FORMULA needs C compiler that supports -fopenmp flag"
+    log "Try installing newer version of gcc -- norm install gcc"
+    exit 1
+fi
 
 depends_on xz
 
