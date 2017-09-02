@@ -1,0 +1,22 @@
+#!/bin/bash
+
+fetch_source https://github.com/opencv/opencv/archive/2.4.13.3.tar.gz 66639499eea370dfa826dc4da1dcd77c8ef3a2f4
+
+do_unpack
+do_patch_inline -p0 << 'EOF'
+--- cmake/OpenCVCompilerOptions.cmake
++++ cmake/OpenCVCompilerOptions.cmake
+@@ -18,9 +18,9 @@
+         message(STATUS "Unable to compile program with enabled ccache, reverting...")
+         set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${__OLD_RULE_LAUNCH_COMPILE}")
+       endif()
+-    else()
+-      message(STATUS "Looking for ccache - not found")
+     endif()
++  else()
++    message(STATUS "Looking for ccache - not found")
+   endif()
+ endif()
+ 
+EOF
+do_compile_outside_notest
