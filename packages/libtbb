@@ -2,11 +2,14 @@
 
 fetch_source https://github.com/01org/tbb/archive/2017_U7.tar.gz 95bbaa5e23d77d5dbe30b41e397aa2288922ec88
 
+LIBEXT=.so{,.2}
+[[ $OSTYPE == *darwin* ]] && LIBEXT=.dylib
+
 do_unpack
 pushd_src
 do_make tbb_build_prefix=BUILDPREFIX
 install -d "$PREFIX"/lib
-install -m644 build/BUILDPREFIX_release/*.so{,.2} "$PREFIX"/lib/
+install -m755 build/BUILDPREFIX_release/*$LIBEXT "$PREFIX"/lib/
 install -d "$PREFIX"/include
 cp -prv include/serial include/tbb "$PREFIX"/include/
 popd_src
