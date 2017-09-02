@@ -27,6 +27,7 @@ depends_on libxv
 depends_on libsdl2
 depends_on libfdk-aac
 depends_on libvdpau
+depends_on libvpx
 
 fetch_source https://www.ffmpeg.org/releases/ffmpeg-3.3.3.tar.xz 699dc8ee6aa991986e5b0af22436e3214794b3c4
 
@@ -50,6 +51,7 @@ CONFIGURE=(
 --enable-librtmp
 --enable-libfdk-aac
 --enable-libwebp
+--enable-libvpx
 )
 
 [[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--enable-videotoolbox)
