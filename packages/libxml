@@ -9,10 +9,9 @@ depends_on zlib
 depends_on xz
 depends_on pkg-config
 
-fetch_source http://xmlsoft.org/sources/libxml2-2.9.4.tar.gz 958ae70baf186263a4bd801a81dd5d682aedd1db
-fetch_debian http://http.debian.net/debian/pool/main/libx/libxml2/libxml2_2.9.4+dfsg1-2.2.debian.tar.xz e62c2a7307487e9a46abe2a4feb28f8a7d0d0844
+fetch_source http://xmlsoft.org/sources/libxml2-2.9.5.tar.gz 6ab515fa4d087a3973e880d46bf6bdad48114d20
 
-do_undebian
+do_unpack
 pushd_src
 rm -f test/errors/name2.xml # broken
 do_patch_inline -p0 << 'EOF'
