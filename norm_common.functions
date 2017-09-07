@@ -37,6 +37,7 @@ do_cmake() {
     cmake "$SRCDIR" -DCMAKE_INSTALL_PREFIX=$ESCAPED_PREFIX \
                     -DCMAKE_BUILD_TYPE=Release \
                     -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
+                    -DCMAKE_MACOSX_RPATH=1 \
                     -DCMAKE_SYSTEM_PREFIX_PATH=$ESCAPED_PREFIX \
                     -DCMAKE_INCLUDE_PATH=$ESCAPED_PREFIX/include \
                     -DCMAKE_LIBRARY_PATH:PATH="$PREFIX/lib" \
