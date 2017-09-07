@@ -13,4 +13,4 @@ fetch_source http://storage.googleapis.com/downloads.webmproject.org/releases/we
 CONFIGURE=()
 [[ $OSTYPE != *darwin* ]] && CONFIGURE+=(--enable-shared)
 
-do_unpack_compile "${CONFIGURE[@]}"
+do_unpack_compile_notest "${CONFIGURE[@]}"
