@@ -15,58 +15,22 @@ if ! test_cc_expr "link.h" "Elf64_Dyn a = _DYNAMIC[0]"; then
     add_caveat "Your libc doesn't have _DYNAMIC in <link.h>, sanitizer support was disabled."
 fi
 
-fetch_source http://releases.llvm.org/4.0.1/llvm-4.0.1.src.tar.xz ddbf4dab7ab1a4bdce5ed1227bf721cbb3533a6e
+fetch_source http://releases.llvm.org/5.0.0/llvm-5.0.0.src.tar.xz 7b0fd212ecc38461e392cbdcbe6a1d4944138a04
+
 do_unpack
 rm -f "$SRCDIR"/configure
 if [[ ${BASH_SOURCE##*/} == clang ]]; then
-    fetch_source http://releases.llvm.org/4.0.1/cfe-4.0.1.src.tar.xz d95d1f3a67b5448f25338bf657a7d379dbf2312f
+    fetch_source http://releases.llvm.org/5.0.0/cfe-5.0.0.src.tar.xz 8c67071be174c66264b6c7629c291c0e30ecbdc5
     intree_unpack tools/clang
 
     if [[ $ENABLE_SANITIZER == yes ]]; then
-        fetch_source http://releases.llvm.org/4.0.1/compiler-rt-4.0.1.src.tar.xz 002f2d6bbe140bb0db96b5fcf32dbedfe6dff440
+        fetch_source http://releases.llvm.org/5.0.0/compiler-rt-5.0.0.src.tar.xz 8fc143a222fd94ab9de4e1bd96425c459bd5f16a
         intree_unpack projects/compiler-rt
     fi
 
-    fetch_source http://releases.llvm.org/4.0.1/clang-tools-extra-4.0.1.src.tar.xz 414ccbadc4ba0658b34421a3855784af4e767796
+    fetch_source http://releases.llvm.org/5.0.0/clang-tools-extra-5.0.0.src.tar.xz 36fc56983d5e765a488b08a980c096b6ca61a891
     intree_unpack tools/clang/tools/extra
 fi
-
-## this fixes musl
-do_patch_inline -p0 << 'EOF'
---- lib/Support/DynamicLibrary.cpp
-+++ lib/Support/DynamicLibrary.cpp
-@@ -140,10 +140,10 @@
- #define EXPLICIT_SYMBOL(SYM) \
-    if (!strcmp(symbolName, #SYM)) return &SYM
- 
--// On linux we have a weird situation. The stderr/out/in symbols are both
-+// On GNU libc we have a weird situation. The stderr/out/in symbols are both
- // macros and global variables because of standards requirements. So, we
- // boldly use the EXPLICIT_SYMBOL macro without checking for a #define first.
--#if defined(__linux__) and !defined(__ANDROID__)
-+#if defined(__GLIBC__)
-   {
-     EXPLICIT_SYMBOL(stderr);
-     EXPLICIT_SYMBOL(stdout);
---- include/llvm/Analysis/TargetLibraryInfo.h
-+++ include/llvm/Analysis/TargetLibraryInfo.h
-@@ -18,6 +18,15 @@
- #include "llvm/IR/Module.h"
- #include "llvm/Pass.h"
- 
-+#undef fopen64
-+#undef fseeko64
-+#undef fstat64
-+#undef fstatvfs64
-+#undef ftello64
-+#undef lstat64
-+#undef stat64
-+#undef tmpfile64
-+
- namespace llvm {
- /// VecDesc - Describes a possible vectorization of a function.
- /// Function 'VectorFnName' is equivalent to 'ScalarFnName' vectorized
-EOF
 
 NOPARALLEL=1 \
 do_compile_outside \
