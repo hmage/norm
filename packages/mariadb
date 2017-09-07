@@ -20,7 +20,7 @@ depends_on openssl
 depends_on libcap
 depends_on libpam
 
-fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.2.8/source/mariadb-10.2.8.tar.gz 80dcd455986eec254fc81b6bbedd4a542e8af495
+fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.3.1/source/mariadb-10.3.1.tar.gz 4d8e1b8de41b3d3d869bd7be2f98a5a7c81dcb74
 
 do_unpack
 do_patch_inline -p0 << EOF
