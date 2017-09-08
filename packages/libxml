@@ -4,7 +4,6 @@ WITHOUT_PYTHON=--without-python
 OURNAME=`basename "${BASH_SOURCE[0]}"`
 [[ $OURNAME == python-libxml ]] && depends_on python && WITHOUT_PYTHON="--with-python=$PREFIX/bin/python"
 
-depends_on autoconf automake libtool
 depends_on zlib
 depends_on xz
 depends_on pkg-config
@@ -13,21 +12,6 @@ fetch_source http://xmlsoft.org/sources/libxml2-2.9.5.tar.gz 6ab515fa4d087a3973e
 
 do_unpack
 pushd_src
-rm -f test/errors/name2.xml # broken
-do_patch_inline -p0 << 'EOF'
---- python/Makefile.am
-+++ python/Makefile.am
-@@ -19,7 +19,7 @@
- AM_CPPFLAGS = \
- 	-I$(top_builddir)/include \
- 	-I$(top_srcdir)/include	\
--	$(PYTHON_INCLUDES)
-+	-I$(PYTHON_INCLUDES)
- 
- python_LTLIBRARIES = libxml2mod.la
- 
-EOF
-do_autoreconf
 CPPFLAGS="$CPPFLAGS -DXML_XML_DEFAULT_CATALOG=\\\"file:///$ESCAPED_PREFIX/etc/xml/catalog\\\"" \
 do_configure --with-zlib=$PREFIX $WITHOUT_PYTHON
 do_make
