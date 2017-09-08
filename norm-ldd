@@ -46,6 +46,7 @@ sub eachFile {
     return if /\.(enc|exp|aug|rlib|json)$/;
     return if /\.(pri|prf|qm|i|swg|qml|prl|qdocconf|qdoc|qdocinc|qmltypes)$/;
     return if /\.(gz|xz|y|e2x|sv|tablet|bat|htaccess|icns|lisp|tmp|dtd|rnc|tex)$/;
+    return if /\.(cl)$/;
 
     my $fullpath = $File::Find::name;
     return if ($fullpath =~ m"/include/");
