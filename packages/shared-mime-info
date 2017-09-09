@@ -1,0 +1,9 @@
+#!/bin/bash
+
+depends_on intltool
+depends_on gettext
+depends_on glib
+
+fetch_source https://freedesktop.org/~hadess/shared-mime-info-1.8.tar.xz d7ea6a4e7537065de5d0766148be804eb4729cb7
+
+do_unpack_compile
