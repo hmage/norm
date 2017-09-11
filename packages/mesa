@@ -1,7 +1,5 @@
 #!/bin/bash
 
-requires_gcc 4.2
-
 depends_on autoconf automake libtool
 depends_on pkg-config
 depends_on xproto
