@@ -7,7 +7,7 @@ depends_on libelf # optional but if system provides one, we'll depend for someth
 depends_on pkg-config # to find zlib
 depends_on gettext
 depends_on libpcre
-depends_on python # gdbus-codegen is in python, needed by libgtk3 later
+needs_tool python # gdbus-codegen is in python, needed by libgtk3 later
 
 fetch_source https://download.gnome.org/sources/glib/2.54/glib-2.54.0.tar.xz 96b434a9ca142344b93f38ed0cd88d36196b68ae
 
