@@ -2,7 +2,7 @@
 
 depends_on bzip2
 depends_on cmake
-depends_on libcap
+[[ $OSTYPE == *linux* ]] && depends_on libcap
 depends_on file # libmagic
 
 fetch_source http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz 3f7ddc06db0272942e1a4cd98c3c96462df77387
