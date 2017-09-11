@@ -4,6 +4,7 @@ depends_on pkg-config
 depends_on libtiff
 depends_on libpng
 depends_on glib
+depends_on shared-mime-info
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.36/gdk-pixbuf-2.36.9.tar.xz fc32bff2855473e6e7dc547eca3be5d513b6323a
 
