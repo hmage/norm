@@ -3,7 +3,7 @@
 depends_on autoconf automake
 ! is_without tests && depends_on python ## needed to run tests
 
-fetch_source https://github.com/dropbox/lepton/archive/1.0.tar.gz 3458da4adc8f2ed52d2ddcf62a47afe4d5f0aa38
+fetch_source https://github.com/dropbox/lepton/archive/1.2.tar.gz f7ae51c8981d051882b5d075b9e40896858c2d1d
 
 do_unpack
 do_autoreconf
