@@ -3,7 +3,7 @@
 depends_on ragel
 depends_on cmake
 depends_on libboost
-depends_on python
+needs_tool python
 depends_on pkg-config
 
 fetch_source https://github.com/01org/hyperscan/archive/v4.5.2.tar.gz 87424cffb67646c6076802a757495ac0f3f38d16
