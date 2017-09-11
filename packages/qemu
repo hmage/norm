@@ -18,7 +18,7 @@ depends_on libssh2
 depends_on bison
 depends_on flex
 depends_on libepoxy
-depends_on python
+needs_tool python
 depends_on libnuma
 depends_on libsnappy
 depends_on libusb
