@@ -2,7 +2,7 @@
 
 depends_on libidn
 depends_on libunistring
-depends_on python
+needs_tool python
 
 fetch_source https://github.com/rockdaboot/libpsl/releases/download/libpsl-0.16.1/libpsl-0.16.1.tar.gz f198b885eb37bb80247ae1aaa8c7f472edf1040f
 
