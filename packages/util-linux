@@ -7,7 +7,7 @@ depends_on pkg-config
 unset EXTRAOPTIONS
 
 OURNAME=`basename "${BASH_SOURCE[0]}"`
-[[ $OURNAME != lib* ]] && depends_on python libncurses
+[[ $OURNAME != lib* ]] && needs_tool python && depends_on libncurses
 [[ $OURNAME == lib* ]] && EXTRAOPTIONS+=" --without-python --without-ncurses --disable-all-programs --enable-$OURNAME"
 [[ $OURNAME == libmount ]] && EXTRAOPTIONS+=" --enable-libblkid"
 
