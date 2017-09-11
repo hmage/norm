@@ -1,7 +1,5 @@
 #!/bin/bash
 
-[[ $OSTYPE == *linux* ]] && requires_gcc 4.4 for atomic builtins on 64-bit integers
-
 depends_on yasm
 depends_on cmake
 [[ $OSTYPE == *linux* ]] && depends_on libnuma
