@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on python
+needs_tool python
 
 fetch_source https://nodejs.org/dist/v8.4.0/node-v8.4.0.tar.gz 6a02da5dbc96f0aa7c6914ca596bbbd0b25f2555
 
