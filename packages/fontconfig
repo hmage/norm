@@ -6,7 +6,7 @@ depends_on libxml
 depends_on libexpat
 depends_on gperf
 
-fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.12.4.tar.bz2 9f80cad3ff75efda34aef54020a4cd33ed469714
+fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.12.5.tar.bz2 edacb706ac3ef51034cc3f335faeb76e0c15f532
 do_unpack
 do_patch_inline << EOF
 --- a/src/fcobjshash.h
