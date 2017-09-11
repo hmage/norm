@@ -7,7 +7,7 @@ depends_on libpng
 depends_on libx11
 depends_on libxext
 depends_on freetype
-depends_on libsysfs
+[[ $OSTYPE == *linux* ]] && depends_on libsysfs
 
 fetch_source http://http.debian.net/debian/pool/main/d/directfb/directfb_1.2.10.0.orig.tar.gz 3fa31289d730d348bdc46b21a83ce0679120b451
 fetch_debian http://http.debian.net/debian/pool/main/d/directfb/directfb_1.2.10.0-5.1.debian.tar.xz b9956e34f03fd0515d6c3dc19f06aceaf5368226
