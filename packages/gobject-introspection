@@ -3,7 +3,7 @@
 depends_on pkg-config
 depends_on flex
 depends_on bison
-depends_on python
+needs_tool python
 depends_on glib
 depends_on libffi
 
