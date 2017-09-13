@@ -1,0 +1,31 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on cmake
+depends_on openssl
+depends_on lua
+depends_on libtinyxml
+depends_on zlib
+
+fetch_source http://http.debian.net/debian/pool/main/c/crtmpserver/crtmpserver_1.0~dfsg.orig.tar.bz2 68f1851367c7faee6a193faae8f251e5170d9900
+fetch_debian http://http.debian.net/debian/pool/main/c/crtmpserver/crtmpserver_1.0~dfsg-5.3.debian.tar.xz a0a6b481e2a8efa32d667bb99065424ff8b5bc36
+
+do_undebian
+do_patch_inline -p0 << 'EOF'
+--- crtmpserver/CMakeLists.txt
++++ crtmpserver/CMakeLists.txt
+@@ -30,6 +30,7 @@
+ 	common
+ 	${TINYXML_LIBRARIES}
+ 	${LUA_LIBRARY_PATH}
++	lua
+ 	${OPENSSL_LIBRARY_PATH} 
+ 	${CRYPTO_LIBRARY_PATH}
+ 	${Z_LIBRARY_PATH}
+EOF
+do_compile -DOPENSSL_INCLUDE_PATH="$PREFIX/include" \
+           -DCRTMPSERVER_CONSTANTS_ROOT="$SRCDIR/constants" \
+           -DCRTMPSERVER_SOURCES_ROOT="$SRCDIR" \
+           -DLUA_INCLUDE_PATH_="$PREFIX/include" \
+           -DLUA_LIBRARY_PATH_="$PREFIX/lib" \
+           -DCRTMPSERVER_INSTALL_PREFIX="$PREFIX"
