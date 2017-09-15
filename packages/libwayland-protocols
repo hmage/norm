@@ -1,0 +1,7 @@
+#!/bin/bash
+
+depends_on libwayland
+
+fetch_source https://wayland.freedesktop.org/releases/wayland-protocols-1.10.tar.xz 4f1322f03fa8b2e6467b8f71471f53eff82728a4
+
+do_unpack_compile
