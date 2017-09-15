@@ -10,7 +10,7 @@ depends_on liblzo
 depends_on libpcre
 depends_on libreadline
 depends_on libxml
-depends_on bison
+needs_tool bison
 depends_on liblz4
 depends_on libsnappy
 depends_on zeromq
