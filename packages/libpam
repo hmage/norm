@@ -4,7 +4,7 @@ depends_on autoconf automake libtool
 depends_on gettext # for autopoint in autoreconf
 depends_on libdb
 depends_on libcrack
-depends_on flex    # code calls to yywrap()
+needs_tool flex    # code calls to yywrap()
 depends_on libselinux
 depends_on libtirpc
 
