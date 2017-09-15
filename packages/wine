@@ -5,7 +5,7 @@ if [[ $HOSTTYPE == x86_64 ]] && ! test_cc 'int main() { return 0;}' -m32; then
     exit 1
 fi
 
-depends_on flex bison
+needs_tool flex bison
 depends_on libx11
 depends_on freetype
 depends_on fontconfig
