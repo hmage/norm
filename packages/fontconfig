@@ -8,28 +8,6 @@ depends_on gperf
 
 fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.12.5.tar.bz2 edacb706ac3ef51034cc3f335faeb76e0c15f532
 do_unpack
-do_patch_inline << EOF
---- a/src/fcobjshash.h
-+++ b/src/fcobjshash.h
-@@ -47,7 +47,7 @@
- #endif
- #endif
- static unsigned int
--FcObjectTypeHash (register const char *str, register unsigned int len)
-+FcObjectTypeHash (register const char *str, register FC_GPERF_SIZE_T len)
- {
-   static const unsigned char asso_values[] =
-     {
-@@ -191,7 +191,7 @@
- #endif
- #endif
- const struct FcObjectTypeInfo *
--FcObjectTypeLookup (register const char *str, register unsigned int len)
-+FcObjectTypeLookup (register const char *str, register FC_GPERF_SIZE_T len)
- {
-   enum
-     {
-EOF
 do_compile --disable-docs
 
 ln -fs ../../../share/fontconfig/conf.avail/70-no-bitmaps.conf $PREFIX/etc/fonts/conf.d/
