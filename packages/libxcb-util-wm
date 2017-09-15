@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on m4
+needs_tool m4
 depends_on pkg-config
 depends_on libxcb
 
