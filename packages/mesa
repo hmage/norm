@@ -14,8 +14,8 @@ depends_on libxxf86vm
 depends_on libudev
 depends_on libselinux
 depends_on libexpat
-depends_on bison
-depends_on flex
+needs_tool bison
+needs_tool flex
 depends_on libgcrypt
 depends_on libnettle
 depends_on libxvmc
