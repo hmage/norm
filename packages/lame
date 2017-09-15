@@ -1,7 +1,7 @@
 #!/bin/bash
 
 depends_on libncurses
-depends_on nasm
+needs_tool nasm
 
 fetch_source https://downloads.sourceforge.net/sourceforge/lame/lame-3.99.5.tar.gz 03a0bfa85713adcc6b3383c12e2cc68a9cfbf4c4
 
