@@ -2,9 +2,8 @@
 
 depends_on automake libtool
 
-fetch_source http://http.debian.net/debian/pool/main/libe/libeatmydata/libeatmydata_105.orig.tar.gz ae0308d9bf06a5008a468128e28a6cefc08647a8
-fetch_debian http://http.debian.net/debian/pool/main/libe/libeatmydata/libeatmydata_105-5.debian.tar.xz 6c443bff68e02761f4580d4deba0c597311f6c04
+fetch_source https://github.com/stewartsmith/libeatmydata/archive/6672fa712dc8051e928c05c72e57398b38dcd4d6.tar.gz 7fb477b6ecb80dbdc653763d746d2d0f6155f08f
 
-do_undebian
+do_unpack
 do_autoreconf
 do_compile
