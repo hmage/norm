@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on flex
+needs_tool flex
 depends_on libnl
 
 fetch_source http://www.tcpdump.org/release/libpcap-1.8.1.tar.gz 32d7526dde8f8a2f75baf40c01670602aeef7e39
