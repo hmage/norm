@@ -20,6 +20,7 @@ depends_on libgcrypt
 depends_on libnettle
 depends_on libxvmc
 depends_on libwayland
+depends_on libwayland-protocols
 depends_on libelf # r600 requires libelf when using llvm
 
 DISABLE_GALLIUM=
