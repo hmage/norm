@@ -3,7 +3,7 @@
 depends_on libx11
 depends_on libxext
 depends_on libxt
-depends_on nasm
+needs_tool nasm
 [[ $OSTYPE == *linux* ]] && depends_on libdirectfb
 [[ $OSTYPE == *linux* ]] && depends_on libts
 
