@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on m4
+needs_tool m4
 depends_on zlib
 
 fetch_source https://fedorahosted.org/releases/e/l/elfutils/0.167/elfutils-0.167.tar.bz2 91cec7fec0031758cc0c842a87ee8c5faa4d8107
