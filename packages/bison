@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on m4
+needs_tool m4
 
 fetch_source http://http.debian.net/debian/pool/main/b/bison/bison_3.0.2.dfsg.orig.tar.bz2 25c4cdd90cf6913dc7d2dec6f0921d6794eec6be
 fetch_debian http://http.debian.net/debian/pool/main/b/bison/bison_3.0.2.dfsg-2.debian.tar.gz 6fbcce08ef5edaff41bcbb0949e46f887e52f836
