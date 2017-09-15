@@ -15,8 +15,8 @@ depends_on libcap-ng
 depends_on libsdl
 depends_on libncurses
 depends_on libssh2
-depends_on bison
-depends_on flex
+needs_tool bison
+needs_tool flex
 depends_on libepoxy
 needs_tool python
 depends_on libnuma
