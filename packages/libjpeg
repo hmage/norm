@@ -1,7 +1,9 @@
 #!/bin/bash
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libj/libjpeg8/libjpeg8_8d.orig.tar.gz f080b2fffc7581f7d19b968092ba9ebc234556ff
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libj/libjpeg8/libjpeg8_8d-1+deb7u1.debian.tar.gz af382d8f8ce877fcde1beabc78c99d603804c288
+depends_on nasm
+
+fetch_source http://http.debian.net/debian/pool/main/libj/libjpeg-turbo/libjpeg-turbo_1.5.1.orig.tar.gz ebb3f9e94044c77831a3e8c809c7ea7506944622
+fetch_debian http://http.debian.net/debian/pool/main/libj/libjpeg-turbo/libjpeg-turbo_1.5.1-2.debian.tar.xz ae8dc650d97aad0df13cba89b566b659e7485c82
 
 do_undebian_compile
 
