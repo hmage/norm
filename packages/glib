@@ -46,5 +46,6 @@ do_patch_inline << 'EOF'
  AM_CONDITIONAL(OS_WIN32_X64, [test "$LIB_EXE_MACHINE_FLAG" = "X64"])
 EOF
 
+sed -i.bak "s|/usr/local/share/:/usr/share/|$PREFIX/share/:/usr/local/share/:/usr/share/|" "$SRCDIR"/gio/xdgmime/xdgmime.c "$SRCDIR"/glib/gutils.c
 do_autoreconf
 CPPFLAGS="$CPPFLAGS $EXTRAFLAGS" LDFLAGS="$NEW_LDFLAGS" do_compile --disable-fam --with-pcre=system --disable-libmount --disable-dtrace
