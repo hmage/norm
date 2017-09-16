@@ -7,5 +7,7 @@ fetch_source https://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz
 SYSPCPATH="/usr/local/lib/$HOSTTYPE-$OSTYPE/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:/usr/lib/$HOSTTYPE-$OSTYPE/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig"
 
 LN="ln -f" \
-do_unpack_compile --with-internal-glib --with-pc-path="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig:$SYSPCPATH"
+do_unpack
+sed -i.bak "s|/usr/local/share/:/usr/share/|$PREFIX/share/:/usr/local/share/:/usr/share/|" "$SRCDIR"/glib/glib/gutils.c
+do_compile --with-internal-glib --with-pc-path="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig:$SYSPCPATH"
 mkdir -p "$PREFIX"/lib/pkgconfig
