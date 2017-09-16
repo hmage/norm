@@ -31,4 +31,6 @@ if [[ $OSTYPE != *darwin* ]]; then
     echo -e "/* We use a linker script rather than a symlink to work around\n   an ldconfig bug, see http://bugs.debian.org/249122. */\nGROUP( libtinfo.so )" > $PREFIX/lib/libtermcap.so
     # alias termcap into tinfo -- libedit for example looks for it everywhere but tinfo
     ln -fs libtinfo.a $PREFIX/lib/libtermcap.a
+    ln -fs libncurses.a $PREFIX/lib/libcurses.a
+    ln -fs libncurses.so $PREFIX/lib/libcurses.so
 fi
