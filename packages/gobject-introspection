@@ -7,7 +7,6 @@ depends_on python ## needs python headers and libraries to build python extensio
 depends_on glib
 depends_on libffi
 
-## newer gobject-introspection depends on newer glib, but newer glib doesn't compile on old gcc
-fetch_source http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/1.52/gobject-introspection-1.52.1.tar.xz 2a0c86bd23d27df0588b79404cfc5619ed6171e8
+fetch_source http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/1.54/gobject-introspection-1.54.0.tar.xz 2716178e61a9a40688e6c5df50566c45a50bd6e6
 
 do_unpack_compile
