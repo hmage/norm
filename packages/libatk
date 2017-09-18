@@ -3,7 +3,7 @@
 depends_on pkg-config
 depends_on glib
 
-fetch_source http://ftp.gnome.org/pub/gnome/sources/atk/2.24/atk-2.24.0.tar.xz 499fa622ea7c12ba15bef1b270a95d14607e3b67
+fetch_source http://ftp.gnome.org/pub/gnome/sources/atk/2.26/atk-2.26.0.tar.xz 5255fc86002277e36aa9cbb1b9d9235dae49b81b
 
 do_unpack_compile --disable-introspection
 
