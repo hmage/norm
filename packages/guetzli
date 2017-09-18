@@ -8,5 +8,6 @@ fetch_source https://github.com/google/guetzli/archive/v1.0.tar.gz 0d072c7a54d95
 do_unpack
 pushd_src
 do_make
-install -D bin/Release/guetzli "$PREFIX/bin/guetzli"
+mkdir -p "$PREFIX/bin"
+install bin/Release/guetzli "$PREFIX/bin/guetzli"
 popd_src
