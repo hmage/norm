@@ -6,5 +6,4 @@ fetch_source https://github.com/lloyd/yajl/archive/2.1.0.tar.gz 29ce2b9695ae93e1
 
 do_unpack
 rm "$SRCDIR/configure"
-do_compile -DCMAKE_SKIP_RPATH=ON
-
+do_compile
