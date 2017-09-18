@@ -7,7 +7,7 @@ fetch_source https://github.com/facebook/zstd/archive/v1.3.1.tar.gz bf944afb8090
 
 do_unpack
 pushd_src
-CPPFLAGS="$CPPFLAGS -DZSTD_MULTITHREAD -pthread" do_make -C lib
-CPPFLAGS="$CPPFLAGS -DZSTD_MULTITHREAD -pthread" do_test
+CPPFLAGS="$CPPFLAGS -DZSTD_MULTITHREAD -pthread" do_make -C lib PREFIX="$ESCAPED_PREFIX"
+CPPFLAGS="$CPPFLAGS -DZSTD_MULTITHREAD -pthread" do_test PREFIX="$ESCAPED_PREFIX"
 CPPFLAGS="$CPPFLAGS -DZSTD_MULTITHREAD -pthread" do_install PREFIX="$ESCAPED_PREFIX"
 popd_src
