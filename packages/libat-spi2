@@ -6,7 +6,7 @@ depends_on libdbus
 depends_on glib
 depends_on libxtst
 
-fetch_source http://ftp.gnome.org/pub/gnome/sources/at-spi2-core/2.24/at-spi2-core-2.24.1.tar.xz d6ba8b526279e4f12b29f18fff657301eee1b404
+fetch_source http://ftp.gnome.org/pub/gnome/sources/at-spi2-core/2.26/at-spi2-core-2.26.0.tar.xz de3d4bfcfadac752b95797f654936f117f12d8a1
 
 do_unpack_compile --disable-nls
 
