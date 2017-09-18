@@ -2,8 +2,7 @@
 
 depends_on nasm
 
-fetch_source http://http.debian.net/debian/pool/main/libj/libjpeg-turbo/libjpeg-turbo_1.5.1.orig.tar.gz ebb3f9e94044c77831a3e8c809c7ea7506944622
-fetch_debian http://http.debian.net/debian/pool/main/libj/libjpeg-turbo/libjpeg-turbo_1.5.1-2.debian.tar.xz ae8dc650d97aad0df13cba89b566b659e7485c82
+fetch_source https://downloads.sourceforge.net/project/libjpeg-turbo/1.5.2/libjpeg-turbo-1.5.2.tar.gz e788f6defa58b4393a5e1685c018f3b962971457
 
-do_undebian_compile
+do_unpack_compile
 
