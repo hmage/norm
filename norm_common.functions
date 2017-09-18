@@ -25,11 +25,12 @@ do_configure() {
     find "$SRCDIR" -name config.sub -exec install -v "$CACHEDIR/config.sub" {} \;
     find "$SRCDIR" -name config.guess -exec install -v "$CACHEDIR/config.guess" {} \;
     log "Configuring $FORMULA $@"
-    local SILENT_RULES=
-    local NODEPTRACKING=
-    fgrep -q disable-silent-rules "$SRCDIR/configure" && SILENT_RULES=--disable-silent-rules
-    fgrep -q disable-dependency-tracking "$SRCDIR/configure" && NODEPTRACKING=--disable-dependency-tracking
-    "$SRCDIR"/configure $SILENT_RULES $NODEPTRACKING --prefix="$PREFIX" "$@" || return 1
+    NORM_EXTRAOPTS=()
+    fgrep -q disable-silent-rules "$SRCDIR/configure" && NORM_EXTRAOPTS+=(--disable-silent-rules)
+    fgrep -q disable-dependency-tracking "$SRCDIR/configure" && NORM_EXTRAOPTS+=(--disable-dependency-tracking)
+    fgrep -q enable-rpath "$SRCDIR/configure" && NORM_EXTRAOPTS+=(--enable-rpath)
+    echo "${NORM_EXTRAOPTS[@]}"
+    "$SRCDIR"/configure "${NORM_EXTRAOPTS[@]}" --prefix="$PREFIX" "$@" || return 1
 }
 
 do_cmake() {
