@@ -48,6 +48,7 @@ setup_prefix() {
     [ ! -e "$PREFIX/share/pkgconfig" ] && mkdir -p "$PREFIX/share/pkgconfig" || true
     [ ! -e "$PREFIX/lib/pkgconfig" ] && mkdir -p "$PREFIX/lib/pkgconfig" || true
     [ ! -e "$PREFIX/man" ] && ln -s share/man $PREFIX/man || true
+    [ ! -e "$PREFIX/include" ] && mkdir -p "$PREFIX/include" || true
     [ ! -e "$PREFIX/lib" ] && mkdir -p "$PREFIX/lib" || true
     [ ! -e "$PREFIX/share/config.site" ] && generate_config_site || true
 }
