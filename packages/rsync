@@ -1,8 +1,8 @@
 #!/bin/bash
 
 depends_on zlib
-depends_on libattr
-depends_on libacl
+[[ $OSTYPE == *linux* ]] && depends_on libattr
+[[ $OSTYPE == *linux* ]] && depends_on libacl
 depends_on libpopt
 
 fetch_source https://download.samba.org/pub/rsync/src/rsync-3.1.2.tar.gz 0d4c7fb7fe3fc80eeff922a7c1d81df11dbb8a1a
