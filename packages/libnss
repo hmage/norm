@@ -17,6 +17,7 @@ EXTRA_OPTIONS=
 
 do_unpack
 pushd_src
+sed -i.bak 's|@executable_path|@rpath|' nss/coreconf/Darwin.mk
 make -C nss all \
                                          MOZILLA_CLIENT=1 NSPR_INCLUDE_DIR=$PREFIX/include/nspr \
                                          NSPR_LIB_DIR=$PREFIX/lib BUILD_OPT=1 NS_USE_GCC=1 \
