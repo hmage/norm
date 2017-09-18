@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/01org/tbb/archive/2017_U7.tar.gz 95bbaa5e23d77d5dbe30b41e397aa2288922ec88
+fetch_source https://github.com/01org/tbb/archive/2018.tar.gz e54de69981905ad69eb9cf0226b9bf5f9a4ba065
 
 LIBEXT=.so
 [[ $OSTYPE == *darwin* ]] && LIBEXT=.dylib
