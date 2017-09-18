@@ -6,6 +6,7 @@ depends_on libxml ## c-index-test has dynamic dependency on it
 depends_on zlib
 depends_on libffi
 depends_on libedit
+depends_on xar
 
 ENABLE_SANITIZER=yes
 if ! test_cc_expr "link.h" "Elf64_Dyn a = _DYNAMIC[0]"; then
