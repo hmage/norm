@@ -7,4 +7,5 @@ EXTRA_OPTIONS=
 
 do_unpack
 SRCDIR=$SRCDIR/nspr
+sed -i.bak 's|@executable_path|@rpath|' "$SRCDIR/configure"
 do_compile_notest --enable-pthreads --enable-ipv6 --enable-optimize --disable-debug $EXTRA_OPTIONS ## does not have tests
