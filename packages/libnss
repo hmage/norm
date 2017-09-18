@@ -29,30 +29,34 @@ cat nss/pkg/pkg-config/nss-config.in | sed -e "s|@prefix@|$PREFIX|" -e "s/@MOD_M
 cat nss/pkg/pkg-config/nss.pc.in     | sed -e "s|%prefix%|$PREFIX|" -e "s|%NSS_VERSION%|$major.$minor.$patch|" -e 's|%exec_prefix%|${prefix}|' -e 's|%libdir%|${prefix}/lib|' -e 's|%includedir%|${prefix}/include/nss|' -e 's| >= %NSPR_VERSION%||' > nss/pkg/pkg-config/nss.pc
 
 DISTDIR=dist/Linux*_OPT.OBJ
+DYLIBEXT=.so
+[[ $OSTYPE == *darwin* ]] && DISTDIR=dist/Darwin*_OPT.OBJ && DYLIBEXT=.dylib
 
 mkdir -p $PREFIX/bin
 mkdir -p $PREFIX/lib
 mkdir -p $PREFIX/lib/nss
 mkdir -p $PREFIX/lib/pkgconfig
 mkdir -p $PREFIX/include/nss
-install -m 644 -s -t $PREFIX/lib \
-        $DISTDIR/lib/libnss3.so \
-        $DISTDIR/lib/libnssutil3.so \
-        $DISTDIR/lib/libsmime3.so \
-        $DISTDIR/lib/libssl3.so
-install -m 644 -s -t $PREFIX/lib/nss \
-        $DISTDIR/lib/libfreebl3.so \
-        $DISTDIR/lib/libsoftokn3.so \
-        $DISTDIR/lib/libnssdbm3.so \
-        $DISTDIR/lib/libnssckbi.so
-ln -fs nss/libfreebl3.so $PREFIX/lib
-ln -fs nss/libsoftokn3.so $PREFIX/lib
-ln -fs nss/libnssdbm3.so $PREFIX/lib
-ln -fs nss/libnssckbi.so $PREFIX/lib
-install -m 644 -t $PREFIX/include/nss dist/public/nss/*
-install -m 644 -t $PREFIX/lib $DISTDIR/lib/libcrmf.a
-install -m 644 -t $PREFIX/lib/pkgconfig nss/pkg/pkg-config/nss.pc
-install -m 755 -t $PREFIX/bin nss/pkg/pkg-config/nss-config
-install -m 755 -s -t $PREFIX/bin $DISTDIR/bin/{certutil,cmsutil,crlutil,modutil,pk12util,shlibsign,signtool,signver,ssltap,pwdecrypt}
+install -m 644 \
+        $DISTDIR/lib/libnss3$DYLIBEXT \
+        $DISTDIR/lib/libnssutil3$DYLIBEXT \
+        $DISTDIR/lib/libsmime3$DYLIBEXT \
+        $DISTDIR/lib/libssl3$DYLIBEXT \
+        $PREFIX/lib
+install -m 644 \
+        $DISTDIR/lib/libfreebl3$DYLIBEXT \
+        $DISTDIR/lib/libsoftokn3$DYLIBEXT \
+        $DISTDIR/lib/libnssdbm3$DYLIBEXT \
+        $DISTDIR/lib/libnssckbi$DYLIBEXT \
+        $PREFIX/lib/nss
+ln -fs nss/libfreebl3$DYLIBEXT $PREFIX/lib
+ln -fs nss/libsoftokn3$DYLIBEXT $PREFIX/lib
+ln -fs nss/libnssdbm3$DYLIBEXT $PREFIX/lib
+ln -fs nss/libnssckbi$DYLIBEXT $PREFIX/lib
+install -m 644 dist/public/nss/* $PREFIX/include/nss
+install -m 644 $DISTDIR/lib/libcrmf.a $PREFIX/lib
+install -m 644 nss/pkg/pkg-config/nss.pc $PREFIX/lib/pkgconfig
+install -m 755 nss/pkg/pkg-config/nss-config $PREFIX/bin
+install -m 755 $DISTDIR/bin/{certutil,cmsutil,crlutil,modutil,pk12util,shlibsign,signtool,signver,ssltap,pwdecrypt} $PREFIX/bin
 popd
 
