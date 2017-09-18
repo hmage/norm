@@ -4,7 +4,7 @@ fetch_source https://github.com/lz4/lz4/archive/v1.8.0.tar.gz 3ef95c78f14ac26a80
 
 do_unpack
 pushd_src
-do_make
-do_test -C examples
+do_make PREFIX="$PREFIX"
+do_test -C examples PREFIX="$PREFIX"
 do_install PREFIX="$PREFIX"
 popd_src
