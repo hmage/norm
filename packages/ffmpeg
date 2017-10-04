@@ -56,4 +56,18 @@ CONFIGURE=(
 
 [[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--enable-videotoolbox)
 
-do_unpack_compile "${CONFIGURE[@]}"
+do_unpack
+do_patch_inline -p0 << EOF
+--- libavformat/movenc.c
++++ libavformat/movenc.c
+@@ -1200,7 +1200,7 @@ static int mp4_get_codec_tag(AVFormatContext *s, MOVTrack *track)
+         return 0;
+ 
+     if      (track->par->codec_id == AV_CODEC_ID_H264)      tag = MKTAG('a','v','c','1');
+-    else if (track->par->codec_id == AV_CODEC_ID_HEVC)      tag = MKTAG('h','e','v','1');
++    else if (track->par->codec_id == AV_CODEC_ID_HEVC)      tag = MKTAG('h','v','c','1');
+     else if (track->par->codec_id == AV_CODEC_ID_VP9)       tag = MKTAG('v','p','0','9');
+     else if (track->par->codec_id == AV_CODEC_ID_AC3)       tag = MKTAG('a','c','-','3');
+     else if (track->par->codec_id == AV_CODEC_ID_EAC3)      tag = MKTAG('e','c','-','3');
+EOF
+do_compile "${CONFIGURE[@]}"
