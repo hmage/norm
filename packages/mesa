@@ -3,7 +3,7 @@
 depends_on autoconf automake libtool
 depends_on pkg-config
 depends_on xproto
-depends_on libdrm
+[[ $OSTYPE == *linux* ]] && depends_on libdrm
 depends_on libx11
 depends_on libxext
 depends_on libxdamage
@@ -11,7 +11,7 @@ depends_on libxfixes
 depends_on libxcb
 depends_on libxshmfence
 depends_on libxxf86vm
-depends_on libudev
+[[ $OSTYPE == *linux* ]] && depends_on libudev
 depends_on libselinux
 depends_on libexpat
 needs_tool bison
