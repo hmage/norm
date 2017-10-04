@@ -6,7 +6,7 @@ depends_on libxml
 depends_on libexpat
 depends_on gperf
 
-fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.12.5.tar.bz2 edacb706ac3ef51034cc3f335faeb76e0c15f532
+fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.12.6.tar.bz2 cae963814ba4bc41f3c96876604d33fc3abfc572
 do_unpack
 do_compile --disable-docs
 
