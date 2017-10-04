@@ -5,7 +5,7 @@ if ! test_cc_value asm/bitsperlong.h __BITS_PER_LONG; then
     false
 fi
 
-depends_on perl
+needs_tool perl
 depends_on augeas
 depends_on qemu
 depends_on cpio
