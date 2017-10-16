@@ -3,7 +3,7 @@
 depends_on libreadline
 depends_on libxml
 
-fetch_source http://download.augeas.net/augeas-1.8.0.tar.gz 6ddcffab2665b8c0f286a1201afb251e354f426a
+fetch_source http://download.augeas.net/augeas-1.9.0.tar.gz d44d35356d0a589ff387d98d3891fe4a6537fe8b
 
 do_unpack_compile
 
