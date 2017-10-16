@@ -2,8 +2,7 @@
 
 depends_on python-libxml
 
-fetch_source http://http.debian.net/debian/pool/main/i/itstool/itstool_2.0.2.orig.tar.gz 1e5f48ada9ee386a23e86a279b341e57fd7c131f
-fetch_debian http://http.debian.net/debian/pool/main/i/itstool/itstool_2.0.2-2.debian.tar.xz f28887103482b3de15f121a2b7cef68eaee11e5f
+fetch_source http://files.itstool.org/itstool/itstool-2.0.3.tar.bz2 411f29faaf8286c52cca85163d4cdea7c6f31713
 
-do_undebian_compile
+do_unpack_compile
 
