@@ -6,7 +6,7 @@ depends_on libboost
 needs_tool python
 depends_on pkg-config
 
-fetch_source https://github.com/01org/hyperscan/archive/v4.5.2.tar.gz 87424cffb67646c6076802a757495ac0f3f38d16
+fetch_source https://github.com/01org/hyperscan/archive/v4.6.0.tar.gz 64ed476c139bc190a3427f18903445cae7fd11af
 
 ## hyperscan seems to choke on presence of -march=native
 CPPFLAGS="${CPPFLAGS/-march=native/}" \
