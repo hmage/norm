@@ -8,7 +8,7 @@ depends_on zlib
 depends_on xz
 depends_on pkg-config
 
-fetch_source http://xmlsoft.org/sources/libxml2-2.9.5.tar.gz 6ab515fa4d087a3973e880d46bf6bdad48114d20
+fetch_source http://xmlsoft.org/sources/libxml2-2.9.6.tar.gz 4ab4605fce0f82a004c3b2aeb368efc8f356e020
 
 do_unpack
 pushd_src
