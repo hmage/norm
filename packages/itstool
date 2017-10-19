@@ -2,7 +2,7 @@
 
 depends_on python-libxml
 
-fetch_source http://files.itstool.org/itstool/itstool-2.0.3.tar.bz2 411f29faaf8286c52cca85163d4cdea7c6f31713
+fetch_source http://files.itstool.org/itstool/itstool-2.0.4.tar.bz2 5345615becb5c463c6e7f2462e387fdc327f3a35
 
 do_unpack_compile
 
