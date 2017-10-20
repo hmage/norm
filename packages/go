@@ -72,11 +72,21 @@ do_patch_inline << 'EOF'
  	// Check that Parse (and ParseInLocation) understand that
  	// Feb 01 AST (Arabia Standard Time) and Feb 01 AST (Atlantic Standard Time)
  	// are in different time zones even though both are called AST
+--- a/src/cmd/dist/build.c
++++ b/src/cmd/dist/build.c
+@@ -482,7 +482,6 @@
+ 	"-Wno-switch",
+ 	"-Wno-comment",
+ 	"-Wno-missing-field-initializers",
+-	"-Werror",
+ 	"-fno-common",
+ 	"-ggdb",
+ 	"-pipe",
 EOF
 pushd_src
 cd src
-GOROOT_FINAL="$PREFIX/go" GOBIN="$PREFIX/bin" GO_LDFLAGS="-L $PREFIX/lib" GO_CCFLAGS="-I $PREFIX/include" GO_DISTFLAGS="-s" ./all.bash
+GOROOT_FINAL="$PREFIX/go" GOBIN="$PREFIX/bin" GO_LDFLAGS="-L $PREFIX/lib" GO_CCFLAGS="-I $PREFIX/include" GO_DISTFLAGS="-s" CGO_ENABLED=0 ./all.bash
 popd_src
 rm -rf "$PREFIX/go"
 mkdir -p "$PREFIX/go"
-cp -pr "$SRCDIR"/ "$PREFIX/go"
+cp -pr "$SRCDIR"/* "$PREFIX/go"
