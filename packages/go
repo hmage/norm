@@ -85,8 +85,25 @@ do_patch_inline << 'EOF'
 EOF
 pushd_src
 cd src
-GOROOT_FINAL="$PREFIX/go" GOBIN="$PREFIX/bin" GO_LDFLAGS="-L $PREFIX/lib" GO_CCFLAGS="-I $PREFIX/include" GO_DISTFLAGS="-s" CGO_ENABLED=0 ./all.bash
+GOROOT_FINAL="$PREFIX/go-bootstrap" GOBIN="$SRCDIR/bin" GO_LDFLAGS="-L $PREFIX/lib" GO_CCFLAGS="-I $PREFIX/include" GO_DISTFLAGS="-s" CGO_ENABLED=0 ./make.bash --no-banner
+cd ..
+mkdir -p "$PREFIX/go-bootstrap"
+cp -a bin pkg src "$PREFIX/go-bootstrap"
 popd_src
+
+fetch_source https://storage.googleapis.com/golang/go1.9.1.src.tar.gz 87cf0af3820834faeb6e63b035a1abae1f5b60b3
+do_unpack
+pushd_src
+cd src
+GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap" GOROOT_FINAL="$PREFIX/go" GO_LDFLAGS="-L $PREFIX/lib" ./make.bash --no-banner
+cd ..
 rm -rf "$PREFIX/go"
 mkdir -p "$PREFIX/go"
 cp -pr "$SRCDIR"/* "$PREFIX/go"
+mkdir -p "$PREFIX/bin"
+ln -fs ../go/bin/go "$PREFIX/bin/go"
+ln -fs ../go/bin/gofmt "$PREFIX/bin/gofmt"
+cd src
+! is_without tests && bash run.bash --no-rebuild
+popd_src
+rm -rf "$PREFIX/go-bootstrap"
