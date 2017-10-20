@@ -19,8 +19,8 @@ CONFOPTS=(
 
 [[ $OSTYPE == *linux* ]] && CONFOPTS+=(--with-termlib) ## tinfo.pc from system if present will make things more difficult
 
-do_unpack_compile "${CONFOPTS[@]}"
-do_unpack_compile "${CONFOPTS[@]}" --enable-widec
+LDFLAGS=" " do_unpack_compile "${CONFOPTS[@]}"
+LDFLAGS=" " do_unpack_compile "${CONFOPTS[@]}" --enable-widec
 # link tinfo when linking ncurses
 # lame, for example, doesn't link tinfo explicitly when linking ncurses
 if [[ $OSTYPE != *darwin* ]]; then
