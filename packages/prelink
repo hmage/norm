@@ -3,8 +3,8 @@
 depends_on libelf
 ! is_without tests && depends_on file # test suite fails otherwise
 
-fetch_source http://http.debian.net/debian/pool/main/p/prelink/prelink_0.0.20130503.orig.tar.bz2 eff86cb26f0cc174486769527286cc388d5216b0
-fetch_debian http://http.debian.net/debian/pool/main/p/prelink/prelink_0.0.20130503-1.debian.tar.xz 5e0694a58fcda303045bdcfa41536266e41c68e7
+fetch_source http://http.debian.net/debian/pool/main/p/prelink/prelink_0.0.20131005.orig.tar.bz2 0d6ae0df13a5c34ba02152baacddb133c8331fda
+fetch_debian http://http.debian.net/debian/pool/main/p/prelink/prelink_0.0.20131005-1.debian.tar.xz 4459b94f1e82ea1708ad89a22bc44bbb845a3d14
 
 do_undebian
 do_patch_inline << 'EOF'
