@@ -1,0 +1,10 @@
+#!/bin/bash
+
+fetch_source https://github.com/google/zopfli/archive/zopfli-1.0.1.tar.gz 5185792cda1590588fcfcfb5e31fbcbfda2495ae
+
+do_unpack
+pushd_src
+do_make CFLAGS="-Ofast -lm $CPPFLAGS $LDFLAGS" zopfli zopflipng
+mkdir -p "$PREFIX/bin"
+install -m755 zopfli zopflipng "$PREFIX/bin"
+popd_src
