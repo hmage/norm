@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://github.com/amadvance/advancecomp/releases/download/v2.0/advancecomp-2.0.tar.gz 3271e239e67de2bec5849a6e3eca19c5aa2a9bb8
+
+do_unpack_compile
