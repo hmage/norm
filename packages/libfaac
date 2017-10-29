@@ -2,7 +2,7 @@
 
 depends_on autoconf automake libtool
 
-fetch_source https://downloads.sourceforge.net/project/faac/faac-src/faac-1.29/faac-1.29.7.8.tar.gz 4b1dc86f65820c422299bd18edba63d8930382ac
+fetch_source https://downloads.sourceforge.net/project/faac/faac-src/faac-1.29/faac-1.29.8.3.tar.gz d4df6c267ec9dc1a5e6d9a90789ce66a014dbd14
 
 unset EXTRAFLAGS
 cc_addflags EXTRAFLAGS -Wno-narrowing
