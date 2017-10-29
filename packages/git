@@ -14,7 +14,7 @@ depends_on libexpat
 ## faster grep
 depends_on libpcre2
 
-fetch_source https://www.kernel.org/pub/software/scm/git/git-2.14.1.tar.xz 33af2185b1a99ea6581f270d0bb497ca1ca015a8
+fetch_source https://www.kernel.org/pub/software/scm/git/git-2.14.3.tar.xz 47f7889ff046cbd37a4aeb20c8e65f2f19df9b14
 do_unpack
 do_patch_inline -p0 << EOF
 --- t/t9020-remote-svn.sh
@@ -39,6 +39,6 @@ mkdir -p "$PREFIX/etc/bash_completion.d"
 install "$SRCDIR/contrib/completion/git-completion.bash" "$PREFIX/etc/bash_completion.d/git-completion.bash"
 
 ## install git manpages
-fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.14.1.tar.xz de22268023445ced30672568d8de1ee98428a0f0
+fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.14.3.tar.xz 07d5d4d54f9f71e2122bb42d49b83de1ddec4cdf
 mkdir -p "$PREFIX/share/man"
 cat "$CACHEDIR/$FILENAME" | xz -d | tar xf - -C "$PREFIX/share/man"
