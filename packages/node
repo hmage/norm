@@ -2,7 +2,7 @@
 
 needs_tool python
 
-fetch_source https://nodejs.org/dist/v8.5.0/node-v8.5.0.tar.gz a0f9ed241f8db36536984b8c5290e0a3c5a414b2
+fetch_source https://nodejs.org/dist/v8.8.1/node-v8.8.1.tar.gz 9b4b0af84dc41550cb70f5a39e96f164cb142a3a
 
 # as of 7.2.1, tests are broken
 do_unpack_compile_notest
