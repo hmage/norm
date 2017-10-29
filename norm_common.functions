@@ -126,6 +126,7 @@ do_compile_outside_test() {
 }
 
 check_input_filter_exists_and_set() {
+    ## TODO: automatically install xz if not available
     if ! hash "$1" 2>/dev/null; then
         log_error "Error: \"$1\" is not available, you must install it."
         log_error
@@ -147,6 +148,7 @@ do_untar() {
 
     ## we can't rely on tar being able to identify .xz -- some users had systems that had tar so old it didn't know about .xz or .bz2
     case "$INPUT_TARFILE" in
+        *.tar)           check_input_filter_exists_and_set cat  ;;
         *.tar.gz |*.tgz) check_input_filter_exists_and_set gzip -d  ;;
         *.tar.bz2|*.tbz) check_input_filter_exists_and_set bzip2 -d ;;
         *.tar.xz |*.txz) check_input_filter_exists_and_set xz -d    ;;
