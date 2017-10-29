@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://github.com/emcrisostomo/fswatch/releases/download/1.11.0/fswatch-1.11.0.tar.gz 4ed149abb1304e7b660d152d36e40830e8b1b615
+
+do_unpack_compile
