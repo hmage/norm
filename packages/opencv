@@ -8,7 +8,7 @@ depends_on libjpeg
 depends_on libpng
 depends_on ffmpeg
 
-fetch_source https://github.com/opencv/opencv/archive/3.3.0.tar.gz a5efa7b5738eba9af0a80e61e5cc86dcfb911b00
+fetch_source https://github.com/opencv/opencv/archive/3.3.1.tar.gz 79dba99090a5c48308fe91db8336ec2931e06b57
 
 do_unpack
 do_compile_outside_notest
