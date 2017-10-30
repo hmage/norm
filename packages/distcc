@@ -1,6 +1,6 @@
 #!/bin/bash
 
-needs_tool python
+depends_on python ## uses python headers and links against it
 depends_on libpopt
 
 fetch_source http://http.debian.net/debian/pool/main/d/distcc/distcc_3.1.orig.tar.gz c40b69a44f6f4392cdcf703093cb36f6fd927e7d
