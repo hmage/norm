@@ -1,6 +1,6 @@
 #!/bin/bash
 
-needs_tool python
+depends_on python ## uses headers and links against it
 
 fetch_source https://github.com/bup/bup/archive/0.29.1.tar.gz c421d4100b07294b3c34fa0f56cbcdbb0b5f9252
 
