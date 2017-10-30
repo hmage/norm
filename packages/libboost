@@ -6,7 +6,7 @@ depends_on libicu
 BOOST_WITHOUT_PYTHON="--without-libraries=python"
 if [[ "${BASH_SOURCE[0]##*/}" == libboost-python ]]; then
     depends_on libboost
-    needs_tool python
+    depends_on python ## links against libpython
     BOOST_WITHOUT_PYTHON="--with-libraries=python --with-python=$ESCAPED_PREFIX/bin/python --with-python-root=$ESCAPED_PREFIX"
 fi
 
