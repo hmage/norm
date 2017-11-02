@@ -4,5 +4,19 @@ depends_on python-libxml
 
 fetch_source http://files.itstool.org/itstool/itstool-2.0.4.tar.bz2 5345615becb5c463c6e7f2462e387fdc327f3a35
 
-do_unpack_compile
+do_unpack
+do_patch_inline << EOF
+--- a/itstool.in
++++ b/itstool.in
+@@ -1048,7 +1048,7 @@ class Document (object):
+         else:
+             ctxt.replaceEntities(1)
+         ctxt.parseDocument()
+-        trnode = ctxt.doc().getRootElement()
++        trnode = ctxt.doc().getRootElement().copyNode(1)
+         try:
+             self._check_errors()
+         except libxml2.parserError:
+EOF
+do_compile
 
