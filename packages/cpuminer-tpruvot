@@ -5,7 +5,7 @@ depends_on curl
 depends_on openssl
 depends_on libjansson
 
-fetch_source https://github.com/tpruvot/cpuminer-multi/archive/2712075e11a0d2788608921e28f5eb6e76f8323d.tar.gz d60cba54d667756d85d0140ff4fa862626760f7d
+fetch_source https://github.com/tpruvot/cpuminer-multi/archive/2712075e11a0d2788608921e28f5eb6e76f8323d.tar.gz d3c622d82d2bcd44efbb4d1e56bcd900f233c2f6
 
 unset EXTRAFLAGS EXTRALD
 cc_addflags EXTRAFLAGS -Ofast -flto -fuse-linker-plugin -ftree-loop-if-convert-stores -DUSE_ASM
