@@ -2,10 +2,22 @@
 
 depends_on opencl-headers
 
-fetch_source https://hashcat.net/files/hashcat-3.6.0.tar.gz 1c6e8cc4180b149c1352e1bfc7a7084874d3ba8f
+fetch_source https://hashcat.net/files/hashcat-4.0.0.tar.gz 079a1cdf941a5b2db131dd749d4936f4500d270b
 
 do_unpack
+do_patch_inline << "EOF"
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -127,7 +127,7 @@ COMPTIME                := $(shell date +%s)
+ # the value will be something like this: "tag: vX.Y.Z, refs/pull/Y/head"
+ 
+ VERSION_EXPORT          := HEAD -> master, tag: v4.0.0
+-VERSION_TAG             := $(shell test -d .git && git describe --tags --dirty=+ || echo "$(VERSION_EXPORT)" | $(SED) 's/.*: v\([\.0-9]*\),.*/v\1/')
++VERSION_TAG             := $(shell test -d .git && git describe --tags --dirty=+ || echo "$(VERSION_EXPORT)" | $(SED) 's/.*: v\([\.0-9]*\).*/v\1/')
+ 
+ ##
+ ## General compiler and linker options
+EOF
 pushd_src
 do_install PREFIX="$PREFIX" OPENCL_HEADERS_KHRONOS="$PREFIX/include"
 popd_src
-
