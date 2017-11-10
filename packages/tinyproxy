@@ -6,6 +6,7 @@ fetch_source https://github.com/tinyproxy/tinyproxy/releases/download/1.8.4/tiny
 
 do_unpack
 pushd_src
+sed -i.bak 's/-Wl,-z,defs//' "$SRCDIR"/configure
 do_configure
 cd src
 do_make tinyproxy
