@@ -12,6 +12,6 @@ depends_on libxml
 depends_on openssl
 depends_on libgmp
 
-fetch_source https://github.com/tatsuhiro-t/aria2/releases/download/release-1.33.0/aria2-1.33.0.tar.xz 16a65124ec8a9fe50a35fbd616ab43ab5fbdc5bc
+fetch_source https://github.com/tatsuhiro-t/aria2/releases/download/release-1.33.1/aria2-1.33.1.tar.xz 54849817b85b5aaff45e8e19bd169a76c922c083
 
 do_unpack_compile --without-gnutls --without-libssh2 --without-gcrypt --without-sqlite3 --without-libcares
