@@ -7,7 +7,6 @@ depends_on libncurses
 depends_on xz
 depends_on bzip2
 depends_on liblzo
-depends_on libpcre
 depends_on libreadline
 depends_on libxml
 needs_tool bison
@@ -20,7 +19,7 @@ depends_on openssl
 depends_on libcap
 depends_on libpam
 
-fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.2.9/source/mariadb-10.2.9.tar.gz 8e5b0b5d004872e2be56bc47a0ba22dde1bfbc91
+fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.2.10/source/mariadb-10.2.10.tar.gz 14a7d6b5c77de5235b60ffa13bf80a1dd2dda49c
 
 do_unpack
 do_patch_inline -p0 << EOF
@@ -36,4 +35,4 @@ do_patch_inline -p0 << EOF
  ENDMACRO()
  
 EOF
-do_compile -DBUILD_CONFIG=mysql_release -DCURSES_INCLUDE_PATH="$ESCAPED_PREFIX/include/ncurses" -DCMAKE_C_FLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" -DCMAKE_CXX_FLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" -DWITH_SSL=system -DWITH_ZLIB=system -DWITH_LIBEVENT=system -DWITH_JEMALLOC=system -DWITH_PCRE=system
+do_compile -DBUILD_CONFIG=mysql_release -DCURSES_INCLUDE_PATH="$ESCAPED_PREFIX/include/ncurses" -DCMAKE_C_FLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" -DCMAKE_CXX_FLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" -DWITH_SSL=system -DWITH_ZLIB=system -DWITH_LIBEVENT=system -DWITH_JEMALLOC=system
