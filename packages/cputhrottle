@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[[ $OSTYPE != *darwin* ]] && log "Error: Formula cputhrottle works and builds only on Darwin" && false
+
 fetch_source http://www.willnolan.com/cputhrottle/cputhrottle-1.0.0.tar.gz a33bf63fe9e725d98d8ce47f20f5252a4583ad32
 
 do_unpack
