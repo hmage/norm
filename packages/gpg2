@@ -9,6 +9,6 @@ depends_on libreadline
 depends_on zlib
 depends_on bzip2
 
-fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.2.tar.bz2 efa00fc20295b1cafe467359107ea170258870e2
+fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.3.tar.bz2 68ed37d363166b5bd79971537484148eb8f2958c
 
 do_unpack_compile
