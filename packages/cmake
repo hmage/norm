@@ -5,28 +5,12 @@ depends_on zlib
 depends_on bzip2
 ! is_without tests && depends_on file ## tests will not work without 'file' command
 
-fetch_source http://www.cmake.org/files/v3.9/cmake-3.9.6.tar.gz 315516ba53d1f74f21c24cec5d2956b88772b300
+fetch_source http://www.cmake.org/files/v3.10/cmake-3.10.0.tar.gz b914ab1de1ebadf9f84a9afe89167ea22846b26e
 
 do_unpack
 ## it's not cmake's job to test system-provided qt, we'll test qt when compiling qt
 ## also, nobody uses ccmake, avoid libncurses dependency
 do_patch_inline -p0 << 'EOF'
---- Tests/CMakeLists.txt
-+++ Tests/CMakeLists.txt
-@@ -393,11 +393,11 @@
- 
-   list(APPEND TEST_BUILD_DIRS ${CMake_TEST_INSTALL_PREFIX})
- 
--  if(NOT QT4_FOUND)
-+  if(0)
-     find_package(Qt4 QUIET)
-   endif()
- 
--  if(QT4_FOUND)
-+  if(0)
-     # test whether the Qt4 which has been found works, on some machines
-     # which run nightly builds there were errors like "wrong file format"
-     # for libQtCore.so. So first check it works, and only if it does add
 --- CMakeLists.txt
 +++ CMakeLists.txt
 @@ -523,7 +523,7 @@
@@ -53,4 +37,4 @@ do_patch_inline -p0 << 'EOF'
  #endif
  
 EOF
-do_compile --system-curl --system-zlib --system-bzip2 -- -DCMAKE_SYSTEM_PREFIX_PATH="$PREFIX"
+do_compile --system-curl --system-zlib --system-bzip2 -- -DCMAKE_SYSTEM_PREFIX_PATH="$PREFIX" -DCMake_TEST_Qt4=0
