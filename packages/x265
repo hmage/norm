@@ -4,7 +4,7 @@ depends_on yasm
 depends_on cmake
 [[ $OSTYPE == *linux* ]] && depends_on libnuma
 
-fetch_source https://bitbucket.org/multicoreware/x265/downloads/x265_2.5.tar.gz 239e51560a6bdde934142f1c6f884d6e37cbe755
+fetch_source https://bitbucket.org/multicoreware/x265/downloads/x265_2.6.tar.gz d3cb1066830b7fe779b6c9d8d774bbec7f8c1f5a
 
 do_unpack
 SRCDIR="$SRCDIR/source"
