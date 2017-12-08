@@ -10,7 +10,11 @@ sed -i.bak 's/-Wl,-z,defs//' "$SRCDIR"/configure
 do_configure
 cd src
 do_make tinyproxy
+cd ../etc
+do_make tinyproxy.conf
+cd ../src
 do_test
-mkdir -p $PREFIX/bin
+mkdir -p $PREFIX/bin $PREFIX/etc
 install tinyproxy $PREFIX/bin/tinyproxy
+install -m644 ../etc/tinyproxy.conf $PREFIX/etc/tinyproxy.conf
 popd_src
