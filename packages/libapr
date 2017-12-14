@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## TODO: wants ftp in /etc/services
+
 [[ $OSTYPE == *linux* ]] && depends_on libuuid
 
 fetch_source https://archive.apache.org/dist/apr/apr-1.6.3.tar.bz2 4f3aa8d8204a2674868b9d485c11349e1848987d
