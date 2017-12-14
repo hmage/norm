@@ -1,7 +1,7 @@
 #!/bin/bash
 
 [[ $OSTYPE == *linux* ]] && depends_on libattr
-needs_tool python
+depends_on python ## builds a python module, system-provided python might not have dev headers and libs
 depends_on libbsd
 depends_on libacl
 
