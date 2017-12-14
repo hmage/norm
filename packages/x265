@@ -7,5 +7,28 @@ depends_on cmake
 fetch_source https://bitbucket.org/multicoreware/x265/downloads/x265_2.6.tar.gz d3cb1066830b7fe779b6c9d8d774bbec7f8c1f5a
 
 do_unpack
+do_patch_inline -p0 << 'EOF'
+--- source/CMakeLists.txt
++++ source/CMakeLists.txt
+@@ -78,6 +78,9 @@
+     message(STATUS "Please add this value near ${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}")
+ endif()
+ 
++include(version) # determine X265_VERSION and X265_LATEST_TAG
++include_directories(. common encoder "${PROJECT_BINARY_DIR}")
++
+ if(UNIX)
+     list(APPEND PLATFORM_LIBS pthread)
+     find_library(LIBRT rt)
+@@ -449,8 +452,6 @@
+     endif()
+ endif()
+ 
+-include(version) # determine X265_VERSION and X265_LATEST_TAG
+-include_directories(. common encoder "${PROJECT_BINARY_DIR}")
+ 
+ option(ENABLE_PPA "Enable PPA profiling instrumentation" OFF)
+ if(ENABLE_PPA)
+EOF
 SRCDIR="$SRCDIR/source"
 do_compile
