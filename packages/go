@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## TODO: wants /etc/services
+
 fetch_source http://http.debian.net/debian/pool/main/g/golang/golang_1.4.2.orig.tar.gz 460caac03379f746c473814a65223397e9c9a2f6
 
 do_unpack
