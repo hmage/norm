@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## TODO: wants ftp in /etc/services
+
 depends_on libdb
 depends_on libgdbm
 
