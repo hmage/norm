@@ -4,6 +4,7 @@ depends_on scons
 depends_on libapr
 depends_on libaprutil
 depends_on openssl
+depends_on zlib
 
 fetch_source http://http.debian.net/debian/pool/main/s/serf/serf_1.3.8.orig.tar.gz e713b4697293d3e96f31515f48f2f3e4ab16e22b
 fetch_debian http://http.debian.net/debian/pool/main/s/serf/serf_1.3.8-1.diff.gz 54f43cebdbc08927fb36569196d1004b4aa0a166
