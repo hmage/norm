@@ -5,7 +5,7 @@ depends_on libx11
 depends_on libxrender
 depends_on libxfixes
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxcursor/libxcursor_1.1.13.orig.tar.gz 703c8809d34648607072036b02264cdf0c2ad5ff
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxcursor/libxcursor_1.1.13-1+deb7u1.diff.gz f4fea35a431ce07fd4a22857f29158e5984277ae
+fetch_source http://security.debian.org/debian-security/pool/updates/main/libx/libxcursor/libxcursor_1.1.14.orig.tar.gz 873a91831946cdedc0724b1d048c8041d958807c
+fetch_debian http://security.debian.org/debian-security/pool/updates/main/libx/libxcursor/libxcursor_1.1.14-1+deb9u1.diff.gz c33076d4567862854b28fb5fd76888ecd62603c1
 
 do_undebian_compile
