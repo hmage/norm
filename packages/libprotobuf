@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/google/protobuf/releases/download/v3.4.1/protobuf-cpp-3.4.1.tar.gz f5a62fa19d590525aa4338df42da375ea8912091
+fetch_source https://github.com/google/protobuf/archive/v3.5.0.1.tar.gz 7e1f740d3c36237dfc35ab6d41bde3b51d163a62
 
 do_unpack_compile
