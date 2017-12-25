@@ -3,6 +3,6 @@
 depends_on libxcb
 needs_tool bison
 
-fetch_source http://xkbcommon.org/download/libxkbcommon-0.7.1.tar.xz 6c0007a0206cd8bc1fa68f50aa86627d669282a2
+fetch_source http://xkbcommon.org/download/libxkbcommon-0.8.0.tar.xz 2bdd5871e5e76f2fc427911f137aa46e91abbcf3
 
 do_unpack_compile_notest ## testing hangs
