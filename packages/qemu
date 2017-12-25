@@ -24,7 +24,7 @@ depends_on libsnappy
 depends_on libusb
 depends_on libsasl
 
-fetch_source http://wiki.qemu-project.org/download/qemu-2.10.1.tar.bz2 e636bc98d1dfe4318ea0a781e1bcd3de7249f3fe
+fetch_source http://wiki.qemu-project.org/download/qemu-2.11.0.tar.bz2 964df3a183036982469e80194b181bd7c658dfab
 
 ## testing hangs because test scripts do not kill a qemu process
 do_unpack_compile_notest --with-system-pixman \
