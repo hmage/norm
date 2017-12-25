@@ -6,5 +6,6 @@ depends_on zlib
 depends_on libpopt
 
 fetch_source https://download.samba.org/pub/rsync/src/rsync-3.1.2.tar.gz 0d4c7fb7fe3fc80eeff922a7c1d81df11dbb8a1a
+fetch_debian http://security.debian.org/debian-security/pool/updates/main/r/rsync/rsync_3.1.2-1+deb9u1.debian.tar.xz 59c8d07b61c8c9ad5e53f2935d71cc234e436eff
 
-do_unpack_compile --without-included-zlib
+do_undebian_compile --without-included-zlib
