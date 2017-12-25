@@ -3,5 +3,5 @@
 depends_on libacl
 [[ $OSTYPE == *linux* ]] && depends_on libattr
 
-fetch_source http://ftpmirror.gnu.org/tar/tar-1.29.tar.gz 73b694191c802e1bda5ec4fce5aae26d4134412f
+fetch_source http://ftpmirror.gnu.org/tar/tar-1.30.tar.gz 4f83a5e9ab6a93ea7ff5fe9a7b0f17763c4f3dca
 do_unpack_compile
