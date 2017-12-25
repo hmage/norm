@@ -1,10 +1,14 @@
 #!/bin/bash
 
 depends_on cmake
+#depends_on libllvm
 needs_tool python ## needs python to build
 ! is_without tests && needs_tool flex bison && depends_on gdb ## needed to run tests
 
-fetch_source https://static.rust-lang.org/dist/rustc-1.21.0-src.tar.gz f835d72bc26ee6f25f6e5d6783b424fc9b904c9e
+fetch_source https://static.rust-lang.org/dist/rustc-1.22.1-src.tar.gz 05e5d569ba3737e4b596bef4f4d0cb69f888e69d
 
 do_unpack
-do_compile
+do_compile --enable-rpath --enable-optimize --enable-optimize-llvm
+
+#fetch_source https://github.com/rust-lang/cargo/archive/0.22.0.tar.gz 66346ce9bdc1da2db98811866663f33a3ab4eedf
+#do_unpack
