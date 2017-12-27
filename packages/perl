@@ -1,6 +1,11 @@
 #!/bin/bash
 
 ## TODO: wants ftp in /etc/services
+[[ ! -e /etc/services ]] && log "Perl requires /etc/services to successfully test" && false
+if ! grep -q '^ftp\b' /etc/services; then
+    log "Perl requires ftp entry in /etc/services to successfully test"
+    false
+fi
 
 depends_on libdb
 depends_on libgdbm
