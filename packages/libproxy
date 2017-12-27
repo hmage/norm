@@ -1,5 +1,10 @@
 #!/bin/bash
 
+## TODO: wants ftp in /etc/services
+[[ ! -e /etc/services ]] && log "$FORMULA requires /etc/services to successfully test" && false
+! grep -q '^http\b' /etc/services && log "$FORMULA requires http entry in /etc/services to successfully test" && false
+! grep -q '^ssh\b' /etc/services && log "$FORMULA requires ssh entry in /etc/services to successfully test" && false
+
 depends_on cmake
 
 fetch_source https://github.com/libproxy/libproxy/releases/download/0.4.14/libproxy-0.4.14.tar.xz 5e6b9ce9797528879df5ab00ee0241e281207759
