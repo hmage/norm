@@ -1,6 +1,11 @@
 #!/bin/bash
 
 ## TODO: wants ftp in /etc/services
+[[ ! -e /etc/services ]] && log "libapr requires /etc/services to successfully test" && false
+if ! grep -q '^ftp\b' /etc/services; then
+    log "libapr requires ftp entry in /etc/services to successfully test"
+    false
+fi
 
 [[ $OSTYPE == *linux* ]] && depends_on libuuid
 
