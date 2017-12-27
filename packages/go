@@ -1,6 +1,11 @@
 #!/bin/bash
 
 ## TODO: wants /etc/services
+[[ ! -e /etc/services ]] && log "Go requires /etc/services to successfully test" && false
+if ! grep -q '^smtp\b' /etc/services; then
+    log "Go requires smtp entry in /etc/services to successfully test"
+    false
+fi
 
 fetch_source http://http.debian.net/debian/pool/main/g/golang/golang_1.4.2.orig.tar.gz 460caac03379f746c473814a65223397e9c9a2f6
 
