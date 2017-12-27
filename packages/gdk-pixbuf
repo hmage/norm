@@ -1,10 +1,10 @@
 #!/bin/bash
 
+depends_on shared-mime-info
 depends_on pkg-config
 depends_on libtiff
 depends_on libpng
 depends_on glib
-depends_on shared-mime-info
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.36/gdk-pixbuf-2.36.10.tar.xz fb4d1b233ed667f08215664eef90fb8bf8d79cda
 

@@ -1,9 +1,9 @@
 #!/bin/bash
 
+depends_on libat-spi2
 depends_on pkg-config
 depends_on libdbus
 depends_on glib
-depends_on libat-spi2
 depends_on libatk
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.26/at-spi2-atk-2.26.1.tar.xz 577f4e67bcda8fecd71ed4893c9b675670519bf5

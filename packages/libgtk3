@@ -1,11 +1,11 @@
 #!/bin/bash
 
+depends_on gdk-pixbuf
 depends_on pkg-config
 depends_on glib
 depends_on libatk
 depends_on libpango
 depends_on libcairo
-depends_on gdk-pixbuf
 depends_on libxi
 depends_on libepoxy
 depends_on libat-spi2-atk

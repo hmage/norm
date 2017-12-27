@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on libproxy
 depends_on pkg-config
 needs_tool python # building qtqml requires python
 depends_on mesa   # qt module "quick" isn't skipped by configure when there's no mesa
@@ -28,7 +29,6 @@ depends_on libdbus
 depends_on glib
 depends_on libicu
 depends_on libasound
-depends_on libproxy
 depends_on libsm
 depends_on libtiff
 depends_on libwebp

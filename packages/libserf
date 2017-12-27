@@ -1,7 +1,7 @@
 #!/bin/bash
 
-depends_on scons
 depends_on libapr
+depends_on scons
 depends_on libaprutil
 depends_on openssl
 depends_on zlib

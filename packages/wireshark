@@ -1,9 +1,9 @@
 #!/bin/bash
 
+depends_on libgtk3
 depends_on pkg-config
 needs_tool python
 depends_on glib
-depends_on libgtk3
 depends_on libpcap
 
 fetch_source http://www.wireshark.org/download/src/wireshark-2.4.2.tar.xz 93e1eff9380015a8a9df473ffa38ba0635d25238

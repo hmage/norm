@@ -1,8 +1,8 @@
 #!/bin/bash
 
+depends_on gdk-pixbuf
 depends_on libpango
 depends_on libcairo
-depends_on gdk-pixbuf
 depends_on libatk
 depends_on gtk-doc
 depends_on libx11
