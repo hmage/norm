@@ -1,0 +1,10 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on libboost
+depends_on openssl
+depends_on mariadb
+
+fetch_source https://downloads.powerdns.com/releases/pdns-4.0.5.tar.bz2 933920b0a84b657187385dae6dcc3f68ff9bfd2a
+
+do_unpack_compile
