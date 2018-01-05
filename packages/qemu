@@ -27,7 +27,7 @@ depends_on libsasl
 fetch_source http://wiki.qemu-project.org/download/qemu-2.11.0.tar.bz2 964df3a183036982469e80194b181bd7c658dfab
 
 ## testing hangs because test scripts do not kill a qemu process
-do_unpack_compile_notest --with-system-pixman \
+do_unpack_compile_notest \
                   --disable-libnfs \
                   --disable-bluez \
                   --enable-sdl --disable-gtk \
