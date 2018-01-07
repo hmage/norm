@@ -107,6 +107,15 @@ cmd_install() {
                     || log "Installing formulas: $@"
     setup_traps
     setup_prefix "$PREFIX"
+    if ! hash patch 2>/dev/null; then
+        log "Required utility patch not found, will install it too"
+        set -- patch "$@"
+    fi
+    ## make needs to be installed first
+    if ! hash make 2>/dev/null; then
+        log "Required utility make not found, will install it too"
+        set -- make "$@"
+    fi
     for FORMULA; do
         [[ "$FORMULA" == --* ]] && continue ## ignore flags
         compile_formula $force "$FORMULA"
