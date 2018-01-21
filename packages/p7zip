@@ -4,7 +4,8 @@ fetch_source https://downloads.sourceforge.net/project/p7zip/p7zip/16.02/p7zip_1
 
 do_unpack
 pushd_src
-sed -ibak "s|/usr/local|$PREFIX|g" makefile.common
+[[ $OSTYPE == *darwin* ]] && mv makefile.macosx_llvm_64bits makefile.machine
+sed -ibak "s|-O|-O2|g" makefile.machine
 do_make all3
-do_install
+do_install DEST_HOME="$PREFIX"
 popd_src
