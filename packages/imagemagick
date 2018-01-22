@@ -8,6 +8,10 @@ depends_on libwebp
 depends_on libbpg
 depends_on zlib
 depends_on bzip2
+depends_on freetype
+depends_on glib
+depends_on libpcre
+depends_on libxml
 
 fetch_source https://dl.bintray.com/homebrew/mirror/imagemagick-7.0.7-21.tar.xz 9f7606012415b3f7c1318bd0f133261a51362f25
 
