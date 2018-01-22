@@ -2,6 +2,6 @@
 
 depends_on libdb
 
-fetch_source http://ftpmirror.gnu.org/gdbm/gdbm-1.11.tar.gz ce433d0f192c21d41089458ca5c8294efe9806b4
+fetch_source http://ftpmirror.gnu.org/gdbm/gdbm-1.14.1.tar.gz d8d02ecfc442792756515ee1aef25a2ecbc9284c
 
 do_unpack_compile --enable-libgdbm-compat
