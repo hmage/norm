@@ -3,6 +3,6 @@
 depends_on libncurses
 depends_on libpcre2
 
-fetch_source http://fishshell.com/files/2.7.0/fish-2.7.0.tar.gz 2825834253954a6eb6c2ff3019c15ab92febba74
+fetch_source https://github.com/fish-shell/fish-shell/releases/download/2.7.1/fish-2.7.1.tar.gz c3c3cb44ebdf34e0b46ada7b4b1598d14f742f71
 
 do_unpack_compile --without-included-pcre2
