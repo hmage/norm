@@ -3,6 +3,6 @@
 depends_on libboost
 depends_on openssl
 
-fetch_source https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_1_5/libtorrent-rasterbar-1.1.5.tar.gz 366566fd85987dadd8f0218f5d1e6fc041c43e48
+fetch_source https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_1_6/libtorrent-rasterbar-1.1.6.tar.gz fe231cf13b45938d28bad6819cc94f0828b53aef
 
 do_unpack_compile --with-boost="$PREFIX"
