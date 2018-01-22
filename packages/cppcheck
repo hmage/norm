@@ -3,7 +3,7 @@
 depends_on libpcre
 depends_on libtinyxml
 
-fetch_source http://downloads.sourceforge.net/project/cppcheck/cppcheck/1.81/cppcheck-1.81.tar.gz 8317438f515c53383dca7de688aca7a3621a7f7d
+fetch_source http://downloads.sourceforge.net/cppcheck/cppcheck/1.82/cppcheck-1.82.tar.gz 8b3a1ec4eae4172ea3caffa3387bbd869ac2f624
 
 do_unpack
 pushd_src
