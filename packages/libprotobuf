@@ -3,7 +3,7 @@
 depends_on autoconf automake libtool
 needs_tool unzip
 
-fetch_source https://github.com/google/protobuf/archive/v3.5.0.1.tar.gz 7e1f740d3c36237dfc35ab6d41bde3b51d163a62
+fetch_source https://github.com/google/protobuf/archive/v3.5.1.tar.gz a6596d63ad6b01de22453a0e85ba6a4001bae1a2
 
 do_unpack
 pushd_src
