@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/gzip/gzip-1.8.tar.gz 969cc5f8e452aa66b01ca258084400c1cc8f2eca
+fetch_source http://ftpmirror.gnu.org/gzip/gzip-1.9.tar.gz 7d32532059ff1fcec87cc44b86f9456719e0485f
 
 do_unpack
 pushd_src
