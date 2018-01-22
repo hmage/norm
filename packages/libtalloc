@@ -5,7 +5,7 @@ depends_on python ## builds a python module, system-provided python might not ha
 depends_on libbsd
 depends_on libacl
 
-fetch_source https://www.samba.org/ftp/talloc/talloc-2.1.10.tar.gz 4b59061f0ee5f337aacef0c258a4ffd05b3fec6c
+fetch_source https://www.samba.org/ftp/talloc/talloc-2.1.11.tar.gz 01b57d8f72ec85f4f2a7be9a5176dfbb3461808c
 
 do_unpack_compile
 
