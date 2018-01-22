@@ -19,7 +19,7 @@ depends_on libxkbfile
 depends_on libxinerama
 depends_on libxfixes
 
-fetch_source http://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.31.tar.xz c3d828135994a52cc9428a60175bd2b294656611
+fetch_source http://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.32.tar.xz c885ade62b06854590822c8eb906daf7dd15d90a
 
 do_unpack
 do_compile_outside --disable-introspection --with-xinput=yes --enable-shared --disable-cups
