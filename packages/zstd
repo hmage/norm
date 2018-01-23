@@ -3,7 +3,7 @@
 depends_on zlib
 depends_on xz
 
-fetch_source https://github.com/facebook/zstd/archive/v1.3.2.tar.gz 2478765996a25232abb5e38707fc77deeaaaab37
+fetch_source https://github.com/facebook/zstd/archive/v1.3.3.tar.gz 4bbdc23ab3d4fa18b3b7bd84900b77d554b96dd2
 
 do_unpack
 pushd_src
