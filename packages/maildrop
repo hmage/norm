@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## TODO: require en_US.UTF-8 locale
+
 depends_on pkg-config
 depends_on libgdbm
 depends_on libfam
@@ -9,6 +11,4 @@ depends_on libidn
 fetch_source http://ftp.de.debian.org/debian/pool/main/m/maildrop/maildrop_2.7.1.orig.tar.bz2 d1758df6d1fe00aa47cc1cd77dbc316fefa542ee
 
 mkdir -p $PREFIX/var/mail
-## tests require current locale to be properly installed, some environments don't have that, force C locale
-LANG=C LC_ALL=C \
 do_unpack_compile --disable-authlib --with-default-maildrop=$PREFIX/var/mail
