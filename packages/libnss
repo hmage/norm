@@ -5,11 +5,11 @@ depends_on zlib
 depends_on sqlite3
 
 major=3
-minor=33
+minor=35
 patch=0
 
 ## DO NOT FORGET TO UPDATE VARIABLES ABOVE
-fetch_source https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_33_RTM/src/nss-3.33.tar.gz 85d25795b01be3f4459707ce04e9bbed9e549865
+fetch_source https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_35_RTM/src/nss-3.35.tar.gz 72fb5bd2fc56113fec0d8867a1030bb0dfa108ac
 
 EXTRA_OPTIONS=
 [[ $HOSTTYPE == *64* ]] && EXTRA_OPTIONS="USE_64=1"
