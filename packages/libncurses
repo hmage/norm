@@ -1,8 +1,8 @@
 #!/bin/bash
 
 depends_on pkg-config # otherwise it won't install .pc files
-
-fetch_source http://invisible-mirror.net/archives/ncurses/current/ncurses-6.0-20171014.tgz 1396bc5380289c2e48c6d5245ca512fc80ae5995
+fetch_source http://ftpmirror.gnu.org/ncurses/ncurses-6.0.tar.gz acd606135a5124905da770803c05f1f20dd3b21c
+fetch_file http://invisible-mirror.net/archives/ncurses/6.0/patch-6.0-20170930.sh.gz a261fcb1280d67304cc932e5f9838a66d1d743cb
 
 CONFOPTS=(
 --enable-pc-files
@@ -19,8 +19,15 @@ CONFOPTS=(
 
 [[ $OSTYPE == *linux* ]] && CONFOPTS+=(--with-termlib) ## tinfo.pc from system if present will make things more difficult
 
-LDFLAGS=" " do_unpack_compile "${CONFOPTS[@]}"
-LDFLAGS=" " do_unpack_compile "${CONFOPTS[@]}" --enable-widec
+prepare() {
+do_unpack
+pushd_src
+cat "$CACHEDIR/$FILENAME" | gzip -d > rollup.sh
+sh rollup.sh
+popd_src
+}
+prepare && LDFLAGS=" " do_compile "${CONFOPTS[@]}"
+prepare && LDFLAGS=" " do_compile "${CONFOPTS[@]}" --enable-widec
 # link tinfo when linking ncurses
 # lame, for example, doesn't link tinfo explicitly when linking ncurses
 if [[ $OSTYPE != *darwin* ]]; then
