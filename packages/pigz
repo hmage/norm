@@ -2,7 +2,7 @@
 
 depends_on zlib
 
-fetch_source http://zlib.net/pigz/pigz-2.3.4.tar.gz 98c30f710514c54ce8a31784347412eeec0f08eb
+fetch_source http://zlib.net/pigz/pigz-2.4.tar.gz 92d4a8f3917865acca2c7c368cf0ed10d20d0612
 
 do_unpack
 pushd_src
