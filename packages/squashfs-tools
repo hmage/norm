@@ -36,6 +36,6 @@ diff -urw squashfs-tools_4.2+20130409.orig.tar.xz.orig/mksquashfs.c squashfs-too
  }
 EOF
 
-do_make EXTRA_CFLAGS="$CPPFLAGS -std=gnu99" EXTRA_LDFLAGS="$LDFLAGS"
+do_make EXTRA_CFLAGS="$CPPFLAGS -std=gnu99" EXTRA_LDFLAGS="$LDFLAGS" LZMA_XZ_SUPPORT=1
 do_install
 popd
