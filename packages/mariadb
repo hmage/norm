@@ -19,7 +19,12 @@ depends_on openssl
 depends_on libcap
 depends_on libpam
 
-fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.2.11/source/mariadb-10.2.11.tar.gz f3271b1ea53e30374d8675735639a5978793b51c
+OURNAME=`basename "${BASH_SOURCE[0]}"`
+if [[ $OURNAME == mariadb-devel ]]; then
+fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.3.4/source/mariadb-10.3.4.tar.gz 71eb4e39ed7dda36213bd761a93098c9a7dc2903
+else
+fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.2.12/source/mariadb-10.2.12.tar.gz b02017ebe93b4f4f7e5110c7565cbc67b22f2a95
+fi
 
 do_unpack
 do_patch_inline -p0 << EOF
