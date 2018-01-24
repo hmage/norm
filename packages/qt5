@@ -143,6 +143,7 @@ pushd_src
                   -system-freetype \
                   -system-pcre \
                   -system-sqlite \
+                  -proprietary-codecs \
                   -no-pch \
                   -pkg-config \
                   -nomake examples
