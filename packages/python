@@ -66,3 +66,9 @@ do_unpack
 pushd_src
 $PREFIX/bin/python $SETUP_ARGS
 popd_src
+
+fetch_source https://github.com/benjaminp/six/archive/1.11.0.tar.gz fc087927446dd44611d1e429ffc9bbf25509e854
+do_unpack
+pushd_src
+$PREFIX/bin/python $SETUP_ARGS
+popd_src
