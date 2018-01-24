@@ -6,7 +6,7 @@ needs_tool python
 depends_on glib
 depends_on libpcap
 
-fetch_source http://www.wireshark.org/download/src/wireshark-2.4.2.tar.xz 93e1eff9380015a8a9df473ffa38ba0635d25238
+fetch_source http://www.wireshark.org/download/src/wireshark-2.4.4.tar.xz cefc8e6666ee2f73d7f96f2708d582c57abb486f
 
 do_unpack_compile --with-gtk=yes
 
