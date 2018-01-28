@@ -2,6 +2,6 @@
 
 depends_on zlib
 
-fetch_source http://ftpmirror.gnu.org/binutils/binutils-2.29.tar.bz2 4376bce1e58d591c6a5dd44fc8713f154208d735
+fetch_source https://sourceware.org/pub/binutils/releases/binutils-2.30.tar.xz 574d3b5650413d6ee65195a4f5ecbddc3a38f718
 
 do_unpack_compile --with-sysroot=/ --enable-deterministic-archives # with-sysroot enables rpath-link support
