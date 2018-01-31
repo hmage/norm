@@ -1,7 +1,9 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
+## TODO: wants python module six to install properly
+
 depends_on libgtk2
+depends_on autoconf automake libtool
 depends_on intltool
 depends_on gobject-introspection
 
