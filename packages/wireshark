@@ -5,6 +5,7 @@ depends_on pkg-config
 needs_tool python
 depends_on glib
 depends_on libpcap
+depends_on libnghttp2
 
 fetch_source http://www.wireshark.org/download/src/wireshark-2.4.4.tar.xz cefc8e6666ee2f73d7f96f2708d582c57abb486f
 
