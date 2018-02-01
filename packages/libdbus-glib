@@ -3,7 +3,7 @@
 depends_on glib
 depends_on libdbus
 
-fetch_source https://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.108.tar.gz 5c851f3d457b46d5fa7f1e647d1141592d38cc53
+fetch_source https://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.110.tar.gz 998b7c762c8f18c906f19fc393bb8712eabe8c97
 
 do_unpack
 do_autoreconf
