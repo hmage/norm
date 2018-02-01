@@ -3,7 +3,7 @@
 depends_on libncurses
 needs_tool nasm
 
-fetch_source https://downloads.sourceforge.net/sourceforge/lame/lame-3.99.5.tar.gz 03a0bfa85713adcc6b3383c12e2cc68a9cfbf4c4
+fetch_source https://downloads.sourceforge.net/sourceforge/lame/lame-3.100.tar.gz 64c53b1a4d493237cef5e74944912cd9f98e618d
 
 unset EXTRALD EXTRAFLAGS
 cc_addflags EXTRAFLAGS -msse2 -msse
