@@ -2,7 +2,7 @@
 
 depends_on pkg-config # otherwise it won't install .pc files
 
-fetch_source http://invisible-mirror.net/archives/ncurses/current/ncurses-6.0-20180121.tgz b3b1055cafdbd29ed361625e59f548d91a658482
+fetch_source http://ftpmirror.gnu.org/ncurses/ncurses-6.1.tar.gz 57acf6bc24cacd651d82541929f726f4def780cc
 
 CONFOPTS=(
 --enable-pc-files
