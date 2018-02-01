@@ -2,6 +2,7 @@
 
 [[ $OSTYPE != *darwin* ]] && depends_on openssl
 depends_on zlib
+depends_on libnghttp2
 
 fetch_source http://curl.mirror.anstey.ca/curl-7.58.0.tar.gz 089f17884d672aca7a661a65d847135f2f0ccbbf
 
@@ -11,7 +12,6 @@ CONFIGURE=(
 --without-libssh2
 --without-librtmp
 --without-libpsl
---without-nghttp2
 )
 
 [[ $OSTYPE != *darwin* ]] && CONFIGURE+=("--with-ca-bundle=$PREFIX/etc/ssl/cert.pem")
