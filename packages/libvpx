@@ -8,7 +8,7 @@ fi
 
 depends_on yasm
 
-fetch_source http://storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-1.6.1.tar.bz2 a8bd0596915489d3bd8eded98d408ab8705e2f5d
+fetch_source https://github.com/webmproject/libvpx/archive/v1.7.0.tar.gz fb3d4b80596d1e3b1a7f53757d63e7d2b3eeb7c9
 
 CONFIGURE=()
 [[ $OSTYPE != *darwin* ]] && CONFIGURE+=(--enable-shared)
