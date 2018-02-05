@@ -1,8 +1,9 @@
 #!/bin/bash
 
 fetch_source https://downloads.sourceforge.net/project/p7zip/p7zip/16.02/p7zip_16.02_src_all.tar.bz2 e8819907132811aa1afe5ef296181d3a15cc8f22
+fetch_debian http://security.debian.org/debian-security/pool/updates/main/p/p7zip/p7zip_16.02+dfsg-3+deb9u1.debian.tar.xz 8b0da7503dffe82e6f50cfaf1a4f1021d1fc2cf2
 
-do_unpack
+do_undebian
 pushd_src
 [[ $OSTYPE == *darwin* ]] && mv makefile.macosx_llvm_64bits makefile.machine
 sed -ibak "s|-O|-O2|g" makefile.machine
