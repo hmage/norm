@@ -15,7 +15,7 @@ CONFIGURE=(
 )
 
 [[ $OSTYPE != *darwin* ]] && CONFIGURE+=("--with-ca-bundle=$PREFIX/etc/ssl/cert.pem")
-[[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--with-darwinssl --without-ca-bundle)
+[[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--with-darwinssl --without-ca-bundle --with-default-ssl-backend=darwinssl --without-ssl)
 
 do_unpack
 sed -i.bak "s|mmacosx-version-min=10.8|mmacosx-version-min=$NORM_OSX_VERSION|" "$SRCDIR"/configure
