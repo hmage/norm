@@ -3,6 +3,6 @@
 depends_on libreadline
 depends_on zlib
 
-fetch_source http://ftp.postgresql.org/pub/source/v10.0/postgresql-10.0.tar.bz2 4c26f81278f7da12f46f2ff4fda5b0311e191b95
+fetch_source http://ftp.postgresql.org/pub/source/v10.2/postgresql-10.2.tar.bz2 b0597de368dac410cfb65ce92f89e324bbdc1ea1
 
 do_unpack_compile
