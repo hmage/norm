@@ -102,7 +102,13 @@ fetch_source https://storage.googleapis.com/golang/go1.9.2.src.tar.gz 8a51dbdf51
 do_unpack
 pushd_src
 cd src
-GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap" GOROOT_FINAL="$PREFIX/go" GO_LDFLAGS="-L $PREFIX/lib" ./make.bash --no-banner
+CMD=./make.bash
+if [[ $OSTYPE != *darwin* ]]; then
+    ! is_without tests && CMD=./all.bash
+else
+    is_with tests && CMD=./all.bash
+fi
+GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap" GOROOT_FINAL="$PREFIX/go" GO_LDFLAGS="-L $PREFIX/lib" $CMD --no-banner
 cd ..
 rm -rf "$PREFIX/go"
 mkdir -p "$PREFIX/go"
@@ -110,7 +116,5 @@ cp -pr "$SRCDIR"/* "$PREFIX/go"
 mkdir -p "$PREFIX/bin"
 ln -fs ../go/bin/go "$PREFIX/bin/go"
 ln -fs ../go/bin/gofmt "$PREFIX/bin/gofmt"
-cd src
-! is_without tests && bash run.bash --no-rebuild
 popd_src
 rm -rf "$PREFIX/go-bootstrap"
