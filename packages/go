@@ -7,92 +7,12 @@ if ! grep -q '^smtp\b' /etc/services; then
     false
 fi
 
-fetch_source http://http.debian.net/debian/pool/main/g/golang/golang_1.4.2.orig.tar.gz 460caac03379f746c473814a65223397e9c9a2f6
+fetch_source https://github.com/golang/go/archive/4d5426a570c2820c5894a61b52e3dc147e4e7925.tar.gz 77c3f7041d5e96160ec30a1e8ac0edde1ae02997
 
 do_unpack
-## some kernels might not have multicast compiled in
-if [ ! -f /proc/net/igmp -o ! -f /proc/net/igmp6 ]; then
-    do_patch_inline << EOF
---- golang_1.4.2.orig.tar.gz-orig/src/net/multicast_test.go
-+++ golang_1.4.2.orig.tar.gz/src/net/multicast_test.go
-@@ -165,10 +165,8 @@
- 	case "dragonfly", "netbsd", "openbsd", "plan9", "solaris", "windows":
- 		return true, nil // not implemented yet
- 	case "linux":
--		if runtime.GOARCH == "arm" || runtime.GOARCH == "alpha" {
- 			return true, nil // not implemented yet
--		}
- 	}
- 	ift, err := Interfaces()
- 	if err != nil {
- 		return false, err
-EOF
-    add_caveat "Your kernel lacks multicast support (no /proc/net/igmp and /proc/net/igmp6), multicast test was disabled"
-fi
-do_patch_inline << 'EOF'
---- a/src/net/dial_test.go
-+++ b/src/net/dial_test.go
-@@ -32,6 +32,7 @@
- }
- 
- func TestDialTimeout(t *testing.T) {
-+	t.Skip("known to be broken in Go 1.4")
- 	origBacklog := listenerBacklog
- 	defer func() {
- 		listenerBacklog = origBacklog
-@@ -467,6 +468,7 @@
- }
- 
- func TestDialDualStackLocalhost(t *testing.T) {
-+	t.Skip("Skipping broken test.")
- 	switch runtime.GOOS {
- 	case "nacl":
- 		t.Skipf("skipping test on %q", runtime.GOOS)
---- a/src/time/time_test.go
-+++ b/src/time/time_test.go
-@@ -915,6 +915,7 @@
- }
- 
- func TestLoadFixed(t *testing.T) {
-+	t.Skip("skipping test for Go 1.4; Issue 17545")
- 	// Issue 4064: handle locations without any zone transitions.
- 	loc, err := LoadLocation("Etc/GMT+1")
- 	if err != nil {
---- a/src/make.bash
-+++ b/src/make.bash
-@@ -129,7 +129,7 @@
- if [ -z "$CC" -a -z "$(type -t gcc)" -a -n "$(type -t clang)" ]; then
- 	export CC=clang CXX=clang++
- fi
--${CC:-gcc} $mflag -O2 -Wall -Werror -o cmd/dist/dist -Icmd/dist "$DEFGOROOT" cmd/dist/*.c
-+${CC:-gcc} $mflag -O2 -Wall -o cmd/dist/dist -Icmd/dist "$DEFGOROOT" cmd/dist/*.c
- 
- # -e doesn't propagate out of eval, so check success by hand.
- eval $(./cmd/dist/dist env -p || echo FAIL=true)
---- a/src/time/format_test.go
-+++ b/src/time/format_test.go
-@@ -184,6 +184,7 @@
- }
- 
- func TestParseInLocation(t *testing.T) {
-+	t.Skip("Skipping test because new tzdata changed AST to +03")
- 	// Check that Parse (and ParseInLocation) understand that
- 	// Feb 01 AST (Arabia Standard Time) and Feb 01 AST (Atlantic Standard Time)
- 	// are in different time zones even though both are called AST
---- a/src/cmd/dist/build.c
-+++ b/src/cmd/dist/build.c
-@@ -482,7 +482,6 @@
- 	"-Wno-switch",
- 	"-Wno-comment",
- 	"-Wno-missing-field-initializers",
--	"-Werror",
- 	"-fno-common",
- 	"-ggdb",
- 	"-pipe",
-EOF
 pushd_src
 cd src
-GOROOT_FINAL="$PREFIX/go-bootstrap" GOBIN="$SRCDIR/bin" GO_LDFLAGS="-L $PREFIX/lib" GO_CCFLAGS="-I $PREFIX/include" GO_DISTFLAGS="-s" CGO_ENABLED=0 ./make.bash --no-banner
+GOROOT_FINAL="$PREFIX/go-bootstrap" GOBIN="$SRCDIR/bin" GO_LDFLAGS="-L $PREFIX/lib" GO_CCFLAGS="-I $PREFIX/include" ./make.bash --no-banner
 cd ..
 mkdir -p "$PREFIX/go-bootstrap"
 cp -a bin pkg src "$PREFIX/go-bootstrap"
