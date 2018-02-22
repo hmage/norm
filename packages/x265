@@ -30,5 +30,27 @@ do_patch_inline -p0 << 'EOF'
  option(ENABLE_PPA "Enable PPA profiling instrumentation" OFF)
  if(ENABLE_PPA)
 EOF
+
 SRCDIR="$SRCDIR/source"
-do_compile
+pushd_src
+BUILDDIR="$SRCDIR/../build/norm/12bit"
+mkdir -p "$BUILDDIR"
+cd "$BUILDDIR"
+do_auto_configure -DHIGH_BIT_DEPTH=ON -DEXPORT_C_API=OFF -DENABLE_SHARED=OFF -DENABLE_CLI=OFF -DMAIN12=ON
+do_make
+
+BUILDDIR="$SRCDIR/../build/norm/10bit"
+mkdir -p "$BUILDDIR"
+cd "$BUILDDIR"
+do_auto_configure -DHIGH_BIT_DEPTH=ON -DEXPORT_C_API=OFF -DENABLE_SHARED=OFF -DENABLE_CLI=OFF
+do_make
+
+BUILDDIR="$SRCDIR/../build/norm/8bit"
+mkdir -p "$BUILDDIR"
+cd "$BUILDDIR"
+ln -sf ../10bit/libx265.a libx265_main10.a
+ln -sf ../12bit/libx265.a libx265_main12.a
+do_auto_configure -DEXTRA_LIB="x265_main10.a;x265_main12.a" -DEXTRA_LINK_FLAGS=-L. -DLINKED_10BIT=ON -DLINKED_12BIT=ON
+do_make
+do_install
+popd_src
