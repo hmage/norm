@@ -29,7 +29,7 @@ depends_on libfdk-aac
 depends_on libvdpau
 depends_on libvpx
 
-fetch_source http://www.ffmpeg.org/releases/ffmpeg-3.4.1.tar.xz 93a0575477c81bc434d2afd23124336fa421c426
+fetch_source http://www.ffmpeg.org/releases/ffmpeg-3.4.2.tar.xz baef74d93683c6b2029ac36b900732795216e066
 
 CONFIGURE=(
 --enable-pthreads
