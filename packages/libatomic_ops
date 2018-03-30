@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/ivmai/libatomic_ops/releases/download/v7.6.2/libatomic_ops-7.6.2.tar.gz ebed1891250cc8e2c952b88fc07e1db2a213f7e2
+fetch_source https://github.com/ivmai/libatomic_ops/releases/download/v7.6.4/libatomic_ops-7.6.4.tar.gz 84b0afa2ae9341bf8fe8fba566f7721f1f32bb32
 
 do_unpack_compile
