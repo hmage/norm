@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/esnet/iperf/archive/3.3.tar.gz 186cdc40903e880d29c0887fff2de5931e9a9caf
+fetch_source https://github.com/esnet/iperf/archive/3.5.tar.gz a8c981e6b5f3819e409d8a779c352618cd925d58
 
 do_unpack_compile
