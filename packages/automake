@@ -4,12 +4,11 @@ depends_on autoconf help2man
 
 #mkdir -p "$PREFIX/share/aclocal"
 
-fetch_source http://http.debian.net/debian/pool/main/a/automake-1.15/automake-1.15_1.15.orig.tar.xz c279b35ca6c410809dac8ade143b805fb48b7655
-fetch_debian http://http.debian.net/debian/pool/main/a/automake-1.15/automake-1.15_1.15-6.debian.tar.xz 38b0c526c4eb86f3f33cee2e728555d4f91afb9a
+fetch_source https://ftpmirror.gnu.org/automake/automake-1.16.1.tar.xz 1012bc79956013d53da0890f8493388a6cb20831
 
-do_undebian
+do_unpack
 pushd_src
-./bootstrap.sh
+./bootstrap
 MAKEINFO=true do_compile_notest ## TODO: 7 tests fail on clean debian jessie, for some reason
 cat <<EOF > "$PREFIX/share/aclocal/dirlist"
 $PREFIX/share/aclocal
