@@ -7,6 +7,6 @@ depends_on python ## needs python headers and libraries to build python extensio
 depends_on glib
 depends_on libffi
 
-fetch_source http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/1.54/gobject-introspection-1.54.0.tar.xz 2716178e61a9a40688e6c5df50566c45a50bd6e6
+fetch_source http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/1.56/gobject-introspection-1.56.0.tar.xz 77f505cd7ff281d136a1845360ea2014e8d26f24
 
 do_unpack_compile
