@@ -13,6 +13,6 @@ depends_on glib
 depends_on libpcre
 depends_on libxml
 
-fetch_source https://dl.bintray.com/homebrew/mirror/imagemagick-7.0.7-22.tar.xz 5965e9ba6d8c69ff702d1ed3e60bdb218ad2851e
+fetch_source https://dl.bintray.com/homebrew/mirror/imagemagick-7.0.7-28.tar.xz c600369969c6ec8c439634c711158c1376143df1
 
 do_unpack_compile --without-x
