@@ -2,7 +2,7 @@
 
 depends_on opencl-headers
 
-fetch_source https://hashcat.net/files/hashcat-4.0.1.tar.gz fe11f31cd7cfb20f5a401372bd940567df63466d
+fetch_source https://github.com/hashcat/hashcat/archive/v4.1.0.tar.gz fd1f9a8011d2f1feed7b32dbefe11e3b05eb9f0d
 
 do_unpack
 pushd_src
