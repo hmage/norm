@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/nghttp2/nghttp2/releases/download/v1.29.0/nghttp2-1.29.0.tar.xz fa20d98e5837ec8323eacc5e5a5d9713c9ef8f91
+fetch_source https://github.com/nghttp2/nghttp2/releases/download/v1.31.0/nghttp2-1.31.0.tar.xz c83a7ef947cd43df33fc2b6d91901ec8554175e4
 
 do_unpack_compile
