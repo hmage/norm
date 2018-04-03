@@ -2,6 +2,6 @@
 
 depends_on cmake
 
-fetch_source https://github.com/google/re2/archive/2018-01-01.tar.gz be72a15d860056c544d4eecb40fe78449094f54d
+fetch_source https://github.com/google/re2/archive/2018-03-01.tar.gz dfe79eede6deda7010e67de2615ab839f1f649ea
 
 do_unpack_compile
