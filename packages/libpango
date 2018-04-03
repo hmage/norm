@@ -8,7 +8,8 @@ depends_on libcairo
 depends_on glib
 depends_on zlib
 depends_on libthai
+depends_on libfribidi
 
-fetch_source http://ftp.gnome.org/pub/GNOME/sources/pango/1.40/pango-1.40.13.tar.xz 59dcae113b6504e16647e966d88a588285e7132b
+fetch_source http://ftp.gnome.org/pub/GNOME/sources/pango/1.42/pango-1.42.0.tar.xz e62a4df0abdb38285744b6883fe78b71397e2153
 
 do_unpack_compile --disable-introspection --with-xft
