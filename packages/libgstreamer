@@ -9,7 +9,6 @@ depends_on libgmp
 needs_tool bison
 needs_tool flex
 
-fetch_source http://http.debian.net/debian/pool/main/g/gstreamer0.10/gstreamer0.10_0.10.36.orig.tar.bz2 ff95b5316b920e7c2836588bba18fa61395fbd03
-fetch_debian http://http.debian.net/debian/pool/main/g/gstreamer0.10/gstreamer0.10_0.10.36-1.5.debian.tar.xz ee01cbd57aa94e3e9786c3304211095ce7514b2c
+fetch_source https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.14.0.tar.xz 6ed978dff1d04c2b65e55c9e1c7c815ecd5c0e1f
 
-do_undebian_compile --disable-introspection
+do_unpack_compile --disable-introspection
