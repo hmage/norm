@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://ftp.exim.org/pub/pcre/pcre-8.41.tar.bz2 7d1f4aae4191512744a718cc2b81bcf995ec1437
+fetch_source http://ftp.exim.org/pub/pcre/pcre-8.42.tar.bz2 df0d1c2ff04c359220cb902539a6e134af4497f4
 
 ## these symlinks prevent reinstallation
 rm -f "$PREFIX"/share/man/man3/pcre16_*
