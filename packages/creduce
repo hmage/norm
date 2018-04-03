@@ -1,45 +1,9 @@
 #!/bin/bash
 
 depends_on libllvm clang
+depends_on flex
 
-fetch_source http://embed.cs.utah.edu/creduce/creduce-2.7.0.tar.gz 45f473364f5e98b612e4244be648ce2cc45dd178
+fetch_source https://github.com/csmith-project/creduce/archive/7eb327e94d1b29c96e6ac09ec1321d614355f586.tar.gz a73ebc5761d82995ed4b9f089c16baf27fe223a1
 
 do_unpack
-do_patch_inline -p1 << EOF
---- a/clang_delta/TransformationManager.cpp
-+++ b/clang_delta/TransformationManager.cpp
-@@ -101,16 +101,16 @@
-   CompilerInvocation &Invocation = ClangInstance->getInvocation();
-   InputKind IK = FrontendOptions::getInputKindForExtension(
-         StringRef(SrcFileName).rsplit('.').second);
--  if ((IK == IK_C) || (IK == IK_PreprocessedC)) {
--    Invocation.setLangDefaults(ClangInstance->getLangOpts(), IK_C, T, PPOpts);
-+  if (IK.getLanguage() == InputKind::C) {
-+    Invocation.setLangDefaults(ClangInstance->getLangOpts(), InputKind::C, T, PPOpts);
-   }
--  else if ((IK == IK_CXX) || (IK == IK_PreprocessedCXX)) {
-+  else if (IK.getLanguage() == InputKind::CXX) {
-     // ISSUE: it might cause some problems when building AST
--    // for a function which has a non-declared callee, e.g., 
--    // It results an empty AST for the caller. 
--    Invocation.setLangDefaults(ClangInstance->getLangOpts(), IK_CXX, T, PPOpts);
-+    // for a function which has a non-declared callee, e.g.,
-+    // It results an empty AST for the caller.
-+    Invocation.setLangDefaults(ClangInstance->getLangOpts(), InputKind::CXX, T, PPOpts);
-   }
--  else if(IK == IK_OpenCL) {
-+  else if(IK.getLanguage() == InputKind::OpenCL) {
-     //Commandline parameters
-     std::vector<const char*> Args;
-     Args.push_back("-x");
-@@ -135,7 +135,7 @@ bool TransformationManager::initializeCompilerInstance(std::string &ErrorMsg)
-                                        &Args[0], &Args[0] + Args.size(),
-                                        ClangInstance->getDiagnostics());
-     Invocation.setLangDefaults(ClangInstance->getLangOpts(),
--                               IK_OpenCL, T, PPOpts);
-+                               InputKind::OpenCL, T, PPOpts);
-   }
-   else {
-     ErrorMsg = "Unsupported file type!";
-EOF
 do_compile
