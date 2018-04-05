@@ -2,7 +2,7 @@
 
 depends_on libjpeg
 
-fetch_source https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.4.tar.gz 54faade809d5ca854294b902ad5ccc88c021ee40
+fetch_source https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.5.tar.gz 7677e48a38d2aea7f23d1371d14b9e50d3b39717
 
 do_unpack_compile_notest ## does not have tests
 
