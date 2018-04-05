@@ -10,6 +10,6 @@ depends_on libffi
 depends_on libgmp
 depends_on libyaml
 
-fetch_source http://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.0.tar.gz 58f77301c891c1c4a08f301861c26b1ea46509f6
+fetch_source http://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.1.tar.gz 93fafd57a724974b951957c522cdc4478a6bdc2e
 
 do_unpack_compile
