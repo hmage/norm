@@ -3,7 +3,7 @@
 depends_on zlib
 depends_on openssl
 
-fetch_source http://mirrors.evowise.com/pub/OpenBSD/OpenSSH/portable/openssh-7.6p1.tar.gz a6984bc2c72192bed015c8b879b35dd9f5350b3b
+fetch_source http://mirrors.evowise.com/pub/OpenBSD/OpenSSH/portable/openssh-7.7p1.tar.gz 446fe9ed171f289f0d62197dffdbfdaaf21c49f2
 
 ## this file breaks reinstallation/upgrade
 rm -f $PREFIX/share/man/man5/authorized_keys.5
