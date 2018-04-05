@@ -1,14 +1,13 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
+#depends_on autoconf automake libtool
 depends_on libsasl
 depends_on openssl
 depends_on groff
 
-fetch_source http://security.debian.org/debian-security/pool/updates/main/o/openldap/openldap_2.4.40+dfsg.orig.tar.gz b80c48f2b7cbf634a3d463b7eb4ca38f081ce2eb
-fetch_debian http://security.debian.org/debian-security/pool/updates/main/o/openldap/openldap_2.4.40+dfsg-1+deb8u3.diff.gz 94705cf6bd8b8672590e5b33a55a59033948af42
+fetch_source https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.4.46.tgz a9ae2273eb9bdd70090dafe0d018a3132606bef6
 
-do_undebian
-do_autoreconf
+do_unpack
+#do_autoreconf
 do_compile --disable-slapd
 
