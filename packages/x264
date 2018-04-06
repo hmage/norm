@@ -1,8 +1,8 @@
 #!/bin/bash
 
-depends_on yasm
+depends_on nasm
 
-fetch_source http://ftp.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-20170811-2245-stable.tar.bz2 e9ddab79cbbea88b4b951cb922b2a32774599a3e
+fetch_source http://ftp.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-20180328-2245-stable.tar.bz2 b59caddcbbf70b5f12165313d036ef53fa2a7e4c
 
 # x264 has no tests in makefile
 do_unpack_compile_notest --enable-shared --enable-static --enable-strip --disable-lavf
