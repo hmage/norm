@@ -8,17 +8,18 @@ depends_on libpng
 ## don't add libcairo -- it's the other way around -- cairo needs freetype
 depends_on libicu
 depends_on glib
+depends_on gobject-introspection
 
 ## adding bzip2 will force everyone that uses freetype to add -lbz2 manually to linker, disable it
-FREETYPE_OPTS="--with-zlib --without-bzip2 --with-png"
+FREETYPE_OPTS="--with-zlib --without-bzip2 --with-png --enable-introspection=yes"
 
 ## freetype #1 for harfbuzz
 fetch_source http://downloads.sourceforge.net/freetype/freetype2/2.9/freetype-2.9.tar.bz2 94c4399b1a55c5892812e732843fcb4a7c2fe657
-do_unpack_compile $FREETYPE_OPTS
+do_unpack_compile $FREETYPE_OPTS --without-harfbuzz
 
 ## harfbuzz with freshly built freetype
 fetch_source http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.7.6.tar.bz2 67a8754c510dfb68796b1cf6a7011ad6515f504d
-do_unpack_compile --without-cairo
+do_unpack_compile --without-cairo --enable-introspection=yes
 
 ## freetype #2 with freshly built harfbuzz
 fetch_source http://downloads.sourceforge.net/freetype/freetype2/2.9/freetype-2.9.tar.bz2 94c4399b1a55c5892812e732843fcb4a7c2fe657
