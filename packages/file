@@ -2,7 +2,7 @@
 
 depends_on zlib
 
-fetch_source http://fossies.org/linux/misc/file-5.32.tar.gz c2858a8043387d1229d8768ad42762a803d017db
+fetch_source http://fossies.org/linux/misc/file-5.33.tar.gz 31a67e4dc0a3d7a8d1b850429c3f625314700240
 
 do_unpack_compile
 
