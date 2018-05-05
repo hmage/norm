@@ -9,7 +9,7 @@ depends_on gettext
 depends_on libpcre
 needs_tool python # gdbus-codegen is in python, needed by libgtk3 later
 
-fetch_source https://download.gnome.org/sources/glib/2.56/glib-2.56.0.tar.xz 712f8a67417cc606b1b2b75718f9a65354b2cdfe
+fetch_source http://ftp.gnome.org/pub/gnome/sources/glib/2.56/glib-2.56.1.tar.xz 4db098c15b9d57c37bb504a6f58ebe717994e6f2
 
 unset EXTRAFLAGS NEW_LDFLAGS
 cc_addflags EXTRAFLAGS -Wno-format-nonliteral ## gcc 6.1 is too strict for this old glib
