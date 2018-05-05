@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://downloads.sourceforge.net/project/pcre/pcre2/10.23/pcre2-10.23.tar.bz2 7d2a91609d298a77f8093775209b44b143fdc149
+fetch_source http://downloads.sourceforge.net/project/pcre/pcre2/10.31/pcre2-10.31.tar.bz2 79fa7e244b9f6b7eb2d5faed4e3547caf86ea76d
 
 do_unpack_compile --enable-pcre2-16 --enable-pcre2-32 --enable-jit
