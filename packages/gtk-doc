@@ -6,7 +6,7 @@ depends_on docbook-xsl
 depends_on itstool
 depends_on gettext
 
-fetch_source https://download.gnome.org/sources/gtk-doc/1.28/gtk-doc-1.28.tar.xz f48311fd3def5b393ebb32d5480a61ec6dfd2809
+fetch_source http://ftp.gnome.org/pub/gnome/sources/gtk-doc/1.28/gtk-doc-1.28.tar.xz f48311fd3def5b393ebb32d5480a61ec6dfd2809
 
 ## gtk-doc doesn't have any tests
 do_unpack_compile_notest --with-xml-catalog="$PREFIX"/etc/xml/catalog
