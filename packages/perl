@@ -10,7 +10,7 @@ fi
 depends_on libdb
 depends_on libgdbm
 
-fetch_source http://www.cpan.org/src/5.0/perl-5.26.1.tar.gz 74a0822429508d593513a0dfd6f51a907bad68d0
+fetch_source http://www.cpan.org/src/5.0/perl-5.26.2.tar.gz 5dc74e667250a663d8f3114869e13ba2869bf6a9
 
 unset EXTRALD
 cc_addflags EXTRALD -Wl,--no-gc-sections
