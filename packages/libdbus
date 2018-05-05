@@ -14,7 +14,7 @@ depends_on xz
 depends_on liblz4
 depends_on libgcrypt
 
-fetch_source http://dbus.freedesktop.org/releases/dbus/dbus-1.12.2.tar.gz 701da5c72a721ea1c4af66bc8606ac2deb5f7159
+fetch_source http://dbus.freedesktop.org/releases/dbus/dbus-1.12.8.tar.gz 8e50e46796e8297eaa633da3a61cdc79a500e34a
 
 do_unpack_compile --disable-modular-tests --disable-libaudit --disable-xml-docs --disable-doxygen-docs \
                   --disable-systemd \
