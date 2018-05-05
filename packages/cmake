@@ -5,7 +5,7 @@ depends_on zlib
 depends_on bzip2
 ! is_without tests && depends_on file ## tests will not work without 'file' command
 
-fetch_source http://www.cmake.org/files/v3.11/cmake-3.11.0.tar.gz 7851f87185f80e260ea634d5985ec9215fe408c8
+fetch_source http://www.cmake.org/files/v3.11/cmake-3.11.1.tar.gz 591fc2fabd44f3612676beef6e15f81fbe5417f7
 
 do_unpack
 ## it's not cmake's job to test system-provided qt, we'll test qt when compiling qt
