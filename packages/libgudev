@@ -4,6 +4,6 @@ depends_on pkg-config
 depends_on libudev
 depends_on glib
 
-fetch_source https://download.gnome.org/sources/libgudev/230/libgudev-230.tar.xz 964ff42115e012f7b52994251e73a48317867d43
+fetch_source http://ftp.gnome.org/pub/gnome/sources/libgudev/230/libgudev-230.tar.xz 964ff42115e012f7b52994251e73a48317867d43
 
 do_unpack_compile
