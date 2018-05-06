@@ -7,23 +7,6 @@ depends_on python ## needs python headers and libraries to build python extensio
 depends_on glib
 depends_on libffi
 
-fetch_source http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/1.56/gobject-introspection-1.56.0.tar.xz 77f505cd7ff281d136a1845360ea2014e8d26f24
+fetch_source http://ftp.gnome.org/pub/gnome/sources/gobject-introspection/1.56/gobject-introspection-1.56.1.tar.xz eef277357cf724bc521f203f0d47faaea2ae4f0c
 
-do_unpack
-do_patch_inline -p1 << EOF
-diff --git a/giscanner/ccompiler.py b/giscanner/ccompiler.py
-index 29de0ee..8d89502 100644
---- a/giscanner/ccompiler.py
-+++ b/giscanner/ccompiler.py
-@@ -119,7 +119,7 @@ class CCompiler(object):
-         if self.check_is_msvc():
-             runtime_path_envvar = ['LIB', 'PATH']
-         else:
--            runtime_path_envvar = ['LD_LIBRARY_PATH']
-+            runtime_path_envvar = ['LD_LIBRARY_PATH', 'DYLD_LIBRARY_PATH']
-             # Search the current directory first
-             # (This flag is not supported nor needed for Visual C++)
-             args.append('-L.')
-
-EOF
-do_compile
+do_unpack_compile
