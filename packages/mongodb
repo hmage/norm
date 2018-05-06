@@ -1,0 +1,15 @@
+#!/bin/bash
+
+## TODO: needs python modules typing and Cheetah.Template to install
+
+depends_on scons
+
+fetch_source https://fastdl.mongodb.org/src/mongodb-src-r3.6.1.tar.gz 4107432d201e57a59401e0d0d24b3fe18cf50d78
+
+pip install typing cheetah regex PyYAML
+
+do_unpack
+pushd_src
+prefix="$PREFIX" CCFLAGS="$CPPFLAGS" scons -j $NUMJOBS #PREFIX="$PREFIX" CFLAGS="-O2 -g $CPPFLAGS" LINKFLAGS="$LDFLAGS"
+scons install
+popd
