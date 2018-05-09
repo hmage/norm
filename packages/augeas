@@ -2,6 +2,7 @@
 
 depends_on libreadline
 depends_on libxml
+depends_on libselinux # opportunistic linking
 
 fetch_source http://download.augeas.net/augeas-1.10.1.tar.gz 3cfa4870fac3b6697e8039cb611cb0c5a75498a4
 
