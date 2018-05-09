@@ -1,0 +1,44 @@
+#!/bin/bash
+
+depends_on binutils ## system binutils might not support hash-style=both
+depends_on libmpfr
+depends_on libgmp
+depends_on libmpc
+depends_on libisl
+! is_without tests && depends_on autogen ## needed to run tests
+
+CONFIGURE_OPTIONS=(
+--program-suffix=-8.1    # version suffix to all binaries
+--enable-__cxa_atexit    # for fully standards-compliant destructors, requires libc to have __cxa_atexit
+--enable-languages=c,c++ # only C and C++, gcc is barely used for anything else
+)
+
+## if user wants to speed things up and trusts the system compiler
+is_without bootstrap && CONFIGURE_OPTIONS+=(--disable-bootstrap)
+
+if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
+    CONFIGURE_OPTIONS+=(--disable-libsanitizer)
+    add_caveat "Sanitizer support was disabled -- your linux headers are too old"
+fi
+
+if cc_checkflags -m64 && cc_checkflags -m32; then
+    CONFIGURE_OPTIONS+=(--enable-multilib)
+else
+    CONFIGURE_OPTIONS+=(--disable-multilib)
+    add_caveat "Multilib support was disabled -- your current compiler doesn't support multilib"
+fi
+
+fetch_source http://ftpmirror.gnu.org/gcc/gcc-8.1.0/gcc-8.1.0.tar.xz b34031ba9ff3e248b2c62de0825e49a1e0e01998
+do_unpack
+
+# We install 64-bit linux libraries into $PREFIX/lib
+[[ $HOSTTYPE == "x86_64" ]] && sed -ibak '/m64=/s/lib64/lib/' "$SRCDIR"/gcc/config/i386/t-linux64
+
+do_compile_outside "${CONFIGURE_OPTIONS[@]}"
+
+add_to_ccache g++-8.1 gcc-8.1
+
+add_caveat "To not clash with system-installed default gcc, GCC 8.1 was installed with a suffix, run gcc-8.1 or g++-8.1"
+
+add_caveat "Remember -- you can't use this build of gcc on any other machine" \
+           "Do not move it away from $PREFIX either -- paths are hardcoded"
