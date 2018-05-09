@@ -6,6 +6,6 @@ depends_on libdbus
 depends_on glib
 depends_on libatk
 
-fetch_source http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.26/at-spi2-atk-2.26.1.tar.xz 577f4e67bcda8fecd71ed4893c9b675670519bf5
+fetch_source http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.26/at-spi2-atk-2.26.2.tar.xz d4f0710c50223a84ca412be1f385c281054558cc
 
 do_unpack_compile
