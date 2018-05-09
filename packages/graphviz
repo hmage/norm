@@ -1,0 +1,14 @@
+#!/bin/bash
+
+depends_on autoconf automake libtool
+depends_on pkg-config
+depends_on tcl # for tclsh
+needs_tool bison flex
+
+fetch_source https://gitlab.com/graphviz/graphviz/-/archive/stable_release_2.40.1/graphviz-stable_release_2.40.1.tar.gz 643843f5f48973827906f51bf6a6921701b457d2
+
+do_unpack
+pushd_src
+./autogen.sh NOCONFIG
+do_compile
+popd_src
