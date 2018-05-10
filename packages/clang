@@ -32,6 +32,9 @@ if [[ ${BASH_SOURCE##*/} == clang ]]; then
 fi
 
 do_compile_outside \
+	-DOCAMLFIND= \
+	-DOCAML_STDLIB_PATH= \
+	-DHAVE_OCAMLOPT=FALSE \
 	-DLLVM_OPTIMIZED_TABLEGEN=ON \
 	-DLLVM_BUILD_LLVM_DYLIB=ON \
 	-DLLVM_BUILD_TESTS=ON \
