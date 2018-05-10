@@ -6,7 +6,7 @@ depends_on libblkid
 
 fetch_source https://downloads.sourceforge.net/e2fsprogs/e2fsprogs/v1.44.0/e2fsprogs-1.44.0.tar.gz 302a3eff5ca362c3d2a63a0a60860a3076f29f2e
 
-CONFFLAGS="--disable-defrag --enable-symlink-install --disable-libblkid --disable-uuidd --disable-fsck --disable-libuuid"
+CONFFLAGS="--disable-defrag --enable-symlink-install --disable-libblkid --disable-uuidd --disable-fsck --disable-libuuid --disable-fuse2fs"
 [[ $OSTYPE == *linux* ]] && CONFFLAGS="$CONFFLAGS --enable-elf-shlibs"
 
 do_unpack
