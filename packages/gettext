@@ -1,11 +1,21 @@
 #!/bin/bash
 
 [[ $OSTYPE == *linux* ]] && depends_on libacl
-depends_on libxml
-depends_on libunistring
 
 ## don't add libcroco dependency -- it depends on glib, and glib depends on gettext
 
 fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.19.8.1.tar.xz e0fe90ede22f7f16bbde7bdea791a835f2773fc9
 
-do_unpack_compile --without-emacs --disable-libasprintf --with-included-glib --with-included-libcroco --disable-curses
+CONFFLAGS=(
+--without-emacs
+--disable-libasprintf
+--with-included-gettext
+--with-included-glib
+--with-included-libcroco
+--with-included-libunistring
+--with-included-libxml
+--disable-curses
+--disable-java
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
