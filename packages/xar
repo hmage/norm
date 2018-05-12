@@ -5,7 +5,36 @@ depends_on openssl
 depends_on zlib
 depends_on bzip2
 depends_on xz
+depends_on libacl ## opportunistic linking
+depends_on e2fsprogs ## opporutnistic linking
 
 fetch_source https://github.com/downloads/mackyle/xar/xar-1.6.1.tar.gz 6f7827a034877eda673a22af1c42dc32f14edb4c
 
-do_unpack_compile
+do_unpack
+do_patch_inline -p0 << EOF
+--- lib/ext2.c
++++ lib/ext2.c
+@@ -140,8 +140,10 @@
+ 	if(! (flags & ~EXT2_NOCOMPR_FL) )
+ 		x_addprop(f, "NoCompBlock");
+ #endif
++#ifdef EXT2_ECOMPR_FL
+ 	if(! (flags & ~EXT2_ECOMPR_FL) )
+ 		x_addprop(f, "CompError");
++#endif
+ 	if(! (flags & ~EXT2_BTREE_FL) )
+ 		x_addprop(f, "BTree");
+ 	if(! (flags & ~EXT2_INDEX_FL) )
+@@ -229,8 +231,10 @@
+ 	if( e2prop_get(f, "NoCompBlock", (char **)&tmp) == 0 )
+ 		flags |= EXT2_NOCOMPR_FL ;
+ #endif
++#ifdef EXT2_ECOMPR_FL
+ 	if( e2prop_get(f, "CompError", (char **)&tmp) == 0 )
+ 		flags |= EXT2_ECOMPR_FL ;
++#endif
+ 	if( e2prop_get(f, "BTree", (char **)&tmp) == 0 )
+ 		flags |= EXT2_BTREE_FL ;
+ 	if( e2prop_get(f, "HashIndexed", (char **)&tmp) == 0 )
+EOF
+do_compile
