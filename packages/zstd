@@ -2,6 +2,7 @@
 
 depends_on zlib
 depends_on xz
+depends_on liblz4 ## opportunistic linking
 
 fetch_source https://github.com/facebook/zstd/archive/v1.3.4.tar.gz f000e185e02b8ccccd0992e5cb7e88175318d83b
 
