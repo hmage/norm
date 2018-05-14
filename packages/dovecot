@@ -56,5 +56,6 @@ do_compile --with-ssl=openssl --with-solr --with-sqlite --localstatedir=$PREFIX/
            --without-libcap \
            --without-stemmer \
            --without-textcat \
+           --without-apparmor \
            --with-moduledir=$PREFIX/lib/dovecot/modules --sysconfdir=$PREFIX/etc
 mkdir -p $PREFIX/var/log
