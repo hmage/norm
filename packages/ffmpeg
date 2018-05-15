@@ -28,6 +28,8 @@ depends_on libsdl2
 depends_on libfdk-aac
 depends_on libvdpau
 depends_on libvpx
+depends_on libsndio ## opportunistic linking
+depends_on libcrystalhd ## opportunistic linking
 
 fetch_source http://www.ffmpeg.org/releases/ffmpeg-4.0.tar.xz 1f85916c154a4d6a342d7ec1f909bbc58a92c19d
 
