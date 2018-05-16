@@ -24,12 +24,11 @@ do_configure() {
     # replace config.sub and config.guess with newer ones
     find "$SRCDIR" -name config.sub -exec install -v "$CACHEDIR/config.sub" {} \;
     find "$SRCDIR" -name config.guess -exec install -v "$CACHEDIR/config.guess" {} \;
-    log "Configuring $FORMULA $@"
     NORM_EXTRAOPTS=()
     fgrep -q disable-silent-rules "$SRCDIR/configure" && NORM_EXTRAOPTS+=(--disable-silent-rules)
     fgrep -q disable-dependency-tracking "$SRCDIR/configure" && NORM_EXTRAOPTS+=(--disable-dependency-tracking)
     fgrep -q enable-rpath "$SRCDIR/configure" && NORM_EXTRAOPTS+=(--enable-rpath)
-    echo "${NORM_EXTRAOPTS[@]}"
+    log "Configuring $FORMULA ${NORM_EXTRAOPTS[@]} --prefix=\"$PREFIX\" $@"
     "$SRCDIR"/configure "${NORM_EXTRAOPTS[@]}" --prefix="$PREFIX" "$@" || return 1
 }
 
