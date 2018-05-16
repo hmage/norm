@@ -1,6 +1,7 @@
 #!/bin/bash
 
 depends_on libdb
+depends_on libreadline ## opportunistic linking
 
 fetch_source http://ftpmirror.gnu.org/gdbm/gdbm-1.14.1.tar.gz d8d02ecfc442792756515ee1aef25a2ecbc9284c
 
