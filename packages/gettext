@@ -9,7 +9,6 @@ fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.19.8.1.tar.xz e0fe90ede2
 CONFFLAGS=(
 --without-emacs
 --disable-libasprintf
---with-included-gettext
 --with-included-glib
 --with-included-libcroco
 --with-included-libunistring
