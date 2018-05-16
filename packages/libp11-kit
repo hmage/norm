@@ -1,0 +1,10 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on libtasn1
+depends_on libffi
+depends_on libunistring
+
+fetch_source https://github.com/p11-glue/p11-kit/releases/download/0.23.10/p11-kit-0.23.10.tar.gz 88cdf4e7c50e3da02f1e69173d731410f6123efe
+
+do_unpack_compile --without-trust-paths
