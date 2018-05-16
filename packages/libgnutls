@@ -1,0 +1,9 @@
+#!/bin/bash
+
+depends_on libtasn1
+depends_on libnettle
+depends_on libp11-kit
+
+fetch_source https://www.gnupg.org/ftp/gcrypt/gnutls/v3.5/gnutls-3.5.18.tar.xz 3f56903c4eba1af9440c64ef86688f984834f0d5
+
+do_unpack_compile
