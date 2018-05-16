@@ -62,6 +62,7 @@ do_make() {
     log "Making $FORMULA $@"
     local PARALLEL="-j$NUMJOBS"
     [ "$NOPARALLEL" = "1" ] && PARALLEL=
+    [ "$NEEDV1" = "1" ] && set V=1 "$@"
     make $PARALLEL "$@" || return 1
 }
 
