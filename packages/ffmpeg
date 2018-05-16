@@ -59,4 +59,4 @@ CONFIGURE=(
 [[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--enable-videotoolbox)
 
 do_unpack
-do_compile "${CONFIGURE[@]}"
+NEEDV1=1 do_compile "${CONFIGURE[@]}"
