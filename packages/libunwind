@@ -1,0 +1,14 @@
+#!/bin/bash
+
+depends_on autoconf automake libtool
+
+fetch_source http://download.savannah.nongnu.org/releases/libunwind/libunwind-1.2.1.tar.gz 4ce18ee9c168ed6de85126534d855ddcb696bb17
+
+do_unpack
+sed -i.bak 's|x86_64/Lstep.c|x86_64/x86_64_Lstep.c|;s|x86_64/Gstep.c|x86_64/x86_64_Gstep.c|g' "$SRCDIR"/src/Makefile.am
+mv "$SRCDIR"/src/x86_64/{,x86_64_}Gstep.c
+mv "$SRCDIR"/src/x86_64/{,x86_64_}Lstep.c
+sed -i.bak 's|"Gstep.c"|"x86_64_Gstep.c"|g' "$SRCDIR"/src/x86_64/x86_64_Lstep.c
+do_autoreconf
+do_compile
+# --with-pic --enable-cxx-exceptions
