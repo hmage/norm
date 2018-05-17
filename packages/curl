@@ -5,7 +5,7 @@ depends_on zlib
 depends_on libnghttp2
 depends_on libidn2 ## opportunistic linking
 
-fetch_source http://curl.mirror.anstey.ca/curl-7.58.0.tar.gz 089f17884d672aca7a661a65d847135f2f0ccbbf
+fetch_source http://curl.mirror.anstey.ca/curl-7.60.0.tar.gz 31c68f25832ee3af7480a48d1d5dffbe6771df17
 
 CONFIGURE=(
 --disable-ldap
