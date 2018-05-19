@@ -3,6 +3,7 @@
 depends_on zlib
 depends_on bzip2
 depends_on libicu
+depends_on xz ## opportunistic linking
 BOOST_WITHOUT_PYTHON="--without-libraries=python"
 if [[ "${BASH_SOURCE[0]##*/}" == libboost-python ]]; then
     depends_on libboost
