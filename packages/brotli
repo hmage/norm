@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on cmake
+needs_tool cmake
 
 fetch_source https://github.com/google/brotli/archive/v1.0.1.tar.gz 33719c380ca2623f748f783666cea242a3b0339a
 
