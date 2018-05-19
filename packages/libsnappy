@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on cmake
+needs_tool cmake
 
 fetch_source https://github.com/google/snappy/archive/1.1.7.tar.gz 1ec676b842fc96fd8a95b03c12758935e7f257b0
 
