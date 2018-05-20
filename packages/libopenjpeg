@@ -1,0 +1,8 @@
+#!/bin/bash
+
+needs_tool cmake
+
+fetch_source http://http.debian.net/debian/pool/main/o/openjpeg2/openjpeg2_2.1.2.orig.tar.gz c8671e7f577fdc58abde1e1f32b10d372e6f9b07
+fetch_debian http://http.debian.net/debian/pool/main/o/openjpeg2/openjpeg2_2.1.2-1.1+deb9u2.debian.tar.xz de8dec195fda38de6e80e5e9114a85dfd8023cbe
+
+do_undebian_compile
