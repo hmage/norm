@@ -4,6 +4,7 @@ depends_on intltool
 depends_on pkg-config
 depends_on gettext
 depends_on glib
+depends_on libxml
 
 fetch_source https://freedesktop.org/~hadess/shared-mime-info-1.9.tar.xz aae41d8a93c665d25bae704f732fdb1c1551cb5c
 
