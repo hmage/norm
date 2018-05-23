@@ -82,7 +82,7 @@ prepare_jail() {
 }
 
 ## build the set that can compile all our formulas
-prepare_jail tools xz curl bzip2 lrzip
+prepare_jail tools xz curl bzip2
 JAIL_TOOLS=$(jailpath tools)
 if ! have_gcc 4.9 && [[ $OSTYPE != *darwin* ]]; then
     prepare_jail gcc gcc-4.9 ccache
@@ -140,8 +140,6 @@ for FORMULA_NAME in "${LIST[@]}"; do
 
     if [ -z "$FAILURE" ]; then
         gzip "$LOGPATH/$FORMULA_ID.log"
-    elif [ -e "$HOME/$NORMTEST_PREFIXNAME" ]; then
-        tar cf - -C "$HOME" "$NORMTEST_PREFIXNAME" | lrzip > "$LOGPATH/$FORMULA_ID.tar.lrz" || true
     fi
 done
 
