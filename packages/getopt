@@ -2,7 +2,7 @@
 
 depends_on gettext
 
-fetch_source http://frodo.looijaard.name/system/files/software/getopt/getopt-1.1.6.tar.gz 98725b4878d19ab6b126cd16263fed1f6090f6a7
+fetch_source https://fossies.org/linux/misc/getopt-1.1.6.tar.gz 98725b4878d19ab6b126cd16263fed1f6090f6a7
 
 do_unpack
 pushd_src
