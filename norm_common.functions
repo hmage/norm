@@ -48,9 +48,9 @@ do_cmake() {
 
 do_auto_configure() {
     if [ -e "$SRCDIR"/configure ]; then
-        do_configure "$@" || return 1
+        time do_configure "$@" || return 1
     elif [ -e "$SRCDIR"/CMakeLists.txt ] && hash cmake 2>/dev/null; then
-        do_cmake "$@" || return 1
+        time do_cmake "$@" || return 1
     else
         log "Couldn't figure out how to configure formula '$FORMULA', bailing out"
         return 1
@@ -62,12 +62,12 @@ do_make() {
     local PARALLEL="-j$NUMJOBS"
     [ "$NOPARALLEL" = "1" ] && PARALLEL=
     [ "$NEEDV1" = "1" ] && set V=1 "$@"
-    make $PARALLEL "$@" || return 1
+    time make $PARALLEL "$@" || return 1
 }
 
 do_install() {
     log "Installing $FORMULA $@"
-    make install "$@" || return 1
+    time make install "$@" || return 1
 }
 
 do_make_and_install() {
@@ -79,9 +79,9 @@ do_make_and_install() {
 do_test() {
     if ! is_without tests; then
         log "Doing tests for $FORMULA"
-        CTEST_OUTPUT_ON_FAILURE=1 make check "$@" ||
-        CTEST_OUTPUT_ON_FAILURE=1 make test "$@" ||
-        CTEST_OUTPUT_ON_FAILURE=1 make tests "$@" || return 1
+        time env - PATH="$PATH" CTEST_OUTPUT_ON_FAILURE=1 make check "$@" ||
+        time env - PATH="$PATH" CTEST_OUTPUT_ON_FAILURE=1 make test "$@" ||
+        time env - PATH="$PATH" CTEST_OUTPUT_ON_FAILURE=1 make tests "$@" || return 1
     fi
 }
 
@@ -370,7 +370,7 @@ compile_formula() {
         [ -z "$COMPILING_FOR" ] && log "Building formula: $FORMULA" \
                                 || log "Building formula: $FORMULA -- dependency of $COMPILING_FOR"
         [ ! -e "$NORMDIR"/packages/"$FORMULA" ] && log "Error: Formula file '$FORMULA' does not exist" && return 1
-        . "$NORMDIR"/packages/"$FORMULA"
+        time . "$NORMDIR"/packages/"$FORMULA"
         mkdir -p `dirname "$STATEDIR/$FORMULA"`
         log_success
         touch "$STATEDIR/$FORMULA_ID".installed
