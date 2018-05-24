@@ -6,6 +6,7 @@ depends_on libjansson ## opportunistic linking
 depends_on openssl ## opportunistic linking
 depends_on libcares ## opportunistic linking
 
-fetch_source https://github.com/nghttp2/nghttp2/releases/download/v1.32.0/nghttp2-1.32.0.tar.xz e1382ba5c4c0459c8b7ff7e90ffa5ad9001e01e1
+## needed to build https-compatible curl, so don't use https for fetching this
+fetch_source http://lil.fr.distfiles.macports.org/nghttp2/nghttp2-1.32.0.tar.xz e1382ba5c4c0459c8b7ff7e90ffa5ad9001e01e1
 
 do_unpack_compile --without-systemd --disable-python-bindings --without-jemalloc
