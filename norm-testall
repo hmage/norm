@@ -98,7 +98,7 @@ fi
 set +o pipefail
 
 ## check if were given list of packages, if not, try all of them
-LIST=($@)
+LIST=("$@")
 [ -z "$LIST" ] && LIST=("$NORMDIR"/packages/*)
 
 ##
