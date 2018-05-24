@@ -107,6 +107,19 @@ cmd_install() {
                     || log "Installing formulas: $@"
     setup_traps
     setup_prefix "$PREFIX"
+    ## ensure we have proper gzip
+    if ! hash gzip 2>/dev/null; then
+        log "Required utility gzip not found, will install it too"
+        set -- gzip "$@"
+    else
+        gzip --best -c <(echo hello) >/dev/null 2>/dev/null || BUSYBOXGZIP=1
+    fi
+    if [ -n "$BUSYBOXGZIP" ]; then
+        log "Busybox gzip detected, will install our own"
+        set -- gzip "$@"
+    fi
+
+    ## ensure we have proper patch
     if ! hash patch 2>/dev/null; then
         log "Required utility patch not found, will install it too"
         set -- patch "$@"
@@ -118,6 +131,7 @@ cmd_install() {
         log "Busybox patch detected, will install our own"
         set -- patch "$@"
     fi
+
     ## make needs to be installed first
     if ! hash make 2>/dev/null; then
         log "Required utility make not found, will install it too"
