@@ -110,6 +110,13 @@ cmd_install() {
     if ! hash patch 2>/dev/null; then
         log "Required utility patch not found, will install it too"
         set -- patch "$@"
+    else
+        patch -l -i /dev/null 2>/dev/null || BUSYBOXPATCH=1
+        patch -f -i /dev/null 2>/dev/null || BUSYBOXPATCH=1
+    fi
+    if [ -n "$BUSYBOXPATCH" ]; then
+        log "Busybox patch detected, will install our own"
+        set -- patch "$@"
     fi
     ## make needs to be installed first
     if ! hash make 2>/dev/null; then
