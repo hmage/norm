@@ -68,7 +68,10 @@ prepare_jail() {
     echo Will build in $JAILPATH:
     printf " * %s\n" "${FORMULAS[@]}"
 
-    "$NORMDIR"/norm -p "$JAILFULLPATH" install ${EXTRAFLAGS[@]} "${FORMULAS[@]}" 2>&1 | tee -a "$JAILLOG"
+    for i in "${FORMULAS[@]}"; do
+        "$NORMDIR"/norm -p "$JAILFULLPATH" install ${EXTRAFLAGS[@]} "$i" 2>&1 | tee -a "$JAILLOG"
+        hash -r
+    done
     rm -vf   "$JAILFULLPATH"/bin/{aclocal*,auto*,c_rehash,*-config,idn,ifnames,libtool,libtoolize,m4,openssl}
     rm -rvf  "$JAILFULLPATH"/{include,tmp,var/norm}
     rm -rvf  "$JAILFULLPATH"/lib/*.{a,la}
