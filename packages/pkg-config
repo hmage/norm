@@ -2,7 +2,8 @@
 
 ## do not add glib -- it depends on pkg-config
 
-fetch_source https://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz 76e501663b29cb7580245720edfb6106164fad2b
+## needed to build https-compatible curl, so don't use https for fetching this
+fetch_source http://distro.ibiblio.org/tinycorelinux/9.x/x86/release/src/toolchain/pkg-config-0.29.2.tar.gz 76e501663b29cb7580245720edfb6106164fad2b
 
 SYSPCPATH="/usr/local/lib/$HOSTTYPE-$OSTYPE/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:/usr/lib/$HOSTTYPE-$OSTYPE/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig"
 
