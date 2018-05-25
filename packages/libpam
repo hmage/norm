@@ -5,7 +5,6 @@ depends_on gettext # for autopoint in autoreconf
 depends_on libdb
 depends_on libcrack
 needs_tool flex    # code calls to yywrap()
-depends_on libselinux
 depends_on libtirpc
 
 fetch_source http://http.debian.net/debian/pool/main/p/pam/pam_1.1.8.orig.tar.gz d055ed81373280a372468c2434cea6313f8d57a8
@@ -15,4 +14,5 @@ do_undebian
 do_autoreconf
 do_compile --enable-static --enable-shared --libdir=$PREFIX/lib --enable-isadir=$PREFIX/lib/security \
            --disable-nls \
+           --disable-selinux \
            --disable-regenerate-docu --includedir=$PREFIX/include/security
