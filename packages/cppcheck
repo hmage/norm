@@ -1,7 +1,6 @@
 #!/bin/bash
 
 depends_on libpcre
-depends_on libtinyxml
 
 fetch_source http://prdownloads.sourceforge.net/cppcheck/1.83/cppcheck-1.83.tar.gz 2a7da43886aa2b18ede075cb153b5cf0d569a2c2
 
