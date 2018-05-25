@@ -1,11 +1,5 @@
 #!/bin/bash
 
-depends_on libpcre
-depends_on openssl
-depends_on zlib
-depends_on libpcap
-depends_on lua
-
 fetch_source https://nmap.org/dist/nmap-7.70.tar.bz2 71057361a0953bba5967dc0385de77f3eed792de
 
 do_unpack_compile --without-nmap-update
