@@ -1,6 +1,5 @@
 #!/bin/bash
 
-depends_on pkg-config
 depends_on libpng
 
 fetch_source https://github.com/FLIF-hub/FLIF/archive/v0.2.2.tar.gz 2a026dcf5f5c2b757abd7f3ee95470333dc38dcb
@@ -29,7 +28,7 @@ do_patch_inline << 'EOF'
  	install -m 644 ../doc/flif.1 $(PREFIX)/share/man/man1
  	install -m 755 ../tools/gif2flif $(PREFIX)/bin
 EOF
-do_make LDFLAGS="$LDFLAGS -lpng"
+do_make LDFLAGS="$LDFLAGS -lpng" CXXFLAGS="-O2 -g -I$PREFIX/include" CXX="g++"
 do_install PREFIX=$ESCAPED_PREFIX
 do_make install-dev PREFIX=$ESCAPED_PREFIX
 popd_src
