@@ -1,9 +1,5 @@
 #!/bin/bash
 
-depends_on libnuma
-depends_on zlib
-depends_on libpciaccess
-
 fetch_source https://www.open-mpi.org/software/ompi/v2.1/downloads/openmpi-2.1.1.tar.bz2 3aaee35c17b6ef02f4cee274f2670d5b7b2c968a
 
 do_unpack
