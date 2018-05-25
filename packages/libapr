@@ -1,13 +1,12 @@
 #!/bin/bash
 
-## TODO: wants ftp in /etc/services
-[[ ! -e /etc/services ]] && log "libapr requires /etc/services to successfully test" && false
-if ! grep -q '^ftp\b' /etc/services; then
-    log "libapr requires ftp entry in /etc/services to successfully test"
-    false
+if ! is_without tests; then
+    [[ ! -e /etc/services ]] && log "libapr requires /etc/services to successfully test" && false
+    if ! grep -q '^ftp\b' /etc/services; then
+        log "libapr requires ftp entry in /etc/services to successfully test"
+        false
+    fi
 fi
-
-[[ $OSTYPE == *linux* ]] && depends_on libuuid
 
 fetch_source https://archive.apache.org/dist/apr/apr-1.6.3.tar.bz2 4f3aa8d8204a2674868b9d485c11349e1848987d
 
