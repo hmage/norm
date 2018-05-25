@@ -7,9 +7,6 @@ if ! grep -q '^ftp\b' /etc/services; then
     false
 fi
 
-depends_on libdb
-depends_on libgdbm
-
 fetch_source http://www.cpan.org/src/5.0/perl-5.26.2.tar.gz 5dc74e667250a663d8f3114869e13ba2869bf6a9
 
 unset EXTRALD
