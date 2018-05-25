@@ -2,15 +2,10 @@
 
 # because of circular dependency of harfbuzz<->freetype, we compile freetype for harfbuzz and then use harfbuzz to compile freetype
 
-depends_on pkg-config
-depends_on zlib
-depends_on libpng
+needs_tool pkg-config
 ## don't add libcairo -- it's the other way around -- cairo needs freetype
-depends_on libicu
-depends_on glib
 
-## adding bzip2 will force everyone that uses freetype to add -lbz2 manually to linker, disable it
-FREETYPE_OPTS="--with-zlib --without-bzip2 --with-png"
+FREETYPE_OPTS="--enable-freetype-config"
 
 ## freetype #1 for harfbuzz
 fetch_source http://downloads.sourceforge.net/freetype/freetype2/2.9/freetype-2.9.1.tar.bz2 220c82062171c513e4017c523d196933c9de4a7d
