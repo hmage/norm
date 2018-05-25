@@ -1,7 +1,5 @@
 #!/bin/bash
 
-depends_on libxml
-
 fetch_source http://http.debian.net/debian/pool/main/d/docbook-xml/docbook-xml_4.5.orig.tar.gz ddb07d9cb86dd190254ecedc1425d88f925431ef
 fetch_debian http://http.debian.net/debian/pool/main/d/docbook-xml/docbook-xml_4.5-7.2.diff.gz 44a59f66734b71167699f966458df1969d1407c1
 
