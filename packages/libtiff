@@ -1,10 +1,5 @@
 #!/bin/bash
 
-depends_on xz
-depends_on libjpeg
-depends_on zlib
-depends_on libjbig
-
 fetch_source http://download.osgeo.org/libtiff/tiff-4.0.9.tar.gz 87d4543579176cc568668617c22baceccd568296
 fetch_debian http://http.debian.net/debian/pool/main/t/tiff/tiff_4.0.9-5.debian.tar.xz c7b31db61dd17d89ee488790e1c906bf8f3abce6
 
