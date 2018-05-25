@@ -1,5 +1,8 @@
 #!/bin/bash
 
+depends_on pkgconf
+
+echo << EOF
 ## do not add glib -- it depends on pkg-config
 
 ## needed to build https-compatible curl, so don't use https for fetching this
@@ -12,3 +15,4 @@ do_unpack
 sed -i.bak "s|/usr/local/share/:/usr/share/|$PREFIX/share/:/usr/local/share/:/usr/share/|" "$SRCDIR"/glib/glib/gutils.c
 do_compile --with-internal-glib --with-pc-path="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig:$SYSPCPATH"
 mkdir -p "$PREFIX"/lib/pkgconfig
+EOF

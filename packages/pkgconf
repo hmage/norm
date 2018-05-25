@@ -1,0 +1,8 @@
+#!/bin/bash
+
+fetch_source http://distfiles.dereferenced.org/pkgconf/pkgconf-1.4.2.tar.gz c0562163f4336a6a751245e943ed078e6b0a2d69
+
+SYSPCPATH="/usr/local/lib/$HOSTTYPE-$OSTYPE/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:/usr/lib/$HOSTTYPE-$OSTYPE/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig"
+
+do_unpack_compile --with-pkg-config-dir="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig:$SYSPCPATH"
+ln -fs pkgconf "$PREFIX"/bin/pkg-config
