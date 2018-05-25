@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/parallel/parallel-20180422.tar.bz2 98e884932be5aab471d8f8d66db747cbc56570e6
+fetch_source http://ftpmirror.gnu.org/parallel/parallel-20180522.tar.bz2 e148aebb83dd5d2fa462cb04f7274a45ff93eb92
 
 do_unpack_compile
