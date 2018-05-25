@@ -1,12 +1,5 @@
 #!/bin/bash
 
-depends_on libx11
-depends_on libxext
-depends_on libxt
-needs_tool nasm
-[[ $OSTYPE == *linux* ]] && depends_on libdirectfb
-[[ $OSTYPE == *linux* ]] && depends_on libts
-
 fetch_source http://http.debian.net/debian/pool/main/libs/libsdl1.2/libsdl1.2_1.2.15.orig.tar.gz 0c5f193ced810b0d7ce3ab06d808cbb5eef03a2c
 fetch_debian http://http.debian.net/debian/pool/main/libs/libsdl1.2/libsdl1.2_1.2.15-10.debian.tar.xz 79c62066192373f90134fed8d7be01e668839d7a
 
