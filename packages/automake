@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on autoconf help2man
+needs_tool autoconf
 
 #mkdir -p "$PREFIX/share/aclocal"
 
