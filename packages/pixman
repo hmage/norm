@@ -1,7 +1,5 @@
 #!/bin/bash
 
-depends_on pkg-config
-
 fetch_source http://cairographics.org/releases/pixman-0.34.0.tar.gz a1b1683c1a55acce9d928fea1ab6ceb79142ddc7
 
 do_unpack_compile
