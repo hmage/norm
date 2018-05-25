@@ -1,7 +1,5 @@
 #!/bin/bash
 
-depends_on pkg-config # otherwise it won't install .pc files
-
 fetch_source http://ftpmirror.gnu.org/ncurses/ncurses-6.1.tar.gz 57acf6bc24cacd651d82541929f726f4def780cc
 
 CONFOPTS=(
