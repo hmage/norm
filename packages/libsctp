@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://prdownloads.sourceforge.net/lksctp/lksctp-tools/lksctp-tools-1.0.17.tar.gz 941b0b5c39e364a971f514bba66120435660e518
+
+do_unpack_compile
