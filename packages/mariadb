@@ -21,9 +21,9 @@ depends_on libpam
 
 OURNAME=`basename "${BASH_SOURCE[0]}"`
 if [[ $OURNAME == mariadb-devel ]]; then
-fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.3.5/source/mariadb-10.3.5.tar.gz 4e0664e65256f8165ea91ae50a72bc140469208c
+    fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.3.7/source/mariadb-10.3.7.tar.gz 2a657c91aa680ef16640a1bf4ea798df9ce98928
 else
-fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.2.14/source/mariadb-10.2.14.tar.gz e809ea91405ddb4b3239ca67f1bba6414172b283
+    fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.3.7/source/mariadb-10.3.7.tar.gz 2a657c91aa680ef16640a1bf4ea798df9ce98928
 fi
 
 do_unpack
