@@ -1,8 +1,8 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
-depends_on curl
-depends_on openssl
+needs_tool autoconf automake
+depends_on curl ## libcurl and headers
+depends_on zlib
 depends_on libjansson
 
 fetch_source https://github.com/nicehash/cpuminer-multi/archive/619546c218f1dc2e87e909c5a88459ef9848d740.tar.gz 3efc4285057e993fe07c867f14ed76f7b8b7a8ef
