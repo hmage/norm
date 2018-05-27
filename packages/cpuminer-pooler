@@ -1,15 +1,13 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
+needs_tool autoconf automake
 depends_on curl
-depends_on openssl
 depends_on libjansson
 
 fetch_source https://github.com/pooler/cpuminer/releases/download/v2.5.0/pooler-cpuminer-2.5.0.tar.gz 4f2751b29aa0f069c29c328f81d6eba065eaa83c
 
 unset EXTRAFLAGS EXTRALD
 cc_addflags EXTRAFLAGS -Ofast -flto -fuse-linker-plugin -ftree-loop-if-convert-stores -DUSE_ASM
-cc_addflags EXTRALD -Wl,--no-as-needed
 
 do_unpack
 do_autoreconf
