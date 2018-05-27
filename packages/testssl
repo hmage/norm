@@ -1,7 +1,5 @@
 #!/bin/bash
 
-depends_on openssl
-
 fetch_source https://github.com/drwetter/testssl.sh/archive/v2.8.tar.gz c679e353b51a395a87aeab4609f863697a8ea138
 
 do_unpack
