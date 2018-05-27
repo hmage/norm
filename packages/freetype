@@ -2,7 +2,8 @@
 
 # because of circular dependency of harfbuzz<->freetype, we compile freetype for harfbuzz and then use harfbuzz to compile freetype
 
-needs_tool pkg-config
+needs_tool pkg-config ## freetype #2 won't find harfbuzz without pkg-config
+depends_on glib ## hb-glib.h will not be generated without it, and is required by libpango later
 ## don't add libcairo -- it's the other way around -- cairo needs freetype
 
 FREETYPE_OPTS="--enable-freetype-config"
