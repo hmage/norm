@@ -1,7 +1,5 @@
 #!/bin/bash
 
-depends_on pkg-config
-
 fetch_source https://github.com/zeromq/zeromq4-1/releases/download/v4.1.6/zeromq-4.1.6.tar.gz b956df8c6f77c174683b51fbee67f99c94945651
 
 do_unpack_compile
