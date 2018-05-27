@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on autoconf
+needs_tool m4
 
 unset EXTRALD
 cc_addflags EXTRALD -Wl,--no-gc-sections
