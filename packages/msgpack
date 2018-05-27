@@ -1,6 +1,7 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/m/msgpack/msgpack_0.5.7.orig.tar.gz 1b04e1b5d47c534cef8d2fbd7718a1e4ffaae4c5
-fetch_debian http://http.debian.net/debian/pool/main/m/msgpack/msgpack_0.5.7-3.debian.tar.gz 177c0956a16db3fd4b5b4651a8b6fffafd6cee8c
+needs_tool cmake
 
-do_undebian_compile
+fetch_source https://github.com/msgpack/msgpack-c/releases/download/cpp-3.0.1/msgpack-3.0.1.tar.gz bb816f32fa9004d2f584d61d223aa9df58091c65
+
+do_unpack_compile
