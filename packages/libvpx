@@ -6,7 +6,7 @@ if ! cc_checkflags -mssse3; then
     exit 1
 fi
 
-depends_on yasm
+needs_tool yasm # alternatively libvpx supports nasm
 
 fetch_source https://github.com/webmproject/libvpx/archive/v1.7.0.tar.gz fb3d4b80596d1e3b1a7f53757d63e7d2b3eeb7c9
 
