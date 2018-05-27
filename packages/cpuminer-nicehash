@@ -5,7 +5,7 @@ depends_on curl
 depends_on openssl
 depends_on libjansson
 
-fetch_source https://github.com/nicehash/cpuminer-multi/archive/bc3f0e61401727e60ef742de07b8ea4ca75dc105.tar.gz 525381bab29c781ce5662e1153215a570a9b2b04
+fetch_source https://github.com/nicehash/cpuminer-multi/archive/619546c218f1dc2e87e909c5a88459ef9848d740.tar.gz 3efc4285057e993fe07c867f14ed76f7b8b7a8ef
 
 unset EXTRAFLAGS
 cc_addflags EXTRAFLAGS -Ofast -flto -fuse-linker-plugin -ftree-loop-if-convert-stores -DUSE_ASM
