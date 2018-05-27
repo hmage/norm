@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on cmake
+needs_tool cmake
 
 fetch_source https://github.com/lloyd/yajl/archive/2.1.0.tar.gz 29ce2b9695ae93e1b0b349a22cea8067f25a9025
 
