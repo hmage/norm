@@ -1,12 +1,6 @@
 #!/bin/bash
 
-depends_on libncurses
-depends_on texinfo
-depends_on zlib
-depends_on xz
-depends_on libexpat
-depends_on libbabeltrace ## opportunistic linking
-depends_on libmpfr ## opportunistic linking
+depends_on texinfo ## for makeinfo, couldn't find a switch to disable it
 
 fetch_source http://ftpmirror.gnu.org/gdb/gdb-8.1.tar.xz 641861f7d3f22b6a23bc3e801f0ff29a78375490
 
