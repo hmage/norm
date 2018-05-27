@@ -1,6 +1,4 @@
 #!/bin/bash
-depends_on pkg-config
-depends_on xorg-macros
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-core/x11proto-core_7.0.23.orig.tar.gz 3baf2e7e517b392b60de0a8c090866f60a37e192
 fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-core/x11proto-core_7.0.23-1.diff.gz 09938c6e571108a9255e48232fd83e138ce9c316
