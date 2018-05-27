@@ -1,10 +1,10 @@
 #!/bin/bash
 
-depends_on autoconf automake
-depends_on pkg-config
+needs_tool autoconf automake
+needs_tool pkg-config ## for autoconf macros
 depends_on libpcre
+depends_on xz ## for liblzma
 depends_on zlib
-depends_on xz
 
 fetch_source https://github.com/ggreer/the_silver_searcher/archive/2.1.0.tar.gz 1e6c3cfe0df5b77b6bf2ce4e24a95ee05151262f
 
