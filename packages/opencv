@@ -1,12 +1,6 @@
 #!/bin/bash
 
-depends_on cmake
-depends_on libwebp
-depends_on zlib
-depends_on libtiff
-depends_on libjpeg
-depends_on libpng
-depends_on ffmpeg
+needs_tool cmake
 
 fetch_source https://github.com/opencv/opencv/archive/3.4.0.tar.gz aebffcd763e3e91fae91e71fb9fbd374a90031bf
 
