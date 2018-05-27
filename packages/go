@@ -1,10 +1,12 @@
 #!/bin/bash
 
 ## TODO: wants /etc/services
-[[ ! -e /etc/services ]] && log "Go requires /etc/services to successfully test" && false
-if ! grep -q '^smtp\b' /etc/services; then
-    log "Go requires smtp entry in /etc/services to successfully test"
-    false
+if ! is_without tests; then
+    [[ ! -e /etc/services ]] && log "Go requires /etc/services to successfully test" && false
+    if ! grep -q '^smtp\b' /etc/services; then
+        log "Go requires smtp entry in /etc/services to successfully test"
+        false
+    fi
 fi
 
 fetch_source https://github.com/golang/go/archive/4d5426a570c2820c5894a61b52e3dc147e4e7925.tar.gz 77c3f7041d5e96160ec30a1e8ac0edde1ae02997
