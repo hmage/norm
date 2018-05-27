@@ -1,7 +1,6 @@
 #!/bin/bash
 
 depends_on libncurses
-depends_on zlib
 
 fetch_source http://downloads.mysql.com/archives/get/file/mysql-5.1.53.tar.gz 24064a4c0f8b88b30acb6ddb03f32e897ef061f3
 
