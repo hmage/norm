@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/libunistring/libunistring-0.9.9.tar.xz 0f7049cf9cdea9d010235cf6c56254693da17eaa
+fetch_source http://ftpmirror.gnu.org/libunistring/libunistring-0.9.10.tar.xz 16dc423d3ebd23f365b0ffe7d584428b427f4bde
 
 do_unpack_compile
