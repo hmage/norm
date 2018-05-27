@@ -1,38 +1,18 @@
 #!/bin/bash
 
-## TODO: libldap.so, liblber.so
 depends_on zlib
 
-## needed for generating manpages
-depends_on gettext
-
 ## https support
-depends_on openssl
 depends_on curl
 depends_on libexpat
 
-## faster grep
-depends_on libpcre2
-
 fetch_source https://www.kernel.org/pub/software/scm/git/git-2.17.0.tar.xz f0d4139af75bfdbe306387358b2e40eb541ccc06
 do_unpack
-do_patch_inline -p0 << EOF
---- t/t9020-remote-svn.sh
-+++ t/t9020-remote-svn.sh
-@@ -6,11 +6,8 @@
- 
- MARKSPATH=.git/info/fast-import/remote-svn
- 
--if ! test_have_prereq PYTHON
--then
- 	skip_all='skipping remote-svn tests, python not available'
- 	test_done
--fi
- 
- # Override svnrdump with our simulator
- PATH="$HOME:$PATH"
-EOF
-do_compile --with-libpcre2
+
+pushd_src
+do_configure
+do_make_and_install NO_GETTEXT=1 NO_TCLTK=1 V=1 NO_SVN_TESTS=1
+popd_src
 
 ## install bash completion
 mkdir -p "$PREFIX/etc/bash_completion.d"
