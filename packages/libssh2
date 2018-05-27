@@ -1,7 +1,5 @@
 #!/bin/bash
 
-depends_on libgcrypt
-depends_on zlib
 depends_on openssl
 
 fetch_source http://http.debian.net/debian/pool/main/libs/libssh2/libssh2_1.4.3.orig.tar.gz c27ca83e1ffeeac03be98b6eef54448701e044b0
