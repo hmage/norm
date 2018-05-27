@@ -2,11 +2,6 @@
 
 needs_tool cmake  ## since llvm 3.9, cmake is the only way to build this
 needs_tool python ## needs python 2.7 to compile
-depends_on libxml ## c-index-test has dynamic dependency on it
-depends_on zlib
-depends_on libffi
-depends_on libedit
-depends_on xar
 
 ENABLE_SANITIZER=yes
 if ! test_cc_expr "link.h" "Elf64_Dyn a = _DYNAMIC[0]"; then
@@ -39,6 +34,4 @@ do_compile_outside \
 	-DLLVM_BUILD_LLVM_DYLIB=ON \
 	-DLLVM_BUILD_TESTS=ON \
 	-DLLVM_BUILD_EXAMPLES=OFF \
-	-DLLVM_ENABLE_FFI=ON \
-	-DLLVM_ENABLE_ZLIB=ON \
 	-DLLVM_LINK_LLVM_DYLIB=ON
