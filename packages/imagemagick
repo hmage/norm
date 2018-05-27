@@ -14,6 +14,6 @@ depends_on libpcre
 depends_on libxml
 depends_on liblcms2 ## opportunistic linking
 
-fetch_source https://dl.bintray.com/homebrew/mirror/imagemagick-7.0.7-32.tar.xz d9391be47ec4d872a02c066487d5017978ff844b
+fetch_source https://dl.bintray.com/homebrew/mirror/imagemagick-7.0.7-35.tar.xz 8ce976a24b013cc074704ed2fc457699f0d7f72c
 
 do_unpack_compile --without-x
