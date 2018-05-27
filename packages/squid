@@ -1,7 +1,5 @@
 #!/bin/bash
 
-depends_on libcppunit
-
 fetch_source http://www.squid-cache.org/Versions/v3/3.5/squid-3.5.27.tar.xz 1e69c96d13cd49844da3bcf33a0b428fbe7b6f77
 
 do_unpack_compile
