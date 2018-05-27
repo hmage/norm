@@ -1,10 +1,12 @@
 #!/bin/bash
 
 ## TODO: wants ftp in /etc/services
-[[ ! -e /etc/services ]] && log "Perl requires /etc/services to successfully test" && false
-if ! grep -q '^ftp\b' /etc/services; then
-    log "Perl requires ftp entry in /etc/services to successfully test"
-    false
+if ! is_without tests; then
+    [[ ! -e /etc/services ]] && log "Perl requires /etc/services to successfully test" && false
+    if ! grep -q '^ftp\b' /etc/services; then
+        log "Perl requires ftp entry in /etc/services to successfully test"
+        false
+    fi
 fi
 
 fetch_source http://www.cpan.org/src/5.0/perl-5.26.2.tar.gz 5dc74e667250a663d8f3114869e13ba2869bf6a9
