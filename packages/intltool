@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on perl-xml-parser
+depends_on perl-xml-parser ## intltool is written in perl and requires this perl module
 
 fetch_source http://http.debian.net/debian/pool/main/i/intltool/intltool_0.51.0.orig.tar.gz a0c3bcb99d1bcfc5db70f8d848232a47c47da090
 fetch_debian http://http.debian.net/debian/pool/main/i/intltool/intltool_0.51.0-3.debian.tar.xz c1ce4efa4d9bcae0aa1747f58e4eb3abe546de16
