@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on pkg-config
+needs_tool pkg-config ## to find libbsd ldflags
 depends_on libbsd
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/n/netcat-openbsd/netcat-openbsd_1.105.orig.tar.gz 7791b24ded7ef4a3fb307e077f37026b8d009b15
@@ -8,7 +8,7 @@ fetch_debian http://ftp.de.debian.org/debian/pool/main/n/netcat-openbsd/netcat-o
 
 do_undebian
 pushd_src
-do_make CFLAGS="$CPPFLAGS -O2 -g"
+do_make CFLAGS="$CPPFLAGS -O2 -g" LDFLAGS="$LDFLAGS"
 install -d $PREFIX/bin
 install -m 755 nc $PREFIX/bin/nc
 popd
