@@ -1,13 +1,5 @@
 #!/bin/bash
 
-[[ $OSTYPE == *linux* ]] && depends_on libbsd
-
 fetch_source http://downloads.sourceforge.net/expat/expat-2.2.5.tar.bz2 490659abd7d6c6d4cb4e60c945a15fbf081564f6
 
-CONFIGURE=(
-)
-
-[[ $OSTYPE == *linux* ]] && CONFIGURE+=(--with-libbsd)
-
-do_unpack
-do_compile "${CONFIGURE[@]}"
+do_unpack_compile
