@@ -1,5 +1,6 @@
 #!/bin/bash
-depends_on automake libtool # need to properly autoreconf
+
+needs_tool autoconf automake libtool
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/f/fam/fam_2.7.0.orig.tar.gz c8c71f0f9467956fb151a4600691bd97f777495d
 fetch_debian http://ftp.de.debian.org/debian/pool/main/f/fam/fam_2.7.0-17.diff.gz 680b03081b014246425f5b722fdb832ee254393e
