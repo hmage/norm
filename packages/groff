@@ -2,4 +2,5 @@
 
 fetch_source http://ftpmirror.gnu.org/groff/groff-1.22.3.tar.gz 61a6808ea1ef715df9fa8e9b424e1f6b9fa8c091
 
+NOPARALLEL=1 \
 do_unpack_compile --without-x
