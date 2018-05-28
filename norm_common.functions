@@ -388,7 +388,7 @@ compile_formula() {
 needs_tool() {
     for i; do
         if ! hash "$i" 2>/dev/null; then
-            echo System does not have tool $i, will build our own
+            log "System does not have tool $i, will build our own"
             compile_formula "$i" $FORMULA
         fi
     done
