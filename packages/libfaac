@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
+needs_tool autoconf automake libtool
 
 fetch_source https://downloads.sourceforge.net/project/faac/faac-src/faac-1.29/faac-1.29.9.tar.gz 74fcf644e8fc5fff2b57ebd3514c0fc51b73f733
 
