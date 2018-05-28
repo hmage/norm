@@ -127,7 +127,6 @@ do_compile_outside_test() {
 }
 
 check_input_filter_exists_and_set() {
-    ## TODO: automatically install xz if not available
     if ! hash "$1" 2>/dev/null; then
         log_error "Error: \"$1\" is not available, you must install it."
         log_error
@@ -371,6 +370,9 @@ compile_formula() {
         [ -z "$COMPILING_FOR" ] && log "Building formula: $FORMULA" \
                                 || log "Building formula: $FORMULA -- dependency of $COMPILING_FOR"
         [ ! -e "$NORMDIR"/packages/"$FORMULA" ] && log "Error: Formula file '$FORMULA' does not exist" && return 1
+        ## scan if we need bzip2 or xz
+        fgrep -q '.xz' "$NORMDIR"/packages/"$FORMULA" && needs_tool xz
+        fgrep -q '.bz2' "$NORMDIR"/packages/"$FORMULA" && needs_tool bzip2
         time . "$NORMDIR"/packages/"$FORMULA"
         mkdir -p `dirname "$STATEDIR/$FORMULA"`
         log_success
