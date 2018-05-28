@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on libxml
 depends_on docbook-xml
 
 fetch_source http://http.debian.net/debian/pool/main/d/docbook-xsl/docbook-xsl_1.78.1+dfsg.orig.tar.bz2 b7c448460f1dc80fcd2924ca9ec33391759e8cb6
