@@ -1,7 +1,6 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on xorg-macros
+needs_tool pkg-config
 depends_on xproto
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxshmfence/libxshmfence_1.1.orig.tar.gz 71641e9ec82333ee44ad452d48037330c5b18804
