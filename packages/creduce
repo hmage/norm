@@ -1,7 +1,7 @@
 #!/bin/bash
 
 depends_on libllvm clang
-depends_on flex
+needs_tool flex
 
 fetch_source https://github.com/csmith-project/creduce/archive/7eb327e94d1b29c96e6ac09ec1321d614355f586.tar.gz a73ebc5761d82995ed4b9f089c16baf27fe223a1
 
