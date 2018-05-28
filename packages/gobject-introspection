@@ -1,11 +1,8 @@
 #!/bin/bash
 
-depends_on pkg-config
-needs_tool flex
-needs_tool bison
-depends_on python ## needs python headers and libraries to build python extension
+needs_tool flex bison
+needs_tool pkg-config
 depends_on glib
-depends_on libffi
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/gobject-introspection/1.56/gobject-introspection-1.56.1.tar.xz eef277357cf724bc521f203f0d47faaea2ae4f0c
 
