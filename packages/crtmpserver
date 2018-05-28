@@ -1,11 +1,10 @@
 #!/bin/bash
 
-depends_on pkg-config
 needs_tool cmake
 depends_on openssl
-depends_on lua
+needs_tool pkg-config
 depends_on libtinyxml
-depends_on zlib
+depends_on lua ## for liblua and headers
 
 fetch_source http://http.debian.net/debian/pool/main/c/crtmpserver/crtmpserver_1.0~dfsg.orig.tar.bz2 68f1851367c7faee6a193faae8f251e5170d9900
 fetch_debian http://http.debian.net/debian/pool/main/c/crtmpserver/crtmpserver_1.0~dfsg-5.3.debian.tar.xz a0a6b481e2a8efa32d667bb99065424ff8b5bc36
