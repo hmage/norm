@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on pkg-config
+needs_tool pkg-config
 depends_on glib
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/atk/2.28/atk-2.28.1.tar.xz aff82397db3b3121c4c01eba0904c9355347c6be
