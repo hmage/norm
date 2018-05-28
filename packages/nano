@@ -3,6 +3,6 @@
 depends_on pkg-config ## to find libncurses
 depends_on libncurses
 
-fetch_source http://www.nano-editor.org/dist/v2.9/nano-2.9.6.tar.gz 0007ed464480c3817a538c4b6229b5a776bbab8a
+fetch_source http://www.nano-editor.org/dist/v2.9/nano-2.9.7.tar.gz 754afd3d99b387d11cb82b6e6ebe63e0dca3a6d0
 
 do_unpack_compile
