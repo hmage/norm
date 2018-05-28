@@ -2,7 +2,6 @@
 
 depends_on libapr
 depends_on libexpat
-depends_on sqlite3
 
 fetch_source https://archive.apache.org/dist/apr/apr-util-1.6.1.tar.bz2 4cc73bc36ca697419f555476f2fc1c63df6069f4
 
