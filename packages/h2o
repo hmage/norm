@@ -1,8 +1,7 @@
 #!/bin/bash
 
-depends_on cmake
-depends_on pkg-config
-depends_on openssl
+needs_tool cmake
+depends_on zlib
 
 fetch_source https://github.com/h2o/h2o/archive/v2.2.4.tar.gz 5e82a25b2c1dbd53ba32c24d7a6ab90721150b7b
 
