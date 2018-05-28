@@ -1,13 +1,12 @@
 #!/bin/bash
 
-depends_on gettext
-
 fetch_source https://fossies.org/linux/misc/getopt-1.1.6.tar.gz 98725b4878d19ab6b126cd16263fed1f6090f6a7
 
 do_unpack
 pushd_src
 sed -ibak "s|^CPPFLAGS=|CPPFLAGS=-I${PREFIX}/include |" Makefile
 sed -ibak "s|^LDFLAGS=|LDFLAGS=-L${PREFIX}/lib |" Makefile
+sed -ibak 's|^WITHOUT_GETTEXT=0|WITHOUT_GETTEXT=1|' Makefile
 [[ $OSTYPE != *linux* ]] && sed -ibak "s|^LDFLAGS=|LDFLAGS=-lintl |g" Makefile
 do_make
 do_install prefix="$PREFIX" mandir="$PREFIX/share/man"
