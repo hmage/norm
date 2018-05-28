@@ -1,14 +1,34 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
-depends_on pkg-config
-depends_on tcl # for tclsh
+needs_tool autoconf automake libtool
+needs_tool pkg-config
 needs_tool bison flex
 
 fetch_source https://gitlab.com/graphviz/graphviz/-/archive/stable_release_2.40.1/graphviz-stable_release_2.40.1.tar.gz 643843f5f48973827906f51bf6a6921701b457d2
 
+CONFOPTS=(
+--disable-ocaml
+--disable-guile
+--disable-ruby
+--disable-lua
+--disable-tcl
+--disable-r
+--disable-perl
+--without-gts
+--without-qt
+--without-lasi
+--without-gtk
+--without-expat
+--without-x
+--without-pangocairo
+--without-gdk
+--without-libgd
+--without-rsvg
+--without-poppler
+)
+
 do_unpack
 pushd_src
 ./autogen.sh NOCONFIG
-do_compile
+do_compile "${CONFOPTS[@]}"
 popd_src
