@@ -362,6 +362,7 @@ compile_formula() {
     [ "$1" == "-f" ] && force=-f && shift
 
     FORMULA="$1"
+    [ ! -e "$NORMDIR"/packages/"$FORMULA" ] && log "Error: Formula file '$FORMULA' does not exist" && return 1
     local SHA1SUM=`$SHASUM_BIN "$NORMDIR/packages/$FORMULA" | cut -f1 -d' '`
     local FORMULA_ID="$FORMULA.$SHA1SUM"
     [ -n "$2" ] && COMPILING_FOR="$2"
@@ -369,7 +370,6 @@ compile_formula() {
     if [ ! -e "$STATEDIR"/"$FORMULA_ID".installed -o -n "$force" ]; then
         [ -z "$COMPILING_FOR" ] && log "Building formula: $FORMULA" \
                                 || log "Building formula: $FORMULA -- dependency of $COMPILING_FOR"
-        [ ! -e "$NORMDIR"/packages/"$FORMULA" ] && log "Error: Formula file '$FORMULA' does not exist" && return 1
         ## scan if we need bzip2 or xz
         fgrep -q '.xz' "$NORMDIR"/packages/"$FORMULA" && needs_tool xz
         fgrep -q '.bz2' "$NORMDIR"/packages/"$FORMULA" && needs_tool bzip2
