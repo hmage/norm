@@ -1,23 +1,20 @@
 #!/bin/bash
 
-depends_on autoconf automake
-depends_on curl
-depends_on openssl
+needs_tool autoconf automake
+depends_on curl ## libcurl and headers
 depends_on libgmp
-depends_on libjansson
+depends_on zlib
 
 fetch_source https://github.com/JayDDee/cpuminer-opt/archive/v3.8.8.1.tar.gz 782bd425f1f3016346e218e303943e41bb4d5ce8
 
-unset EXTRAFLAGS EXTRALD
+unset EXTRAFLAGS
 cc_addflags EXTRAFLAGS -O3 -ftree-loop-if-convert-stores -DUSE_ASM
-#cc_addflags EXTRALD -Wl,--no-as-needed
 
 do_unpack
 do_autoreconf
 pushd_src
 CFLAGS="$CPPFLAGS $EXTRAFLAGS" \
 CXXFLAGS="$CPPFLAGS $EXTRAFLAGS -std=gnu++11" \
-LDFLAGS="$LDFLAGS $EXTRALD" \
 do_configure --with-crypto --with-curl
 do_make
 install cpuminer $PREFIX/bin/cpuminer-opt
