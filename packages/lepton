@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on autoconf automake
+needs_tool autoconf automake
 ! is_without tests && needs_tool python ## needed to run tests
 
 fetch_source https://github.com/dropbox/lepton/archive/1.2.tar.gz f7ae51c8981d051882b5d075b9e40896858c2d1d
