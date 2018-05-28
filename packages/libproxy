@@ -6,7 +6,8 @@ if ! is_without tests; then
     ! grep -q '^ssh\b' /etc/services && log "$FORMULA requires ssh entry in /etc/services to successfully test" && false
 fi
 
-depends_on cmake
+needs_tool cmake
+depends_on zlib
 
 fetch_source https://github.com/libproxy/libproxy/releases/download/0.4.14/libproxy-0.4.14.tar.xz 5e6b9ce9797528879df5ab00ee0241e281207759
 
