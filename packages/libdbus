@@ -1,21 +1,8 @@
 #!/bin/bash
 
-depends_on pkg-config
-[[ $OSTYPE == *linux* ]] && depends_on libselinux
+needs_tool pkg-config
 depends_on libexpat
-depends_on libsm
-depends_on libice
-depends_on libx11
-depends_on libxcb
-depends_on libxau
-depends_on libxdmcp
-depends_on libcap
-depends_on xz
-depends_on liblz4
-depends_on libgcrypt
 
 fetch_source http://dbus.freedesktop.org/releases/dbus/dbus-1.12.8.tar.gz 8e50e46796e8297eaa633da3a61cdc79a500e34a
 
-do_unpack_compile --disable-modular-tests --disable-libaudit --disable-xml-docs --disable-doxygen-docs \
-                  --disable-systemd \
-                  --with-systemdsystemunitdir="$PREFIX/lib/systemd/system"
+do_unpack_compile --disable-systemd
