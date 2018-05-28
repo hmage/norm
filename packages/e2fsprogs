@@ -1,20 +1,31 @@
 #!/bin/bash
 
-depends_on pkg-config
+needs_tool pkg-config
 [[ $OSTYPE == *linux* ]] && depends_on libuuid
 depends_on libblkid
 
 fetch_source http://downloads.sourceforge.net/e2fsprogs/e2fsprogs/v1.44.2/e2fsprogs-1.44.2.tar.gz a015839282067a4db11aa8971814134871b93358
 
-CONFFLAGS="--disable-defrag --enable-symlink-install --disable-libblkid --disable-uuidd --disable-fsck --disable-libuuid --disable-fuse2fs"
-[[ $OSTYPE == *linux* ]] && CONFFLAGS="$CONFFLAGS --enable-elf-shlibs"
+CONFFLAGS=(
+--enable-symlink-install
+--disable-defrag
+--disable-libblkid
+--disable-uuidd
+--disable-fsck
+--disable-libuuid
+--disable-fuse2fs
+--disable-tls
+--disable-nls
+)
+
+[[ $OSTYPE == *linux* ]] && CONFFLAGS+=(--enable-elf-shlibs)
 
 do_unpack
 pushd_src
 mkdir -p build
 cd build
-do_configure $CONFFLAGS
-do_make
+do_configure "${CONFFLAGS[@]}"
+do_make V=1
 do_test
 do_install
 make install-libs
