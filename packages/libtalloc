@@ -1,9 +1,6 @@
 #!/bin/bash
 
-[[ $OSTYPE == *linux* ]] && depends_on libattr
-depends_on python ## builds a python module, system-provided python might not have dev headers and libs
-depends_on libbsd
-depends_on libacl
+needs_tool python ## builds a python module, system-provided python might not have dev headers and libs
 
 fetch_source http://www.samba.org/ftp/talloc/talloc-2.1.13.tar.gz e4e85e40bdb8225e8987a2f5ade7694b49390a94
 
