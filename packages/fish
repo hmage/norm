@@ -1,8 +1,8 @@
 #!/bin/bash
 
 depends_on libncurses
-depends_on libpcre2
+depends_on libpcre2 ## bundled pcre2 requires libncurses and can't find it
 
 fetch_source https://github.com/fish-shell/fish-shell/releases/download/2.7.1/fish-2.7.1.tar.gz c3c3cb44ebdf34e0b46ada7b4b1598d14f742f71
 
-do_unpack_compile --without-included-pcre2
+do_unpack_compile --without-included-pcre2 ## bundled pcre2 can't find our libncurses
