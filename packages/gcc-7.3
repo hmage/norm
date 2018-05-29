@@ -1,7 +1,7 @@
 #!/bin/bash
 
-depends_on binutils ## system binutils might not support hash-style=both
 depends_on libgmp
+depends_on libmpfr
 depends_on libmpc
 ! is_without tests && depends_on autogen ## needed to run tests
 
@@ -9,6 +9,7 @@ CONFIGURE_OPTIONS=(
 --program-suffix=-7.3    # version suffix to all binaries
 --enable-__cxa_atexit    # for fully standards-compliant destructors, requires libc to have __cxa_atexit
 --enable-languages=c,c++ # only C and C++, gcc is barely used for anything else
+--disable-bootstrap      # never had bootstrap detect anything, speed up compilation
 )
 
 ## if user wants to speed things up and trusts the system compiler
@@ -29,16 +30,12 @@ fi
 fetch_source http://ftpmirror.gnu.org/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz 9689b9cae7b2886fdaa08449a26701f095c04e48
 do_unpack
 
-fetch_source http://isl.gforge.inria.fr/isl-0.18.tar.xz 13237a66fc623517fc570408b90a11e60eb6b4b9
-intree_unpack isl
-
-# opportunistic linking -- build scripts will try to link against system mpfr even if we provided our own in rpath
-fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-4.0.1.tar.xz ae555c56a6fccd21a0ffe3dd3bdc5eb5cc1a5fce
-intree_unpack mpfr
-
 # We install 64-bit linux libraries into $PREFIX/lib
 [[ $HOSTTYPE == "x86_64" ]] && sed -ibak '/m64=/s/lib64/lib/' "$SRCDIR"/gcc/config/i386/t-linux64
 
+CFLAGS="-O2 -g $CPPFLAGS" \
+CXXFLAGS="-O2 -g $CPPFLAGS" \
+CPPFLAGS= \
 do_compile_outside "${CONFIGURE_OPTIONS[@]}"
 
 add_to_ccache g++-7.3 gcc-7.3
