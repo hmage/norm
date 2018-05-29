@@ -1,11 +1,7 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on libslang glib
-[[ $OSTYPE == *linux* ]] && depends_on libmount
-depends_on libblkid
-[[ $OSTYPE == *linux* ]] && depends_on libuuid
-depends_on libssh2
+depends_on glib
+depends_on libslang
 
 fetch_source http://ftp.midnight-commander.org/mc-4.8.20.tar.xz 1e8b9840e65f276e6e67be7430750fde3b5909e4
 
@@ -28,4 +24,4 @@ do_patch_inline -p0 << EOF
      times->actime = sb->st_atime;
      times->modtime = sb->st_mtime;
 EOF
-do_compile --without-x --with-screen=slang --without-gpm-mouse
+do_compile
