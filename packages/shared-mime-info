@@ -1,13 +1,13 @@
 #!/bin/bash
 
-depends_on intltool
-depends_on pkg-config
-depends_on gettext
-depends_on glib
+depends_on intltool ## didn't find a way to disable it
+needs_tool gettext ## didn't find a way to disable it
+needs_tool pkg-config
 depends_on libxml
+depends_on glib
 
 fetch_source https://freedesktop.org/~hadess/shared-mime-info-1.9.tar.xz aae41d8a93c665d25bae704f732fdb1c1551cb5c
 
 do_unpack
 sed -i.bak "s|\"/usr/local/share/\"PATH_SEPARATOR\"/usr/share/\"|\"$PREFIX/share/\"PATH_SEPARATOR\"/usr/local/share/\"PATH_SEPARATOR\"/usr/share/\"|" "$SRCDIR"/update-mime-database.c
-do_compile
+NOPARALLEL=1 do_compile
