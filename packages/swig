@@ -1,8 +1,6 @@
 #!/bin/bash
 
-needs_tool perl
 depends_on libpcre
-depends_on zlib
 
 fetch_source https://downloads.sourceforge.net/project/swig/swig/swig-3.0.12/swig-3.0.12.tar.gz 5cc1af41d041e4cc609580b99bb3dcf720effa25
 
