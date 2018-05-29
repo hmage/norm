@@ -1,9 +1,7 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/d/distcc/distcc_3.1.orig.tar.gz c40b69a44f6f4392cdcf703093cb36f6fd927e7d
-fetch_debian http://http.debian.net/debian/pool/main/d/distcc/distcc_3.1-6.1.debian.tar.xz cbadff141c1b66ec56967f2c01d33690eab57dfc
+depends_on libiberty
 
-do_undebian
-SRCDIR="$SRCDIR/source"
-## testing hangs after it is done
-do_compile_notest --disable-Werror --without-avahi
+fetch_source https://github.com/distcc/distcc/releases/download/v3.3/distcc-3.3.tar.gz 20c9f3085d7211945b7f3f8a60bce704a8a0f127
+
+do_unpack_compile --disable-pump-mode
