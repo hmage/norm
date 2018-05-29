@@ -1,8 +1,9 @@
 #!/bin/bash
 
-depends_on pkg-config
+needs_tool pkg-config
 depends_on libx11
 depends_on libxext
+depends_on xproto
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxinerama/libxinerama_1.1.2.orig.tar.gz 969302e2d4b172ca07ccce42d947cdcb1aa8c539
 fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxinerama/libxinerama_1.1.2-1+deb7u1.diff.gz cd5b415c89213480aa958a3017d81a4b02eca618
