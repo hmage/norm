@@ -2,20 +2,6 @@
 
 needs_tool m4
 
-fetch_source http://http.debian.net/debian/pool/main/b/bison/bison_3.0.2.dfsg.orig.tar.bz2 25c4cdd90cf6913dc7d2dec6f0921d6794eec6be
-fetch_debian http://http.debian.net/debian/pool/main/b/bison/bison_3.0.2.dfsg-2.debian.tar.gz 6fbcce08ef5edaff41bcbb0949e46f887e52f836
+fetch_source http://ftpmirror.gnu.org/bison/bison-3.0.5.tar.gz 326135383c6ef4439781f5817475948b28501dbc
 
-do_undebian
-
-# Touch all files in the dependency tree of bison.info to
-# inhibit makeinfo invocation in the build process.
-install -d "$SRCDIR"/doc/figs
-touch -t 200001010000 \
-        "$SRCDIR"/doc/bison.{info,help} \
-        "$SRCDIR"/doc/figs/example{,-reduce,-shift}.txt \
-        "$SRCDIR"/doc/*.texi "$SRCDIR"/doc/bison.texi \
-        "$SRCDIR"/build-aux/cross-options.pl \
-        "$SRCDIR"/src/getargs.c
-AUTOMAKE=: \
-NOPARALLEL=1 \
-do_compile
+do_unpack_compile
