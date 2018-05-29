@@ -7,6 +7,10 @@ depends_on libpng
 depends_on libtiff
 depends_on libwebp
 depends_on libbpg
+depends_on flif
+depends_on libheif
+depends_on libopenjpeg
+depends_on libopenexr
 
 fetch_source https://dl.bintray.com/homebrew/mirror/imagemagick-7.0.7-36.tar.xz 5066011098c623dbdf9b86b42e768f1c88efaf6a
 
