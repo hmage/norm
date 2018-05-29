@@ -1,0 +1,11 @@
+#!/bin/bash
+
+depends_on libpcre
+
+fetch_source http://www.rutschle.net/tech/sslh/sslh-v1.19c.tar.gz 6389f6d54252b7b2fa96411d239f484ad7dc25a1
+
+do_unpack
+pushd_src
+do_make USELIBCONFIG=
+do_install PREFIX="$PREFIX"
+popd_src
