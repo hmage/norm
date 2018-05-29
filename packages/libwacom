@@ -1,5 +1,6 @@
 #!/bin/bash
 
+needs_tool pkg-config
 depends_on glib
 depends_on libgudev
 
