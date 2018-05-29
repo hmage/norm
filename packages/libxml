@@ -4,16 +4,12 @@ WITHOUT_PYTHON=--without-python
 OURNAME=`basename "${BASH_SOURCE[0]}"`
 [[ $OURNAME == python-libxml ]] && depends_on python && WITHOUT_PYTHON="--with-python=$PREFIX/bin/python"
 
-depends_on zlib
-depends_on xz
-depends_on pkg-config
-
 fetch_source http://xmlsoft.org/sources/libxml2-2.9.7.tar.gz ab3325e6cdda50ab2382fdfe0bdb6f7d1b9224a6
 
 do_unpack
 pushd_src
 CPPFLAGS="$CPPFLAGS -DXML_XML_DEFAULT_CATALOG=\\\"file:///$ESCAPED_PREFIX/etc/xml/catalog\\\"" \
-do_configure --with-zlib=$PREFIX $WITHOUT_PYTHON
+do_configure $WITHOUT_PYTHON
 do_make
 do_test
 do_install
