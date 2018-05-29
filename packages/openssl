@@ -1,5 +1,7 @@
 #!/bin/bash
 
+needs_tool perl
+
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
 fetch_source ftp://openssl.org/source/openssl-1.0.2o.tar.gz a47faaca57b47a0d9d5fb085545857cc92062691
 
