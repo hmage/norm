@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/m4/m4-1.4.18.tar.xz 228604686ca23f42e48b98930babeb5d217f1899
+fetch_source http://ftpmirror.gnu.org/m4/m4-1.4.18.tar.gz 2f76f8105a45b05c8cfede97b3193cd88b31c657
 
 ac_cv_libsigsegv=no \
 do_unpack_compile
