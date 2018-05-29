@@ -1,6 +1,7 @@
 #!/bin/bash
 
-depends_on libgmp
+needs_tool m4
+depends_on libgmp ## presence of libgmp builds libhogweed (needed by libgnutls)
 
 fetch_source http://ftpmirror.gnu.org/nettle/nettle-3.3.tar.gz bf2b4d3a41192ff6177936d7bc3bee4cebeb86c4
 
