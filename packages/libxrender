@@ -1,7 +1,6 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on xorg-macros
+needs_tool pkg-config
 depends_on libx11
 depends_on xproto
 
