@@ -1,9 +1,7 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on xorg-macros
-depends_on libxext libxtst
-depends_on libxt
+needs_tool pkg-config
+depends_on libxt libxext
 depends_on libx11
 depends_on xproto
 
