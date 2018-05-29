@@ -1,9 +1,9 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on xproto xorg-macros
-depends_on libxcb
+needs_tool pkg-config ## to find xproto and others
+depends_on xproto
 depends_on xtrans
+depends_on libxcb
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libx11/libx11_1.5.0.orig.tar.gz 7890e34641d44aec32628aa68867b97bc6abbe17
 fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libx11/libx11_1.5.0-1+deb7u1.diff.gz ff846e5086d276dfa951d71f1e49392e0a30d94d
