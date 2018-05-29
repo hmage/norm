@@ -2,7 +2,8 @@
 
 ## TODO: needs python modules typing and Cheetah.Template to install
 
-depends_on scons
+needs_tool python ## needs python modules and pip
+needs_tool scons
 
 fetch_source https://fastdl.mongodb.org/src/mongodb-src-r3.6.5.tar.gz 5d9c97a00ebc9f8d19e5ba535fc18242acbf1394
 
