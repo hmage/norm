@@ -1,6 +1,7 @@
 #!/bin/bash
 
 depends_on libevent
+depends_on openssl
 
 fetch_source https://www.nlnetlabs.nl/downloads/nsd/nsd-4.1.18.tar.gz b6c1225fecde98a7d0e4fe35e5b346a8151cf26c
 
