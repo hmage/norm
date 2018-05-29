@@ -4,7 +4,7 @@
 
 depends_on scons
 
-fetch_source https://fastdl.mongodb.org/src/mongodb-src-r3.6.1.tar.gz 4107432d201e57a59401e0d0d24b3fe18cf50d78
+fetch_source https://fastdl.mongodb.org/src/mongodb-src-r3.6.5.tar.gz 5d9c97a00ebc9f8d19e5ba535fc18242acbf1394
 
 pip install typing cheetah regex PyYAML
 
