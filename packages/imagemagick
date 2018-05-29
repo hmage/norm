@@ -1,18 +1,12 @@
 #!/bin/bash
 
+## imagemagick is useless without common formats, even if they're optional
 depends_on libjpeg
 depends_on libjbig
 depends_on libpng
 depends_on libtiff
 depends_on libwebp
 depends_on libbpg
-depends_on zlib
-depends_on bzip2
-depends_on freetype
-depends_on glib
-depends_on libpcre
-depends_on libxml
-depends_on liblcms2 ## opportunistic linking
 
 fetch_source https://dl.bintray.com/homebrew/mirror/imagemagick-7.0.7-36.tar.xz 5066011098c623dbdf9b86b42e768f1c88efaf6a
 
