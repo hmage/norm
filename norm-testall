@@ -84,10 +84,21 @@ prepare_jail() {
     tar zcf "$JAILARCHIVE" -C "$HOME" "$JAILPATH"
 }
 
+TOOLS=(
+curl
+)
+
+if ! hash xz 2>/dev/null; then
+    TOOLS=(xz "${TOOLS[@]}")
+fi
+if ! hash bzip2 2>/dev/null; then
+    TOOLS=(bzip2 "${TOOLS[@]}")
+fi
+
 ## build the set that can compile all our formulas
 JAIL_TOOLS=$(jailpath tools)
 addpath PATH $HOME/$JAIL_TOOLS/bin{,/ccache_wrap}
-prepare_jail tools xz curl bzip2
+prepare_jail tools "${TOOLS[@]}"
 if ! have_gcc 4.9 && [[ $OSTYPE != *darwin* ]]; then
     prepare_jail gcc gcc-4.9 ccache
     JAIL_GCC=$(jailpath gcc)
