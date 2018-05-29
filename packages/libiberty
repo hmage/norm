@@ -1,0 +1,8 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/libi/libiberty/libiberty_20161220.orig.tar.xz 55e54d87b3cf224e7af4bec3d5f4dd9e9f42c6b0
+fetch_debian http://http.debian.net/debian/pool/main/libi/libiberty/libiberty_20161220-1.debian.tar.xz 5ffd4225e62a87407f6f3f5a7e3610ede632ddad
+
+do_undebian
+SRCDIR="$SRCDIR/libiberty"
+do_compile --enable-install-libiberty
