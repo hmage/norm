@@ -1,7 +1,8 @@
 #!/bin/bash
-depends_on autoconf automake libtool
-depends_on pkg-config
+
+needs_tool autoconf automake
 depends_on xorg-macros
+needs_tool pkg-config
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/x/xtrans/xtrans_1.2.7.orig.tar.gz a85d7216b8228e6771a160b2326e202798221bf4
 fetch_debian http://ftp.de.debian.org/debian/pool/main/x/xtrans/xtrans_1.2.7-1.diff.gz ebd0891a94aca1b84246f48adafd52960a6eccd9
