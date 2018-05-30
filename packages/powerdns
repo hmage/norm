@@ -5,6 +5,6 @@ depends_on libboost
 depends_on openssl
 depends_on mariadb
 
-fetch_source https://downloads.powerdns.com/releases/pdns-4.1.2.tar.bz2 dcd7210e4150da9a657f6ace2db9b776d890decc
+fetch_source https://downloads.powerdns.com/releases/pdns-4.1.3.tar.bz2 6a9cf78eae842e5b6741731c2ad7e8d212530ee2
 
 do_unpack_compile
