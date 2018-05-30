@@ -1,16 +1,13 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
+needs_tool autoconf automake
 depends_on openldap
 depends_on libpam
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/libp/libpam-ldap/libpam-ldap_184.orig.tar.gz 53063d8dfd492eec406fbcb80a89566e7a330b73
 fetch_debian http://ftp.de.debian.org/debian/pool/main/libp/libpam-ldap/libpam-ldap_184-8.6.diff.gz 9f4755f3bca3d916f4aeb653d8e67e7b6aa3618b
 
-#do_undebian_compile
-
 ## norm can't deal with CDBS yet, so do it semi-manually
-
 do_unpack
 tar xf "$SRCDIR"/pam_ldap-184.tar.gz -C "$SRCDIR"
 SRCDIR="$SRCDIR"/pam_ldap-184
