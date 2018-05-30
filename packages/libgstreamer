@@ -1,13 +1,9 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on autoconf automake libtool
-depends_on libxml
-depends_on zlib
-depends_on glib
-depends_on libgmp
 needs_tool bison
 needs_tool flex
+needs_tool python
+depends_on glib
 
 fetch_source https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.14.1.tar.xz 0d9c6dde28c6248d69a3bdf5ffd3aec5f5cdc6a6
 
