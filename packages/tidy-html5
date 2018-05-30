@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on cmake
+needs_tool cmake
 
 fetch_source https://github.com/htacg/tidy-html5/archive/5.4.0.tar.gz 579aea11a90040261f34ce63c27494e2082d3e95
 
