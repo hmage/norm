@@ -2,6 +2,6 @@
 
 depends_on openssl
 
-fetch_source http://www.usenix.org.uk/mirrors/stunnel/archive/5.x/stunnel-5.45.tar.gz b65fabed192b78924f2fd66e517a48f8caf33d2c
+fetch_source http://www.usenix.org.uk/mirrors/stunnel/archive/5.x/stunnel-5.46.tar.gz 5b6f337e5025c7004cf34f038f579f09fd36c6b0
 
 do_unpack_compile --disable-systemd
