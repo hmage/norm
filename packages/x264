@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on nasm
+needs_tool nasm
 
 fetch_source http://ftp.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-20180328-2245-stable.tar.bz2 b59caddcbbf70b5f12165313d036ef53fa2a7e4c
 
