@@ -2,8 +2,8 @@
 
 needs_tool autoconf automake
 needs_tool pkg-config ## for autoconf macros
-depends_on xmlto
-depends_on asciidoc
+needs_tool xmlto
+needs_tool asciidoc
 depends_on e2fsprogs
 depends_on zlib
 depends_on liblzo
