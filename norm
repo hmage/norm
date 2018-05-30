@@ -112,7 +112,9 @@ cmd_install() {
         log "Required utility gzip not found, will install it too"
         set -- gzip "$@"
     else
-        gzip --best -c <(echo hello) >/dev/null 2>/dev/null || BUSYBOXGZIP=1
+        TEMPFILE=`mktemp`
+        gzip --best -c "$TEMPFILE" >/dev/null 2>/dev/null || BUSYBOXGZIP=1
+        rm -f "$TEMPFILE"
     fi
     if [ -n "$BUSYBOXGZIP" ]; then
         log "Busybox gzip detected, will install our own"
