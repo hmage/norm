@@ -23,7 +23,7 @@ make -C nss all \
                                          NSPR_LIB_DIR=$PREFIX/lib BUILD_OPT=1 NS_USE_GCC=1 \
                                          NSS_USE_SYSTEM_SQLITE=1 NSS_ENABLE_ECC=1 CHECKLOC= \
                                          $EXTRA_OPTIONS \
-                                         USE_SYSTEM_ZLIB=1 OPTIMIZER="$CFLAGS $CPPFLAGS"
+                                         USE_SYSTEM_ZLIB=1 OPTIMIZER="-O2 -g $CPPFLAGS"
 
 
 cat nss/pkg/pkg-config/nss-config.in | sed -e "s|@prefix@|$PREFIX|" -e "s/@MOD_MAJOR_VERSION@/$major/" -e "s/@MOD_MINOR_VERSION@/$minor/" -e "s/@MOD_PATCH_VERSION@/$patch/" > nss/pkg/pkg-config/nss-config
