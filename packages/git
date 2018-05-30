@@ -6,7 +6,8 @@ depends_on zlib
 depends_on curl
 depends_on libexpat
 
-fetch_source https://www.kernel.org/pub/software/scm/git/git-2.17.0.tar.xz f0d4139af75bfdbe306387358b2e40eb541ccc06
+fetch_source https://www.kernel.org/pub/software/scm/git/git-2.17.1.tar.xz cdc8ba409643f6fe19b1bf0653d60f3aac0485f3
+fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.17.1.tar.xz 2b8ada574452f9c93fe19c23e5720201e7f6de60
 do_unpack
 
 pushd_src
@@ -19,6 +20,5 @@ mkdir -p "$PREFIX/etc/bash_completion.d"
 install "$SRCDIR/contrib/completion/git-completion.bash" "$PREFIX/etc/bash_completion.d/git-completion.bash"
 
 ## install git manpages
-fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.17.0.tar.xz 5bf80bb7b2cbe857ec9d8db4b8e14f7684e02703
 mkdir -p "$PREFIX/share/man"
 cat "$CACHEDIR/$FILENAME" | xz -d | tar xf - -C "$PREFIX/share/man"
