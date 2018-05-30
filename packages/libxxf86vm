@@ -1,5 +1,7 @@
 #!/bin/bash
 
+needs_tool pkg-config
+depends_on xproto
 depends_on libx11 libxext
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxxf86vm/libxxf86vm_1.1.2.orig.tar.gz 842f5d837c100e2ac8cb35feb13185cc5fb67bea
