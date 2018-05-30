@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
+needs_tool autoconf automake
 needs_tool python
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/x/xcb-proto/xcb-proto_1.10.orig.tar.gz f2e6063df71be06693d9e2e03a4d757c448304e6
