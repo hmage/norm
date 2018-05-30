@@ -14,4 +14,4 @@ fetch_source https://github.com/webmproject/libvpx/archive/v1.7.0.tar.gz fb3d4b8
 CONFIGURE=()
 [[ $OSTYPE != *darwin* ]] && CONFIGURE+=(--enable-shared)
 
-do_unpack_compile_notest "${CONFIGURE[@]}"
+NEEDV1=1 do_unpack_compile_notest "${CONFIGURE[@]}"
