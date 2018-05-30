@@ -103,7 +103,7 @@ do_compile_test() {
 }
 
 do_compile_outside_notest() {
-    local BUILDDIR="$SRCDIR"-build
+    BUILDDIR="$SRCDIR"-build
 
     rm -rf "$BUILDDIR" || return 1
     mkdir -p "$BUILDDIR" || return 1
@@ -114,7 +114,7 @@ do_compile_outside_notest() {
 }
 
 do_compile_outside_test() {
-    local BUILDDIR="$SRCDIR"-build
+    BUILDDIR="$SRCDIR"-build
 
     rm -rf "$BUILDDIR" || return 1
     mkdir -p "$BUILDDIR" || return 1
