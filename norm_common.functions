@@ -176,7 +176,7 @@ do_unpack() {
     log "Unpacking $TARNAME"
     rm -rf "$SRCDIR"  || return 1
     mkdir -p "$SRCDIR"  || return 1
-    do_untar "$CACHEDIR/$TARNAME" "$SRCDIR" || return 1
+    do_untar "$CACHEDIR/$TARNAME" "$SRCDIR" "$@" || return 1
     log "Unpacked $TARNAME"
 }
 
