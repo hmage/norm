@@ -1,8 +1,9 @@
 #!/bin/bash
 
-depends_on libevdev
+needs_tool pkg-config
 depends_on libmtdev
 depends_on libudev
+depends_on libevdev
 depends_on libwacom
 
 fetch_source https://www.freedesktop.org/software/libinput/libinput-1.5.4.tar.xz 36800caa5c89b2e932f094ed18691591c4dbbbb0
