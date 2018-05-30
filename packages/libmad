@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
+needs_tool autoconf automake libtool
 
 fetch_source http://http.debian.net/debian/pool/main/libm/libmad/libmad_0.15.1b.orig.tar.gz cac19cd00e1a907f3150cc040ccc077783496d76
 fetch_debian http://http.debian.net/debian/pool/main/libm/libmad/libmad_0.15.1b-8.diff.gz 8ff475c61b9a61a13fa39380bc1a5e8de059e3d6
