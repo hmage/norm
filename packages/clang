@@ -35,3 +35,6 @@ do_compile_outside \
 	-DLLVM_BUILD_TESTS=ON \
 	-DLLVM_BUILD_EXAMPLES=OFF \
 	-DLLVM_LINK_LLVM_DYLIB=ON
+
+## install FileCheck tool that is required for building rust
+install -m 755 "$BUILDDIR"/bin/FileCheck "$PREFIX"/bin
