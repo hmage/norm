@@ -1,7 +1,9 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on yasm
+needs_tool pkg-config
+needs_tool nasm
+
+## ffmpeg is much more useful with these libraries
 depends_on libopus
 depends_on speex
 depends_on libwebp
@@ -11,25 +13,13 @@ depends_on libvorbis
 depends_on libxvid
 depends_on libtheora
 depends_on lame
-depends_on zlib
-depends_on bzip2
-depends_on xz
-depends_on libx11
-depends_on libxext
-depends_on libxau
-depends_on libxdmcp
-have_gcc 4.7 && depends_on libva ## mesa wants 4.7
 [[ $OSTYPE == *linux* ]] && depends_on libasound
-needs_tool bison
-needs_tool flex
 depends_on rtmpdump
-depends_on libxv
 depends_on libsdl2
 depends_on libfdk-aac
-depends_on libvdpau
 depends_on libvpx
-depends_on libsndio ## opportunistic linking
-depends_on libcrystalhd ## opportunistic linking
+depends_on libaom
+depends_on libopenjpeg
 
 fetch_source http://www.ffmpeg.org/releases/ffmpeg-4.0.tar.xz 1f85916c154a4d6a342d7ec1f909bbc58a92c19d
 
@@ -47,16 +37,19 @@ CONFIGURE=(
 --enable-libxvid
 --enable-libtheora
 --enable-libvorbis
---enable-ffplay
+--enable-sdl2
+--enable-libaom
 --enable-libspeex
 --enable-libopus
 --enable-librtmp
 --enable-libfdk-aac
 --enable-libwebp
 --enable-libvpx
+--enable-libopenjpeg
+--enable-lto
 )
 
-[[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--enable-videotoolbox)
+[[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--enable-videotoolbox --enable-audiotoolbox)
 
 do_unpack
 NEEDV1=1 do_compile "${CONFIGURE[@]}"
