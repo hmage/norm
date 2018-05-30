@@ -1,10 +1,7 @@
 #!/bin/bash
 
-depends_on automake autoconf libtool
-depends_on libdb
-depends_on openssl
-depends_on libpam
-depends_on groff
+needs_tool autoconf automake libtool
+depends_on openssl ## fails to build without it even though it's optional
 
 fetch_source http://http.debian.net/debian/pool/main/c/cyrus-sasl2/cyrus-sasl2_2.1.26.dfsg1.orig.tar.gz 2e2e96dfb788974d7ab335f39bde526bc71815e5
 fetch_debian http://http.debian.net/debian/pool/main/c/cyrus-sasl2/cyrus-sasl2_2.1.26.dfsg1-13.debian.tar.xz 524e54e03da82eb3ac3dc0271c2cd05085a56abf
