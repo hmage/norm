@@ -19,8 +19,8 @@ popd_src() {
 }
 
 do_configure() {
-    fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=7d3d27baf8107b630586c962c057e22149653deb' 5aee40a0666b38552df04e875939c10776cae149 config.guess
-    fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=7d3d27baf8107b630586c962c057e22149653deb' 1663dc7d1066e931fec23175357a9acc72ea545d config.sub
+    fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=7d3d27baf8107b630586c962c057e22149653deb' 5aee40a0666b38552df04e875939c10776cae149 config.guess CONFIGGUESS
+    fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=7d3d27baf8107b630586c962c057e22149653deb' 1663dc7d1066e931fec23175357a9acc72ea545d config.sub CONFIGSUB
     # replace config.sub and config.guess with newer ones
     find "$SRCDIR" -name config.sub -exec install -v "$CACHEDIR/config.sub" {} \;
     find "$SRCDIR" -name config.guess -exec install -v "$CACHEDIR/config.guess" {} \;
@@ -444,9 +444,11 @@ fetch_file() {
     [ -z "$1" ] && log "fetch_file() needs at least 1 argument" && return 1
     local URL="$1"
     local SHA1="$2"
-    FILENAME=`basename -- "$URL"`
-    [ -n "$3" ] && FILENAME="$3"
-    local FILEPATH="$CACHEDIR/$FILENAME"
+    local VARNAME="FILENAME"
+    [ -n "$4" ] && VARNAME="$4"
+    export $VARNAME=`basename -- "$URL"`
+    [ -n "$3" ] && export $VARNAME="$3"
+    local FILEPATH="$CACHEDIR/${!VARNAME}"
     mkdir -p "$CACHEDIR"
     if ! check_sha1 "$FILEPATH" "$SHA1"; then
         log "Downloading $URL"
@@ -467,10 +469,9 @@ fetch_file() {
 fetch_source() {
     local URL="$1"
     local CHECKSUM="$2"
-    local NEWNAME="$3"
-    TARNAME="${FORMULA}"_`basename -- "$URL"`
-    [ -z "$NEWNAME" ] && NEWNAME="$TARNAME"
-    fetch_file "$URL" "$CHECKSUM" "$NEWNAME"
+    local NEWNAME="${FORMULA}"_`basename -- "$URL"`
+    [ -n "$3" ] && NEWNAME="$3"
+    fetch_file "$URL" "$CHECKSUM" "$NEWNAME" "TARNAME"
 }
 
 ##
