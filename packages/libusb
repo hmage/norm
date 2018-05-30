@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
+needs_tool autoconf automake libtool
 
 fetch_source https://prdownloads.sourceforge.net/libusb/libusb-1.0/libusb-1.0.21/libusb-1.0.21.tar.gz f5b2fbfda1993fbabbb5976048b29f14c3e9be2f
 
