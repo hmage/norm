@@ -2,7 +2,7 @@
 
 needs_tool python
 
-fetch_source https://nodejs.org/dist/v10.2.1/node-v10.2.1.tar.gz 366ab0e8cac3e6eb4eb6c67b929dc9fa6e9164b0
+fetch_source https://nodejs.org/dist/v10.3.0/node-v10.3.0.tar.gz fbb08bb98bb345fdff2f4cb790809963edb289c0
 
 # as of 7.2.1, tests are broken
 do_unpack_compile_notest
