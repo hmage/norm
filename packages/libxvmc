@@ -1,9 +1,10 @@
 #!/bin/bash
 
-depends_on pkg-config
+needs_tool pkg-config
 depends_on libx11
 depends_on libxext
 depends_on libxv
+depends_on xproto
 
 fetch_source http://security.debian.org/debian-security/pool/updates/main/libx/libxvmc/libxvmc_1.0.7.orig.tar.gz 51f6c6209d4f104d95d020352125eace001fa111
 fetch_debian http://security.debian.org/debian-security/pool/updates/main/libx/libxvmc/libxvmc_1.0.7-1+deb7u3.diff.gz ef41f1ce263bd0a63f33283286ee256d9183fa6b
