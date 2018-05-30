@@ -1,9 +1,8 @@
 #!/bin/bash
 
-depends_on mesa
-depends_on libxmu
 depends_on libx11
 depends_on libglu
+depends_on libxmu
 depends_on libxi
 
 fetch_source http://ftp.de.debian.org/debian/pool/main/g/glew/glew_1.7.0.orig.tar.gz 9266f2360c1687a96f2ea06419671d370b2928d1
