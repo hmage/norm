@@ -1,0 +1,10 @@
+#!/bin/bash
+
+needs_tool python
+depends_on glib
+depends_on libgstreamer
+depends_on libgstreamer-plugins-base
+
+fetch_source https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.14.1.tar.xz 426a2910874d3add75ad0f6c56e4973a972667c7
+
+do_unpack_compile
