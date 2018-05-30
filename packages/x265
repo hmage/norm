@@ -4,7 +4,7 @@ depends_on nasm
 depends_on cmake
 [[ $OSTYPE == *linux* ]] && depends_on libnuma
 
-fetch_source https://bitbucket.org/multicoreware/x265/downloads/x265_2.7.tar.gz 27642953f6f620beb669129bd581d569b27a8ae6
+fetch_source https://bitbucket.org/multicoreware/x265/downloads/x265_2.8.tar.gz e2ef1ad186d9581239463d4e5177a25bc57b9fc0
 
 do_unpack
 do_patch_inline -p0 << 'EOF'
