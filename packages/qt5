@@ -37,7 +37,7 @@ depends_on libdbus
 depends_on libwayland
 depends_on libts
 
-fetch_source http://download.qt.io/official_releases/qt/5.10/5.10.1/single/qt-everywhere-src-5.10.1.tar.xz 3d71e887287bdea664ac6f8db4aaa4a7d913be59
+fetch_source http://download.qt.io/official_releases/qt/5.11/5.11.0/single/qt-everywhere-src-5.11.0.tar.xz 0e69374a1b0b008e9c294b2f4aa5d337e628a183
 
 CFLAGS="-g -O2 $CPPFLAGS" \
 CXXFLAGS="-g -O2 $CPPFLAGS" \
