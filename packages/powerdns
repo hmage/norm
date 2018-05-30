@@ -1,10 +1,9 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on libboost
+needs_tool pkg-config ## to find openssl
 depends_on openssl
-depends_on mariadb
+depends_on libboost
 
 fetch_source https://downloads.powerdns.com/releases/pdns-4.1.3.tar.bz2 6a9cf78eae842e5b6741731c2ad7e8d212530ee2
 
-do_unpack_compile
+do_unpack_compile --with-modules="bind random"
