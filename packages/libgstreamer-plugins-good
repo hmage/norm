@@ -1,0 +1,11 @@
+#!/bin/bash
+
+needs_tool python
+depends_on glib
+depends_on libgstreamer
+depends_on libgstreamer-plugins-base
+depends_on libxext
+
+fetch_source https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.14.1.tar.xz 5279165842178ada171242fff76dc2489b77eb66
+
+do_unpack_compile
