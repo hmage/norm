@@ -12,6 +12,6 @@ depends_on libxv
 depends_on liborc
 depends_on libpango
 
-fetch_source https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.14.0.tar.xz 9fcba24242252b41018f506bdd890538e6b589d4
+fetch_source https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.14.1.tar.xz ca404fb17bd4fa553e8a6f026a0ec5d6d3506aa7
 
 do_unpack_compile --disable-gnome_vfs --disable-cdparanoia --disable-libvisual --disable-introspection
