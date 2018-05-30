@@ -1,7 +1,6 @@
 #!/bin/bash
 
 needs_tool m4
-depends_on pkg-config
 depends_on libxcb
 
 fetch_source http://http.debian.net/debian/pool/main/x/xcb-util-wm/xcb-util-wm_0.4.1.orig.tar.gz 387c9b17a7352a19188b9353adbe5e7fdc01ef2a
