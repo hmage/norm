@@ -1,7 +1,8 @@
 #!/bin/bash
 
 ## heavy dependencies for generating manpages. TODO: make optional or remove them
-depends_on libxslt
+depends_on libxml ## for xmllint
+depends_on libxslt ## for xsltproc
 depends_on docbook-xsl
 
 fetch_source http://http.debian.net/debian/pool/main/m/moreutils/moreutils_0.60.orig.tar.xz 3af60490f763ece48b2fcba968903673c3e63495
