@@ -3,11 +3,10 @@
 depends_on autoconf automake libtool
 depends_on pkg-config
 
-fetch_source http://http.debian.net/debian/pool/main/libg/libgc/libgc_7.4.2.orig.tar.gz 441777b9865a730c9c804f5f5de2aa9a55fc9419
-fetch_debian http://http.debian.net/debian/pool/main/libg/libgc/libgc_7.4.2-8.debian.tar.xz eaae1fe05f7dc5a75b9e925d145116d565e5d449
+fetch_source http://hboehm.info/gc/gc_source/gc-7.6.4.tar.gz 1a3f91a6ea004dcd1f5fc93defcdb2c2bc0c3941
 fetch_file   http://hboehm.info/gc/gc_source/libatomic_ops-7.4.4.tar.gz 426af02f1bb8b91979fa8794e9e0b29e2be1e47e
 
-do_undebian
+do_unpack
 pushd_src
 mkdir -p libatomic_ops
 tar xvf "$CACHEDIR/$FILENAME" -C libatomic_ops --strip-components 1
