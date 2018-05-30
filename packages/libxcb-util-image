@@ -1,5 +1,7 @@
 #!/bin/bash
 
+needs_tool pkg-config
+depends_on libxcb
 depends_on libxcb-util
 
 fetch_source http://http.debian.net/debian/pool/main/x/xcb-util-image/xcb-util-image_0.4.0.orig.tar.bz2 c9c9361781911a47b28f74fc6ebe0abd1273fae4
