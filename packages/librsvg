@@ -1,0 +1,14 @@
+#!/bin/bash
+
+needs_tool pkg-config
+depends_on gdk-pixbuf
+depends_on glib
+depends_on libxml
+depends_on libpango
+depends_on libcroco
+
+## 2.40.16 is last version that doesn't require Rust
+fetch_source http://http.debian.net/debian/pool/main/libr/librsvg/librsvg_2.40.16.orig.tar.xz 6d800afa8d886eba9c3039875d4fc89a8004932f
+fetch_debian http://http.debian.net/debian/pool/main/libr/librsvg/librsvg_2.40.16-1.debian.tar.xz a86fb2b4132afa7ccc49680bd02cb86e96f8454e
+
+do_undebian_compile --disable-introspection
