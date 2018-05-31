@@ -1,7 +1,9 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
-depends_on gettext # for autoreconf
+needs_tool autoconf
+needs_tool gettext # for autopoint in autoreconf
+needs_tool automake libtool
+needs_tool pkg-config ## for autoconf macros
 depends_on libncurses
 
 fetch_source http://http.debian.net/debian/pool/main/p/procps/procps_3.3.9.orig.tar.xz 088c77631745fc75ee41fc29c254a4069be4869a
