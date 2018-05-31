@@ -1,41 +1,6 @@
 #!/bin/bash
 
-depends_on libproxy
-depends_on pkg-config
-needs_tool python # building qtqml requires python
 depends_on mesa   # qt module "quick" isn't skipped by configure when there's no mesa
-depends_on zlib   # same -- configure will generate uncompilable build
-depends_on libx11
-depends_on libxcb
-depends_on libjpeg
-depends_on libpng
-depends_on fontconfig
-depends_on freetype
-depends_on libxrender
-depends_on libxi
-depends_on libxcb-util-wm
-depends_on libxcb-util-image
-depends_on libxcb-util-keysyms
-depends_on libxcb-util-renderutil
-depends_on libxkbcommon
-depends_on libinput
-depends_on libmtdev
-depends_on libdrm
-depends_on libdouble-conversion
-depends_on openssl
-depends_on libpcre2
-depends_on sqlite3
-depends_on libdbus
-depends_on glib
-depends_on libicu
-depends_on libasound
-depends_on libsm
-depends_on libtiff
-depends_on libwebp
-depends_on libxcomposite
-depends_on libdbus
-depends_on libwayland
-depends_on libts
 
 fetch_source http://download.qt.io/official_releases/qt/5.11/5.11.0/single/qt-everywhere-src-5.11.0.tar.xz 0e69374a1b0b008e9c294b2f4aa5d337e628a183
 
@@ -130,23 +95,20 @@ do_patch_inline << 'EOF'
             ../../corelib/codecs/qlatincodec.cpp \
             ../../corelib/codecs/qtextcodec.cpp \
 EOF
+
+CONFFLAGS=(
+-prefix "$PREFIX"
+-I $ESCAPED_PREFIX/include
+-L $ESCAPED_PREFIX/lib
+-R $ESCAPED_PREFIX/lib
+-opensource
+-confirm-license
+-proprietary-codecs
+-nomake examples
+)
+
 pushd_src
-./configure -prefix "$PREFIX" \
-                  -I $ESCAPED_PREFIX/include \
-                  -L $ESCAPED_PREFIX/lib \
-                  -R $ESCAPED_PREFIX/lib \
-                  -opensource \
-                  -confirm-license \
-                  -system-zlib \
-                  -system-libpng \
-                  -system-libjpeg \
-                  -system-freetype \
-                  -system-pcre \
-                  -system-sqlite \
-                  -proprietary-codecs \
-                  -no-pch \
-                  -pkg-config \
-                  -nomake examples
+./configure "${CONFFLAGS[@]}"
 do_make
 do_test
 do_install
