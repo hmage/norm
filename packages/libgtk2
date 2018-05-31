@@ -1,25 +1,21 @@
 #!/bin/bash
 
-depends_on gdk-pixbuf
+needs_tool pkg-config
+
+depends_on glib
+depends_on libatk
 depends_on libpango
 depends_on libcairo
-depends_on libatk
-depends_on gtk-doc
+depends_on gdk-pixbuf
 depends_on libx11
-depends_on libxext
-depends_on libxi
-depends_on libxrandr
-depends_on libxt
 depends_on libxrender
-depends_on libxft
-depends_on libxcursor
-depends_on libxcomposite
-depends_on libxdamage
-depends_on libxkbfile
-depends_on libxinerama
-depends_on libxfixes
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.32.tar.xz c885ade62b06854590822c8eb906daf7dd15d90a
 
+CONFFLAGS=(
+--disable-introspection
+--disable-cups
+)
+
 do_unpack
-do_compile_outside --disable-introspection --with-xinput=yes --enable-shared --disable-cups
+do_compile_outside "${CONFFLAGS[@]}"
