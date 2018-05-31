@@ -1,34 +1,29 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
-depends_on pkg-config
+needs_tool autoconf automake
+needs_tool pkg-config ## for autoconf macros
+needs_tool libtool
+depends_on zlib
 depends_on xproto
 [[ $OSTYPE == *linux* ]] && depends_on libdrm
+
 depends_on libx11
 depends_on libxext
 depends_on libxdamage
 depends_on libxfixes
 depends_on libxcb
 depends_on libxshmfence
-depends_on libxxf86vm
-[[ $OSTYPE == *linux* ]] && depends_on libudev
-depends_on libselinux
-depends_on libexpat
-needs_tool bison
-needs_tool flex
-depends_on libgcrypt
-depends_on libnettle
-depends_on libxvmc
-depends_on libwayland
-depends_on libwayland-protocols
+
 depends_on libelf # r600 requires libelf when using llvm
 
-DISABLE_GALLIUM=
-is_without gallium && DISABLE_GALLIUM="--with-gallium-drivers="
+CONFOPTS=(
+)
+
+is_without gallium && CONFOPTS+=("--with-gallium-drivers=")
 
 if [ -z "$DISABLE_GALLIUM" ]; then
     if ! test_cc_value "fcntl.h" "O_CLOEXEC"; then
-        DISABLE_GALLIUM="--with-gallium-drivers="
+        CONFOPTS+=("--with-gallium-drivers=")
         add_caveat "gallium in mesa was disabled -- your libc headers are too old."
     fi
 fi
@@ -37,7 +32,7 @@ if [ -z "$DISABLE_GALLIUM" ]; then
     if have_gcc 4.7; then
         depends_on libllvm
     else
-        DISABLE_GALLIUM="--with-gallium-drivers="
+        CONFOPTS+=("--with-gallium-drivers=")
         add_caveat "You don't have GCC 4.7 or newer -- gallium in mesa was disabled."
     fi
 fi
@@ -46,18 +41,4 @@ fetch_source https://mesa.freedesktop.org/archive/mesa-18.0.3.tar.xz 2c12c9f69eb
 
 do_unpack
 do_autoreconf
-do_compile $DISABLE_GALLIUM \
-                  --enable-gles1 \
-                  --enable-gles2 \
-                  --enable-osmesa \
-                  --enable-egl \
-                  --enable-dri \
-                  --enable-shared-glapi \
-                  --enable-xa \
-                  --enable-glx-tls \
-                  --enable-gbm \
-                  --enable-sysfs \
-                  --with-egl-platforms=wayland,x11,drm \
-                  --disable-debug \
-                  --disable-shader-cache \
-                  --enable-texture-float
+do_compile "${CONFOPTS[@]}"
