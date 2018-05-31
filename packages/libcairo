@@ -1,23 +1,21 @@
 #!/bin/bash
 
-depends_on pkg-config
+needs_tool pkg-config
 depends_on libx11
 depends_on libpng
 depends_on pixman
-depends_on glib
-depends_on libxext
-depends_on fontconfig
-depends_on libxrender
-depends_on xz
-depends_on liblzo
+depends_on libxext ## not checked by configure but required if xlib is enabled
+depends_on fontconfig ## pangocairo won't build without font backend available through libcairo, needed by libcairomm and libpango
 
 unset EXTRALD
 cc_addflags EXTRALD -Wl,--no-gc-sections
 
 fetch_source http://cairographics.org/releases/cairo-1.14.10.tar.xz 28c59d85d6b790c21b8b59ece73a6a1dda28d69a
 
+CONFFLAGS=(
+--enable-xlib ## needed by libgtk2
+)
+
 ## TODO: figure out why almost all libcairo tests fail spectacularly
 LDFLAGS="$LDFLAGS $EXTRALD" \
-do_unpack_compile_notest --enable-xlib --enable-pdf --enable-ps --enable-png --enable-tee --enable-xlib \
-                  --disable-trace \
-                  --enable-svg --enable-xcb --enable-xlib-xcb --enable-gobject=yes --enable-pthread
+do_unpack_compile_notest "${CONFFLAGS[@]}"
