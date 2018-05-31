@@ -1,7 +1,10 @@
 #!/bin/bash
 
-depends_on glib
+needs_tool autoconf automake libtool
+depends_on libexpat
+needs_tool pkg-config ## for autoconf macros
 depends_on libdbus
+depends_on glib
 
 fetch_source https://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.110.tar.gz 998b7c762c8f18c906f19fc393bb8712eabe8c97
 
