@@ -3,10 +3,6 @@
 depends_on libxml
 depends_on openssl
 depends_on zlib
-depends_on bzip2
-depends_on xz
-depends_on libacl ## opportunistic linking
-depends_on e2fsprogs ## opporutnistic linking
 
 fetch_source https://github.com/downloads/mackyle/xar/xar-1.6.1.tar.gz 6f7827a034877eda673a22af1c42dc32f14edb4c
 
