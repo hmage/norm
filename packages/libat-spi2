@@ -3,6 +3,7 @@
 needs_tool pkg-config
 depends_on libdbus
 depends_on glib
+depends_on libxtst ## if libx11 is linkable, it wants libxtst
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/at-spi2-core/2.26/at-spi2-core-2.26.2.tar.xz 1c39d66c1ca02005abff884fdab0ab510311d018
 
