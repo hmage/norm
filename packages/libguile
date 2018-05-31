@@ -1,9 +1,9 @@
 #!/bin/bash
 
-depends_on libtool ## wants libltdl
+needs_tool libtool ## wants libltdl
+needs_tool pkg-config ## to find libffi
 depends_on libgmp
 depends_on libunistring
-needs_tool pkg-config
 depends_on libffi
 depends_on libgc
 
