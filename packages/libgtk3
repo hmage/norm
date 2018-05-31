@@ -1,20 +1,17 @@
 #!/bin/bash
 
-depends_on gdk-pixbuf
-depends_on pkg-config
+needs_tool pkg-config
 depends_on glib
 depends_on libatk
 depends_on libpango
 depends_on libcairo
+depends_on gdk-pixbuf
+depends_on fontconfig
+depends_on libx11
 depends_on libxi
 depends_on libepoxy
+depends_on libatk
 depends_on libat-spi2-atk
-depends_on libxinerama
-depends_on libxrandr
-depends_on libxcursor
-depends_on libxcomposite
-depends_on libxkbcommon
-depends_on libwayland
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/gtk+/3.22/gtk+-3.22.30.tar.xz 1be769c97b4dac9221d63f62f61ef724c55a14a3
 
