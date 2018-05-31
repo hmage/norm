@@ -1,10 +1,7 @@
 #!/bin/bash
 
-#depends_on elfutils
-depends_on libreadline
-depends_on gettext
-depends_on libnss
-depends_on bzip2
+needs_tool gettext
+depends_on zlib
 needs_tool m4
 
 fetch_source https://sourceware.org/systemtap/ftp/releases/systemtap-3.0.tar.gz 5ef3a2d9945b0f6bae0061e33811e25e5138f5b7
