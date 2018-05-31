@@ -1,34 +1,23 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on zlib
-depends_on libaio
-depends_on curl
-depends_on libpng
-depends_on libjpeg
-depends_on libasound
-depends_on pixman
-depends_on glib
-depends_on liblzo
-depends_on libseccomp
-depends_on libcap-ng
-depends_on libsdl
-depends_on libncurses
-depends_on libssh2
-needs_tool bison
-needs_tool flex
-depends_on libepoxy
 needs_tool python
-depends_on libnuma
-depends_on libsnappy
-depends_on libusb
-depends_on libsasl
+needs_tool pkg-config
+depends_on libsdl
+depends_on glib
+depends_on pixman
+depends_on libx11
 
-fetch_source http://wiki.qemu-project.org/download/qemu-2.11.1.tar.bz2 9c3a64884bcf8525010be62bdb2cf62f4e5abe1f
+fetch_source http://wiki.qemu-project.org/download/qemu-2.12.0.tar.bz2 300ade3de7ad6089a7f0b846c2d0dcc5ff0cd0b6
+
+CONFFLAGS=(
+--disable-seccomp ## seccomp causes troubles with musl/alpine
+--disable-libnfs
+--disable-bluez
+--enable-sdl
+--disable-gtk
+--extra-cflags="$CPPFLAGS"
+--extra-ldflags="$LDFLAGS"
+)
 
 ## testing hangs because test scripts do not kill a qemu process
-do_unpack_compile_notest \
-                  --disable-libnfs \
-                  --disable-bluez \
-                  --enable-sdl --disable-gtk \
-                  --extra-cflags="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" --extra-ldflags="$LDFLAGS"
+do_unpack_compile_notest "${CONFFLAGS[@]}"
