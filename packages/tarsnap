@@ -1,11 +1,8 @@
 #!/bin/bash
 
-depends_on openssl
 depends_on e2fsprogs
-depends_on libacl
-depends_on xz # for liblzma
-depends_on bzip2
 depends_on zlib
+depends_on openssl
 
 fetch_source https://www.tarsnap.com/download/tarsnap-autoconf-1.0.36.1.tgz d678c2d7701f013901540dab6899aca9ea5e146f
 
