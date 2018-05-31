@@ -1,11 +1,10 @@
 #!/bin/bash
 
-depends_on libjfs
-depends_on libblkid
+needs_tool pkg-config ## to find libuuid
+depends_on libuuid
 depends_on e2fsprogs
 depends_on nilfs-tools
-depends_on ntfs-3g
-depends_on btrfs-tools
+depends_on libjfs
 
 fetch_source http://downloads.sourceforge.net/project/partclone/stable/0.2.88/partclone-0.2.88.tar.gz 83e4b5e30ffa34167a94d1d6814ca81193b4b0d5
 
