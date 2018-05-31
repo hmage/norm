@@ -1,0 +1,18 @@
+#!/bin/bash
+
+needs_tool cmake
+depends_on freetype
+depends_on fontconfig
+depends_on libjpeg
+depends_on libopenjpeg
+## do not add libcairo -- it depends on us
+
+fetch_source https://poppler.freedesktop.org/poppler-0.65.0.tar.xz 181630b228ec036be3e587c23ada1a50f617fc61
+
+CONFFLAGS=(
+-DENABLE_GOBJECT_INTROSPECTION=NO
+-DWITH_Cairo=OFF
+-DENABLE_QT5=NO
+-DENABLE_LIBCURL=NO ## PDF library shouldn't need to access internet
+)
+do_unpack_compile "${CONFFLAGS[@]}"
