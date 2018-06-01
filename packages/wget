@@ -1,16 +1,8 @@
 #!/bin/bash
 
-depends_on openssl libidn
-
-## wget will link against these libraries if they're installed in the system, so better provide our own
-[[ $OSTYPE == *linux* ]] && depends_on libuuid ## what for?
-depends_on libpcre ## regexp in wget, what for?
-depends_on bzip2   ## bzip2 in wget, what for?
-depends_on zlib
+needs_tool pkg-config
+depends_on openssl
 
 fetch_source http://ftpmirror.gnu.org/wget/wget-1.19.5.tar.gz 43b3d09e786df9e8d7aa454095d4ea2d420ae41c
 
-MAKEINFO=true \
-POD2MAN=no \
-ac_cv_path_POD2MAN=no \
-do_unpack_compile --enable-ipv6 --with-ssl=openssl --with-libidn
+do_unpack_compile --enable-ipv6 --with-ssl=openssl
