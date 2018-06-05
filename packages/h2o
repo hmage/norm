@@ -2,6 +2,7 @@
 
 needs_tool cmake
 depends_on zlib
+depends_on openssl ## opportunistic linking, to serve HTTPS
 
 fetch_source https://github.com/h2o/h2o/archive/v2.2.4.tar.gz 5e82a25b2c1dbd53ba32c24d7a6ab90721150b7b
 
