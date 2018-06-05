@@ -2,6 +2,7 @@
 
 needs_tool cmake  ## since llvm 3.9, cmake is the only way to build this
 needs_tool python ## needs python 2.7 to compile
+depends_on libxml ## c-index-test requires libxml and there's no way to disable that
 
 ENABLE_SANITIZER=yes
 if ! test_cc_expr "link.h" "Elf64_Dyn a = _DYNAMIC[0]"; then
@@ -26,15 +27,22 @@ if [[ ${BASH_SOURCE##*/} == clang ]]; then
     intree_unpack tools/clang/tools/extra
 fi
 
-do_compile_outside \
-	-DOCAMLFIND= \
-	-DOCAML_STDLIB_PATH= \
-	-DHAVE_OCAMLOPT=FALSE \
-	-DLLVM_OPTIMIZED_TABLEGEN=ON \
-	-DLLVM_BUILD_LLVM_DYLIB=ON \
-	-DLLVM_BUILD_TESTS=ON \
-	-DLLVM_BUILD_EXAMPLES=OFF \
-	-DLLVM_LINK_LLVM_DYLIB=ON
+CONFFLAGS=(
+-DOCAMLFIND=
+-DOCAML_STDLIB_PATH=
+-DHAVE_OCAMLOPT=FALSE
+-DLLVM_OPTIMIZED_TABLEGEN=ON
+-DLLVM_BUILD_LLVM_DYLIB=ON
+-DLLVM_BUILD_TESTS=ON
+-DLLVM_BUILD_EXAMPLES=OFF
+-DLLVM_LINK_LLVM_DYLIB=ON
+-DLLVM_ENABLE_LIBEDIT=OFF
+-DLLVM_ENABLE_ZLIB=OFF
+-DLLVM_ENABLE_TERMINFO=OFF
+-DLLVM_ENABLE_LIBXML2=OFF
+)
+
+do_compile_outside "${CONFFLAGS[@]}"
 
 ## install FileCheck tool that is required for building rust
 install -m 755 "$BUILDDIR"/bin/FileCheck "$PREFIX"/bin
