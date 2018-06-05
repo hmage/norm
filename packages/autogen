@@ -1,6 +1,7 @@
 #!/bin/bash
 
 depends_on libguile
+depends_on libxml ## opportunistic linking, no way to disable
 
 fetch_source http://ftpmirror.gnu.org/autogen/rel5.18.12/autogen-5.18.12.tar.xz 6b88bb1e3d3e789d721d0000d2aff963eff60bab
 
