@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ! is_without tests && depends_on file ## tests will not work without 'file' command
+depends_on curl ## otherwise it builds it's own outdated copy
 
 fetch_source http://www.cmake.org/files/v3.11/cmake-3.11.2.tar.gz 75ffbe02186b8e04044bd2e29389deeb57a8a71a
 
@@ -34,4 +35,4 @@ do_patch_inline -p0 << 'EOF'
  #endif
  
 EOF
-do_compile -- -DCMAKE_SYSTEM_PREFIX_PATH="$PREFIX" -DCMake_TEST_Qt4=0
+do_compile -- -DCMAKE_SYSTEM_PREFIX_PATH="$PREFIX" -DCMake_TEST_Qt4=0 -DCMAKE_USE_SYSTEM_CURL=ON
