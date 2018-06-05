@@ -4,6 +4,7 @@ needs_tool pkg-config
 depends_on freetype
 [[ $OSTYPE == *linux* ]] && depends_on libuuid
 needs_tool gperf
+depends_on libexpat
 
 fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.0.tar.bz2 b7bcc5d47211b7bbac35bb221860407db3601f5b
 do_unpack
