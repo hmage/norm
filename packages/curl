@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on zlib ## for transparent decompression of gzip/deflate encoded responses
 [[ $OSTYPE != *darwin* ]] && depends_on openssl
 
 fetch_source http://curl.mirror.anstey.ca/curl-7.60.0.tar.gz 31c68f25832ee3af7480a48d1d5dffbe6771df17
@@ -10,6 +11,8 @@ CONFIGURE=(
 --without-libssh2
 --without-librtmp
 --without-libpsl
+--without-nghttp2
+--without-libidn2
 )
 
 [[ $OSTYPE != *darwin* ]] && CONFIGURE+=("--with-ca-bundle=$PREFIX/etc/ssl/cert.pem")
