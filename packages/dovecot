@@ -1,5 +1,11 @@
 #!/bin/bash
 
+depends_on zlib    ## opportunistic linking, for compressed mbox, maildir and dbox files
+depends_on bzip2   ## opportunistic linking, for compressed mbox, maildir and dbox files
+depends_on xz      ## opportunistic linking, for compressed mbox, maildir and dbox files
+depends_on liblz4  ## opportunistic linking, for compressed mbox, maildir and dbox files
+depends_on openssl ## opportunistic linking, for encrypted transfers with clients
+
 fetch_source http://dovecot.org/releases/2.3/dovecot-2.3.1.tar.gz 4f098f4c1a63a714ec428292dce20f7ae5cc8ce1
 
 do_unpack
@@ -45,6 +51,12 @@ CONFFLAGS=(
 --localstatedir=$PREFIX/var
 --with-moduledir=$PREFIX/lib/dovecot/modules
 --sysconfdir=$PREFIX/etc
+--without-libcap
+--without-pam
+--without-stemmer
+--without-textcat
+--without-icu
+--without-apparmor
 )
 do_compile "${CONFFLAGS[@]}"
 
