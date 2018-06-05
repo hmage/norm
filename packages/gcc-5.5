@@ -30,6 +30,9 @@ fi
 fetch_source http://ftp.gnu.org/gnu/gcc/gcc-5.5.0/gcc-5.5.0.tar.xz 0d985aaf6d63598916933a690cb902d47d385bea
 do_unpack
 
+fetch_source http://isl.gforge.inria.fr/isl-0.15.tar.xz b6f66c4eaf26f8ab697a3a853fe692256a027e9d
+intree_unpack isl
+
 # We install 64-bit linux libraries into $PREFIX/lib
 [[ $HOSTTYPE == "x86_64" ]] && sed -ibak '/m64=/s/lib64/lib/' "$SRCDIR"/gcc/config/i386/t-linux64
 
