@@ -1,6 +1,7 @@
 #!/bin/bash
 
 needs_tool nasm
+depends_on libncurses ## opportunistic linking, for nicer encoding progress display
 
 fetch_source https://downloads.sourceforge.net/sourceforge/lame/lame-3.100.tar.gz 64c53b1a4d493237cef5e74944912cd9f98e618d
 
