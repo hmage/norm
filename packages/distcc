@@ -1,7 +1,8 @@
 #!/bin/bash
 
 depends_on libiberty
+depends_on libpopt ## opportunistic linking, if absent uses bundled outdated copy
 
 fetch_source https://github.com/distcc/distcc/releases/download/v3.3/distcc-3.3.tar.gz 20c9f3085d7211945b7f3f8a60bce704a8a0f127
 
-do_unpack_compile --disable-pump-mode
+do_unpack_compile --disable-pump-mode --without-avahi
