@@ -4,6 +4,7 @@ needs_tool autoconf automake
 depends_on curl ## libcurl and headers
 depends_on libgmp
 depends_on zlib
+depends_on libjansson
 
 fetch_source https://github.com/JayDDee/cpuminer-opt/archive/v3.8.8.1.tar.gz 782bd425f1f3016346e218e303943e41bb4d5ce8
 
