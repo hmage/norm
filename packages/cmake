@@ -3,7 +3,7 @@
 ! is_without tests && depends_on file ## tests will not work without 'file' command
 depends_on curl ## otherwise it builds it's own outdated copy
 
-fetch_source http://www.cmake.org/files/v3.11/cmake-3.11.2.tar.gz 75ffbe02186b8e04044bd2e29389deeb57a8a71a
+fetch_source http://www.cmake.org/files/v3.11/cmake-3.11.3.tar.gz 73261a5b7f71abf7277c1d2a418ca3c4cf170c89
 
 do_unpack
 ## it's not cmake's job to test system-provided qt, we'll test qt when compiling qt
