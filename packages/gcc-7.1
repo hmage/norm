@@ -3,6 +3,7 @@
 depends_on libgmp
 depends_on libmpfr
 depends_on libmpc
+depends_on libisl ## opportunistic linking
 ! is_without tests && depends_on autogen ## needed to run tests
 
 CONFIGURE_OPTIONS=(
