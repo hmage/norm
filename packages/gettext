@@ -13,6 +13,7 @@ CONFFLAGS=(
 --with-included-libxml
 --disable-curses
 --disable-java
+--disable-acl
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
