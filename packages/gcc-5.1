@@ -30,6 +30,9 @@ fi
 fetch_source http://ftpmirror.gnu.org/gcc/gcc-5.1.0/gcc-5.1.0.tar.bz2 b6c947b09adf780fe02065d0c48bfd7b4bdddfa3
 do_unpack
 
+fetch_source http://isl.gforge.inria.fr/isl-0.14.tar.xz 259678a0b1d12f8bc45b9aaeaa14feded9d5b3e1
+intree_unpack isl
+
 do_patch gcc-5-compile-with-gcc6.patch ## fix compilation with gcc 6
 
 # We install 64-bit linux libraries into $PREFIX/lib
