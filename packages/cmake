@@ -1,7 +1,6 @@
 #!/bin/bash
 
 ! is_without tests && depends_on file ## tests will not work without 'file' command
-depends_on curl ## otherwise it builds it's own outdated copy
 
 fetch_source http://www.cmake.org/files/v3.11/cmake-3.11.3.tar.gz 73261a5b7f71abf7277c1d2a418ca3c4cf170c89
 
@@ -20,19 +19,5 @@ do_patch_inline -p0 << 'EOF'
      # there is a bug in the Syllable libraries which makes linking ccmake fail, Alex
      if(NOT CMAKE_SYSTEM_NAME MATCHES syllable)
        set(CURSES_NEED_NCURSES TRUE)
---- Source/CPack/cmCPackDragNDropGenerator.cxx
-+++ Source/CPack/cmCPackDragNDropGenerator.cxx
-@@ -19,6 +19,11 @@
- // For the old LocaleStringToLangAndRegionCodes() function, to convert
- // to the old Script Manager RegionCode values needed for the 'LPic' data
- // structure used for generating multi-lingual SLAs.
-+#include <sys/_types.h>
-+#ifndef _UUID_STRING_T
-+#define _UUID_STRING_T
-+typedef __darwin_uuid_string_t  uuid_string_t;
-+#endif /* _UUID_STRING_T */
- #include <CoreServices/CoreServices.h>
- #endif
- 
 EOF
-do_compile -- -DCMAKE_SYSTEM_PREFIX_PATH="$PREFIX" -DCMake_TEST_Qt4=0 -DCMAKE_USE_SYSTEM_CURL=ON
+do_compile -- -DCMAKE_SYSTEM_PREFIX_PATH="$PREFIX" -DCMake_TEST_Qt4=0 -DCMAKE_USE_OPENSSL=OFF
