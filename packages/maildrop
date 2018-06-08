@@ -7,4 +7,4 @@ depends_on libpcre
 fetch_source http://ftp.de.debian.org/debian/pool/main/m/maildrop/maildrop_2.7.1.orig.tar.bz2 d1758df6d1fe00aa47cc1cd77dbc316fefa542ee
 
 mkdir -p $PREFIX/var/mail
-do_unpack_compile --disable-authlib --with-default-maildrop=$PREFIX/var/mail
+do_unpack_compile --disable-authlib --with-default-maildrop=$PREFIX/var/mail --without-libidn --without-db
