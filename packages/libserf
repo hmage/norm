@@ -4,10 +4,9 @@ needs_tool scons
 depends_on libapr
 depends_on libaprutil
 
-fetch_source http://http.debian.net/debian/pool/main/s/serf/serf_1.3.8.orig.tar.gz e713b4697293d3e96f31515f48f2f3e4ab16e22b
-fetch_debian http://http.debian.net/debian/pool/main/s/serf/serf_1.3.8-1.diff.gz 54f43cebdbc08927fb36569196d1004b4aa0a166
+fetch_source https://www.apache.org/dist/serf/serf-1.3.9.tar.bz2 26015c63e3bbb108c1689bf2090e4c26351db674
 
-do_undebian
+do_unpack
 pushd_src
 scons APR="$PREFIX" APU="$PREFIX" OPENSSL="$PREFIX" PREFIX="$PREFIX" CFLAGS="-O2 -g $CPPFLAGS" LINKFLAGS="$LDFLAGS"
 scons test
