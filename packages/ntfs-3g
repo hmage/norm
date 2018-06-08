@@ -51,4 +51,4 @@ do_patch_inline -p1 << 'EOF'
  endif # ENABLE_NTFS_3G
 EOF
 do_autoreconf
-do_compile --exec-prefix="$ESCAPED_PREFIX" --enable-extras --enable-xattr-mappings --enable-quarantined --disable-ldconfig --with-fuse=internal --enable-posix-acls
+do_compile --exec-prefix="$ESCAPED_PREFIX" --enable-extras --enable-xattr-mappings --enable-quarantined --disable-ldconfig --with-fuse=internal --enable-posix-acls --without-uuid
