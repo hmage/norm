@@ -1,5 +1,7 @@
 #!/bin/bash
 
+depends_on zlib ## opportunistic linking, enables online compression
+
 fetch_source https://www.sqlite.org/2018/sqlite-autoconf-3230100.tar.gz 0edbfd75ececb95e8e6448d6ff33df82774c9646
 
 CPPFLAGS="$CPPFLAGS -DSQLITE_MAX_VARIABLE_NUMBER=250000 -DSQLITE_ENABLE_COLUMN_METADATA=1 -DSQLITE_MAX_DEFAULT_PAGE_SIZE=32768" \
