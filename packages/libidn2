@@ -1,5 +1,7 @@
 #!/bin/bash
 
+depends_on libunistring ## opportunistic linking, no way to disable without patching
+
 fetch_source http://ftpmirror.gnu.org/libidn/libidn2-2.0.5.tar.gz 91a5122511f87aaaa3f1b700f23c487aaf0dbd9e
 
 do_unpack_compile
