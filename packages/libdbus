@@ -5,4 +5,12 @@ depends_on libexpat
 
 fetch_source http://dbus.freedesktop.org/releases/dbus/dbus-1.12.8.tar.gz 8e50e46796e8297eaa633da3a61cdc79a500e34a
 
-do_unpack_compile --disable-systemd
+CONFFLAGS=(
+--disable-systemd
+--disable-selinux
+--disable-libaudit
+--disable-apparmor
+)
+do_unpack
+sed -i 's|X11/Xlib.h|testfail.testfail|g' "$SRCDIR"/configure ## patch out x11 support
+do_compile "${CONFFLAGS[@]}"
