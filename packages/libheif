@@ -1,27 +1,10 @@
 #!/bin/bash
 
-needs_tool autoconf automake libtool
-needs_tool pkg-config
+depends_on libde265 ## optional, for decoding, otherwise libheif is useless
+depends_on x265 ## optional, for encoding, otherwise libheif is useless
+depends_on libjpeg ## opportunistic linking, for heif-convert and heif-enc
+depends_on libpng ## opportunistic linking, for heif-convert, heif-enc and heif-thumbnailer
 
 fetch_source https://github.com/strukturag/libheif/releases/download/v1.2.0/libheif-1.2.0.tar.gz 5cbdc62b5975a002bd5b8cf52e3cfc3833104c92
 
-do_unpack
-do_patch_inline -p0 << 'EOF'
---- configure.ac
-+++ configure.ac
-@@ -58,12 +58,6 @@
- ], [have_libde265="no"])
- AM_CONDITIONAL([HAVE_LIBDE265], [test "x$have_libde265" = "xyes"])
- 
--PKG_CHECK_MODULES([x265], [x265], [
--    AC_DEFINE([HAVE_X265], [1], [Whether x265 was found.])
--    AC_SUBST(x265_CFLAGS)
--    AC_SUBST(x265_LIBS)
--    have_x265="yes"
--], [have_x265="no"])
- AM_CONDITIONAL([HAVE_X265], [test "x$have_x265" = "xyes"])
- 
- AC_CHECK_HEADERS([jpeglib.h])
-EOF
-do_autoreconf
-do_compile
+do_unpack_compile
