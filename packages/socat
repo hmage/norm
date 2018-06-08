@@ -1,5 +1,8 @@
 #!/bin/bash
 
+depends_on openssl ## opportunistic linking, but main feature of socat is support for ssl
+
 fetch_source http://www.dest-unreach.org/socat/download/socat-1.7.3.2.tar.gz 28eca1f8efeadde3f96c1ac89e553c28d736d41d
 
-do_unpack_compile_notest # TODO: figure out why ssl tests fail
+# TODO: figure out why ssl tests fail
+do_unpack_compile_notest --disable-libwrap --disable-readline
