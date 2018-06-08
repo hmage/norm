@@ -5,4 +5,4 @@ needs_tool bison
 
 fetch_source http://www.tcpdump.org/release/libpcap-1.8.1.tar.gz 32d7526dde8f8a2f75baf40c01670602aeef7e39
 
-do_unpack_compile LIBS="-L$ESCAPED_PREFIX/lib"
+do_unpack_compile LIBS="-L$ESCAPED_PREFIX/lib" --without-libnl --disable-dbus
