@@ -1,6 +1,7 @@
 #!/bin/bash
 
 depends_on libpng
+depends_on liblcms2 ## opportunistic linking, for colour profile support
 
 fetch_source http://pngquant.org/pngquant-2.12.0-src.tar.gz f57ce0112e86ac966c55270ccf5971deff241d4f
 
