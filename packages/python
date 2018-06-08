@@ -3,6 +3,10 @@
 depends_on zlib ## python zlib module needed by setuptools
 depends_on libexpat ## needed by glib for pyexpat
 depends_on openssl ## needed by mongodb for HTTPSHandler
+depends_on libncurses ## opportunistic linking, no way to disable
+depends_on libreadline ## opportunistic linking, no way to disable
+depends_on bzip2 ## opportunistic linking, no way to disable
+depends_on sqlite3 ## opportunistic linking, no way to disable
 
 fetch_source https://www.python.org/ftp/python/2.7.13/Python-2.7.13.tar.xz 18a8f30a0356c751b8d0ea6f76e764cab13ee046
 
@@ -31,10 +35,10 @@ do_patch_inline << EOF
 EOF
 pushd_src
 do_configure --enable-ipv6 --enable-unicode=ucs4 \
-                  --with-dbmliborder=bdb:gdbm --with-fpectl --enable-shared --with-threads
+                  --with-dbmliborder= --with-fpectl --enable-shared --with-threads
 do_make
 ## the tests are known to fail and are not maintained by python dev team
-is_with tests && make test
+! is_without tests && make test
 do_install
 popd
 
