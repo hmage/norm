@@ -2,6 +2,6 @@
 
 depends_on libpng
 
-fetch_source http://pngquant.org/pngquant-2.11.7-src.tar.gz be140ec83c571b19219b639f2671b2316a2acaa1
+fetch_source http://pngquant.org/pngquant-2.12.0-src.tar.gz f57ce0112e86ac966c55270ccf5971deff241d4f
 
 do_unpack_compile_notest
