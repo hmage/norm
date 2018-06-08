@@ -3,6 +3,7 @@
 depends_on libxml
 depends_on openssl
 depends_on zlib
+[[ $OSTYPE == *linux* ]] && depends_on libacl
 
 fetch_source https://github.com/downloads/mackyle/xar/xar-1.6.1.tar.gz 6f7827a034877eda673a22af1c42dc32f14edb4c
 
@@ -33,4 +34,4 @@ do_patch_inline -p0 << EOF
  		flags |= EXT2_BTREE_FL ;
  	if( e2prop_get(f, "HashIndexed", (char **)&tmp) == 0 )
 EOF
-do_compile
+do_compile --without-lzma --without-bzip2
