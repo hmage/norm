@@ -4,5 +4,5 @@ needs_tool groff
 
 fetch_source https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.4.46.tgz a9ae2273eb9bdd70090dafe0d018a3132606bef6
 
-do_unpack_compile --disable-slapd
+do_unpack_compile --disable-slapd --without-cyrus-sasl --without-tls
 
