@@ -15,8 +15,12 @@ depends_on libxcb
 depends_on libxshmfence
 
 depends_on libelf # r600 requires libelf when using llvm
+depends_on libexpat ## opportunistic linking, no way to disable
+depends_on libxxf86vm ## opportunistic linking
+depends_on libxvmc ## opportunistic linking
 
 CONFOPTS=(
+--disable-libunwind
 )
 
 is_without gallium && CONFOPTS+=("--with-gallium-drivers=")
