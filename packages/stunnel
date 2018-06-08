@@ -4,4 +4,4 @@ depends_on openssl
 
 fetch_source http://www.usenix.org.uk/mirrors/stunnel/archive/5.x/stunnel-5.46.tar.gz 5b6f337e5025c7004cf34f038f579f09fd36c6b0
 
-do_unpack_compile --disable-systemd
+do_unpack_compile --disable-systemd --disable-libwrap
