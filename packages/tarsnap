@@ -3,7 +3,9 @@
 depends_on e2fsprogs
 depends_on zlib
 depends_on openssl
+depends_on xz    ## opportunistic linking, for lzma-compressed snapshots
+depends_on bzip2 ## opportunistic linking, for bzip-compressed snapshots
 
 fetch_source https://www.tarsnap.com/download/tarsnap-autoconf-1.0.36.1.tgz d678c2d7701f013901540dab6899aca9ea5e146f
 
-do_unpack_compile
+do_unpack_compile --disable-acl --disable-xattr
