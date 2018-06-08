@@ -1,5 +1,6 @@
 #!/bin/bash
 
+## TODO: does not work with busybox find, wants find that supports -execdir
 depends_on opencl-headers
 
 fetch_source https://github.com/hashcat/hashcat/archive/v4.1.0.tar.gz fd1f9a8011d2f1feed7b32dbefe11e3b05eb9f0d
