@@ -2,7 +2,7 @@
 
 needs_tool nasm
 
-fetch_source https://downloads.sourceforge.net/project/libjpeg-turbo/1.5.2/libjpeg-turbo-1.5.2.tar.gz e788f6defa58b4393a5e1685c018f3b962971457
+fetch_source https://downloads.sourceforge.net/project/libjpeg-turbo/1.5.3/libjpeg-turbo-1.5.3.tar.gz 87ebf4cab2bb27fcb8e7ccb18ec4eb680e1f2c2d
 
 do_unpack_compile
 
