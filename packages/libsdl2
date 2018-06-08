@@ -1,5 +1,8 @@
 #!/bin/bash
 
+depends_on libsndio  ## opportunistic linking, but useful for having audio
+depends_on libasound ## opportunistic linking, but useful for having audio
+
 fetch_source https://libsdl.org/release/SDL2-2.0.8.tar.gz 959ec6ded277821995d2e3cafd973f6ab9f48ab7
 
 do_unpack
