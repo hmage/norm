@@ -24,4 +24,4 @@ do_patch_inline -p0 << EOF
      times->actime = sb->st_atime;
      times->modtime = sb->st_mtime;
 EOF
-do_compile
+do_compile --without-gpm-mouse --disable-vfs-sftp
