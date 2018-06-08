@@ -2,7 +2,7 @@
 
 depends_on libncurses
 
-fetch_source http://thrysoee.dk/editline/libedit-20160903-3.1.tar.gz 55e327ee4661b13d20ebb411d790f2bb258271cf
+fetch_source http://thrysoee.dk/editline/libedit-20180525-3.1.tar.gz cf6eb4f32c0336f0f3de68afbcdbeaa4d70b42b6
 
 CPPFLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" \
 do_unpack_compile
