@@ -2,6 +2,7 @@
 
 needs_tool pkg-config ## to find libncurses
 depends_on libncurses
+depends_on file ## opportunistic linking, for libmagic, why?
 
 fetch_source http://www.nano-editor.org/dist/v2.9/nano-2.9.8.tar.gz f0b55fbc16d4ecf259b9f25a028fe2e381f02d08
 
