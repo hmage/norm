@@ -3,6 +3,8 @@
 needs_tool autoconf automake libtool
 needs_tool pkg-config
 needs_tool bison flex
+depends_on speex
+depends_on zlib ## opportunistic linking, no way to disable
 
 fetch_source https://gitlab.com/graphviz/graphviz/-/archive/stable_release_2.40.1/graphviz-stable_release_2.40.1.tar.gz 643843f5f48973827906f51bf6a6921701b457d2
 
@@ -25,6 +27,7 @@ CONFOPTS=(
 --without-libgd
 --without-rsvg
 --without-poppler
+--with-included-ltdl
 )
 
 do_unpack
