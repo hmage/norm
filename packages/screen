@@ -2,6 +2,7 @@
 
 needs_tool autoconf automake
 depends_on libncurses
+depends_on libutempter ## opportunistic linking, no way to disable without patching
 
 fetch_source http://ftpmirror.gnu.org/screen/screen-4.6.2.tar.gz 0434d4c45d0b5bb339551511e10a9b2c4ec6a789
 
