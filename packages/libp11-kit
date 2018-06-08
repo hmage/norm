@@ -4,6 +4,6 @@ needs_tool pkg-config ## to find libtasn1
 depends_on libtasn1
 depends_on libffi
 
-fetch_source https://github.com/p11-glue/p11-kit/releases/download/0.23.11/p11-kit-0.23.11.tar.gz 6304073e00e1733bd0aebb16f92b03caaca8ddf8
+fetch_source https://github.com/p11-glue/p11-kit/releases/download/0.23.12/p11-kit-0.23.12.tar.gz 9334d3b1890c7fe0f765460a69da70c796254373
 
 do_unpack_compile --without-trust-paths
