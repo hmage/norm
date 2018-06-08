@@ -1,5 +1,12 @@
 #!/bin/bash
 
+## libgd is useless without support for common image formats
+depends_on libpng
+depends_on libjpeg
+depends_on libjbig
+depends_on libtiff
+depends_on libwebp
+
 fetch_source https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.xz b777b005c401b6fa310ccf09eeb29f6c6e17ab2c
 
-do_unpack_compile --without-xpm
+do_unpack_compile --without-xpm --without-fontconfig --without-freetype
