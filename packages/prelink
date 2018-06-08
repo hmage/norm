@@ -1,7 +1,8 @@
 #!/bin/bash
 
 depends_on libelf
-#! is_without tests && depends_on file # test suite fails otherwise
+! is_without tests && depends_on file # test suite fails otherwise
+depends_on libselinux ## opportunistic linking, no way to disable
 
 fetch_source http://http.debian.net/debian/pool/main/p/prelink/prelink_0.0.20131005.orig.tar.bz2 0d6ae0df13a5c34ba02152baacddb133c8331fda
 fetch_debian http://http.debian.net/debian/pool/main/p/prelink/prelink_0.0.20131005-1.debian.tar.xz 4459b94f1e82ea1708ad89a22bc44bbb845a3d14
