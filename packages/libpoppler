@@ -14,5 +14,9 @@ CONFFLAGS=(
 -DWITH_Cairo=OFF
 -DENABLE_QT5=NO
 -DENABLE_LIBCURL=NO ## PDF library shouldn't need to access internet
+-DWITH_NSS3=OFF
+-DWITH_PNG=OFF
+-DWITH_TIFF=OFF
+-DENABLE_CMS=none
 )
 do_unpack_compile "${CONFFLAGS[@]}"
