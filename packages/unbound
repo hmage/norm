@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on openssl
+depends_on libexpat
+
+fetch_source http://unbound.net/downloads/unbound-1.7.1.tar.gz b853b746fa1f89ecce160850ab163ef78f67eea5
+
+do_unpack_compile --with-ssl="$PREFIX" --with-libexpat="$PREFIX"
