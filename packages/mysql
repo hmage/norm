@@ -1,8 +1,10 @@
 #!/bin/bash
 
+needs_tool pkg-config ## to find openssl
 needs_tool cmake
 depends_on libaio
 depends_on libncurses
+depends_on openssl
 
 fetch_source http://cdn.mysql.com/Downloads/MySQL-5.7/mysql-boost-5.7.22.tar.gz f4a65a2789cb2f697178327623407f7314b65faf
 
@@ -13,7 +15,11 @@ CONFOPTS=(
 -DBUILD_CONFIG=mysql_release
 -DFEATURE_SET=community
 -DWITH_EXTRA_CHARSETS=all
+-DWITH_SSL="system"
+-DWITH_NUMA=OFF
 )
 
 ## tests are broken as of 5.7.17, disable
-do_unpack_compile_notest "${CONFOPTS[@]}"
+do_unpack
+sed -i.bak 's|ADD_SUBDIRECTORY(authentication_ldap)||' "$SRCDIR"/libmysql/CMakeLists.txt
+do_compile_notest "${CONFOPTS[@]}"
