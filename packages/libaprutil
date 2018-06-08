@@ -5,4 +5,4 @@ depends_on libexpat
 
 fetch_source https://archive.apache.org/dist/apr/apr-util-1.6.1.tar.bz2 4cc73bc36ca697419f555476f2fc1c63df6069f4
 
-do_unpack_compile --with-apr="$PREFIX"
+do_unpack_compile --with-apr="$PREFIX" --without-odbc --without-sqlite3 --without-pgsql
