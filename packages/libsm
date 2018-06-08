@@ -7,4 +7,4 @@ depends_on xtrans
 
 fetch_source http://www.x.org/releases/individual/lib/libSM-1.2.2.tar.bz2 e6d5dab6828dfd296e564518d2ed0a349a25a714
 
-do_unpack_compile
+do_unpack_compile --without-libuuid
