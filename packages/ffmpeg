@@ -50,6 +50,11 @@ CONFIGURE=(
 )
 
 [[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--enable-videotoolbox --enable-audiotoolbox)
+[[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--enable-opencl --enable-appkit --enable-avfoundation --enable-coreimage)
 
 do_unpack
 NEEDV1=1 do_compile "${CONFIGURE[@]}"
+pushd_src
+do_make alltools
+install -m755 tools/qt-faststart "$PREFIX/bin"
+popd_src
