@@ -6,6 +6,9 @@ depends_on libpng
 depends_on pixman
 depends_on libxext ## not checked by configure but required if xlib is enabled
 depends_on fontconfig ## pangocairo won't build without font backend available through libcairo, needed by libcairomm and libpango
+depends_on libxrender ## opportunistic linking
+depends_on libpoppler ## opportunistic linking
+depends_on liblzo ## opportunistic linking
 
 unset EXTRALD
 cc_addflags EXTRALD -Wl,--no-gc-sections
