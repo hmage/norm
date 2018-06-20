@@ -2,7 +2,7 @@
 
 depends_on libpcre
 
-fetch_source http://prdownloads.sourceforge.net/cppcheck/1.83/cppcheck-1.83.tar.gz 2a7da43886aa2b18ede075cb153b5cf0d569a2c2
+fetch_source http://prdownloads.sourceforge.net/cppcheck/1.84/cppcheck-1.84.tar.gz 5dfb9d201bc758dd82ad467bf65afec8cd8b73ac
 
 do_unpack
 pushd_src
