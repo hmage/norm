@@ -1,6 +1,7 @@
 #!/bin/bash
 
-needs_tool autoconf automake
+needs_tool autoconf
+depends_on automake
 depends_on xorg-macros
 needs_tool libtool
 depends_on libpciaccess
