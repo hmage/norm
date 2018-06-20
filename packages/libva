@@ -1,13 +1,8 @@
 #!/bin/bash
 
-depends_on mesa ## listed first because it has gcc version detection -- bail out quicker
-
-depends_on pkg-config
+needs_tool pkg-config
 depends_on libdrm
-depends_on libx11
-depends_on libxext
-depends_on libxfixes
 
 fetch_source https://github.com/intel/libva/releases/download/2.1.0/libva-2.1.0.tar.bz2 9ecde2b6c9deda16e895a0b00b8aef3a765acb4c
 
-do_unpack_compile
+do_unpack_compile --disable-x11 --disable-glx
