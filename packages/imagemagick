@@ -12,6 +12,6 @@ depends_on libheif
 depends_on libopenjpeg
 depends_on libopenexr
 
-fetch_source https://dl.bintray.com/homebrew/mirror/imagemagick-7.0.7-36.tar.xz 5066011098c623dbdf9b86b42e768f1c88efaf6a
+fetch_source https://dl.bintray.com/homebrew/mirror/imagemagick-7.0.8-2.tar.xz 45b18033646f688a01bd14136a3666c95a74bc7e
 
 do_unpack_compile --without-x
