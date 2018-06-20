@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/gsl/gsl-1.16.tar.gz 210af9366485f149140973700d90dc93a4b6213e
+fetch_source http://ftpmirror.gnu.org/gsl/gsl-2.5.tar.gz 9b3a32ba4f4e79fc6164fdc62e56003ae6e991e5
 
 do_unpack_compile
