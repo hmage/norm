@@ -3,6 +3,6 @@
 needs_tool pkg-config
 depends_on xproto libx11
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxext/libxext_1.3.1.orig.tar.gz 9dfdc22866002a35302263b8017932aac5299ea9
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxext/libxext_1.3.1-2+deb7u1.diff.gz 853e55f6aa6565df3f880db056bd39834c4b7e08
-do_undebian_compile
+fetch_source https://www.x.org/releases/individual/lib/libXext-1.3.3.tar.bz2 43abab84101159563e68d9923353cc0b3af44f07
+
+do_unpack_compile
