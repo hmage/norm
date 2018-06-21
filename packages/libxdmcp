@@ -3,6 +3,6 @@
 needs_tool pkg-config
 depends_on xproto
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxdmcp/libxdmcp_1.1.1.orig.tar.gz 62f1a6011df19c0b9ad60cbffd23cb36c0edfb95
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxdmcp/libxdmcp_1.1.1-1.diff.gz 701cec54c224607dfb0de1ac55440b558f4c35b7
-do_undebian_compile
+fetch_source https://www.x.org/releases/individual/lib/libXdmcp-1.1.2.tar.bz2 3c09eabb0617c275b5ab09fae021d279a4832cac
+
+do_unpack_compile
