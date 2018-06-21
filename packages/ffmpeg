@@ -21,7 +21,7 @@ depends_on libvpx
 depends_on libaom
 depends_on libopenjpeg
 
-fetch_source http://www.ffmpeg.org/releases/ffmpeg-4.0.tar.xz 1f85916c154a4d6a342d7ec1f909bbc58a92c19d
+fetch_source http://www.ffmpeg.org/releases/ffmpeg-4.0.1.tar.xz dd918d4f7e61608b560537feadb8d2c1d965addf
 
 CONFIGURE=(
 --enable-pthreads
