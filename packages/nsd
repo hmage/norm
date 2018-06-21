@@ -3,6 +3,6 @@
 depends_on libevent
 depends_on openssl
 
-fetch_source https://www.nlnetlabs.nl/downloads/nsd/nsd-4.1.18.tar.gz b6c1225fecde98a7d0e4fe35e5b346a8151cf26c
+fetch_source https://www.nlnetlabs.nl/downloads/nsd/nsd-4.1.22.tar.gz d999a651d6e7bc41446d46720c3ef15f9e807955
 
 do_unpack_compile --with-libevent="$PREFIX" --with-ssl="$PREFIX"
