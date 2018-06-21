@@ -4,7 +4,6 @@ needs_tool pkg-config
 depends_on libx11
 depends_on xproto
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxrender/libxrender_0.9.7.orig.tar.gz 8463ff5f1ea2db1a6d0e50b28d30b8c6ea6bb538
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxrender/libxrender_0.9.7-1+deb7u1.diff.gz 9505763f5ed2d56877d8b82624882bec362ee54a
+fetch_source https://www.x.org/releases/individual/lib/libXrender-0.9.10.tar.bz2 d55106de9260c2377c19d271d9b677744a6c7e81
 
-do_undebian_compile
+do_unpack_compile
