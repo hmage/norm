@@ -11,18 +11,26 @@ BOOTSTRAP_ARGS=(
 --prefix="$PREFIX"
 cxxflags="$CPPFLAGS"
 linkflags="$LDFLAGS"
+--without-icu
 )
 
 BOOST_ARGS=(
-"${BOOTSTRAP_ARGS[@]}"
+--prefix="$PREFIX"
+cxxflags="$CPPFLAGS"
+linkflags="$LDFLAGS"
 -d+2
 -j$NUMJOBS
 link=shared,static
+--disable-icu
+boost.locale.icu=off
+-sNO_COMPRESSION=1
 )
 
 do_unpack
 pushd_src
+set -x
 ./bootstrap.sh "${BOOTSTRAP_ARGS[@]}" $BOOST_WITHOUT_PYTHON
 ./b2 "${BOOST_ARGS[@]}"
 ./b2 "${BOOST_ARGS[@]}" install
+set +x
 popd_src
