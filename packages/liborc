@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/o/orc/orc_0.4.22.orig.tar.xz c50cf2f2a9a7e4ab400fd79f706e831ace1936bc
-fetch_debian http://http.debian.net/debian/pool/main/o/orc/orc_0.4.22-1.debian.tar.xz 93a3db71b2add89e38d71c1fe44cbb43e71809ea
+fetch_source http://http.debian.net/debian/pool/main/o/orc/orc_0.4.26.orig.tar.xz 8a735b48051facb35b2b2cc57e8e2014a1e25c8a
+fetch_debian http://http.debian.net/debian/pool/main/o/orc/orc_0.4.26-2.debian.tar.xz 0ab8ee2781bb9867e3d56099ebe91189862d1a9b
 
 do_undebian_compile
