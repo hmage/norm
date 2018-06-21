@@ -4,9 +4,8 @@ needs_tool autoconf automake
 depends_on xorg-macros
 needs_tool pkg-config
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/xtrans/xtrans_1.2.7.orig.tar.gz a85d7216b8228e6771a160b2326e202798221bf4
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/xtrans/xtrans_1.2.7-1.diff.gz ebd0891a94aca1b84246f48adafd52960a6eccd9
+fetch_source https://www.x.org/releases/individual/lib/xtrans-1.3.5.tar.bz2 2d3ae1839d841f568bc481c6116af7d2a9f9ba59
 
-do_undebian
+do_unpack
 do_autoreconf
 do_compile
