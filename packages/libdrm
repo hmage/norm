@@ -7,7 +7,7 @@ needs_tool libtool
 depends_on libpciaccess
 needs_tool pkg-config ## for autoconf macros
 
-fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.81.tar.bz2 40f0994b5fb9992e6f55d3a14537def21719d896
+fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.92.tar.bz2 aad04c8e35cd3ab589ff085b20f75ba43e086647
 
 do_unpack
 do_patch_inline -p0 << 'EOF'
