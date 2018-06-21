@@ -7,8 +7,6 @@ depends_on pthread-stubs
 depends_on libxau
 depends_on libxdmcp ## opportunistic linking
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxcb/libxcb_1.10.orig.tar.gz a8f68c5ce51d7b1558e2e6abd74347b80b084447
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxcb/libxcb_1.10-3.diff.gz 423259c3779272a79ddf819a699cc449c5ef193a
+fetch_source https://www.x.org/releases/individual/xcb/libxcb-1.13.tar.bz2 212ad5f1f80def80536d78e3d20354a0370e7fe9
 
-do_undebian
-AUTOMAKE=: do_compile --disable-build-docs
+do_unpack_compile --disable-build-docs --disable-devel-docs
