@@ -5,6 +5,6 @@ depends_on xproto
 depends_on xtrans
 depends_on libxcb
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libx11/libx11_1.5.0.orig.tar.gz 7890e34641d44aec32628aa68867b97bc6abbe17
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libx11/libx11_1.5.0-1+deb7u1.diff.gz ff846e5086d276dfa951d71f1e49392e0a30d94d
-do_undebian_compile --disable-selective-werror
+fetch_source https://www.x.org/releases/individual/lib/libX11-1.6.5.tar.bz2 c32155467508dfe783f9296ef22ee6ed53cae7df
+
+do_unpack_compile --disable-selective-werror
