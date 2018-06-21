@@ -3,9 +3,8 @@
 needs_tool autoconf automake
 needs_tool python
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/xcb-proto/xcb-proto_1.10.orig.tar.gz f2e6063df71be06693d9e2e03a4d757c448304e6
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/xcb-proto/xcb-proto_1.10-1.diff.gz 0f352b7c5a128c4d1a380c744467260d6a5d1e58
+fetch_source https://www.x.org/releases/individual/xcb/xcb-proto-1.13.tar.bz2 f7fa35ab59af18cecadbe83fe705281dcfd82ffd
 
-do_undebian
+do_unpack
 do_autoreconf
 do_compile
