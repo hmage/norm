@@ -5,7 +5,6 @@ depends_on xproto
 depends_on libx11
 depends_on libxext
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/libx/libxi/libxi_1.6.1.orig.tar.gz 5a27e61f35e443114cac9a3bba046222e1fb667a
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libx/libxi/libxi_1.6.1-1+deb7u1.diff.gz e197c327083e15ce0bd8c16a414be45c55a02a8e
+fetch_source https://www.x.org/releases/individual/lib/libXi-1.7.9.tar.bz2 70d1148c39c0eaa7d7c18370f20709383271f669
 
-do_undebian_compile
+do_unpack_compile
