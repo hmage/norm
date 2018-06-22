@@ -1,104 +1,51 @@
 #!/bin/bash
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-core/x11proto-core_7.0.23.orig.tar.gz 3baf2e7e517b392b60de0a8c090866f60a37e192
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-core/x11proto-core_7.0.23-1.diff.gz 09938c6e571108a9255e48232fd83e138ce9c316
-do_undebian_compile
+CONFFLAGS=(
+--without-xmlto
+--without-fop
+--without-xsltproc
+)
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-input/x11proto-input_2.2.orig.tar.gz 116e11948b8fe57bd9c9ddc351f0f316fc4453f4
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-input/x11proto-input_2.2-1.diff.gz ac9029a5d3bf274c40ddf338a7e6a32ce1431034
-do_undebian_compile
+PROTOS=(
+"https://www.x.org/releases/individual/proto/applewmproto-1.4.2.tar.bz2 71dd2374e745a7db7ae0e94410e55ba721683d10"
+"https://www.x.org/releases/individual/proto/bigreqsproto-1.1.2.tar.bz2 ef1765eeb5e9e38d080225fe6a64ed7cd2984b46"
+"https://www.x.org/releases/individual/proto/compositeproto-0.4.2.tar.bz2 aa7b5abcfd5bbfad7cb681ce89dc1d6e381e3044"
+"https://www.x.org/releases/individual/proto/damageproto-1.2.1.tar.bz2 bd0f0f4dc8f37eaabd9279d10fe2889710507358"
+"https://www.x.org/releases/individual/proto/dmxproto-2.3.1.tar.bz2 3b8b273b8ef3d8dbab998df9ec1dddf99edf4d91"
+"https://www.x.org/releases/individual/proto/dri2proto-2.8.tar.bz2 2bc4e8f00778b1f3fe58b4c4f93607ac2adafbbf"
+"https://www.x.org/releases/individual/proto/dri3proto-1.0.tar.bz2 1007eaa2f83022653a224f7d2e676ea51cba2f2b"
+"https://www.x.org/releases/individual/proto/evieext-1.1.1.tar.bz2 86d9545273b07961f0d5ba65c6c408371e10c0d2"
+"https://www.x.org/releases/individual/proto/fixesproto-5.0.tar.bz2 ab605af5da8c98c0c2f8b2c578fed7c864ee996a"
+"https://www.x.org/releases/individual/proto/fontcacheproto-0.1.3.tar.bz2 07f6ab3e1e1efe71c51f50e95851d93d2a1de773"
+"https://www.x.org/releases/individual/proto/fontsproto-2.1.3.tar.bz2 28c108bd6438c332122c10871c1fc6415591755f"
+"https://www.x.org/releases/individual/proto/glproto-1.4.17.tar.bz2 20e061c463bed415051f0f89e968e331a2078551"
+"https://www.x.org/releases/individual/proto/inputproto-2.3.2.tar.bz2 62b29a0c3b4ede9d129a0598cc6becf628a2158a"
+"https://www.x.org/releases/individual/proto/kbproto-1.0.7.tar.bz2 bc9c0fa7d39edf4ac043e6eeaa771d3e245ac5b2"
+"https://www.x.org/releases/individual/proto/presentproto-1.1.tar.bz2 b1294dbb3a8337f79252142b45aa123ee1aa7602"
+"https://www.x.org/releases/individual/proto/printproto-1.0.5.tar.bz2 4ddb7781ebc2418d681a6f5e16d777aed56ea35e"
+"https://www.x.org/releases/individual/proto/randrproto-1.5.0.tar.bz2 bc420745dc4af011988e9dcabdadf8829cbc2374"
+"https://www.x.org/releases/individual/proto/recordproto-1.14.2.tar.bz2 1f48c4b0004d8b133efd0498e8d88d68d3b9199c"
+"https://www.x.org/releases/individual/proto/renderproto-0.11.1.tar.bz2 7ae9868a358859fe539482b02414aa15c2d8b1e4"
+"https://www.x.org/releases/individual/proto/resourceproto-1.2.0.tar.bz2 9ff9bb9243b0474330959dc3853973523c9dd9ce"
+"https://www.x.org/releases/individual/proto/scrnsaverproto-1.2.2.tar.bz2 640a2cbef5893aacda74799e6fa4d973e629b753"
+"https://www.x.org/releases/individual/proto/trapproto-3.4.3.tar.bz2 b108aa39a7bfde530d5cd347fda7c58770d5b8da"
+"https://www.x.org/releases/individual/proto/videoproto-2.3.3.tar.bz2 4556b5c2243a2ca290ea2140dc1a427c4bac8ba2"
+"https://www.x.org/releases/individual/proto/windowswmproto-1.0.4.tar.bz2 1c9b522c66325f08bb989700b4b31911b6ae60ae"
+"https://www.x.org/releases/individual/proto/xcmiscproto-1.2.2.tar.bz2 59ae9ec6414964440bf654b207618e5dd66a32fb"
+"https://www.x.org/releases/individual/proto/xextproto-7.3.0.tar.bz2 b8d736342dcb73b71584d99a1cb9806d93c25ff8"
+"https://www.x.org/releases/individual/proto/xf86bigfontproto-1.2.0.tar.bz2 312a2ea708b257520c1af4393b69d73a393a478f"
+"https://www.x.org/releases/individual/proto/xf86dgaproto-2.1.tar.bz2 97a06120e7195c968875e8ba42e82c90ab54948b"
+"https://www.x.org/releases/individual/proto/xf86driproto-2.1.1.tar.bz2 23e861f40ba0f0cbbfd7db7ba2ef623762ffca17"
+"https://www.x.org/releases/individual/proto/xf86miscproto-0.9.3.tar.bz2 52c54ed17e55f26b26654ff16d61da97f9fd36bc"
+"https://www.x.org/releases/individual/proto/xf86rushproto-1.1.2.tar.bz2 756838c1269412881f23727ac18dd088bb7ce183"
+"https://www.x.org/releases/individual/proto/xf86vidmodeproto-2.3.1.tar.bz2 11d54c3210887631ea71e8f8030a77692e964fc4"
+"https://www.x.org/releases/individual/proto/xineramaproto-1.2.1.tar.bz2 818bffc16139d6e3de4344c83f00c495d3536753"
+"https://www.x.org/releases/individual/proto/xorgproto-2018.4.tar.bz2 2e4a3db312e1ce81e15515dfcac52ba0aa5a920c"
+"https://www.x.org/releases/individual/proto/xproto-7.0.31.tar.bz2 779fa333c5522cca40ca810c25a8fa60b6ccedfb"
+"https://www.x.org/releases/individual/proto/xproxymanagementprotocol-1.0.3.tar.bz2 4abb036371670ecc25d32e48b3277fe203ae5203"
+)
 
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-kb/x11proto-kb_1.0.6.orig.tar.gz d2168250175b51cd4d4895541b688ca14ea31d10
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-kb/x11proto-kb_1.0.6-2.diff.gz 0b4e2a8e06caf9cf57f0d2c8107bde17b01b5697
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-xext/x11proto-xext_7.2.1.orig.tar.gz 3dc600d054043dc1768bd5a20b145bdf76729db0
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-xext/x11proto-xext_7.2.1-1.diff.gz 2786e656f561dfd1b6ccb4cc11866fa82bc42fca
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-render/x11proto-render_0.11.1.orig.tar.gz 522aa3e04e0c78598bb4a50157ca39e2b02d9222
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-render/x11proto-render_0.11.1-2.diff.gz 49b3e5e7cf558a185e10b00fb85c466099baef06
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-fixes/x11proto-fixes_5.0.orig.tar.gz 9efd241f9769fd6eec0cf74f338740a1f80c5885
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-fixes/x11proto-fixes_5.0-2.diff.gz 7288990973d8eda4d8900cb3d9e10839159a16df
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-damage/x11proto-damage_1.2.1.orig.tar.gz 6df5eccd2914ecb7c24ec0099b477aa5943c22ab
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-damage/x11proto-damage_1.2.1-2.diff.gz 99753da92a1b9a98d8063144381d865424a61da1
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-composite/x11proto-composite_0.4.2.orig.tar.gz c58c2e2ce9a21336cf28cfae1a5b150a33a18477
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-composite/x11proto-composite_0.4.2-2.diff.gz e6f6e5dba80fc5828f4122b1bdc8901710e06527
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-xf86dga/x11proto-xf86dga_2.1.orig.tar.gz e7baa94bbb3f1b9bf1706be8579b2c4380df7df8
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-xf86dga/x11proto-xf86dga_2.1-3.diff.gz ea77572c4b6b568680e05a7bc2c88ab66bab42be
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-randr/x11proto-randr_1.3.2.orig.tar.gz f0751c2572f874995e755e8e48021e97f7f04337
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-randr/x11proto-randr_1.3.2-2.diff.gz c115dc28c6bfc48a714339cd3f3e0145799452e8
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-scrnsaver/x11proto-scrnsaver_1.2.2.orig.tar.gz 5198e09bebdbd8f4a99d473ac5ddef17e04798ea
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-scrnsaver/x11proto-scrnsaver_1.2.2-1.diff.gz 6422e571eb60a0295549be42ccd5429cb43b1a4e
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-record/x11proto-record_1.14.2.orig.tar.gz f5add5e0d52f170db14079244e66f4855f0686b5
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-record/x11proto-record_1.14.2-1.diff.gz 807f9e42f2bb2b7576a66e3f01532d1d8c9bbae9
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-gl/x11proto-gl_1.4.15.orig.tar.gz 22772072f3c960ee53485d9978816a191e9b2027
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-gl/x11proto-gl_1.4.15-1.diff.gz 16b76a2858af36f33b145a75067f97af9e5ca98a
-do_undebian_compile
-
-fetch_source https://www.x.org/archive/individual/proto/dri2proto-2.8.tar.bz2 2bc4e8f00778b1f3fe58b4c4f93607ac2adafbbf
-do_unpack_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-dri3/x11proto-dri3_1.0.orig.tar.gz d6d1ed90553370299c82446dac1dbcc76ddc53fd
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-dri3/x11proto-dri3_1.0-1.diff.gz da2a9f1bc6956b3d284567d54baa8d4732038431
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-xcmisc/x11proto-xcmisc_1.2.2.orig.tar.gz 39c1b2fb00dbe6d13e5a454d2875ad4a51e025be
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-xcmisc/x11proto-xcmisc_1.2.2-1.diff.gz ed40451e61a350f3738a1cf6774e79c38e27d8b8
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-print/x11proto-print_1.0.5.orig.tar.gz 080572b6b19d425dfbd840653930e4ec1a11286d
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-print/x11proto-print_1.0.5-2.diff.gz 4d7c3de3fe322fc2161d40cf57a93128d97aacd8
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-bigreqs/x11proto-bigreqs_1.1.2.orig.tar.gz 40f3048900f6af42e4064515cdb2535c2ddbf591
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-bigreqs/x11proto-bigreqs_1.1.2-1.diff.gz 37ba2d27b4ab7a2335be11e59ca36a462954b122
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-fonts/x11proto-fonts_2.1.2.orig.tar.gz 1aa413acc0e3b937331308c30f62eef70617449a
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-fonts/x11proto-fonts_2.1.2-1.diff.gz 4024ffce57624dba13ced638f51fb47eae78eb8b
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-video/x11proto-video_2.3.1.orig.tar.gz 924231d46c0e55b636efb19f407556f8a15a9368
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-video/x11proto-video_2.3.1-2.diff.gz 8ff364965a10b8be9431be6f6a0f39c3f36632fb
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-resource/x11proto-resource_1.2.0.orig.tar.gz bb13a8fd7292c1118d6959aaebd5d1c8d96b1ea2
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-resource/x11proto-resource_1.2.0-3.diff.gz 81f741cf10797e6471890d5c53c79a5e266e0675
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-xf86bigfont/x11proto-xf86bigfont_1.2.0.orig.tar.gz d8e6e7e0db28af34ee598f88e574d443874e94f3
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-xf86bigfont/x11proto-xf86bigfont_1.2.0-3.diff.gz de05037b338ff7bb8a598c9a46fda89a977b6fdc
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-xf86dri/x11proto-xf86dri_2.1.1.orig.tar.gz b70e5a7c48afc0b264e7e4677c2533d78139c86a
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-xf86dri/x11proto-xf86dri_2.1.1-2.diff.gz a4be3bc1441b9bd6dcc129e31c04226677a08365
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-xinerama/x11proto-xinerama_1.2.1.orig.tar.gz f935deaf9d393a823d789a10cdaa21e33b7226ed
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-xinerama/x11proto-xinerama_1.2.1-2.diff.gz a5bf46ade16e3d822fd0a5327f9b090eba215e01
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-xf86vidmode/x11proto-xf86vidmode_2.3.1.orig.tar.gz b11943e6be5fe8e3c651bd220dc1d2d3ebdd9c92
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-xf86vidmode/x11proto-xf86vidmode_2.3.1-2.diff.gz 317427f97cdba33c0b453ec46bc1d32c9ec46665
-do_undebian_compile
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/x/x11proto-present/x11proto-present_1.0.orig.tar.gz 8913be7a53c259f91d2dbcb7cd5b2acff3c30cf7
-fetch_debian http://ftp.de.debian.org/debian/pool/main/x/x11proto-present/x11proto-present_1.0-1.diff.gz c571bbcf980db243f6e9d1b9815df2ef24aac029
-do_undebian_compile
+for protoline in "${PROTOS[@]}"; do
+    fetch_source $protoline
+    do_unpack_compile "${CONFFLAGS[@]}"
+done
