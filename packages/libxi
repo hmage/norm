@@ -4,6 +4,7 @@ needs_tool pkg-config
 depends_on xproto
 depends_on libx11
 depends_on libxext
+depends_on libxfixes
 
 fetch_source https://www.x.org/releases/individual/lib/libXi-1.7.9.tar.bz2 70d1148c39c0eaa7d7c18370f20709383271f669
 
