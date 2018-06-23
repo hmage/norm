@@ -7,4 +7,18 @@ depends_on glib
 
 fetch_source https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.14.1.tar.xz 0d9c6dde28c6248d69a3bdf5ffd3aec5f5cdc6a6
 
-do_unpack_compile --disable-introspection --without-unwind --with-ptp-helper-permissions=none
+CONFFLAGS=(
+--with-package-origin="https://github.com/hmage/norm"
+--disable-introspection
+--disable-gst-debug
+--disable-gst-tracer-hooks
+--disable-examples
+--disable-benchmarks
+--without-unwind
+--without-dw
+--with-ptp-helper-permissions=none ## avoid using libcap
+)
+
+is_without tests && CONFFLAGS+=(--disable-tests --disable-check)
+
+do_unpack_compile "${CONFFLAGS[@]}"
