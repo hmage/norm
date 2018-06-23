@@ -1,9 +1,6 @@
 #!/bin/bash
 
-needs_tool autoconf automake
-
 fetch_source https://www.x.org/releases/individual/util/util-macros-1.19.2.tar.bz2 e8b3a6f2bfde22440fca0974da53da18821a4ee6
 
 do_unpack
-do_autoreconf
 do_compile
