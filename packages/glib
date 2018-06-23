@@ -3,7 +3,6 @@
 needs_tool pkg-config # to find zlib
 depends_on zlib
 depends_on libffi
-needs_tool gettext ## no way to turn it off
 needs_tool python # bin/gdbus-codegen is in python, needed by libgtk3
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/glib/2.56/glib-2.56.1.tar.xz 4db098c15b9d57c37bb504a6f58ebe717994e6f2
@@ -13,7 +12,11 @@ cc_addflags EXTRAFLAGS -Wno-format-nonliteral ## gcc 6.1 is too strict for this 
 cc_addflags NEW_LDFLAGS -Wl,-z,defs
 
 do_unpack
+sed -i.bak 's|test "$gt_cv_have_gettext" != "yes"|false|;' "$SRCDIR"/configure
 sed -i.bak "s|/usr/local/share/:/usr/share/|$PREFIX/share/:/usr/local/share/:/usr/share/|" "$SRCDIR"/gio/xdgmime/xdgmime.c "$SRCDIR"/glib/gutils.c
+sed -i.bak 's|#include <libintl.h>||' "$SRCDIR"/glib/ggettext.c
+sed -i.bak 's|^\(#define dngettext.*\)|\1\n#define ngettext(String1,String2,N) ((N) == 1 ? (String1) : (String2))|' "$SRCDIR"/glib/glibintl.h
+
 CONFFLAGS=(
 --disable-fam
 --disable-libelf
