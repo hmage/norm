@@ -2,7 +2,8 @@
 
 needs_tool pkg-config
 depends_on xproto
+depends_on libbsd ## opportunistic linking
 
 fetch_source https://www.x.org/releases/individual/lib/libXdmcp-1.1.2.tar.bz2 3c09eabb0617c275b5ab09fae021d279a4832cac
 
-do_unpack_compile
+do_unpack_compile --without-xmlto --without-fop --without-xsltproc
