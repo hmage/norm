@@ -21,6 +21,10 @@ depends_on libvpx
 depends_on libaom
 depends_on libopenjpeg
 
+depends_on bzip2        ## opportunistic linking, useful for transparent decompression
+depends_on xz           ## opportunistic linking, useful for transparenet decompression
+depends_on libcrystalhd ## opportunistic linking
+
 fetch_source http://www.ffmpeg.org/releases/ffmpeg-4.0.1.tar.xz dd918d4f7e61608b560537feadb8d2c1d965addf
 
 CONFIGURE=(
@@ -46,7 +50,12 @@ CONFIGURE=(
 --enable-libwebp
 --enable-libvpx
 --enable-libopenjpeg
---enable-lto
+--disable-static
+--enable-shared
+--disable-libxcb
+--disable-vaapi
+--disable-outdev=xv
+--disable-vdpau
 )
 
 [[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--enable-videotoolbox --enable-audiotoolbox)
