@@ -5,6 +5,7 @@ depends_on libuuid
 depends_on e2fsprogs
 depends_on nilfs-tools
 depends_on libjfs
+depends_on ntfs-3g ## opportunistic linking
 
 fetch_source http://downloads.sourceforge.net/partclone/files/unstable/partclone-0.3.11.tar.gz fc4acf43070205b5393ab82a840e61b8994612c0
 
