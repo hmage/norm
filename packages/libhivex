@@ -1,5 +1,7 @@
 #!/bin/bash
 
+depends_on libxml ## opportunistic linking
+
 fetch_source http://download.libguestfs.org/hivex/hivex-1.3.15.tar.gz 0b93f6947223bfa16012cb23d29437b8074fd29f
 
-do_unpack_compile --disable-ocaml --disable-python
+do_unpack_compile --disable-ocaml --disable-python --disable-ruby --disable-perl --without-readline
