@@ -75,6 +75,6 @@ log_error() {
 }
 
 log_success() {
-    log "Formula $FORMULA -- success"
+    log "Formula $FORMULA -- success ($@ seconds)"
 }
 

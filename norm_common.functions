@@ -21,6 +21,7 @@ popd_src() {
 do_configure() {
     fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=7d3d27baf8107b630586c962c057e22149653deb' 5aee40a0666b38552df04e875939c10776cae149 config.guess CONFIGGUESS
     fetch_file 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=7d3d27baf8107b630586c962c057e22149653deb' 1663dc7d1066e931fec23175357a9acc72ea545d config.sub CONFIGSUB
+    local STARTTIME="$SECONDS"
     # replace config.sub and config.guess with newer ones
     find "$SRCDIR" -name config.sub -exec install -v "$CACHEDIR/config.sub" {} \;
     find "$SRCDIR" -name config.guess -exec install -v "$CACHEDIR/config.guess" {} \;
@@ -30,9 +31,12 @@ do_configure() {
     fgrep -q enable-rpath "$SRCDIR/configure" && NORM_EXTRAOPTS+=(--enable-rpath)
     log "Configuring $FORMULA ${NORM_EXTRAOPTS[@]} --prefix=\"$PREFIX\" $@"
     "$SRCDIR"/configure "${NORM_EXTRAOPTS[@]}" --prefix="$PREFIX" "$@" || return 1
+    local ELAPSED="$(($SECONDS - $STARTTIME))"
+    log "Configuring $FORMULA took $ELAPSED seconds"
 }
 
 do_cmake() {
+    local STARTTIME="$SECONDS"
     log "Configuring $FORMULA $@"
     cmake "$SRCDIR" -DCMAKE_INSTALL_PREFIX=$ESCAPED_PREFIX \
                     -DCMAKE_BUILD_TYPE=Release \
@@ -45,13 +49,15 @@ do_cmake() {
                     -DCMAKE_C_FLAGS="$CPPFLAGS" \
                     -DCMAKE_CXX_FLAGS="$CPPFLAGS" \
                     -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" "$@"
+    local ELAPSED="$(($SECONDS - $STARTTIME))"
+    log "Configuring $FORMULA took $ELAPSED seconds"
 }
 
 do_auto_configure() {
     if [ -e "$SRCDIR"/configure ]; then
-        time do_configure "$@" || return 1
+        do_configure "$@" || return 1
     elif [ -e "$SRCDIR"/CMakeLists.txt ] && hash cmake 2>/dev/null; then
-        time do_cmake "$@" || return 1
+        do_cmake "$@" || return 1
     else
         log "Couldn't figure out how to configure formula '$FORMULA', bailing out"
         return 1
@@ -59,16 +65,22 @@ do_auto_configure() {
 }
 
 do_make() {
+    local STARTTIME="$SECONDS"
     log "Making $FORMULA $@"
     local PARALLEL="-j$NUMJOBS"
     [ "$NOPARALLEL" = "1" ] && PARALLEL=
     [ "$NEEDV1" = "1" ] && set V=1 "$@"
-    time make $PARALLEL "$@" || return 1
+    make $PARALLEL "$@" || return 1
+    local ELAPSED="$(($SECONDS - $STARTTIME))"
+    log "Making $FORMULA took $ELAPSED seconds"
 }
 
 do_install() {
+    local STARTTIME="$SECONDS"
     log "Installing $FORMULA $@"
-    time make install "$@" || return 1
+    make install "$@" || return 1
+    local ELAPSED="$(($SECONDS - $STARTTIME))"
+    log "Installing $FORMULA took $ELAPSED seconds"
 }
 
 do_make_and_install() {
@@ -79,10 +91,13 @@ do_make_and_install() {
 
 do_test() {
     if ! is_without tests; then
+        local STARTTIME="$SECONDS"
         log "Doing tests for $FORMULA"
-        time env - PATH="$PATH" CTEST_OUTPUT_ON_FAILURE=1 make check "$@" ||
-        time env - PATH="$PATH" CTEST_OUTPUT_ON_FAILURE=1 make test "$@" ||
-        time env - PATH="$PATH" CTEST_OUTPUT_ON_FAILURE=1 make tests "$@" || return 1
+        env - PATH="$PATH" CTEST_OUTPUT_ON_FAILURE=1 make check "$@" ||
+        env - PATH="$PATH" CTEST_OUTPUT_ON_FAILURE=1 make test "$@" ||
+        env - PATH="$PATH" CTEST_OUTPUT_ON_FAILURE=1 make tests "$@" || return 1
+        local ELAPSED="$(($SECONDS - $STARTTIME))"
+        log "Doing tests for $FORMULA took $ELAPSED seconds"
     fi
 }
 
@@ -362,27 +377,31 @@ compile_formula() {
     [ "$1" == "-f" ] && force=-f && shift
 
     FORMULA="$1"
-    [ ! -e "$NORMDIR"/packages/"$FORMULA" ] && log "Error: Formula file '$FORMULA' does not exist" && return 1
+    [ ! -e "$NORMDIR"/packages/"$FORMULA" ] && log_error "Error: Formula file '$FORMULA' does not exist" && return 1
     local SHA1SUM=`$SHASUM_BIN "$NORMDIR/packages/$FORMULA" | cut -f1 -d' '`
-    local FORMULA_ID="$FORMULA.$SHA1SUM"
     [ -n "$2" ] && COMPILING_FOR="$2"
     local STATEDIR="$PREFIX"/var/norm
-    if [ ! -e "$STATEDIR"/"$FORMULA_ID".installed -o -n "$force" ]; then
+    local NEEDS_INSTALLING=true
+    [[ -e "$STATEDIR"/"$FORMULA".installed ]] && fgrep -q "$SHA1SUM" "$STATEDIR"/"$FORMULA".installed && local NEEDS_INSTALLING=false
+    [[ -n "$force" ]] && local NEEDS_INSTALLING=true
+    if [[ "$NEEDS_INSTALLING" == "true" ]]; then
         [ -z "$COMPILING_FOR" ] && log "Building formula: $FORMULA" \
                                 || log "Building formula: $FORMULA -- dependency of $COMPILING_FOR"
         ## scan if we need bzip2 or xz
         fgrep -q '.xz' "$NORMDIR"/packages/"$FORMULA" && needs_tool xz
         fgrep -q '.bz2' "$NORMDIR"/packages/"$FORMULA" && needs_tool bzip2
-        time . "$NORMDIR"/packages/"$FORMULA"
+        local STARTTIME="$SECONDS"
+        . "$NORMDIR"/packages/"$FORMULA"
         mkdir -p `dirname "$STATEDIR/$FORMULA"`
-        log_success
-        touch "$STATEDIR/$FORMULA_ID".installed
+        local ELAPSED="$(($SECONDS - $STARTTIME))"
+        log_success "$ELAPSED"
+        echo "[$DATE] $SHA1SUM $ELAPSED $COMPILING_FOR" >> "$STATEDIR/$FORMULA".installed
         ## remove artifacts
         [[ -z "$norm_keep_sources" && -n "$COMPILEDIR" && -n "$FORMULA" ]] && rm -rf "$COMPILEDIR/$FORMULA"
     else
         [ -z "$COMPILING_FOR" ] && log "Formula already installed: $FORMULA"
+        echo "[$DATE] $SHA1SUM 0 $COMPILING_FOR" >> "$STATEDIR/$FORMULA".installed
     fi
-    [ -n "$COMPILING_FOR" ] && echo "[$DATE] Needed for $COMPILING_FOR" >> "$STATEDIR/$FORMULA_ID".installed || true
 }
 
 needs_tool() {

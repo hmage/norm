@@ -178,14 +178,16 @@ cmd_list() {
     for file in "${FILES[@]}"; do
         [ ! -e "$file" ] && continue
         local filename="${file##*/}"
-        local formula_name="${filename%.*.*}"
+        local formula_name="${filename%.installed}"
         in_array FORMULAS "$formula_name" || FORMULAS+=("$formula_name")
     done
     local FORMULAS_SORTED=($(printf '%s\n' "${FORMULAS[@]}"|sort))
     for formula in "${FORMULAS_SORTED[@]}"; do
-        local dependencies=$(cat "$STATEDIR/$formula".*.installed | fgrep 'Needed for ' | sed 's/.*Needed for //g'|sort -u|xargs)
-        [[ -z $dependencies ]] && echo $formula
-        [[ -n $dependencies ]] && printf "%-15s - Needed for %s\n" "$formula" "$dependencies"
+        local FILENAME="$STATEDIR/$formula".installed
+        local dependencies=$(cat "$FILENAME" | awk '{print $9}' | sort -u|xargs)
+        local MAXELAPSED=$(cat "$FILENAME" | awk '{print $8}' |sort -nr |head -n1)
+        [[ -z $dependencies ]] && printf "%-25s %4ds\n" "$formula" "$MAXELAPSED"
+        [[ -n $dependencies ]] && printf "%-25s %4ds - Needed for %s\n" "$formula" "$MAXELAPSED" "$dependencies"
     done
 }
 
@@ -196,13 +198,14 @@ cmd_dot() {
     for file in "${FILES[@]}"; do
         [ ! -e "$file" ] && continue
         local filename="${file##*/}"
-        local formula_name="${filename%.*.*}"
+        local formula_name="${filename%.installed}"
         in_array FORMULAS "$formula_name" || FORMULAS+=("$formula_name")
     done
     local FORMULAS_SORTED=($(printf '%s\n' "${FORMULAS[@]}"|sort))
     echo 'digraph norm {'
     for formula in "${FORMULAS_SORTED[@]}"; do
-        local dependencies=$(cat "$STATEDIR/$formula".*.installed | fgrep 'Needed for ' | sed 's/.*Needed for //g'|sort -u|xargs)
+        local FILENAME="$STATEDIR/$formula".installed
+        local dependencies=$(cat "$FILENAME" | awk '{print $9}' | sort -u|xargs)
         if [[ -n $dependencies ]]; then
             for dependency in $dependencies; do
                 echo \"$dependency\" "->" \"$formula\"
