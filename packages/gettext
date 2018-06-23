@@ -14,6 +14,9 @@ CONFFLAGS=(
 --disable-curses
 --disable-java
 --disable-acl
+--disable-nls
+--disable-curses
+--enable-relocatable
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
