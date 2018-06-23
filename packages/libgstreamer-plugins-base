@@ -1,15 +1,29 @@
 #!/bin/bash
 
-needs_tool python
-depends_on glib
 depends_on libgstreamer
-depends_on libasound
-depends_on libogg
-depends_on libopus
-depends_on libtheora
-depends_on libvorbis
-depends_on libx11
+
+depends_on liborc    ## opportunistic linking, accelerates code
+depends_on libvorbis ## opportunistic linking, vorbis support
+depends_on libtheora ## opportunistic linking, theora support
+depends_on libopus   ## opportunistic linking, opus support
+depends_on libasound ## opportunistic linking, ALSA support
+depends_on libgudev  ## opportunistic linking, no way to disable
+
+depends_on mesa     ## opportunistic linking, heavy dependency, dubious usefulness
+depends_on libpango ## opportunistic linking, heavy dependency, dubious usefulness
 
 fetch_source https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.14.1.tar.xz ca404fb17bd4fa553e8a6f026a0ec5d6d3506aa7
 
-do_unpack_compile
+CONFFLAGS=(
+--with-package-origin="https://github.com/hmage/norm"
+--disable-introspection
+--disable-examples
+--disable-nls
+--disable-libvisual
+--disable-cdparanoia
+--disable-ivorbis
+)
+
+is_without tests && CONFFLAGS+=(--disable-tests --disable-check)
+
+do_unpack_compile "${CONFFLAGS[@]}"
