@@ -4,14 +4,15 @@ needs_tool pkg-config
 depends_on glib
 depends_on libatk
 depends_on libpango
-depends_on libcairo
 depends_on gdk-pixbuf
-depends_on fontconfig
-depends_on libx11
 depends_on libxi
 depends_on libepoxy
-depends_on libatk
 depends_on libat-spi2-atk
+
+depends_on libxinerama ## opportunistic linking
+depends_on libxrandr ## opportunisitc linking
+depends_on libxcursor ## opportunisitc linking
+depends_on libxcomposite ## opportunistic linking
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/gtk+/3.22/gtk+-3.22.30.tar.xz 1be769c97b4dac9221d63f62f61ef724c55a14a3
 
