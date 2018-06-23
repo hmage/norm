@@ -1,11 +1,7 @@
 #!/bin/bash
 
-needs_tool autoconf
-depends_on automake
-depends_on xorg-macros
-needs_tool libtool
 depends_on libpciaccess
-needs_tool pkg-config ## for autoconf macros
+needs_tool pkg-config ## to find libpciaccess
 
 fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.92.tar.bz2 aad04c8e35cd3ab589ff085b20f75ba43e086647
 
@@ -26,5 +22,4 @@ do_patch_inline -p0 << 'EOF'
  /**
   * Static (compile-time) assertion.
 EOF
-do_autoreconf
-do_compile
+do_compile --enable-freedreno --enable-freedreno-kgsl --enable-etnaviv-experimental-api
