@@ -4,6 +4,10 @@ fetch_source https://github.com/linux-pam/linux-pam/releases/download/v1.3.1/Lin
 
 CONFFLAGS=(
 --includedir="$PREFIX"/include/security
+--disable-audit
+--disable-selinux
+--enable-db=no
+--disable-cracklib
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
