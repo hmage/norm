@@ -3,7 +3,7 @@
 needs_tool pkg-config # to find zlib
 depends_on zlib
 depends_on libffi
-needs_tool gettext ## no way to turn it off
+depends_on gettext ## gettext binary in path might not be the gettext binary we want, also no way to turn this off
 needs_tool python # bin/gdbus-codegen is in python, needed by libgtk3
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/glib/2.56/glib-2.56.1.tar.xz 4db098c15b9d57c37bb504a6f58ebe717994e6f2
