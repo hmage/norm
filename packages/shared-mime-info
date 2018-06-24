@@ -1,7 +1,7 @@
 #!/bin/bash
 
 needs_tool intltool ## didn't find a way to disable it
-needs_tool gettext ## didn't find a way to disable it
+depends_on gettext ## didn't find a way to disable it
 needs_tool pkg-config
 depends_on libxml
 depends_on glib
