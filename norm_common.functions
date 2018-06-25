@@ -236,6 +236,8 @@ do_undebian() {
     [ -f "$CACHEDIR/$1" ] && TARNAME="$1"
     [ -f "$CACHEDIR/$2" ] && DEBPATCH="$2"
 
+    [ -z "$DEBPATCH" ] && log_error "Error: do_undebian was called but fetch_debian was not called in this formula" && exit 1
+
     ## sets SRCDIR
     do_unpack "$TARNAME" || return 1
     do_debianize "$DEBPATCH" || return 1
@@ -250,12 +252,16 @@ do_undebian() {
 do_debianize() {
     [ -f "$CACHEDIR/$1" ] && DEBPATCH="$1"
 
+    [ -z "$DEBPATCH" ] && log_error "Error: do_debianize was called but fetch_debian was not called in this formula" && exit 1
+
     do_undebian_overlay "$DEBPATCH"
     do_debian_patches
 }
 
 do_undebian_overlay() {
     [ -f "$CACHEDIR/$1" ] && DEBPATCH="$1"
+
+    [ -z "$DEBPATCH" ] && log_error "Error: do_undebian_overlay was called but fetch_debian was not called in this formula" && exit 1
 
     ## unpack debian overlay -- try tar, gzip, xz, bz
     INPUT_FILTER="cat"
@@ -395,6 +401,7 @@ compile_formula() {
         ## scan if we need bzip2 or xz
         fgrep -q '.xz' "$NORMDIR"/packages/"$FORMULA" && needs_tool xz
         fgrep -q '.bz2' "$NORMDIR"/packages/"$FORMULA" && needs_tool bzip2
+        unset DEBPATCH
         local STARTTIME="$SECONDS"
         . "$NORMDIR"/packages/"$FORMULA"
         mkdir -p `dirname "$STATEDIR/$FORMULA"`
