@@ -179,6 +179,7 @@ cmd_list() {
         [ ! -e "$file" ] && continue
         local filename="${file##*/}"
         local formula_name="${filename%.installed}"
+        formula_name=`echo "$formula_name" | perl -pe 's/\.[0-9a-f]{40}//'`
         in_array FORMULAS "$formula_name" || FORMULAS+=("$formula_name")
     done
     local FORMULAS_SORTED=($(printf '%s\n' "${FORMULAS[@]}"|sort))
@@ -186,8 +187,8 @@ cmd_list() {
         local FILENAME="$STATEDIR/$formula".installed
         local dependencies=$(cat "$FILENAME" | awk '{print $9}' | sort -u|xargs)
         local MAXELAPSED=$(cat "$FILENAME" | awk '{print $8}' |sort -nr |head -n1)
-        [[ -z $dependencies ]] && printf "%-25s %4ds\n" "$formula" "$MAXELAPSED"
-        [[ -n $dependencies ]] && printf "%-25s %4ds - Needed for %s\n" "$formula" "$MAXELAPSED" "$dependencies"
+        [[ -z $dependencies ]] && printf "%-25s %4ss\n" "$formula" "$MAXELAPSED"
+        [[ -n $dependencies ]] && printf "%-25s %4ss - Needed for %s\n" "$formula" "$MAXELAPSED" "$dependencies"
     done
 }
 
