@@ -409,7 +409,9 @@ compile_formula() {
         log_success "$ELAPSED"
         echo "[$DATE] $SHA1SUM $ELAPSED $COMPILING_FOR" >> "$STATEDIR/$FORMULA".installed
         ## remove artifacts
-        [[ -z "$norm_keep_sources" && -n "$COMPILEDIR" && -n "$FORMULA" ]] && rm -rf "$COMPILEDIR/$FORMULA"
+        if [[ -z "$norm_keep_sources" && -n "$COMPILEDIR" && -n "$FORMULA" ]]; then
+            rm -rf "$COMPILEDIR/$FORMULA"
+        fi
     else
         [ -z "$COMPILING_FOR" ] && log "Formula already installed: $FORMULA"
         echo "[$DATE] $SHA1SUM 0 $COMPILING_FOR" >> "$STATEDIR/$FORMULA".installed
