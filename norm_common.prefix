@@ -45,6 +45,7 @@ setup_prefix() {
     addpath PERL5LIB "$PREFIX/lib/perl5"
 
     ## create files if they don't exist
+    [ ! -e "$PREFIX/bin" ] && mkdir -p "$PREFIX/bin" || true
     [ ! -e "$PREFIX/share/man" ] && mkdir -p "$PREFIX/share/man" || true
     [ ! -e "$PREFIX/share/pkgconfig" ] && mkdir -p "$PREFIX/share/pkgconfig" || true
     [ ! -e "$PREFIX/lib/pkgconfig" ] && mkdir -p "$PREFIX/lib/pkgconfig" || true
