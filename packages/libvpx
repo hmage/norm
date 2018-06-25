@@ -12,6 +12,7 @@ needs_tool yasm # alternatively libvpx supports nasm
 fetch_source https://github.com/webmproject/libvpx/archive/v1.7.0.tar.gz fb3d4b80596d1e3b1a7f53757d63e7d2b3eeb7c9
 
 CONFIGURE=()
+[[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--disable-shared)
 [[ $OSTYPE != *darwin* ]] && CONFIGURE+=(--enable-shared)
 
 NEEDV1=1 do_unpack_compile_notest "${CONFIGURE[@]}"
