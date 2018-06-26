@@ -14,7 +14,6 @@ depends_on libxvid
 depends_on libtheora
 depends_on lame
 [[ $OSTYPE == *linux* ]] && depends_on libasound
-depends_on rtmpdump
 depends_on libsdl2
 depends_on libfdk-aac
 depends_on libvpx
@@ -45,7 +44,6 @@ CONFIGURE=(
 --enable-libaom
 --enable-libspeex
 --enable-libopus
---enable-librtmp
 --enable-libfdk-aac
 --enable-libwebp
 --enable-libvpx
