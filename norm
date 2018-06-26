@@ -184,11 +184,24 @@ cmd_list() {
     done
     local FORMULAS_SORTED=($(printf '%s\n' "${FORMULAS[@]}"|sort))
     for formula in "${FORMULAS_SORTED[@]}"; do
-        local FILENAME="$STATEDIR/$formula".installed
-        local dependencies=$(cat "$FILENAME" | awk '{print $9}' | sort -u|xargs)
-        local MAXELAPSED=$(cat "$FILENAME" | awk '{print $8}' |sort -nr |head -n1)
-        [[ -z $dependencies ]] && printf "%-25s %4ss\n" "$formula" "$MAXELAPSED"
-        [[ -n $dependencies ]] && printf "%-25s %4ss - Needed for %s\n" "$formula" "$MAXELAPSED" "$dependencies"
+        local dependencies=()
+        local maxelapsed=()
+        ## old-style
+        for file in "$STATEDIR/$formula".*.installed; do
+            [ ! -e "$file" ] && continue
+            dependencies+=($(cat "$file" | awk '{print $NF}'))
+        done
+        ## new-style
+        for file in "$STATEDIR/$formula".installed; do
+            [ ! -e "$file" ] && continue
+            dependencies+=($(cat "$file" | awk '{print $9}'))
+            elapsed+=($(cat "$file" | awk '{print $8}'))
+        done
+        dependencies=`echo "${dependencies[@]}"|sort -u|xargs`
+        maxelapsed=`echo "${maxelapsed[@]}"|sort -nr|head -n1`
+        [ -n "$dependencies" ] && dependencies="- Needed for $dependencies"
+        [ -n "$maxelapsed" ] && printf -v maxelapsed "%4ss" "$maxelapsed"
+        printf "%-25s %4s%s\n" "$formula" "$maxelpased" "$dependencies"
     done
 }
 
