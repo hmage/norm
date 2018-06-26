@@ -195,13 +195,13 @@ cmd_list() {
         for file in "$STATEDIR/$formula".installed; do
             [ ! -e "$file" ] && continue
             dependencies+=($(cat "$file" | awk '{print $9}'))
-            elapsed+=($(cat "$file" | awk '{print $8}'))
+            maxelapsed+=($(cat "$file" | awk '{print $8}'))
         done
-        dependencies=`echo "${dependencies[@]}"|sort -u|xargs`
-        maxelapsed=`echo "${maxelapsed[@]}"|sort -nr|head -n1`
+        dependencies=`printf "%s\n" "${dependencies[@]}"|sort -u|xargs`
+        maxelapsed=`printf "%s\n" "${maxelapsed[@]}"|sort -nr|head -n1`
         [ -n "$dependencies" ] && dependencies="- Needed for $dependencies"
-        [ -n "$maxelapsed" ] && printf -v maxelapsed "%4ss" "$maxelapsed"
-        printf "%-25s %4s%s\n" "$formula" "$maxelpased" "$dependencies"
+        [ -n "$maxelapsed" ] && printf -v maxelapsed "%ds " "$maxelapsed"
+        printf "%-25s %7s%s\n" "$formula" "$maxelapsed" "$dependencies"
     done
 }
 
