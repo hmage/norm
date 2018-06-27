@@ -1,0 +1,7 @@
+#!/bin/bash
+
+needs_tool cmake
+
+fetch_source https://download.sourceforge.net/soxr/soxr-0.1.3-Source.tar.xz 32ea46b1a8c0c15f835422892d02fce8286aec3c
+
+do_unpack_compile
