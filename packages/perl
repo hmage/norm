@@ -9,6 +9,9 @@ if ! is_without tests; then
     fi
 fi
 
+depends_on libgdbm ## opportunistic linking, no way to disable
+depends_on libdb ## opportunisitc linking, no way to disable
+
 fetch_source http://www.cpan.org/src/5.0/perl-5.26.2.tar.gz 5dc74e667250a663d8f3114869e13ba2869bf6a9
 
 unset EXTRALD
