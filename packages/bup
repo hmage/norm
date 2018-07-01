@@ -3,7 +3,7 @@
 ## TODO: timestamps in tests are broken if /etc/localtime is not present
 [[ ! -e /etc/localtime ]] && log "$FORMULA requires /etc/localtime to successfully test" && false
 
-needs_tool python
+depends_on python ## wants python headers and libs that might not be installed on system
 needs_tool git
 ! is_without tests && needs_tool rsync ## needed to run tests
 
