@@ -6,7 +6,7 @@ depends_on xz      ## opportunistic linking, for compressed mbox, maildir and db
 depends_on liblz4  ## opportunistic linking, for compressed mbox, maildir and dbox files
 depends_on openssl ## opportunistic linking, for encrypted transfers with clients
 
-fetch_source http://dovecot.org/releases/2.3/dovecot-2.3.1.tar.gz 4f098f4c1a63a714ec428292dce20f7ae5cc8ce1
+fetch_source http://dovecot.org/releases/2.3/dovecot-2.3.2.tar.gz 711e2068b5f45b2b5ffe9819b5ed119b49e2da9c
 
 do_unpack
 do_patch_inline << EOF ## work around old libc that can't handle const int
