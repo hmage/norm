@@ -1,14 +1,17 @@
 #!/bin/bash
 
-depends_on cmake
-#depends_on libllvm
 needs_tool python ## needs python to build
+depends_on libllvm ## calls llvm-config
+
+depends_on openssl # to use ca certificates
 ! is_without tests && needs_tool flex bison && depends_on gdb ## needed to run tests
 
 fetch_source https://static.rust-lang.org/dist/rustc-1.27.0-src.tar.gz 54e4a19cd7eea451fea568644e4a3e264efcf36a
 
 do_unpack
-do_compile --enable-rpath --enable-optimize --enable-optimize-llvm
+SSL_CERT_FILE="$PREFIX/etc/ssl/cert.pem" \
+NOPARALLEL=1 \
+do_compile --enable-rpath --enable-optimize --enable-optimize-llvm --llvm-root="$PREFIX"
 
 #fetch_source https://github.com/rust-lang/cargo/archive/0.22.0.tar.gz 66346ce9bdc1da2db98811866663f33a3ab4eedf
 #do_unpack
