@@ -2,6 +2,7 @@
 
 needs_tool flex bison
 needs_tool pkg-config
+depends_on python ## builds python module and uses it to build .gir files
 depends_on glib
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/gobject-introspection/1.56/gobject-introspection-1.56.1.tar.xz eef277357cf724bc521f203f0d47faaea2ae4f0c
