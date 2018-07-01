@@ -1,100 +1,22 @@
 #!/bin/bash
 
-depends_on mesa   # qt module "quick" isn't skipped by configure when there's no mesa
+needs_tool pkg-config
+needs_tool gperf ## for building QtWebEngine
+needs_tool bison ## for building QtWebEngine
+needs_tool flex ## for building QtWebEngine
+needs_tool python ## Building QtQml requires Python
+depends_on libdouble-conversion ## uses bundled one otherwise
+depends_on libpcre2 ## uses bundled one otherwise
+depends_on freetype ## uses bundled one othewrise
+depends_on libjpeg ## uses bundled one otherwise
+depends_on libpng ## uses bundled one otherwise
+depends_on sqlite3 ## uses bundled one otherwise
 
 fetch_source http://download.qt.io/official_releases/qt/5.11/5.11.0/single/qt-everywhere-src-5.11.0.tar.xz 0e69374a1b0b008e9c294b2f4aa5d337e628a183
 
 CFLAGS="-g -O2 $CPPFLAGS" \
 CXXFLAGS="-g -O2 $CPPFLAGS" \
 do_unpack
-do_patch_inline << 'EOF'
---- a/qtscript/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.cpp
-+++ b/qtscript/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.cpp
-@@ -32,8 +32,6 @@
- #include "MacroAssembler.h"
- #include "RegexCompiler.h"
- 
--#include "pcre.h" // temporary, remove when fallback is removed.
--
- #if ENABLE(YARR_JIT)
- 
- using namespace WTF;
-@@ -1395,12 +1393,6 @@
- 
-     RegexGenerator generator(pattern);
-     generator.compile(globalData, jitObject);
--
--    if (generator.generationFailed()) {
--        JSRegExpIgnoreCaseOption ignoreCaseOption = ignoreCase ? JSRegExpIgnoreCase : JSRegExpDoNotIgnoreCase;
--        JSRegExpMultilineOption multilineOption = multiline ? JSRegExpMultiline : JSRegExpSingleLine;
--        jitObject.setFallback(jsRegExpCompile(reinterpret_cast<const UChar*>(patternString.data()), patternString.size(), ignoreCaseOption, multilineOption, &numSubpatterns, &error));
--    }
- }
- 
- }}
---- a/qtscript/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.h
-+++ b/qtscript/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.h
-@@ -34,9 +34,6 @@
- #include "RegexPattern.h"
- #include <UString.h>
- 
--#include <pcre.h>
--struct JSRegExp; // temporary, remove when fallback is removed.
--
- #if CPU(X86) && !COMPILER(MSVC)
- #define YARR_CALL __attribute__ ((regparm (3)))
- #else
-@@ -55,19 +52,13 @@
- 
- public:
-     RegexCodeBlock()
--        : m_fallback(0)
-     {
-     }
- 
-     ~RegexCodeBlock()
-     {
--        if (m_fallback)
--            jsRegExpFree(m_fallback);
-     }
- 
--    JSRegExp* getFallback() { return m_fallback; }
--    void setFallback(JSRegExp* fallback) { m_fallback = fallback; }
--
-     bool operator!() { return !m_ref.m_code.executableAddress(); }
-     void set(MacroAssembler::CodeRef ref) { m_ref = ref; }
- 
-@@ -78,16 +69,12 @@
- 
- private:
-     MacroAssembler::CodeRef m_ref;
--    JSRegExp* m_fallback;
- };
- 
- void jitCompileRegex(JSGlobalData* globalData, RegexCodeBlock& jitObject, const UString& pattern, unsigned& numSubpatterns, const char*& error, bool ignoreCase = false, bool multiline = false);
- 
- inline int executeRegex(RegexCodeBlock& jitObject, const UChar* input, unsigned start, unsigned length, int* output, int outputArraySize)
- {
--    if (JSRegExp* fallback = jitObject.getFallback())
--        return (jsRegExpExecute(fallback, input, length, start, output, outputArraySize) < 0) ? -1 : output[0];
--
-     return jitObject.execute(input, start, length, output);
- }
- 
---- a/qtbase/src/tools/bootstrap/bootstrap.pro
-+++ b/qtbase/src/tools/bootstrap/bootstrap.pro
-@@ -28,6 +28,10 @@
- 
- DEFINES -= QT_EVAL
- 
-+DEFINES += $$EXTRA_DEFINES
-+INCLUDEPATH += $$EXTRA_INCLUDEPATH
-+LIBS += $$EXTRA_LIBS
-+
- SOURCES += \
-            ../../corelib/codecs/qlatincodec.cpp \
-            ../../corelib/codecs/qtextcodec.cpp \
-EOF
 
 CONFFLAGS=(
 -prefix "$PREFIX"
@@ -105,11 +27,17 @@ CONFFLAGS=(
 -confirm-license
 -proprietary-codecs
 -nomake examples
+-no-compile-examples
+-skip qtwayland
+-no-opengl
+-no-icu
 )
+
+is_without tests && CONFFLAGS+=(-nomake tests)
 
 pushd_src
 ./configure "${CONFFLAGS[@]}"
 do_make
-do_test
+! is_without tests && do_test
 do_install
 popd_src
