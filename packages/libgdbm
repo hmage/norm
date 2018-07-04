@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/gdbm/gdbm-1.15.tar.gz d3914a6c6230a6f1b21e67f60990233336743eb6
+fetch_source http://ftpmirror.gnu.org/gdbm/gdbm-1.16.tar.gz 925fbb72ea2cb7db7a93908be59b13cfcd87bb69
 
 do_unpack_compile --enable-libgdbm-compat --without-readline
