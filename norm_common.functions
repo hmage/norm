@@ -418,9 +418,17 @@ compile_formula() {
     fi
 }
 
+toolbinary() {
+    case "$1" in
+        tcl) echo "tclsh" ;;
+        *) echo "$1" ;;
+    esac
+}
+
 needs_tool() {
     for i; do
-        if ! hash "$i" 2>/dev/null; then
+        local binary=$(toolbinary $i)
+        if ! hash "$binary" 2>/dev/null; then
             log "System does not have tool $i, will build our own"
             compile_formula "$i" $FORMULA
         fi
