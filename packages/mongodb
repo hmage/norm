@@ -5,7 +5,7 @@
 needs_tool python ## needs python modules and pip
 needs_tool scons
 
-fetch_source https://fastdl.mongodb.org/src/mongodb-src-r3.6.5.tar.gz 5d9c97a00ebc9f8d19e5ba535fc18242acbf1394
+fetch_source https://fastdl.mongodb.org/src/mongodb-src-r4.0.0.tar.gz a58c6056de1e43c9491a4f19b868480bf6bf3777
 
 pip install typing cheetah regex PyYAML
 
