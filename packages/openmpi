@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://www.open-mpi.org/software/ompi/v2.1/downloads/openmpi-2.1.1.tar.bz2 3aaee35c17b6ef02f4cee274f2670d5b7b2c968a
+fetch_source https://www.open-mpi.org/software/ompi/v3.1/downloads/openmpi-3.1.1.tar.bz2 86bc99c79a2c69a7d9b624d7f012929db78fc9a4
 
 do_unpack
 do_compile --disable-mpi-fortran
