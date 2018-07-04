@@ -2,6 +2,6 @@
 
 depends_on libsctp ## opportunistic linking, no way to disable
 
-fetch_source https://github.com/esnet/iperf/archive/3.5.tar.gz a8c981e6b5f3819e409d8a779c352618cd925d58
+fetch_source https://github.com/esnet/iperf/archive/3.6.tar.gz a92382c168f183a276e7a812b94417392871a5bf
 
 do_unpack_compile --without-openssl
