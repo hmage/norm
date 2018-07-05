@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://ftpmirror.gnu.org/coreutils/coreutils-8.29.tar.xz 63d522f430f0f9fceca71e4b52b414999531915c
+fetch_source https://ftpmirror.gnu.org/coreutils/coreutils-8.30.tar.xz bd5d495c162730873a2774acd1c5091fbf0c55a4
 
 do_unpack_compile --without-selinux --disable-libcap --without-gmp --disable-acl --disable-xattr
