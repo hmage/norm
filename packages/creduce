@@ -3,7 +3,7 @@
 depends_on libllvm clang
 needs_tool flex
 
-fetch_source https://github.com/csmith-project/creduce/archive/7eb327e94d1b29c96e6ac09ec1321d614355f586.tar.gz a73ebc5761d82995ed4b9f089c16baf27fe223a1
+fetch_source https://embed.cs.utah.edu/creduce/creduce-2.8.0.tar.gz 4f9ed5c7766f247884ce5c17fa10710372d48d39
 
 do_unpack
 do_compile
