@@ -8,12 +8,7 @@ depends_on libjemalloc
 needs_tool bison
 depends_on zlib
 
-OURNAME=`basename "${BASH_SOURCE[0]}"`
-if [[ $OURNAME == mariadb-devel ]]; then
-    fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.3.7/source/mariadb-10.3.7.tar.gz 2a657c91aa680ef16640a1bf4ea798df9ce98928
-else
-    fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.3.7/source/mariadb-10.3.7.tar.gz 2a657c91aa680ef16640a1bf4ea798df9ce98928
-fi
+fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.3.8/source/mariadb-10.3.8.tar.gz 1d88242f7e549c55398c9b812913306bc789ba5d
 
 do_unpack
 do_patch_inline -p0 << EOF
