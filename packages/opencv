@@ -2,7 +2,7 @@
 
 needs_tool cmake
 
-fetch_source https://github.com/opencv/opencv/archive/3.4.0.tar.gz aebffcd763e3e91fae91e71fb9fbd374a90031bf
+fetch_source https://github.com/opencv/opencv/archive/3.4.2.tar.gz 5d1adfca244638f8b7ec8b0ba8fa213174ccaec5
 
 do_unpack
 do_compile_outside_notest
