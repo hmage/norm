@@ -2,11 +2,9 @@
 
 depends_on libncurses
 
-fetch_source http://http.debian.net/debian/pool/main/r/readline6/readline6_6.3.orig.tar.gz 017b92dc7fd4e636a2b5c9265a77ccc05798c9e1
-fetch_debian http://http.debian.net/debian/pool/main/r/readline6/readline6_6.3-8.debian.tar.xz d787876bb2f0cad2ec1081c9acc5610ee41d9ead
-#fetch_source http://ftpmirror.gnu.org/readline/readline-6.3.tar.gz 017b92dc7fd4e636a2b5c9265a77ccc05798c9e1
+fetch_source http://ftpmirror.gnu.org/readline/readline-7.0.tar.gz d9095fa14a812495052357e1d678b3f2ac635463
 
 unset EXTRALD
 cc_addflags EXTRALD -Wl,--no-as-needed
 
-LDFLAGS="$LDFLAGS $EXTRALD -lncurses" do_undebian_compile --with-curses
+LDFLAGS="$LDFLAGS $EXTRALD -lncurses" do_unpack_compile --with-curses
