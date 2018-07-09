@@ -1,0 +1,38 @@
+#!/bin/bash
+
+needs_tool m4
+depends_on libtool ## links with libltdl
+needs_tool pkg-config
+depends_on libsndfile
+
+depends_on liborc ## opportunistic linking, accelerates code
+
+fetch_source https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-12.0.tar.xz 9b0dcd62ae4c24542e13644e5fac3de5b13d6db7
+
+CONFFLAGS=(
+--disable-nls
+--without-caps
+--disable-manpages
+--disable-x11
+--disable-dbus
+--disable-glib2
+--disable-gtk3
+--disable-gsettings
+--disable-gconf
+--disable-avahi
+--disable-systemd-daemon
+--disable-systemd-login
+--disable-systemd-journal
+--disable-tcpwrap
+--disable-udev
+--disable-openssl
+--disable-lirc
+--disable-jack
+--without-speex
+--without-soxr
+--with-database=simple
+)
+
+is_without tests && CONFFLAGS+=(--disable-tests)
+
+do_unpack_compile "${CONFFLAGS[@]}"
