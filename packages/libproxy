@@ -11,4 +11,13 @@ depends_on zlib
 
 fetch_source https://github.com/libproxy/libproxy/releases/download/0.4.14/libproxy-0.4.14.tar.xz 5e6b9ce9797528879df5ab00ee0241e281207759
 
-do_unpack_compile -DWITH_PYTHON3=OFF -DWITH_PYTHON2=OFF -DWITH_PERL=OFF
+CONFFLAGS=(
+-DWITH_PYTHON3=OFF
+-DWITH_PYTHON2=OFF
+-DWITH_PERL=OFF
+-DWITH_MOZJS=OFF
+-DWITH_NM=OFF
+-DWITH_GNOME2=OFF
+-DWITH_GNOME3=OFF
+)
+do_unpack_compile "${CONFFLAGS[@]}"
