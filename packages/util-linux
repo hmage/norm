@@ -6,6 +6,20 @@ CONFFLAGS=(
 --with-bashcompletiondir=$PREFIX/share/bash-completion/completions
 --disable-makeinstall-chown
 --without-systemd
+--without-cap-ng
+--without-udev
+--without-tinfo
+--without-libz
+--without-ncursesw
+--without-ncurses
+--without-readline
+--without-audit
+--without-cap-ng
+--without-python
+--disable-chfn-chsh ## useless when rootless
+--disable-su ## useless when rootless
+--disable-login ## useless when rootless
+--disable-runuser ## useless when rootless
 )
 
 OURNAME=`basename "${BASH_SOURCE[0]}"`
