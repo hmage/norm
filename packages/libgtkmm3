@@ -1,6 +1,8 @@
 #!/bin/bash
 
+needs_tool pkg-config
 depends_on libgtk3
+depends_on libglibmm
 depends_on libpangomm
 depends_on libatkmm
 
