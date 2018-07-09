@@ -1,5 +1,7 @@
 #!/bin/bash
 
+depends_on libonig ## opportunistic linking
+
 fetch_source https://github.com/stedolan/jq/releases/download/jq-1.5/jq-1.5.tar.gz 6eef3705ac0a322e8aa0521c57ce339671838277
 
 do_unpack_compile --disable-maintainer-mode
