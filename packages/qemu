@@ -2,22 +2,57 @@
 
 needs_tool python
 needs_tool pkg-config
-depends_on libsdl
 depends_on glib
 depends_on pixman
-depends_on libx11
+
+depends_on libsdl2 ## other option is heavy gtk2 or gtk3
+depends_on libfdt ## opportunistic linking, no easy way to disable
+depends_on libcap ## opportunistic linking, no way to disable
 
 fetch_source http://wiki.qemu-project.org/download/qemu-2.12.0.tar.bz2 300ade3de7ad6089a7f0b846c2d0dcc5ff0cd0b6
 
 CONFFLAGS=(
 --disable-seccomp ## seccomp causes troubles with musl/alpine
---disable-libnfs
---disable-bluez
---enable-sdl
---disable-gtk
+
 --extra-cflags="$CPPFLAGS"
 --extra-ldflags="$LDFLAGS"
+
+## opportunistic linking
+--disable-cap-ng
+--disable-glusterfs
+--disable-rbd
+--disable-libssh2
+--disable-libnfs
+--disable-curses
+--disable-gtk
+--disable-libiscsi
+--disable-curl
+--disable-linux-aio
+--disable-nettle
+--disable-gnutls
+--disable-gcrypt
+--disable-bzip2
+--disable-brlapi
+--disable-smartcard
+--disable-usb-redir
+--disable-libusb
+--disable-vde
+--disable-opengl
+--disable-numa
+--disable-bluez
+--disable-vnc-png
+--disable-vnc-jpeg
+--disable-vnc-sasl
+--disable-xen
+--disable-lzo
+--disable-snappy
+--disable-spice
 )
 
-## testing hangs because test scripts do not kill a qemu process
-do_unpack_compile_notest "${CONFFLAGS[@]}"
+
+do_unpack
+sed -i.bak 's/xkbcommon=""/xkbcommon="no"/g' "$SRCDIR"/configure
+sed -i.bak 's/$pkg_config --exists "x11"/false/g' "$SRCDIR"/configure
+
+## notest: testing hangs because test scripts do not kill a qemu process
+do_compile_notest "${CONFFLAGS[@]}"
