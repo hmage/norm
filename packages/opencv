@@ -1,8 +1,24 @@
 #!/bin/bash
 
 needs_tool cmake
+depends_on zlib ## opportunistic linking
+depends_on libgstreamer ## opportunistic linking
+depends_on libgstreamer-plugins-base ## opportunistic linking
+depends_on libdc1394 ## opportunistic linking
+depends_on ffmpeg ## opportunistic linking
+depends_on libwebp ## opportunistic linking
+depends_on libopenexr ## opportunistic linking
+depends_on libvtk ## opportunistic linking
 
 fetch_source https://github.com/opencv/opencv/archive/3.4.2.tar.gz 5d1adfca244638f8b7ec8b0ba8fa213174ccaec5
 
+CONFFLAGS=(
+-DWITH_CUDA=OFF
+-DWITH_GTK=OFF
+-DWITH_GPHOTO2=OFF
+)
+
+is_without tests && CONFFLAGS+=(-DBUILD_TESTS=OFF -DBUILD_PERF_TESTS=OFF -DINSTALL_TESTS=OFF)
+
 do_unpack
-do_compile_outside_notest
+do_compile_outside_notest "${CONFFLAGS[@]}"
