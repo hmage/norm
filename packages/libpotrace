@@ -1,0 +1,7 @@
+#!/bin/bash
+
+depends_on zlib
+
+fetch_source http://potrace.sourceforge.net/download/1.15/potrace-1.15.tar.gz 1a0a4faca17370731b939487847662c8ed1b660d
+
+do_unpack_compile --with-libpotrace
