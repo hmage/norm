@@ -1,0 +1,9 @@
+#!/bin/bash
+
+needs_tool cmake
+depends_on libxt
+depends_on mesa
+
+fetch_source https://www.vtk.org/files/release/8.1/VTK-8.1.1.tar.gz 1b852f4d578d1fb1e79dd046d2d8c4b8206dfa58
+
+do_unpack_compile_notest
