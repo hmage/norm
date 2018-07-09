@@ -1,11 +1,10 @@
 #!/bin/bash
 
-## TODO: wants python module six to install properly
-
-depends_on libgtk2
-depends_on autoconf automake libtool
-depends_on intltool
-depends_on gobject-introspection
+needs_tool pkg-config
+depends_on glib
+depends_on libpango
+depends_on libgtk3
+depends_on libpcre2
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/vte/0.52/vte-0.52.2.tar.xz be8de64f8584ada23461db8e0a4dce2e650de5ce
 
