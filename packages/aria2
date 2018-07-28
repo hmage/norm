@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on openssl ## for HTTPS support
+[[ $OSTYPE != *darwin* ]] && depends_on openssl ## for HTTPS support
 
 if ! cc_checkflags -x c++ -std=c++11; then
     log "Formula $FORMULA needs C++ compiler that support for C++11 standard"
@@ -21,6 +21,8 @@ CONFFLAGS=(
 --without-libssh2
 --without-libcares
 )
+
+[[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--with-appletls --without-openssl)
 
 do_unpack
 sed -i.bak 's|make_unique|std::make_unique|g' "$SRCDIR"/src/bignum.h
