@@ -421,6 +421,8 @@ compile_formula() {
 toolbinary() {
     case "$1" in
         tcl) echo "tclsh" ;;
+        intltool) echo "intltoolize" ;;
+        libtool) echo "libtoolize" ;;
         *) echo "$1" ;;
     esac
 }
