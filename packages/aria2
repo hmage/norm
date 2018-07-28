@@ -24,4 +24,5 @@ CONFFLAGS=(
 
 do_unpack
 sed -i.bak 's|make_unique|std::make_unique|g' "$SRCDIR"/src/bignum.h
+sed -i.bak 's|-std=c\+\+11|-std=c++14|g' "$SRCDIR"/configure
 do_compile "${CONFFLAGS[@]}"
