@@ -2,40 +2,20 @@
 
 depends_on zlib
 depends_on xz liblzo
+depends_on liblz4
 
-fetch_source http://http.debian.net/debian/pool/main/s/squashfs-tools/squashfs-tools_4.2+20130409.orig.tar.xz 16baded334d37d332034fc903c7c03194186d6a7
-fetch_debian http://http.debian.net/debian/pool/main/s/squashfs-tools/squashfs-tools_4.2+20130409-2.debian.tar.xz beedb0a23f99dacf2d7ad81563ce9b96b11005c8
+fetch_source https://downloads.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz a615979db9cee82e4a934a1455577f597d290b41
+fetch_file https://raw.githubusercontent.com/Homebrew/formula-patches/05ae0eb1/squashfs/squashfs-osx-bundle.diff bf8aad479180a0614b74d4aa2fb5b8a0c1dc567b
 
-do_undebian
+do_unpack
+SRCDIR="$SRCDIR/squashfs-tools"
 pushd_src
 sed -ibak 's|#XZ_SUPPORT|XZ_SUPPORT|' Makefile
 sed -ibak 's|#LZO_SUPPORT|LZO_SUPPORT|' Makefile
 sed -ibak "s|/usr/local|$PREFIX/|" Makefile
 
-do_patch_inline << 'EOF' # fix compilation on gcc 4.1.2
-diff -urw squashfs-tools_4.2+20130409.orig.tar.xz.orig/mksquashfs.c squashfs-tools_4.2+20130409.orig.tar.xz/mksquashfs.c
---- a/mksquashfs.c	2015-10-29 20:53:16.000000000 +0300
-+++ b/mksquashfs.c	2015-10-29 20:55:48.548843198 +0300
-@@ -555,15 +555,14 @@
- 		ERROR("read_fs_bytes: Lseek on destination failed because %s, "
- 			"offset=0x%llx\n", strerror(errno), off);
- 		res = 0;
--		goto mutex_unlock;
--	}
-+	} else {
- 
- 	if(read_bytes(fd, buff, bytes) < bytes) {
- 		ERROR("Read on destination failed\n");
- 		res = 0;
- 	}
-+	}
- 
--mutex_unlock:
- 	pthread_cleanup_pop(1);
- 	return res;
- }
-EOF
+do_patch "$FILENAME" -p2
 
-do_make EXTRA_CFLAGS="$CPPFLAGS -std=gnu99" EXTRA_LDFLAGS="$LDFLAGS" LZMA_XZ_SUPPORT=1
+do_make EXTRA_CFLAGS="$CPPFLAGS -std=gnu99" EXTRA_LDFLAGS="$LDFLAGS" LZMA_XZ_SUPPORT=1 LZ4_SUPPORT=1
 do_install
 popd
