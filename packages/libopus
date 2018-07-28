@@ -1,5 +1,7 @@
 #!/bin/bash
 
+needs_tool pkg-config
+
 fetch_source http://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz 35d108ca9d6a8d05e52d06c5421a5f95b39fdac9
 
 do_unpack_compile --disable-extra-programs
