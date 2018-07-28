@@ -5,5 +5,6 @@ fetch_source http://www.rarlab.com/rar/unrarsrc-5.6.5.tar.gz 131a1fad24301fd7f77
 do_unpack
 pushd_src
 do_make
-do_install DESTDIR="$PREFIX"
+mkdir -p "$PREFIX/bin"
+install -m755 unrar "$PREFIX/bin"
 popd_src
