@@ -17,7 +17,6 @@ depends_on lame
 depends_on libsdl2
 depends_on libfdk-aac
 depends_on libvpx
-depends_on libaom
 depends_on libopenjpeg
 
 depends_on bzip2        ## opportunistic linking, useful for transparent decompression
@@ -41,7 +40,6 @@ CONFIGURE=(
 --enable-libtheora
 --enable-libvorbis
 --enable-sdl2
---enable-libaom
 --enable-libspeex
 --enable-libopus
 --enable-libfdk-aac
