@@ -3,7 +3,7 @@
 depends_on zlib ## for transparent decompression of gzip/deflate encoded responses
 [[ $OSTYPE != *darwin* ]] && depends_on openssl
 
-fetch_source http://curl.mirror.anstey.ca/curl-7.60.0.tar.gz 31c68f25832ee3af7480a48d1d5dffbe6771df17
+fetch_source http://curl.mirror.anstey.ca/curl-7.61.0.tar.gz 34c0f89e01c27070fe3b6f86371791390f464602
 
 CONFIGURE=(
 --disable-ldap
