@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://sourceware.org/pub/binutils/releases/binutils-2.30.tar.xz 574d3b5650413d6ee65195a4f5ecbddc3a38f718
+fetch_source https://sourceware.org/pub/binutils/releases/binutils-2.31.1.tar.xz 3b031410897fe224412f3a6a1b052402d2fbcc6a
 
 do_unpack_compile --with-sysroot=/ --enable-deterministic-archives # with-sysroot enables rpath-link support
