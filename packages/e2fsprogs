@@ -4,7 +4,7 @@ needs_tool pkg-config
 [[ $OSTYPE == *linux* ]] && depends_on libuuid
 depends_on libblkid
 
-fetch_source http://downloads.sourceforge.net/e2fsprogs/e2fsprogs/v1.44.2/e2fsprogs-1.44.2.tar.gz a015839282067a4db11aa8971814134871b93358
+fetch_source http://downloads.sourceforge.net/e2fsprogs/e2fsprogs/v1.44.3/e2fsprogs-1.44.3.tar.gz bfe11b75fee61c4d3795ac27eea11f9f7843294b
 
 CONFFLAGS=(
 --enable-symlink-install
