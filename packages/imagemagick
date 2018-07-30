@@ -13,7 +13,7 @@ depends_on libopenjpeg
 depends_on libopenexr
 depends_on liblcms2 ## for handling colour profiles embedded into image files
 
-fetch_source https://dl.bintray.com/homebrew/mirror/imagemagick-7.0.8-5.tar.xz 448d00a3e5cd5184d3df4883edc407e7885cf40c
+fetch_source https://dl.bintray.com/homebrew/mirror/imagemagick-7.0.8-8.tar.xz aa235d65d2d3c955c06ae2f2efb0f425ef10ac87
 
 CONFFLAGS=(
 --without-lqr
