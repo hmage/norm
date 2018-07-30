@@ -5,6 +5,7 @@ depends_on libxslt ## for xsltproc
 depends_on docbook-xml
 depends_on docbook-xsl
 needs_tool itstool
+needs_tool gettext
 
 fetch_source http://ftp.gnome.org/pub/gnome/sources/gtk-doc/1.28/gtk-doc-1.28.tar.xz f48311fd3def5b393ebb32d5480a61ec6dfd2809
 
