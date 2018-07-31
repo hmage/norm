@@ -24,7 +24,7 @@ depends_on bzip2        ## opportunistic linking, useful for transparent decompr
 depends_on xz           ## opportunistic linking, useful for transparent decompression
 [[ $OSTYPE == *linux* ]] && depends_on libcrystalhd ## opportunistic linking
 
-fetch_source http://www.ffmpeg.org/releases/ffmpeg-4.0.1.tar.xz dd918d4f7e61608b560537feadb8d2c1d965addf
+fetch_source http://www.ffmpeg.org/releases/ffmpeg-4.0.2.tar.xz 6e0085d5335e84b4137bb94a7d4401039a2e9ece
 
 CONFIGURE=(
 --enable-pthreads
