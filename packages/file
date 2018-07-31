@@ -2,7 +2,7 @@
 
 depends_on zlib ## opportunistic linking
 
-fetch_source http://fossies.org/linux/misc/file-5.33.tar.gz 31a67e4dc0a3d7a8d1b850429c3f625314700240
+fetch_source http://fossies.org/linux/misc/file-5.34.tar.gz 509e30ad0e0d74fa4040a28ce4667486cfe2170c
 
 do_unpack_compile --disable-libseccomp ## seccomp produces errors with musl/alpine
 
