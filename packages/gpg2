@@ -9,6 +9,6 @@ depends_on libnpth
 depends_on zlib  ## opportunistic linking, needed for decoding zlib-compressed payloads
 depends_on bzip2 ## opportunistic linking, needed for decoding bzip2-compressed payloads
 
-fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.8.tar.bz2 d87553a125832ea90e8aeb3ceeecf24f88de56fb
+fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.9.tar.bz2 e6ef18c2e06175bbe563959c9acc682c02bcd572
 
 do_unpack_compile --disable-sqlite --disable-ldap --disable-gnutls --disable-scdaemon --without-readline
