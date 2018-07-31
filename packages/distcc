@@ -1,8 +1,14 @@
 #!/bin/bash
 
+needs_tool autoconf automake ## for autoreconf
+needs_tool pkg-config ## for autoconf macros
 depends_on libiberty
 depends_on libpopt ## opportunistic linking, if absent uses bundled outdated copy
 
-fetch_source https://github.com/distcc/distcc/releases/download/v3.3/distcc-3.3.tar.gz 20c9f3085d7211945b7f3f8a60bce704a8a0f127
+fetch_source https://github.com/distcc/distcc/releases/download/v3.3.2/distcc-3.3.2.tar.gz 4f2200e74e22b2cdf316c1126eb180e568756d39
 
-do_unpack_compile --disable-pump-mode --without-avahi
+do_unpack
+pushd_src
+./autogen.sh
+do_compile --disable-pump-mode --without-avahi
+popd_src
