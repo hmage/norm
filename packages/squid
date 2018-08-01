@@ -3,7 +3,7 @@
 needs_tool autoconf automake libtool
 depends_on libdb ## opportunistic linking, no way to disable
 
-fetch_source http://www.squid-cache.org/Versions/v3/3.5/squid-3.5.27.tar.xz 1e69c96d13cd49844da3bcf33a0b428fbe7b6f77
+fetch_source http://www.squid-cache.org/Versions/v3/3.5/squid-3.5.28.tar.xz 721241a270ec27d629d65ae17a50be56510e8441
 
 do_unpack
 
