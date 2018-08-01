@@ -7,7 +7,7 @@ depends_on libsndfile
 
 depends_on liborc ## opportunistic linking, accelerates code
 
-fetch_source https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-12.0.tar.xz 9b0dcd62ae4c24542e13644e5fac3de5b13d6db7
+fetch_source https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-12.2.tar.xz 310a6245036a51df6585a7ebfac75b32e073aa88
 
 CONFFLAGS=(
 --disable-nls
