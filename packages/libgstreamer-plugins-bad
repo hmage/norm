@@ -5,6 +5,6 @@ depends_on glib
 depends_on libgstreamer
 depends_on libgstreamer-plugins-base
 
-fetch_source https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.14.1.tar.xz dd39715f50c3f3b75f5327d82a918655db03193a
+fetch_source https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.14.2.tar.xz ac5566fba3923b33232f876c1a4aba6198c69955
 
 do_unpack_compile
