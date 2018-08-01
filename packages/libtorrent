@@ -4,6 +4,6 @@ needs_tool pkg-config ## to find libboost and openssl
 depends_on libboost
 depends_on openssl
 
-fetch_source https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_1_7/libtorrent-rasterbar-1.1.7.tar.gz 6ebab5390d225dfc06254f2fc15301232ec528d6
+fetch_source https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_1_8/libtorrent-rasterbar-1.1.8.tar.gz 2277a5fe74e46924cba6c787e05052e1cbe3d3cd
 
 do_unpack_compile --with-boost="$PREFIX"
