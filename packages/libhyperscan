@@ -5,7 +5,7 @@ depends_on libboost
 needs_tool python
 depends_on ragel
 
-fetch_source https://github.com/01org/hyperscan/archive/v4.6.0.tar.gz 64ed476c139bc190a3427f18903445cae7fd11af
+fetch_source https://github.com/01org/hyperscan/archive/v5.0.0.tar.gz 5cb3fc5726950c4025854da8ec05a15f929279db
 
 ## hyperscan seems to choke on presence of -march=native
 CPPFLAGS="${CPPFLAGS/-march=native/}" \
