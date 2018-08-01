@@ -5,7 +5,7 @@ needs_tool flex
 needs_tool python
 depends_on glib
 
-fetch_source https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.14.1.tar.xz 0d9c6dde28c6248d69a3bdf5ffd3aec5f5cdc6a6
+fetch_source https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.14.2.tar.xz ec0627229418081205c4f01427daeb62b8633aa7
 
 CONFFLAGS=(
 --with-package-origin="https://github.com/hmage/norm"
