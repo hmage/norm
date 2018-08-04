@@ -4,7 +4,7 @@ depends_on openssl
 depends_on libpcre
 depends_on zlib
 
-fetch_source http://haproxy.org/download/1.8/src/haproxy-1.8.12.tar.gz f234549cf7d1c2dc113d441bacf23db131285e31
+fetch_source http://haproxy.org/download/1.8/src/haproxy-1.8.13.tar.gz 1c8588d63c7592404d0a3ea59aa41c2dccaaa909
 
 do_unpack
 pushd_src
