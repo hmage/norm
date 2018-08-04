@@ -1,5 +1,6 @@
 #!/bin/bash
 
+needs_tool pkg-config
 depends_on libusb
 
 fetch_source https://www.spice-space.org/download/usbredir/usbredir-0.7.1.tar.bz2 baa5d8fcdb3246052fbfac86aee750ae8d33c4fd
