@@ -1,11 +1,13 @@
 #!/bin/bash
 
-depends_on libgtk3
-depends_on pkg-config
 needs_tool python
+needs_tool pkg-config
+depends_on libgnutls ## opportunistic linking, for SSL decryption
+depends_on libgcrypt
 depends_on glib
+depends_on libgtk2
 depends_on libpcap
-depends_on libnghttp2
+depends_on libnghttp2 ## opportunistic linking, for http2 decryption
 
 fetch_source http://www.wireshark.org/download/src/wireshark-2.6.2.tar.xz 52517c30926211b0b718815b51a3f06a18d8f5da
 
