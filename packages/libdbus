@@ -3,7 +3,7 @@
 needs_tool pkg-config
 depends_on libexpat
 
-fetch_source http://dbus.freedesktop.org/releases/dbus/dbus-1.12.8.tar.gz 8e50e46796e8297eaa633da3a61cdc79a500e34a
+fetch_source http://dbus.freedesktop.org/releases/dbus/dbus-1.12.10.tar.gz efd426031424519011e46d28256626a5ca20195c
 
 CONFFLAGS=(
 --disable-systemd
