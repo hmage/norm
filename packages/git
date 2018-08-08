@@ -6,8 +6,8 @@ depends_on zlib
 [[ $OSTYPE != *darwin* ]] && depends_on curl
 depends_on libexpat
 
-fetch_source https://www.kernel.org/pub/software/scm/git/git-2.17.1.tar.xz cdc8ba409643f6fe19b1bf0653d60f3aac0485f3
-fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.17.1.tar.xz 2b8ada574452f9c93fe19c23e5720201e7f6de60
+fetch_source https://www.kernel.org/pub/software/scm/git/git-2.18.0.tar.xz 5b259aecfd8e80dae1a03e74a68c77eff6d511c0
+fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.18.0.tar.xz 37a4b9d3e2a67bb205b7594691dfbf5e8758acda
 do_unpack
 
 pushd_src
