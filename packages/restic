@@ -2,7 +2,7 @@
 
 depends_on go ## old versions of go are not supported by restic
 
-fetch_source https://github.com/restic/restic/archive/v0.9.1.tar.gz 2a88c8b6ff8b18a7136cd5477b24ee2500cdd2fb
+fetch_source https://github.com/restic/restic/archive/v0.9.2.tar.gz 7093440d8b1f4639e55e0009c9bc52d297e68083
 
 do_unpack
 pushd_src
