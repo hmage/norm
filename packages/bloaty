@@ -1,0 +1,7 @@
+#!/bin/bash
+
+needs_tool cmake
+
+fetch_source https://github.com/google/bloaty/releases/download/v1.0/bloaty-1.0.tar.bz2 223481668f11cd9253f27408a736d436dc913641
+
+do_unpack_compile
