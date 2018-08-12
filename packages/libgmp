@@ -4,4 +4,6 @@ needs_tool m4
 
 fetch_source https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz 9dc6981197a7d92f339192eea974f5eca48fcffe
 
+## libgmp sets correct march itself, and fails to build on arm otherwise
+CPPFLAGS="${CPPFLAGS/-march=native/}" \
 do_unpack_compile
