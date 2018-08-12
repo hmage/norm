@@ -109,6 +109,7 @@ foreach my $arg (@files) {
 	next if /^[\t]\/lib\/ld-linux-armhf\.so\.3/;
 	next if /^[\t]ldd\b/;
 	next if /^[\t]\@rpath\//;
+	next if m|^[\t]/usr/lib/arm-linux-gnueabihf/libarmmem\.so|;
 	$filtered_output .= $_ . "\n";
     }
     if (length $filtered_output) {
