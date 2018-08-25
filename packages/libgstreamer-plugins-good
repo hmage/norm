@@ -6,6 +6,6 @@ depends_on libgstreamer
 depends_on libgstreamer-plugins-base
 depends_on libxext
 
-fetch_source https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.14.1.tar.xz 5279165842178ada171242fff76dc2489b77eb66
+fetch_source https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.14.2.tar.xz a026222bd296161af8634be81295abd1969440ac
 
 do_unpack_compile
