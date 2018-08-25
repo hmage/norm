@@ -4,6 +4,6 @@ depends_on libcairo
 depends_on libfribidi
 depends_on libthai ## opportunistic linking, no way to disable
 
-fetch_source http://ftp.gnome.org/pub/GNOME/sources/pango/1.42/pango-1.42.3.tar.xz 616f39508fc02c7898933cb69d82c229432d2608
+fetch_source http://ftp.gnome.org/pub/GNOME/sources/pango/1.42/pango-1.42.4.tar.xz 240942b1307eaa3819e6e534596271c57cd75457
 
 do_unpack_compile --disable-introspection --without-xft
