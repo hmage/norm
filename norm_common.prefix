@@ -38,6 +38,9 @@ setup_prefix() {
     ## since we're building for this specific machine, we can do -march=native
     cc_addflags CPPFLAGS "-march=native"
 
+    ## let linker be more aggressive with removing unused functions and data
+    cc_addflags CPPFLAGS -ffunction-sections -fdata-sections
+
     ## set runtime flags
     addpath PATH "$PREFIX/bin" "$PREFIX/sbin" "$PREFIX/bin/ccache_wrap"
     addpath LD_RUN_PATH "$PREFIX/lib"
