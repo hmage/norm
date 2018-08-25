@@ -423,6 +423,7 @@ toolbinary() {
         tcl) echo "tclsh" ;;
         intltool) echo "intltoolize" ;;
         libtool) echo "libtoolize" ;;
+        gettext) echo "msgfmt" ;;
         *) echo "$1" ;;
     esac
 }
