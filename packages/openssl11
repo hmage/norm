@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
-fetch_source ftp://openssl.org/source/openssl-1.1.0h.tar.gz 0fc39f6aa91b6e7f4d05018f7c5e991e1d2491fd
+fetch_source ftp://openssl.org/source/openssl-1.1.0i.tar.gz 6713f8b083e4c0b0e70fd090bf714169baf3717c
 
 cc_addflags EXTRAFLAGS -g -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing -Ofast
 SSLCONFIG="--openssldir=$PREFIX/etc/ssl no-rc5 no-zlib no-ssl3"
@@ -34,6 +34,7 @@ NOPARALLEL=1 do_make all # parallel build can truncate libcrypto.so
 do_test
 do_install MANDIR=$PREFIX/share/man
 mkdir -p $PREFIX/lib $PREFIX/bin
+mv $PREFIX/bin/openssl $PREFIX/bin/openssl.dynamic
 install -p -m755 apps/openssl.static $PREFIX/bin/openssl
 install -p -m644 libcrypto.static $PREFIX/lib/libcrypto.a
 install -p -m644 libssl.static $PREFIX/lib/libssl.a
