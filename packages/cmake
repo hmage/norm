@@ -2,7 +2,7 @@
 
 ! is_without tests && depends_on file ## tests will not work without 'file' command
 
-fetch_source http://www.cmake.org/files/v3.12/cmake-3.12.0.tar.gz e140830af031c570b69e141f469bbab1e6cf3d0d
+fetch_source https://www.cmake.org/files/v3.12/cmake-3.12.1.tar.gz 5359cd2e36051b0746580298d42518b0aef27979
 
 do_unpack
 CONFFLAGS=(
