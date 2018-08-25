@@ -14,7 +14,7 @@ fetch_source http://downloads.sourceforge.net/freetype/freetype2/2.9/freetype-2.
 do_unpack_compile $FREETYPE_OPTS --without-harfbuzz
 
 ## harfbuzz with freshly built freetype
-fetch_source http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.8.5.tar.bz2 283c71fc7a61896cbf357faaf36f36b7a39fdf21
+fetch_source https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.8.8.tar.bz2 be496408b2bb3dc794891e8b0e977cd75f02d71d
 do_unpack_compile --without-cairo --disable-introspection --without-icu
 
 ## freetype #2 with freshly built harfbuzz
