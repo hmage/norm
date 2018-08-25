@@ -3,7 +3,7 @@
 needs_tool perl
 
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
-fetch_source ftp://openssl.org/source/openssl-1.0.2o.tar.gz a47faaca57b47a0d9d5fb085545857cc92062691
+fetch_source ftp://openssl.org/source/openssl-1.0.2p.tar.gz f34b5322e92415755c7d58bf5d0d5cf37666382c
 
 cc_addflags EXTRAFLAGS -g -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wa,--noexecstack -Wall -fno-strict-aliasing -Ofast
 SSLCONFIG="--openssldir=$PREFIX/etc/ssl no-rc5 no-zlib enable-tlsext no-ssl2 no-ssl3"
