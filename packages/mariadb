@@ -8,7 +8,7 @@ depends_on libjemalloc
 needs_tool bison
 depends_on zlib
 
-fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.3.8/source/mariadb-10.3.8.tar.gz 1d88242f7e549c55398c9b812913306bc789ba5d
+fetch_source https://downloads.mariadb.org/interstitial/mariadb-10.3.9/source/mariadb-10.3.9.tar.gz 51e9870847daa76f1e82ade97d9cf60a31df7656
 
 do_unpack
 do_patch_inline -p0 << EOF
