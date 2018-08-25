@@ -6,6 +6,6 @@ needs_tool pkg-config
 depends_on glib
 depends_on graphviz ## for libgvc
 
-fetch_source https://download.gnome.org/sources/vala/0.40/vala-0.40.6.tar.xz 140a970a518ecba44d799155deab133ed6fd5fa8
+fetch_source https://download.gnome.org/sources/vala/0.40/vala-0.40.9.tar.xz 4d25444d3ff2d03ac3b9ff8487154deaebbe6538
 
 do_unpack_compile
