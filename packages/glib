@@ -5,7 +5,7 @@ depends_on zlib
 depends_on libffi
 needs_tool python # bin/gdbus-codegen is in python, needed by libgtk3
 
-fetch_source http://ftp.gnome.org/pub/gnome/sources/glib/2.56/glib-2.56.1.tar.xz 4db098c15b9d57c37bb504a6f58ebe717994e6f2
+fetch_source https://ftp.gnome.org/pub/gnome/sources/glib/2.56/glib-2.56.2.tar.xz 8b18a92f81a8d033abfb43a628bae3bbaf71800c
 
 unset EXTRAFLAGS NEW_LDFLAGS
 cc_addflags EXTRAFLAGS -Wno-format-nonliteral ## gcc 6.1 is too strict for this old glib
