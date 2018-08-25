@@ -3,6 +3,6 @@
 needs_tool flex
 needs_tool bison
 
-fetch_source http://www.tcpdump.org/release/libpcap-1.8.1.tar.gz 32d7526dde8f8a2f75baf40c01670602aeef7e39
+fetch_source https://www.tcpdump.org/release/libpcap-1.9.0.tar.gz c565f591c9a921fb5938cc16407c321c1ca8b9e8
 
 do_unpack_compile LIBS="-L$ESCAPED_PREFIX/lib" --without-libnl --disable-dbus
