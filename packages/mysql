@@ -6,7 +6,7 @@ depends_on libaio
 depends_on libncurses
 depends_on openssl
 
-fetch_source http://cdn.mysql.com/Downloads/MySQL-8.0/mysql-boost-8.0.11.tar.gz b280fdfec3de220e1bcf84d7db2e41af40bd3df5
+fetch_source http://cdn.mysql.com/Downloads/MySQL-8.0/mysql-boost-8.0.12.tar.gz c144d6c1350a9897da31ebbd3b5492ab1f152352
 
 CONFOPTS=(
 -DWITH_BOOST=boost
