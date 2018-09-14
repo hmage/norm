@@ -4,6 +4,6 @@ needs_tool python
 depends_on libidn ## otherwise tries to link with libicu
 depends_on libunistring
 
-fetch_source https://github.com/rockdaboot/libpsl/releases/download/libpsl-0.16.1/libpsl-0.16.1.tar.gz f198b885eb37bb80247ae1aaa8c7f472edf1040f
+fetch_source https://github.com/rockdaboot/libpsl/releases/download/libpsl-0.20.2/libpsl-0.20.2.tar.gz 890376d6038652911cfa853ccfb5b993ae0743ee
 
 do_unpack_compile --enable-runtime=libidn --enable-builtin=libidn ## otherwise wants libicu
