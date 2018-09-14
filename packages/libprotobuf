@@ -1,13 +1,9 @@
 #!/bin/bash
 
 needs_tool unzip
-needs_tool autoconf automake libtool
 depends_on zlib ## opportunistic linking, enables classes for streaming compressed data
 
-fetch_source https://github.com/google/protobuf/archive/v3.5.1.tar.gz a6596d63ad6b01de22453a0e85ba6a4001bae1a2
+fetch_source https://github.com/protocolbuffers/protobuf/releases/download/v3.6.1/protobuf-all-3.6.1.tar.gz d403d06a8775375e7fe2557b38733205dfbc2e9e
 
 do_unpack
-pushd_src
-./autogen.sh
-popd_src
 do_compile
