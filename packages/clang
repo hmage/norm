@@ -43,6 +43,3 @@ CONFFLAGS=(
 )
 
 do_compile_outside "${CONFFLAGS[@]}"
-
-## install FileCheck tool that is required for building rust
-install -m 755 "$BUILDDIR"/bin/FileCheck "$PREFIX"/bin
