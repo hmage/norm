@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## needed to build https-compatible curl, so don't use https for fetching this
-fetch_source http://lil.fr.distfiles.macports.org/nghttp2/nghttp2-1.32.0.tar.xz e1382ba5c4c0459c8b7ff7e90ffa5ad9001e01e1
+fetch_source http://lil.fr.distfiles.macports.org/nghttp2/nghttp2-1.33.0.tar.xz 0a11f7de6ea8e66fbecc9fe4ddc61b6ab40af469
 
 CONFFLAGS=(
 --without-systemd
