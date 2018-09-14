@@ -6,7 +6,7 @@ depends_on freetype
 needs_tool gperf
 depends_on libexpat
 
-fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.0.tar.bz2 b7bcc5d47211b7bbac35bb221860407db3601f5b
+fetch_source http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.1.tar.bz2 75612356ef4f801735b49baf987f8942b4a7a5e1
 do_unpack
 do_compile --disable-docs
 
