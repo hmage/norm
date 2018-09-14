@@ -5,6 +5,6 @@ needs_tool pkg-config
 depends_on python ## builds python module and uses it to build .gir files
 depends_on glib
 
-fetch_source http://ftp.gnome.org/pub/gnome/sources/gobject-introspection/1.56/gobject-introspection-1.56.1.tar.xz eef277357cf724bc521f203f0d47faaea2ae4f0c
+fetch_source http://ftp.gnome.org/pub/gnome/sources/gobject-introspection/1.58/gobject-introspection-1.58.0.tar.xz 4edc652656af31127988b125537d4f1994cdf7f2
 
 do_unpack_compile
