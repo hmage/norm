@@ -4,6 +4,6 @@ needs_tool pkg-config ## to find openssl
 depends_on openssl
 depends_on libboost
 
-fetch_source https://downloads.powerdns.com/releases/pdns-4.1.3.tar.bz2 6a9cf78eae842e5b6741731c2ad7e8d212530ee2
+fetch_source https://downloads.powerdns.com/releases/pdns-4.1.4.tar.bz2 9cf7361e95a3c570c1d9d1d86417a1b24ae76463
 
-do_unpack_compile --with-modules="bind random" --without-protobuf --disable-systemd --without-lua --without-luajit
+do_unpack_compile --with-modules="bind random" --without-protobuf --disable-systemd --without-lua --without-luajit --enable-tools
