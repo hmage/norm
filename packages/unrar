@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://www.rarlab.com/rar/unrarsrc-5.6.5.tar.gz 131a1fad24301fd7f7706aab7d30e20b0e933b83
+fetch_source http://www.rarlab.com/rar/unrarsrc-5.6.6.tar.gz ca508d40553d663414d8d5454cbf4e71aa0ba410
 
 do_unpack
 pushd_src
