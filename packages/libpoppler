@@ -10,7 +10,7 @@ depends_on libpng ## opportunistic linking, useful for embedded png
 depends_on libtiff ## opportunistic linking, useful for embedded tiff
 depends_on liblcms2 ## opportunistic linking, useful for embedded colour profiles
 
-fetch_source https://poppler.freedesktop.org/poppler-0.67.0.tar.xz f9c8e8205a3ddfb6bb4bff2e356dac2409c88218
+fetch_source https://poppler.freedesktop.org/poppler-0.68.0.tar.xz 191fccc0c6babb6dde9fcd2e6c12bacf31b53158
 
 CONFFLAGS=(
 -DENABLE_GOBJECT_INTROSPECTION=NO
