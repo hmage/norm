@@ -2,27 +2,19 @@
 
 depends_on libreadline
 
-pkgver=5.3.1
-pkgvershort=${pkgver%.*}
+major=5
+minor=3
+revision=5
 
-fetch_source http://www.lua.org/ftp/lua-$pkgver.tar.gz 1676c6a041d90b6982db8cef1e5fb26000ab6dee
+## do not forget to update values above
+fetch_source http://www.lua.org/ftp/lua-5.3.5.tar.gz 112eb10ff04d1b4c9898e121d6bdf54a81482447
+
+pkgvershort=$major.$minor
+pkgver=$major.$minor.$revision
 
 do_unpack
 pushd_src
 do_patch_inline << 'EOF'
-diff --git a/Makefile b/Makefile
-index 7fa91c8..dccf485 100644
---- a/Makefile
-+++ b/Makefile
-@@ -52,7 +52,7 @@ R= $V.0
- all:	$(PLAT)
- 
- $(PLATS) clean:
--	cd src && $(MAKE) $@
-+	cd src && $(MAKE) $@ V=$(V) R=$(R)
- 
- test:	dummy
- 	src/lua -v
 diff --git a/src/Makefile b/src/Makefile
 index 2e7a412..fa5769f 100644
 --- a/src/Makefile
@@ -58,7 +50,7 @@ index 2e7a412..fa5769f 100644
  	$(CC) -o $@ $(LDFLAGS) $(LUA_O) $(LUA_A) $(LIBS)
  
 EOF
-do_make linux CPPFLAGS="$CPPFLAGS -fPIC -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" MYLDFLAGS="$LDFLAGS"
+do_make linux CPPFLAGS="$CPPFLAGS -fPIC -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" MYLDFLAGS="$LDFLAGS" R=$pkgver V=$pkgvershort
 do_test
 do_make install INSTALL_TOP="$PREFIX" TO_LIB="liblua.a liblua.so liblua.so.$pkgvershort liblua.so.$pkgver"
 popd_src
