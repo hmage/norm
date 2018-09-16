@@ -1,0 +1,10 @@
+#!/bin/bash
+
+needs_tool autoconf automake
+depends_on libfdk-aac
+
+fetch_source https://github.com/nu774/fdkaac/archive/1.0.0.tar.gz 02abc4f17e3e53d07efc4dd494123428181bd2fd
+
+do_unpack
+do_autoreconf
+do_compile
