@@ -13,7 +13,7 @@ depends_on liblzo ## opportunistic linking
 unset EXTRALD
 cc_addflags EXTRALD -Wl,--no-gc-sections
 
-fetch_source http://cairographics.org/releases/cairo-1.14.10.tar.xz 28c59d85d6b790c21b8b59ece73a6a1dda28d69a
+fetch_source http://cairographics.org/releases/cairo-1.14.12.tar.xz 490025a0ba0622a853010f49fb6343f29fb70b9b
 
 CONFFLAGS=(
 --enable-xlib ## needed by libgtk2
