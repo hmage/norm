@@ -4,7 +4,6 @@ needs_tool cmake
 depends_on freetype
 depends_on fontconfig
 depends_on libjpeg
-depends_on libopenjpeg
 ## do not add libcairo -- it depends on us
 depends_on libpng ## opportunistic linking, useful for embedded png
 depends_on libtiff ## opportunistic linking, useful for embedded tiff
@@ -17,6 +16,7 @@ CONFFLAGS=(
 -DWITH_Cairo=OFF
 -DENABLE_QT5=NO
 -DENABLE_LIBCURL=NO ## PDF library shouldn't need to access internet
+-DENABLE_LIBOPENJPEG=none ## fails to build with our libopenjpeg, for now
 -DWITH_NSS3=OFF
 -DENABLE_XPDF_HEADERS=ON
 )
