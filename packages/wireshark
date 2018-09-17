@@ -9,7 +9,7 @@ depends_on libgtk2
 depends_on libpcap
 depends_on libnghttp2 ## opportunistic linking, for http2 decryption
 
-fetch_source http://www.wireshark.org/download/src/wireshark-2.6.2.tar.xz 52517c30926211b0b718815b51a3f06a18d8f5da
+fetch_source http://www.wireshark.org/download/src/wireshark-2.6.3.tar.xz d239fd091d59968ac8a1b42b28e61aeef09c20b7
 
 do_unpack_compile --with-gtk=yes
 
