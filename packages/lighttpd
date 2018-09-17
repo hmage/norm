@@ -1,0 +1,11 @@
+#!/bin/bash
+
+depends_on pkg-config ## otherwise won't find our openssl
+depends_on libpcre
+depends_on zlib
+depends_on openssl
+depends_on bzip2 ## for libbz2
+
+fetch_source https://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-1.4.50.tar.xz 43388c459e03581b8c7799e0de74cd7ea0164543
+
+do_unpack_compile
