@@ -1,20 +1,10 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on autoconf automake libtool
-depends_on lua
-depends_on libdbus
-depends_on libogg
-depends_on libvorbis
-depends_on libmad
-depends_on liba52
-depends_on libgcrypt
-depends_on libva
-depends_on libgstreamer-plugins-base
-depends_on flac
-depends_on x264
-depends_on x265
+needs_tool gettext ## otherwise fails to install ./vlc.appdata.xml
+depends_on lua ## for lua libraries and headers
 depends_on ffmpeg
+depends_on liba52
+depends_on libxcb
 
 fetch_source http://get.videolan.org/vlc/3.0.3/vlc-3.0.3.tar.xz dd1b7350bb0a7848e172e9dbbe0705ec5bb3d48c
 
@@ -31,5 +21,4 @@ do_patch_inline << 'EOF' ## make it work with LUA 5.3 and libavutil >= 55
  #include <lauxlib.h>    /* Higher level C API */
  #include <lualib.h>     /* Lua libs */
 EOF
-do_autoreconf
 do_compile --with-kde-solid="$PREFIX"/share/kde4/apps/solid/actions
