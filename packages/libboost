@@ -2,6 +2,7 @@
 
 BOOST_WITHOUT_PYTHON="--without-libraries=python"
 if [[ "${BASH_SOURCE[0]##*/}" == libboost-python ]]; then
+    depends_on python
     BOOST_WITHOUT_PYTHON="--with-libraries=python --with-python=$ESCAPED_PREFIX/bin/python --with-python-root=$ESCAPED_PREFIX"
 fi
 
