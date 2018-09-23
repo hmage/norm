@@ -6,6 +6,7 @@ depends_on libffi
 needs_tool python # bin/gdbus-codegen is in python, needed by libgtk3
 needs_tool autoconf automake libtool
 depends_on libpcre ## new dependency as of 2.58
+needs_tool gettext
 
 fetch_source https://ftp.gnome.org/pub/gnome/sources/glib/2.58/glib-2.58.0.tar.xz c00e433c56e0ba3541abc5222aeca4136de10fb8
 
@@ -14,37 +15,11 @@ cc_addflags EXTRAFLAGS -Wno-format-nonliteral ## gcc 6.1 is too strict for this 
 cc_addflags NEW_LDFLAGS -Wl,-z,defs -Wl,-z,now
 
 do_unpack
-sed -i.bak 's|test "$gt_cv_have_gettext" != "yes"|false|;s|test $have_libmount = no|false|' "$SRCDIR"/configure.ac
+sed -i.bak 's|test $have_libmount = no|false|' "$SRCDIR"/configure.ac
 sed -i.bak "s|/usr/local/share/:/usr/share/|$PREFIX/share/:/usr/local/share/:/usr/share/|" "$SRCDIR"/gio/xdgmime/xdgmime.c "$SRCDIR"/glib/gutils.c
-sed -i.bak 's|#include <libintl.h>|#include "glibintl.h"|' "$SRCDIR"/glib/ggettext.c
 pushd_src
 ./autogen.sh
 popd_src
-
-for i in "$SRCDIR"/glib/{gi18n.h,gi18n-lib.h}; do
-cat << EOF > "$i"
-#ifndef __G_I18N_H__
-#define __G_I18N_H__
-#define _(String) (String)
-#define Q_(String) (String)
-#define N_(String) (String)
-#define P_(String) (String)
-#define C_(Context,String) (String)
-#define NC_(Context,String) (String)
-#define textdomain(String) ((String) ? (String) : "messages")
-#define gettext(String) (String)
-#define dgettext(Domain,String) (String)
-#define dcgettext(Domain,String,Type) (String)
-#define dngettext(Domain,String1,String2,N) ((N) == 1 ? (String1) : (String2))
-#define ngettext(String1,String2,N) ((N) == 1 ? (String1) : (String2))
-#define bindtextdomain(Domain,Directory) (Domain)
-#define bind_textdomain_codeset(Domain,Codeset)
-#endif
-EOF
-done
-
-sed -i.bak 's|^\(#define dngettext.*\)|\1\
-#define ngettext(String1,String2,N) ((N) == 1 ? (String1) : (String2))|' "$SRCDIR"/glib/glibintl.h
 
 CONFFLAGS=(
 --disable-fam
