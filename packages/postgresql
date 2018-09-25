@@ -1,8 +1,13 @@
 #!/bin/bash
 
+depends_on pkg-config ## to find dependencies
 depends_on libreadline
 depends_on zlib
+depends_on libicu
+depends_on openssl
+depends_on libxml
+depends_on libxslt
 
 fetch_source http://ftp.postgresql.org/pub/source/v10.5/postgresql-10.5.tar.bz2 8c7b4406b0ba2987f4170657f89908ad47947429
 
-do_unpack_compile
+do_unpack_compile --with-icu --with-openssl --with-libxml --with-libxslt
