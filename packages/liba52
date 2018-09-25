@@ -7,4 +7,4 @@ fetch_debian http://http.debian.net/debian/pool/main/a/a52dec/a52dec_0.7.4-17.di
 
 do_undebian
 do_autoreconf
-do_compile --enable-shared
+do_compile
