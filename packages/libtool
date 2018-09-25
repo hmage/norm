@@ -9,5 +9,5 @@ fetch_source http://ftpmirror.gnu.org/libtool/libtool-2.4.6.tar.gz 25b6931265230
 
 do_unpack
 LDFLAGS="$LDFLAGS $EXTRALD" \
-do_compile --enable-shared --enable-static --with-shared --with-static \
+do_compile \
                     --enable-ltdl-install
