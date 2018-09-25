@@ -10,4 +10,4 @@ pushd_src
 touch NEWS AUTHORS ChangeLog
 popd_src
 do_autoreconf
-do_compile --enable-shared --disable-profiling --disable-debugging
+do_compile --disable-profiling --disable-debugging
