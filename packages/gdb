@@ -10,4 +10,4 @@ fetch_source http://ftpmirror.gnu.org/gdb/gdb-8.1.1.tar.xz 8c04c12f11b5ba74e7506
 ## plus it needs python, rust, systemtap, gccgo and gfortran -- dependencies too heavy
 do_unpack
 sed -i.bak 's/^SUBDIRS = doc /SUBDIRS = /' "$SRCDIR"/gdb/Makefile.in
-do_compile_notest --without-python --without-guile --enable-static --without-expat --without-babeltrace --without-mpfr --without-gmp
+do_compile_notest --without-python --without-guile --without-expat --without-babeltrace --without-mpfr --without-gmp
