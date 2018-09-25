@@ -15,8 +15,6 @@ CONFIGURE=(
 --disable-examples
 --disable-dependency-tracking
 )
-[[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--disable-shared)
-[[ $OSTYPE != *darwin* ]] && CONFIGURE+=(--enable-shared)
 is_without tests && CONFIGURE+=(--disable-unit-tests)
 
 NEEDV1=1 do_unpack_compile_notest "${CONFIGURE[@]}"
