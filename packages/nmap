@@ -8,7 +8,6 @@ depends_on zlib    ## otherwise uses bundled one or links against system one
 fetch_source https://nmap.org/dist/nmap-7.70.tar.bz2 71057361a0953bba5967dc0385de77f3eed792de
 
 CONFFLAGS=(
---enable-static ## nmap wants vendored libdnet to be built static
 --without-openssl
 --with-liblua=included
 --with-liblinear=included
