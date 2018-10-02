@@ -40,7 +40,7 @@ sub eachFile {
     return if /\.(gif|png|jpg|jpeg|bmp|pbm|pgm|ppm|ras|sgi|tiff?|xbm|svg)$/;
     return if /\.(aiff|au|wav|aifc|aif)$/;
     return if /\.(x|xbn|xc|xd|xdc|xdw|xn|xr|xs|xsc|xsw|xu|xw)$/;
-    return if /\.(a|gox)$/;
+    return if /\.(a|gox|go|nse|lua|gv|s)$/;
     return if /\.(xsl|xsd|rng|docbook|ent|mod|cat)$/;
     return if /\.(o|cc|test|result|sql|class|java|pl|cfg|opt)$/;
     return if /\.(enc|exp|aug|rlib|json)$/;
