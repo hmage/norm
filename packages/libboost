@@ -25,10 +25,16 @@ link=shared,static
 --disable-icu
 boost.locale.icu=off
 -sNO_COMPRESSION=1
+--user-config=user-config.jam
 )
 
 do_unpack
 pushd_src
+perl -i.bak -pe 's/.*-fcoalesce-templates.*//g' tools/build/src/tools/darwin.jam ## clang doen't support those anymore
+touch user-config.jam
+if [[ $OSTYPE == *darwin* ]]; then
+    echo "using darwin : : clang++ : <archiver>/usr/bin/libtool ;" >> user-config.jam
+fi
 set -x
 ./bootstrap.sh "${BOOTSTRAP_ARGS[@]}" $BOOST_WITHOUT_PYTHON
 ./b2 "${BOOST_ARGS[@]}"
