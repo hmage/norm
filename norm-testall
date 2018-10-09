@@ -72,6 +72,8 @@ prepare_jail() {
         "$NORMDIR"/norm -p "$JAILFULLPATH" install ${EXTRAFLAGS[@]} "$i" 2>&1 | tee -a "$JAILLOG"
         hash -r
     done
+    norm -p "$JAILFULLPATH" list 2>&1 | tee -a "$JAILLOG"
+    set +eE
     rm -vf "$JAILFULLPATH"/bin/{bunzip2,bzip2recover}
     rm -vf "$JAILFULLPATH"/bin/bz{cat,cmp,diff,egrep,fgrep,grep,less,more}
     rm -vf "$JAILFULLPATH"/bin/lz{cat,cmp,diff,egrep,fgrep,grep,less,more}
@@ -83,9 +85,13 @@ prepare_jail() {
     rm -vf "$JAILFULLPATH"/bin/{libnetcfg,piconv,pl2pm,pod2html,pod2text,pod2usage,podchecker,podselect,prove,ptar*}
     rm -vf "$JAILFULLPATH"/bin/{shasum,splain,xsubpp,zipdetails}
     rm -vf "$JAILFULLPATH"/bin/perl?*
+    rm -vf "$JAILFULLPATH"/bin/db_*
+    rm -vf "$JAILFULLPATH"/bin/gdbm*
     rm -rf "$JAILFULLPATH"/include
     rm -rf "$JAILFULLPATH"/lib/libbz2.*
     rm -rf "$JAILFULLPATH"/lib/*.{a,la,so}
+    rm -rf "$JAILFULLPATH"/lib/lib{crypto,curl,db,db-6,db_cxx,db_cxx-6,db_stl,db_stl-6,gdbm,gdbm_compat,lzma,ssl,z}.so
+    rm -rf "$JAILFULLPATH"/lib/libdb.so.2
     rm -rf "$JAILFULLPATH"/lib/pkgconfig
     rm -rf "$JAILFULLPATH"/man
     rm -rf "$JAILFULLPATH"/share
@@ -94,6 +100,8 @@ prepare_jail() {
     chmod u+w "$JAILFULLPATH"/lib/*
     chmod u+w "$JAILFULLPATH"/lib/engines/*
     do_strip "$JAILFULLPATH"/{bin,lib,lib/engines}/*
+    env - PATH="$PATH" "$NORMDIR/norm-ldd" -q "$JAILFULLPATH" 2>&1 | tee -a "$JAILLOG"
+    set -eE
 
     tar zcf "$JAILARCHIVE" -C "$HOME" "$JAILPATH"
 }
