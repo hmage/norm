@@ -424,6 +424,7 @@ toolbinary() {
         intltool) echo "intltoolize" ;;
         libtool) echo "libtoolize" ;;
         gettext) echo "msgfmt" ;;
+        groff) echo "nroff" ;;
         *) echo "$1" ;;
     esac
 }
