@@ -19,6 +19,10 @@ depends_on libfdk-aac
 depends_on libvpx
 depends_on libopenjpeg
 
+depends_on rtmpdump     ## for librtmp
+depends_on libsnappy    ## useful for transparent compression
+depends_on libass       ## for subtitles import/export
+
 depends_on zlib         ## opportunistic linking, useful for transparent decompression
 depends_on bzip2        ## opportunistic linking, useful for transparent decompression
 depends_on xz           ## opportunistic linking, useful for transparent decompression
@@ -53,6 +57,11 @@ CONFIGURE=(
 --disable-vaapi
 --disable-outdev=xv
 --disable-vdpau
+--enable-libass
+--enable-librtmp
+--enable-libsnappy
+--enable-lzma
+--enable-ffplay
 )
 
 [[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--enable-videotoolbox --enable-audiotoolbox)
