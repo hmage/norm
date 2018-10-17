@@ -7,4 +7,4 @@ rm -f "$PREFIX"/share/man/man3/pcre16_*
 
 do_unpack
 # tests fail for some reason, disable and figure out later
-do_compile_notest --enable-utf8 --enable-unicode-properties --enable-jit --enable-pcre16 --enable-pcre32 --disable-pcretest-libreadline
+do_compile_notest
