@@ -7,7 +7,7 @@ do_undebian
 pushd_src
 GROUPNAME=$(id -gn)
 sed -ibak "s:groupname = mlocate:groupname = $GROUPNAME:" Makefile.in
-do_compile --disable-nls
+do_compile
 if [ ! -e "$PREFIX"/etc/updatedb.conf ]; then
     mkdir -p "$PREFIX"/etc
     install -m644 debian/updatedb.conf "$PREFIX"/etc/updatedb.conf
