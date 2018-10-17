@@ -3,16 +3,6 @@
 fetch_source http://ftpmirror.gnu.org/ncurses/ncurses-6.1.tar.gz 57acf6bc24cacd651d82541929f726f4def780cc
 
 CONFOPTS=(
---enable-pc-files
---disable-termcap
---enable-rpath
---enable-const
---enable-symlinks
---without-ada
---without-cxx-binding
---with-shared
---without-debug
---with-pkg-config-libdir="$PREFIX/lib/pkgconfig"
 )
 
 [[ $OSTYPE == *linux* ]] && CONFOPTS+=(--with-termlib) ## tinfo.pc from system if present will make things more difficult
