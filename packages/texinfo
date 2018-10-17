@@ -1,7 +1,5 @@
 #!/bin/bash
 
-depends_on libncurses ## opportunistic linking, for `info` utility
-
 fetch_source https://ftpmirror.gnu.org/texinfo/texinfo-6.4.tar.xz 0812ffd078fc1f3b7600d43eec25ba1bddd4d4bd
 
 do_unpack_compile
