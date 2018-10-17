@@ -1,4 +1,4 @@
 #!/bin/bash
 
 fetch_source https://www.x.org/releases/individual/lib/xtrans-1.3.5.tar.bz2 2d3ae1839d841f568bc481c6116af7d2a9f9ba59
-do_unpack_compile --without-xmlto --without-fop --without-xsltproc
+do_unpack_compile
