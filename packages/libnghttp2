@@ -4,11 +4,7 @@
 fetch_source http://lil.fr.distfiles.macports.org/nghttp2/nghttp2-1.33.0.tar.xz 0a11f7de6ea8e66fbecc9fe4ddc61b6ab40af469
 
 CONFFLAGS=(
---without-systemd
---disable-python-bindings
---without-jemalloc
---disable-app ## we want library only
---disable-hpack-tools
+
 )
 
-do_unpack_compile "${CONFFLAGS[@]}"
+do_unpack_compile
