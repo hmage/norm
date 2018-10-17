@@ -2,4 +2,4 @@
 
 fetch_source https://sourceforge.net/projects/strace/files/strace/4.19/strace-4.19.tar.xz 43091b8a07c227a6ffafd6d0f9536917c9447011
 
-do_unpack_compile --without-libunwind
+do_unpack_compile
