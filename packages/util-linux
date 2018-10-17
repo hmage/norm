@@ -3,23 +3,7 @@
 [[ $OSTYPE == *darwin* && $OURNAME == libuuid ]] && log "libuuid on OSX conflicts with system-provided uuid/uuid.h, bailing out" && exit 64
 
 CONFFLAGS=(
---with-bashcompletiondir=$PREFIX/share/bash-completion/completions
---disable-makeinstall-chown
---without-systemd
---without-cap-ng
---without-udev
---without-tinfo
---without-libz
---without-ncursesw
---without-ncurses
---without-readline
---without-audit
---without-cap-ng
---without-python
---disable-chfn-chsh ## useless when rootless
---disable-su ## useless when rootless
---disable-login ## useless when rootless
---disable-runuser ## useless when rootless
+--disable-makeinstall-chown ## otherwise it tries to chown root:root which we don't have permissions for
 )
 
 OURNAME=`basename "${BASH_SOURCE[0]}"`
