@@ -2,4 +2,4 @@
 
 fetch_source ftp://sourceware.org/pub/valgrind/valgrind-3.13.0.tar.bz2 ddf13e22dd0ee688bd533fc66b94cf88f75fad86
 
-do_unpack_compile --without-mpicc
+do_unpack_compile
