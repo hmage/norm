@@ -1,12 +1,10 @@
 #!/bin/bash
 
-depends_on zlib ## opportunistic linking
-
 fetch_source http://downloads.sourceforge.net/project/tcl/Tcl/8.6.7/tcl8.6.7-src.tar.gz 68934c6ecf827348085e0f06c7396b31fb539d83
 
 do_unpack
 SRCDIR="$SRCDIR/unix"
 pushd_src
-do_compile --enable-threads --enable-dll-unloading --enable-man-symlinks --without-tzdata
+do_compile
 do_make install-private-headers
 popd_src
