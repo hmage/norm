@@ -5,4 +5,4 @@ fetch_debian http://http.debian.net/debian/pool/main/libi/libiberty/libiberty_20
 
 do_undebian
 SRCDIR="$SRCDIR/libiberty"
-do_compile --enable-install-libiberty
+do_compile
