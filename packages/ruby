@@ -1,12 +1,4 @@
 #!/bin/bash
-
-depends_on libgmp      ## opportunistic linking, to accelerate Bignum operations
-depends_on zlib        ## opportunistic linking, to enable zlib extension in ruby
-depends_on openssl     ## opportunistic linking, to enable openssl extension in ruby
-depends_on libyaml     ## opportunistic linking
-depends_on libreadline ## opportunistic linking, to enable readline extension in ruby
-depends_on libffi      ## opportunistic linking, to enable fiddle extension in ruby
-
 fetch_source http://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.1.tar.gz 93fafd57a724974b951957c522cdc4478a6bdc2e
 
-do_unpack_compile --with-out-ext=gdbm,dbm
+do_unpack_compile
