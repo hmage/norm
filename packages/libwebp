@@ -4,10 +4,6 @@ fetch_source http://downloads.webmproject.org/releases/webp/libwebp-1.0.0.tar.gz
 
 CONFFLAGS=(
 --enable-libwebpmux ## needed by graphicsmagick
---disable-jpeg
---disable-png
---disable-tiff
---disable-gif
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
