@@ -4,27 +4,5 @@ fetch_source http://http.debian.net/debian/pool/main/n/numactl/numactl_2.0.11.or
 fetch_debian http://http.debian.net/debian/pool/main/n/numactl/numactl_2.0.11-2.1.debian.tar.xz 0d31aef6f0e208ddbfbdd80a462cd166e5135c02
 
 do_undebian
-do_patch_inline -p0 << EOF
---- syscall.c
-+++ syscall.c
-@@ -115,14 +115,16 @@
- 
- #endif
- 
--#if defined(__GLIBC__) && __GLIBC_PREREQ(2, 11)
-+#if defined(__GLIBC__)
-+# if __GLIBC_PREREQ(2,11)
- 
- /* glibc 2.11 seems to have working 6 argument sycall. Use the
-    glibc supplied syscall in this case.
-    The version cut-off is rather arbitary and could be probably
-    earlier. */
- 
--#define syscall6 syscall
-+#  define syscall6 syscall
-+#endif
- #elif defined(__x86_64__)
- /* 6 argument calls on x86-64 are often buggy in both glibc and
-    asm/unistd.h. Add a working version here. */
-EOF
+
 do_compile
