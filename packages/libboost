@@ -12,7 +12,7 @@ BOOTSTRAP_ARGS=(
 --prefix="$PREFIX"
 cxxflags="$CPPFLAGS"
 linkflags="$LDFLAGS"
---without-icu
+
 )
 
 BOOST_ARGS=(
@@ -22,7 +22,7 @@ linkflags="$LDFLAGS"
 -d+2
 -j$NUMJOBS
 link=shared,static
---disable-icu
+
 boost.locale.icu=off
 -sNO_COMPRESSION=1
 --user-config=user-config.jam
