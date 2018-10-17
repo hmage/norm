@@ -4,7 +4,7 @@ fetch_source http://ftpmirror.gnu.org/make/make-4.2.1.tar.gz 9cb7f45f6e32c977164
 
 do_unpack
 pushd_src
-do_configure --without-guile
+do_configure
 sh ./build.sh
 mkdir -p "$PREFIX/bin"
 install -m 755 make "$PREFIX/bin"
