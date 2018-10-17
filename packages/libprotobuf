@@ -1,8 +1,4 @@
 #!/bin/bash
-
-needs_tool unzip
-depends_on zlib ## opportunistic linking, enables classes for streaming compressed data
-
 fetch_source https://github.com/protocolbuffers/protobuf/releases/download/v3.6.1/protobuf-all-3.6.1.tar.gz d403d06a8775375e7fe2557b38733205dfbc2e9e
 
 do_unpack
