@@ -1,75 +1,7 @@
 #!/bin/bash
 
-needs_tool pkg-config
 needs_tool nasm
-
-## ffmpeg is much more useful with these libraries
-depends_on libopus
-depends_on speex
-depends_on libwebp
-depends_on x264
-depends_on x265
-depends_on libvorbis
-depends_on libxvid
-depends_on libtheora
-depends_on lame
-[[ $OSTYPE == *linux* ]] && depends_on libasound
-depends_on libsdl2
-depends_on libfdk-aac
-depends_on libvpx
-depends_on libopenjpeg
-
-depends_on rtmpdump     ## for librtmp
-depends_on libsnappy    ## useful for transparent compression
-depends_on libass       ## for subtitles import/export
-
-depends_on zlib         ## opportunistic linking, useful for transparent decompression
-depends_on bzip2        ## opportunistic linking, useful for transparent decompression
-depends_on xz           ## opportunistic linking, useful for transparent decompression
-[[ $OSTYPE == *linux* ]] && depends_on libcrystalhd ## opportunistic linking
 
 fetch_source http://www.ffmpeg.org/releases/ffmpeg-4.0.2.tar.xz 6e0085d5335e84b4137bb94a7d4401039a2e9ece
 
-CONFIGURE=(
---enable-pthreads
---enable-gpl
---enable-version3
---enable-shared
---enable-hardcoded-tables
---enable-avresample
---enable-nonfree
---enable-libx264
---enable-libx265
---enable-libmp3lame
---enable-libxvid
---enable-libtheora
---enable-libvorbis
---enable-sdl2
---enable-libspeex
---enable-libopus
---enable-libfdk-aac
---enable-libwebp
---enable-libvpx
---enable-libopenjpeg
---disable-static
---enable-shared
---disable-libxcb
---disable-vaapi
---disable-outdev=xv
---disable-vdpau
---enable-libass
---enable-librtmp
---enable-libsnappy
---enable-lzma
---enable-ffplay
-)
-
-[[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--enable-videotoolbox --enable-audiotoolbox)
-[[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--enable-opencl --enable-appkit --enable-avfoundation --enable-coreimage)
-
-do_unpack
-NEEDV1=1 do_compile "${CONFIGURE[@]}"
-pushd_src
-do_make alltools
-install -m755 tools/qt-faststart "$PREFIX/bin"
-popd_src
+do_unpack_compile
