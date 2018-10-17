@@ -1,16 +1,8 @@
 #!/bin/bash
-
-depends_on libpcap ## otherwise uses bundled one or links against system one
-depends_on libpcre ## otherwise uses bundled one or links against system one
-depends_on libssh2 ## otherwise uses bundled one or links against system one
-depends_on zlib    ## otherwise uses bundled one or links against system one
-
 fetch_source https://nmap.org/dist/nmap-7.70.tar.bz2 71057361a0953bba5967dc0385de77f3eed792de
 
 CONFFLAGS=(
---without-openssl
---with-liblua=included
---with-liblinear=included
+
 )
 
-do_unpack_compile "${CONFFLAGS[@]}"
+do_unpack_compile
