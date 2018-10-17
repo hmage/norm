@@ -1,11 +1,5 @@
 #!/bin/bash
 
-depends_on libxslt ## for xsltproc
-depends_on docbook-xml ## needed by btrfs-tools
-depends_on docbook-xsl ## needed by btrfs-tools
-
-#[[ $OSTYPE != *linux* ]] && depends_on getopt ## other OS'es don't have long getopt
-
 fetch_source http://http.debian.net/debian/pool/main/x/xmlto/xmlto_0.0.25.orig.tar.bz2 5d1aecd59d519066f94b4591722767c4e41bdc0f
 fetch_debian http://http.debian.net/debian/pool/main/x/xmlto/xmlto_0.0.25-2.debian.tar.gz 7ea8b62896b842b00bddca41d906f562ba46b47f
 
