@@ -3,4 +3,4 @@
 fetch_source http://http.debian.net/debian/pool/main/f/fribidi/fribidi_0.19.7.orig.tar.bz2 e470e078eafe6c065708def3e037c129c0d7367d
 fetch_debian http://http.debian.net/debian/pool/main/f/fribidi/fribidi_0.19.7-1.debian.tar.xz 0412cb87cd6ad613a97e797545788d8699184fc2
 
-do_undebian_compile --without-glib
+do_undebian_compile
