@@ -1,7 +1,5 @@
 #!/bin/bash
 
-depends_on libidn2 ## opportunistic linking, no way to disable without patching
-
 fetch_source https://github.com/rfc1036/whois/archive/v5.3.1.tar.gz d82f405a3fcdd97aa932c1a467d68d851dbc10fc
 
 do_unpack
