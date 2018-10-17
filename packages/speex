@@ -1,8 +1,4 @@
 #!/bin/bash
-
-depends_on libogg ## opportunistic linking
-depends_on libspeexdsp
-
 fetch_source http://downloads.xiph.org/releases/speex/speex-1.2.0.tar.gz 18ebc3fa3236b4369509e9439acc32d0e864fa7f
 
 do_unpack_compile
