@@ -1,20 +1,5 @@
 #!/bin/bash
 
-! is_without tests && depends_on file ## tests will not work without 'file' command
-
 fetch_source https://www.cmake.org/files/v3.12/cmake-3.12.2.tar.gz 25d3f4d2c9fe350170cc305625cc3d09f1f52da9
 
-do_unpack
-CONFFLAGS=(
---
--DCMAKE_SYSTEM_PREFIX_PATH="$PREFIX"
--DCMake_TEST_Qt4=0
--DCMAKE_USE_OPENSSL=OFF
--DBUILD_CursesDialog=OFF
-)
-[[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(-DCMAKE_USE_SYSTEM_CURL=1)
-[[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(-DCMAKE_USE_SYSTEM_ZLIB=1)
-[[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(-DCMAKE_USE_SYSTEM_EXPAT=1)
-[[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(-DCMAKE_USE_SYSTEM_BZIP2=1)
-is_without tests && CONFFLAGS+=(-DBUILD_TESTING=OFF)
-do_compile "${CONFFLAGS[@]}"
+do_unpack_compile
