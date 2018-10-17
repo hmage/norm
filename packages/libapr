@@ -8,8 +8,6 @@ if ! is_without tests; then
     fi
 fi
 
-depends_on libuuid ## opportunistic linking, no way to disable without patching
-
 fetch_source https://archive.apache.org/dist/apr/apr-1.6.3.tar.bz2 4f3aa8d8204a2674868b9d485c11349e1848987d
 
 do_unpack_compile
