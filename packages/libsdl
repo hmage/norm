@@ -1,24 +1,6 @@
 #!/bin/bash
 
-depends_on libx11
-depends_on libxext
-depends_on libdirectfb ## opportunistic linking
-
 fetch_source http://http.debian.net/debian/pool/main/libs/libsdl1.2/libsdl1.2_1.2.15.orig.tar.gz 0c5f193ced810b0d7ce3ab06d808cbb5eef03a2c
 fetch_debian http://http.debian.net/debian/pool/main/libs/libsdl1.2/libsdl1.2_1.2.15-10.debian.tar.xz 79c62066192373f90134fed8d7be01e668839d7a
 
-do_undebian
-do_patch_inline -p0 << EOF
---- src/video/x11/SDL_x11sym.h
-+++ src/video/x11/SDL_x11sym.h
-@@ -165,7 +165,7 @@
-  */
- #ifdef LONG64
- SDL_X11_MODULE(IO_32BIT)
--SDL_X11_SYM(int,_XData32,(Display *dpy,register long *data,unsigned len),(dpy,data,len),return)
-+SDL_X11_SYM(int,_XData32,(Display *dpy,register const long *data,unsigned len),(dpy,data,len),return)
- SDL_X11_SYM(void,_XRead32,(Display *dpy,register long *data,long len),(dpy,data,len),)
- #endif
- 
-EOF
-do_compile
+do_undebian_compile
