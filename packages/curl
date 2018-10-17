@@ -1,24 +1,13 @@
 #!/bin/bash
 
 depends_on zlib ## for transparent decompression of gzip/deflate encoded responses
-[[ $OSTYPE != *darwin* ]] && depends_on openssl
+[[ $OSTYPE != *darwin* ]] && depends_on openssl ## otherwise it won't download over https
 
 ## do not download it over https because system-provided curl might not be able to download over https
 fetch_source http://curl.mirror.anstey.ca/curl-7.61.1.tar.gz 1f0732185e13d71d35a700f8314c3d5790968bb3
 
-CONFIGURE=(
---disable-ldap
---enable-optimize
---without-libssh2
---without-librtmp
---without-libpsl
---without-nghttp2
---without-libidn2
-)
-
+CONFIGURE=()
 [[ $OSTYPE != *darwin* ]] && CONFIGURE+=("--with-ca-bundle=$PREFIX/etc/ssl/cert.pem")
 [[ $OSTYPE == *darwin* ]] && CONFIGURE+=(--with-darwinssl --without-ca-bundle --with-default-ssl-backend=darwinssl --without-ssl)
 
-do_unpack
-sed -i.bak "s|mmacosx-version-min=10.8|mmacosx-version-min=$NORM_OSX_VERSION|" "$SRCDIR"/configure
-do_compile "${CONFIGURE[@]}"
+do_unpack_compile "${CONFIGURE[@]}"
