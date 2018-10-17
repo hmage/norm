@@ -1,9 +1,7 @@
 #!/bin/bash
 
 CONFFLAGS=(
---without-xmlto
---without-fop
---without-xsltproc
+
 )
 
 PROTOS=(
@@ -47,5 +45,5 @@ PROTOS=(
 
 for protoline in "${PROTOS[@]}"; do
     fetch_source $protoline
-    do_unpack_compile "${CONFFLAGS[@]}"
+    do_unpack_compile
 done
