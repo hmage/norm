@@ -6,5 +6,5 @@ do_unpack
 pushd_src
 sed -e '/^includesdir/ s/$(libdir).*$/$(includedir)/' -ibak include/Makefile.in
 sed -e '/^includedir/ s/=.*$/=@includedir@/' -e 's/^Cflags: -I${includedir}/Cflags:/' -ibak libffi.pc.in
-do_compile --with-gcc-arch=$GCCARCH
+do_compile
 popd_src
