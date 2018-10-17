@@ -2,29 +2,4 @@
 
 fetch_source http://dist.schmorp.de/libev/Attic/libev-4.24.tar.gz 436dd8eff00a45f8805b8cacfe4dd3bd993caedb
 
-do_unpack
-do_patch_inline -p0 << EOF
---- Makefile.am
-+++ Makefile.am
-@@ -9,7 +9,7 @@
- 
- man_MANS = ev.3
- 
--include_HEADERS = ev.h ev++.h event.h
-+include_HEADERS = ev.h ev++.h
- 
- lib_LTLIBRARIES = libev.la
- 
---- Makefile.in
-+++ Makefile.in
-@@ -354,7 +354,7 @@
- 	     ev.3 ev.pod Symbols.ev Symbols.event
- 
- man_MANS = ev.3
--include_HEADERS = ev.h ev++.h event.h
-+include_HEADERS = ev.h ev++.h
- lib_LTLIBRARIES = libev.la
- libev_la_SOURCES = ev.c event.c
- libev_la_LDFLAGS = -version-info $(VERSION_INFO)
-EOF
-do_compile
+do_unpack_compile
