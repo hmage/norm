@@ -1,11 +1,12 @@
 #!/bin/bash
+
+needs_tool msgfmt
+
 fetch_source http://download.savannah.gnu.org/releases/attr/attr-2.4.47.src.tar.gz 5060f0062baee6439f41a433325b8b3671f8d2d8
 
 do_unpack
 pushd_src
-# this will remove glibc-specific code from the file
-sed -i.bak 's/ __THROW//g;s/__BEGIN_DECLS/#ifdef __cplusplus\nextern "C" {\n#endif/;s/__END_DECLS/#ifdef __cplusplus\n}\n#endif/' include/xattr.h
-do_configure --enable-gettext=no
+do_configure
 do_make
 do_test
 do_install
