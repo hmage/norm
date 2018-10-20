@@ -1,8 +1,6 @@
 #!/bin/bash
 
-needs_tool autoconf
-
-#mkdir -p "$PREFIX/share/aclocal"
+needs_tool autoreconf
 
 fetch_source https://ftpmirror.gnu.org/automake/automake-1.16.1.tar.xz 1012bc79956013d53da0890f8493388a6cb20831
 
