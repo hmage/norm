@@ -3,6 +3,4 @@
 fetch_source http://http.debian.net/debian/pool/main/n/numactl/numactl_2.0.11.orig.tar.gz 0846670269824078a4eae8a977728175437b0da4
 fetch_debian http://http.debian.net/debian/pool/main/n/numactl/numactl_2.0.11-2.1.debian.tar.xz 0d31aef6f0e208ddbfbdd80a462cd166e5135c02
 
-do_undebian
-
-do_compile
+do_undebian_compile
