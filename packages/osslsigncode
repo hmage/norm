@@ -1,0 +1,7 @@
+#!/bin/bash
+
+depends_on openssl
+
+fetch_source https://download.sourceforge.net/osslsigncode/osslsigncode/osslsigncode-1.7.1.tar.gz 42f847bf4753f3435c746f5be12de37e6b1a57b1
+
+do_unpack_compile
