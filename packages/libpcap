@@ -1,8 +1,0 @@
-#!/bin/bash
-
-needs_tool flex
-needs_tool bison
-
-fetch_source https://www.tcpdump.org/release/libpcap-1.9.0.tar.gz c565f591c9a921fb5938cc16407c321c1ca8b9e8
-
-do_unpack_compile LIBS="-L$ESCAPED_PREFIX/lib" --without-libnl --disable-dbus

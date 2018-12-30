@@ -1,8 +1,0 @@
-#!/bin/bash
-
-needs_tool pkg-config
-depends_on openssl
-
-fetch_source http://ftpmirror.gnu.org/wget/wget-1.19.5.tar.gz 43b3d09e786df9e8d7aa454095d4ea2d420ae41c
-
-do_unpack_compile --enable-ipv6 --with-ssl=openssl --disable-pcre --without-libuuid --disable-iri --without-libpsl --without-zlib

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-needs_tool pkg-config
-depends_on libxcb
-
-fetch_source http://http.debian.net/debian/pool/main/x/xcb-util-keysyms/xcb-util-keysyms_0.4.0.orig.tar.bz2 ff02ee8ac22c53848af50c0a6a6b00feb002c1cb
-fetch_debian http://http.debian.net/debian/pool/main/x/xcb-util-keysyms/xcb-util-keysyms_0.4.0-1.debian.tar.xz a22644c795ed4004ca65a64681f2d5fc0185fee1
-
-do_undebian_compile

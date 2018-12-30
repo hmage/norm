@@ -1,4 +1,0 @@
-#!/bin/bash
-fetch_source http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz 85aa967e19f6b9bf975601d79669025e5f8bc77d
-
-do_unpack_compile

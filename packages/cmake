@@ -1,5 +1,0 @@
-#!/bin/bash
-
-fetch_source https://www.cmake.org/files/v3.12/cmake-3.12.2.tar.gz 25d3f4d2c9fe350170cc305625cc3d09f1f52da9
-
-do_unpack_compile

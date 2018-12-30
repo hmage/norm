@@ -1,7 +1,0 @@
-#!/bin/bash
-
-fetch_source http://http.debian.net/debian/pool/main/a/asciidoc/asciidoc_8.6.9.orig.tar.gz 82e574dd061640561fa0560644bc74df71fb7305
-fetch_debian http://http.debian.net/debian/pool/main/a/asciidoc/asciidoc_8.6.9-3.diff.gz 9512bf3b28c052df9c2d93261d3402a855d9cbcb
-
-do_undebian_compile
-

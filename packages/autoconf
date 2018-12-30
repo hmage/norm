@@ -1,7 +1,0 @@
-#!/bin/bash
-needs_tool m4
-
-fetch_source http://http.debian.net/debian/pool/main/a/autoconf/autoconf_2.69.orig.tar.xz e891c3193029775e83e0534ac0ee0c4c711f6d23
-fetch_debian http://http.debian.net/debian/pool/main/a/autoconf/autoconf_2.69-10.debian.tar.xz 84a6e37ef1fed38cf977d72e4e80118492550a6c
-
-do_undebian_compile

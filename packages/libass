@@ -1,9 +1,0 @@
-#!/bin/bash
-
-depends_on freetype
-depends_on fontconfig
-depends_on libfribidi
-
-fetch_source https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.xz e7335c043445e6febaa6330fc38828b00c526cac
-
-do_unpack_compile

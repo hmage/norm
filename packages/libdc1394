@@ -1,4 +1,0 @@
-#!/bin/bash
-fetch_source https://downloads.sourceforge.net/libdc1394/libdc1394-2/2.2.5/libdc1394-2.2.5.tar.gz dae8a3ea7d800d438d813e1a14155cced5912a29
-
-do_unpack_compile

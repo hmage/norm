@@ -1,5 +1,0 @@
-#!/bin/bash
-
-fetch_source http://ftpmirror.gnu.org/gdbm/gdbm-1.18.tar.gz 0f1056ab3beb1bf09dad06f8083f2c79716a5b1b
-
-do_unpack_compile

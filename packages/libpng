@@ -1,9 +1,0 @@
-#!/bin/bash
-depends_on zlib
-
-fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.6.35.tar.xz 0df1561aa1da610e892239348970d574b14deed0
-
-do_unpack_compile
-
-mkdir -p "$PREFIX"/var/norm
-install -m 644 "$SRCDIR"/pngbar.png "$PREFIX"/var/norm/pngbar.png

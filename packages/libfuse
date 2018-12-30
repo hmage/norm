@@ -1,8 +1,0 @@
-#!/bin/bash
-
-fetch_source https://github.com/libfuse/libfuse/releases/download/fuse-2.9.7/fuse-2.9.7.tar.gz cd174e3d37995a42fad32fac92f76cd18e24174f
-
-MOUNT_FUSE_PATH="$PREFIX/sbin" \
-INIT_D_PATH="$PREFIX/etc/init.d" \
-UDEV_RULES_PATH="$PREFIX/etc/udev/rules.d" \
-do_unpack_compile

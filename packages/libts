@@ -1,5 +1,0 @@
-#!/bin/bash
-
-fetch_source https://github.com/kergoth/tslib/releases/download/1.3/tslib-1.3.tar.xz 78df867cd9bc9e1ce15e187fcc437cd58e346bfa
-
-do_unpack_compile

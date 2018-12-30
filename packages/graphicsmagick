@@ -1,6 +1,0 @@
-#!/bin/bash
-
-## imagemagick is useless without common formats, even if they're optional
-fetch_source https://downloads.sourceforge.net/graphicsmagick/graphicsmagick/1.3.30/GraphicsMagick-1.3.30.tar.xz e9b1f6b84739eef3e112d4905e3d72b1e6983abd
-
-do_unpack_compile

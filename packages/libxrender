@@ -1,9 +1,0 @@
-#!/bin/bash
-
-needs_tool pkg-config
-depends_on libx11
-depends_on xproto
-
-fetch_source https://www.x.org/releases/individual/lib/libXrender-0.9.10.tar.bz2 d55106de9260c2377c19d271d9b677744a6c7e81
-
-do_unpack_compile

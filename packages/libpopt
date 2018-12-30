@@ -1,9 +1,0 @@
-#!/bin/bash
-
-fetch_source http://http.debian.net/debian/pool/main/p/popt/popt_1.16.orig.tar.gz cfe94a15a2404db85858a81ff8de27c8ff3e235e
-fetch_debian http://http.debian.net/debian/pool/main/p/popt/popt_1.16-10.debian.tar.xz ddbc72f3b4fbfe52f67a63f9cba570e007e4e6a3
-
-do_undebian
-sed -ibak 's|lt-test1|test1|' "$SRCDIR"/testit.sh
-sed -ibak 's|^test1_LDFLAGS = $|test1_LDFLAGS = -no-install|' "$SRCDIR"/Makefile.in
-do_compile

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-fetch_source http://ftpmirror.gnu.org/libiconv/libiconv-1.15.tar.gz 7af3149fa7c4bd1d3a36a30f02e95a0ebfd6b18f
-
-do_unpack_compile

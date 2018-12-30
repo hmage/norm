@@ -1,8 +1,0 @@
-#!/bin/bash
-
-[[ $OSTYPE == *linux* ]] && depends_on libasound
-
-fetch_source http://www.sndio.org/sndio-1.4.0.tar.gz 2c8928075cb018b0c7586e0b97dc56128f2a1473
-
-CFLAGS="-O2 -g $CPPFLAGS" \
-do_unpack_compile_notest

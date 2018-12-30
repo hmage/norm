@@ -1,5 +1,0 @@
-#!/bin/bash
-
-fetch_source http://ftpmirror.gnu.org/libsigsegv/libsigsegv-2.12.tar.gz df167811328b050d2b746bec3d88423edc5a8cbf
-
-do_unpack_compile

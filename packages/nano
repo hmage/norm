@@ -1,9 +1,0 @@
-#!/bin/bash
-
-needs_tool pkg-config ## to find libncurses
-depends_on libncurses
-depends_on file ## opportunistic linking, for libmagic, why?
-
-fetch_source http://www.nano-editor.org/dist/v3/nano-3.0.tar.gz 9bfe9dbeaaef57b8575d4f4a398cf1fa78918eeb
-
-do_unpack_compile

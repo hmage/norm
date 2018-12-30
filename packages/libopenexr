@@ -1,9 +1,0 @@
-#!/bin/bash
-
-depends_on zlib
-
-fetch_source http://download.savannah.nongnu.org/releases/openexr/ilmbase-2.2.1.tar.gz 87df9e235eff0d10e171f15ad0e63cba05e16bce
-do_unpack_compile
-
-fetch_source http://download.savannah.nongnu.org/releases/openexr/openexr-2.2.1.tar.gz 585cf77cdc3dc0d9d71531dfa747c4a11c5ec9e8
-do_unpack_compile

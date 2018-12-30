@@ -1,9 +1,0 @@
-#!/bin/bash
-
-fetch_source http://ftpmirror.gnu.org/gdb/gdb-8.1.1.tar.xz 8c04c12f11b5ba74e7506785632c7fc593ead90f
-
-## gdb test suite is broken -- even their buildbot has failures that are ignored
-## plus it needs python, rust, systemtap, gccgo and gfortran -- dependencies too heavy
-do_unpack
-sed -i.bak 's/^SUBDIRS = doc /SUBDIRS = /' "$SRCDIR"/gdb/Makefile.in
-do_compile_notest

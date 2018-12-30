@@ -1,7 +1,0 @@
-#!/bin/bash
-
-depends_on libgpg-error
-
-fetch_source https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.8.3.tar.bz2 13bd2ce69e59ab538e959911dfae80ea309636e3
-
-do_unpack_compile

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-needs_tool pkg-config
-depends_on xproto
-depends_on libx11 libxext
-
-fetch_source https://www.x.org/releases/individual/lib/libXxf86vm-1.1.4.tar.bz2 78ef18ca2be157131899e01c62679e247409a13f
-
-do_unpack_compile

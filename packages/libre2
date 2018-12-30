@@ -1,7 +1,0 @@
-#!/bin/bash
-
-needs_tool cmake
-
-fetch_source https://github.com/google/re2/archive/2018-08-01.tar.gz a32402a70750d2da04fa772504e0180bdd9d6708
-
-do_unpack_compile

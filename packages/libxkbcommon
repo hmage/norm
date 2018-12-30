@@ -1,8 +1,0 @@
-#!/bin/bash
-
-depends_on libxcb
-needs_tool bison
-
-fetch_source http://xkbcommon.org/download/libxkbcommon-0.8.2.tar.xz 5589b09b8490392573bba5527cc0cc82824028b1
-
-do_unpack_compile_notest ## testing hangs

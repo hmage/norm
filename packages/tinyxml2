@@ -1,8 +1,0 @@
-#!/bin/bash
-
-needs_tool cmake
-
-fetch_source https://github.com/leethomason/tinyxml2/archive/6.2.0.tar.gz ea262a19ea324c7e5ef6acd8025fdb6e64ab9ecd
-
-do_unpack_compile
-

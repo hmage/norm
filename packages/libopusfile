@@ -1,9 +1,0 @@
-#!/bin/bash
-
-depends_on pkg-config
-depends_on libogg
-depends_on libopus
-
-fetch_source http://downloads.xiph.org/releases/opus/opusfile-0.9.tar.gz 7aefeb6a2255899d8ff02cc25295837bf47e4c02
-
-do_unpack_compile --disable-http

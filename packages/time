@@ -1,5 +1,0 @@
-#!/bin/bash
-
-fetch_source http://ftpmirror.gnu.org/time/time-1.9.tar.gz 75068c26abbed3ad3980685bae21d7202d288317
-
-do_unpack_compile

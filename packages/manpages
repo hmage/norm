@@ -1,8 +1,0 @@
-#!/bin/bash
-
-fetch_source https://www.kernel.org/pub/linux/docs/man-pages/man-pages-4.07.tar.xz 4193d08f9106328c96deb964b140a3b985803ad3
-
-do_unpack
-pushd_src
-do_install prefix="$PREFIX"
-popd

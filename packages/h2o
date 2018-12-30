@@ -1,9 +1,0 @@
-#!/bin/bash
-
-needs_tool cmake
-depends_on zlib
-depends_on openssl ## opportunistic linking, to serve HTTPS
-
-fetch_source https://github.com/h2o/h2o/archive/v2.2.5.tar.gz 188cd4792d28cd7c88a572f6a92949c6aaef5693
-
-do_unpack_compile_notest ## TODO: h2o tests require perl and libtest-tcp-perl to be installed, quite heavy dependency

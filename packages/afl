@@ -1,9 +1,0 @@
-#!/bin/bash
-
-fetch_source http://lcamtuf.coredump.cx/afl/releases/afl-2.52b.tgz 6f923e7748898cac58366cb3c751643fba0c2bae
-
-do_unpack
-pushd_src
-do_make PREFIX="$PREFIX"
-do_install PREFIX="$PREFIX"
-popd_src

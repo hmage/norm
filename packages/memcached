@@ -1,7 +1,0 @@
-#!/bin/bash
-
-depends_on libevent
-
-fetch_source https://www.memcached.org/files/memcached-1.5.10.tar.gz fff9351b360a09497cd805d3e4c1ffbe860d067d
-
-do_unpack_compile

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-fetch_source http://ftpmirror.gnu.org/help2man/help2man-1.47.5.tar.xz 788bce4e780ea81fd1a09e04b004c19f70bc151a
-
-do_unpack_compile_notest # help2man doesn't have tests

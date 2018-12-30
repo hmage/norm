@@ -1,5 +1,0 @@
-#!/bin/bash
-
-fetch_source http://pyyaml.org/download/libyaml/yaml-0.1.7.tar.gz 3590cbf092ef4c71bc0a9b404c00a626b1e04dee
-
-do_unpack_compile

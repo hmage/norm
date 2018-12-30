@@ -1,6 +1,0 @@
-#!/bin/bash
-
-## needed to build https-compatible curl, so don't use https for fetching this
-fetch_source http://download.openpkg.org/components/cache/ares/c-ares-1.14.0.tar.gz 5b4989208c936d6445d4d73487634fe0b07e8ea7
-
-do_unpack_compile

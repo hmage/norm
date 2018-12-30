@@ -1,7 +1,0 @@
-#!/bin/bash
-
-needs_tool nasm
-
-fetch_source http://www.ffmpeg.org/releases/ffmpeg-4.0.2.tar.xz 6e0085d5335e84b4137bb94a7d4401039a2e9ece
-
-do_unpack_compile

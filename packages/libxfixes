@@ -1,9 +1,0 @@
-#!/bin/bash
-
-needs_tool pkg-config
-depends_on xproto
-depends_on libx11
-
-fetch_source https://www.x.org/releases/individual/lib/libXfixes-5.0.3.tar.bz2 ca86342d129c02435a9ee46e38fdf1a04d6b4b91
-
-do_unpack_compile

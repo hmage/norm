@@ -1,5 +1,0 @@
-#!/bin/bash
-
-fetch_source https://ftpmirror.gnu.org/grep/grep-3.1.tar.xz d1d677e959c7d874e18e7e3839f26a0f0c1733d5
-
-do_unpack_compile

@@ -1,6 +1,0 @@
-#!/bin/bash
-
-fetch_source http://ftpmirror.gnu.org/diffutils/diffutils-3.6.tar.xz 1287a553868b808ebfff3790a5cdc6fdf7cb2886
-
-ac_cv_libsigsegv=no \
-do_unpack_compile

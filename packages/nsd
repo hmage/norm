@@ -1,8 +1,0 @@
-#!/bin/bash
-
-depends_on libevent
-depends_on openssl
-
-fetch_source https://www.nlnetlabs.nl/downloads/nsd/nsd-4.1.24.tar.gz e3413cd3e657f366764b90343ce33c9415347008
-
-do_unpack_compile --with-libevent="$PREFIX" --with-ssl="$PREFIX"

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-depends_on libgmp
-
-fetch_source http://isl.gforge.inria.fr/isl-0.19.tar.xz 3447b208786a81be396912bc160f6c01bd679892
-
-do_unpack_compile

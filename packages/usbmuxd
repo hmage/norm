@@ -1,9 +1,0 @@
-#!/bin/bash
-
-needs_tool pkg-config
-depends_on libusb
-depends_on libplist
-
-fetch_source http://www.libimobiledevice.org/downloads/usbmuxd-1.1.0.tar.bz2 a8f5d44b3014d57a6ae40960b56cc6f497876097
-
-do_unpack_compile --without-preflight --without-systemd --without-udevrulesdir

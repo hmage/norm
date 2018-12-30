@@ -1,7 +1,0 @@
-#!/bin/bash
-
-needs_tool gperf
-
-fetch_source http://dev.gentoo.org/~blueness/eudev/eudev-3.2.2.tar.gz 240d7b589ef1da1bb85a950f919e826239363350
-
-do_unpack_compile --disable-hwdb --disable-kmod --disable-selinux --disable-blkid

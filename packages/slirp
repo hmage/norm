@@ -1,9 +1,0 @@
-#!/bin/bash
-
-fetch_source http://http.debian.net/debian/pool/main/s/slirp/slirp_1.0.17.orig.tar.gz 9b660f5365f1d9536d9171c1e0de490ab2232ec8
-fetch_debian http://http.debian.net/debian/pool/main/s/slirp/slirp_1.0.17-8.debian.tar.xz 7f89271fa943bb98a839974709112d9ebb434098
-
-do_undebian
-mkdir -p $PREFIX/share/man/man1
-SRCDIR="$SRCDIR"/src
-CFLAGS="$CFLAGS -std=gnu89 -DFULL_BOLT -fno-strict-aliasing" do_compile_notest ## has no tests

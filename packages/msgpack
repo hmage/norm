@@ -1,7 +1,0 @@
-#!/bin/bash
-
-needs_tool cmake
-
-fetch_source https://github.com/msgpack/msgpack-c/releases/download/cpp-3.0.1/msgpack-3.0.1.tar.gz bb816f32fa9004d2f584d61d223aa9df58091c65
-
-do_unpack_compile

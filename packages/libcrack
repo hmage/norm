@@ -1,6 +1,0 @@
-#!/bin/bash
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/c/cracklib2/cracklib2_2.8.19.orig.tar.gz 29224f51db85e1946c209f6ef6c38da699a9c7cc
-fetch_debian http://ftp.de.debian.org/debian/pool/main/c/cracklib2/cracklib2_2.8.19-3.debian.tar.gz 6236158add194ef49ea914bf5f40a17e84e23271
-
-do_undebian_compile

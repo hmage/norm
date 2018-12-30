@@ -1,9 +1,0 @@
-#!/bin/bash
-
-depends_on libllvm clang
-needs_tool flex
-
-fetch_source https://embed.cs.utah.edu/creduce/creduce-2.8.0.tar.gz 4f9ed5c7766f247884ce5c17fa10710372d48d39
-
-do_unpack
-do_compile

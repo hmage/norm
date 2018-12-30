@@ -1,8 +1,0 @@
-#!/bin/bash
-
-needs_tool python
-needs_tool swig
-
-fetch_source http://people.redhat.com/sgrubb/audit/audit-2.8.3.tar.gz e1605164e844c711ee6f093f2d23dd21286219f8
-
-do_unpack_compile --disable-zos-remote --without-libcap-ng

@@ -1,6 +1,0 @@
-#!/bin/bash
-
-fetch_source http://http.debian.net/debian/pool/main/c/cpio/cpio_2.11+dfsg.orig.tar.xz db17d80369acf691611a38979f42f31e47ee6fac
-fetch_debian http://http.debian.net/debian/pool/main/c/cpio/cpio_2.11+dfsg-4.1.debian.tar.xz 6c0dd7b033bc9f4e22918ff329558572f8c30a58
-
-do_undebian_compile

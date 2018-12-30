@@ -1,7 +1,0 @@
-#!/bin/bash
-
-needs_tool cmake
-
-fetch_source https://github.com/gflags/gflags/archive/v2.2.0.tar.gz bf07a7926cb2ce4dd4048bdc081f9e00e91cefd6
-
-do_unpack_compile

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-depends_on openssl
-
-fetch_source http://www.usenix.org.uk/mirrors/stunnel/archive/5.x/stunnel-5.48.tar.gz 8e8576abf9b143c7ef1b7390c35b46c4cf878ca0
-
-do_unpack_compile --disable-systemd --disable-libwrap

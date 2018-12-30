@@ -1,4 +1,0 @@
-#!/bin/bash
-fetch_source http://pkgs.fedoraproject.org/repo/pkgs/corkscrew/corkscrew-2.0.tar.gz/35df77e7f0e59c0ec4f80313be52c10a/corkscrew-2.0.tar.gz 8bdb4c0dc71048136c721c33229b9bf795230b32
-
-do_unpack_compile

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-needs_tool expect
-
-fetch_source http://http.debian.net/debian/pool/main/d/dejagnu/dejagnu_1.5.1.orig.tar.gz eb16fb455690592a97f22acd17e8fc2f1b5c54c2
-fetch_debian http://http.debian.net/debian/pool/main/d/dejagnu/dejagnu_1.5.1-2.debian.tar.xz f4c1d2470efd94e621066abacf244ac988b29d77
-
-do_undebian_compile
-

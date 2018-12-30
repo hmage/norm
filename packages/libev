@@ -1,5 +1,0 @@
-#!/bin/bash
-
-fetch_source http://dist.schmorp.de/libev/Attic/libev-4.24.tar.gz 436dd8eff00a45f8805b8cacfe4dd3bd993caedb
-
-do_unpack_compile

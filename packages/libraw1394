@@ -1,5 +1,0 @@
-#!/bin/bash
-
-fetch_source https://www.kernel.org/pub/linux/libs/ieee1394/libraw1394-2.1.2.tar.gz 3aa81d89156850fc5ee453f306785702c9089287
-
-do_unpack_compile

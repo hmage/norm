@@ -1,4 +1,0 @@
-#!/bin/bash
-fetch_source http://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.1.tar.gz 93fafd57a724974b951957c522cdc4478a6bdc2e
-
-do_unpack_compile

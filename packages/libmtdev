@@ -1,6 +1,0 @@
-#!/bin/bash
-
-fetch_source http://http.debian.net/debian/pool/main/m/mtdev/mtdev_1.1.5.orig.tar.bz2 15267fbde0ed466f8474db1bbdf2d6989846f415
-fetch_debian http://http.debian.net/debian/pool/main/m/mtdev/mtdev_1.1.5-1.debian.tar.xz 62b4842de455393f0a99d3b08e9a65dbc9c32530
-
-do_undebian_compile

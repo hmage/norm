@@ -1,9 +1,0 @@
-#!/bin/bash
-
-needs_tool pkg-config
-depends_on xproto xtrans
-
-fetch_source http://ftp.de.debian.org/debian/pool/main/libi/libice/libice_1.0.8.orig.tar.gz 22aa5898443e0652337f80796a3a33dc67cab8b6
-fetch_debian http://ftp.de.debian.org/debian/pool/main/libi/libice/libice_1.0.8-2.diff.gz 9412afc817cf29a1588f1904766081c0f868e9f4
-
-do_undebian_compile

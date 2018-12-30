@@ -1,5 +1,0 @@
-#!/bin/bash
-
-fetch_source http://dovecot.org/releases/2.3/dovecot-2.3.2.tar.gz 711e2068b5f45b2b5ffe9819b5ed119b49e2da9c
-
-do_unpack_compile
