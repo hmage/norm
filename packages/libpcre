@@ -1,0 +1,7 @@
+fetch_source http://ftp.exim.org/pub/pcre/pcre-8.42.tar.bz2 df0d1c2ff04c359220cb902539a6e134af4497f4
+
+CONFFLAGS=(
+--enable-utf8 --enable-unicode-properties ## otherwise glib will refuse to build
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
