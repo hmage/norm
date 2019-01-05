@@ -4,6 +4,7 @@ depends_on libtool
 depends_on libffi
 depends_on gettext
 depends_on libpcre
+depends_on zlib
 
 ## 2.58 is last version that doesn't require python3
 fetch_source https://ftp.gnome.org/pub/gnome/sources/glib/2.58/glib-2.58.2.tar.xz 9831bbdca749a42526d0afc4b31799e8be22037c
