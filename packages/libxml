@@ -1,0 +1,4 @@
+fetch_source http://xmlsoft.org/sources/libxml2-2.9.8.tar.gz 66bcefd98a6b7573427cf66f9d3841b59eb5b8c3
+
+CPPFLAGS="$CPPFLAGS -DXML_XML_DEFAULT_CATALOG=\\\"file:///$ESCAPED_PREFIX/etc/xml/catalog\\\"" \
+do_unpack_compile --without-python
