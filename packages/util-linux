@@ -1,0 +1,7 @@
+CONFFLAGS=(
+--disable-makeinstall-chown ## otherwise it tries to chown root:root which we don't have permissions for
+)
+
+fetch_source https://www.kernel.org/pub/linux/utils/util-linux/v2.33/util-linux-2.33.tar.xz a2c01c4817723f2f1d803e377f26cd025b166400
+
+do_unpack_compile "${CONFFLAGS[@]}"
