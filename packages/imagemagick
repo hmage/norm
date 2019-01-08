@@ -1,0 +1,5 @@
+depends_on libjpeg libpng ## otherwise it's useless
+
+fetch_source https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.8-22.tar.xz 61c73e9cd8667487dd602efbd5bfdc860f316b75
+
+do_unpack_compile
