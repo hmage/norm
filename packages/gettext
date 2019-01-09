@@ -2,4 +2,8 @@ depends_on libxml
 
 fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.19.8.1.tar.xz e0fe90ede22f7f16bbde7bdea791a835f2773fc9
 
-do_unpack_compile
+CONFFLAGS=(
+--disable-curses ## opportunistic linking for a feature that isn't used
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
