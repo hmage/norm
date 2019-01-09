@@ -1,3 +1,5 @@
+depends_on zlib ## opportunistic linking
+
 fetch_source http://www.jedsoft.org/releases/slang/slang-2.3.1a.tar.bz2 a8ea7f1b5736160a94efb67b137a0f5b9916bdf2
 
 NOPARALLEL=1 \
