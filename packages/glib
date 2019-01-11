@@ -1,4 +1,4 @@
-depends_on autoconf automake
+needs_tool autoconf automake
 depends_on pkg-config
 depends_on libtool
 depends_on libffi
