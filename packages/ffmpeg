@@ -1,0 +1,13 @@
+depends_on nasm
+depends_on x264
+depends_on x265
+
+fetch_source http://www.ffmpeg.org/releases/ffmpeg-4.0.3.tar.xz 3960ff0cc86e857d6245a89a17b646b025fe43fd
+
+CONFFLAGS=(
+--enable-gpl ## needed to use x264 and x265
+--enable-libx264
+--enable-libx265
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"

@@ -1,0 +1,5 @@
+depends_on nasm ## steep version requirement, so bring our own (wants 2.13 while stretch has 2.12)
+
+fetch_source http://ftp.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-20190115-2245-stable.tar.bz2 eaefcbb2f9ece0fde6fa7e608e65b66b96673464
+
+do_unpack_compile --enable-static
