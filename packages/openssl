@@ -1,0 +1,19 @@
+## don't use https to download openssl source because openssl might be too old to even establish a connection!
+fetch_source ftp://openssl.org/source/openssl-1.0.2q.tar.gz 692f5f2f1b114f8adaadaa3e7be8cce1907f38c5
+
+SSLCONFIG=(
+--openssldir="$PREFIX/etc/ssl"
+)
+[[ $HOSTTYPE == x86_64 ]] && export KERNEL_BITS=64
+
+do_unpack
+pushd_src
+./config --prefix="$PREFIX" $LDFLAGS "${SSLCONFIG[@]}"
+do_make all
+do_test
+do_install MANDIR="$PREFIX/share/man"
+popd_src
+
+## install root certificates so curl and others can use HTTPS
+mkdir -p "$PREFIX"/etc/ssl/certs
+install -m 644 "$NORMDIR/files/ca-bundle.crt" "$PREFIX/etc/ssl/cert.pem"
