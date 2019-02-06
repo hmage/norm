@@ -1,3 +1,5 @@
+#!/bin/bash
+
 depends_on glib
 depends_on libslang
 

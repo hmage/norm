@@ -1,3 +1,5 @@
+#!/bin/bash
+
 fetch_source https://cmake.org/files/v3.13/cmake-3.13.3.tar.gz f33558a268a9286d4fa310abbd56efbaf897f6dc
 
 do_unpack_compile

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CONFFLAGS=(
 --disable-makeinstall-chown ## otherwise it tries to chown root:root which we don't have permissions for
 )

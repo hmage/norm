@@ -1,3 +1,5 @@
+#!/bin/bash
+
 fetch_source https://www.nasm.us/pub/nasm/releasebuilds/2.14.02/nasm-2.14.02.tar.xz 7e9cb20d49ca279c72125b2701b3457c9d1609a5
 
 do_unpack_compile

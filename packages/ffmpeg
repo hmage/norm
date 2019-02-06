@@ -1,3 +1,5 @@
+#!/bin/bash
+
 depends_on nasm
 depends_on x264
 depends_on x265

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 depends_on libjpeg libpng ## otherwise it's useless
 depends_on bzip2 ## opportunistic linking with libbz2
 

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 depends_on openssl
 
 fetch_source http://ftpmirror.gnu.org/wget/wget-1.20.1.tar.gz 4b1ade04ee7ff30181357e0c66b5ac74e39f79b3

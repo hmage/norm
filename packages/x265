@@ -1,3 +1,5 @@
+#!/bin/bash
+
 depends_on cmake
 
 fetch_source http://ftp.videolan.org/pub/videolan/x265/x265_2.9.tar.gz 3c005b4ab409c6f996b36ad88d780ff85fbc9abf

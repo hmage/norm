@@ -1,3 +1,5 @@
+#!/bin/bash
+
 fetch_source http://distfiles.dereferenced.org/pkgconf/pkgconf-1.5.4.tar.xz 6075fb77774cececec5afa582770e47a05181712
 
 do_unpack_compile
