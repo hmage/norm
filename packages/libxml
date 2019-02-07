@@ -2,7 +2,7 @@
 
 depends_on zlib ## opportunistic linking
 
-fetch_source http://xmlsoft.org/sources/libxml2-2.9.8.tar.gz 66bcefd98a6b7573427cf66f9d3841b59eb5b8c3
+fetch_source http://xmlsoft.org/sources/libxml2-2.9.9.tar.gz 96686d1dd9fddf3b35a28b1e2e4bbacac889add3
 
 CPPFLAGS="$CPPFLAGS -DXML_XML_DEFAULT_CATALOG=\\\"file:///$ESCAPED_PREFIX/etc/xml/catalog\\\"" \
 do_unpack_compile --without-python
