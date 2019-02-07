@@ -2,7 +2,7 @@
 
 depends_on cmake
 
-fetch_source http://ftp.videolan.org/pub/videolan/x265/x265_2.9.tar.gz 3c005b4ab409c6f996b36ad88d780ff85fbc9abf
+fetch_source http://ftp.videolan.org/pub/videolan/x265/x265_3.0.tar.gz 5eeacc607e6fe6bca61f9cf355b34ef135987696
 
 do_unpack
 SRCDIR="$SRCDIR/source"
