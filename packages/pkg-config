@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://distfiles.dereferenced.org/pkgconf/pkgconf-1.5.4.tar.xz 6075fb77774cececec5afa582770e47a05181712
+fetch_source http://distfiles.dereferenced.org/pkgconf/pkgconf-1.6.0.tar.xz 88350607786dec50899ae463b7a93dc85a3c066f
 
 do_unpack_compile
 ln -fs pkgconf "$PREFIX"/bin/pkg-config
