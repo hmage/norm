@@ -1,6 +1,7 @@
 #!/bin/bash
 
 depends_on libjpeg libpng ## otherwise it's useless
+depends_on libwebp ## otherwise it can only decode webp, but not encode
 depends_on bzip2 ## opportunistic linking with libbz2
 
 fetch_source https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.8-25.tar.xz 4c2dec3db790abdfb894738f9a7e4e43e123c47b
