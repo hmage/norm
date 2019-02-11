@@ -1,0 +1,14 @@
+#!/bin/bash
+
+fetch_source https://www.kernel.org/pub/software/scm/git/git-2.20.1.tar.xz 58dca49db21f4bebf56f8861f15800f1c57c5ee3
+fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.20.1.tar.xz b9362852840ed1a5168cc25d8d43b0630f5dea19
+
+do_unpack_compile
+
+## install bash completion
+mkdir -p "$PREFIX/etc/bash_completion.d"
+install "$SRCDIR/contrib/completion/git-completion.bash" "$PREFIX/etc/bash_completion.d/git-completion.bash"
+
+## install git manpages
+mkdir -p "$PREFIX/share/man"
+cat "$CACHEDIR/$FILENAME" | xz -d | tar xf - -C "$PREFIX/share/man"
