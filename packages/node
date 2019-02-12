@@ -1,0 +1,8 @@
+#!/bin/bash
+
+fetch_source https://nodejs.org/dist/v11.9.0/node-v11.9.0.tar.gz 55e81553eba97fbbecbf2ebedc1e657f4cde86ee
+
+do_unpack
+## this fixes build failure on OSX if gnu libtool is installed
+sed -i.bak 's|./gyp-mac-tool filter-libtool libtool|/usr/bin/libtool|g' "$SRCDIR"/tools/gyp/pylib/gyp/generator/make.py
+do_compile
