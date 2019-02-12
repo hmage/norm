@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://cyberelk.net/tim/data/patchutils/stable/patchutils-0.3.4.tar.xz b1d91eb1e2213450eae666a4701b3f917625dea3
+
+do_unpack_compile
