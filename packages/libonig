@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://github.com/kkos/oniguruma/releases/download/v6.9.1/onig-6.9.1.tar.gz 29f827a5e119ddac862b6bc6ccfece18f9b487bf
+
+do_unpack_compile

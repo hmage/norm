@@ -1,0 +1,7 @@
+#!/bin/bash
+
+needs_tool m4
+
+fetch_source http://ftpmirror.gnu.org/bison/bison-3.3.2.tar.xz 6a09cd588f7a0f985839fc8cecdc80da948f7de7
+
+do_unpack_compile
