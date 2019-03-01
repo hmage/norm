@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://ftpmirror.gnu.org/readline/readline-8.0.tar.gz d58041c2143595dc001d2777ae9a200be30198b0
+
+do_unpack_compile
