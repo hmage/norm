@@ -1,0 +1,13 @@
+#!/bin/bash
+
+depends_on zlib    ## for transparent decompression of gzip/deflate encoded responses
+depends_on openssl ## otherwise it won't download over https
+
+## do not download it over https because system-provided curl might not be able to download over https
+fetch_source http://curl.mirror.anstey.ca/curl-7.64.0.tar.gz 5911d4400e988ae52368f2266a5f84378983dbde
+
+CONFFLAGS=(
+"--with-ca-bundle=$PREFIX/etc/ssl/cert.pem"
+)
+
+do_unpack_compile "${CONFIGURE[@]}"
