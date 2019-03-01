@@ -157,6 +157,18 @@ do_untar() {
     return 0
 }
 
+## sets global SRCDIR
+set_srcdir() {
+    SRCDIR="$COMPILEDIR/$FORMULA/$1"
+}
+
+prep_srcdir() {
+    set_srcdir "$@"
+    log "Cleaning $SRCDIR"
+    rm -rf "$SRCDIR"  || return 1
+    mkdir -p "$SRCDIR"  || return 1
+}
+
 ##
 ## unpacks source code
 ## sets global SRCDIR and TARNAME
@@ -168,11 +180,9 @@ do_unpack() {
     [ -f "$CACHEDIR/$1" ] && TARNAME="$1" && shift
     [ -z "$TARNAME" ] && log "TARNAME is empty!" && return 1
 
-    SRCDIR="$COMPILEDIR/$FORMULA/$TARNAME"
+    prep_srcdir "$TARNAME"
 
     log "Unpacking $TARNAME"
-    rm -rf "$SRCDIR"  || return 1
-    mkdir -p "$SRCDIR"  || return 1
     do_untar "$CACHEDIR/$TARNAME" "$SRCDIR" "$@" || return 1
     log "Unpacked $TARNAME"
 }
