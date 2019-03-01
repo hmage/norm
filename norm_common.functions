@@ -20,7 +20,6 @@ popd_src() {
 
 do_configure() {
     local STARTTIME="$SECONDS"
-    find "$SRCDIR" -name config.guess -exec install -v "$CACHEDIR/config.guess" {} \;
     log "Configuring $FORMULA --prefix=\"$PREFIX\" $@"
     "$SRCDIR"/configure --prefix="$PREFIX" "$@" || return 1
     local ELAPSED="$(($SECONDS - $STARTTIME))"
