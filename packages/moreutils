@@ -1,0 +1,33 @@
+#!/bin/bash
+
+fetch_source http://http.debian.net/debian/pool/main/m/moreutils/moreutils_0.60.orig.tar.xz 3af60490f763ece48b2fcba968903673c3e63495
+fetch_debian http://http.debian.net/debian/pool/main/m/moreutils/moreutils_0.60-1.debian.tar.xz a38f8bd2c9f9e1c5e12ac18f3ff35183db7d8d6a
+
+do_undebian
+do_patch_inline -p0 << 'EOF'
+--- Makefile
++++ Makefile
+@@ -13,7 +13,7 @@
+ 
+ DOCBOOK2XMAN=xsltproc --param man.authors.section.enabled 0 $(DOCBOOKXSL)/manpages/docbook.xsl
+ 
+-all: $(BINS) $(MANS)
++all: $(BINS)
+ 
+ clean:
+ 	rm -f $(BINS) $(MANS) dump.c errnos.h errno.o
+@@ -28,8 +28,6 @@
+ 	$(INSTALL_BIN) $(BINS) $(DESTDIR)$(PREFIX)/bin
+ 	install $(PERLSCRIPTS) $(DESTDIR)$(PREFIX)/bin
+ 
+-	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
+-	install $(MANS) $(DESTDIR)$(PREFIX)/share/man/man1
+ 
+ check: isutf8
+ 	./is_utf8/test.sh
+EOF
+pushd_src
+do_make DOCBOOKXSL="$PREFIX"/share/docbook-xsl
+#do_test
+do_install PREFIX="$PREFIX"
+popd_src
