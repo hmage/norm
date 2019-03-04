@@ -1,0 +1,14 @@
+#!/bin/bash
+
+fetch_source https://github.com/facebook/zstd/archive/v1.3.8.tar.gz c9a15a6866df9529e2c66935225d2b51487fd84c
+
+MAKEFLAGS=(
+PREFIX="$ESCAPED_PREFIX"
+)
+
+do_unpack
+pushd_src
+do_make -C lib "${MAKEFLAGS[@]}"
+do_test "${MAKEFLAGS[@]}"
+do_install "${MAKEFLAGS[@]}"
+popd_src
