@@ -171,6 +171,15 @@ prep_srcdir() {
 }
 
 ##
+## does a git clone of source code
+do_gitclone() {
+    [ -z "$1" ] && log "do_gitclone called without arguments!" && return 1
+    needs_tool git
+    prep_srcdir git
+    git clone "$1" "$SRCDIR"
+}
+
+##
 ## unpacks source code
 ## sets global SRCDIR and TARNAME
 ##
