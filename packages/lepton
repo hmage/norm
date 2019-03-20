@@ -1,0 +1,6 @@
+#!/bin/bash
+
+needs_tool cmake
+
+do_gitclone https://github.com/dropbox/lepton
+do_compile -DBENCHMARK=ON
