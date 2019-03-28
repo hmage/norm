@@ -4,6 +4,7 @@ fetch_source https://fossies.org/linux/misc/bzip2-1.0.6.tar.gz 3f89f861209ce81a6
 
 do_unpack
 pushd_src
+sed -ibak 's/^CFLAGS=/CFLAGS=-fpic -fPIC /' Makefile ## otherwise imagemagick will fail to link on x64 linux
 do_make
 do_install PREFIX=$PREFIX
 popd_src
