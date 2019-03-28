@@ -2,4 +2,4 @@
 
 fetch_source https://cmake.org/files/v3.13/cmake-3.13.4.tar.gz 242ac4986ab38ddb06c7bfb7eb950e4c1b1ca770
 
-do_unpack_compile
+do_unpack_compile -- -DBUILD_CursesDialog=OFF
