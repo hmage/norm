@@ -1,6 +1,6 @@
 #!/bin/bash
 
-needs_tool autoconf
+depends_on autoconf ## was needs_tool but I've encountered a system with autoconf 2.63, which is older than 2.65
 
 fetch_source https://ftpmirror.gnu.org/automake/automake-1.16.1.tar.xz 1012bc79956013d53da0890f8493388a6cb20831
 
