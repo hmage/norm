@@ -4,6 +4,9 @@ fetch_source https://github.com/facebook/zstd/archive/v1.3.8.tar.gz c9a15a6866df
 
 MAKEFLAGS=(
 PREFIX="$ESCAPED_PREFIX"
+HAVE_ZLIB=0 ## opportunistic linking otherwise
+HAVE_LZMA=0 ## opportunistic linking otherwise
+HAVE_LZ4=0  ## opportunistic linking otherwise
 )
 
 do_unpack
