@@ -18,4 +18,9 @@ do_unpack
 pushd_src
 ./autogen.sh
 popd_src
-do_compile
+
+CONFFLAGS=(
+--disable-libelf ## opportunistic linking with libelf for gresource tool, still works without it
+)
+
+do_compile "${CONFFLAGS[@]}"
