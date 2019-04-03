@@ -11,7 +11,7 @@ SSLCONFIG=(
 do_unpack
 pushd_src
 ./config --prefix="$PREFIX" $LDFLAGS "${SSLCONFIG[@]}"
-do_make all
+NOPARALLEL=1 do_make all # parallel build can truncate libcrypto.so
 do_test
 do_install MANDIR="$PREFIX/share/man"
 popd_src
