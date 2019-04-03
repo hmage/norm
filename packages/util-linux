@@ -2,6 +2,7 @@
 
 CONFFLAGS=(
 --disable-makeinstall-chown ## otherwise it tries to chown root:root which we don't have permissions for
+--with-bashcompletiondir="$PREFIX/etc/bash_completion.d" ## otherwise tries to overwrite system bash-completion if it's installed
 )
 
 [[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--disable-ipcrm --disable-ipcs) ## does not build on darwin
