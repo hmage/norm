@@ -20,6 +20,7 @@ popd_src() {
 
 do_configure() {
     local STARTTIME="$SECONDS"
+    fgrep -q disable-silent-rules "$SRCDIR/configure" && set -- "$@" --disable-silent-rules ## easier to debug build failures when logs show entire invocation flags
     log "Configuring $FORMULA --prefix=\"$PREFIX\" $@"
     "$SRCDIR"/configure --prefix="$PREFIX" "$@" || return 1
     local ELAPSED="$(($SECONDS - $STARTTIME))"
