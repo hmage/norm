@@ -4,6 +4,7 @@
 fetch_source ftp://openssl.org/source/openssl-1.0.2r.tar.gz b9aec1fa5cedcfa433aed37c8fe06b0ab0ce748d
 
 SSLCONFIG=(
+shared ## otherwise curl will fail to link on x64, since it builds with fPIC but openssl isn't
 --openssldir="$PREFIX/etc/ssl"
 )
 [[ $HOSTTYPE == x86_64 ]] && export KERNEL_BITS=64
