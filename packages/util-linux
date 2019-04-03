@@ -8,6 +8,10 @@ CONFFLAGS=(
 --disable-cramfs ## cramfs is not widely used, but it has zlib dependency
 )
 
+OURNAME=`basename "${BASH_SOURCE[0]}"` ## get our filename, it could be a library name
+[[ $OURNAME == lib* ]] && CONFFLAGS+=(--without-python --disable-all-programs --enable-$OURNAME) ## if it's a library, disable building any binaries, and then enable building only specific library
+[[ $OURNAME == libmount ]] && CONFFLAGS+=(--enable-libblkid) ## otherwise building libmount fails
+[[ $OURNAME == libmount ]] && CONFFLAGS+=(--enable-libuuid)  ## otherwise building glib fails
 [[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--disable-ipcrm --disable-ipcs) ## does not build on darwin
 [[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--disable-libuuid) ## breaks builds of other software on darwin, like ffmpeg
 
