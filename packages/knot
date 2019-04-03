@@ -2,6 +2,7 @@
 
 depends_on libgnutls
 depends_on liburcu
+depends_on libedit
 
 fetch_source https://secure.nic.cz/files/knot-dns/knot-2.7.5.tar.xz d0cfd85477f7853f550f1f3564672e1b5f2e390d
 
