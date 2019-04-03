@@ -2,5 +2,9 @@
 
 fetch_source http://ftpmirror.gnu.org/ncurses/ncurses-6.1.tar.gz 57acf6bc24cacd651d82541929f726f4def780cc
 
-do_unpack_compile
+CONFFLAGS=(
+--with-shared ## otherwise building libedit fails on linux x64 because of fPIC option mismatch
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
 
