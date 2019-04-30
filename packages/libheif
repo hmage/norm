@@ -1,0 +1,11 @@
+#!/bin/bash
+
+depends_on libde265 ## otherwise libheif can't read images
+depends_on x265     ## otherwise libheif can't save images
+
+depends_on libjpeg ## opportunistic linking, for heif-convert and heif-enc
+depends_on libpng  ## opportunistic linking, for heif-convert, heif-enc and heif-thumbnailer
+
+fetch_source https://github.com/strukturag/libheif/releases/download/v1.4.0/libheif-1.4.0.tar.gz 7bb22917bb16bba88b4e1aae021274754ab438e0
+
+do_unpack_compile
