@@ -7,7 +7,7 @@ depends_on x264
 depends_on x265
 depends_on libfdk-aac
 
-fetch_source http://www.ffmpeg.org/releases/ffmpeg-4.1.tar.xz 40bb9002df044514723e9cca7f0a049eee88fed8
+fetch_source http://www.ffmpeg.org/releases/ffmpeg-4.1.3.tar.xz 1c99bfe0323477fc302baec4c825f2e49634c466
 
 CONFFLAGS=(
 --enable-gpl ## needed to use x264 and x265
