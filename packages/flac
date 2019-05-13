@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://downloads.xiph.org/releases/flac/flac-1.3.2.tar.xz 2bdbb56b128a780a5d998e230f2f4f6eb98f33ee
+
+do_unpack_compile
