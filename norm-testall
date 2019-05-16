@@ -140,9 +140,14 @@ for FORMULA_NAME in "${LIST[@]}"; do
     BUILDSTATUS="${PIPESTATUS[0]}"
     [ $BUILDSTATUS != 0 ] && FAILURE=1
 
+    log "testall finished for $FORMULA"
+
     # compile success, check if ldd has any output
     env - PATH="$PATH" "$NORMDIR/norm-ldd" -q "$NORMTEST_PREFIX" | tee -a "$LOGPATH/$FORMULA_ID.log"
     [ "${PIPESTATUS[0]}" != "0" ] && FAILURE=1
+
+    # write list of files in prefix (excluding /tmp)
+    (cd "$NORMTEST_PREFIX" && find . -path ./tmp -prune -or -ls 2>&1 | tee -a "$LOGPATH/$FORMULA_ID.log")
 
     # write list of packages that had been built
     "$NORMDIR/norm" -p "$NORMTEST_PREFIX" list 2>&1 | tee -a "$LOGPATH/$FORMULA_ID.log"
