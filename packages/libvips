@@ -1,0 +1,16 @@
+#!/bin/bash
+
+depends_on glib     ## uses gobject-introspection
+depends_on libexpat ## what for?
+
+## image formats
+depends_on libpng
+depends_on libjpeg
+depends_on libheif
+depends_on libtiff
+depends_on libwebp
+depends_on libexif
+
+fetch_source https://github.com/libvips/libvips/releases/download/v8.8.0-rc3/vips-8.8.0-rc3.tar.gz 4fd729ae09d01679905fb979552e41212904cb1d
+
+do_unpack_compile
