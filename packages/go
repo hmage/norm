@@ -1,0 +1,42 @@
+#!/bin/bash
+
+## TODO: wants /etc/services
+if ! is_without tests; then
+    [[ ! -e /etc/services ]] && log "Go requires /etc/services to successfully test" && false
+    if ! grep -q '^smtp\b' /etc/services; then
+        log "Go requires smtp entry in /etc/services to successfully test"
+        false
+    fi
+fi
+
+fetch_source https://github.com/golang/go/archive/4d5426a570c2820c5894a61b52e3dc147e4e7925.tar.gz 77c3f7041d5e96160ec30a1e8ac0edde1ae02997
+
+do_unpack
+pushd_src
+cd src
+GOROOT_FINAL="$PREFIX/go-bootstrap" GOBIN="$SRCDIR/bin" GO_LDFLAGS="-L $PREFIX/lib" GO_CCFLAGS="-I $PREFIX/include" ./make.bash --no-banner
+cd ..
+mkdir -p "$PREFIX/go-bootstrap"
+cp -a bin pkg src "$PREFIX/go-bootstrap"
+popd_src
+
+fetch_source https://dl.google.com/go/go1.12.5.src.tar.gz a0acaea1a412d28b98e86f00900957eb199caf8d
+do_unpack
+pushd_src
+cd src
+CMD=./make.bash
+if [[ $OSTYPE != *darwin* ]]; then
+    ! is_without tests && CMD=./all.bash
+else
+    is_with tests && CMD=./all.bash
+fi
+GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap" GOROOT_FINAL="$PREFIX/go" GO_LDFLAGS="-L $PREFIX/lib" $CMD --no-banner
+cd ..
+rm -rf "$PREFIX/go"
+mkdir -p "$PREFIX/go"
+cp -pr "$SRCDIR"/* "$PREFIX/go"
+mkdir -p "$PREFIX/bin"
+ln -fs ../go/bin/go "$PREFIX/bin/go"
+ln -fs ../go/bin/gofmt "$PREFIX/bin/gofmt"
+popd_src
+rm -rf "$PREFIX/go-bootstrap"
