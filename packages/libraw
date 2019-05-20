@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://www.libraw.org/data/LibRaw-0.19.2.tar.gz c78b11b440a34aabfe6b35b8c5c510c19e37995b
+
+do_unpack_compile
