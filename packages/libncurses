@@ -7,4 +7,5 @@ CONFFLAGS=(
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
+do_unpack_compile "${CONFFLAGS[@]}" --enable-widec ## python will opportunistically link with libncursesw, if it finds one linkable in the system
 
