@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://www.littlecms.com/lcms2-2.9.tar.gz 60bea9875e017dd1c466e988c2ad98f8766e4e55
+
+do_unpack_compile
