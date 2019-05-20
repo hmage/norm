@@ -1,0 +1,10 @@
+#!/bin/bash
+
+fetch_source http://etallen.com/cpuid/cpuid-20180519.src.tar.gz f1800cf2bc617fd014ac25ee4d913b154bc2570a
+
+do_unpack
+pushd_src
+do_make
+install -D -s -m 755 cpuid        "$PREFIX"/bin/cpuid
+install -D    -m 444 cpuid.man.gz "$PREFIX"/share/man/man1/cpuid.man.gz
+popd_src
