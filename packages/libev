@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://dist.schmorp.de/libev/Attic/libev-4.25.tar.gz f78a1338a0b975fb396b0b6558709211b6ccd794
+
+do_unpack_compile
