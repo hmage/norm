@@ -1,11 +1,16 @@
 #!/bin/bash
 
-## imagemagick is useless without common formats, even if they're optional
-depends_on libjpeg
-depends_on libpng
+depends_on libjpeg libpng ## otherwise it's useless
+depends_on libwebp        ## otherwise it can only decode webp, but not encode
+depends_on libheif        ## very much needed if you need to handle iphone-made photos
+depends_on libtiff
 
 ## colourspace management was less useful before, but now every photo taken by modern smartphone is not in default colourspace
 depends_on liblcms2
+
+## opportunistic linking
+depends_on libxml2
+depends_on xz ## for liblzma
 
 fetch_source https://downloads.sourceforge.net/graphicsmagick/graphicsmagick/1.3.30/GraphicsMagick-1.3.30.tar.xz e9b1f6b84739eef3e112d4905e3d72b1e6983abd
 
