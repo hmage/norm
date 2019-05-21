@@ -65,6 +65,7 @@ sub eachFile {
     return if ($fullpath =~ m"/mysql-test/");
     return if ($fullpath =~ m"/tmp/compile/");
     return if ($fullpath =~ m"/go/pkg/obj/go-build/");
+    return if ($fullpath =~ m"/testdata/");
     push (@files, $fullpath);
 }
 
