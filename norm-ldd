@@ -98,7 +98,7 @@ foreach my $arg (@files) {
 	next if /^[\t]\/lib\/ld-linux\.so\.2/;
 	next if /^[\t]\/lib\/ld-linux-aarch64\.so\.1/;
 	next if /^[\t]\/lib\/ld-musl-x86_64\.so\.1/;
-	next if /^[\t]\/usr\/lib\/lib(System\.B|iconv\.2|c\+\+\.1)\.dylib/;
+	next if /^[\t]\/usr\/lib\/lib(System\.B|iconv\.2|c\+\+\.1|bz2\.1\.0|expat\.1)\.dylib/;
 	next if /^[\t]\/usr\/lib\/lib(resolv\.9|gcc_s\.1|objc\.A|charset\.1|curl\.4)\.dylib/;
 	next if /^[\t]\/System\/Library\/Frameworks\/(Carbon|Foundation|CoreFoundation|CoreServices|Security)\.framework\//;
 	next if /^[\t]\/System\/Library\/Frameworks\/(ApplicationServices|SystemConfiguration|AppKit)\.framework\//;
