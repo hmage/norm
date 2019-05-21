@@ -64,6 +64,7 @@ sub eachFile {
     return if ($fullpath =~ m"/var/cache/");
     return if ($fullpath =~ m"/mysql-test/");
     return if ($fullpath =~ m"/tmp/compile/");
+    return if ($fullpath =~ m"/go/pkg/obj/go-build/");
     push (@files, $fullpath);
 }
 
@@ -98,7 +99,7 @@ foreach my $arg (@files) {
 	next if /^[\t]\/lib\/ld-linux-aarch64\.so\.1/;
 	next if /^[\t]\/lib\/ld-musl-x86_64\.so\.1/;
 	next if /^[\t]\/usr\/lib\/lib(System\.B|iconv\.2|c\+\+\.1)\.dylib/;
-	next if /^[\t]\/usr\/lib\/lib(resolv\.9|gcc_s\.1|objc\.A)\.dylib/;
+	next if /^[\t]\/usr\/lib\/lib(resolv\.9|gcc_s\.1|objc\.A|charset\.1|curl\.4)\.dylib/;
 	next if /^[\t]\/System\/Library\/Frameworks\/(Carbon|Foundation|CoreFoundation|CoreServices|Security)\.framework\//;
 	next if /^[\t]\/System\/Library\/Frameworks\/(ApplicationServices|SystemConfiguration|AppKit)\.framework\//;
 	next if /^[\t]\/System\/Library\/Frameworks\/(CoreGraphics|IOKit|CoreVideo|CoreMedia)\.framework\//;
@@ -109,7 +110,7 @@ foreach my $arg (@files) {
 	next if /^[\t](\/usr)?\/lib64\/ld-linux-x86-64\.so\.2/;
 	next if /^[\t]\/lib\/ld-linux-armhf\.so\.3/;
 	next if /^[\t]ldd\b/;
-	next if /^[\t]\@rpath\//;
+#	next if /^[\t]\@rpath\//;
 	next if m|^[\t]/usr/lib/arm-linux-gnueabihf/libarmmem\.so|;
 	$filtered_output .= $_ . "\n";
     }
