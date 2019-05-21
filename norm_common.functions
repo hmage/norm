@@ -32,6 +32,7 @@ do_cmake() {
     log "Configuring $FORMULA $@"
     cmake "$SRCDIR" -DCMAKE_INSTALL_PREFIX=$ESCAPED_PREFIX \
                     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+                    -DCMAKE_INSTALL_NAME_DIR=$ESCAPED_PREFIX/lib \
                     "$@" || return 1
     local ELAPSED="$(($SECONDS - $STARTTIME))"
     log "Configuring $FORMULA took $ELAPSED seconds"
