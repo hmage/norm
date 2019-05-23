@@ -2,4 +2,21 @@
 
 fetch_source ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz 280c265b789e041c02e5c97815793dfc283fb1e6
 
-do_unpack_compile
+do_unpack
+## fix up https://github.com/libffi/libffi/issues/55 and https://github.com/libffi/libffi/issues/127
+sed -i.bak 's|includesdir = $(libdir)/@PACKAGE_NAME@-@PACKAGE_VERSION@/include|includesdir = $(includedir)|' "$SRCDIR/include/Makefile.in"
+sed -i.bak 's|includedir=${libdir}/@PACKAGE_NAME@-@PACKAGE_VERSION@/include|includedir=@includedir@|' "$SRCDIR/libffi.pc.in"
+do_patch_inline -p0 << "EOF"
+--- configure
++++ configure
+@@ -18716,7 +18716,7 @@
+ 
+ # These variables are only ever used when we cross-build to X86_WIN32.
+ # And we only support this with GCC, so...
+-if test "x$GCC" = "xyes"; then
++if false; then
+   if test -n "$with_cross_host" &&
+      test x"$with_cross_host" != x"no"; then
+     toolexecdir="${exec_prefix}"/'$(target_alias)'
+EOF
+do_compile
