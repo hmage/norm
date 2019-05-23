@@ -1,5 +1,25 @@
 #!/bin/bash
 
+## cmake uses bundled (outdated) copies of the libraries below, but on osx these libraries are guaranteed to exist
+if [[ $OSTYPE != *darwin* ]]; then
+	depends_on curl
+	depends_on libexpat
+	depends_on zlib
+	depends_on bzip2
+fi
+
+depends_on xz ## cmake also uses bundled (outdated) copy of liblzma, and osx doesn't provide include headers
+
 fetch_source https://cmake.org/files/v3.13/cmake-3.13.4.tar.gz 242ac4986ab38ddb06c7bfb7eb950e4c1b1ca770
 
-do_unpack_compile -- -DBUILD_CursesDialog=OFF
+CONFFLAGS=(
+--system-curl
+--system-expat
+--system-zlib
+--system-bzip2
+--system-liblzma
+--
+-DBUILD_CursesDialog=OFF ## opportunistic linking, but nobody uses ccmake (open a github issue if you do)
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
