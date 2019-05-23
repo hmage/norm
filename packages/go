@@ -30,6 +30,7 @@ if [[ $OSTYPE != *darwin* ]]; then
 else
     is_with tests && CMD=./all.bash
 fi
+PROMPT_COMMAND="" PROMPT_TITLE="" \
 GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap" GOROOT_FINAL="$PREFIX/go" GO_LDFLAGS="-L $PREFIX/lib" $CMD --no-banner
 cd ..
 rm -rf "$PREFIX/go"
