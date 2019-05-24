@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on zlib ## opportunistic linking
+[[ $OSTYPE != *darwin* ]] && depends_on zlib ## opportunistic linking, but on osx it's always there, so no need to build it
 depends_on xz   ## opportunistic linking with liblzma
 
 fetch_source http://xmlsoft.org/sources/libxml2-2.9.9.tar.gz 96686d1dd9fddf3b35a28b1e2e4bbacac889add3
