@@ -2,7 +2,7 @@
 
 depends_on pkg-config ## won't find libtasn1 without it
 depends_on libtasn1
-depends_on libffi
+depends_on libffi ## while osx provides libffi, it is very old, lacks libffi_closure_alloc()
 
 fetch_source https://github.com/p11-glue/p11-kit/releases/download/0.23.15/p11-kit-0.23.15.tar.gz 06a9976d92861e5286fbb0b239821b7a250b177b
 
