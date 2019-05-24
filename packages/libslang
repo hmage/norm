@@ -1,6 +1,7 @@
 #!/bin/bash
 
-depends_on zlib ## opportunistic linking
+## on osx, zlib is guaranteed to be provided by the system
+[[ $OSTYPE != *darwin* ]] && depends_on zlib ## opportunistic linking
 
 fetch_source http://www.jedsoft.org/releases/slang/slang-2.3.2.tar.bz2 bbf7f2dcc14e7c7fca40868fd4b411a2bd9e2655
 
