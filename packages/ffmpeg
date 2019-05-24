@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on zlib ## opportunistic linking
+[[ $OSTYPE != *darwin* ]] && depends_on zlib ## opportunistic linking
 depends_on xz   ## opportunistic linking
 depends_on nasm
 depends_on x264
