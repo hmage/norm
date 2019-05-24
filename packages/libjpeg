@@ -1,6 +1,7 @@
 #!/bin/bash
 
 depends_on nasm ## system-provided nasm can be too old
+needs_tool cmake ## libjpeg-turbo 1.5.3 was last version to use autotools
 
 fetch_source https://downloads.sourceforge.net/libjpeg-turbo/2.0.2/libjpeg-turbo-2.0.2.tar.gz 1cff52d50b81755d0bdcf9055eb22157f39a1695
 
