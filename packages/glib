@@ -4,10 +4,13 @@ needs_tool autoconf
 depends_on automake ## system-provided automake might not have libtool definitions
 depends_on pkg-config
 depends_on libtool
-depends_on libffi
 depends_on gettext
-depends_on libpcre
-depends_on zlib
+depends_on libpcre ## system-provided pcre might not support unicode (that's the case on osx), so always bring our own
+## these formulas are not needed on osx -- they are guaranteed to be present in the system
+if [[ $OSTYPE != *darwin* ]]; then
+	depends_on libffi
+	depends_on zlib
+fi
 [[ $OSTYPE == *linux* ]] && depends_on libmount ## glib needs it only on linux, and libmount compiles only on linux
 needs_tool python # bin/gdbus-codegen is in python, needed by libgtk3
 
@@ -16,11 +19,17 @@ fetch_source https://ftp.gnome.org/pub/gnome/sources/glib/2.58/glib-2.58.2.tar.x
 
 do_unpack
 pushd_src
-./autogen.sh
+NOCONFIGURE=1 ./autogen.sh
 popd_src
 
 CONFFLAGS=(
 --disable-libelf ## opportunistic linking with libelf for gresource tool, still works without it
 )
+
+## these flags are needed to tell where the system libffi is located on darwin
+if [[ $OSTYPE == *darwin* ]]; then
+	SDKPATH=$(xcrun --show-sdk-path)
+	CONFFLAGS+=(LIBFFI_CFLAGS="-I$SDKPATH/usr/include/ffi" LIBFFI_LIBS="-L$SDKPATH/usr/lib -lffi")
+fi
 
 do_compile "${CONFFLAGS[@]}"
