@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on zlib ## without it, `pkg-config --libs libpng` will fail because it won't find zlib
+[[ $OSTYPE != *darwin* ]] && depends_on zlib ## on osx, zlib is guaranteed to be provided by the system
 
 fetch_source http://prdownloads.sourceforge.net/libpng/libpng-1.6.36.tar.xz aec9548c8319104226cc4c31d1f5e524f1b55295
 
