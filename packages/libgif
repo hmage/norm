@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## 5.1.4 is last version that used autoconf, newer versions don't support osx
+fetch_source https://downloads.sourceforge.net/giflib/giflib-5.1.4.tar.bz2 5f1157cfc377916280849e247b8e34fa0446513f
+fetch_debian http://deb.debian.org/debian/pool/main/g/giflib/giflib_5.1.4-0.4.debian.tar.xz d0b81b5d5eb13b706ec1e021b3eb85cc05efce10
+
+do_undebian_compile
