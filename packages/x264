@@ -4,4 +4,10 @@ depends_on nasm ## steep version requirement, so bring our own (wants 2.13 while
 
 fetch_source http://ftp.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-20190409-2245-stable.tar.bz2 189e100bc0b081bedba3adcd281d54eece92d08e
 
-do_unpack_compile --enable-static
+CONFFLAGS=(
+--enable-static   ## otherwise system-provided libx264.a might end up used instead of ours
+--disable-swscale ## opportunistic linking with libswscale
+--disable-lavf    ## opportunistic linking iwth libavformat
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
