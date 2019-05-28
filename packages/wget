@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on pkg-config ## otherwise it won't find openssl
 depends_on openssl
 depends_on zlib    ## opportunistic linking
 depends_on libuuid ## opportunistic linking
