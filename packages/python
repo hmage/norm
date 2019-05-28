@@ -1,7 +1,7 @@
 #!/bin/bash
 
-depends_on zlib ## opportunistic linking
-depends_on libncurses ## opportunistic linking, no way to disable, provides curses python module
+[[ $OSTYPE != *darwin* ]] && depends_on zlib ## opportunistic linking
+[[ $OSTYPE != *darwin* ]] && depends_on libncurses ## opportunistic linking, no way to disable, provides curses python module
 
 fetch_source https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tar.xz f99348a095ec4a6411c84c0d15343d11920c9724
 
