@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on libncurses
+[[ $OSTYPE != *darwin* ]] && depends_on libncurses ## on osx it's always there, so no need to build it
 
 fetch_source http://thrysoee.dk/editline/libedit-20180525-3.1.tar.gz cf6eb4f32c0336f0f3de68afbcdbeaa4d70b42b6
 
