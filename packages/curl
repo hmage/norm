@@ -17,6 +17,7 @@ fetch_source http://curl.mirror.anstey.ca/curl-7.64.0.tar.gz 5911d4400e988ae5236
 
 CONFFLAGS=(
 "--with-ca-bundle=$PREFIX/etc/ssl/cert.pem"
+--disable-ldap ## curl is usually a web fetcher, if you need ldap, open an issue
 )
 
-do_unpack_compile "${CONFIGURE[@]}"
+do_unpack_compile "${CONFFLAGS[@]}"
