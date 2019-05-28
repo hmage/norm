@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on pkg-config ## configure doesn't require but libheif build fails without it
 depends_on libde265 ## otherwise libheif can't read images
 depends_on x265     ## otherwise libheif can't save images
 
