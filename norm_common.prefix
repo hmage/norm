@@ -58,6 +58,7 @@ setup_prefix() {
     [ ! -e "$PREFIX/man" ] && ln -s share/man $PREFIX/man || true
     [ ! -e "$PREFIX/include" ] && mkdir -p "$PREFIX/include" || true
     [ ! -e "$PREFIX/lib" ] && mkdir -p "$PREFIX/lib" || true
+    [ ! -e "$PREFIX/lib64" ] && ln -s lib "$PREFIX/lib64" || true ## some packages insist on installing into lib64 when on 64-bit OS
     [ ! -e "$PREFIX/share/config.site" ] && generate_config_site || true
 }
 
