@@ -1,0 +1,8 @@
+#!/bin/bash
+
+needs_tool cmake
+
+fetch_source http://www.ece.uvic.ca/~frodo/jasper/software/jasper-2.0.14.tar.gz 32c959d883fdb661c32afd76c94b206638972cb1
+
+do_unpack
+do_compile_outside -DJAS_ENABLE_DOC=OFF
