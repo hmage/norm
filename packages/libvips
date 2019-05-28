@@ -11,6 +11,9 @@ depends_on libtiff
 depends_on libwebp
 depends_on libexif
 
+## opportunistic linking
+depends_on liblcms2
+
 fetch_source https://github.com/libvips/libvips/releases/download/v8.8.0/vips-8.8.0.tar.gz 4fd729ae09d01679905fb979552e41212904cb1d
 
 do_unpack_compile
