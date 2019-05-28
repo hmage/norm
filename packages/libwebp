@@ -3,6 +3,8 @@
 depends_on libjpeg ## otherwise cwebp and dwebp can't handle jpeg as in/out
 depends_on libpng  ## otherwise cwebp and dwebp can't handle png as in/out
 
+depends_on libtiff ## opportunistic linking
+
 fetch_source http://downloads.webmproject.org/releases/webp/libwebp-1.0.2.tar.gz 7cdff7beabc073ab0c5ecf888c326722e2f5688e
 
 CONFFLAGS=(
