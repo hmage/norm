@@ -99,20 +99,28 @@ foreach my $arg (@files) {
 	next if /^[\t]\/lib\/ld-linux\.so\.2/;
 	next if /^[\t]\/lib\/ld-linux-aarch64\.so\.1/;
 	next if /^[\t]\/lib\/ld-musl-x86_64\.so\.1/;
-	next if /^[\t]\/usr\/lib\/lib(System\.B|iconv\.2|c\+\+\.1|bz2\.1\.0|expat\.1)\.dylib/;
-	next if /^[\t]\/usr\/lib\/lib(resolv\.9|gcc_s\.1|objc\.A|charset\.1|curl\.4)\.dylib/;
-	next if /^[\t]\/System\/Library\/Frameworks\/(Carbon|Foundation|CoreFoundation|CoreServices|Security)\.framework\//;
-	next if /^[\t]\/System\/Library\/Frameworks\/(ApplicationServices|SystemConfiguration|AppKit)\.framework\//;
-	next if /^[\t]\/System\/Library\/Frameworks\/(CoreGraphics|IOKit|CoreVideo|CoreMedia)\.framework\//;
-	next if /^[\t]\/System\/Library\/Frameworks\/(AudioToolbox|VideoToolbox|AVFoundation|Accelerate|OpenCL)\.framework\//;
-	next if /^[\t]\/System\/Library\/Frameworks\/(VideoDecodeAcceleration|OpenGL|CoreImage|CoreAudio)\.framework\//;
-	next if /^[\t]\/System\/Library\/Frameworks\/(ForceFeedback|Python|CoreText|JavaScriptCore|LDAP)\.framework\//;
-	next if /^[\t]\/System\/Library\/Frameworks\/(Cocoa|Tcl|Tk|Metal)\.framework\//;
 	next if /^[\t](\/usr)?\/lib64\/ld-linux-x86-64\.so\.2/;
 	next if /^[\t]\/lib\/ld-linux-armhf\.so\.3/;
 	next if /^[\t]ldd\b/;
-#	next if /^[\t]\@rpath\//;
 	next if m|^[\t]/usr/lib/arm-linux-gnueabihf/libarmmem\.so|;
+	## osx first-party frameworks (core)
+	next if m[^[\t]/System/Library/Frameworks/Core(Foundation|Services|Graphics|Audio|Video|Media|Image).framework/];
+	## osx first-party frameworks (kits)
+	next if m[^[\t]/System/Library/Frameworks/(IOKit|AppKit).framework/];
+	## osx first-party frameworks (toolbox)
+	next if m[^[\t]/System/Library/Frameworks/(Audio|Video)Toolbox.framework/];
+	## osx first-party frameworks (base)
+	next if m[^[\t]/System/Library/Frameworks/(Cocoa|Carbon|Security|Foundation).framework/];
+	## osx first-party frameworks (multimedia)
+	next if m[^[\t]/System/Library/Frameworks/(Metal|OpenGL|AVFoundation|ForceFeedback).framework/];
+	## osx first-party frameworks
+	next if m[^[\t]/System/Library/Frameworks/(LDAP|ApplicationServices|SystemConfiguration).framework/];
+	## osx third-party frameworks
+	next if m[^[\t]/System/Library/Frameworks/(Tk|Tcl).framework/];
+	## osx first-party libraries
+	next if m[^[\t]/usr/lib/lib(System\.B|objc.A|resolv\.9|charset\.1|c\+\+\.1)\.dylib];
+	## osx third-party system libraries
+	next if m[^[\t]/usr/lib/lib(iconv\.2|xml2\.2|z\.1|curl\.4|expat\.1|lzma\.5|bz2\.1\.0|ffi|edit\.3|ncurses\.5\.4)\.dylib];
 	$filtered_output .= $_ . "\n";
     }
     if (length $filtered_output) {
