@@ -9,6 +9,8 @@ depends_on openssl ## otherwise it won't download over https
 
 ## opportunistic linking
 depends_on libnghttp2
+depends_on libidn2
+depends_on libpsl
 
 ## do not download it over https because system-provided curl might not be able to download over https
 fetch_source http://curl.mirror.anstey.ca/curl-7.64.0.tar.gz 5911d4400e988ae52368f2266a5f84378983dbde
