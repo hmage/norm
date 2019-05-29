@@ -116,7 +116,7 @@ foreach my $arg (@files) {
 	## osx first-party frameworks
 	next if m[^[\t]/System/Library/Frameworks/(LDAP|ApplicationServices|SystemConfiguration).framework/];
 	## osx third-party frameworks
-	next if m[^[\t]/System/Library/Frameworks/(Tk|Tcl).framework/];
+	next if m[^[\t]/System/Library/Frameworks/(Tk|Tcl|GLUT).framework/];
 	## osx first-party libraries
 	next if m[^[\t]/usr/lib/lib(System\.B|objc.A|resolv\.9|charset\.1|c\+\+\.1)\.dylib];
 	## osx third-party system libraries
