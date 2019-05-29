@@ -5,9 +5,13 @@ depends_on libwebp        ## otherwise it can only decode webp, but not encode
 depends_on libheif        ## very much needed if you need to handle iphone-made photos
 
 ## opportunistic linking
-depends_on bzip2
 depends_on xz
-depends_on libxml
+
+## opportunistic linking with libraries that guaranteed to exist on osx
+if [[ $OSTYPE != *darwin* ]]; then
+	depends_on bzip2
+	depends_on libxml
+fi
 
 fetch_source https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.8-46.tar.xz d80ab6498a52033ac2c49bff6adcd6c5d6097511
 
