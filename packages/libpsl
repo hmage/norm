@@ -1,6 +1,7 @@
 #!/bin/bash
 
 depends_on libidn2
+depends_on libunistring ## error: You requested libidn2|libidn but libunistring is not installed.
 
 fetch_source https://github.com/rockdaboot/libpsl/releases/download/libpsl-0.20.2/libpsl-0.20.2.tar.gz 890376d6038652911cfa853ccfb5b993ae0743ee
 
