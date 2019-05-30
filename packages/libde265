@@ -6,4 +6,7 @@ CONFFLAGS=(
 --disable-sherlock265 ## sherlock265 is a GUI tool to analyze h265 frames, but requires QT to build
 )
 
-do_unpack_compile "${CONFFLAGS[@]}"
+do_unpack
+## fix build failure on centos 6 with gcc 4.8.2
+sed -i.bak 's/-Werror=unused-result//' "$SRCDIR"/configure
+do_compile "${CONFFLAGS[@]}"
