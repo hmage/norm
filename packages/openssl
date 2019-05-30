@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
-fetch_source ftp://ftp.openssl.org/source/openssl-1.0.2r.tar.gz b9aec1fa5cedcfa433aed37c8fe06b0ab0ce748d
+fetch_source ftp://ftp.openssl.org/source/openssl-1.0.2s.tar.gz cf43d57a21e4baf420b3628677ebf1723ed53bc1
 
 SSLCONFIG=(
 shared ## otherwise curl will fail to link on x64, since it builds with fPIC but openssl isn't
