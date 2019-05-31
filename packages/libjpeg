@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on pkg-config ## otherwise users of libjpeg won't be able to find it
 depends_on nasm ## system-provided nasm can be too old
 needs_tool cmake ## libjpeg-turbo 1.5.3 was last version to use autotools
 
