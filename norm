@@ -42,6 +42,8 @@ usage() {
     echo "    $OURNAME list                              -- list all installed formulas"
     echo "    $OURNAME ldd                               -- check for dynamic dependencies outside of prefix"
     echo "    $OURNAME sub                               -- subshell with all prefix variables set"
+    echo "    $OURNAME prefix                            -- print current prefix"
+    echo "    $OURNAME run ...                           -- execute a command with prefix compile flags set"
     echo
     echo "Common options:"
     echo "    -p <prefix> -- full path to custom prefix (default: '$DEFAULT_PREFIX')"
@@ -154,6 +156,14 @@ cmd_sub() {
     log "Creating subshell so you can compile and link against norm libs"
     setup_prefix "$PREFIX"
     $SHELL -i
+}
+
+cmd_run() {
+    log "Running $@ in a subshell with command line flags set"
+    setup_prefix "$PREFIX"
+    export CGO_LDFLAGS="$LDFLAGS"
+    export CGO_CPPFLAGS="$CPPFLAGS"
+    "$@"
 }
 
 cmd_ldd() {
