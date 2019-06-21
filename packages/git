@@ -6,7 +6,11 @@
 fetch_source https://www.kernel.org/pub/software/scm/git/git-2.21.0.tar.xz 6e798e745683d3a1d862f50bc3b4fde28479d482
 fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.21.0.tar.xz 5d4aebadde087b742889fd3db1a2014df2007d5c
 
-do_unpack_compile
+do_unpack
+pushd_src
+do_auto_configure
+do_make_and_install NO_GETTEXT=1 ## if it detects gettext headers, it assumes msgfmt tool is installed, which is not always the case
+popd_src
 
 ## install bash completion
 mkdir -p "$PREFIX/etc/bash_completion.d"
