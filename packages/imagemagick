@@ -13,6 +13,6 @@ if [[ $OSTYPE != *darwin* ]]; then
 	depends_on libxml
 fi
 
-fetch_source https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.8-46.tar.xz d80ab6498a52033ac2c49bff6adcd6c5d6097511
+fetch_source https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.8-50.tar.xz dacb49dfde9b54535416f06d60bb64789d2f5c1c
 
 do_unpack_compile
