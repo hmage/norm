@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://src.fedoraproject.org/repo/pkgs/alsa-lib/alsa-lib-1.1.1.tar.bz2/881060d2c568f7f49db82c58df2f9ddc/alsa-lib-1.1.1.tar.bz2 09f7e9b2d88287e04a4bb0d56e0cbc9018e524ec
+fetch_source ftp://ftp.alsa-project.org/pub/lib/alsa-lib-1.1.9.tar.bz2 2404e1c377428908c5188076d5652a2a1ecd028e
 
 CONFFLAGS=(
 --without-python ## opportunistic linking with libpython for python-based mixer plugins (nobody uses those, if you need it, open an issue)
