@@ -10,7 +10,7 @@ fi
 
 depends_on xz ## cmake also uses bundled (outdated) copy of liblzma, and osx doesn't provide include headers
 
-fetch_source https://cmake.org/files/v3.13/cmake-3.13.4.tar.gz 242ac4986ab38ddb06c7bfb7eb950e4c1b1ca770
+fetch_source https://cmake.org/files/v3.14/cmake-3.14.5.tar.gz a4c021c4fa91e812b87d9c88fdd047ead4201a2f
 
 CONFFLAGS=(
 --system-curl
