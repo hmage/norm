@@ -6,4 +6,18 @@ needs_tool cmake ## libjpeg-turbo 1.5.3 was last version to use autotools
 
 fetch_source https://downloads.sourceforge.net/libjpeg-turbo/2.0.2/libjpeg-turbo-2.0.2.tar.gz 1cff52d50b81755d0bdcf9055eb22157f39a1695
 
-do_unpack_compile
+do_unpack
+## some programs define JPEG_INTERNALS and fail to compile since by default it's not added by this fork of libjpeg
+do_patch_inline << "EOF"
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1400,6 +1400,7 @@
+ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/jconfig.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/jerror.h ${CMAKE_CURRENT_SOURCE_DIR}/jmorecfg.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/jpeglib.h
++  ${CMAKE_CURRENT_SOURCE_DIR}/jpegint.h
+   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ 
+ include(cmakescripts/BuildPackages.cmake)
+EOF
+do_compile
