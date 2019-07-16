@@ -1,0 +1,14 @@
+#!/bin/bash
+
+depends_on openssl
+
+do_gitclone https://github.com/giltene/wrk2
+
+## wrk2 fails to build with luajit bundled in the repo, bring new one
+fetch_file http://luajit.org/download/LuaJIT-2.0.5.tar.gz 10427215da7d424fd9e48adbea087966053cdb6f
+
+pushd_src
+tar xf "$CACHEDIR/$FILENAME" -C "deps/luajit" --strip-components 1
+do_make WITH_OPENSSL="$PREFIX" CFLAGS="-O2 -g $CPPFLAGS -I./deps/luajit/src"
+install -m755 wrk "$PREFIX/bin/wrk2"
+popd_src
