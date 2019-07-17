@@ -6,6 +6,6 @@ depends_on libtasn1
 depends_on libunistring
 depends_on libp11-kit
 
-fetch_source https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.6.tar.xz d094f3c554b40d76dac2d2d75a8a141c008dc6c4
+fetch_source https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.8.tar.xz e1243188791af409bca118d31faf3ec3d5f0a5ab
 
 do_unpack_compile
