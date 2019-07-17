@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://downloads.sourceforge.net/project/opencore-amr/fdk-aac/fdk-aac-2.0.0.tar.gz 30439757fe5bbc8bccedcc8e51668b74db7322c7
+fetch_source https://downloads.sourceforge.net/opencore-amr/fdk-aac/fdk-aac-2.0.0.tar.gz 30439757fe5bbc8bccedcc8e51668b74db7322c7
 
 do_unpack_compile
