@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://ftp.exim.org/pub/pcre/pcre-8.42.tar.bz2 df0d1c2ff04c359220cb902539a6e134af4497f4
+fetch_source http://ftp.exim.org/pub/pcre/pcre-8.43.tar.bz2 0d4585ee6426ab0db9c0c8f1c8c6da968170174d
 
 CONFFLAGS=(
 --enable-utf8 --enable-unicode-properties ## otherwise glib will refuse to build
