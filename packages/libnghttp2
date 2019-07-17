@@ -1,6 +1,6 @@
 #!/bin/bash
 
 ## needed to build https-compatible curl, so don't use https for fetching this
-fetch_source http://lil.fr.distfiles.macports.org/nghttp2/nghttp2-1.33.0.tar.xz 0a11f7de6ea8e66fbecc9fe4ddc61b6ab40af469
+fetch_source http://lil.fr.distfiles.macports.org/nghttp2/nghttp2-1.39.1.tar.xz 7f2390d1de857212f684e015540a9213372add7b
 
 do_unpack_compile
