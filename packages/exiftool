@@ -1,0 +1,10 @@
+#!/bin/bash
+
+fetch_source https://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-11.50.tar.gz 02bda5009ecd44ab4abc8a9a74bbd7447ceb58ec
+
+do_unpack
+pushd_src
+perl Makefile.PL INSTALL_BASE="$PREFIX"
+sed -i.bak "s|\$exeDir/lib|$PREFIX/lib/perl5|" exiftool
+make install
+popd_src
