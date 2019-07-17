@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/libexpat/libexpat/releases/download/R_2_2_6/expat-2.2.6.tar.bz2 c8947fc3119a797b55485f2f7bdaaeb49cc9df01
+fetch_source https://github.com/libexpat/libexpat/releases/download/R_2_2_7/expat-2.2.7.tar.xz c59d6183b3edbb85e5c54a71d40ea4032986bd4a
 
 do_unpack_compile
