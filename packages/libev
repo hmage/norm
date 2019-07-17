@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://dist.schmorp.de/libev/Attic/libev-4.25.tar.gz f78a1338a0b975fb396b0b6558709211b6ccd794
+fetch_source http://dist.schmorp.de/libev/Attic/libev-4.27.tar.gz b67aff18f6f1ffec4422e188c98d9fe458c5ed0b
 
 do_unpack_compile
