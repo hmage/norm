@@ -1,6 +1,6 @@
 #!/bin/bash
 
-needs_tool cmake
+depends_on cmake ## system-provided cmake on CentOS7 is too old for this
 
 fetch_source http://www.ece.uvic.ca/~frodo/jasper/software/jasper-2.0.14.tar.gz 32c959d883fdb661c32afd76c94b206638972cb1
 
