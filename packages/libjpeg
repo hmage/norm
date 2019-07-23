@@ -20,4 +20,4 @@ do_patch_inline << "EOF"
  
  include(cmakescripts/BuildPackages.cmake)
 EOF
-do_compile
+do_compile -DWITH_JPEG8=ON
