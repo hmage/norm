@@ -25,6 +25,7 @@ popd_src
 CONFFLAGS=(
 --disable-libelf ## opportunistic linking with libelf for gresource tool, still works without it
 --disable-selinux ## opportunistic linking with libselinux, we don't expect to manipulate or switch selinux policies anyway
+--enable-static ## some programs want static version of glib
 )
 
 ## these flags are needed to tell where the system libffi is located on darwin
