@@ -22,7 +22,9 @@ export LANG=C LC_ALL=C
 ## curl availability check
 unset DOWNLOADER
 
-if hash curl 2>/dev/null; then
+if hash aria2c 2>/dev/null; then
+    DOWNLOADER=aria2c
+elif hash wget 2>/dev/null; then
     DOWNLOADER=curl
 elif hash wget 2>/dev/null; then
     DOWNLOADER=wget
