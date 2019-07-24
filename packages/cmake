@@ -22,4 +22,6 @@ CONFFLAGS=(
 -DBUILD_CursesDialog=OFF ## opportunistic linking, but nobody uses ccmake (open a github issue if you do)
 )
 
+## add -pthread otherwise it breaks on CentOS6
+LDFLAGS="$LDFLAGS -pthread" \
 do_unpack_compile "${CONFFLAGS[@]}"
