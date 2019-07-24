@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://fossies.org/linux/misc/bzip2-1.0.6.tar.gz 3f89f861209ce81a6bab1fd1998c0ef311712002
+fetch_source ftp://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz bf7badf7e248e0ecf465d33c2f5aeec774209227
 
 do_unpack
 pushd_src
