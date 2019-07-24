@@ -26,5 +26,19 @@ ln -sf ../10bit/libx265.a libx265_main10.a
 ln -sf ../12bit/libx265.a libx265_main12.a
 do_auto_configure -DEXTRA_LIB="x265_main10.a;x265_main12.a" -DEXTRA_LINK_FLAGS=-L. -DLINKED_10BIT=ON -DLINKED_12BIT=ON -DENABLE_LIBNUMA=OFF
 do_make
+mv libx265.a libx265_main8.a
+if [[ $OSTYPE == *linux* ]]; then
+    printf "create libx265.a\naddlib libx265_main8.a\naddlib libx265_main10.a\naddlib libx265_main12.a\nsave\nend\n" | ar -M
+elif [[ $OSTYPE == *darwin* ]]; then
+    /usr/bin/libtool -static -o libx265.a libx265_main8.a libx265_main10.a libx265_main12.a
+else
+    for i in libx265_main*.a; do
+	mkdir -p "${i%.*}"
+	cd "${i%.*}"
+	ar -x ../"$i"
+	cd ..
+    done
+    ar crD libx265.a libx265_main*/*.o
+fi
 do_install
 popd_src
