@@ -1,0 +1,8 @@
+language: minimal
+
+cache:
+  directories:
+    - testlogs/
+
+script:
+  - ./norm testall
