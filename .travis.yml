@@ -1,8 +1,110 @@
 language: minimal
 
+env:
+ - FORMULA=aria2
+ - FORMULA=autoconf
+ - FORMULA=automake
+ - FORMULA=bash-completion
+ - FORMULA=bison
+ - FORMULA=bzip2
+ - FORMULA=cmake
+ - FORMULA=cpuid
+ - FORMULA=curl
+ - FORMULA=exiftool
+ - FORMULA=ffmpeg
+ - FORMULA=file
+ - FORMULA=flac
+ - FORMULA=fswatch
+ - FORMULA=gcc
+ - FORMULA=gcc-9.1
+ - FORMULA=gettext
+ - FORMULA=git
+ - FORMULA=glib
+ - FORMULA=go
+ - FORMULA=graphicsmagick
+ - FORMULA=graphviz
+ - FORMULA=imagemagick
+ - FORMULA=jq
+ - FORMULA=knot
+ - FORMULA=lepton
+ - FORMULA=libasound
+ - FORMULA=libde265
+ - FORMULA=libedit
+ - FORMULA=libev
+ - FORMULA=libexif
+ - FORMULA=libexpat
+ - FORMULA=libfdk-aac
+ - FORMULA=libffi
+ - FORMULA=libgif
+ - FORMULA=libgmp
+ - FORMULA=libgnutls
+ - FORMULA=libheif
+ - FORMULA=libicu
+ - FORMULA=libidn
+ - FORMULA=libidn2
+ - FORMULA=libisl
+ - FORMULA=libjasper
+ - FORMULA=libjbig
+ - FORMULA=libjpeg
+ - FORMULA=liblcms2
+ - FORMULA=libmount
+ - FORMULA=libmpc
+ - FORMULA=libmpfr
+ - FORMULA=libncurses
+ - FORMULA=libnettle
+ - FORMULA=libnghttp2
+ - FORMULA=libogg
+ - FORMULA=libonig
+ - FORMULA=libp11-kit
+ - FORMULA=libpcre
+ - FORMULA=libpng
+ - FORMULA=libpsl
+ - FORMULA=libraw
+ - FORMULA=libreadline
+ - FORMULA=librhash
+ - FORMULA=libsdl2
+ - FORMULA=libslang
+ - FORMULA=libtasn1
+ - FORMULA=libtiff
+ - FORMULA=libtool
+ - FORMULA=libunistring
+ - FORMULA=liburcu
+ - FORMULA=libuuid
+ - FORMULA=libvips
+ - FORMULA=libwebp
+ - FORMULA=libxml
+ - FORMULA=m4
+ - FORMULA=mc
+ - FORMULA=mediainfo
+ - FORMULA=moreutils
+ - FORMULA=nasm
+ - FORMULA=node
+ - FORMULA=openssh
+ - FORMULA=openssl
+ - FORMULA=patchutils
+ - FORMULA=pixman
+ - FORMULA=pkg-config
+ - FORMULA=python
+ - FORMULA=qemu
+ - FORMULA=report.html
+ - FORMULA=rsync
+ - FORMULA=squashfs-tools
+ - FORMULA=tarantool
+ - FORMULA=util-linux
+ - FORMULA=valgrind
+ - FORMULA=wget
+ - FORMULA=wrk
+ - FORMULA=wrk2
+ - FORMULA=x264
+ - FORMULA=x265
+ - FORMULA=xz
+ - FORMULA=zlib
+ - FORMULA=zstd
+ - FORMULA=zzuf
+
 cache:
   directories:
     - testlogs/
 
 script:
-  - ./norm testall
+  - ./norm testall $FORMULA
