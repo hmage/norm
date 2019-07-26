@@ -20,9 +20,14 @@ popd_src() {
 
 do_configure() {
     local STARTTIME="$SECONDS"
-    fgrep -q disable-silent-rules "$SRCDIR/configure" && set -- "$@" --disable-silent-rules ## easier to debug build failures when logs show entire invocation flags
+    [[ -z "$QUIET" ]] && fgrep -q disable-silent-rules "$SRCDIR/configure" && set -- "$@" --disable-silent-rules ## easier to debug build failures when logs show entire invocation flags
+    [[ -n "$QUIET" ]] && fgrep -q enable-silent-rules "$SRCDIR/configure" && set -- "$@" --enable-silent-rules ## easier to debug build failures when logs show entire invocation flags
     log "Configuring $FORMULA --prefix=\"$PREFIX\" $@"
-    "$SRCDIR"/configure --prefix="$PREFIX" "$@" || return 1
+    if [[ -n "$QUIET" ]]; then
+        "$SRCDIR"/configure --prefix="$PREFIX" "$@" >normconfig.log 2>&1 || (cat normconfig.log; return 1)
+    else
+        "$SRCDIR"/configure --prefix="$PREFIX" "$@" || return 1
+    fi
     local ELAPSED="$(($SECONDS - $STARTTIME))"
     log "Configuring $FORMULA took $ELAPSED seconds"
 }
@@ -54,8 +59,12 @@ do_make() {
     log "Making $FORMULA $@"
     local PARALLEL="-j$NUMJOBS"
     [ "$NOPARALLEL" = "1" ] && PARALLEL=
-    [ "$NEEDV1" = "1" ] && set V=1 "$@"
-    make $PARALLEL "$@" || return 1
+    if [[ -n "$QUIET" ]]; then
+        make $PARALLEL "$@" >normbuild.log 2>&1 || (cat normbuild.log && return 1)
+    else
+        [ "$NEEDV1" = "1" ] && set V=1 "$@"
+        make $PARALLEL "$@" || return 1
+    fi
     local ELAPSED="$(($SECONDS - $STARTTIME))"
     log "Making $FORMULA took $ELAPSED seconds"
 }
@@ -63,7 +72,11 @@ do_make() {
 do_install() {
     local STARTTIME="$SECONDS"
     log "Installing $FORMULA $@"
-    make install "$@" || return 1
+    if [[ -n "$QUIET" ]]; then
+        make install "$@" >norminstall.log 2>&1 || (cat norminstall.log && return 1)
+    else
+        make install "$@" || return 1
+    fi
     local ELAPSED="$(($SECONDS - $STARTTIME))"
     log "Installing $FORMULA took $ELAPSED seconds"
 }

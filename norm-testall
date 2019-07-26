@@ -25,6 +25,8 @@ while [ $# -gt 0 ]; do
     shift
 done
 
+[[ -n "$TRAVIS" ]] && EXTRAFLAGS+=("-q")
+
 ##
 ## set up variables
 NORMTEST_PREFIX="$HOME/norm.test.$MACHINEID"
@@ -136,7 +138,11 @@ for FORMULA_NAME in "${LIST[@]}"; do
     unset FAILURE
 
     # do it
-    "$NORMDIR/norm" -p "$NORMTEST_PREFIX" install ${EXTRAFLAGS[@]} "$FORMULA_NAME" 2>&1 | tee "$LOGPATH/$FORMULA_ID.log"
+    TRAVISWAIT=
+    if [[ -n $TRAVIS ]]; then
+        TRAVISWAIT=travis_wait
+    fi
+    $TRAVISWAIT "$NORMDIR/norm" -p "$NORMTEST_PREFIX" install ${EXTRAFLAGS[@]} "$FORMULA_NAME" 2>&1 | tee "$LOGPATH/$FORMULA_ID.log"
     BUILDSTATUS="${PIPESTATUS[0]}"
     [ $BUILDSTATUS != 0 ] && FAILURE=1
 

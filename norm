@@ -87,12 +87,14 @@ cmd_install() {
     ## parse arguments
     local force
     norm_keep_sources=
+    QUIET=
     while [ $# -gt 0 ]; do
         case "$1" in
         --with-*)    set_with    "${1#--with-}" ;;
         --without-*) set_without "${1#--without-}" ;;
         -f|--force)  readonly force=-f ;;
         -k|--keep|--keep-sources) readonly norm_keep_sources=1;;
+        -q) QUIET=-q ;;
         (--) shift; break;;
         (-*) echo "$0: error -- unregoznied option $1" 1>&2; exit 64;;
         (*) break;;
