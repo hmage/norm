@@ -138,11 +138,7 @@ for FORMULA_NAME in "${LIST[@]}"; do
     unset FAILURE
 
     # do it
-    TRAVISWAIT=
-    if [[ -n $TRAVIS ]]; then
-        TRAVISWAIT=travis_wait
-    fi
-    $TRAVISWAIT "$NORMDIR/norm" -p "$NORMTEST_PREFIX" install ${EXTRAFLAGS[@]} "$FORMULA_NAME" 2>&1 | tee "$LOGPATH/$FORMULA_ID.log"
+    "$NORMDIR/norm" -p "$NORMTEST_PREFIX" install ${EXTRAFLAGS[@]} "$FORMULA_NAME" 2>&1 | tee "$LOGPATH/$FORMULA_ID.log"
     BUILDSTATUS="${PIPESTATUS[0]}"
     [ $BUILDSTATUS != 0 ] && FAILURE=1
 
