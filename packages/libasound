@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source ftp://ftp.alsa-project.org/pub/lib/alsa-lib-1.1.9.tar.bz2 2404e1c377428908c5188076d5652a2a1ecd028e
+fetch_source https://www.alsa-project.org/files/pub/lib/alsa-lib-1.1.9.tar.bz2 2404e1c377428908c5188076d5652a2a1ecd028e
 
 CONFFLAGS=(
 --without-python ## opportunistic linking with libpython for python-based mixer plugins (nobody uses those, if you need it, open an issue)
