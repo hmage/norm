@@ -89,6 +89,7 @@ env:
  - FORMULA=qemu
  - FORMULA=report.html
  - FORMULA=rsync
+ - FORMULA=sqlite3
  - FORMULA=squashfs-tools
  - FORMULA=tarantool
  - FORMULA=util-linux

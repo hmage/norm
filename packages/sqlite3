@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://www.sqlite.org/2019/sqlite-autoconf-3290000.tar.gz 053d8237eb9741b0e297073810668c2611a8e38e
+
+do_unpack_compile
