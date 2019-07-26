@@ -36,10 +36,10 @@ prefix="$1"
 ## matchr is a bash hack to make quote regular expressions with spaces work as intended
 ## this will not be treated as regular expression: [[ $line =~ "a*b c" ]] 
 matchr() {
-    [[ $line =~ $1 ]]
+    [[ $1 =~ $2 ]]
     EXITCODE=$?
     if [[ $EXITCODE == "2" ]]; then
-        echo "Invalid regex syntax: $1"
+        echo "Invalid regex syntax: $2"
         exit 2
     fi
     return $EXITCODE
@@ -108,37 +108,37 @@ for file in "${files[@]}"; do
         [[ $line == *"$prefix"* ]] && continue
         [[ $line == *"not a dynamic executable"* ]] && continue
         [[ $line == *"statically linked"* ]] && continue
-        matchr "fatal error: [^ ]+/otool: internal objdump command failed" && continue
-        matchr "^[\t]linux-\(gate|vdso\)\.so\.1 \(=>  \)?\(" && continue
-        matchr "^[\t]lib\(c|m|dl|rt|pthread|resolv|crypt|util|nsl|mvec\)\.so" && continue
-        matchr "^[\t]libc.musl-x86_64\.so" && continue
-        matchr "^[\t]lib\(gcc_s|stdc\+\+|ssp|gomp\)\.so" && continue
-        matchr "^[\t]libfreebl3.so => \/lib64\/libfreebl3.so \(0x[0-9a-f]+\)$" && continue
-        matchr "^[\t]\/lib\/ld-linux\.so\.2" && continue
-        matchr "^[\t]\/lib\/ld-linux-aarch64\.so\.1" && continue
-        matchr "^[\t]\/lib\/ld-musl-x86_64\.so\.1" && continue
-        matchr "^[\t]\(\/usr\)?\/lib64\/ld-linux-x86-64\.so\.2" && continue
-        matchr "^[\t]\/lib\/ld-linux-armhf\.so\.3" && continue
-        matchr "^[\t]ldd\b" && continue
-        matchr "^[\t]/usr/lib/arm-linux-gnueabihf/libarmmem\.so" && continue
+        matchr "$line" "fatal error: [^ ]+/otool: internal objdump command failed" && continue
+        matchr "$line" "^[\t]linux-\(gate|vdso\)\.so\.1 \(=>  \)?\(" && continue
+        matchr "$line" "^[\t]lib\(c|m|dl|rt|pthread|resolv|crypt|util|nsl|mvec\)\.so" && continue
+        matchr "$line" "^[\t]libc.musl-x86_64\.so" && continue
+        matchr "$line" "^[\t]lib\(gcc_s|stdc\+\+|ssp|gomp\)\.so" && continue
+        matchr "$line" "^[\t]libfreebl3.so => \/lib64\/libfreebl3.so \(0x[0-9a-f]+\)$" && continue
+        matchr "$line" "^[\t]\/lib\/ld-linux\.so\.2" && continue
+        matchr "$line" "^[\t]\/lib\/ld-linux-aarch64\.so\.1" && continue
+        matchr "$line" "^[\t]\/lib\/ld-musl-x86_64\.so\.1" && continue
+        matchr "$line" "^[\t]\(\/usr\)?\/lib64\/ld-linux-x86-64\.so\.2" && continue
+        matchr "$line" "^[\t]\/lib\/ld-linux-armhf\.so\.3" && continue
+        matchr "$line" "^[\t]ldd\b" && continue
+        matchr "$line" "^[\t]/usr/lib/arm-linux-gnueabihf/libarmmem\.so" && continue
         ## osx first-party frameworks (core)
-        matchr "^[\t]/System/Library/Frameworks/Core\(Foundation|Services|Graphics|Audio|Video|Media|Image\).framework/" && continue
+        matchr "$line" "^[\t]/System/Library/Frameworks/Core\(Foundation|Services|Graphics|Audio|Video|Media|Image\).framework/" && continue
         ## osx first-party frameworks (kits)
-        matchr "^[\t]/System/Library/Frameworks/\(IOKit|AppKit\).framework/" && continue
+        matchr "$line" "^[\t]/System/Library/Frameworks/\(IOKit|AppKit\).framework/" && continue
         ## osx first-party frameworks (toolbox)
-        matchr "^[\t]/System/Library/Frameworks/\(Audio|Video\)Toolbox.framework/" && continue
+        matchr "$line" "^[\t]/System/Library/Frameworks/\(Audio|Video\)Toolbox.framework/" && continue
         ## osx first-party frameworks (base)
-        matchr "^[\t]/System/Library/Frameworks/\(Cocoa|Carbon|Security|Foundation\).framework/" && continue
+        matchr "$line" "^[\t]/System/Library/Frameworks/\(Cocoa|Carbon|Security|Foundation\).framework/" && continue
         ## osx first-party frameworks (multimedia)
-        matchr "^[\t]/System/Library/Frameworks/\(Metal|OpenGL|AVFoundation|ForceFeedback\).framework/" && continue
+        matchr "$line" "^[\t]/System/Library/Frameworks/\(Metal|OpenGL|AVFoundation|ForceFeedback\).framework/" && continue
         ## osx first-party frameworks
-        matchr "^[\t]/System/Library/Frameworks/\(LDAP|ApplicationServices|SystemConfiguration\).framework/" && continue
+        matchr "$line" "^[\t]/System/Library/Frameworks/\(LDAP|ApplicationServices|SystemConfiguration\).framework/" && continue
         ## osx third-party frameworks
-        matchr "^[\t]/System/Library/Frameworks/\(Tk|Tcl|GLUT\).framework/" && continue
+        matchr "$line" "^[\t]/System/Library/Frameworks/\(Tk|Tcl|GLUT\).framework/" && continue
         ## osx first-party libraries
-        matchr "^[\t]/usr/lib/lib\(System\.B|objc.A|resolv\.9|charset\.1|c\+\+\.1\)\.dylib" && continue
+        matchr "$line" "^[\t]/usr/lib/lib\(System\.B|objc.A|resolv\.9|charset\.1|c\+\+\.1\)\.dylib" && continue
         ## osx third-party system libraries
-        matchr "^[\t]/usr/lib/lib\(iconv\.2|xml2\.2|z\.1|curl\.4|expat\.1|lzma\.5|bz2\.1\.0|ffi|edit\.3|ncurses\.5\.4\)\.dylib" && continue
+        matchr "$line" "^[\t]/usr/lib/lib\(iconv\.2|xml2\.2|z\.1|curl\.4|expat\.1|lzma\.5|bz2\.1\.0|ffi|edit\.3|ncurses\.5\.4\)\.dylib" && continue
         lines+=("$line")
     done
     if [[ -n "$lines" ]]; then
