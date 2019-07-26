@@ -1,133 +1,151 @@
-#!/usr/bin/env perl
+#!/usr/bin/env bash
 
-use warnings;
-use strict;
-use Getopt::Long;
+set -eE
+set -o pipefail
+# set -x
 
-use File::Find;
-
-sub usage {
-    print "Usage: $0 [-v] [-q] <full-prefix-path>\n";
-    exit 64;
+usage() {
+    echo "Usage: $0 [-v] [-q] <full-prefix-path>"
+    exit 64
 }
 
-my $verbose = '';
-my $quiet = '';
-GetOptions ("verbose+" => \$verbose,
-            "quiet+" => \$quiet) or usage();
+## parse parameters
+unset verbose
+unset quiet
+while getopts ":qv" opt; do
+    case $opt in 
+    v) verbose=true ;;
+    q) quiet=true ;;
+    \?) echo "Invalid option: -$OPTARG" >&2
+        usage
+        exit 64
+        ;;
+    :)
+        usage
+        exit 64
+        ;;
+    esac
+done
 
-if (@ARGV < 1) {
-    usage();
+shift $((OPTIND-1))
+OPTIND=1
+
+[[ -z "$1" ]] && usage
+prefix="$1"
+
+## matchr is a bash hack to make quote regular expressions with spaces work as intended
+## this will not be treated as regular expression: [[ $line =~ "a*b c" ]] 
+matchr() {
+    [[ $line =~ $1 ]]
+    EXITCODE=$?
+    if [[ $EXITCODE == "2" ]]; then
+        echo "Invalid regex syntax: $1"
+        exit 2
+    fi
+    return $EXITCODE
 }
 
-my $prefix = $ARGV[0];
-# strip trailing slashes
-while ($prefix =~ /\/\z/) {
-    $prefix =~ s|/\z||g;
-}
+## get files
+IFS=$'\n' ## split on newline only
+set -f    ## disable globbing
+files=($(find "$1" -type f))
 
+## filter out files
+newfiles=()
+for file in "${files[@]}"; do
+    ## filter out some files by path
+    [[ $file =~ (README|INSTALL|COPYING)$ ]] && continue
+    [[ $file == */include/* ]] && continue
+    [[ $file == */share/cmake* ]] && continue
+    [[ $file == */share/doc/* ]] && continue
+    [[ $file == */share/docbook-xsl/* ]] && continue
+    [[ $file == */share/docbook-xsl-ns/* ]] && continue
+    [[ $file == */share/gtk-doc/* ]] && continue
+    [[ $file == */share/info/* ]] && continue
+    [[ $file == */share/man* ]] && continue
+    [[ $file == */share/terminfo/* ]] && continue
+    [[ $file == */share/X11/locale/* ]] && continue
+    [[ $file == */share/bash-completion/* ]] && continue
+    [[ $file == */bash_completion.d/* ]] && continue
+    [[ $file == */var/cache/* ]] && continue
+    [[ $file == */mysql-test/* ]] && continue
+    [[ $file == */tmp/compile/* ]] && continue
+    [[ $file == */go/pkg/obj/go-build/* ]] && continue
+    [[ $file == */testdata/* ]] && continue
 
-my @files;
-sub eachFile {
-    return if not -f;
-    return if -l;
-    return if /(README|INSTALL|COPYING)$/;
-    return if /\.(py|pyo|pyc|ri|rb|js|rhtml)$/;
-    return if /\.(def|decTest|m4|txt|pc|la|syntax|installed)$/;
-    return if /\.(c|h|fon|am|pm|tcl|sl|xml|sh|msg|map|info|pem|ini|hlp|mo|po)$/;
-    return if /\.(sample|ttf|css|htm|html|pub|ac|in|inc|sub|conf|site|cnf|pod|el)$/;
-    return if /\.(gir|cmake|rules|pickle|tmpl|typelib|packlist)$/;
-    return if /\.(gif|png|jpg|jpeg|bmp|pbm|pgm|ppm|ras|sgi|tiff?|xbm|svg)$/;
-    return if /\.(aiff|au|wav|aifc|aif)$/;
-    return if /\.(x|xbn|xc|xd|xdc|xdw|xn|xr|xs|xsc|xsw|xu|xw)$/;
-    return if /\.(a|gox|go|nse|lua|gv|s)$/;
-    return if /\.(xsl|xsd|rng|docbook|ent|mod|cat)$/;
-    return if /\.(o|cc|test|result|sql|class|java|pl|cfg|opt)$/;
-    return if /\.(enc|exp|aug|rlib|json)$/;
-    return if /\.(pri|prf|qm|i|swg|qml|prl|qdocconf|qdoc|qdocinc|qmltypes)$/;
-    return if /\.(gz|xz|y|e2x|sv|tablet|bat|htaccess|icns|lisp|tmp|dtd|rnc|tex)$/;
-    return if /\.(cl)$/;
+    ## filter out some files by extension
+    [[ $file =~ \.(py|pyo|pyc|ri|rb|js|rhtml)$ ]] && continue
+    [[ $file =~ \.(def|decTest|m4|txt|pc|la|syntax|installed)$ ]] && continue
+    [[ $file =~ \.(c|h|fon|am|pm|tcl|sl|xml|sh|msg|map|info|pem|ini|hlp|mo|po)$ ]] && continue
+    [[ $file =~ \.(sample|ttf|css|htm|html|pub|ac|in|inc|sub|conf|site|cnf|pod|el)$ ]] && continue
+    [[ $file =~ \.(gir|cmake|rules|pickle|tmpl|typelib|packlist)$ ]] && continue
+    [[ $file =~ \.(gif|png|jpg|jpeg|bmp|pbm|pgm|ppm|ras|sgi|tiff?|xbm|svg)$ ]] && continue
+    [[ $file =~ \.(aiff|au|wav|aifc|aif)$ ]] && continue
+    [[ $file =~ \.(x|xbn|xc|xd|xdc|xdw|xn|xr|xs|xsc|xsw|xu|xw)$ ]] && continue
+    [[ $file =~ \.(a|gox|go|nse|lua|gv|s)$ ]] && continue
+    [[ $file =~ \.(xsl|xsd|rng|docbook|ent|mod|cat)$ ]] && continue
+    [[ $file =~ \.(o|cc|test|result|sql|class|java|pl|cfg|opt)$ ]] && continue
+    [[ $file =~ \.(enc|exp|aug|rlib|json)$ ]] && continue
+    [[ $file =~ \.(pri|prf|qm|i|swg|qml|prl|qdocconf|qdoc|qdocinc|qmltypes)$ ]] && continue
+    [[ $file =~ \.(gz|xz|y|e2x|sv|tablet|bat|htaccess|icns|lisp|tmp|dtd|rnc|tex)$ ]] && continue
+    [[ $file =~ \.(cl)$ ]] && continue
+    newfiles+=("$file")
+done
+files=("${newfiles[@]}")
 
-    my $fullpath = $File::Find::name;
-    return if ($fullpath =~ m"/include/");
-    return if ($fullpath =~ m"/share/cmake");
-    return if ($fullpath =~ m"/share/doc/");
-    return if ($fullpath =~ m"/share/docbook-xsl/");
-    return if ($fullpath =~ m"/share/docbook-xsl-ns/");
-    return if ($fullpath =~ m"/share/gtk-doc/");
-    return if ($fullpath =~ m"/share/info/");
-    return if ($fullpath =~ m"/share/man");
-    return if ($fullpath =~ m"/share/terminfo/");
-    return if ($fullpath =~ m"/share/X11/locale/");
-    return if ($fullpath =~ m"/share/bash-completion/");
-    return if ($fullpath =~ m"/bash_completion.d/");
-    return if ($fullpath =~ m"/var/cache/");
-    return if ($fullpath =~ m"/mysql-test/");
-    return if ($fullpath =~ m"/tmp/compile/");
-    return if ($fullpath =~ m"/go/pkg/obj/go-build/");
-    return if ($fullpath =~ m"/testdata/");
-    push (@files, $fullpath);
-}
+[[ -n "$verbose" ]] && printf "%s\n" "${files[@]}" | sort
+[[ -z "$quiet" ]] && echo "Found "${#files[@]}" files, checking if they have dependencies outside norm's prefix..."
 
-find (\&eachFile, $prefix);
+unset LD_LIBRARY_PATH
 
-if ($verbose) {
-    print join("\n", @files) . "\n";
-}
+retstatus=0
+for file in "${files[@]}"; do
+    ## get ldd of the file
+    ldd=($(ldd "$file" 2>&1))
+    lines=()
+    ## filter out the ldd output
+    for line in "${ldd[@]}"; do
+        [[ $line == *"$prefix"* ]] && continue
+        [[ $line == *"not a dynamic executable"* ]] && continue
+        [[ $line == *"statically linked"* ]] && continue
+        matchr "fatal error: [^ ]+/otool: internal objdump command failed" && continue
+        matchr "^[\t]linux-\(gate|vdso\)\.so\.1 \(=>  \)?\(" && continue
+        matchr "^[\t]lib\(c|m|dl|rt|pthread|resolv|crypt|util|nsl|mvec\)\.so" && continue
+        matchr "^[\t]libc.musl-x86_64\.so" && continue
+        matchr "^[\t]lib\(gcc_s|stdc\+\+|ssp|gomp\)\.so" && continue
+        matchr "^[\t]libfreebl3.so => \/lib64\/libfreebl3.so \(0x[0-9a-f]+\)$" && continue
+        matchr "^[\t]\/lib\/ld-linux\.so\.2" && continue
+        matchr "^[\t]\/lib\/ld-linux-aarch64\.so\.1" && continue
+        matchr "^[\t]\/lib\/ld-musl-x86_64\.so\.1" && continue
+        matchr "^[\t]\(\/usr\)?\/lib64\/ld-linux-x86-64\.so\.2" && continue
+        matchr "^[\t]\/lib\/ld-linux-armhf\.so\.3" && continue
+        matchr "^[\t]ldd\b" && continue
+        matchr "^[\t]/usr/lib/arm-linux-gnueabihf/libarmmem\.so" && continue
+        ## osx first-party frameworks (core)
+        matchr "^[\t]/System/Library/Frameworks/Core\(Foundation|Services|Graphics|Audio|Video|Media|Image\).framework/" && continue
+        ## osx first-party frameworks (kits)
+        matchr "^[\t]/System/Library/Frameworks/\(IOKit|AppKit\).framework/" && continue
+        ## osx first-party frameworks (toolbox)
+        matchr "^[\t]/System/Library/Frameworks/\(Audio|Video\)Toolbox.framework/" && continue
+        ## osx first-party frameworks (base)
+        matchr "^[\t]/System/Library/Frameworks/\(Cocoa|Carbon|Security|Foundation\).framework/" && continue
+        ## osx first-party frameworks (multimedia)
+        matchr "^[\t]/System/Library/Frameworks/\(Metal|OpenGL|AVFoundation|ForceFeedback\).framework/" && continue
+        ## osx first-party frameworks
+        matchr "^[\t]/System/Library/Frameworks/\(LDAP|ApplicationServices|SystemConfiguration\).framework/" && continue
+        ## osx third-party frameworks
+        matchr "^[\t]/System/Library/Frameworks/\(Tk|Tcl|GLUT\).framework/" && continue
+        ## osx first-party libraries
+        matchr "^[\t]/usr/lib/lib\(System\.B|objc.A|resolv\.9|charset\.1|c\+\+\.1\)\.dylib" && continue
+        ## osx third-party system libraries
+        matchr "^[\t]/usr/lib/lib\(iconv\.2|xml2\.2|z\.1|curl\.4|expat\.1|lzma\.5|bz2\.1\.0|ffi|edit\.3|ncurses\.5\.4\)\.dylib" && continue
+        lines+=("$line")
+    done
+    if [[ -n "$lines" ]]; then
+        echo "$file:"
+        printf "%s\n" "${lines[@]}"
+        retstatus=1
+    fi
+done
 
-if (!$quiet) {
-    print "Found " . scalar(@files) . " files, checking if they have dependencies outside norm's prefix...\n";
-}
-
-delete $ENV{'LD_LIBRARY_PATH'};
-
-my $retstatus = 0;
-my $filtered_prefix = quotemeta($prefix);
-foreach my $arg (@files) {
-    my $output = `ldd "$arg" 2>&1`;
-    my $filtered_output = "";
-    foreach (split(/\n/, $output)) {
-	next if /not a dynamic executable/;
-	next if /statically linked/;
-	next if m|fatal error: [^ ]+/otool: internal objdump command failed|;
-	next if m|$filtered_prefix/|;
-	next if /^[\t]linux-(gate|vdso)\.so\.1 (=>  )?\(/;
-	next if /^[\t]lib(c|m|dl|rt|pthread|resolv|crypt|util|nsl|mvec)\.so/;
-	next if /^[\t]libc.musl-x86_64\.so/;
-	next if /^[\t]lib(gcc_s|stdc\+\+|ssp|gomp)\.so/;
-	next if /^[\t]libfreebl3.so => \/lib64\/libfreebl3.so \(0x[0-9a-f]+\)$/;
-	next if /^[\t]\/lib\/ld-linux\.so\.2/;
-	next if /^[\t]\/lib\/ld-linux-aarch64\.so\.1/;
-	next if /^[\t]\/lib\/ld-musl-x86_64\.so\.1/;
-	next if /^[\t](\/usr)?\/lib64\/ld-linux-x86-64\.so\.2/;
-	next if /^[\t]\/lib\/ld-linux-armhf\.so\.3/;
-	next if /^[\t]ldd\b/;
-	next if m|^[\t]/usr/lib/arm-linux-gnueabihf/libarmmem\.so|;
-	## osx first-party frameworks (core)
-	next if m[^[\t]/System/Library/Frameworks/Core(Foundation|Services|Graphics|Audio|Video|Media|Image).framework/];
-	## osx first-party frameworks (kits)
-	next if m[^[\t]/System/Library/Frameworks/(IOKit|AppKit).framework/];
-	## osx first-party frameworks (toolbox)
-	next if m[^[\t]/System/Library/Frameworks/(Audio|Video)Toolbox.framework/];
-	## osx first-party frameworks (base)
-	next if m[^[\t]/System/Library/Frameworks/(Cocoa|Carbon|Security|Foundation).framework/];
-	## osx first-party frameworks (multimedia)
-	next if m[^[\t]/System/Library/Frameworks/(Metal|OpenGL|AVFoundation|ForceFeedback).framework/];
-	## osx first-party frameworks
-	next if m[^[\t]/System/Library/Frameworks/(LDAP|ApplicationServices|SystemConfiguration).framework/];
-	## osx third-party frameworks
-	next if m[^[\t]/System/Library/Frameworks/(Tk|Tcl|GLUT).framework/];
-	## osx first-party libraries
-	next if m[^[\t]/usr/lib/lib(System\.B|objc.A|resolv\.9|charset\.1|c\+\+\.1)\.dylib];
-	## osx third-party system libraries
-	next if m[^[\t]/usr/lib/lib(iconv\.2|xml2\.2|z\.1|curl\.4|expat\.1|lzma\.5|bz2\.1\.0|ffi|edit\.3|ncurses\.5\.4)\.dylib];
-	$filtered_output .= $_ . "\n";
-    }
-    if (length $filtered_output) {
-	print "$arg:\n";
-	print $filtered_output;
-	$retstatus = 1;
-    }
-}
-
-exit $retstatus;
+exit "$retstatus"
