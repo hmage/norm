@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source ftp://ftp.astron.com/pub/file/file-5.37.tar.gz 891176efa3006eff222bd364cd96135aad171941
+fetch_source http://deb.debian.org/debian/pool/main/f/file/file_5.37.orig.tar.gz 891176efa3006eff222bd364cd96135aad171941
 
 do_unpack_compile
