@@ -8,4 +8,4 @@ CONFFLAGS=(
 --with-privsep-path=$PREFIX/var/empty ## tries to create /var/empty otherwise and fails to install
 )
 
-do_unpack_compile "${CONFFLAGS[@]}'
+do_unpack_compile "${CONFFLAGS[@]}"
