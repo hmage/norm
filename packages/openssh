@@ -4,4 +4,8 @@ depends_on openssl ## needed for encryption
 
 fetch_source http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.0p1.tar.gz 756dbb99193f9541c9206a667eaa27b0fa184a4f
 
+CONFFLAGS=(
+--with-privsep-path=$PREFIX/var/empty ## tries to create /var/empty otherwise and fails to install
+)
+
 do_unpack_compile
