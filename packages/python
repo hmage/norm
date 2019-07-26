@@ -2,6 +2,7 @@
 
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## opportunistic linking
 [[ $OSTYPE != *darwin* ]] && depends_on libncurses ## opportunistic linking, no way to disable, provides curses python module
+depends_on libgdbm ## opportunistic linking
 
 fetch_source https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tar.xz f99348a095ec4a6411c84c0d15343d11920c9724
 
@@ -9,4 +10,17 @@ CONFFLAGS=(
 --enable-shared ## otherwise python extensions fail to load
 )
 
-do_unpack_compile "${CONFFLAGS[@]}"
+do_unpack
+do_patch_inline << EOF ## do not try to link with tkinter
+--- a/setup.py
++++ b/setup.py
+@@ -1856,6 +1856,7 @@
+
+     def detect_tkinter(self, inc_dirs, lib_dirs):
+         # The _tkinter module.
++        return
+
+         # Check whether --with-tcltk-includes and --with-tcltk-libs were
+         # configured or passed into the make target.  If so, use these values
+EOF
+do_compile "${CONFFLAGS[@]}"
