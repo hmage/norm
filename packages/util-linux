@@ -6,6 +6,7 @@ CONFFLAGS=(
 --without-ncurses  ## opportunistic linking, though the only tool that has UI is cfdisk
 --without-ncursesw ## opportunistic linking, though the only tool that has UI is cfdisk
 --disable-cramfs ## cramfs is not widely used, but it has zlib dependency
+--without-python ## opportunistic linking, system python might exist but without headers
 )
 
 OURNAME=`basename "${BASH_SOURCE[0]}"` ## get our filename, it could be a library name
