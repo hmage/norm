@@ -35,6 +35,7 @@ env:
  - FORMULA=libexpat
  - FORMULA=libfdk-aac
  - FORMULA=libffi
+ - FORMULA=libgdbm
  - FORMULA=libgif
  - FORMULA=libgmp
  - FORMULA=libgnutls
