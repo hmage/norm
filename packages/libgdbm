@@ -2,4 +2,9 @@
 
 fetch_source http://ftpmirror.gnu.org/gdbm/gdbm-1.18.1.tar.gz 4a923ebfac06bb05c1c7699b206719e06a938f0d
 
-do_unpack_compile
+CONFFLAGS=(
+--without-readline      ## opportunistic linking for the gdmbtool binary
+--enable-libgdbm-compat ## perl opportunistically links with gdbm_compat
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
