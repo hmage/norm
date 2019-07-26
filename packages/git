@@ -3,6 +3,8 @@
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx gurantees to provide one, opportunistic linking on other systems
 [[ $OSTYPE != *darwin* ]] && depends_on curl ## for https, but on osx it will use system framework
 
+depends_on libexpat ## opportunistic linking
+
 fetch_source https://www.kernel.org/pub/software/scm/git/git-2.22.0.tar.xz 4984f9f7d32e7f967cee15dce4973c231b2308a1
 fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.22.0.tar.xz de406eb992d7a770f20bbec566abc7d82705eb6c
 
