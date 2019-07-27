@@ -101,7 +101,7 @@ unset LD_LIBRARY_PATH
 retstatus=0
 for file in "${files[@]}"; do
     ## get ldd of the file
-    ldd=($(ldd "$file" 2>&1))
+    ldd=($(ldd "$file" 2>&1 || true))
     lines=()
     ## filter out the ldd output
     for line in "${ldd[@]}"; do
