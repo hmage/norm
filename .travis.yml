@@ -109,4 +109,4 @@ cache:
     - testlogs/
 
 script:
-  - travis_wait ./norm testall $FORMULA
+  - travis_wait 60 ./norm testall $FORMULA
