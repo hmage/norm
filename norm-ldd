@@ -109,6 +109,7 @@ for file in "${files[@]}"; do
         [[ $line =~ ^$'\t'/lib/ld-linux-armhf\.so\.3 ]] && continue
         [[ $line =~ ^$'\t'ldd\b ]] && continue
         [[ $line =~ ^$'\t'/usr/lib/arm-linux-gnueabihf/libarmmem\.so ]] && continue
+        [[ $line =~ ^$'\t'/usr/lib/arm-linux-gnueabihf/libarmmem- ]] && continue
         ## osx first-party frameworks (core)
         [[ $line =~ ^$'\t'/System/Library/Frameworks/Core(Foundation|Services|Graphics|Audio|Video|Media|Image).framework/ ]] && continue
         ## osx first-party frameworks (kits)
