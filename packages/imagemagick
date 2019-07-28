@@ -15,4 +15,8 @@ fi
 
 fetch_source https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.8-50.tar.xz dacb49dfde9b54535416f06d60bb64789d2f5c1c
 
-do_unpack_compile
+CONFFLAGS=(
+--without-x   ## graphicsmagick is used most as library and command-line tool, GUI is not needed, if you need it, open an issue
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
