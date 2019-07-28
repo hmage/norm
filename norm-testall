@@ -115,6 +115,56 @@ set +o pipefail
 LIST=("$@")
 [ -z "$LIST" ] && LIST=("$NORMDIR"/packages/*)
 
+trim() {
+    local var="$*"
+    echo -n "$var"
+}
+
+calc_formula_id() {
+    [[ -z "$1" ]] && echo "calc_formula_id() was called with empty arguments!" && exit 64
+    unset FORMULA_ID
+    local FORMULA_NAME="${1#$NORMDIR/packages/}"
+
+    OLDIFS="$IFS"
+    IFS=$'\n' ## split on newline only
+    set -f    ## disable globbing
+
+    local SEEN=()
+    local TEXT=($(cat "$1"|grep -v '^#'))
+    while true; do
+        local added=0
+        for i in "${TEXT[@]}"; do
+            if [[ $i =~ ^[^#]*depends_on\s*([^#]*) ]]; then
+                ## found a subdependency, extract it
+                for f in "${BASH_REMATCH[1]}"; do
+                    # remove leading whitespace characters
+                    f="${f#"${f%%[![:space:]]*}"}"
+                    # remove trailing whitespace characters
+                    f="${f%"${f##*[![:space:]]}"}"
+
+                    if in_array SEEN "$f"; then
+                        continue
+                    fi
+                    SEEN+=("$f")
+                    TEXT+=($(cat $NORMDIR/packages/$f))
+                    added=1
+                done
+            fi
+        done
+        if [[ $added == 0 ]]; then
+            echo not added anything
+            break
+        fi
+    done
+
+    # calculate formula ID
+    echo formula $FORMULA_NAME depends on - "${SEEN[@]}"
+    echo shasum of all that is:
+    local SHA1SUM=`printf "%s\n" "${TEXT[@]}" | $SHASUM_BIN | cut -f1 -d' '`
+    # local SHA1SUM=`$SHASUM_BIN "$1" | cut -f1 -d' '`
+    export FORMULA_ID="$FORMULA_NAME.$SHA1SUM"
+}
+
 ##
 ## compile each package and save logs
 for FORMULA_NAME in "${LIST[@]}"; do
@@ -123,9 +173,7 @@ for FORMULA_NAME in "${LIST[@]}"; do
     FORMULA_FILE="$NORMDIR/packages/$FORMULA_NAME"  ## we want full path here
     [ -f "$FORMULA_FILE" ] || continue              ## must be a file
 
-    # calculate formula ID
-    SHA1SUM=`$SHASUM_BIN "$FORMULA_FILE" | cut -f1 -d' '`
-    FORMULA_ID="$FORMULA_NAME.$SHA1SUM"
+    calc_formula_id "$FORMULA_FILE"
 
     # check if we've done this formula before
     [ -f "$LOGPATH/$FORMULA_ID.log.gz" ] && continue ## successful logfile exists, skip the formula
