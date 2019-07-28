@@ -109,4 +109,7 @@ cache:
     - testlogs/
 
 script:
+  - echo travis_fold:start:dpkg
+  - dpkg --get-selections
+  - echo travis_fold:end:dpkg
   - travis_wait 60 ./norm testall $FORMULA
