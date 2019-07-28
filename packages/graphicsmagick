@@ -16,7 +16,8 @@ depends_on libjasper ## jpeg2000 reference implementation
 fetch_source https://downloads.sourceforge.net/graphicsmagick/1.3.32/GraphicsMagick-1.3.32.tar.xz a18e390061e9b31caf860134e583a81e9be74e61
 
 CONFFLAGS=(
---without-x ## graphicsmagick is used most as library and command-line tool, GUI is not needed, if you need it, open an issue
+--without-x   ## graphicsmagick is used most as library and command-line tool, GUI is not needed, if you need it, open an issue
+--without-ttf ## don't build freetype and it's dependencies for a rarely used feature, but if you need it, open an issue
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
