@@ -35,9 +35,6 @@ setup_prefix() {
     # [[ $OSTYPE == *darwin* ]] && cc_addflags CPPFLAGS -mmacosx-version-min="$NORM_OSX_VERSION" ## needed for -rpath to work in CLT-only installs without xcode
     is_cc_clang && cc_addflags CPPFLAGS -Qunused-arguments
 
-    ## since we're building for this specific machine, we can do -march=native
-    cc_addflags CPPFLAGS "-march=native"
-
     ## try to make reproducible builds by removing path-specific debug sections
     cc_addflags CPPFLAGS "-fdebug-prefix-map=$ESCAPED_PREFIX=/build"
 
