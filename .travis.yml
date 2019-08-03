@@ -82,6 +82,7 @@ env:
  - FORMULA=node
  - FORMULA=openssh
  - FORMULA=openssl
+ - FORMULA=patch
  - FORMULA=patchutils
  - FORMULA=pixman
  - FORMULA=pkg-config
