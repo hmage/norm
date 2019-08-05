@@ -1,5 +1,6 @@
 #!/bin/bash
 
+needs_tool python ## script for generating suffix list is in python
 depends_on libidn2
 depends_on libunistring ## error: You requested libidn2|libidn but libunistring is not installed.
 
