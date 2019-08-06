@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://cairographics.org/releases/pixman-0.38.4.tar.gz 8594e0a31c1802ae0c155d6b502c0953aa862baa
+
+do_unpack_compile
