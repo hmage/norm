@@ -1,0 +1,9 @@
+#!/bin/bash
+
+fetch_source https://www.mirrorservice.org/sites/distfiles.macports.org/graphviz/graphviz-2.40.1.tar.gz 8a44d19bcdb50df1bd8e649de472ebf868468888
+
+do_unpack
+pushd_src
+./autogen.sh NOCONFIG
+do_compile "${CONFOPTS[@]}"
+popd_src
