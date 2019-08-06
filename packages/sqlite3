@@ -1,7 +1,12 @@
 #!/bin/bash
 
-depends_on libreadline ## opportunistic linking
+depends_on zlib        ## opportunistic linking
 
 fetch_source https://www.sqlite.org/2019/sqlite-autoconf-3290000.tar.gz 053d8237eb9741b0e297073810668c2611a8e38e
 
-do_unpack_compile
+CONFFLAGS=(
+--disable-editline     ## both editline and readline incur heavy build time dependency of libncurses
+--disable-readline     ## both editline and readline incur heavy build time dependency of libncurses
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
