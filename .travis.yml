@@ -23,6 +23,7 @@ env:
  - FORMULA=go
  - FORMULA=graphicsmagick
  - FORMULA=graphviz
+ - FORMULA=gzip
  - FORMULA=imagemagick
  - FORMULA=jq
  - FORMULA=knot
@@ -75,6 +76,7 @@ env:
  - FORMULA=libwebp
  - FORMULA=libxml
  - FORMULA=m4
+ - FORMULA=make
  - FORMULA=mc
  - FORMULA=mediainfo
  - FORMULA=moreutils
@@ -84,11 +86,11 @@ env:
  - FORMULA=openssl
  - FORMULA=patch
  - FORMULA=patchutils
+ - FORMULA=perl
  - FORMULA=pixman
  - FORMULA=pkg-config
  - FORMULA=python
  - FORMULA=qemu
- - FORMULA=report.html
  - FORMULA=rsync
  - FORMULA=sqlite3
  - FORMULA=squashfs-tools
