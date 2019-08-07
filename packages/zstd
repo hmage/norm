@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/facebook/zstd/archive/v1.3.8.tar.gz c9a15a6866df9529e2c66935225d2b51487fd84c
+fetch_source https://github.com/facebook/zstd/releases/download/v1.4.2/zstd-1.4.2.tar.gz 172ab451dd65af80fefc84f0507ca4b66f4d7501
 
 MAKEFLAGS=(
 PREFIX="$ESCAPED_PREFIX"
