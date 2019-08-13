@@ -269,6 +269,13 @@ cmd_testall() {
     popd
 }
 
+cmd_id() {
+    for formula; do
+        calc_formula_id "$NORMDIR/packages/$formula"
+        echo "$FORMULA_ID"
+    done
+}
+
 while getopts ":p:" opt; do
     case $opt in
     p)

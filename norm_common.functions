@@ -716,3 +716,51 @@ do_compile() { do_compile_notest "$@" || return 1; }
 do_compile_outside() { do_compile_outside_notest "$@" || return 1; }
 do_undebian_compile() { do_undebian_compile_notest "$@"; }
 do_unpack_compile() { do_unpack_compile_notest "$@"; }
+
+## calculates formula ID, sets FORMULA_ID
+calc_formula_id() {
+    [[ -z "$1" ]] && echo "calc_formula_id() was called with empty arguments!" && exit 64
+    unset FORMULA_ID
+    local FORMULA_NAME="${1#$NORMDIR/packages/}"
+
+    ## remember old IFS value
+    local OLDIFS="$IFS"
+
+    ## keep track of seen formulas
+    local SEEN=()
+
+    ## get formula text into array, use IFS newline splitter
+    ## we need to support bash 3.2+, so don't use mapfile
+    ## ignore comments in the formula
+    IFS=$'\n'
+    local TEXT=($(cat "$1"|grep -v '^#'))
+
+    ## go through each line and see if it has a dependency line
+    while true; do
+        local added=0 ## if wasn't set to one, break the loop
+        for i in "${TEXT[@]}"; do
+            if [[ $i =~ ^[^#]*depends_on\s*([^#]*) ]]; then
+                ## found a subdependency, extract it
+                IFS=$' \t\n'
+                for f in ${BASH_REMATCH[1]}; do
+                    if in_array SEEN "$f"; then
+                        continue
+                    fi
+                    SEEN+=("$f")
+                    IFS=$'\n'
+                    TEXT+=($(cat $NORMDIR/packages/$f))
+                    added=1
+                done
+            fi
+        done
+        if [[ $added == 0 ]]; then
+            break
+        fi
+    done
+
+    # calculate formula ID
+    local SHA1SUM=`printf "%s\n" "${TEXT[@]}" | $SHASUM_BIN | cut -f1 -d' '`
+    # local SHA1SUM=`$SHASUM_BIN "$1" | cut -f1 -d' '`
+    export FORMULA_ID="$FORMULA_NAME.$SHA1SUM"
+    IFS="$OLDIFS"
+}
