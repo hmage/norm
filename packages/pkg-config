@@ -2,5 +2,41 @@
 
 fetch_source http://distfiles.dereferenced.org/pkgconf/pkgconf-1.6.3.tar.xz 9aaa032fd818e445b63eae926caa5665ea36b144
 
-do_unpack_compile --with-system-includedir=/usr/include --with-system-libdir=/usr/lib
+do_unpack
+
+## to make running programs linked with norm-provided libraries easier, automatically add rpath to any library path
+## this is useful as well for go, which doesn't use libtool, so never adds rpath as well.
+do_patch_inline -p0 << EOF
+--- libpkgconf/fragment.c
++++ libpkgconf/fragment.c
+@@ -463,6 +463,12 @@
+ 	{
+ 		char *quoted = fragment_quote(frag);
+ 		len += strlen(quoted);
++		// Add rpath to all -L fragments
++		if (frag->type && frag->type == 'L') {
++			len += strlen("-Wl,-rpath,");
++			len += strlen(quoted);
++			len += 1;
++		}
+ 		free(quoted);
+ 	}
+ 
+@@ -508,6 +514,14 @@
+ 			break;
+ 		}
+ 
++		// Add rpath to all -L fragments
++		if (frag->type && frag->type == 'L') {
++			bptr += pkgconf_strlcpy(bptr, "-Wl,-rpath,", buf_remaining);
++			bptr += pkgconf_strlcpy(bptr, quoted, buf_remaining);
++			*bptr++ = ' ';
++		}
++
++
+ 		if (frag->type)
+ 		{
+ 			*bptr++ = '-';
+EOF
+do_compile --with-system-includedir=/usr/include --with-system-libdir=/usr/lib
 ln -fs pkgconf "$PREFIX"/bin/pkg-config
