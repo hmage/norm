@@ -18,6 +18,8 @@ fetch_source http://execve.net/mirror/curl/curl-7.65.1.tar.gz 9564c29955966976e6
 CONFFLAGS=(
 "--with-ca-bundle=$PREFIX/etc/ssl/cert.pem"
 --disable-ldap ## curl is usually a web fetcher, if you need ldap, open an issue
+--without-librtmp ## opportunistic linking with librtmp
+--without-brotli  ## opportunistic linking with libbrotli
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
