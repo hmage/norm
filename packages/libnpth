@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://www.gnupg.org/ftp/gcrypt/npth/npth-1.5.tar.bz2 93ddf1a3bdbca00fb4cf811498094ca61bbb8ee1
+
+do_unpack_compile
