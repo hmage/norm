@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-11.50.tar.gz 02bda5009ecd44ab4abc8a9a74bbd7447ceb58ec
+fetch_source https://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-11.62.tar.gz a00be4dde0aafe828496f7def2f099886a00d19d
 
 do_unpack
 pushd_src
