@@ -6,6 +6,7 @@ fetch_source https://github.com/opencv/opencv/archive/2.4.13.5.tar.gz fd2f4e33dd
 
 CONFFLAGS=(
 -DWITH_CUDA=OFF ## fails to build with cuda 10.1, and we don't need it anyway
+-DWITH_FFMPEG=OFF ## fails to build with newest ffmpeg
 )
 
 do_unpack
