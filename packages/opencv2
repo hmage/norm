@@ -4,6 +4,10 @@ needs_tool cmake
 
 fetch_source https://github.com/opencv/opencv/archive/2.4.13.5.tar.gz fd2f4e33ddc65e3c6c2494066c95592693324474
 
+CONFFLAGS=(
+-DWITH_CUDA=OFF ## fails to build with cuda 10.1, and we don't need it anyway
+)
+
 do_unpack
-do_compile_outside
+do_compile_outside "${CONFFLAGS[@]}"
 
