@@ -1,0 +1,9 @@
+#!/bin/bash
+
+needs_tool cmake
+
+fetch_source https://github.com/opencv/opencv/archive/2.4.13.5.tar.gz fd2f4e33ddc65e3c6c2494066c95592693324474
+
+do_unpack
+do_compile_outside
+
