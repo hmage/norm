@@ -6,7 +6,7 @@ depends_on openssl
 [[ $OSTYPE != *darwin* ]] && depends_on libuuid ## opportunistic linking
 depends_on libpcre ## opportunistic linking
 
-fetch_source http://ftpmirror.gnu.org/wget/wget-1.20.1.tar.gz 4b1ade04ee7ff30181357e0c66b5ac74e39f79b3
+fetch_source http://ftpmirror.gnu.org/wget/wget-1.20.3.tar.gz 2b886eab5b97267cc358ab35e42d14d33d6dfc95
 
 CONFFLAGS=(
 --with-ssl=openssl
