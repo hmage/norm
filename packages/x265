@@ -2,7 +2,7 @@
 
 depends_on cmake ## system-provided cmake on CentOS7 is too old for this
 
-fetch_source http://ftp.videolan.org/pub/videolan/x265/x265_3.0.tar.gz 5eeacc607e6fe6bca61f9cf355b34ef135987696
+fetch_source http://ftp.videolan.org/pub/videolan/x265/x265_3.1.1.tar.gz f777e15d34b13b24e959a1469b61bf393a6d6e4d
 
 do_unpack
 SRCDIR="$SRCDIR/source"
