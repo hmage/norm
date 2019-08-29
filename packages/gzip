@@ -1,10 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/gzip/gzip-1.9.tar.gz 7d32532059ff1fcec87cc44b86f9456719e0485f
+fetch_source http://ftpmirror.gnu.org/gzip/gzip-1.10.tar.gz 88ef05b5415b7124fdad9976cac8dd29cd915f69
 
-do_unpack
-pushd_src
-## inhibit invocation of makeinfo
-touch -t 200001010000 doc/gzip.info doc/*.texi
-popd_src
-do_compile
+do_unpack_compile
