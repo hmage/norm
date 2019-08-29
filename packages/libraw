@@ -2,6 +2,6 @@
 
 depends_on libjasper ## opportunistic linking
 
-fetch_source http://www.libraw.org/data/LibRaw-0.19.3.tar.gz 75d72ab8de5d0cd2e66aa6c9a0d776608a780f0f
+fetch_source http://www.libraw.org/data/LibRaw-0.19.5.tar.gz c151995b6f17a0ccef7fbc1dcb982f0ccb04d934
 
 do_unpack_compile
