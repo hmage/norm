@@ -13,7 +13,7 @@ depends_on liblcms2
 depends_on xz ## for liblzma
 depends_on libjasper ## jpeg2000 reference implementation
 
-fetch_source https://downloads.sourceforge.net/graphicsmagick/1.3.32/GraphicsMagick-1.3.32.tar.xz a18e390061e9b31caf860134e583a81e9be74e61
+fetch_source https://downloads.sf.net/graphicsmagick/graphicsmagick/1.3.33/GraphicsMagick-1.3.33.tar.xz 8336d6b2fb76fbfaf6df025ac99dc689cf5631e4
 
 CONFFLAGS=(
 --without-x   ## graphicsmagick is used most as library and command-line tool, GUI is not needed, if you need it, open an issue
