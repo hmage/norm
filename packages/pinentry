@@ -3,7 +3,7 @@
 depends_on libgpg-error
 depends_on libassuan
 
-fetch_source https://www.gnupg.org/ftp/gcrypt/pinentry/pinentry-1.0.0.tar.bz2 85d9ac81ebad3fb082514c505c90c39a0456f1f6
+fetch_source https://www.gnupg.org/ftp/gcrypt/pinentry/pinentry-1.1.0.tar.bz2 693bdf9f48dfb3e040d92f50b1bb464e268b9fb0
 
 CONFOPTS=(
 --disable-pinentry-qt
