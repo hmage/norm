@@ -3,7 +3,7 @@
 needs_tool python ## for building
 depends_on pixman
 
-fetch_source https://download.qemu.org/qemu-4.0.0.tar.xz 74cfb8f4724d9651fdd354560f2d291887b32cad
+fetch_source https://download.qemu.org/qemu-4.1.0.tar.xz 29c99be326cd8f3b2b75d7fec9066ca24854df1e
 
 CONFFLAGS=(
 --target-list=x86_64-softmmu ## if you need anything else, change this, optionally make a pull request or fill an issue ^.^
