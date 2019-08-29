@@ -17,10 +17,12 @@ env:
  - FORMULA=fswatch
  - FORMULA=gcc
  - FORMULA=gcc-9.1
+ - FORMULA=gcc-9.2
  - FORMULA=gettext
  - FORMULA=git
  - FORMULA=glib
  - FORMULA=go
+ - FORMULA=gpg
  - FORMULA=graphicsmagick
  - FORMULA=graphviz
  - FORMULA=gzip
@@ -29,6 +31,7 @@ env:
  - FORMULA=knot
  - FORMULA=lepton
  - FORMULA=libasound
+ - FORMULA=libassuan
  - FORMULA=libde265
  - FORMULA=libedit
  - FORMULA=libev
@@ -36,10 +39,12 @@ env:
  - FORMULA=libexpat
  - FORMULA=libfdk-aac
  - FORMULA=libffi
+ - FORMULA=libgcrypt
  - FORMULA=libgdbm
  - FORMULA=libgif
  - FORMULA=libgmp
  - FORMULA=libgnutls
+ - FORMULA=libgpg-error
  - FORMULA=libheif
  - FORMULA=libicu
  - FORMULA=libidn
@@ -48,6 +53,7 @@ env:
  - FORMULA=libjasper
  - FORMULA=libjbig
  - FORMULA=libjpeg
+ - FORMULA=libksba
  - FORMULA=liblcms2
  - FORMULA=libmount
  - FORMULA=libmpc
@@ -55,6 +61,7 @@ env:
  - FORMULA=libncurses
  - FORMULA=libnettle
  - FORMULA=libnghttp2
+ - FORMULA=libnpth
  - FORMULA=libogg
  - FORMULA=libonig
  - FORMULA=libp11-kit
@@ -82,11 +89,13 @@ env:
  - FORMULA=moreutils
  - FORMULA=nasm
  - FORMULA=node
+ - FORMULA=opencv2
  - FORMULA=openssh
  - FORMULA=openssl
  - FORMULA=patch
  - FORMULA=patchutils
  - FORMULA=perl
+ - FORMULA=pinentry
  - FORMULA=pixman
  - FORMULA=pkg-config
  - FORMULA=python
