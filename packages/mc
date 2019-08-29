@@ -3,7 +3,7 @@
 depends_on glib
 depends_on libslang
 
-fetch_source http://ftp.midnight-commander.org/mc-4.8.22.tar.xz 5a207973a69269e6bdc9a7e4e989a8acfb4a46af
+fetch_source http://ftp.midnight-commander.org/mc-4.8.23.tar.xz 021a33828922b45d18daa23189d6c86d17e61e09
 
 do_unpack
 do_patch_inline -p0 << EOF
