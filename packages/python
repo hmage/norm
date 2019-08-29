@@ -8,7 +8,7 @@ depends_on libreadline ## opportunistic linking
 depends_on bzip2 ## opportunistic linking
 depends_on sqlite3 ## opportunistic linking
 
-fetch_source https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tar.xz f99348a095ec4a6411c84c0d15343d11920c9724
+fetch_source https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tar.xz e9543af127d958b12b0edfb9340d4f0af3d0d90e
 
 CONFFLAGS=(
 --enable-shared ## otherwise python extensions fail to load
