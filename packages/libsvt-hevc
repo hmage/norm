@@ -1,0 +1,9 @@
+#!/bin/bash
+
+needs_tool cmake
+needs_tool yasm
+
+fetch_source https://github.com/OpenVisualCloud/SVT-HEVC/archive/v1.4.0.tar.gz 29173f6c74218ab3bcf3de320867ba14b7567b5c
+
+do_unpack
+do_compile_outside

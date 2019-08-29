@@ -73,6 +73,7 @@ env:
  - FORMULA=librhash
  - FORMULA=libsdl2
  - FORMULA=libslang
+ - FORMULA=libsvt-hevc
  - FORMULA=libtasn1
  - FORMULA=libtiff
  - FORMULA=libtool
