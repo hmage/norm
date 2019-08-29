@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://lttng.org/files/urcu/userspace-rcu-0.10.2.tar.bz2 70ac938acdc738bee7e2e1f462a7991a25ba2439
+fetch_source https://lttng.org/files/urcu/userspace-rcu-0.11.1.tar.bz2 3678dc1eb736f61e22cdd8ab1140ac28b4d724af
 
 do_unpack_compile
