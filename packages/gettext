@@ -5,7 +5,7 @@
 ## opportunistic linking, otherwise uses bundled (outdated) copy
 depends_on libunistring
 
-fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.19.8.1.tar.xz e0fe90ede22f7f16bbde7bdea791a835f2773fc9
+fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.20.1.tar.xz 62f4a6a2fd5f80bfd0e66c497a04094fa3e07b90
 
 CONFFLAGS=(
 --disable-curses ## opportunistic linking for a feature that isn't used
