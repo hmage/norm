@@ -232,7 +232,7 @@ cmd_dot() {
         local dependencies=$(cat "$FILENAME" | awk '{print $9}' | sort -u|xargs)
         if [[ -n $dependencies ]]; then
             for dependency in $dependencies; do
-                echo \"$dependency\" "->" \"$formula\"
+                echo \"$formula\" "->" \"$dependency\"
             done
         else
             echo \"$formula\"
