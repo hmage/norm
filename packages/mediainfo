@@ -2,7 +2,7 @@
 
 depends_on zlib
 
-fetch_source https://mediaarea.net/download/binary/mediainfo/19.04/MediaInfo_CLI_19.04_GNU_FromSource.tar.xz f1548ee87be0600ea36518d5cb07cf60b55a1a48
+fetch_source https://mediaarea.net/download/binary/mediainfo/19.07/MediaInfo_CLI_19.07_GNU_FromSource.tar.xz ed30125c6a3f9df3bda3396a3e4dd4217dfbf1ce
 
 do_unpack
 OLD="$SRCDIR"
