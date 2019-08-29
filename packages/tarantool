@@ -7,7 +7,7 @@ needs_tool cmake
 [[ $OSTYPE != *darwin* ]] && depends_on libncurses ## opportunistic linking with libtinfo
 depends_on libicu
 
-fetch_source https://download.tarantool.org/tarantool/1.10/src/tarantool-1.10.2.177.tar.gz b5808ab1ca3d36ebb68b66d63389e7791eb52530
+fetch_source https://download.tarantool.org/tarantool/1.10/src/tarantool-1.10.3.134.tar.gz 91c192da7baca248bc902389866fa96b45599034
 
 do_unpack
 sed -ibak 's|CURL_ROOT_DIR|CURL_ROOT|' "$SRCDIR"/cmake/os.cmake
