@@ -2,6 +2,6 @@
 
 depends_on libgpg-error
 
-fetch_source https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.8.3.tar.bz2 13bd2ce69e59ab538e959911dfae80ea309636e3
+fetch_source https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.8.5.tar.bz2 2d8781e92f88706707a1e76fb628b499ad538a30
 
 do_unpack_compile
