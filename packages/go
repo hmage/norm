@@ -20,7 +20,7 @@ mkdir -p "$PREFIX/go-bootstrap"
 cp -a bin pkg src "$PREFIX/go-bootstrap"
 popd_src
 
-fetch_source https://dl.google.com/go/go1.12.9.src.tar.gz 7098d56d7405e444592f425c6bf9298cdb2b7fd6
+fetch_source https://dl.google.com/go/go1.13.src.tar.gz 402cb0d9c0c7af03e885fc800015f772b8cac123
 do_unpack
 pushd_src
 cd src
