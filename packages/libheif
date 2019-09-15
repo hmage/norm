@@ -9,4 +9,8 @@ depends_on libpng  ## opportunistic linking, for heif-convert, heif-enc and heif
 
 fetch_source https://github.com/strukturag/libheif/releases/download/v1.5.0/libheif-1.5.0.tar.gz c724d2cb6786b3e8be0a4ccf53bc0e53f3e4937d
 
-do_unpack_compile
+CONFFLAGS=(
+--disable-go ## go library/examples are broken in 1.5.0
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
