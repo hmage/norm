@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://github.com/libevent/libevent/releases/download/release-2.1.11-stable/libevent-2.1.11-stable.tar.gz a76bba0a281da9384d4be5b40f3907c07e21428c
+
+do_unpack_compile
