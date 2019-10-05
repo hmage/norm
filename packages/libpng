@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[[ $OSTYPE != *darwin* ]] && depends_on zlib ## on osx, zlib is guaranteed to be provided by the system
+depends_on zlib
 
 fetch_source http://downloads.sourceforge.net/libpng/libpng-1.6.37.tar.xz 3ab93fabbf4c27e1c4724371df408d9a1bd3f656
 
