@@ -13,7 +13,7 @@ depends_on libidn2
 depends_on libpsl
 
 ## do not download it over https because system-provided curl might not be able to download over https
-fetch_source http://execve.net/mirror/curl/curl-7.65.3.tar.gz 6468eea5e52ae0aac93f3995ec8e545ecb96f9e9
+fetch_source http://execve.net/mirror/curl/curl-7.66.0.tar.gz bae80018d31ae3a8b56505907ab8a2c69270326e
 
 CONFFLAGS=(
 "--with-ca-bundle=$PREFIX/etc/ssl/cert.pem"
