@@ -5,7 +5,7 @@ depends_on xz ## opportunistic linking with liblzma
 
 depends_on libgnutls ## don't remove or replace with openssl because aria2 will fail to build otherwise, see bug https://github.com/aria2/aria2/issues/1198
 
-fetch_source https://github.com/aria2/aria2/releases/download/release-1.34.0/aria2-1.34.0.tar.xz 7a804bc7b0788c90f2c62e9eb2249da96d84569b
+fetch_source https://github.com/aria2/aria2/releases/download/release-1.35.0/aria2-1.35.0.tar.xz 1e4f8dba13e6eb5860b90c567a9c03d2c4be8f18
 
 CONFFLAGS=(
 --without-libxml2 ## opportunistic linking
