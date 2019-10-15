@@ -2,8 +2,8 @@
 
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx gurantees to provide one, opportunistic linking on other systems
 
-fetch_source https://downloads.sourceforge.net/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz a615979db9cee82e4a934a1455577f597d290b41
-fetch_file https://raw.githubusercontent.com/Homebrew/formula-patches/05ae0eb1/squashfs/squashfs-osx-bundle.diff bf8aad479180a0614b74d4aa2fb5b8a0c1dc567b
+fetch_source https://downloads.sourceforge.net/squashfs/squashfs/squashfs4.4/squashfs4.4.tar.gz a42fdedb8a1543274592e317c437cafa54e02705
+fetch_file https://patch-diff.githubusercontent.com/raw/plougher/squashfs-tools/pull/69.patch a29ae1e354b98861f57878d2878af54aef0d100c
 
 do_unpack
 do_patch "$FILENAME" -p1
