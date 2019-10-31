@@ -10,7 +10,7 @@ depends_on libfdk-aac
 depends_on libsdl2 ## needed for ffplay to work
 [[ $OSTYPE == *linux* ]] && depends_on libasound ## for sound output on linux
 
-fetch_source https://ffmpeg.org/releases/ffmpeg-4.2.tar.xz 75d2af95c37402f29fc8432f5578e456e7366620
+fetch_source https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.xz c386b7330259d9eec0bdefb39e05bf9145e3d850
 
 CONFFLAGS=(
 --enable-gpl ## needed to use x264 and x265
