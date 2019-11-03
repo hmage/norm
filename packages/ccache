@@ -1,0 +1,7 @@
+#!/bin/bash
+
+fetch_source https://samba.org/ftp/ccache/ccache-3.6.tar.gz 376326ff9446c4ca3c9c5834b606461c9d874f94
+
+do_unpack_compile
+
+add_to_ccache cc cpp gcov c++ g++ gcc gcc-ar gcc-nm gcc-ranlib
