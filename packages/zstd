@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/facebook/zstd/releases/download/v1.4.3/zstd-1.4.3.tar.gz cadf7943c2df697e2350b3e6e3d156e5351519dc
+fetch_source https://github.com/facebook/zstd/releases/download/v1.4.4/zstd-1.4.4.tar.gz 355e79185fa1ea5b325d63cfcb6ead6e6e4aa9c4
 
 MAKEFLAGS=(
 PREFIX="$ESCAPED_PREFIX"
@@ -11,7 +11,7 @@ HAVE_LZ4=0  ## opportunistic linking otherwise
 
 do_unpack
 pushd_src
-do_make -C lib "${MAKEFLAGS[@]}"
+CPPFLAGS="-I." do_make -C lib "${MAKEFLAGS[@]}"
 do_test "${MAKEFLAGS[@]}"
 do_install "${MAKEFLAGS[@]}"
 popd_src
