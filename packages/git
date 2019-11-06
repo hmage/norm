@@ -5,8 +5,8 @@
 
 depends_on libexpat ## opportunistic linking
 
-fetch_source https://www.kernel.org/pub/software/scm/git/git-2.23.0.tar.xz fc627f8cb994c60ae6c4580ca514af2a18c464d7
-fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.23.0.tar.xz db4ccaa0e784669f0eb47ed1f23c665ad9638c29
+fetch_source https://www.kernel.org/pub/software/scm/git/git-2.24.0.tar.xz 851537fc03f5a99419ef20e9b836de965c7928bd
+fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.24.0.tar.xz ae7a0a56f295b359a178ab430bfafbf83b2b92dc
 
 do_unpack
 pushd_src
