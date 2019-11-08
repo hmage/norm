@@ -6,6 +6,7 @@ fetch_source http://ftp.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-2
 
 CONFFLAGS=(
 --enable-static   ## otherwise system-provided libx264.a might end up used instead of ours
+--enable-shared   ## reduces ffmpeg binary size
 --enable-pic      ## otherwise static linking will fail with `relocation R_X86_64_32S against hidden symbol `x264_10_pw_1' can not be used when making a shared object`
 --disable-swscale ## opportunistic linking with libswscale
 --disable-lavf    ## opportunistic linking iwth libavformat
