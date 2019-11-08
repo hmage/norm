@@ -20,6 +20,7 @@ CONFFLAGS=(
 --enable-libfdk-aac ## highest quality AAC encoder available in ffmpeg
 --enable-sdl2 ## needed for ffplay
 --enable-ffplay ## useful also for analyzing streams
+--enable-shared ## reduces binary size to manageable levels
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
