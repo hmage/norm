@@ -1,11 +1,11 @@
 #!/bin/bash
 
 needs_tool cmake
-[[ $OSTYPE != *darwin* ]] && depends_on curl
 [[ $OSTYPE != *darwin* ]] && depends_on openssl
 [[ $OSTYPE != *darwin* ]] && depends_on libreadline
 [[ $OSTYPE != *darwin* ]] && depends_on libncurses ## opportunistic linking with libtinfo
 depends_on libicu
+depends_on autoconf automake libtool ## needed for bundled libraries
 
 fetch_source https://download.tarantool.org/tarantool/1.10/src/tarantool-1.10.4.7.tar.gz f0c2c7972f57dead2e82433c144cb7cd5d78ec1d
 
