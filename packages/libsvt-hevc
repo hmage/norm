@@ -3,7 +3,7 @@
 needs_tool cmake
 needs_tool yasm
 
-fetch_source https://github.com/OpenVisualCloud/SVT-HEVC/archive/v1.4.1.tar.gz a0c4f6788464ad6f29d7a061ecb2b2b32b02418e
+fetch_source https://github.com/OpenVisualCloud/SVT-HEVC/archive/v1.4.3.tar.gz 92fdb539cc8d161eef279f12fa888b7a97af95d3
 
 do_unpack
 do_compile_outside
