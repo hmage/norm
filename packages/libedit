@@ -2,7 +2,7 @@
 
 [[ $OSTYPE != *darwin* ]] && depends_on libncurses ## on osx it's always there, so no need to build it
 
-fetch_source http://thrysoee.dk/editline/libedit-20190324-3.1.tar.gz 29802018f853788e7c3ba3ec7ef3c662b79dbea7
+fetch_source http://thrysoee.dk/editline/libedit-20191231-3.1.tar.gz 44891b6ceb0429fec0a118a1245c605410571d7d
 
 CPPFLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" \
 do_unpack_compile
