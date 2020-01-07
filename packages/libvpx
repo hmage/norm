@@ -1,0 +1,7 @@
+#!/bin/bash
+
+needs_tool yasm
+
+fetch_source https://github.com/webmproject/libvpx/archive/v1.8.2.tar.gz 7fbc7de47f59431fa2c5b76660f115963e83193d
+
+do_unpack_compile
