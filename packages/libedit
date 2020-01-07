@@ -4,5 +4,6 @@
 
 fetch_source http://thrysoee.dk/editline/libedit-20190324-3.1.tar.gz 29802018f853788e7c3ba3ec7ef3c662b79dbea7
 
+CPPFLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" \
 do_unpack_compile
 
