@@ -10,6 +10,7 @@ depends_on libfdk-aac
 depends_on libsdl2 ## needed for ffplay to work
 [[ $OSTYPE == *linux* ]] && depends_on libasound ## for sound output on linux
 depends_on libopus
+depends_on libvpx
 
 fetch_source https://ffmpeg.org/releases/ffmpeg-4.2.2.tar.xz 2557ec7d1dee31169980a8a10404129f94bd5809
 
@@ -23,6 +24,7 @@ CONFFLAGS=(
 --enable-ffplay ## useful also for analyzing streams
 --enable-shared ## reduces binary size to manageable levels
 --enable-libopus
+--enable-libvpx
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
