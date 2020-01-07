@@ -7,7 +7,7 @@ depends_on x265     ## otherwise libheif can't save images
 depends_on libjpeg ## opportunistic linking, for heif-convert and heif-enc
 depends_on libpng  ## opportunistic linking, for heif-convert, heif-enc and heif-thumbnailer
 
-fetch_source https://github.com/strukturag/libheif/releases/download/v1.5.1/libheif-1.5.1.tar.gz 830393239b3155b1101b9f33caed836cf0c096d5
+fetch_source https://github.com/strukturag/libheif/releases/download/v1.6.1/libheif-1.6.1.tar.gz 9d1f901a55ed3e89dbf1a336dc8daeb98613b3cf
 
 CONFFLAGS=(
 --disable-go ## go library/examples are broken in 1.5.0
