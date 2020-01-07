@@ -6,8 +6,4 @@ CONFOPTS=(
 --with-included-ltdl ## opportunistic linking with libltdl.so otherwise
 )
 
-do_unpack
-pushd_src
-./autogen.sh NOCONFIG
-do_compile "${CONFOPTS[@]}"
-popd_src
+do_unpack_compile "${CONFOPTS[@]}"
