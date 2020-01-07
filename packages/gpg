@@ -7,6 +7,6 @@ depends_on libksba
 depends_on libnpth
 depends_on pinentry
 
-fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.17.tar.bz2 12c1cee8871c03f0315fc8f27876364b75c95b12
+fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.19.tar.bz2 e24a1208ffe69d7436b2f27e99542a85f34d0ac0
 
 do_unpack_compile
