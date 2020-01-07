@@ -5,7 +5,7 @@ depends_on libpng  ## otherwise cwebp and dwebp can't handle png as in/out
 
 depends_on libtiff ## opportunistic linking
 
-fetch_source http://downloads.webmproject.org/releases/webp/libwebp-1.0.3.tar.gz 611400f942ce03c15fa03e1757b5e0f8713645e9
+fetch_source http://downloads.webmproject.org/releases/webp/libwebp-1.1.0.tar.gz 5e8d637a039a1688c04fdfeae308b2d285cb5aa3
 
 CONFFLAGS=(
 --enable-libwebpmux ## needed by graphicsmagick
