@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://deb.debian.org/debian/pool/main/libf/libffi/libffi_3.2.1.orig.tar.gz 280c265b789e041c02e5c97815793dfc283fb1e6
+fetch_source https://github.com/libffi/libffi/releases/download/v3.3/libffi-3.3.tar.gz 8df6cb570c8d6596a67d1c0773bf00650154f7aa
 
 do_unpack
 ## fix up https://github.com/libffi/libffi/issues/55 and https://github.com/libffi/libffi/issues/127
