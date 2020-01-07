@@ -8,4 +8,6 @@ CONFFLAGS=(
 --enable-shared ## otherwise produces only static library
 )
 
+## parallel build produces error: mv: cannot stat 'examples/c/reccalc/scan.stamp.tmp': No such file or directory
+NOPARALLEL=1 \
 do_unpack_compile "${CONFFLAGS[@]}"
