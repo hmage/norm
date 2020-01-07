@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on zlib # for zlib.h
 depends_on openssl
 
 do_gitclone https://github.com/giltene/wrk2
