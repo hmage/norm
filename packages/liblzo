@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz 4924676a9bae5db58ef129dc1cebce3baa3c4b5d
+
+do_unpack_compile
