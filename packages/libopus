@@ -2,4 +2,7 @@
 
 fetch_source https://archive.mozilla.org/pub/opus/opus-1.3.1.tar.gz ed226536537861c9f0f1ef7ca79dffc225bc181b
 
+## libopus dislikes -ffast-math, so force disable it
+cc_addflag EXTRAFLAGS -fno-fast-math
+CPPFLAGS="$EXTRAFLAGS" CFLAGS="$EXTRAFLAGS" \
 do_unpack_compile
