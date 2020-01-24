@@ -2,4 +2,4 @@
 
 fetch_source https://sourceware.org/pub/valgrind/valgrind-3.15.0.tar.bz2 4cc014e2390c4bcecb11aa00b37aa52d352db97f
 
-do_unpack_compile
+do_unpack_compile --without-mpicc ## avoid opportunistic linking with libmpi, since we're not interested in mpi
