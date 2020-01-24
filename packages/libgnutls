@@ -1,6 +1,5 @@
 #!/bin/bash
 
-depends_on libidn ## opportunistic linking
 depends_on libnettle
 depends_on libtasn1
 depends_on libunistring
@@ -8,4 +7,11 @@ depends_on libp11-kit
 
 fetch_source https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.11.1.tar.xz 2205863fefa0e070cbf2a6961bfa90c854286287
 
-do_unpack_compile
+CONFFLAGS=(
+--disable-libdane ## somehow forces linking against system libnettle
+--without-idn     ## avoid opportunistic linking with libidn/libidn2
+--disable-guile   ## build failure if guile is in system without headers
+--enable-local-libopts ## to avoid opportunistic linking with system-provided one
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
