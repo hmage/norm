@@ -3,4 +3,9 @@
 ## needed to build https-compatible curl, so don't use https for fetching this
 fetch_source http://lil.fr.distfiles.macports.org/nghttp2/nghttp2-1.40.0.tar.xz 7df231b961b84bd5d0c8ce81062de8aad83fcf5e
 
-do_unpack_compile
+CONFFLAGS=(
+--enable-lib-only         ## we are interested only in C library, not building examples, app python bindings or hpack tools
+--disable-python-bindings ## system-provided python breaks build
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
