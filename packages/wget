@@ -10,6 +10,8 @@ fetch_source http://ftpmirror.gnu.org/wget/wget-1.20.3.tar.gz 2b886eab5b97267cc3
 
 CONFFLAGS=(
 --with-ssl=openssl
+--disable-iri    ## do not try to use libidn
+--without-libpsl ## do not try to use libpsl
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
