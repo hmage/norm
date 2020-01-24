@@ -2,6 +2,7 @@
 
 depends_on libpcre ## opportunistic linking
 depends_on libpng  ## opportunistic linking
+depends_on libonig ## opportunistic linking
 
 ## on osx, zlib is guaranteed to be provided by the system
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## opportunistic linking
