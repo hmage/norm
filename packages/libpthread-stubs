@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://xcb.freedesktop.org/dist/libpthread-stubs-0.4.tar.bz2 c42503a2ae0067b2238b2f3fefc86656baa4dd8e
+
+do_unpack_compile
