@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://libbsd.freedesktop.org/releases/libbsd-0.10.0.tar.xz 9cb8f0b717da13c8aa13b9f3f5f8105ee6e5ccb5
+
+CFLAGS="-O2 -g $CFLAGS -std=c99" do_unpack_compile
