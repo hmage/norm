@@ -4,6 +4,7 @@ fetch_source https://www.mirrorservice.org/sites/distfiles.macports.org/graphviz
 
 CONFOPTS=(
 --with-included-ltdl ## opportunistic linking with libltdl.so otherwise
+--without-expat      ## opportunistic linking with libexpat.so
 )
 
 do_unpack_compile "${CONFOPTS[@]}"
