@@ -1,7 +1,6 @@
 #!/bin/bash
 
 [[ $OSTYPE != *darwin* ]] && depends_on libxml ## osx gurantees to provide one, don't bring our own
-depends_on libacl ## opportunistic linking
 
 ## opportunistic linking, otherwise uses bundled (outdated) copy
 depends_on libunistring
@@ -10,6 +9,7 @@ fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.20.1.tar.xz 62f4a6a2fd5f
 
 CONFFLAGS=(
 --disable-curses ## opportunistic linking for a feature that isn't used
+--disable-acl    ## opportunistic linking for a feature that isn't used, plus it's a circular dependency
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
