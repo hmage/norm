@@ -1,7 +1,9 @@
 #!/bin/bash
 
-depends_on zlib ## opportunistic linking
+depends_on zlib  ## compression support, opportunistic linking
+depends_on xz    ## compression support, opportunistic linking
+depends_on bzip2 ## compression support, opportunistic linking
 
 fetch_source http://deb.debian.org/debian/pool/main/f/file/file_5.38.orig.tar.gz 57cad9341c3f74f8681c2ef931786c420105f35e
 
-do_unpack_compile
+do_unpack_compile --disable-libseccomp ## seccomp produces errors with musl/alpine
