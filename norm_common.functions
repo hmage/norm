@@ -431,8 +431,10 @@ compile_formula() {
     fi
 }
 
-toolbinary() {
+tool_to_formula() {
     case "$1" in
+	msgfmt) echo "gettext" ;;
+	*) echo "$i" ;;
     esac
 }
 
@@ -440,7 +442,8 @@ needs_tool() {
     for i; do
         if ! hash "$i" 2>/dev/null; then
             log "System does not have tool $i, will build our own"
-            compile_formula "$i" $FORMULA
+            local frm=$(tool_to_formula "$i")
+            compile_formula "$frm" $FORMULA
         fi
     done
 }
