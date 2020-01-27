@@ -4,12 +4,14 @@ depends_on xz   ## opportunistic linking with liblzma
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## opportunistic linking, but on osx it's always there, so no need to build it
 depends_on libjbig ## opportunistic linking
 depends_on libjpeg ## opportunistic linking
+depends_on zstd    ## opportunistic linking with libzstd
 
 fetch_source http://download.osgeo.org/libtiff/tiff-4.0.10.tar.gz c783b80f05cdacf282aa022dc5f5b0ede5e021ae
 fetch_debian http://deb.debian.org/debian/pool/main/t/tiff/tiff_4.0.10-4.debian.tar.xz dde956fd05e3e6692415d5f20ff60ee6628d4b51
 
 CONFFLAGS=(
 --disable-webp ## webp inside tiff is _VERY_ uncommon, and we can't depend on it, because libwebp depends on us!
+--without-x    ## opportunistic linking with opengl, a tiff C library doesn't need opengl anyway
 )
 
 do_undebian_compile "${CONFFLAGS[@]}"
