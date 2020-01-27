@@ -3,6 +3,7 @@
 needs_tool python ## for building
 depends_on pixman
 depends_on glib
+depends_on libsdl2 ## for GUI
 
 fetch_source https://download.qemu.org/qemu-4.2.0.tar.xz b27aa828a8457bd8551ae3c81b80cc365e1f6bfe
 
