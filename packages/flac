@@ -4,4 +4,29 @@ depends_on libogg ## opportunistic linking
 
 fetch_source http://downloads.xiph.org/releases/flac/flac-1.3.3.tar.xz 6ac2e8f1dd18c9b0214c4d81bd70cdc1e943cffe
 
-do_unpack_compile
+do_unpack
+do_patch_inline -p0 << EOF
+--- src/libFLAC/include/private/ogg_decoder_aspect.h
++++ src/libFLAC/include/private/ogg_decoder_aspect.h
+@@ -32,7 +32,7 @@
+ 
+ #ifndef FLAC__PRIVATE__OGG_DECODER_ASPECT_H
+ #define FLAC__PRIVATE__OGG_DECODER_ASPECT_H
+-
++#include <stdint.h>
+ #include <ogg/ogg.h>
+ 
+ #include "FLAC/ordinals.h"
+--- src/libFLAC/include/private/ogg_encoder_aspect.h
++++ src/libFLAC/include/private/ogg_encoder_aspect.h
+@@ -32,7 +32,7 @@
+ 
+ #ifndef FLAC__PRIVATE__OGG_ENCODER_ASPECT_H
+ #define FLAC__PRIVATE__OGG_ENCODER_ASPECT_H
+-
++#include <stdint.h>
+ #include <ogg/ogg.h>
+ 
+ #include "FLAC/ordinals.h"
+EOF
+do_compile
