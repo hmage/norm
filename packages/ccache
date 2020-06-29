@@ -2,7 +2,7 @@
 
 depends_on zlib ## for compression, opportunistic linking
 
-fetch_source https://github.com/ccache/ccache/releases/download/v3.7.7/ccache-3.7.7.tar.xz a974ffc4d2328562da9308e508806b3be96975ef
+fetch_source https://github.com/ccache/ccache/releases/download/v3.7.10/ccache-3.7.10.tar.xz 4b7d3b950731392b73d8dc77d8b72d90896154b5
 
 do_unpack_compile
 
