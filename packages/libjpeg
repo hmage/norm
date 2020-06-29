@@ -4,7 +4,7 @@ depends_on pkg-config ## otherwise users of libjpeg won't be able to find it
 depends_on nasm ## system-provided nasm can be too old
 needs_tool cmake ## libjpeg-turbo 1.5.3 was last version to use autotools
 
-fetch_source https://downloads.sourceforge.net/libjpeg-turbo/2.0.4/libjpeg-turbo-2.0.4.tar.gz 163d8f96d0999526a117de0388624241b54dcd67
+fetch_source https://downloads.sourceforge.net/libjpeg-turbo/2.0.5/libjpeg-turbo-2.0.5.tar.gz 9d4c565d402b2f5661be78d76098073ec7e30f10
 
 do_unpack
 ## some programs define JPEG_INTERNALS and fail to compile since by default it's not added by this fork of libjpeg
