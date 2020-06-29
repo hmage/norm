@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://distfiles.dereferenced.org/pkgconf/pkgconf-1.6.3.tar.xz 9aaa032fd818e445b63eae926caa5665ea36b144
+fetch_source http://distfiles.dereferenced.org/pkgconf/pkgconf-1.7.3.tar.xz e90c3d993b7d2246d3b72ab558591a07c3b22ee2
 
 do_unpack
 
