@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://download.openpkg.org/components/cache/xz/xz-5.2.4.tar.gz 63ca380029597b951ce9afc6dec28f44f70bb5bd
+fetch_source http://download.openpkg.org/components/cache/xz/xz-5.2.5.tar.gz fa2ae4db119f639a01b02f99f1ba671ece2828eb
 
 do_unpack_compile
