@@ -5,7 +5,7 @@ depends_on pixman
 depends_on glib
 depends_on libsdl2 ## for GUI
 
-fetch_source https://download.qemu.org/qemu-4.2.0.tar.xz b27aa828a8457bd8551ae3c81b80cc365e1f6bfe
+fetch_source https://download.qemu.org/qemu-5.0.0.tar.xz 52d1c0e6025a212d4fde471e4d9b5913f2615f86
 
 CONFFLAGS=(
 --target-list=x86_64-softmmu ## if you need anything else, change this, optionally make a pull request or fill an issue ^.^
