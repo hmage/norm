@@ -3,7 +3,7 @@
 depends_on openssl ## needed for encryption
 depends_on zlib    ## opportunistic linking
 
-fetch_source http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.1p1.tar.gz c44b96094869f177735ae053d92bd5fcab1319de
+fetch_source http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.3p1.tar.gz 04c7adb9986f16746588db8988b910530c589819
 
 CONFFLAGS=(
 --with-privsep-path=$PREFIX/var/empty ## tries to create /var/empty otherwise and fails to install
