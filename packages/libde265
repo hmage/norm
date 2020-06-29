@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/strukturag/libde265/releases/download/v1.0.4/libde265-1.0.4.tar.gz 3fde9ed55836557bd8a87dfe3fbee1c4df5a1308
+fetch_source https://github.com/strukturag/libde265/releases/download/v1.0.5/libde265-1.0.5.tar.gz e7e65998314bb552cbed8c52b4e58b532ca97de3
 
 CONFFLAGS=(
 --disable-sherlock265 ## sherlock265 is a GUI tool to analyze h265 frames, but requires QT to build
