@@ -2,7 +2,7 @@
 
 needs_tool m4
 
-fetch_source http://ftpmirror.gnu.org/bison/bison-3.5.tar.xz 39f962869f16ee2dafba7cec194b67342af3544f
+fetch_source http://ftpmirror.gnu.org/bison/bison-3.6.4.tar.xz f31fb34f1f04327004ae259137ce509dacb8b063
 
 CONFFLAGS=(
 --enable-shared ## otherwise produces only static library
