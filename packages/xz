@@ -2,4 +2,8 @@
 
 fetch_source http://download.openpkg.org/components/cache/xz/xz-5.2.5.tar.gz fa2ae4db119f639a01b02f99f1ba671ece2828eb
 
-do_unpack_compile
+CONFFLAGS=(
+--disable-nls ## otherwise links with gettext's libintl
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
