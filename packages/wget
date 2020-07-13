@@ -12,6 +12,7 @@ CONFFLAGS=(
 --with-ssl=openssl
 --disable-iri    ## do not try to use libidn
 --without-libpsl ## do not try to use libpsl
+--disable-nls    ## otherwise will try to link with gettext's libintl
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
