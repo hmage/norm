@@ -6,4 +6,9 @@ depends_on libffi ## while osx provides libffi, it is very old, lacks libffi_clo
 
 fetch_source https://github.com/p11-glue/p11-kit/releases/download/0.23.20/p11-kit-0.23.20.tar.xz 35b8b044c5ce4f45aebc5391f24d94ecbba7a1f4
 
-do_unpack_compile --with-trust-paths="$PREFIX/etc/ssl/cert.pem"
+CONFFLAGS=(
+--with-trust-paths="$PREFIX/etc/ssl/cert.pem" ## otherwise it won't find them
+--disable-nls                                 ## otherwise links with gettext's libintl
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
