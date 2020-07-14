@@ -2,7 +2,7 @@
 
 needs_tool msgfmt ## it's in gettext, but if system has one, don't build our own
 
-fetch_source http://download.savannah.gnu.org/releases/attr/attr-2.4.47.src.tar.gz 5060f0062baee6439f41a433325b8b3671f8d2d8
+fetch_source http://download.savannah.gnu.org/releases/attr/attr-2.4.48.tar.gz d7c88cb5db51c5e255a511b0a15e832fcdda5b4f
 
 do_unpack
 
