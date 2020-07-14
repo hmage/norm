@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://nodejs.org/dist/v13.5.0/node-v13.5.0.tar.gz 85d2c121afe7a4377bceff78e82c08581b90cbde
+fetch_source https://nodejs.org/dist/v14.4.0/node-v14.4.0.tar.gz bd5d01f9049019cea4c7f33f77c76d6937b9666a
 
 do_unpack
 ## this fixes build failure on OSX if gnu libtool is installed
