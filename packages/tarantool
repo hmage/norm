@@ -7,7 +7,7 @@ needs_tool cmake
 depends_on libicu
 depends_on autoconf automake libtool ## needed for bundled libraries
 
-fetch_source https://download.tarantool.org/tarantool/1.10/src/tarantool-1.10.4.7.tar.gz f0c2c7972f57dead2e82433c144cb7cd5d78ec1d
+fetch_source https://download.tarantool.org/tarantool/1.10/src/tarantool-1.10.6.53.tar.gz a895b340ca6b713f08c77f4781832e677023cb79
 
 do_unpack
 sed -ibak 's|CURL_ROOT_DIR|CURL_ROOT|' "$SRCDIR"/cmake/os.cmake
