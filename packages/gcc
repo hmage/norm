@@ -1,8 +1,8 @@
 #!/bin/bash
 
-depends_on gcc-9.2
+depends_on gcc-10.1
 
-ln -s g++-9.2 "$PREFIX/bin/g++"
-ln -s gcc-9.2 "$PREFIX/bin/gcc"
+ln -s g++-10.1 "$PREFIX/bin/g++"
+ln -s gcc-10.1 "$PREFIX/bin/gcc"
 
 add_to_ccache gcc g++
