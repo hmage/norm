@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://www.mirrorservice.org/sites/distfiles.macports.org/graphviz/graphviz-2.40.1.tar.gz 8a44d19bcdb50df1bd8e649de472ebf868468888
+fetch_source https://gitlab.com/graphviz/graphviz/-/archive/2.44.0/graphviz-2.44.0.tar.gz
 
 CONFOPTS=(
 --with-included-ltdl ## opportunistic linking with libltdl.so otherwise
