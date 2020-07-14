@@ -12,6 +12,7 @@ CONFFLAGS=(
 --without-idn     ## avoid opportunistic linking with libidn/libidn2
 --disable-guile   ## build failure if guile is in system without headers
 --enable-local-libopts ## to avoid opportunistic linking with system-provided one
+--disable-nls     ## otherwise tries to link against gettext's libintl
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
