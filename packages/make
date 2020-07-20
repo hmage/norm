@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/make/make-4.2.1.tar.gz 9cb7f45f6e32c977164ba790e626c359d3a24fee
+fetch_source http://ftpmirror.gnu.org/make/make-4.3.tar.gz 3c40e5b49b893dbb14f1e2e1f8fe89b7298cc51d
 
 do_unpack
 pushd_src
