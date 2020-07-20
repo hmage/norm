@@ -5,7 +5,6 @@ if ! test_cc_value asm/bitsperlong.h __BITS_PER_LONG; then
     false
 fi
 
-fetch_source http://http.debian.net/debian/pool/main/libs/libseccomp/libseccomp_2.1.1.orig.tar.gz cc135ab6c95723cfbba034feb9630446de475341
-fetch_debian http://http.debian.net/debian/pool/main/libs/libseccomp/libseccomp_2.1.1-1.debian.tar.xz 5692cbe0353a329f21fe914589437eb2aba62e41
+fetch_source https://github.com/seccomp/libseccomp/releases/download/v2.4.3/libseccomp-2.4.3.tar.gz 477a66a6c5a32e585adaf90961994641de313247
 
 do_undebian_compile
