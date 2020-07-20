@@ -4,7 +4,7 @@ needs_tool python ## script for generating suffix list is in python
 depends_on libidn2
 depends_on libunistring ## error: You requested libidn2|libidn but libunistring is not installed.
 
-fetch_source https://github.com/rockdaboot/libpsl/releases/download/libpsl-0.21.0/libpsl-0.21.0.tar.gz 142a4abbf7ebab9651942b6e7a1b334742307f06
+fetch_source https://github.com/rockdaboot/libpsl/releases/download/0.21.1/libpsl-0.21.1.tar.gz dc5fd26d060b3445386b5a82628df900567654f4
 
 do_unpack
 do_patch_inline -p0 << EOF ## fix build failure on CentOS6
