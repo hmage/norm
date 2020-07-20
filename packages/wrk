@@ -2,7 +2,7 @@
 
 depends_on openssl
 
-fetch_source https://github.com/wg/wrk/archive/4.1.0.tar.gz 8b18fb688de47cd0124a4010e571aa237f52cfd1
+fetch_source https://github.com/wg/wrk/archive/0896020a2a28b84b1150e9b60933b746fe1dc761.tar.gz 8661353a7ac1f79a8567be513962655fcca3d4a5
 
 do_unpack
 pushd_src
