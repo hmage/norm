@@ -3,7 +3,7 @@
 depends_on zlib # for zlib.h
 depends_on openssl
 
-do_gitclone https://github.com/giltene/wrk2
+fetch_source https://github.com/giltene/wrk2/archive/44a94c17d8e6a0bac8559b53da76848e430cb7a7.tar.gz 5c8a56f53a4a76919d98e90f670339876675ddcd
 
 ## wrk2 fails to build with luajit bundled in the repo, bring new one
 fetch_file http://luajit.org/download/LuaJIT-2.0.5.tar.gz 10427215da7d424fd9e48adbea087966053cdb6f
