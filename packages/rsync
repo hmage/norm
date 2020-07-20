@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://download.samba.org/pub/rsync/src/rsync-3.2.1.tar.gz b00af97012cf1cb4b567e28e89c6365a651a24c9
+fetch_source https://download.samba.org/pub/rsync/src/rsync-3.2.2.tar.gz f73d49bcac52016894a29339701d390fe1a9aac9
 
 do_unpack_compile
