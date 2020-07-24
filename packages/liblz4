@@ -1,0 +1,10 @@
+#!/bin/bash
+
+fetch_source https://github.com/lz4/lz4/archive/v1.8.2.tar.gz dc24ee207db0b4481ff5e74b608c1af1c18c5a7c
+
+do_unpack
+pushd_src
+do_make PREFIX="$PREFIX"
+do_test -C examples PREFIX="$PREFIX"
+do_install PREFIX="$PREFIX"
+popd_src
