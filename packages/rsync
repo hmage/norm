@@ -1,5 +1,10 @@
 #!/bin/bash
 
+depends_on openssl
+depends_on libxxhash
+depends_on zstd
+depends_on liblz4
+
 fetch_source https://download.samba.org/pub/rsync/src/rsync-3.2.2.tar.gz f73d49bcac52016894a29339701d390fe1a9aac9
 
 do_unpack_compile
