@@ -5,6 +5,7 @@ fetch_source https://ftp.osuosl.org/pub/blfs/conglomeration/graphviz/graphviz-2.
 CONFOPTS=(
 --with-included-ltdl ## opportunistic linking with libltdl.so otherwise
 --without-expat      ## opportunistic linking with libexpat.so
+PS2PDF=true
 )
 
 do_unpack_compile "${CONFOPTS[@]}"
