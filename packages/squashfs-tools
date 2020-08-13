@@ -1,5 +1,9 @@
 #!/bin/bash
 
+depends_on xz liblzo
+depends_on liblz4
+depends_on zstd
+
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx gurantees to provide one, opportunistic linking on other systems
 
 fetch_source https://downloads.sourceforge.net/squashfs/squashfs/squashfs4.4/squashfs4.4.tar.gz a42fdedb8a1543274592e317c437cafa54e02705
@@ -9,6 +13,11 @@ do_unpack
 do_patch "$FILENAME" -p1
 SRCDIR="$SRCDIR/squashfs-tools"
 pushd_src
+sed -ibak 's|#XZ_SUPPORT|XZ_SUPPORT|' Makefile
+sed -ibak 's|#LZO_SUPPORT|LZO_SUPPORT|' Makefile
+sed -ibak 's|#LZ4_SUPPORT|LZ4_SUPPORT|' Makefile
+sed -ibak 's|#ZSTD_SUPPORT|ZSTD_SUPPORT|' Makefile
+sed -ibak "s|/usr/local|$PREFIX/|" Makefile
 do_make
 do_install INSTALL_DIR="$PREFIX/bin"
 popd_src
