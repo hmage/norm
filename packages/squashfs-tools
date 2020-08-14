@@ -13,11 +13,6 @@ do_unpack
 do_patch "$FILENAME" -p1
 SRCDIR="$SRCDIR/squashfs-tools"
 pushd_src
-sed -ibak 's|#XZ_SUPPORT|XZ_SUPPORT|' Makefile
-sed -ibak 's|#LZO_SUPPORT|LZO_SUPPORT|' Makefile
-sed -ibak 's|#LZ4_SUPPORT|LZ4_SUPPORT|' Makefile
-sed -ibak 's|#ZSTD_SUPPORT|ZSTD_SUPPORT|' Makefile
-sed -ibak "s|/usr/local|$PREFIX/|" Makefile
-do_make
+do_make XZ_SUPPORT=1 LZO_SUPPORT=1 LZ4_SUPPORT=1 ZSTD_SUPPORT=1 LZMA_XZ_SUPPORT=1 XATTR_SUPPORT=1
 do_install INSTALL_DIR="$PREFIX/bin"
 popd_src
