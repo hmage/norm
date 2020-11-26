@@ -459,7 +459,6 @@ do_download() {
     local URL="$1"
     local SAVETO="$2"
     case "$DOWNLOADER" in
-        aria2c) aria2c "$URL" --allow-overwrite --dir / -o "$SAVETO" ;;
         wget)   wget "$URL" -O "$SAVETO" ;;
         curl)   curl --fail -L -R "$URL" -o "$SAVETO" ;;
         *) log "\$DOWNLOADER is unknown ($DOWNLOADER)" && return 1 ;;
