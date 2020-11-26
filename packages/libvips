@@ -15,7 +15,7 @@ depends_on libgif
 ## opportunistic linking
 depends_on liblcms2
 
-fetch_source https://github.com/libvips/libvips/releases/download/v8.9.2/vips-8.9.2.tar.gz 155560081b5a494cbe9fa80e2198aded89c32d61
+fetch_source https://github.com/libvips/libvips/releases/download/v8.10.2/vips-8.10.2.tar.gz e5d08c0d2d7bfedd295fbc4a640c79bffecf44b1
 
 CONFFLAGS=(
 #--without-giflib ## if system has giflib 4.x and we bring our own giflib 5.x, build fails because compiler for some reason picks up headers from 4.x instead of 5.x
