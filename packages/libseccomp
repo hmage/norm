@@ -5,6 +5,6 @@ if ! test_cc_value asm/bitsperlong.h __BITS_PER_LONG; then
     false
 fi
 
-fetch_source https://github.com/seccomp/libseccomp/releases/download/v2.4.3/libseccomp-2.4.3.tar.gz 477a66a6c5a32e585adaf90961994641de313247
+fetch_source https://github.com/seccomp/libseccomp/releases/download/v2.5.1/libseccomp-2.5.1.tar.gz 6069b720219400d8369f567af30cd2ad06ad938e
 
 do_undebian_compile
