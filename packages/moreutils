@@ -1,9 +1,7 @@
 #!/bin/bash
 
-fetch_source http://deb.debian.org/debian/pool/main/m/moreutils/moreutils_0.63.orig.tar.xz 2abb0d000300418920173cf88118c2b98a11655a
-fetch_debian http://deb.debian.org/debian/pool/main/m/moreutils/moreutils_0.63-1.debian.tar.xz 244bc683c7bdc9f67f9974625651f30eebb2b3a3
+do_gitclone https://git.joeyh.name/git/moreutils.git
 
-do_undebian
 do_patch_inline -p0 << 'EOF'
 --- Makefile
 +++ Makefile
