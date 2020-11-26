@@ -2,6 +2,6 @@
 
 depends_on openssl ## opportunistic linking -- creates a libevent wrapper around openssl that some programs use
 
-fetch_source https://github.com/libevent/libevent/releases/download/release-2.1.11-stable/libevent-2.1.11-stable.tar.gz a76bba0a281da9384d4be5b40f3907c07e21428c
+fetch_source https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz cd55656a9b5bed630b08f05495230affb7996b21
 
 do_unpack_compile
