@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://nginx.org/download/nginx-1.19.1.tar.gz 3cd394aab6a9320186417457531c5e565b4e0829
+fetch_source http://nginx.org/download/nginx-1.19.5.tar.gz 2dbf782ef868d27b032acb3e6948e06c8c57d215
 
 do_unpack_compile
