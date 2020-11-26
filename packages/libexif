@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://prdownloads.sourceforge.net/libexif/0.6.21/libexif-0.6.21.tar.bz2 a52219b12dbc8d33fc096468591170fda71316c0
+fetch_source https://github.com/libexif/libexif/releases/download/libexif-0_6_22-release/libexif-0.6.22.tar.xz b396c562dbf44567ef796f324e7760b15e657523
 
 do_unpack_compile
