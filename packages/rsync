@@ -5,6 +5,6 @@ depends_on libxxhash
 depends_on zstd
 depends_on liblz4
 
-fetch_source https://download.samba.org/pub/rsync/src/rsync-3.2.2.tar.gz f73d49bcac52016894a29339701d390fe1a9aac9
+fetch_source https://download.samba.org/pub/rsync/src/rsync-3.2.3.tar.gz 00823f43901e7da39f3f0daf20ec9efae47e959e
 
 do_unpack_compile
