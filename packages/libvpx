@@ -2,6 +2,6 @@
 
 needs_tool yasm
 
-fetch_source https://github.com/webmproject/libvpx/archive/v1.8.2.tar.gz 7fbc7de47f59431fa2c5b76660f115963e83193d
+fetch_source https://github.com/webmproject/libvpx/archive/v1.9.0.tar.gz 2ab8203ad8922bdf3256e4a197d1348fa8db9a62
 
 do_unpack_compile
