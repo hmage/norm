@@ -4,7 +4,7 @@ depends_on pkg-config ## won't find libtasn1 without it
 depends_on libtasn1
 depends_on libffi ## while osx provides libffi, it is very old, lacks libffi_closure_alloc()
 
-fetch_source https://github.com/p11-glue/p11-kit/releases/download/0.23.20/p11-kit-0.23.20.tar.xz 35b8b044c5ce4f45aebc5391f24d94ecbba7a1f4
+fetch_source https://github.com/p11-glue/p11-kit/releases/download/0.23.21/p11-kit-0.23.21.tar.xz 5c550cc2a192d5a3ede74862b22ef0b139c911a4
 
 CONFFLAGS=(
 --with-trust-paths="$PREFIX/etc/ssl/cert.pem" ## otherwise it won't find them
