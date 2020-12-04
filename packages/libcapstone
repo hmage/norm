@@ -1,0 +1,9 @@
+#!/bin/bash
+
+fetch_source https://github.com/aquynh/capstone/archive/4.0.2.tar.gz c0dfa4f6236a4505916ce67d63b856bf806b0d83
+
+do_unpack
+pushd_src
+./make.sh
+./make.sh install
+popd_src
