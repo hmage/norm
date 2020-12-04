@@ -2,7 +2,7 @@
 
 depends_on nasm ## steep version requirement, so bring our own (wants 2.13 while stretch has 2.12)
 
-fetch_source https://code.videolan.org/videolan/x264/-/archive/cde9a93319bea766a92e306d69059c76de970190/x264-cde9a93319bea766a92e306d69059c76de970190.tar.bz2 618aa08b84553afd55f6d4aa251074dada742cfb
+fetch_source https://code.videolan.org/videolan/x264/-/archive/stable/x264-stable-20201107.tar.bz2 4566e8cae34441de12aff954fd4c71c1a4b20e78
 
 CONFFLAGS=(
 --enable-static   ## otherwise system-provided libx264.a might end up used instead of ours
