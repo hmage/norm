@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://download.icu-project.org/files/icu4c/67.1/icu4c-67_1-src.tgz 7381dae69c45977ed4186d4298c7da36f5b3c3c8
+fetch_source http://download.icu-project.org/files/icu4c/68.1/icu4c-68_1-src.tgz eb26825100bdc93b29e58239d8c85f66bbd6ca9f
 
 do_unpack
 SRCDIR="$SRCDIR/source"
