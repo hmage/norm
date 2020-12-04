@@ -1,0 +1,9 @@
+#!/bin/bash
+
+depends_on libncurses
+needs_tool pkg-config ## to find libncurses
+
+fetch_source https://downloads.sourceforge.net/procps-ng/Production/procps-ng-3.3.16.tar.xz 1645168d28b70837d787f4337fd85f6f82f0a251
+
+CPPFLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" \
+do_unpack_compile
