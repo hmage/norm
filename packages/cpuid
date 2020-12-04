@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://etallen.com/cpuid/cpuid-20200427.src.tar.gz 8f629da8aa60549a047aec5ba2f5556be842c02c
+fetch_source http://etallen.com/cpuid/cpuid-20201006.src.tar.gz 1df4019c710a7ed698ac7c9e59ad713c06a3cd3f
 
 do_unpack
 pushd_src
