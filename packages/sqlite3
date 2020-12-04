@@ -2,7 +2,7 @@
 
 depends_on zlib        ## opportunistic linking
 
-fetch_source https://sqlite.org/2020/sqlite-autoconf-3330000.tar.gz d63f3ce52cb295d62d09fc2ad8f2d29c35e1645f
+fetch_source https://sqlite.org/2020/sqlite-autoconf-3340000.tar.gz 1544957cf4bcc9606aef541054b1cb59480a4b4e
 
 CONFFLAGS=(
 --disable-editline     ## both editline and readline incur heavy build time dependency of libncurses
