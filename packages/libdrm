@@ -3,6 +3,6 @@
 depends_on pkg-config
 depends_on libpciaccess
 
-fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.103.tar.xz 7583f6c48fca590cbf813e6d92bc4d26f7f4e0ee
+fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.102.tar.xz c71ca06789ffca6daf5bf6ea8e3b76f373015449
 
 do_unpack_compile
