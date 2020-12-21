@@ -1,6 +1,7 @@
 #!/bin/bash
 
 needs_tool cmake
+depends_on zlib ## opportunistic linking
 
 fetch_source https://github.com/opencv/opencv/archive/2.4.13.7.tar.gz d31ee6b8087648fb015327cd968d798f3e510451
 
