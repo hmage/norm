@@ -6,6 +6,7 @@ needs_tool cmake
 [[ $OSTYPE != *darwin* ]] && depends_on libncurses ## opportunistic linking with libtinfo
 depends_on libicu
 depends_on autoconf automake libtool ## needed for bundled libraries
+depends_on zlib ## opportunistic linking
 
 fetch_source https://download.tarantool.org/tarantool/2.7/src/tarantool-2.7.0.80.tar.gz 7044ec0a5543c9f8fa4da919ee904a321a82ff46
 
