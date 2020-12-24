@@ -1,5 +1,13 @@
 #!/bin/bash
 
+depends_on libpcre
+depends_on zlib ## opportunistic linking
+
 fetch_source http://nginx.org/download/nginx-1.19.5.tar.gz 2dbf782ef868d27b032acb3e6948e06c8c57d215
 
-do_unpack_compile
+CONFFLAGS=(
+--with-cc-opt="$CPPFLAGS"
+--with-ld-opt="$LDFLAGS"
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
