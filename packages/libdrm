@@ -3,6 +3,7 @@
 depends_on pkg-config
 depends_on libpciaccess
 
-fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.102.tar.xz c71ca06789ffca6daf5bf6ea8e3b76f373015449
+# 2.4.100 is latest that uses autotools, newer use meson+ninja that require python 3.9
+fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.100.tar.gz 2097f0b98deaff16b8f3b93cedcb5cd35291a3c1
 
 do_unpack_compile
