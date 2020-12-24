@@ -4,6 +4,6 @@ fetch_source https://github.com/aquynh/capstone/archive/4.0.2.tar.gz c0dfa4f6236
 
 do_unpack
 pushd_src
-./make.sh
-./make.sh install
+do_make
+do_install PREFIX="$PREFIX"
 popd_src
