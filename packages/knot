@@ -1,5 +1,6 @@
 #!/bin/bash
 
+depends_on liblmdb
 depends_on libgnutls
 depends_on liburcu
 [[ $OSTYPE != *darwin* ]] && depends_on libedit ## on osx it's always there, so no need to build it
