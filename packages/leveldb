@@ -1,8 +1,7 @@
 #!/bin/bash
 
 needs_tool cmake
-depends_on sqlite3 ## header and library
 
 fetch_source https://github.com/google/leveldb/archive/1.22.tar.gz 8d310af5cfb53dc836bfb412ff4b3c8aea578627
 
-do_unpack_compile
+do_unpack_compile -DLEVELDB_BUILD_BENCHMARKS=OFF
