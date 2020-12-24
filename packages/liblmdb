@@ -1,0 +1,10 @@
+#!/bin/bash
+
+fetch_source https://git.openldap.org/openldap/openldap/-/archive/LMDB_0.9.27/openldap-LMDB_0.9.27.tar.bz2 2b4ed5504f46614b40c7f3144fb619152bdcdb4b
+
+do_unpack
+pushd_src
+cd libraries/liblmdb
+do_make
+do_make install prefix="$PREFIX"
+popd_src
