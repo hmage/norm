@@ -1,10 +1,8 @@
 #!/bin/bash
 
-needs_tool pkg-config ## to find libboost and openssl
-
 depends_on libboost
-depends_on openssl
+needs_tool cmake
 
 fetch_source https://github.com/arvidn/libtorrent/releases/download/v2.0.1/libtorrent-rasterbar-2.0.1.tar.gz a55ec719c7ff98f81ee48ce2767e9c050219d5d4
 
-do_unpack_compile --with-boost="$PREFIX"
+do_unpack_compile
