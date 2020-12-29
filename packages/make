@@ -4,7 +4,7 @@ fetch_source http://ftpmirror.gnu.org/make/make-4.3.tar.gz 3c40e5b49b893dbb14f1e
 
 do_unpack
 pushd_src
-do_configure
+do_configure --disable-dependency-tracking
 sh ./build.sh
 mkdir -p "$PREFIX/bin"
 install -m 755 make "$PREFIX/bin"
