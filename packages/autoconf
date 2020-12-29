@@ -1,6 +1,7 @@
 #!/bin/bash
 
 needs_tool m4
+needs_tool perl ## will fail at configure stage otherwise
 
 fetch_source http://ftpmirror.gnu.org/autoconf/autoconf-2.69.tar.xz e891c3193029775e83e0534ac0ee0c4c711f6d23
 
