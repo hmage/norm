@@ -46,6 +46,10 @@ setup_prefix() {
     ## let linker be more aggressive with removing unused functions and data
     cc_addflags CPPFLAGS -ffunction-sections -fdata-sections
 
+    ## disable warnings as errors, apple clang v12 seems to default to -Werror=implicit-function-declaration
+    ## caught when building pinentry 1.1.0
+    cc_addflags CPPFLAGS -Wno-error=implicit-function-declaration
+
     ## set runtime flags
     addpath PATH "$PREFIX/bin" "$PREFIX/sbin" "$PREFIX/bin/ccache_wrap"
     addpath LD_RUN_PATH "$PREFIX/lib"
