@@ -3,6 +3,7 @@
 depends_on bzip2
 depends_on zlib
 depends_on liblzo
+needs_tool pod2man
 
 fetch_source http://ck.kolivas.org/apps/lrzip/lrzip-0.631.tar.bz2 49143bf5433270133ac9adff429e5d6c248e9019
 
