@@ -1,5 +1,7 @@
 #!/bin/bash
 
+needs_tool pod2man
+
 fetch_source http://etallen.com/cpuid/cpuid-20201006.src.tar.gz 1df4019c710a7ed698ac7c9e59ad713c06a3cd3f
 
 do_unpack
