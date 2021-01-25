@@ -1,0 +1,13 @@
+#!/bin/bash
+
+fetch_source http://deb.debian.org/debian/pool/main/e/ent/ent_1.2debian.orig.tar.gz f3ff843b3a346d1db2cd941ee0232492f9445845
+fetch_debian http://deb.debian.org/debian/pool/main/e/ent/ent_1.2debian-2.debian.tar.xz daf952ab750312bcfb336634ba6981c47d2515e2
+
+do_undebian
+pushd_src
+sed -i.bak 's/ent\.1//;s/-Wl,-z,now//' Makefile
+do_make ent
+do_test
+mkdir -p "$PREFIX/bin"
+install -m755 ent $PREFIX/bin/ent
+popd_src
