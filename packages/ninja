@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://github.com/ninja-build/ninja/archive/v1.10.2.tar.gz 8d2e8c1c070c27fb9dc46b4a6345bbb1de7ccbaf
+
+do_unpack_compile
