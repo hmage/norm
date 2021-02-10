@@ -1,0 +1,9 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on libogg
+depends_on libopus
+
+fetch_source http://downloads.xiph.org/releases/opus/opusfile-0.12.tar.gz 3e86971fef28292f982a32730632b1d531059ed5
+
+do_unpack_compile --disable-http
