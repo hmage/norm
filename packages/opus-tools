@@ -1,0 +1,12 @@
+#!/bin/bash
+
+needs_tool pkg-config # to find libopus and others
+depends_on libogg
+depends_on libopus
+depends_on libopusfile
+depends_on libopusenc
+depends_on flac ## for libflac and headers
+
+fetch_source http://downloads.xiph.org/releases/opus/opus-tools-0.2.tar.gz f886c87e4882a504f24ab6b0cb6994abf20994a9
+
+do_unpack_compile
