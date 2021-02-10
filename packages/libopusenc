@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://downloads.xiph.org/releases/opus/libopusenc-0.2.1.tar.gz 0f107876925141fe1a8840f4d602d5b0771be105
+
+do_unpack_compile
