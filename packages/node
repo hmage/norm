@@ -1,5 +1,7 @@
 #!/bin/bash
 
+needs_tool python
+
 fetch_source https://nodejs.org/dist/v15.3.0/node-v15.3.0.tar.gz 3e78a2f9c37f218e0541b185e4c23c3fcb670397
 
 do_unpack
