@@ -5,5 +5,20 @@ needs_tool pkg-config ## to find libncurses
 
 fetch_source https://downloads.sourceforge.net/procps-ng/Production/procps-ng-3.3.16.tar.xz 1645168d28b70837d787f4337fd85f6f82f0a251
 
-CPPFLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" \
-do_unpack_compile
+OURNAME=`basename "${BASH_SOURCE[0]}"` ## get our filename, it could be a library name
+
+if [[ $OURNAME == watch ]]; then
+    do_unpack
+    pushd_src
+    CPPFLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" \
+    LDFLAGS="$LDFLAGS -lintl" \
+    do_auto_configure
+    ls -l Makefile
+    make watch
+    install "watch" "$PREFIX/bin/watch"
+    install "watch.1" "$PREFIX/share/man/man1/watch.1"
+    popd_src
+else
+    CPPFLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" \
+    do_unpack_compile
+fi
