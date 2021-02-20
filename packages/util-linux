@@ -14,10 +14,9 @@ CONFFLAGS=(
 --disable-su
 --disable-runuser
 )
-[[ $OURNAME != lib* ]] && depends_on libreadline ## opportunistic linking by sfdisk and fdisk
-
-
 OURNAME=`basename "${BASH_SOURCE[0]}"` ## get our filename, it could be a library name
+
+[[ $OURNAME != lib* ]] && depends_on libreadline ## opportunistic linking by sfdisk and fdisk
 [[ $OURNAME == lib* ]] && CONFFLAGS+=(--without-python --disable-all-programs --enable-$OURNAME) ## if it's a library, disable building any binaries, and then enable building only specific library
 [[ $OURNAME == libmount ]] && CONFFLAGS+=(--enable-libblkid) ## otherwise building libmount fails
 [[ $OURNAME == libmount ]] && CONFFLAGS+=(--enable-libuuid)  ## otherwise building glib fails
