@@ -2,6 +2,6 @@
 
 needs_tool cmake
 
-fetch_source https://github.com/google/leveldb/archive/1.22.tar.gz 8d310af5cfb53dc836bfb412ff4b3c8aea578627
+fetch_source https://github.com/google/leveldb/archive/1.23.tar.gz 042e267eae6ab522fe29274f79ad45cde3977655
 
 do_unpack_compile -DLEVELDB_BUILD_BENCHMARKS=OFF
