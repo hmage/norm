@@ -4,16 +4,14 @@ depends_on pkg-config ## otherwise won't find libnghttp2
 
 ## on osx, it's guaranteed to have zlib in the system, don't bring our own
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## for transparent decompression of gzip/deflate encoded responses
-
-depends_on openssl ## otherwise it won't download over https
+[[ $OSTYPE != *darwin* ]] && depends_on openssl ## otherwise it won't download over https
 
 ## opportunistic linking
 depends_on libnghttp2
 depends_on libidn2
 depends_on libpsl
 
-## do not download it over https because system-provided curl might not be able to download over https
-fetch_source http://execve.net/mirror/curl/curl-7.73.0.tar.gz 5b126097ce4d51b9a01e29814974b018423960a7
+fetch_source https://curl.se/download/curl-7.79.0.tar.gz b35de33de6627304113e87b200fa9685eaf0f941
 
 CONFFLAGS=(
 "--with-ca-bundle=$PREFIX/etc/ssl/cert.pem"
@@ -21,5 +19,8 @@ CONFFLAGS=(
 --without-librtmp ## opportunistic linking with librtmp
 --without-brotli  ## opportunistic linking with libbrotli
 )
+
+[[ $OSTYPE != *darwin* ]] && CONFFLAGS+=(--with-openssl) ## use openssl
+[[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--with-secure-transport) ## but on osx use system library
 
 do_unpack_compile "${CONFFLAGS[@]}"
