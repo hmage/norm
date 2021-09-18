@@ -2,6 +2,6 @@
 
 depends_on libgmp
 
-fetch_source http://isl.gforge.inria.fr/isl-0.23.tar.xz b5f8eeb0780495e97d8e398a068253ee13ed13cb
+fetch_source http://isl.gforge.inria.fr/isl-0.24.tar.xz d16012cf5bf35684ef0de68dab55279d34df4909
 
 do_unpack_compile
