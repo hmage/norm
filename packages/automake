@@ -2,6 +2,6 @@
 
 depends_on autoconf ## was needs_tool but I've encountered a system with autoconf 2.63, which is older than 2.65
 
-fetch_source https://ftpmirror.gnu.org/automake/automake-1.16.3.tar.xz ae1c5fd2f3b73f5e2d40d6486bc845332a71df31
+fetch_source https://ftpmirror.gnu.org/automake/automake-1.16.4.tar.xz 25ce1e994860d73e9115e596e94111f3167dcf48
 
 do_unpack_compile
