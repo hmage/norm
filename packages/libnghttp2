@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## needed to build https-compatible curl, so don't use https for fetching this
-fetch_source http://lil.fr.distfiles.macports.org/nghttp2/nghttp2-1.42.0.tar.xz 14dd521c8f88c18dbc91561b11832a6f59428296
+fetch_source http://lil.fr.distfiles.macports.org/nghttp2/nghttp2-1.43.0.tar.xz b9d846e53af53fc5814015c9d3d6c0d2c684c046
 
 CONFFLAGS=(
 --enable-lib-only         ## we are interested only in C library, not building examples, app python bindings or hpack tools
