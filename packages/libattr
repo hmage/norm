@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://download.savannah.gnu.org/releases/attr/attr-2.4.48.tar.gz d7c88cb5db51c5e255a511b0a15e832fcdda5b4f
+fetch_source http://download.savannah.gnu.org/releases/attr/attr-2.5.1.tar.gz 72fea2dee5f481bfe7c9da84a2a1ace063a6c82d
 
 CONFFLAGS=(
 --disable-nls ## otherwise fails to build on musl libc
