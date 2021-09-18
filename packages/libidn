@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/libidn/libidn-1.36.tar.gz a543823486a1077608f78de187e528a5ea833d5b
+fetch_source http://ftpmirror.gnu.org/libidn/libidn-1.37.tar.gz baea8e86c14ed7b6632dc22484975735f3e3c971
 
 do_unpack_compile
