@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/gdbm/gdbm-1.18.1.tar.gz 4a923ebfac06bb05c1c7699b206719e06a938f0d
+fetch_source http://ftpmirror.gnu.org/gdbm/gdbm-1.21.tar.gz f6eec6113f04a4b5fd2c1cfead10e7d65c8f3d89
 
 CONFFLAGS=(
 --without-readline      ## opportunistic linking for the gdmbtool binary
