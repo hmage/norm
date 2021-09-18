@@ -1,9 +1,9 @@
 #!/bin/bash
 
 depends_on zstd ## for compression, opportunistic linking
-needs_tool cmake ## ccache switchd to cmake in 4.0
+needs_tool cmake ## ccache switched to cmake in 4.0
 
-fetch_source https://github.com/ccache/ccache/releases/download/v4.1/ccache-4.1.tar.xz 2c4f94098e92767df1f47b23a624a552910091aa
+fetch_source https://github.com/ccache/ccache/releases/download/v4.4.1/ccache-4.4.1.tar.xz 66cd611df2624f21753eafb9105e14dd99a9c71e
 
 do_unpack_compile
 
