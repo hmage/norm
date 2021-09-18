@@ -3,6 +3,6 @@
 needs_tool m4
 needs_tool perl ## will fail at configure stage otherwise
 
-fetch_source http://ftpmirror.gnu.org/autoconf/autoconf-2.69.tar.xz e891c3193029775e83e0534ac0ee0c4c711f6d23
+fetch_source http://ftpmirror.gnu.org/autoconf/autoconf-2.71.tar.xz 1b5b1dbed849c6653be47c56d28d26fcf3f7238a
 
 do_unpack_compile
