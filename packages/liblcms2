@@ -3,6 +3,6 @@
 depends_on libjpeg ## opportunistic linking for jpgicc binary
 depends_on libtiff ## opportunistic linking for tificc binary
 
-fetch_source https://downloads.sourceforge.net/lcms/lcms2-2.11.tar.gz 7413047c74de29e20caa5c9afc1b12bf07bbf7a7
+fetch_source https://downloads.sourceforge.net/lcms/lcms2-2.12.tar.gz 3d0c0276fcd3930b80c424512ec0b1ed54ec1497
 
 do_unpack_compile
