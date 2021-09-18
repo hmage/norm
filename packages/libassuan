@@ -2,6 +2,6 @@
 
 depends_on libgpg-error
 
-fetch_source https://gnupg.org/ftp/gcrypt/libassuan/libassuan-2.5.4.tar.bz2 55a35918e95566ef94e8843879a7dd3f87de3781
+fetch_source https://gnupg.org/ftp/gcrypt/libassuan/libassuan-2.5.5.tar.bz2 ec4f67c0117ccd17007c748a392ded96dc1b1ae9
 
 do_unpack_compile
