@@ -4,6 +4,6 @@ depends_on zlib  ## compression support, opportunistic linking
 depends_on xz    ## compression support, opportunistic linking
 depends_on bzip2 ## compression support, opportunistic linking
 
-fetch_source https://distfiles.macports.org/file/file-5.39.tar.gz a5a8941a8e4c436fe22933db6a71c5161c3fb10b
+fetch_source https://distfiles.macports.org/file/file-5.40.tar.gz 8a5d51c59cf090f09b00c2d75e50a194ee43250e
 
 do_unpack_compile --disable-libseccomp ## seccomp produces errors with musl/alpine
