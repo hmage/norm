@@ -5,8 +5,8 @@
 
 depends_on libexpat ## opportunistic linking
 
-fetch_source https://www.kernel.org/pub/software/scm/git/git-2.30.2.tar.xz 76b3118428fe59dd95bf4fa918244a8396f32bea
-fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.30.2.tar.xz 16ec0d39d033e993b47121e2b3e6e69c2a0d2e4b
+fetch_source https://www.kernel.org/pub/software/scm/git/git-2.33.0.tar.xz 092ced2ddf4f9c0e713c82c90f74cec83bc3c620
+fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.33.0.tar.xz 6fc6feb7e564980b469faa0404898bf880d581a1
 
 OPTIONS=(
 NO_GETTEXT=1 ## if it detects gettext headers, it assumes msgfmt tool is installed, which is not always the case
