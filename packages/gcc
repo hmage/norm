@@ -1,6 +1,6 @@
 #!/bin/bash
 
-depends_on gcc-10.2
+depends_on gcc-11.1
 
 ln -fs g++-10.2 "$PREFIX/bin/g++"
 ln -fs gcc-10.2 "$PREFIX/bin/gcc"
