@@ -2,7 +2,11 @@
 
 depends_on nasm ## steep version requirement, so bring our own (wants 2.13 while stretch has 2.12)
 
-fetch_source https://code.videolan.org/videolan/x264/-/archive/stable/x264-stable-20201107.tar.bz2 8ad36897c9864c9f9bfffc43b0c9b7a0bdca9037
+## x264 deprecated source archive releases, so have to pin a specific revision instead
+do_gitclone https://code.videolan.org/videolan/x264
+pushd_src
+git checkout 5db6aa6cab1b146e07b60cc1736a01f21da01154
+popd_src
 
 CONFFLAGS=(
 --enable-static   ## otherwise system-provided libx264.a might end up used instead of ours
@@ -12,4 +16,4 @@ CONFFLAGS=(
 --disable-lavf    ## opportunistic linking iwth libavformat
 )
 
-do_unpack_compile "${CONFFLAGS[@]}"
+do_compile "${CONFFLAGS[@]}"
