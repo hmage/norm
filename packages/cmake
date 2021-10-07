@@ -18,6 +18,7 @@ CONFFLAGS=(
 --system-zlib
 --system-bzip2
 --system-liblzma
+--parallel="${NUMJOBS}" ## their ./configure compiles mini-cmake to compile full cmake later, defaults to 1 parallel
 --
 -DBUILD_CursesDialog=OFF ## opportunistic linking, but nobody uses ccmake (open a github issue if you do)
 )
