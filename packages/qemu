@@ -13,4 +13,6 @@ CONFFLAGS=(
 --disable-auth-pam ## opportunistic linking with libpam
 )
 
+## fix build failure with error "pragma STDC FENV_ACCESS ON is illegal when precise is disabled"
+CPPFLAGS="${CPPFLAGS/-Ofast/}" \
 do_unpack_compile "${CONFFLAGS[@]}"
