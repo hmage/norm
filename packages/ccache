@@ -5,6 +5,6 @@ needs_tool cmake ## ccache switched to cmake in 4.0
 
 fetch_source https://github.com/ccache/ccache/releases/download/v4.4.1/ccache-4.4.1.tar.xz 66cd611df2624f21753eafb9105e14dd99a9c71e
 
-do_unpack_compile
+do_unpack_compile -DREDIS_STORAGE_BACKEND=OFF
 
 add_to_ccache cc cpp gcov c++ g++ gcc gcc-ar gcc-nm gcc-ranlib
