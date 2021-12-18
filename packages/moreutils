@@ -13,16 +13,17 @@ do_patch_inline -p0 << 'EOF'
 +all: $(BINS)
  
  clean:
- 	rm -f $(BINS) $(MANS) dump.c errnos.h errno.o
-@@ -28,8 +28,6 @@
+    rm -f $(BINS) $(MANS) dump.c errnos.h errno.o \
+@@ -28,9 +28,6 @@
  	$(INSTALL_BIN) $(BINS) $(DESTDIR)$(PREFIX)/bin
  	install $(PERLSCRIPTS) $(DESTDIR)$(PREFIX)/bin
  
 -	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
--	install $(MANS) $(DESTDIR)$(PREFIX)/share/man/man1
- 
- check: isutf8
- 	./is_utf8/test.sh
+-	install -m 644 $(MANS) $(DESTDIR)$(PREFIX)/share/man/man1
+-
+ uninstall:
+ 	for i in $(BINS) $(PERLSCRIPTS); do rm -f $(DESTDIR)$(PREFIX)/bin/$$i; done
+ 	for i in $(MANS); do rm -f $(DESTDIR)$(PREFIX)/share/man/man1/$$i; done
 EOF
 pushd_src
 do_make DOCBOOKXSL="$PREFIX"/share/docbook-xsl
