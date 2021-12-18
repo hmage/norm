@@ -8,6 +8,6 @@ depends_on libksba
 depends_on libnpth
 depends_on pinentry
 
-fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.3.2.tar.bz2 f0f44b29e3702d3be1b25c964dfc2aaefe70e2fc
+fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.3.3.tar.bz2 b19a407076424704f1b00e8265254de1b3061659
 
 do_unpack_compile --with-pinentry-pgm="$PREFIX/bin/pinentry"
