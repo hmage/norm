@@ -3,7 +3,7 @@
 needs_tool perl ## configure script is in perl
 
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
-fetch_source http://deb.debian.org/debian/pool/main/o/openssl/openssl_1.1.1l.orig.tar.gz f8819dd31642eebea6cc1fa5c256fc9a4f40809b
+fetch_source http://deb.debian.org/debian/pool/main/o/openssl/openssl_1.1.1m.orig.tar.gz 39d424c4411e45f1570073d7a71b1830b96007ca
 
 SSLCONFIG=(
 shared ## otherwise curl will fail to link on x64, since it builds with fPIC but openssl isn't
