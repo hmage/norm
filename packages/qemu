@@ -14,5 +14,6 @@ CONFFLAGS=(
 )
 
 ## fix build failure with error "pragma STDC FENV_ACCESS ON is illegal when precise is disabled"
-CPPFLAGS="${CPPFLAGS/-Ofast/}" \
+CFLAGS="${CFLAGS/-Ofast/}" \
+CXXFLAGS="${CXXFLAGS/-Ofast/}" \
 do_unpack_compile "${CONFFLAGS[@]}"
