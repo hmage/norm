@@ -6,6 +6,7 @@ fetch_source http://etallen.com/cpuid/cpuid-20201006.src.tar.gz 1df4019c710a7ed6
 
 do_unpack
 pushd_src
+sed -i.bak 's/-Wimplicit-fallthrough//' Makefile
 do_make
 install -D -s -m 755 cpuid        "$PREFIX"/bin/cpuid
 install -D    -m 444 cpuid.man.gz "$PREFIX"/share/man/man1/cpuid.man.gz
