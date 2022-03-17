@@ -13,4 +13,7 @@ CONFFLAGS=(
 --disable-go ## go library/examples are broken in 1.5.0
 )
 
+## fix build failure because Ofast emits warnings while libheif enables -Werror
+CFLAGS="${CFLAGS/-Ofast/}" \
+CXXFLAGS="${CXXFLAGS/-Ofast/}" \
 do_unpack_compile "${CONFFLAGS[@]}"
