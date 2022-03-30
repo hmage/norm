@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/unicode-org/icu/releases/download/release-69-1/icu4c-69_1-src.tgz 620a71c84428758376baa0fb81a581c3daa866ce
+fetch_source https://github.com/unicode-org/icu/releases/download/release-70-1/icu4c-70_1-src.tgz f7c1363edee6be7de8b624ffbb801892b3417d4e
 
 do_unpack
 SRCDIR="$SRCDIR/source"
