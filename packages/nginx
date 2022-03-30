@@ -3,7 +3,7 @@
 depends_on libpcre
 depends_on zlib ## opportunistic linking
 
-fetch_source http://nginx.org/download/nginx-1.19.5.tar.gz 2dbf782ef868d27b032acb3e6948e06c8c57d215
+fetch_source http://nginx.org/download/nginx-1.21.6.tar.gz 3e6d39a714f6716861286630a5f9df3044668d5a
 
 CONFFLAGS=(
 --with-cc-opt="$CPPFLAGS"
