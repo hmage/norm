@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/kkos/oniguruma/releases/download/v6.9.6/onig-6.9.6.tar.gz 390188ca6d7d37157a6b4e4b015f1dacd2dfe2a6
+fetch_source https://github.com/kkos/oniguruma/releases/download/v6.9.7.1/onig-6.9.7.1.tar.gz a9863c5bae98cc32cbec3567d9793ac48065757a
 
 do_unpack_compile
