@@ -2,7 +2,7 @@
 
 needs_tool pod2man
 
-fetch_source http://etallen.com/cpuid/cpuid-20201006.src.tar.gz 1df4019c710a7ed698ac7c9e59ad713c06a3cd3f
+fetch_source http://etallen.com/cpuid/cpuid-20220224.src.tar.gz fe16c3516a9fb44c54ecb924cc412d46d4d289c9
 
 do_unpack
 pushd_src
