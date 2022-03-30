@@ -2,7 +2,7 @@
 
 depends_on pkg-config ## to install .pc files
 
-fetch_source http://ftpmirror.gnu.org/ncurses/ncurses-6.2.tar.gz 56e410fb77f2b5501a0b2f6a995376f3cefe1097
+fetch_source http://ftpmirror.gnu.org/ncurses/ncurses-6.3.tar.gz 38fb1462d13b04bb900adf07918725c4b7ed0682
 
 CONFFLAGS=(
 --with-shared ## otherwise building libedit fails on linux x64 because of fPIC option mismatch
