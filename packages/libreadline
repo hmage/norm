@@ -1,18 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/readline/readline-8.0.tar.gz d58041c2143595dc001d2777ae9a200be30198b0
-PATCHES=(
-"http://ftpmirror.gnu.org/readline/readline-8.0-patches/readline80-001 a229e0f7daf25dff84c3e4712adc66d5aefa84a3"
-"http://ftpmirror.gnu.org/readline/readline-8.0-patches/readline80-002 bb6fc95071aeb7603deb3c266a1d2d4220709110"
-"http://ftpmirror.gnu.org/readline/readline-8.0-patches/readline80-003 af2fbaad0c656abf3d92c3b8381376badcacf3f9"
-"http://ftpmirror.gnu.org/readline/readline-8.0-patches/readline80-004 e1329bf1231948cc01da4b6bce1826c85188cb5b"
-)
+fetch_source http://ftpmirror.gnu.org/readline/readline-8.1.2.tar.gz 8a05ad0d0ad67e18c383f1b2cf6a23bcbd46f87a
 
-do_unpack
-
-for patchline in "${PATCHES[@]}"; do
-    fetch_file $patchline
-    do_patch "$FILENAME" -p0
-done
-
-do_compile
+do_unpack_compile
