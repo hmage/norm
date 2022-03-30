@@ -2,7 +2,7 @@
 
 depends_on zlib ## opportunistic linking
 
-fetch_source https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.50.0/graphviz-2.50.0.tar.xz 91aa2871fbf78e42f61cee54a049dabbcf6f1d1f
+fetch_source https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/3.0.0/graphviz-3.0.0.tar.gz 35487e59aa78e2976d011176c7327b56c688d84e
 
 CONFOPTS=(
 --with-included-ltdl ## opportunistic linking with libltdl.so otherwise
