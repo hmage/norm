@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://libsdl.org/release/SDL2-2.0.12.tar.gz e8ba91bf5eb438dbcf1fedf0530a1bcbe30d3bb6
+fetch_source https://libsdl.org/release/SDL2-2.0.20.tar.gz 18ce006cbf07502f48abfedc088c14404091f3d3
 
 do_unpack_compile
