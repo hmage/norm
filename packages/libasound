@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.5.1.tar.bz2 842612c57e47c36b6f0f9f08de8255f6ba7ba065
+fetch_source https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.6.1.tar.bz2 46c48570b3ef0de554305d00f16845736a9548ab
 
 CONFFLAGS=(
 --without-python ## opportunistic linking with libpython for python-based mixer plugins (nobody uses those, if you need it, open an issue)
