@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/libtasn1/libtasn1-4.16.0.tar.gz f4f1fc301c0835389d9db7754815e48f4f57937a
+fetch_source http://ftpmirror.gnu.org/libtasn1/libtasn1-4.18.0.tar.gz 1665249ce66e64958e8c61d5bdc6c1e9f3623888
 
 do_unpack_compile
