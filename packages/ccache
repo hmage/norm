@@ -3,7 +3,7 @@
 depends_on zstd ## for compression, opportunistic linking
 needs_tool cmake ## ccache switched to cmake in 4.0
 
-fetch_source https://github.com/ccache/ccache/releases/download/v4.4.2/ccache-4.4.2.tar.xz 7ea79fb47cd45ce9eab6bbcfc8455e73d31a18c1
+fetch_source https://github.com/ccache/ccache/releases/download/v4.6/ccache-4.6.tar.xz 1cc43685bcf8aa9d827ac00f03169e3e50583c00
 
 do_unpack_compile -DREDIS_STORAGE_BACKEND=OFF
 
