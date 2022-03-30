@@ -11,7 +11,7 @@ depends_on libnghttp2
 depends_on libidn2
 depends_on libpsl
 
-fetch_source https://curl.se/download/curl-7.79.0.tar.gz b35de33de6627304113e87b200fa9685eaf0f941
+fetch_source https://curl.se/download/curl-7.82.0.tar.gz 78d135ae0bc0180dd3bcc625af7e7eae9c0ba189
 
 CONFFLAGS=(
 "--with-ca-bundle=$PREFIX/etc/ssl/cert.pem"
