@@ -2,7 +2,7 @@
 
 depends_on libogg ## opportunistic linking
 
-fetch_source http://downloads.xiph.org/releases/flac/flac-1.3.3.tar.xz 6ac2e8f1dd18c9b0214c4d81bd70cdc1e943cffe
+fetch_source http://downloads.xiph.org/releases/flac/flac-1.3.4.tar.xz 99c28482a8b2d81deaf740639e4cb55658427420
 
 do_unpack
 do_patch_inline -p0 << EOF
