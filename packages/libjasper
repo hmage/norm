@@ -3,7 +3,7 @@
 depends_on cmake ## system-provided cmake on CentOS7 is too old for this
 depends_on libjpeg ## opportunistic linking
 
-fetch_source https://github.com/jasper-software/jasper/archive/version-2.0.32/jasper-2.0.32.tar.gz fddbbbccf0bff785701950416b9ffd11b3536e6c
+fetch_source https://github.com/jasper-software/jasper/archive/version-3.0.3/jasper-3.0.3.tar.gz ed0892a5c559e95eda896358cbc236d2ddbac3ac
 
 do_unpack
 do_compile_outside -DJAS_ENABLE_DOC=OFF -DJAS_ENABLE_SHARED=OFF -DJAS_ENABLE_PROGRAMS=OFF
