@@ -7,6 +7,6 @@ fi
 
 needs_tool gperf
 
-fetch_source https://github.com/seccomp/libseccomp/releases/download/v2.5.1/libseccomp-2.5.1.tar.gz 6069b720219400d8369f567af30cd2ad06ad938e
+fetch_source https://github.com/seccomp/libseccomp/releases/download/v2.5.3/libseccomp-2.5.3.tar.gz 9b2b352ba73123181c6a2500777efc5d3592acb6
 
 do_unpack_compile
