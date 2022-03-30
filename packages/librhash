@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://download.sourceforge.net/rhash/1.4.0/rhash-1.4.0-src.tar.gz 3db1e87a31c77ca2fa5507db7932ef92e9eb5148
+fetch_source https://download.sourceforge.net/rhash/1.4.2/rhash-1.4.2-src.tar.gz fdb0b0c16f3ba3eba734b3adf9f2fc4c427ff987
 
 do_unpack_compile
