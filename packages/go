@@ -9,7 +9,7 @@ if ! is_without tests; then
     fi
 fi
 
-fetch_source https://github.com/golang/go/archive/4d5426a570c2820c5894a61b52e3dc147e4e7925.tar.gz 77c3f7041d5e96160ec30a1e8ac0edde1ae02997
+fetch_source https://github.com/golang/go/archive/bdd4b9503e47c2c38a9d0a9bb2f5d95ec5ff8ef6.tar.gz b1092edf37195a3d45eb5bd7e54139ac806cc9ac
 
 do_unpack
 pushd_src
