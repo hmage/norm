@@ -12,7 +12,7 @@ depends_on libsdl2 ## needed for ffplay to work
 depends_on libopus
 depends_on libvpx
 
-fetch_source https://ffmpeg.org/releases/ffmpeg-4.4.tar.xz bb323745507ab70919542f825153d5ed596cee79
+fetch_source https://ffmpeg.org/releases/ffmpeg-5.0.tar.xz 863dbaa65aa1f01b06c78b4a2ba57466b88660d2
 
 CONFFLAGS=(
 --enable-gpl ## needed to use x264 and x265
