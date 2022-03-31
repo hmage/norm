@@ -1,7 +1,7 @@
 #!/bin/bash
 
 fetch_source https://downloads.sourceforge.net/project/p7zip/p7zip/16.02/p7zip_16.02_src_all.tar.bz2 e8819907132811aa1afe5ef296181d3a15cc8f22
-fetch_debian http://deb.debian.org/debian/pool/main/p/p7zip/p7zip_16.02+dfsg-6.debian.tar.xz 49d8c7f53e71371f26f768feeee1b33e500d3488
+fetch_debian http://deb.debian.org/debian/pool/main/p/p7zip/p7zip_16.02+dfsg-8.debian.tar.xz 191647ecffe02b6b32cbc627397add49797b06cd
 
 do_undebian
 pushd_src
