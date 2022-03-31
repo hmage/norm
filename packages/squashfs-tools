@@ -6,13 +6,11 @@ depends_on zstd
 
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx gurantees to provide one, opportunistic linking on other systems
 
-fetch_source https://downloads.sourceforge.net/squashfs/squashfs/squashfs4.4/squashfs4.4.tar.gz a42fdedb8a1543274592e317c437cafa54e02705
-fetch_file https://github.com/plougher/squashfs-tools/pull/69.patch a29ae1e354b98861f57878d2878af54aef0d100c
+fetch_source https://github.com/plougher/squashfs-tools/archive/refs/tags/4.5.1.tar.gz 3dc0a4d88b0a40f1537cea5e50371c1be0bb590f
 
 do_unpack
-do_patch "$FILENAME" -p1
 SRCDIR="$SRCDIR/squashfs-tools"
 pushd_src
 do_make XZ_SUPPORT=1 LZO_SUPPORT=1 LZ4_SUPPORT=1 ZSTD_SUPPORT=1 LZMA_XZ_SUPPORT=1 XATTR_SUPPORT=1
-do_install INSTALL_DIR="$PREFIX/bin"
+do_install INSTALL_PREFIX="$PREFIX"
 popd_src
