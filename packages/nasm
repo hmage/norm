@@ -2,4 +2,7 @@
 
 fetch_source https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.xz d338409a03fc6d1508102881a675a00275fcb879
 
-do_unpack_compile
+do_unpack
+## Internal md5.h is more important than libmd's md5.h
+sed -i.bak 's|$(BUILD_CFLAGS) $(INTERNAL_CFLAGS)|$(INTERNAL_CFLAGS) $(BUILD_CFLAGS)|' "$SRCDIR/Makefile.in"
+do_compile
