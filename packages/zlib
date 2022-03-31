@@ -1,5 +1,6 @@
 #!/bin/bash
 
-fetch_source http://www.zlib.net/zlib-1.2.11.tar.gz e6d119755acdf9104d7ba236b1242696940ed6dd
+fetch_source http://deb.debian.org/debian/pool/main/z/zlib/zlib_1.2.11.dfsg.orig.tar.gz 1b7f6963ccfb7262a6c9d88894d3a30ff2bf2e23
+fetch_debian http://deb.debian.org/debian/pool/main/z/zlib/zlib_1.2.11.dfsg-2.debian.tar.xz 478b96716c3ae7069b959980a3d789996657ceea
 
-do_unpack_compile
+do_undebian_compile
