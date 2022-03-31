@@ -3,12 +3,12 @@
 depends_on bzip2
 depends_on zlib
 depends_on liblzo
+depends_on liblz4
 needs_tool pod2man
+needs_tool autoconf automake libtool
 
-fetch_source http://ck.kolivas.org/apps/lrzip/lrzip-0.631.tar.bz2 49143bf5433270133ac9adff429e5d6c248e9019
+fetch_source https://github.com/ckolivas/lrzip/archive/v0.651/lrzip-0.651.tar.gz 7f7fcd4ec3811a6dac03562d6fb50bf8053f1d12
 
-unset EXTRAFLAGS
-cc_addflags EXTRAFLAGS -O2 -Ofast -fomit-frame-pointer
-
-CFLAGS="$EXTRAFLAGS" \
-do_unpack_compile
+do_unpack
+do_autoreconf
+do_compile
