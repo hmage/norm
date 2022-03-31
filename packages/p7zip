@@ -1,12 +1,14 @@
 #!/bin/bash
 
+[[ $MACHTYPE == x86_64-pc-linux-gnu ]] && depends_on yasm
+
 fetch_source https://downloads.sourceforge.net/project/p7zip/p7zip/16.02/p7zip_16.02_src_all.tar.bz2 e8819907132811aa1afe5ef296181d3a15cc8f22
 fetch_debian http://deb.debian.org/debian/pool/main/p/p7zip/p7zip_16.02+dfsg-8.debian.tar.xz 191647ecffe02b6b32cbc627397add49797b06cd
 
 do_undebian
 pushd_src
-[[ $OSTYPE == *darwin* ]] && mv makefile.macosx_llvm_64bits makefile.machine
-sed -ibak "s|-O|-O2|g" makefile.machine
-do_make all3
+[[ $OSTYPE == *darwin* ]] && ln -fs makefile.macosx_llvm_64bits makefile.machine
+[[ $MACHTYPE == x86_64-pc-linux-gnu ]] && ln -fs makefile.linux_amd64_asm makefile.machine
+do_make all3 OPTFLAGS="$CFLAGS $CPPFLAGS"
 do_install DEST_HOME="$PREFIX"
 popd_src
