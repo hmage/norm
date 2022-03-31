@@ -2,7 +2,7 @@
 
 depends_on cmake ## system-provided cmake on CentOS7 is too old for this
 
-fetch_source https://bitbucket.org/multicoreware/x265_git/get/3.4.tar.gz 481987acd134e07d83761ad32860413f861e359e
+fetch_source https://bitbucket.org/multicoreware/x265_git/get/3.5.tar.gz 95de93f1572396a07e558279af94e5fa93273a47
 
 do_unpack
 SRCDIR="$SRCDIR/source"
