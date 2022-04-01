@@ -7,18 +7,15 @@ fetch_source https://downloads.sourceforge.net/procps-ng/Production/procps-ng-4.
 
 OURNAME=`basename "${BASH_SOURCE[0]}"` ## get our filename, it could be a library name
 
+do_unpack
+pushd_src
+CPPFLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" \
+do_auto_configure
 if [[ $OURNAME == watch ]]; then
-    do_unpack
-    pushd_src
-    CPPFLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" \
-    LDFLAGS="$LDFLAGS -lintl" \
-    do_auto_configure
-    ls -l Makefile
     make watch
     install "watch" "$PREFIX/bin/watch"
     install "watch.1" "$PREFIX/share/man/man1/watch.1"
-    popd_src
 else
-    CPPFLAGS="$CPPFLAGS -I$ESCAPED_PREFIX/include/ncurses" \
-    do_unpack_compile
+    do_make_and_install
 fi
+popd_src
