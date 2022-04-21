@@ -2,6 +2,11 @@
 
 depends_on openssl ## opportunistic linking -- creates a libevent wrapper around openssl that some programs use
 
+## otherwise build failure on osx
+depends_on pkg-config libtool autoconf automake
+
 fetch_source https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz cd55656a9b5bed630b08f05495230affb7996b21
 
-do_unpack_compile
+do_unpack
+do_autoreconf ## otherwise build failure on osx
+do_compile
