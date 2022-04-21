@@ -11,8 +11,9 @@ depends_on libsdl2 ## needed for ffplay to work
 [[ $OSTYPE == *linux* ]] && depends_on libasound ## for sound output on linux
 depends_on libopus
 depends_on libvpx
+depends_on libsvtav1
 
-fetch_source https://ffmpeg.org/releases/ffmpeg-5.0.tar.xz 863dbaa65aa1f01b06c78b4a2ba57466b88660d2
+fetch_source https://ffmpeg.org/releases/ffmpeg-5.0.1.tar.xz ccd3e536f8058b3f28659720d65ef1fbc1fd072a
 
 CONFFLAGS=(
 --enable-gpl ## needed to use x264 and x265
@@ -25,6 +26,7 @@ CONFFLAGS=(
 --enable-shared ## reduces binary size to manageable levels
 --enable-libopus
 --enable-libvpx
+--enable-libsvtav1
 )
 
 do_unpack
