@@ -1,0 +1,11 @@
+#!/bin/bash
+
+fetch_source https://hashcat.net/files/hashcat-6.2.5.tar.gz 5ec3b0d664a798098687225b9376ab5d5e33da3b
+
+do_unpack
+pushd_src
+#sed -i.bak 's/-mindepth 1/-mindepth 1 -maxdepth 1/g' src/Makefile
+CFLAGS="${CFLAGS/-g/}" \
+make PREFIX="$PREFIX"
+make install PREFIX="$PREFIX"
+popd_src
