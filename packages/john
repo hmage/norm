@@ -1,0 +1,19 @@
+#!/bin/bash
+
+depends_on pkg-config
+depends_on openssl
+depends_on libgmp
+
+do_gitclone https://github.com/openwall/john
+SRCDIR="$SRCDIR/src"
+do_compile --enable-pkg-config --enable-native-march --with-systemwide
+pushd_src
+cd ../run
+mkdir -p "$PREFIX/bin"
+mkdir -p "$PREFIX/share/john"
+mkdir -p "$PREFIX/share/john/rules"
+install -m755 john "$PREFIX/bin/john"
+install -m644 *.conf "$PREFIX/share/john/"
+install -m644 *.lst "$PREFIX/share/john/"
+install -m644 rules/*.rule "$PREFIX/share/john/rules/"
+popd_src
