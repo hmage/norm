@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source https://www.bytereef.org/software/mpdecimal/releases/mpdecimal-2.5.1.tar.gz 16d0b8df9be8cacda90dd4cd041e3f5838e17074
+
+CXXFLAGS="$CXXFLAGS -std=gnu++11" \
+do_unpack_compile
