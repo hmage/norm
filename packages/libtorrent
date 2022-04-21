@@ -3,6 +3,9 @@
 depends_on libboost
 needs_tool cmake
 
-fetch_source https://github.com/arvidn/libtorrent/releases/download/v2.0.1/libtorrent-rasterbar-2.0.1.tar.gz a55ec719c7ff98f81ee48ce2767e9c050219d5d4
+fetch_source https://github.com/arvidn/libtorrent/releases/download/v2.0.5/libtorrent-rasterbar-2.0.5.tar.gz fa82041b1697e77cf35b413e391af558767bda06
+fetch_file https://github.com/arvidn/libtorrent/commit/71d608fceca7e61c9d124f9ea83f71b06eda3b17.patch?full_index=1 698668c99a5f3ce3ca382197a7f0840d16aab1d3
 
-do_unpack_compile
+do_unpack
+do_patch "$FILENAME"
+do_compile
