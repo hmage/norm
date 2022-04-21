@@ -1,0 +1,7 @@
+#!/bin/bash
+
+fetch_source https://github.com/AOMediaCodec/SVT-AV1/archive/refs/tags/v1.0.0-rc1/libsvtav1-1.0.0-rc1.tar.gz 003e812127b24fdd8670edbd1df00c52e0fd07d3
+
+do_unpack
+do_compile_outside
+
