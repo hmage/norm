@@ -1,0 +1,31 @@
+#!/bin/bash
+
+[[ $OSTYPE != *darwin* ]] && depends_on zlib ## opportunistic linking
+[[ $OSTYPE != *darwin* ]] && depends_on libtirpc ## opportunistic linking, no way to disable, provides curses python module
+[[ $OSTYPE != *darwin* ]] && depends_on libncurses ## opportunistic linking, no way to disable, provides curses python module
+depends_on openssl ## opportunistic linking
+depends_on libgdbm ## opportunistic linking
+depends_on libreadline ## opportunistic linking
+depends_on bzip2 ## opportunistic linking
+depends_on sqlite3 ## opportunistic linking
+
+fetch_source https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tar.xz 678d4cf483a1c92efd347ee8e1e79326dc82810b
+
+CONFFLAGS=(
+--enable-shared ## otherwise python extensions fail to load
+)
+
+do_unpack
+do_patch_inline << EOF ## do not try to link with tkinter
+--- a/setup.py
++++ b/setup.py
+@@ -1856,6 +1856,7 @@
+
+     def detect_tkinter(self, inc_dirs, lib_dirs):
+         # The _tkinter module.
++        return
+
+         # Check whether --with-tcltk-includes and --with-tcltk-libs were
+         # configured or passed into the make target.  If so, use these values
+EOF
+do_compile "${CONFFLAGS[@]}"

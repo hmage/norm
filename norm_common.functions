@@ -435,6 +435,7 @@ tool_to_formula() {
     case "$1" in
 	msgfmt) echo "gettext" ;;
 	pod2man) echo "perl" ;;
+	python3) echo "python" ;;
 	*) echo "$i" ;;
     esac
 }

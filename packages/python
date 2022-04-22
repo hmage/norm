@@ -1,31 +1,34 @@
 #!/bin/bash
 
-[[ $OSTYPE != *darwin* ]] && depends_on zlib ## opportunistic linking
-[[ $OSTYPE != *darwin* ]] && depends_on libtirpc ## opportunistic linking, no way to disable, provides curses python module
-[[ $OSTYPE != *darwin* ]] && depends_on libncurses ## opportunistic linking, no way to disable, provides curses python module
-depends_on openssl ## opportunistic linking
-depends_on libgdbm ## opportunistic linking
-depends_on libreadline ## opportunistic linking
-depends_on bzip2 ## opportunistic linking
-depends_on sqlite3 ## opportunistic linking
+depends_on pkg-config ## to find libraries
+depends_on bzip2      ## _bz2 module
+depends_on libffi     ## _ctypes module
+depends_on libgdbm    ## _gdbm module
+depends_on libncurses ## curses module
+depends_on openssl    ## ssl module
+depends_on sqlite3    ## sqlite3 module
+depends_on xz         ## lzma module
+depends_on zlib       ## zlib module
 
-fetch_source https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tar.xz 678d4cf483a1c92efd347ee8e1e79326dc82810b
+fetch_source https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tar.xz 8f684863b92bf43936b16dbb867e392f10e8ffc7
 
 CONFFLAGS=(
---enable-shared ## otherwise python extensions fail to load
+--enable-shared         ## otherwise python extensions fail to load
+--with-dbmliborder=gdbm ## prefer our gdbm to other dbm
 )
 
-do_unpack
-do_patch_inline << EOF ## do not try to link with tkinter
---- a/setup.py
-+++ b/setup.py
-@@ -1856,6 +1856,7 @@
+## build breaks with parallel or Ofast, and it can't find ncursesw on linux
+NOPARALLEL=1 \
+CFLAGS="${CFLAGS/-Ofast/}" \
+CXXFLAGS="${CXXFLAGS/-Ofast/}" \
+CPPFLAGS="$CPPFLAGS -I$PREFIX/include/ncursesw" \
+do_unpack_compile "${CONFFLAGS[@]}"
 
-     def detect_tkinter(self, inc_dirs, lib_dirs):
-         # The _tkinter module.
-+        return
+## small sanity check
+for i in _ctypes _decimal _gdbm bz2 curses lzma pyexpat sqlite3 zlib ssl; do
+	"$PREFIX/bin/python3" -c "import $i"
+done
+"$PREFIX/bin/python3" -m venv "$SRCDIR/temp/venvtest"
 
-         # Check whether --with-tcltk-includes and --with-tcltk-libs were
-         # configured or passed into the make target.  If so, use these values
-EOF
-do_compile "${CONFFLAGS[@]}"
+## default python is now python3 everywhere
+ln -sf "$PREFIX/bin/python3" "$PREFIX/bin/python"
