@@ -2,9 +2,12 @@
 
 needs_tool python
 
-fetch_source https://nodejs.org/dist/v15.3.0/node-v15.3.0.tar.gz 3e78a2f9c37f218e0541b185e4c23c3fcb670397
+fetch_source https://nodejs.org/dist/v18.0.0/node-v18.0.0.tar.xz edc50e3f0202eb61b08bd0e4162fe897dde6b76a
 
 do_unpack
 ## this fixes build failure on OSX if gnu libtool is installed
 sed -i.bak 's|./gyp-mac-tool filter-libtool libtool|/usr/bin/libtool|g' "$SRCDIR"/tools/gyp/pylib/gyp/generator/make.py
+## this also fixes build failure
+CFLAGS="${CFLAGS/-Ofast/}" \
+CXXFLAGS="${CXXFLAGS/-Ofast/}" \
 do_compile
