@@ -13,7 +13,7 @@ if [[ $OSTYPE != *darwin* ]]; then
 	depends_on libxml
 fi
 
-fetch_source https://www.imagemagick.org/download/releases/ImageMagick-7.1.0-29.tar.xz c79010c12278f8cc60e77f9f0b4889a01748823b
+fetch_source https://www.imagemagick.org/download/releases/ImageMagick-7.1.0-31.tar.xz 680fd744b34d5643259556e32d0a9772b7212965
 
 CONFFLAGS=(
 --without-x   ## graphicsmagick is used most as library and command-line tool, GUI is not needed, if you need it, open an issue
