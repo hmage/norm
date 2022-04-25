@@ -1,9 +1,10 @@
 #!/bin/bash
 
 fetch_source http://download.openpkg.org/components/cache/xz/xz-5.2.5.tar.gz fa2ae4db119f639a01b02f99f1ba671ece2828eb
+fetch_debian http://deb.debian.org/debian/pool/main/x/xz-utils/xz-utils_5.2.5-2.debian.tar.xz d466bb78c932da276543783ca772f8cfa25416d6
 
 CONFFLAGS=(
 --disable-nls ## otherwise links with gettext's libintl
 )
 
-do_unpack_compile "${CONFFLAGS[@]}"
+do_undebian_compile "${CONFFLAGS[@]}"
