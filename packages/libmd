@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://archive.hadrons.org/software/libmd/libmd-1.0.3.tar.xz 8a91f612ed6d88bf6bf352cae1d2441975d79302
+fetch_source https://archive.hadrons.org/software/libmd/libmd-1.0.4.tar.xz c412a6cb3792e00927127b85cb99b46f493eecce
 
 do_unpack_compile
