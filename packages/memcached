@@ -2,6 +2,6 @@
 
 depends_on libevent
 
-fetch_source http://memcached.org/files/memcached-1.6.14.tar.gz be64c11d34f04bd1855100b8b5ad9ae8b45e0ab0
+fetch_source http://memcached.org/files/memcached-1.6.15.tar.gz badcfa0d65f5797cc9c2f957f3fbfedbd8c13411
 
 do_unpack_compile
