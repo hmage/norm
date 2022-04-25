@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://sourceware.org/pub/valgrind/valgrind-3.18.1.tar.bz2 0a694a8d0c2152978bf64b67ad0b3dd972bbeb54
+fetch_source https://sourceware.org/pub/valgrind/valgrind-3.19.0.tar.bz2 294c341b421b4d9534e42e8125f509c148f48c17
 
 do_unpack_compile --without-mpicc ## avoid opportunistic linking with libmpi, since we're not interested in mpi
