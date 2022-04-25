@@ -6,8 +6,8 @@ depends_on libjbig ## opportunistic linking
 depends_on libjpeg ## opportunistic linking
 depends_on zstd    ## opportunistic linking with libzstd
 
-fetch_source http://download.osgeo.org/libtiff/tiff-4.2.0.tar.gz 400ff865beb34499633dd1095fe438995e6da707
-fetch_debian http://deb.debian.org/debian/pool/main/t/tiff/tiff_4.2.0-1.debian.tar.xz 3848e2f57aeea23076ac1f1044b6dc274ba034d0
+fetch_source http://deb.debian.org/debian/pool/main/t/tiff/tiff_4.3.0.orig.tar.gz c03f6cb05b64ff496b3a5c733a0af6296aead051
+fetch_debian http://deb.debian.org/debian/pool/main/t/tiff/tiff_4.3.0-6.debian.tar.xz fa54b88ed0d752d7202f3f7670a826a094091e5f
 
 CONFFLAGS=(
 --disable-webp ## webp inside tiff is _VERY_ uncommon, and we can't depend on it, because libwebp depends on us!
