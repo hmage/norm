@@ -2,6 +2,6 @@
 
 depends_on zlib ## opportunistic linking
 
-fetch_source https://github.com/protocolbuffers/protobuf/releases/download/v3.20.0/protobuf-all-3.20.0.tar.gz 16db4ee9aa443cbf53f935363f72cab747d79db1
+fetch_source https://github.com/protocolbuffers/protobuf/releases/download/v3.20.1/protobuf-all-3.20.1.tar.gz 9881c7511d7ee4f055911c82eecc90fa36602a40
 
 do_unpack_compile
