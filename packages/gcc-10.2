@@ -1,10 +1,10 @@
 #!/bin/bash
 
+[[ $OSTYPE == *darwin* ]] && log "Building GCC on OSX fails at the moment" && false
+
 depends_on libgmp
 depends_on libmpfr
 depends_on libmpc
-depends_on libisl ## opportunistic linking
-#! is_without tests && depends_on autogen ## needed to run tests
 
 CONFIGURE_OPTIONS=(
 --program-suffix=-10.2    # version suffix to all binaries
@@ -12,9 +12,6 @@ CONFIGURE_OPTIONS=(
 --enable-languages=c,c++ # only C and C++, gcc is barely used for anything else
 --disable-bootstrap      # never had bootstrap detect anything, speed up compilation
 )
-
-## if user wants to speed things up and trusts the system compiler
-is_without bootstrap && CONFIGURE_OPTIONS+=(--disable-bootstrap)
 
 if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
     CONFIGURE_OPTIONS+=(--disable-libsanitizer)
