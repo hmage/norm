@@ -1,7 +1,5 @@
 #!/bin/bash
 
-needs_tool perl ## configure script is in perl
-
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
 fetch_source http://deb.debian.org/debian/pool/main/o/openssl/openssl_1.1.1n.orig.tar.gz 4b0936dd798f60c97c68fc62b73033ecba6dfb0c
 
