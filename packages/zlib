@@ -2,4 +2,4 @@
 
 fetch_source http://zlib.net/zlib-1.2.12.tar.xz 37d26cd1138597c866b8e3e137156c82a0f0f960
 
-do_unpack_compile
+CFLAGS="$CFLAGS -fPIC" do_unpack_compile
