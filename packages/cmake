@@ -1,26 +1,12 @@
 #!/bin/bash
 
-## cmake uses bundled (outdated) copies of the libraries below, but on osx these libraries are guaranteed to exist
-if [[ $OSTYPE != *darwin* ]]; then
-	depends_on curl
-	depends_on libexpat
-	depends_on zlib
-	depends_on bzip2
-fi
-
-depends_on xz ## cmake also uses bundled (outdated) copy of liblzma, and osx doesn't provide include headers
-
 fetch_source https://cmake.org/files/v3.23/cmake-3.23.1.tar.gz 0a7c642e64d1d8cb0041d2aa2904cd7010391242
 
 CONFFLAGS=(
---system-curl
---system-expat
---system-zlib
---system-bzip2
---system-liblzma
 --parallel="${NUMJOBS}" ## their ./configure compiles mini-cmake to compile full cmake later, defaults to 1 parallel
 --
 -DBUILD_CursesDialog=OFF ## opportunistic linking, but nobody uses ccmake (open a github issue if you do)
+-DCMAKE_USE_OPENSSL=OFF  ## no need for SSL in _build_ system
 )
 
 ## add -pthread otherwise it breaks on CentOS6
