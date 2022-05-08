@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[[ $OSTYPE != *linux* ]] && log "libattr is a linux-specific library, refusing to build" && false
+
 fetch_source http://download.savannah.gnu.org/releases/attr/attr-2.5.1.tar.gz 72fea2dee5f481bfe7c9da84a2a1ace063a6c82d
 
 CONFFLAGS=(
