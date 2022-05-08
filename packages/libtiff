@@ -1,10 +1,6 @@
 #!/bin/bash
 
-depends_on xz   ## opportunistic linking with liblzma
-[[ $OSTYPE != *darwin* ]] && depends_on zlib ## opportunistic linking, but on osx it's always there, so no need to build it
-depends_on libjbig ## opportunistic linking
-depends_on libjpeg ## opportunistic linking
-depends_on zstd    ## opportunistic linking with libzstd
+depends_on autoconf automake libtool
 
 fetch_source http://deb.debian.org/debian/pool/main/t/tiff/tiff_4.3.0.orig.tar.gz c03f6cb05b64ff496b3a5c733a0af6296aead051
 fetch_debian http://deb.debian.org/debian/pool/main/t/tiff/tiff_4.3.0-6.debian.tar.xz fa54b88ed0d752d7202f3f7670a826a094091e5f
@@ -14,4 +10,8 @@ CONFFLAGS=(
 --without-x    ## opportunistic linking with opengl, a tiff C library doesn't need opengl anyway
 )
 
-do_undebian_compile "${CONFFLAGS[@]}"
+do_undebian
+## fix build failure on C++20
+sed -ibak 's|AC_CONFIG_HEADERS(\[config.h|AC_CONFIG_HEADERS([config/config.h|' "$SRCDIR/configure.ac"
+do_autoreconf
+do_compile "${CONFFLAGS[@]}"
