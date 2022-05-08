@@ -1,6 +1,8 @@
 #!/bin/bash
 
-[[ $OSTYPE == *linux* ]] && depends_on libattr
+[[ $OSTYPE != *linux* ]] && log "libacl is a linux-specific library, refusing to build" && false
+
+depends_on libattr
 
 fetch_source http://download.savannah.gnu.org/releases/acl/acl-2.3.1.tar.gz a5343e9f75326ffe5aa8d5d042e52227a3fd66cb
 
