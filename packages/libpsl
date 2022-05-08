@@ -1,38 +1,5 @@
 #!/bin/bash
 
-needs_tool python ## script for generating suffix list is in python
-depends_on libidn2
-depends_on libunistring ## error: You requested libidn2|libidn but libunistring is not installed.
-
 fetch_source https://github.com/rockdaboot/libpsl/releases/download/0.21.1/libpsl-0.21.1.tar.gz dc5fd26d060b3445386b5a82628df900567654f4
 
-do_unpack
-do_patch_inline -p0 << EOF ## fix build failure on CentOS6
---- src/psl-make-dafsa
-+++ src/psl-make-dafsa
-@@ -635,8 +635,6 @@
-   utf_mode = True
- 
-   codecs = dict()
--  if sys.version_info.major > 2:
--    codecs['encoding'] = 'utf-8'
- 
-   for arg in sys.argv[1:-2]:
-     # Check --input-format for backward compatibility
-@@ -682,8 +682,13 @@
-     psl_nexceptions = 0
-     psl_nwildcards = 0
- 
--    with open(sys.argv[-2], 'r', **codecs) as infile, open(sys.argv[-1], 'wb') as outfile:
-+    infile = open(sys.argv[-2], 'r', **codecs)
-+    outfile = open(sys.argv[-1], 'wb')
-+    try:
-       outfile.write(converter(parser(infile, utf_mode, codecs), utf_mode, codecs))
-+    finally:
-+      infile.close()
-+      outfile.close()
- 
-   return 0
- 
-EOF
-do_compile --enable-runtime=libidn2 --enable-builtin=libidn2 ## otherwise wants libicu
+do_unpack_compile
