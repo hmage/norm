@@ -1,9 +1,5 @@
 #!/bin/bash
 
-depends_on zlib  ## compression support, opportunistic linking
-depends_on xz    ## compression support, opportunistic linking
-depends_on bzip2 ## compression support, opportunistic linking
-
 fetch_source http://ftp.astron.com/pub/file/file-5.41.tar.gz 8d80d2d50f4000e087aa60ffae4f099c63376762
 
 do_unpack_compile --disable-libseccomp ## seccomp produces errors with musl/alpine
