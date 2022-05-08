@@ -1,18 +1,5 @@
 #!/bin/bash
 
-depends_on libjpeg libpng ## otherwise it's useless
-depends_on libwebp        ## otherwise it can only decode webp, but not encode
-depends_on libheif        ## very much needed if you need to handle iphone-made photos
-
-## opportunistic linking
-depends_on xz
-
-## opportunistic linking with libraries that guaranteed to exist on osx
-if [[ $OSTYPE != *darwin* ]]; then
-	depends_on bzip2
-	depends_on libxml
-fi
-
 fetch_source https://www.imagemagick.org/download/releases/ImageMagick-7.1.0-31.tar.xz 680fd744b34d5643259556e32d0a9772b7212965
 
 CONFFLAGS=(
