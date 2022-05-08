@@ -4,4 +4,9 @@ needs_tool cmake
 
 fetch_source https://github.com/google/leveldb/archive/1.23.tar.gz 042e267eae6ab522fe29274f79ad45cde3977655
 
-do_unpack_compile -DLEVELDB_BUILD_BENCHMARKS=OFF
+CONFFLAGS=(
+-DLEVELDB_BUILD_BENCHMARKS=OFF ## build failure otherwise
+-DLEVELDB_BUILD_TESTS=OFF ## build failure otherwise
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
