@@ -1,12 +1,10 @@
 #!/bin/bash
 
-depends_on zlib ## opportunistic linking
 depends_on libgpg-error
 depends_on libgcrypt
 depends_on libassuan
 depends_on libksba
 depends_on libnpth
-depends_on pinentry
 
 fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.3.5.tar.bz2 0b9f3dc3cb5972844a18fc9b692730e53ffd55a5
 
