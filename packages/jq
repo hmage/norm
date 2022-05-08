@@ -1,8 +1,7 @@
 #!/bin/bash
 
-depends_on bison   ## steep requirement of version 3.0 or higher -- current OSX ships with 2.3
 depends_on libonig ## was optional in 1.5 and below, fails to build without it since 1.6
 
 fetch_source https://github.com/stedolan/jq/releases/download/jq-1.6/jq-1.6.tar.gz 73bcbdc45be4db907a864e829b06cd869f77f4f7
 
-do_unpack_compile
+do_unpack_compile --disable-maintainer-mode
