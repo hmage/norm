@@ -1,7 +1,5 @@
 #!/bin/bash
 
-needs_tool python
-
 fetch_source https://nodejs.org/dist/v18.0.0/node-v18.0.0.tar.xz edc50e3f0202eb61b08bd0e4162fe897dde6b76a
 
 do_unpack
