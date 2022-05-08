@@ -4,9 +4,6 @@ depends_on pkg-config ## configure doesn't require but libheif build fails witho
 depends_on libde265 ## otherwise libheif can't read images
 depends_on x265     ## otherwise libheif can't save images
 
-depends_on libjpeg ## opportunistic linking, for heif-convert and heif-enc
-depends_on libpng  ## opportunistic linking, for heif-convert, heif-enc and heif-thumbnailer
-
 fetch_source https://github.com/strukturag/libheif/releases/download/v1.12.0/libheif-1.12.0.tar.gz 7bc8ed78a2946949f137dcd9f86492de99aee2bd
 
 CONFFLAGS=(
