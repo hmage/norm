@@ -1,7 +1,5 @@
 #!/bin/bash
 
-depends_on libunistring ## opportunistic linking, and users of libidn2 tend to require it anyway
-
 fetch_source http://ftpmirror.gnu.org/libidn/libidn2-2.3.2.tar.gz 0a01fca61ab09f5ab3f2d7fa968d3276133f03d7
 
 do_unpack_compile
