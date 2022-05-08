@@ -1,7 +1,5 @@
 #!/bin/bash
 
-needs_tool perl
-
 fetch_source https://exiftool.org/Image-ExifTool-12.40.tar.gz 09f3bee6491251390028580eb8af990e79674ada
 
 do_unpack
