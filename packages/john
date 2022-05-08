@@ -2,9 +2,10 @@
 
 depends_on pkg-config
 depends_on openssl
-depends_on libgmp
 
-do_gitclone https://github.com/openwall/john
+fetch_source https://github.com/openwall/john/archive/refs/tags/1.9.0-Jumbo-1/john-1.9.0.tar.gz 965de98210d46afb4761e4b9636206d2c0a4eadb
+
+do_unpack
 SRCDIR="$SRCDIR/src"
 do_compile --enable-pkg-config --enable-native-march --with-systemwide
 pushd_src
