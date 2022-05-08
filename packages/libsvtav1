@@ -1,7 +1,9 @@
 #!/bin/bash
 
+needs_tool cmake
+depends_on nasm
+
 fetch_source https://github.com/AOMediaCodec/SVT-AV1/archive/refs/tags/v1.0.0/libsvtav1-1.0.0.tar.gz 6fba8a8efb519b44c64874c40a15089940ccc34c
 
-do_unpack
-do_compile_outside
+do_unpack_compile
 
