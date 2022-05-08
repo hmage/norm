@@ -1,9 +1,6 @@
 #!/bin/bash
 
 needs_tool cmake
-depends_on libre2      ## opportunistic linking, uses bundled if can't find
-depends_on libprotobuf ## opportunistic linking, uses bundled if can't find
-depends_on libcapstone ## opportunistic linking, uses bundled if can't find
 
 fetch_source https://github.com/google/bloaty/releases/download/v1.1/bloaty-1.1.tar.bz2 103396f313b9a6df5bb67477ccda8b3fa2cafc9c
 
