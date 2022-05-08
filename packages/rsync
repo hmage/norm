@@ -2,7 +2,7 @@
 
 depends_on openssl
 depends_on libxxhash
-depends_on zstd
+depends_on zstd ## for libzstd.a and headers
 depends_on liblz4
 
 fetch_source https://download.samba.org/pub/rsync/src/rsync-3.2.4.tar.gz 79103c0f12aba63d54044825eb9a402550ebc897
