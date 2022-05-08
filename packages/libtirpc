@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[[ $OSTYPE != *linux* ]] && log "libtirpc is a linux-specific library, refusing to build" && false
+
 fetch_source https://download.sf.net/libtirpc/libtirpc/1.3.2/libtirpc-1.3.2.tar.bz2 51d75be0e5acc094a888f40042b23e128d163cb5
 
 do_unpack_compile --disable-gssapi
