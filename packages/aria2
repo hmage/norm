@@ -1,10 +1,5 @@
 #!/bin/bash
 
-[[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx gurantees to provide one, opportunistic linking on other systems
-depends_on xz ## opportunistic linking with liblzma
-
-depends_on libgnutls ## don't remove or replace with openssl because aria2 will fail to build otherwise, see bug https://github.com/aria2/aria2/issues/1198
-
 fetch_source https://github.com/aria2/aria2/releases/download/release-1.36.0/aria2-1.36.0.tar.xz cd2e5e69ae8382b03bf18619d501af8b73bee201
 
 CONFFLAGS=(
