@@ -1,6 +1,6 @@
 #!/bin/bash
 
-needs_tool pod2man
+[[ $OSTYPE != *linux* ]] && log "cpuid is linux-specific binary, refusing to build" && false
 
 fetch_source http://etallen.com/cpuid/cpuid-20220224.src.tar.gz fe16c3516a9fb44c54ecb924cc412d46d4d289c9
 
