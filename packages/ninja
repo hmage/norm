@@ -1,12 +1,12 @@
 #!/bin/bash
 
-needs_tool python
+needs_tool python3
 
 fetch_source https://github.com/ninja-build/ninja/archive/v1.10.2.tar.gz 8d2e8c1c070c27fb9dc46b4a6345bbb1de7ccbaf
 
 do_unpack
 pushd_src
-./configure.py --bootstrap
+python3 ./configure.py --bootstrap --with-python=python3
 ./ninja ninja_test
 ./ninja_test --gtest_filter=-SubprocessTest.SetWithLots
 mkdir -p "$PREFIX/bin"
