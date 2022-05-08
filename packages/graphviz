@@ -1,7 +1,5 @@
 #!/bin/bash
 
-depends_on zlib ## opportunistic linking
-
 fetch_source https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/3.0.0/graphviz-3.0.0.tar.gz 35487e59aa78e2976d011176c7327b56c688d84e
 
 CONFOPTS=(
