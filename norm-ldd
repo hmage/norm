@@ -111,7 +111,7 @@ for file in "${files[@]}"; do
         [[ $line =~ ^$'\t'/usr/lib/arm-linux-gnueabihf/libarmmem\.so ]] && continue
         [[ $line =~ ^$'\t'/usr/lib/arm-linux-gnueabihf/libarmmem- ]] && continue
         ## osx first-party frameworks (core)
-        [[ $line =~ ^$'\t'/System/Library/Frameworks/Core(Foundation|Services|Graphics|Audio|Video|Media|Image).framework/ ]] && continue
+        [[ $line =~ ^$'\t'/System/Library/Frameworks/Core(Foundation|Services|Graphics|Audio|Video|Media|Image|Haptics).framework/ ]] && continue
         ## osx first-party frameworks (kits)
         [[ $line =~ ^$'\t'/System/Library/Frameworks/(IOKit|AppKit).framework/ ]] && continue
         ## osx first-party frameworks (toolbox)
@@ -119,7 +119,7 @@ for file in "${files[@]}"; do
         ## osx first-party frameworks (base)
         [[ $line =~ ^$'\t'/System/Library/Frameworks/(Cocoa|Carbon|Security|Foundation).framework/ ]] && continue
         ## osx first-party frameworks (multimedia)
-        [[ $line =~ ^$'\t'/System/Library/Frameworks/(Metal|OpenGL|OpenCL|AVFoundation|ForceFeedback).framework/ ]] && continue
+        [[ $line =~ ^$'\t'/System/Library/Frameworks/(Metal|OpenGL|OpenCL|AVFoundation|ForceFeedback|GameController).framework/ ]] && continue
         ## osx first-party frameworks
         [[ $line =~ ^$'\t'/System/Library/Frameworks/(LDAP|ApplicationServices|SystemConfiguration).framework/ ]] && continue
         ## osx third-party frameworks
