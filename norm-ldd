@@ -136,9 +136,3 @@ for file in "${files[@]}"; do
         retstatus=1
     fi
 done
-
-if [[ $retstatus != 0 ]]; then
-    echo "ERROR: External dependencies detected! Your build is not clean!"
-    echo "Please send this output and output of \`norm list\` to norm@hmage.net, thank you"
-fi
-exit "$retstatus"
