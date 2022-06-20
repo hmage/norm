@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://exiftool.org/Image-ExifTool-12.40.tar.gz 09f3bee6491251390028580eb8af990e79674ada
+fetch_source https://exiftool.org/Image-ExifTool-12.42.tar.gz 295afe7afef66a146a92e480ff0037cb4acee23a
 
 do_unpack
 pushd_src
