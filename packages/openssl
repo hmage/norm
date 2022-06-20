@@ -1,7 +1,8 @@
 #!/bin/bash
 
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
-fetch_source http://deb.debian.org/debian/pool/main/o/openssl/openssl_1.1.1n.orig.tar.gz 4b0936dd798f60c97c68fc62b73033ecba6dfb0c
+fetch_source http://deb.debian.org/debian/pool/main/o/openssl/openssl_3.0.3.orig.tar.gz 1138de3f1a2f573ae69302ab52ecd9bbf5e063ca
+fetch_debian http://deb.debian.org/debian/pool/main/o/openssl/openssl_3.0.3-8.debian.tar.xz c0e33bd4ebdff1f310dd16eebc89b9e63fdb6efa
 
 SSLCONFIG=(
 shared ## otherwise curl will fail to link on x64, since it builds with fPIC but openssl isn't
@@ -10,7 +11,7 @@ shared ## otherwise curl will fail to link on x64, since it builds with fPIC but
 )
 [[ $HOSTTYPE == x86_64 ]] && export KERNEL_BITS=64
 
-do_unpack
+do_undebian
 pushd_src
 ./config --prefix="$PREFIX" $LDFLAGS "${SSLCONFIG[@]}"
 NOPARALLEL=1 do_make all # parallel build can truncate libcrypto.so
