@@ -10,5 +10,8 @@ needs_tool autoconf automake libtool
 fetch_source https://github.com/ckolivas/lrzip/archive/v0.651/lrzip-0.651.tar.gz 7f7fcd4ec3811a6dac03562d6fb50bf8053f1d12
 
 do_unpack
+# Attempting to build the ASM/x86 folder as a compilation unit fails (even on Intel)
+sed -ibak 's|SUBDIRS = C ASM/x86|SUBDIRS = C|' "$SRCDIR/lzma/Makefile.am"
+[[ $OSTYPE == *darwin* ]] && sed -ibak 's|-f elf64|-f macho64|' "$SRCDIR/configure.ac"
 do_autoreconf
 do_compile
