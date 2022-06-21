@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://www.imagemagick.org/download/releases/ImageMagick-7.1.0-31.tar.xz 680fd744b34d5643259556e32d0a9772b7212965
+fetch_source https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.0-38/ImageMagick-7.1.0-31.tar.gz 6557aca5221da7cb9e0cbd444e0780a701838b1c
 
 CONFFLAGS=(
 --without-x   ## graphicsmagick is used most as library and command-line tool, GUI is not needed, if you need it, open an issue
