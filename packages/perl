@@ -17,7 +17,7 @@ LDFLAGS="$LDFLAGS $EXTRALD" \
             -Dlocincpth="$PREFIX/include" \
             -Accflags="$CPPFLAGS" \
             -Aldflags="$LDFLAGS $EXTRALD" \
-            -Alddlflags="-shared $LDFLAGS $EXTRALD" \
+            -Alddlflags="$LDFLAGS $EXTRALD" \
             -Dotherlibdirs="$PREFIX/lib/perl5" \
             -Duseshrplib -Dusethreads -Duselargefiles -Duse64bitint \
             -Dcc=gcc
