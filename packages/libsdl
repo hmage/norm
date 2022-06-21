@@ -3,4 +3,240 @@
 fetch_source http://http.debian.net/debian/pool/main/libs/libsdl1.2/libsdl1.2_1.2.15.orig.tar.gz 0c5f193ced810b0d7ce3ab06d808cbb5eef03a2c
 fetch_debian http://http.debian.net/debian/pool/main/libs/libsdl1.2/libsdl1.2_1.2.15-10.debian.tar.xz 79c62066192373f90134fed8d7be01e668839d7a
 
-do_undebian_compile
+CONFFLAGS=()
+
+[[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--without-x)
+
+do_undebian
+do_patch_inline << EOF
+diff --git a/src/video/quartz/SDL_QuartzVideo.h b/src/video/quartz/SDL_QuartzVideo.h
+index 7506e0c..a5f8b5a 100644
+--- a/src/video/quartz/SDL_QuartzVideo.h
++++ b/src/video/quartz/SDL_QuartzVideo.h
+@@ -91,7 +91,6 @@ typedef struct SDL_PrivateVideoData {
+     CGDirectDisplayID  display;            /* 0 == main display (only support single display) */
+     const void         *mode;              /* current mode of the display */
+     const void         *save_mode;         /* original mode of the display */
+-    CGDirectPaletteRef palette;            /* palette of an 8-bit display */
+     NSOpenGLContext    *gl_context;        /* OpenGL rendering context */
+     NSGraphicsContext  *nsgfx_context;     /* Cocoa graphics context */
+     Uint32             width, height, bpp; /* frequently used data about the display */
+--- SDL-1.2/src/video/quartz/SDL_QuartzVideo.h~	2013-09-07 07:40:02.000000000 +0300
++++ SDL-1.2/src/video/quartz/SDL_QuartzVideo.h	2013-09-07 07:50:00.000000000 +0300
+@@ -91,6 +91,9 @@
+     CGDirectDisplayID  display;            /* 0 == main display (only support single display) */
+     const void         *mode;              /* current mode of the display */
+     const void         *save_mode;         /* original mode of the display */
++#if (MAC_OS_X_VERSION_MIN_REQUIRED < 1070)
++    CGDirectPaletteRef palette;            /* palette of an 8-bit display */
++#endif
+     NSOpenGLContext    *gl_context;        /* OpenGL rendering context */
+     NSGraphicsContext  *nsgfx_context;     /* Cocoa graphics context */
+     Uint32             width, height, bpp; /* frequently used data about the display */
+diff --git a/src/video/quartz/SDL_QuartzWM.m b/src/video/quartz/SDL_QuartzWM.m
+index d526424d4..6a0c98695 100644
+--- a/src/video/quartz/SDL_QuartzWM.m
++++ b/src/video/quartz/SDL_QuartzWM.m
+@@ -55,7 +55,7 @@ void QZ_FreeWMCursor     (_THIS, WMcursor *cursor) {
+     
+     /* copy data and mask, extending the mask to all black pixels because the inversion effect doesn't work with Cocoa's alpha-blended cursors */
+     for (i = 0; i < (w+7)/8*h; i++) {
+-        planes[0][i] = data[i] ^ 0xFF;
++        planes[0][i] = ~data[i] & mask[i];
+         planes[1][i] = mask[i] | data[i];
+     }
+
+
+diff -r 9c0fc6e28c5e src/video/quartz/SDL_QuartzVideo.m
+--- a/src/video/quartz/SDL_QuartzVideo.m	Sun Mar 22 22:03:38 2020 -0400
++++ b/src/video/quartz/SDL_QuartzVideo.m	Sat Apr 04 15:01:10 2020 -0700
+@@ -940,6 +940,10 @@
+     /* Set app state, hide cursor if necessary, ... */
+     QZ_DoActivate(this);
+ 
++    [ window_view setNeedsDisplay:YES ];
++  	[ [ qz_window contentView ] setNeedsDisplay:YES ];
++  	[ qz_window displayIfNeeded ];
++    
+     return current;
+ 
+     /* Since the blanking window covers *all* windows (even force quit) correct recovery is crucial */
+@@ -1115,7 +1119,11 @@
+ 
+     /* Save flags to ensure correct teardown */
+     mode_flags = current->flags;
+-
++    
++    [ window_view setNeedsDisplay:YES ];
++   	[ [ qz_window contentView ] setNeedsDisplay:YES ];
++   	[ qz_window displayIfNeeded ];
++    
+     /* Fade in again (asynchronously) if we came from a fullscreen mode and faded to black */
+     if (fade_token != kCGDisplayFadeReservationInvalidToken) {
+         CGDisplayFade (fade_token, 0.5, kCGDisplayBlendSolidColor, kCGDisplayBlendNormal, 0.0, 0.0, 0.0, FALSE);
+@@ -1155,7 +1163,13 @@
+ 
+     if (qz_window != nil) {
+         nsgfx_context = [NSGraphicsContext graphicsContextWithWindow:qz_window];
+-        [NSGraphicsContext setCurrentContext:nsgfx_context];
++        if (nsgfx_context != NULL) {
++        	[NSGraphicsContext setCurrentContext:nsgfx_context];
++      	}
++      	else {
++      		/* Whoops, looks like Mojave doesn't support this anymore */
++      		fprintf(stderr,"Unable to obtain graphics context for NSWindow (Mojave behavior)\n");
++      	}
+     }
+ 
+     /* Setup the new pixel format */
+@@ -1500,10 +1514,17 @@
+     }
+ }
+ 
+-static void QZ_UpdateRects (_THIS, int numRects, SDL_Rect *rects)
+-{
++static SDL_VideoDevice *last_this = NULL;
++
++void QZ_UpdateRectsOnDrawRect(/*TODO: NSRect from drawRect*/) {
++	// HACK
++	SDL_VideoDevice *this = last_this;
++
++	if (this == NULL) return;
++  if (SDL_VideoSurface == NULL) return;
++
+     if (SDL_VideoSurface->flags & SDL_OPENGLBLIT) {
+-        QZ_GL_SwapBuffers (this);
++// TODO
+     }
+     else if ( [ qz_window isMiniaturized ] ) {
+     
+@@ -1512,8 +1533,9 @@
+     
+     else {
+         NSGraphicsContext *ctx = [NSGraphicsContext currentContext];
+-        if (ctx != nsgfx_context) { /* uhoh, you might be rendering from another thread... */
+-            [NSGraphicsContext setCurrentContext:nsgfx_context];
++        /* NTS: nsgfx_context == NULL will occur on Mojave, may be non-NULL on older versions of OS X */
++          if (nsgfx_context != NULL && ctx != nsgfx_context) { /* uhoh, you might be rendering from another thread... */
++                  [NSGraphicsContext setCurrentContext:nsgfx_context];
+             ctx = nsgfx_context;
+         }
+         CGContextRef cgc = (CGContextRef) [ctx graphicsPort];
+@@ -1528,6 +1550,25 @@
+     }
+ }
+ 
++static void QZ_UpdateRects (_THIS, int numRects, SDL_Rect *rects)
++{
++	// HACK
++	last_this = this;
++
++    if (SDL_VideoSurface->flags & SDL_OPENGLBLIT) {
++        QZ_GL_SwapBuffers (this);
++	// TODO?
++    }
++    else if ( [ qz_window isMiniaturized ] ) {
++        /* Do nothing if miniaturized */
++    }
++    else {
++	[ window_view setNeedsDisplay:YES ];
++	[ [ qz_window contentView ] setNeedsDisplay:YES ];
++	[ qz_window displayIfNeeded ];
++    }
++}
++
+ static void QZ_VideoQuit (_THIS)
+ {
+     CGDisplayFadeReservationToken fade_token = kCGDisplayFadeReservationInvalidToken;
+diff -r 9c0fc6e28c5e src/video/quartz/SDL_QuartzWindow.h
+--- a/src/video/quartz/SDL_QuartzWindow.h	Sun Mar 22 22:03:38 2020 -0400
++++ b/src/video/quartz/SDL_QuartzWindow.h	Sat Apr 04 15:01:10 2020 -0700
+@@ -47,5 +47,6 @@
+ 
+ /* Subclass of NSView to set cursor rectangle */
+ @interface SDL_QuartzView : NSView
++- (void)drawRect:(NSRect)dirtyRect;
+ - (void)resetCursorRects;
+ @end
+diff -r 9c0fc6e28c5e src/video/quartz/SDL_QuartzWindow.m
+--- a/src/video/quartz/SDL_QuartzWindow.m	Sun Mar 22 22:03:38 2020 -0400
++++ b/src/video/quartz/SDL_QuartzWindow.m	Sat Apr 04 15:01:10 2020 -0700
+@@ -220,6 +220,13 @@
+ 
+ @implementation SDL_QuartzView
+ 
++void QZ_UpdateRectsOnDrawRect(/*TODO: NSRect from drawRect*/);
++
++- (void)drawRect:(NSRect)dirtyRect
++{
++	QZ_UpdateRectsOnDrawRect();
++}
++
+ - (void)resetCursorRects
+ {
+     SDL_Cursor *sdlc = SDL_GetCursor();
+From a2047dc403ffb58b89b717929637352045699743 Mon Sep 17 00:00:00 2001
+From: "Ryan C. Gordon" <icculus@icculus.org>
+Date: Fri, 17 Jul 2020 17:44:34 -0400
+Subject: [PATCH] coreaudio: Move off deprecated APIs.
+
+Fixes SDL 1.2 audio on macOS 11.0 beta ("Big Sur").
+---
+ src/audio/macosx/SDL_coreaudio.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/src/audio/macosx/SDL_coreaudio.c b/src/audio/macosx/SDL_coreaudio.c
+index 31316d1fd9dbef356bbfd6709f594f32aa28fc33..adc29068c75727b565ba1fc9f3a08ffc6803b471 100644
+--- a/src/audio/macosx/SDL_coreaudio.c
++++ b/src/audio/macosx/SDL_coreaudio.c
+@@ -193,7 +193,7 @@ void Core_CloseAudio(_THIS)
+         return;
+     }
+ 
+-    result = CloseComponent(outputAudioUnit);
++    result = AudioComponentInstanceDispose(outputAudioUnit);
+     if (result != noErr) {
+         SDL_SetError("Core_CloseAudio: CloseComponent");
+         return;
+@@ -212,8 +212,8 @@ void Core_CloseAudio(_THIS)
+ int Core_OpenAudio(_THIS, SDL_AudioSpec *spec)
+ {
+     OSStatus result = noErr;
+-    Component comp;
+-    ComponentDescription desc;
++    AudioComponent comp;
++    AudioComponentDescription desc;
+     struct AURenderCallbackStruct callback;
+     AudioStreamBasicDescription requestedDesc;
+ 
+@@ -233,23 +233,23 @@ int Core_OpenAudio(_THIS, SDL_AudioSpec *spec)
+     requestedDesc.mBytesPerFrame = requestedDesc.mBitsPerChannel * requestedDesc.mChannelsPerFrame / 8;
+     requestedDesc.mBytesPerPacket = requestedDesc.mBytesPerFrame * requestedDesc.mFramesPerPacket;
+ 
+-
+     /* Locate the default output audio unit */
++    SDL_memset(&desc, '\0', sizeof (desc));
+     desc.componentType = kAudioUnitType_Output;
+     desc.componentSubType = kAudioUnitSubType_DefaultOutput;
+     desc.componentManufacturer = kAudioUnitManufacturer_Apple;
+     desc.componentFlags = 0;
+     desc.componentFlagsMask = 0;
+     
+-    comp = FindNextComponent (NULL, &desc);
++    comp = AudioComponentFindNext(NULL, &desc);
+     if (comp == NULL) {
+-        SDL_SetError ("Failed to start CoreAudio: FindNextComponent returned NULL");
++        SDL_SetError ("Failed to start CoreAudio: AudioComponentFindNext returned NULL");
+         return -1;
+     }
+     
+     /* Open & initialize the default output audio unit */
+-    result = OpenAComponent (comp, &outputAudioUnit);
+-    CHECK_RESULT("OpenAComponent")
++    result = AudioComponentInstanceNew (comp, &outputAudioUnit);
++    CHECK_RESULT("AudioComponentInstanceNew")
+ 
+     result = AudioUnitInitialize (outputAudioUnit);
+     CHECK_RESULT("AudioUnitInitialize")
+EOF
+do_compile "${CONFFLAGS[@]}"
