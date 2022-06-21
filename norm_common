@@ -8,6 +8,7 @@ LIBSUFFIX=so
 NUMCPU=`getconf _NPROCESSORS_ONLN`
 [ -z "$NUMCPU" ] && NUMCPU=1
 NUMJOBS=$NUMCPU
+(( $NUMJOBS > 10 )) && NUMJOBS=10
 [[ $CC == distcc* ]] && NUMJOBS=`distcc -j`
 [[ -z $CC ]] && export CC=cc
 [[ -z $CXX ]] && export CXX=c++
