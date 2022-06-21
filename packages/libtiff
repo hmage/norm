@@ -2,8 +2,8 @@
 
 depends_on autoconf automake libtool
 
-fetch_source http://deb.debian.org/debian/pool/main/t/tiff/tiff_4.3.0.orig.tar.gz c03f6cb05b64ff496b3a5c733a0af6296aead051
-fetch_debian http://deb.debian.org/debian/pool/main/t/tiff/tiff_4.3.0-6.debian.tar.xz fa54b88ed0d752d7202f3f7670a826a094091e5f
+fetch_source http://deb.debian.org/debian/pool/main/t/tiff/tiff_4.4.0.orig.tar.bz2 5f2c8aea7dd753b2d68683a70a8847ca67ffd076
+fetch_debian http://deb.debian.org/debian/pool/main/t/tiff/tiff_4.4.0-2.debian.tar.xz c7158345782b94ec6e4030d670549ea3877fee27
 
 CONFFLAGS=(
 --disable-webp ## webp inside tiff is _VERY_ uncommon, and we can't depend on it, because libwebp depends on us!
