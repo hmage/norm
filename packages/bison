@@ -6,8 +6,10 @@ fetch_source http://ftpmirror.gnu.org/bison/bison-3.8.2.tar.xz da1522a00f8c23c1a
 
 CONFFLAGS=(
 --enable-shared ## otherwise produces only static library
+--disable-nls   ## otherwise tries to link against gettext's libintl
 )
 
 ## parallel build produces error: mv: cannot stat 'examples/c/reccalc/scan.stamp.tmp': No such file or directory
 NOPARALLEL=1 \
+ac_cv_libtextstyle=no \
 do_unpack_compile "${CONFFLAGS[@]}"
