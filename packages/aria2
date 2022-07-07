@@ -7,6 +7,7 @@ CONFFLAGS=(
 --disable-nls     ## otherwise tries to link against gettext's libintl
 --without-sqlite3 ## opportunistic linking
 --without-libgmp  ## opportunistic linking
+--without-libcares ## opportunistic linking
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
