@@ -5,6 +5,8 @@ fetch_source https://github.com/aria2/aria2/releases/download/release-1.36.0/ari
 CONFFLAGS=(
 --without-libxml2 ## opportunistic linking
 --disable-nls     ## otherwise tries to link against gettext's libintl
+--without-sqlite3 ## opportunistic linking
+--without-libgmp  ## opportunistic linking
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
