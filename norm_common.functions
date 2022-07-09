@@ -34,10 +34,11 @@ do_configure() {
 
 do_cmake() {
     local STARTTIME="$SECONDS"
-    set -- "$SRCDIR" -DCMAKE_INSTALL_PREFIX=$ESCAPED_PREFIX \
-                    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-                    -DCMAKE_INSTALL_NAME_DIR=$ESCAPED_PREFIX/lib \
-                    "$@"
+    local OPTS=(-DCMAKE_INSTALL_PREFIX=$ESCAPED_PREFIX
+                -DCMAKE_PREFIX_PATH=$ESCAPED_PREFIX ## this ensures cmake searches in our prefix first
+                -DCMAKE_BUILD_TYPE=RelWithDebInfo
+                -DCMAKE_INSTALL_NAME_DIR=$ESCAPED_PREFIX/lib)
+    set -- "$SRCDIR" "${OPTS[@]}" "$@"
     log "Configuring $FORMULA: cmake $@"
     cmake "$@" || return 1
     local ELAPSED="$(($SECONDS - $STARTTIME))"
