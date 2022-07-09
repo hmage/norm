@@ -2,4 +2,8 @@
 
 fetch_source http://cyberelk.net/tim/data/patchutils/stable/patchutils-0.4.2.tar.xz 0d4631a76b078c0b8cd8ebdf98982d3380125889
 
-do_unpack_compile
+CONFFLAGS=(
+--without-pcre2 ## opportunistic linking
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
