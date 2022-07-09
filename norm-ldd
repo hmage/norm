@@ -128,6 +128,10 @@ for file in "${files[@]}"; do
         [[ $line =~ ^$'\t'/usr/lib/lib(System\.B|objc.A|resolv\.9|charset\.1|c\+\+\.1)\.dylib ]] && continue
         ## osx third-party system libraries
         [[ $line =~ ^$'\t'/usr/lib/lib(iconv\.2|xml2\.2|z\.1|curl\.4|expat\.1|lzma\.5|bz2\.1\.0|ffi|edit\.3|ncurses\.5\.4|sasl2\.2)\.dylib ]] && continue
+        ## osx norm anomalies that don't support rpath
+        [[ $line =~ ^$'\t'lib(lmdb|boost_[a-z_2]+|capstone|icu(data|uc|tu|test|i18n|io)|gif)(\.[0-9]+)?\.dylib ]] && continue
+        ## osx norm anomalies with rpath
+        [[ $line =~ ^$'\t'\@rpath/libmpdec(\+\+)?(\.[0-9]+)?\.dylib ]] && continue
         lines+=("$line")
     done
     if [[ -n "$lines" ]]; then
