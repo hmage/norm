@@ -1,0 +1,12 @@
+#!/bin/bash
+
+depends_on pkg-config ## to find dependencies
+depends_on libreadline
+
+fetch_source http://ftp.postgresql.org/pub/source/v14.3/postgresql-14.3.tar.bz2 340987764769dd11873077cf81c46ba0a4fb63e6
+
+## postgres does not like -ffast-math and -Wl,-dead_strip
+CFLAGS="${CFLAGS/-Ofast/}" \
+CXXFLAGS="${CXXFLAGS/-Ofast/}" \
+LDFLAGS="${LDFLAGS/-Wl,-dead_strip/}" \
+do_unpack_compile "${CONFFLAGS[@]}"
