@@ -2,7 +2,7 @@
 
 [[ $OSTYPE != *darwin* ]] && depends_on openssl ## otherwise it won't download over https
 
-fetch_source https://curl.se/download/curl-7.83.1.tar.gz 0073c0eb2d5199688334b8bd9f49e46c1f4ea35c
+fetch_source https://curl.se/download/curl-7.84.0.tar.gz 61b8425af49e488b0e2818638345dd3e6be57099
 
 CONFFLAGS=(
 "--with-ca-bundle=$PREFIX/etc/ssl/cert.pem"
