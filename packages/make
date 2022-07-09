@@ -2,9 +2,14 @@
 
 fetch_source http://ftpmirror.gnu.org/make/make-4.3.tar.gz 3c40e5b49b893dbb14f1e2e1f8fe89b7298cc51d
 
+CONFFLAGS=(
+--without-guile  ## opportunistic linking
+--disable-nls    ## otherwise will try to link with gettext's libintl
+)
+
 do_unpack
 pushd_src
-do_configure --disable-dependency-tracking
+do_configure "${CONFFLAGS[@]}"
 sh ./build.sh
 mkdir -p "$PREFIX/bin"
 install -m 755 make "$PREFIX/bin"
