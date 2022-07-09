@@ -3,8 +3,15 @@
 fetch_source https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/3.0.0/graphviz-3.0.0.tar.gz 35487e59aa78e2976d011176c7327b56c688d84e
 
 CONFOPTS=(
---with-included-ltdl ## opportunistic linking with libltdl.so otherwise
---without-expat      ## opportunistic linking with libexpat.so
+--with-included-ltdl  ## opportunistic linking with libltdl.so otherwise
+--without-expat       ## opportunistic linking with libexpat.so
+--without-libgd       ## opportunistic linking with libgd
+--without-gts         ## opportunistic linking with libgts
+--without-rsvg        ## opportunistic linking with librsvg
+--without-pangocairo  ## opportunistic linking with libpangocairo
+--without-ghostscript ## opportunistic linking with libgs
+--without-poppler     ## opportunistic linking with libpoppler
+--without-webp        ## opportunistic linking iwth libwebp
 PS2PDF=true
 )
 
