@@ -2,4 +2,9 @@
 
 fetch_source http://ftp.astron.com/pub/file/file-5.41.tar.gz 8d80d2d50f4000e087aa60ffae4f099c63376762
 
-do_unpack_compile --disable-libseccomp ## seccomp produces errors with musl/alpine
+CONFFLAGS=(
+--disable-libseccomp ## seccomp produces errors with musl/alpine
+--disable-xzlib      ## opportunistic linking
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
