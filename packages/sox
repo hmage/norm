@@ -1,5 +1,12 @@
 #!/bin/bash
 
+depends_on flac    ## links with libFLAC
+depends_on lame    ## links with libmp3lame
+depends_on file    ## links with libmagic, unclear what for
+depends_on libogg
+depends_on libpng  ## unclear what for
+depends_on libopusfile
+
 fetch_source https://prdownloads.sourceforge.net/sox/sox/14.4.2/sox-14.4.2.tar.gz f69f38f8a7ad6a88ecab3862d74db4edcd796695
 
 ## sox does not like -ffast-math
