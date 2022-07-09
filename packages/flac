@@ -27,4 +27,8 @@ do_patch_inline -p0 << EOF
  
  #include "FLAC/ordinals.h"
 EOF
-do_compile
+
+CONFFLAGS=(
+--disable-ogg ## opportunistic linking
+)
+do_compile "${CONFFLAGS[@]}"
