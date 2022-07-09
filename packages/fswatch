@@ -2,4 +2,8 @@
 
 fetch_source https://github.com/emcrisostomo/fswatch/releases/download/1.16.0/fswatch-1.16.0.tar.gz 621b1f16f5dfc3c7297b8b33442837c75019dcd7
 
-do_unpack_compile
+CONFFLAGS=(
+--disable-nls ## otherwise will try to link with gettext's libintl
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
