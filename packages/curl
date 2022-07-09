@@ -7,6 +7,12 @@ fetch_source https://curl.se/download/curl-7.83.1.tar.gz 0073c0eb2d5199688334b8b
 CONFFLAGS=(
 "--with-ca-bundle=$PREFIX/etc/ssl/cert.pem"
 --disable-ldap ## curl is usually a web fetcher, if you need ldap, open an issue
+--without-nghttp2 ## opportunistic linking
+--without-libidn2 ## opportunistic linking
+--without-librtmp ## opportunistic linking
+--without-libpsl  ## opportunistic linking
+--without-brotli  ## opportunistic linking
+--without-zstd    ## opportunistic linking
 )
 
 [[ $OSTYPE != *darwin* ]] && CONFFLAGS+=(--with-openssl) ## use openssl
