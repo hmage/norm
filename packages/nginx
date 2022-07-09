@@ -8,6 +8,7 @@ fetch_source http://nginx.org/download/nginx-1.21.6.tar.gz 3e6d39a714f6716861286
 CONFFLAGS=(
 --with-cc-opt="$CPPFLAGS"
 --with-ld-opt="$LDFLAGS"
+--without-pcre2 ## opportunistic linking
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
