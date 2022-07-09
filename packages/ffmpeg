@@ -25,6 +25,7 @@ CONFFLAGS=(
 --enable-libopus
 --enable-libvpx
 --enable-libsvtav1
+--disable-lzma     ## opportunistic linking
 )
 
 do_unpack
