@@ -2,4 +2,8 @@
 
 fetch_source http://ftpmirror.gnu.org/libidn/libidn-1.38.tar.gz f59995a07e06864b1f385dc91bd4b08bb5ea88cc
 
-do_unpack_compile
+CONFFLAGS=(
+--disable-nls    ## otherwise will try to link with gettext's libintl
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
