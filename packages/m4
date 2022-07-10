@@ -2,4 +2,8 @@
 
 fetch_source http://ftpmirror.gnu.org/m4/m4-1.4.19.tar.gz 1b9141800f481353b8bcfafe8ec03d3d95f03f64
 
-do_unpack_compile
+CONFFLAGS=(
+--disable-nls    ## otherwise will try to link with gettext's libintl
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
