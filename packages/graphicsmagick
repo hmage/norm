@@ -1,11 +1,21 @@
 #!/bin/bash
 
+depends_on libjpeg   ## most common format, formula useless otherwise
+depends_on libpng    ## another common format
+depends_on liblcms2  ## colour profile support, very common
+depends_on libheif   ## common format saved by photo cameras
+depends_on libwebp   ## format served and owned by google
+depends_on libtiff   ## format often seen in some places
+depends_on libjasper ## jpeg2000, uncommon but builds quickly
+
 fetch_source https://downloads.sf.net/graphicsmagick/graphicsmagick/1.3.38/GraphicsMagick-1.3.38.tar.xz 9494a31b057a79db27cc909f9ba332cf7aa578f5
 
 CONFFLAGS=(
 --without-x   ## graphicsmagick is used most as library and command-line tool, GUI is not needed, if you need it, open an issue
 --without-ttf ## don't build freetype and it's dependencies for a rarely used feature, but if you need it, open an issue
 --without-trio ## trio contains portable printf functions, we don't really need that
+--without-jxl  ## opportunistic linking, also jpeg-xl is broken in graphicsmagick because jxl changed their API
+--without-zstd ## opportunistic linking, not main functionality
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
