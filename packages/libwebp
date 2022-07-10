@@ -5,6 +5,9 @@ fetch_source http://downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz
 CONFFLAGS=(
 --enable-libwebpmux ## needed by graphicsmagick
 --disable-gif       ## fails to build with giflib on centos 7.2
+--disable-tiff      ## opportunistic linking
+--disable-png       ## opportunistic linking
+--disable-jpeg      ## opportunistic linking
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
