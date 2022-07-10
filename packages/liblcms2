@@ -2,4 +2,9 @@
 
 fetch_source https://downloads.sf.net/lcms/lcms2-2.13.1.tar.gz 72d0a0b7fbaeca12eb0186ab5728eb0f26806b22
 
-do_unpack_compile
+CONFFLAGS=(
+--without-tiff ## opportunistic linking, installs tificc binary
+--without-jpeg ## opportunistic linking, installs jpgicc binary
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
