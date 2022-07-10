@@ -2,4 +2,8 @@
 
 fetch_source https://github.com/libexif/libexif/releases/download/v0.6.24/libexif-0.6.24.tar.bz2 8b42080dc6d62ee9a89658e878b622f2eaefe986
 
-do_unpack_compile
+CONFFLAGS=(
+--disable-nls    ## otherwise will try to link with gettext's libintl
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
