@@ -1,0 +1,13 @@
+#!/bin/bash
+
+depends_on xz     ## links with liblzma
+depends_on zstd   ## links with libzstd
+depends_on liblz4 ## links with liblz4
+
+fetch_source https://github.com/libarchive/libarchive/releases/download/v3.6.1/libarchive-3.6.1.tar.xz 40e317009a583c42dc6445de327a9b8a0f3beb01
+
+CONFFLAGS=(
+--without-libb2 ## opportunistic linking
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
