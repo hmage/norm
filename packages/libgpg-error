@@ -2,4 +2,8 @@
 
 fetch_source https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.45.tar.bz2 fe724ed37b4935964059a47b7c64d5f8246659d8
 
-do_unpack_compile
+CONFFLAGS=(
+--disable-nls    ## otherwise will try to link with gettext's libintl
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
