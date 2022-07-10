@@ -1,5 +1,11 @@
 #!/bin/bash
 
+depends_on libunistring ## opportunistic linking, no way to disable
+
 fetch_source http://ftpmirror.gnu.org/libidn/libidn2-2.3.2.tar.gz 0a01fca61ab09f5ab3f2d7fa968d3276133f03d7
 
-do_unpack_compile
+CONFFLAGS=(
+--disable-nls    ## otherwise will try to link with gettext's libintl
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
