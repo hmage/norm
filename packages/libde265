@@ -4,6 +4,7 @@ fetch_source https://github.com/strukturag/libde265/releases/download/v1.0.8/lib
 
 CONFFLAGS=(
 --disable-sherlock265 ## sherlock265 is a GUI tool to analyze h265 frames, but requires QT to build
+--disable-dec265      ## dec265 is a tool to decode frames, but requires libSDL to build
 )
 
 do_unpack
