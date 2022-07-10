@@ -2,4 +2,9 @@
 
 fetch_source https://ftpmirror.gnu.org/sed/sed-4.8.tar.xz 61bd770062d49cdab3f0f45df473e2bf950ba266
 
-do_unpack_compile --program-prefix=g
+CONFFLAGS=(
+--program-prefix=g
+--disable-nls      ## otherwise will try to link with gettext's libintl
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
