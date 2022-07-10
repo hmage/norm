@@ -2,5 +2,11 @@
 
 fetch_source http://www.jedsoft.org/releases/slang/slang-2.3.2.tar.bz2 bbf7f2dcc14e7c7fca40868fd4b411a2bd9e2655
 
+CONFFLAGS=(
+--without-pcre ## opportunistic linking, haven't seen anyone using regexes _inside_ slang
+--without-onig ## opportunistic linking, haven't seen anyone using regexes _inside_ slang
+--without-png  ## opportunistic linking, besides libpng linked by text-based library is an anomaly
+)
+
 NOPARALLEL=1 \
-do_unpack_compile
+do_unpack_compile "${CONFFLAGS[@]}"
