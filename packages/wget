@@ -1,10 +1,11 @@
 #!/bin/bash
 
-depends_on pkg-config ## otherwise it won't find openssl
-depends_on openssl
-[[ $OSTYPE != *darwin* ]] && depends_on zlib ## opportunistic linking, but on osx it's always there, so no need to build it
+depends_on pkg-config                           ## otherwise it won't find openssl
+[[ $OSTYPE != *darwin* ]] && depends_on zlib    ## opportunistic linking, but on osx it's always there, so no need to build it
 [[ $OSTYPE != *darwin* ]] && depends_on libuuid ## opportunistic linking
-depends_on libpcre ## opportunistic linking
+depends_on libpcre                              ## opportunistic linking
+depends_on libunistring                         ## otherwise uses bundled copy
+depends_on openssl
 
 fetch_source http://ftpmirror.gnu.org/wget/wget-1.21.3.tar.gz e0c2c21aff77693c3e67cf3889945a2ef5a03a39
 
