@@ -1,5 +1,12 @@
 #!/bin/bash
 
+depends_on libjpeg   ## most common format, formula useless otherwise
+depends_on libpng    ## another common format
+depends_on liblcms2  ## colour profile support, very common
+depends_on libheif   ## common format saved by photo cameras
+depends_on libwebp   ## format served and owned by google
+depends_on libtiff   ## format often seen in some places
+
 fetch_source https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.0-38/ImageMagick-7.1.0-31.tar.gz 6557aca5221da7cb9e0cbd444e0780a701838b1c
 
 CONFFLAGS=(
