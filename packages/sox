@@ -11,7 +11,15 @@ depends_on libopusfile
 
 fetch_source https://prdownloads.sourceforge.net/sox/sox/14.4.2/sox-14.4.2.tar.gz f69f38f8a7ad6a88ecab3862d74db4edcd796695
 
+CONFFLAGS=(
+--without-libltdl ## opportunistic linking
+--without-amrwb   ## opportunistic linking
+--without-amrnb   ## opportunistic linking
+--without-mad     ## opportunistic linking
+--without-sndfile ## opportunistic linking
+)
+
 ## sox does not like -ffast-math
 CFLAGS="${CFLAGS/-Ofast/}" \
 CXXFLAGS="${CXXFLAGS/-Ofast/}" \
-do_unpack_compile
+do_unpack_compile "${CONFFLAGS[@]}"
