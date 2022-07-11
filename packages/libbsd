@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[[ $OSTYPE != *linux* ]] && log "libbsd is a linux-specific library, refusing to build" && false
+
 depends_on libmd
 
 fetch_source https://libbsd.freedesktop.org/releases/libbsd-0.11.6.tar.xz eac22060b5b238333d587013aedf657c50d3aa9c
