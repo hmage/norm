@@ -1,9 +1,11 @@
 #!/bin/bash
 
+depends_on pkg-config
 depends_on flac    ## links with libFLAC
 depends_on lame    ## links with libmp3lame
 depends_on file    ## links with libmagic, unclear what for
 depends_on libogg
+depends_on libvorbis
 depends_on libpng  ## unclear what for
 depends_on libopusfile
 
