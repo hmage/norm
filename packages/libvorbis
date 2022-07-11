@@ -1,0 +1,7 @@
+#!/bin/bash
+
+depends_on libogg
+
+fetch_source http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.7.tar.xz 0a2dd71a999656b8091506839e8007a61a8fda1f
+
+do_unpack_compile
