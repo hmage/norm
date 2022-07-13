@@ -14,6 +14,7 @@ CONFFLAGS=(
 --disable-guile   ## build failure if guile is in system without headers
 --enable-local-libopts ## to avoid opportunistic linking with system-provided one
 --disable-nls     ## otherwise tries to link against gettext's libintl
+--without-zlib    ## avoid CRIME attack, CVE-2012-4929
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
