@@ -1,6 +1,7 @@
 #!/bin/bash
 
-[[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx gurantees to provide one
+[[ $OSTYPE != *darwin* ]] && depends_on zlib ## required, osx provides the library
+[[ $OSTYPE != *darwin* ]] && depends_on curl ## for git pull over https, osx provides the library
 
 fetch_source https://www.kernel.org/pub/software/scm/git/git-2.36.1.tar.xz 8d6d370d0a5dec947640ce09cb25ff697b1ca963
 fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.36.1.tar.xz a184015f8ada24cb2c70f6ac819ced1947d954dc
