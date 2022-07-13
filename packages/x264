@@ -14,6 +14,7 @@ CONFFLAGS=(
 --enable-pic      ## otherwise static linking will fail with `relocation R_X86_64_32S against hidden symbol `x264_10_pw_1' can not be used when making a shared object`
 --disable-swscale ## opportunistic linking with libswscale
 --disable-lavf    ## opportunistic linking iwth libavformat
+--disable-gpac    ## opportunistic linking
 )
 
 do_compile "${CONFFLAGS[@]}"
