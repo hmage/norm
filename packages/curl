@@ -1,6 +1,7 @@
 #!/bin/bash
 
-[[ $OSTYPE != *darwin* ]] && depends_on openssl ## otherwise it won't download over https
+[[ $OSTYPE != *darwin* ]] && depends_on zlib    ## commonly seen, osx provides the library
+[[ $OSTYPE != *darwin* ]] && depends_on openssl ## https support, osx provides the library
 
 fetch_source https://curl.se/download/curl-7.84.0.tar.gz 61b8425af49e488b0e2818638345dd3e6be57099
 
