@@ -5,6 +5,7 @@ fetch_source https://download.gnome.org/sources/libxml2/2.9/libxml2-2.9.13.tar.x
 CONFFLAGS=(
 --without-python ## opportunistic linking
 --without-lzma   ## opportunistic linking
+--without-zlib   ## opportunistic linking
 )
 
 CPPFLAGS="$CPPFLAGS -DXML_XML_DEFAULT_CATALOG=\\\"file:///$ESCAPED_PREFIX/etc/xml/catalog\\\"" \
