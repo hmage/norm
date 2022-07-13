@@ -1,7 +1,13 @@
 #!/bin/bash
 
-depends_on libunistring ## links opportunistically or compiles bundled copy
-
 fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.21.tar.xz 9d75b47baed1a612c0120991c4b6d9cf95e0d430
 
-do_unpack_compile
+CONFFLAGS=(
+--without-emacs  ## build failure on debian 11 with emacs installed
+--disable-java   ## save time on building something that is barely used
+--disable-curses ## save time on building something that is barely used
+
+--with-included-libunistring ## need only a small subset of unistring
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
