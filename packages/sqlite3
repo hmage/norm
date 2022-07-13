@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[[ $OSTYPE != *darwin* ]] && depends_on zlib    ## for .archive, osx provides the library
+
 fetch_source https://sqlite.org/2022/sqlite-autoconf-3380200.tar.gz 421109d748d729d3e5a2c67056bc703ae6c91e3f
 
 CONFFLAGS=(
