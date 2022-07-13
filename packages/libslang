@@ -6,6 +6,7 @@ CONFFLAGS=(
 --without-pcre ## opportunistic linking, haven't seen anyone using regexes _inside_ slang
 --without-onig ## opportunistic linking, haven't seen anyone using regexes _inside_ slang
 --without-png  ## opportunistic linking, besides libpng linked by text-based library is an anomaly
+--without-zlib ## opportunistic linking, haven't seen anyone using compression _inside_ slang
 )
 
 NOPARALLEL=1 \
