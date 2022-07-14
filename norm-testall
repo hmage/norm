@@ -3,12 +3,8 @@
 set -eE
 set -o pipefail
 
-DIRNAME=`dirname "$0"`
-READLINK=`readlink "$0" || true`
-LINKDIRNAME=`dirname "$READLINK"`
-NORMDIR="$LINKDIRNAME"
-[ ! "${LINKDIRNAME:0:1}" = "/" ] && NORMDIR="$DIRNAME/$LINKDIRNAME"
-NORMDIR=`cd "$NORMDIR"; pwd`
+OURDIR="${BASH_SOURCE%/*}"
+NORMDIR="$OURDIR"
 
 . "$NORMDIR"/norm_common
 
@@ -102,7 +98,7 @@ prepare_jail() {
     chmod u+w "$JAILFULLPATH"/lib/*
     chmod u+w "$JAILFULLPATH"/lib/engines/*
     do_strip "$JAILFULLPATH"/{bin,lib,lib/engines}/*
-    env - PATH="$PATH" "$NORMDIR/norm-ldd" -q "$JAILFULLPATH" 2>&1 | tee -a "$JAILLOG"
+    "$NORMDIR/norm-ldd" -q "$JAILFULLPATH" 2>&1 | tee -a "$JAILLOG"
     set -eE
 
     tar zcf "$JAILARCHIVE" -C "$HOME" "$JAILPATH"
@@ -145,10 +141,10 @@ for FORMULA_NAME in "${LIST[@]}"; do
     BUILDSTATUS="${PIPESTATUS[0]}"
     [ $BUILDSTATUS != 0 ] && FAILURE=1
 
-    log "testall finished for $FORMULA" | tee -a "$LOGPATH/$FORMULA_ID.log"
+    log "testall finished for $FORMULA_NAME" | tee -a "$LOGPATH/$FORMULA_ID.log"
 
     # compile success, check if ldd has any output
-    env - PATH="$PATH" "$NORMDIR/norm-ldd" -q "$NORMTEST_PREFIX" | tee -a "$LOGPATH/$FORMULA_ID.log"
+    "$NORMDIR/norm-ldd" -q "$NORMTEST_PREFIX" | tee -a "$LOGPATH/$FORMULA_ID.log"
     [ "${PIPESTATUS[0]}" != "0" ] && FAILURE=1
 
     # write list of files in prefix (excluding /tmp)
