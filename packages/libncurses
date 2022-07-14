@@ -7,8 +7,14 @@ fetch_source http://ftpmirror.gnu.org/ncurses/ncurses-6.3.tar.gz 38fb1462d13b04b
 CONFFLAGS=(
 --with-shared ## otherwise building libedit fails on linux x64 because of fPIC option mismatch
 --enable-pc-files ## install pkg-config files
+--enable-widec
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
-do_unpack_compile "${CONFFLAGS[@]}" --enable-widec ## python will opportunistically link with libncursesw, if it finds one linkable in the system
 
+for i in form menu ncurses panel ncurses++; do
+	ln -sf "lib${i}w.a" "$PREFIX/lib/lib${i}.a"
+	ln -sf "${i}w.pc" "$PREFIX/lib/pkgconfig/${i}.pc"
+done
+
+ln -sf "libncurses.a" "$PREFIX/lib/libcurses.a"
