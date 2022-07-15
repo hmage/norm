@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[[ $OSTYPE != *linux* ]] && log "procps is linux-specific formula, refusing to build" && false
+
 needs_tool pkg-config ## to find libncurses
 depends_on libncurses
 
