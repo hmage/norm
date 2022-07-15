@@ -10,7 +10,7 @@ CONFFLAGS=(
 --enable-widec
 )
 
-do_unpack_compile "${CONFFLAGS[@]}"
+CFLAGS="$CFLAGS -fPIC" do_unpack_compile "${CONFFLAGS[@]}"
 
 for i in form menu ncurses panel ncurses++; do
 	ln -sf "lib${i}w.a" "$PREFIX/lib/lib${i}.a"
@@ -18,3 +18,4 @@ for i in form menu ncurses panel ncurses++; do
 done
 
 ln -sf "libncurses.a" "$PREFIX/lib/libcurses.a"
+ln -sf "ncursesw" "$PREFIX/include/ncurses"
