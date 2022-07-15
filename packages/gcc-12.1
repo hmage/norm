@@ -1,0 +1,42 @@
+#!/bin/bash
+
+[[ $OSTYPE == *darwin* ]] && log "Building GCC on OSX fails at the moment" && false
+
+depends_on libgmp
+depends_on libmpfr
+depends_on libmpc
+
+CONFIGURE_OPTIONS=(
+--program-suffix=-12.1    # version suffix to all binaries
+--enable-__cxa_atexit    # for fully standards-compliant destructors, requires libc to have __cxa_atexit
+--enable-languages=c,c++ # only C and C++, gcc is barely used for anything else
+--disable-bootstrap      # never had bootstrap detect anything, speed up compilation
+)
+
+if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
+    CONFIGURE_OPTIONS+=(--disable-libsanitizer)
+    add_caveat "Sanitizer support was disabled -- your linux headers are too old"
+fi
+
+if cc_checkflags -m64 && cc_checkflags -m32; then
+    CONFIGURE_OPTIONS+=(--enable-multilib)
+else
+    CONFIGURE_OPTIONS+=(--disable-multilib)
+    add_caveat "Multilib support was disabled -- your current compiler doesn't support multilib"
+fi
+
+
+fetch_source http://mirrors.kernel.org/gnu/gcc/gcc-12.1.0/gcc-12.1.0.tar.xz 81614dacd8625a3896a57df375b695dba0c75f36
+do_unpack
+
+# We install 64-bit linux libraries into $PREFIX/lib
+[[ $HOSTTYPE == "x86_64" ]] && sed -ibak '/m64=/s/lib64/lib/' "$SRCDIR"/gcc/config/i386/t-linux64
+
+do_compile_outside "${CONFIGURE_OPTIONS[@]}"
+
+add_to_ccache g++-12.1 gcc-12.1
+
+add_caveat "To not clash with system-installed default gcc, GCC 12.1 was installed with a suffix, run gcc-12.1 or g++-12.1"
+
+add_caveat "Remember -- you can't use this build of gcc on any other machine" \
+           "Do not move it away from $PREFIX either -- paths are hardcoded"
