@@ -1,7 +1,7 @@
 #!/bin/bash
 
-fetch_source http://download.openpkg.org/components/cache/xz/xz-5.2.5.tar.gz fa2ae4db119f639a01b02f99f1ba671ece2828eb
-fetch_debian http://deb.debian.org/debian/pool/main/x/xz-utils/xz-utils_5.2.5-2.debian.tar.xz d466bb78c932da276543783ca772f8cfa25416d6
+fetch_source http://deb.debian.org/debian/pool/main/x/xz-utils/xz-utils_5.2.5.orig.tar.xz 0b9d1e06b59f7fe0796afe1d93851b9306b4a3b6
+fetch_debian http://deb.debian.org/debian/pool/main/x/xz-utils/xz-utils_5.2.5-2.1~deb11u1.debian.tar.xz c45283b5e9b7aeef049b46a5d9ab6a5c622dd5eb
 
 CONFFLAGS=(
 --disable-nls ## otherwise will try to link with gettext's libintl
