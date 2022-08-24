@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/3.0.0/graphviz-3.0.0.tar.gz 35487e59aa78e2976d011176c7327b56c688d84e
+fetch_source https://gitlab.com/graphviz/graphviz/-/archive/5.0.1/graphviz-5.0.1.tar.bz2 bf2b81080af52119d2d8e1eaf19a299c68bd964e
 
 CONFOPTS=(
 --with-included-ltdl  ## opportunistic linking with libltdl.so otherwise
