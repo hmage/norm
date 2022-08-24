@@ -1,0 +1,27 @@
+#!/bin/bash
+
+depends_on pkg-config ## to find openssl
+depends_on openssl
+depends_on libidn
+depends_on zlib    ## osx provides the library but wget2 fails to link with it
+
+fetch_source http://ftpmirror.gnu.org/wget/wget2-2.0.1.tar.gz e50ab408168e28d8b9eecba046e21cffbb30636f
+
+CONFFLAGS=(
+--with-ssl=openssl
+--with-linux-crypto  ## if available, use linux kernel crypto routines
+--disable-nls        ## otherwise will try to link with gettext's libintl
+--without-libpcre    ## opportunistic linking
+--without-libpcre2   ## opportunistic linking
+--without-libidn2    ## opportunistic linking
+--without-zstd       ## opportunistic linking
+--without-brotlidec  ## opportunistic linking
+--without-lzma       ## opportunistic linking
+--without-libnghttp2 ## opportunistic linking
+--without-libpsl     ## opportunistic linking
+--without-gpgme      ## opportunistic linking
+--without-bzip2      ## opportunistic linking
+
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
