@@ -1,6 +1,6 @@
 #!/bin/bash
 
 fetch_source http://deb.debian.org/debian/pool/main/z/zlib/zlib_1.2.11.dfsg.orig.tar.gz 1b7f6963ccfb7262a6c9d88894d3a30ff2bf2e23
-fetch_debian http://deb.debian.org/debian/pool/main/z/zlib/zlib_1.2.11.dfsg-2.debian.tar.xz 478b96716c3ae7069b959980a3d789996657ceea
+fetch_debian http://deb.debian.org/debian/pool/main/z/zlib/zlib_1.2.11.dfsg-2+deb11u1.debian.tar.xz 24795ee350b356727f92703acee03ba1409d4794
 
 CFLAGS="$CFLAGS -fPIC" do_undebian_compile
