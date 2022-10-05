@@ -6,9 +6,9 @@ depends_on pkg-config
 depends_on libtool
 depends_on gettext
 depends_on libpcre ## system-provided pcre might not support unicode (that's the case on osx), so always bring our own
+depends_on libffi
 ## these formulas are not needed on osx -- they are guaranteed to be present in the system
 if [[ $OSTYPE != *darwin* ]]; then
-	depends_on libffi
 	depends_on zlib
 fi
 [[ $OSTYPE == *linux* ]] && depends_on libmount ## glib needs it only on linux, and libmount compiles only on linux
