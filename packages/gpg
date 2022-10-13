@@ -5,6 +5,7 @@ depends_on libgcrypt
 depends_on libassuan
 depends_on libksba
 depends_on libnpth
+depends_on pinentry
 
 fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.3.7.tar.bz2 9255a70a984bfbfa5312a9a52a1cf47cb0d1fc84
 
