@@ -7,7 +7,7 @@ depends_on libksba
 depends_on libnpth
 depends_on pinentry
 
-fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.3.7.tar.bz2 9255a70a984bfbfa5312a9a52a1cf47cb0d1fc84
+fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.3.8.tar.bz2 1f31b7b4c9c9adad97f94ea3acf1aa64c0424bcc
 
 CONFFLAGS=(
 --with-pinentry-pgm="$PREFIX/bin/pinentry"
