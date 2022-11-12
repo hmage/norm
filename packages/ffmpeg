@@ -11,7 +11,7 @@ depends_on libopus
 depends_on libvpx
 depends_on libsvtav1
 
-fetch_source https://ffmpeg.org/releases/ffmpeg-5.1.tar.xz 122192a7a4c0286d6dfb072cfda2910947bcd97b
+fetch_source https://ffmpeg.org/releases/ffmpeg-5.1.2.tar.xz eccccd3f66288993380816cf28a4b1f4c56b1aa5
 
 CONFFLAGS=(
 --enable-gpl ## needed to use x264 and x265
