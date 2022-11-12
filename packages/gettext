@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.21.tar.xz 9d75b47baed1a612c0120991c4b6d9cf95e0d430
+fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.21.1.tar.xz b9f13e377265883c09424760ea8000ef3fc0ac5f
 
 CONFFLAGS=(
 --without-emacs  ## build failure on debian 11 with emacs installed
