@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://hashcat.net/files/hashcat-6.2.5.tar.gz 5ec3b0d664a798098687225b9376ab5d5e33da3b
+fetch_source https://hashcat.net/files/hashcat-6.2.6.tar.gz 43a755f14e1ca70f2867733665d2aa6abf0b5877
 
 do_unpack
 pushd_src
