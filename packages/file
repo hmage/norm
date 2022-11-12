@@ -3,7 +3,7 @@
 [[ $OSTYPE != *darwin* ]] && depends_on zlib    ## to provide more info than just "zlib-compressed data"
 [[ $OSTYPE != *darwin* ]] && depends_on bzip2   ## to provide more info than just "bz2-compressed data"
 
-fetch_source http://ftp.astron.com/pub/file/file-5.42.tar.gz 7553ac75e6400fbf29f0a5a22b944213c2f05060
+fetch_source http://ftp.astron.com/pub/file/file-5.43.tar.gz 8cb1a01257e9d9b15bb58dae409e1cb6710c5947
 
 CONFFLAGS=(
 --disable-libseccomp ## seccomp produces errors with musl/alpine
