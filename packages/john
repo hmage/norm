@@ -3,6 +3,7 @@
 depends_on pkg-config
 depends_on openssl
 depends_on libgmp ## enables PRINCE mode and faster SRP formats
+[[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx provides the library
 
 fetch_source https://github.com/openwall/john/archive/refs/tags/1.9.0-Jumbo-1/john-1.9.0.tar.gz 965de98210d46afb4761e4b9636206d2c0a4eadb
 
