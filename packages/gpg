@@ -6,6 +6,7 @@ depends_on libassuan
 depends_on libksba
 depends_on libnpth
 depends_on pinentry
+[[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx provides the library
 
 fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.3.8.tar.bz2 1f31b7b4c9c9adad97f94ea3acf1aa64c0424bcc
 
