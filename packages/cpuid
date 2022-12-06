@@ -2,7 +2,7 @@
 
 [[ $OSTYPE != *linux* ]] && log "cpuid is linux-specific binary, refusing to build" && false
 
-fetch_source http://etallen.com/cpuid/cpuid-20220224.src.tar.gz fe16c3516a9fb44c54ecb924cc412d46d4d289c9
+fetch_source http://etallen.com/cpuid/cpuid-20221201.src.tar.gz 06440dc0bb945e1f5f9d645dcbf63960bd7ecac1
 
 do_unpack
 pushd_src
