@@ -4,6 +4,6 @@
 
 depends_on libmd
 
-fetch_source https://libbsd.freedesktop.org/releases/libbsd-0.11.6.tar.xz eac22060b5b238333d587013aedf657c50d3aa9c
+fetch_source https://libbsd.freedesktop.org/releases/libbsd-0.11.7.tar.xz e5f5fffcc2094661a105074c1538f1e434990490
 
 CFLAGS="-O2 -g $CFLAGS -std=c99" do_unpack_compile
