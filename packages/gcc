@@ -1,8 +1,8 @@
 #!/bin/bash
 
-depends_on gcc-11.3
+depends_on gcc-12.2
 
-ln -fs g++-11.3 "$PREFIX/bin/g++"
-ln -fs gcc-11.3 "$PREFIX/bin/gcc"
+ln -fs g++-12.2 "$PREFIX/bin/g++"
+ln -fs gcc-12.2 "$PREFIX/bin/gcc"
 
 add_to_ccache gcc g++
