@@ -1,5 +1,7 @@
 #!/bin/bash
 
+needs_tool cmake
+
 fetch_source https://dist.libuv.org/dist/v1.44.1/libuv-v1.44.1.tar.gz cf7fd8830681676dfff8fe05fc70003d9350d6f7
 
 do_unpack_compile
