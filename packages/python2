@@ -1,5 +1,8 @@
 #!/bin/bash
 
+depends_on libgdbm ## _gdbm module
+depends_on sqlite3 ## sqlite3 module
+
 fetch_source https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tar.xz 678d4cf483a1c92efd347ee8e1e79326dc82810b
 
 CONFFLAGS=(
