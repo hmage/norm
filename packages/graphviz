@@ -1,15 +1,5 @@
 #!/bin/bash
 
-depends_on autoconf automake libtool
-depends_on bison ## system-provided one does not understand modern flags
+fetch_source https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/7.0.4/graphviz-7.0.4.tar.xz ee2e22e9d6cae4863b98ce4f609dc30b03e3024a
 
-fetch_source https://gitlab.com/graphviz/graphviz/-/archive/7.0.1/graphviz-7.0.1.tar.bz2 29167bd31a529adba1249fcaf6f076f17e32340f
-
-CONFOPTS=(
-)
-
-do_unpack
-pushd_src
-./autogen.sh
-popd_src
-do_compile "${CONFOPTS[@]}"
+do_unpack_compile "${CONFOPTS[@]}"
