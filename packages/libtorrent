@@ -2,6 +2,8 @@
 
 depends_on libboost
 needs_tool cmake
+depends_on libgnutls
+depends_on libgcrypt
 
 fetch_source https://github.com/arvidn/libtorrent/releases/download/v2.0.6/libtorrent-rasterbar-2.0.6.tar.gz 32747e6be741881c2aaf069200fa3bdcc369df6d
 
