@@ -2,6 +2,16 @@
 
 depends_on libncurses
 
-fetch_source http://ftpmirror.gnu.org/readline/readline-8.1.2.tar.gz 8a05ad0d0ad67e18c383f1b2cf6a23bcbd46f87a
+fetch_source http://ftpmirror.gnu.org/readline/readline-8.2.tar.gz 97ad98be243a857b639c0f3da2fe7d81c6d1d36e
+PATCHES=(
+"http://ftpmirror.gnu.org/readline/readline-8.2-patches/readline82-001 b09ce649b859600fb778b685f151f197fc2a9080"
+)
 
-do_unpack_compile --with-curses
+do_unpack
+
+for patchline in "${PATCHES[@]}"; do
+    fetch_file $patchline
+    do_patch "$FILENAME" -p0
+done
+
+do_compile --with-curses
