@@ -1,31 +1,54 @@
 #!/bin/bash
 
 depends_on pkg-config ## to find libraries
-depends_on bzip2      ## _bz2 module
-depends_on libffi     ## _ctypes module
 depends_on libgdbm    ## _gdbm module
 depends_on libncurses ## curses module
 depends_on openssl    ## ssl module
-depends_on sqlite3    ## sqlite3 module
 depends_on xz         ## lzma module
-depends_on zlib       ## zlib module
 
-fetch_source https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tar.xz 8f684863b92bf43936b16dbb867e392f10e8ffc7
+if [[ $OSTYPE != *darwin* ]]; then
+	depends_on zlib        ## zlib module, osx provides the library
+	depends_on sqlite3     ## sqlite3 module, osx provides the library
+	depends_on bzip2       ## _bz2 module, osx provides the library
+	depends_on libffi      ## _ctypes module, osx provides the library
+	depends_on libuuid     ## _uuid module, osx apparently provides one
+	depends_on libreadline ## readline module, osx apparently provides one
+	depends_on libtirpc    ## nis module
+fi
+
+fetch_source https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tar.xz 89ee31611b73dc0c32c178d15aa208734b462c5a
 
 CONFFLAGS=(
---enable-shared         ## otherwise python extensions fail to load
---with-dbmliborder=gdbm ## prefer our gdbm to other dbm
+--enable-shared              ## otherwise python extensions fail to load
+--with-dbmliborder=gdbm:ndbm ## prefer our gdbm to other dbm
+--enable-optimizations
+#--with-system-ffi
+#--with-readline=edit
 )
 
-## build breaks with parallel or Ofast, and it can't find ncursesw on linux
+do_unpack
+
+## otherwise it can't find ncurses on linux
+sed -i.bak "s|/usr/include/ncursesw|$PREFIX/include/ncursesw|" "$SRCDIR/setup.py"
+sed -i.bak "s|-I/usr/include/ncursesw|-I$ESCAPED_PREFIX/include/ncursesw|" "$SRCDIR/configure"
+
+## build breaks with parallel or Ofast
 NOPARALLEL=1 \
 CFLAGS="${CFLAGS/-Ofast/}" \
 CXXFLAGS="${CXXFLAGS/-Ofast/}" \
-CPPFLAGS="$CPPFLAGS -I$PREFIX/include/ncursesw" \
-do_unpack_compile "${CONFFLAGS[@]}"
+do_compile "${CONFFLAGS[@]}"
 
 ## small sanity check
-for i in _ctypes _decimal _gdbm bz2 curses lzma pyexpat sqlite3 zlib ssl; do
+MODULES=(
+_asyncio _bisect _blake2 _bz2 _codecs_cn _codecs_hk _codecs_iso2022 _codecs_jp _codecs_kr _codecs_tw _contextvars
+_crypt _csv _ctypes _ctypes_test _curses _curses_panel _datetime _dbm _decimal _elementtree _gdbm _hashlib _heapq
+_json _lsprof _lzma _md5 _multibytecodec _multiprocessing _opcode _pickle _posixshmem _posixsubprocess _queue
+_random _sha1 _sha256 _sha3 _sha512 _socket _sqlite3 _ssl _statistics _struct _testbuffer _testcapi
+_testimportmultiple _testinternalcapi _testmultiphase _uuid _xxsubinterpreters _xxtestfuzz _zoneinfo array
+audioop binascii cmath fcntl grp math mmap nis pyexpat readline resource select syslog termios unicodedata
+xxlimited xxlimited_35 zlib nis
+)
+for i in "${MODULES[@]}"; do
 	"$PREFIX/bin/python3" -c "import $i"
 done
 "$PREFIX/bin/python3" -m venv "$SRCDIR/temp/venvtest"
