@@ -7,22 +7,17 @@ fetch_source http://www.cpan.org/src/5.0/perl-5.36.0.tar.gz 5fa41c8dffd9700f0c84
 
 do_unpack
 pushd_src
-## perl's build system doesn't honor CPPFLAGS and LDFLAGS environment variables, so it will link against system libraries only
-## also, by default perl is very crippled -- no 64bit ints, no support for >2GB files, no threads, no shared libraries
-## and telling that cc is GCC sets appropriate defaults
-LDFLAGS="$LDFLAGS $EXTRALD" \
 ./Configure -des \
             -Dprefix=$PREFIX \
-            -Dloclibpth="$PREFIX/lib" \
-            -Dlocincpth="$PREFIX/include" \
             -Accflags="$CPPFLAGS" \
-            -Aldflags="$LDFLAGS $EXTRALD" \
-            -Alddlflags="$LDFLAGS $EXTRALD" \
-            -Dotherlibdirs="$PREFIX/lib/perl5" \
-            -Duseshrplib -Dusethreads -Duselargefiles -Duse64bitint \
-            -Dcc=gcc
+            -Dusethreads \
+            -Dlddlflags="-shared $LDFLAGS" -Dldflags="$LDFLAGS"
 do_make
 ## a lot of stuff depends on perl, so it must pass all self checks
-do_test
+pushd_src
+CI=true LC_ALL=C \
+HARNESS_OPTIONS=j"$NUMJOBS" PERL_TEST_HARNESS_ASAP=1 \
+make test_harness_notty
+popd_src
 do_install
 popd
