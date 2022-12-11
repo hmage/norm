@@ -8,7 +8,7 @@ depends_on libicu
 depends_on autoconf automake libtool ## needed for bundled libraries
 depends_on zlib ## opportunistic linking
 
-fetch_source https://hb.bizmrg.com/tarantool_repo/sources/2.9/tarantool-2.9.0.346.tar.gz c61d4f3b34975cd639387774c1b8e667205f4a97
+fetch_source https://download.tarantool.org/tarantool/src/tarantool-2.10.4.tar.gz 80902a393fd2bb7034996484e508c83576b41587
 
 do_unpack
 sed -ibak 's|CURL_ROOT_DIR|CURL_ROOT|' "$SRCDIR"/cmake/os.cmake
