@@ -1,9 +1,10 @@
 #!/bin/bash
 
 depends_on pkg-config ## to find libcapstone
+depends_on zlib
 needs_tool cmake
 depends_on libcapstone
 
 fetch_source https://github.com/google/bloaty/releases/download/v1.1/bloaty-1.1.tar.bz2 103396f313b9a6df5bb67477ccda8b3fa2cafc9c
 
-do_unpack_compile_notest
+do_unpack_compile -DCMAKE_BUILD_WITH_INSTALL_RPATH=True
