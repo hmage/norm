@@ -12,4 +12,4 @@ fetch_source https://download.tarantool.org/tarantool/src/tarantool-2.10.4.tar.g
 
 do_unpack
 sed -ibak 's|CURL_ROOT_DIR|CURL_ROOT|' "$SRCDIR"/cmake/os.cmake
-do_compile -DCURL_ROOT="$PREFIX" -DREADLINE_ROOT="$PREFIX" -DICU_ROOT="$PREFIX"
+do_compile -DCURL_ROOT="$PREFIX" -DREADLINE_ROOT="$PREFIX" -DICU_ROOT="$PREFIX" -DCURSES_INCLUDE_PATH="$PREFIX/include/ncurses"
