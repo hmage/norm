@@ -6,6 +6,6 @@ do_unpack
 ## this fixes build failure on OSX if gnu libtool is installed
 sed -i.bak 's|./gyp-mac-tool filter-libtool libtool|/usr/bin/libtool|g' "$SRCDIR"/tools/gyp/pylib/gyp/generator/make.py
 ## this also fixes build failure
-CFLAGS="${CFLAGS/-Ofast/}" \
-CXXFLAGS="${CXXFLAGS/-Ofast/}" \
+CFLAGS="${CFLAGS/-Ofast/} -g1" \
+CXXFLAGS="${CXXFLAGS/-Ofast/} -g1" \
 do_compile
