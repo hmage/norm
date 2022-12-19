@@ -24,11 +24,6 @@ After waiting a bit, you'll get a fresh version of `mc` in your `$PATH`. Just ty
 
 To prevent problems with NFS-shared homes, it puts system identification in the subdirectory's name, for example on Linux with glibc version 2.19 and Haswell CPU, the name will be `norm.x86_64-pc-linux-gnu.2.19.haswell`.
 
-## More examples
-
- * [`norm install ffmpeg`](https://github.com/hmage/norm/blob/master/packages/ffmpeg) — if you're on Ubuntu or Debian, then your `ffmpeg` version can be either _very_ outdated or not present at all. This will get you the newest ffmpeg with support for x264, x265, webm, opus and `fdk-aac`.
- * [`norm install mc`](https://github.com/hmage/norm/blob/master/packages/mc) — latest midnight commander is much nicer than it was a few years ago.
-
 ## How it's done
 
 `norm` downloads the source code and compiles almost all dependencies. This is to avoid problems when some application (for example `aria2`) detects that a system has an optional library (for example `libpsl`) but fails to compile, because the system-provided library is too old.
@@ -53,17 +48,22 @@ Replace the IP address and port number with appropriate values for your proxy. Y
 
 ## Formula format
 
-`norm` formulae are bash scripts, here's a [working example](https://github.com/hmage/norm/blob/master/packages/xz):
+`norm` formulae are bash scripts, here's a [working example](https://github.com/hmage/norm/blob/master/packages/gzip):
 
 ```bash
 #!/bin/bash
 
-fetch_source http://download.openpkg.org/components/cache/xz/xz-5.2.4.tar.gz 63ca380029597b951ce9afc6dec28f44f70bb5bd
+fetch_source http://ftpmirror.gnu.org/gzip/gzip-1.12.tar.gz 91fa501ada319c4dc8f796208440d45a3f48ed13
 
 do_unpack_compile
 ```
 
 And that's it. It will download, unpack, run `./configure` with proper parameters, then `make` and `make install` into installation prefix that is located in user's home directory.
+
+## More examples
+
+ * [`norm install ffmpeg`](https://github.com/hmage/norm/blob/master/packages/ffmpeg) — if you're on Ubuntu or Debian, then your `ffmpeg` version can be either _very_ outdated or not present at all. This will get you the newest ffmpeg with support for x264, x265, webm, opus and `fdk-aac`.
+ * [`norm install mc`](https://github.com/hmage/norm/blob/master/packages/mc) — latest midnight commander is much nicer than it was a few years ago.
 
 ## Adding new formula
 
