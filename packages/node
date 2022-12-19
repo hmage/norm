@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://nodejs.org/dist/v19.2.0/node-v19.2.0.tar.gz 250bd6461ec4b3023cc52f5e2df4bfb69b896731
+fetch_source https://nodejs.org/dist/v19.3.0/node-v19.3.0.tar.gz 5164a7c945500857be0f4047d05cf04d91eb2f19
 
 do_unpack
 ## this fixes build failure on OSX if gnu libtool is installed
