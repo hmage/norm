@@ -1,0 +1,9 @@
+#!/bin/bash
+
+depends_on autoconf
+
+fetch_source https://github.com/google/brotli/archive/v1.0.9.tar.gz ddfefdf2593b3f03eec221a7f4ceaa710e5a2e6b
+
+do_unpack
+do_autoreconf
+do_compile
