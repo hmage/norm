@@ -1,0 +1,8 @@
+#!/bin/bash
+
+depends_on libck
+depends_on libnghttp2
+
+fetch_source https://www.dns-oarc.net/files/dnsperf/dnsperf-2.10.0.tar.gz 70bef05b3a8084c00e59e53fd1f500f62aad8d3c
+
+do_unpack_compile
