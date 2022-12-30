@@ -1,0 +1,9 @@
+#!/bin/bash
+
+do_gitclone https://gitlab.isc.org/isc-projects/queryperf
+pushd_src
+do_configure
+make
+install queryperf "$PREFIX/bin/queryperf"
+popd_src
+
