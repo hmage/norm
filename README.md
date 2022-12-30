@@ -78,7 +78,7 @@ If source code uses autotools or cmake, `norm` detects that and compiles appropr
 
 If the build system is something else, or extra steps are needed to successfully build the formula, there are [other functions](https://github.com/hmage/norm/blob/master/norm_common.functions) provided, their names and comments should be self explanatory.
 
-To see a more complex example, take a look at [how clang is built](https://github.com/hmage/norm/blob/master/packages/clang).
+To see a more complex example, take a look at [how go is built](https://github.com/hmage/norm/blob/master/packages/go).
 
 ## Reporting bugs
 
