@@ -6,7 +6,6 @@
 fetch_source https://curl.se/download/curl-7.87.0.tar.gz 84f8d1a2fc24a02a743e17067b27abcb707b6d8b
 
 CONFFLAGS=(
-"--with-ca-bundle=$PREFIX/etc/ssl/cert.pem"
 --disable-ldap ## curl is usually a web fetcher, if you need ldap, open an issue
 --without-nghttp2 ## opportunistic linking
 --without-libidn2 ## opportunistic linking
@@ -16,7 +15,10 @@ CONFFLAGS=(
 --without-zstd    ## opportunistic linking
 )
 
-[[ $OSTYPE != *darwin* ]] && CONFFLAGS+=(--with-openssl) ## use openssl
+if [[ $OSTYPE != *darwin* ]]; then
+	CONFFLAGS+=(--with-openssl) ## use openssl
+	CONFFLAGS+=("--with-ca-bundle=$PREFIX/etc/ssl/cert.pem")
+fi
 [[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--with-secure-transport) ## but on osx use system library
 
 do_unpack_compile "${CONFFLAGS[@]}"
