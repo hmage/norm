@@ -36,6 +36,7 @@ norm_addpath() {
 
 ## add ourselves to the PATH if we're not there yet
 norm_addpath PATH "$DIR" "$NORMPREFIX/bin" "$NORMPREFIX/sbin" "$NORMPREFIX/bin/ccache_wrap"
+norm_addpath PERL5LIB "$NORMPREFIX/lib/perl5"
 
 unset -f norm_addpath
 unset DIR
