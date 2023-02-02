@@ -9,6 +9,7 @@ if ! is_without tests; then
     fi
 fi
 
+# 1.4 needed for 1.17.13
 fetch_source https://github.com/golang/go/archive/bdd4b9503e47c2c38a9d0a9bb2f5d95ec5ff8ef6.tar.gz b1092edf37195a3d45eb5bd7e54139ac806cc9ac
 
 do_unpack
@@ -20,7 +21,20 @@ mkdir -p "$PREFIX/go-bootstrap"
 cp -a bin pkg src "$PREFIX/go-bootstrap"
 popd_src
 
-fetch_source https://golang.org/dl/go1.19.4.src.tar.gz 4815263e15059025765144188dd050d52b764302
+# 1.17.13 needed for 1.20
+fetch_source https://go.dev/dl/go1.17.13.src.tar.gz 88e2bd59e440816155b9355a74185269b220453a
+do_unpack
+pushd_src
+cd src
+GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap" GOROOT_FINAL="$PREFIX/go-bootstrap117" GO_LDFLAGS="-L $PREFIX/lib" ./make.bash --no-banner
+cd ..
+mkdir -p "$PREFIX/go-bootstrap117"
+cp -a bin pkg src "$PREFIX/go-bootstrap117"
+rm -rf "$PREFIX/go-bootstrap"
+popd_src
+
+
+fetch_source https://go.dev/dl/go1.20.src.tar.gz a7236459104fe2d8582cd8e2bf4935d4eab9721b
 do_unpack
 pushd_src
 cd src
@@ -31,7 +45,7 @@ else
     is_with tests && CMD=./all.bash
 fi
 PROMPT_COMMAND="" PROMPT_TITLE="" \
-GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap" GOROOT_FINAL="$PREFIX/go" GO_LDFLAGS="-L $PREFIX/lib" $CMD --no-banner
+GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap117" GOROOT_FINAL="$PREFIX/go" GO_LDFLAGS="-L $PREFIX/lib" $CMD --no-banner
 cd ..
 rm -rf "$PREFIX/go"
 mkdir -p "$PREFIX/go"
@@ -40,4 +54,4 @@ mkdir -p "$PREFIX/bin"
 ln -fs ../go/bin/go "$PREFIX/bin/go"
 ln -fs ../go/bin/gofmt "$PREFIX/bin/gofmt"
 popd_src
-rm -rf "$PREFIX/go-bootstrap"
+rm -rf "$PREFIX/go-bootstrap117"
