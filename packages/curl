@@ -3,7 +3,8 @@
 [[ $OSTYPE != *darwin* ]] && depends_on zlib    ## commonly seen, osx provides the library
 [[ $OSTYPE != *darwin* ]] && depends_on openssl ## https support, osx provides the library
 
-fetch_source https://curl.se/download/curl-7.87.0.tar.gz 84f8d1a2fc24a02a743e17067b27abcb707b6d8b
+## hold onto 7.86.0 until commit 16bb32 is released. See https://github.com/curl/curl/issues/10227
+fetch_source https://curl.se/download/curl-7.86.0.tar.gz 1c314d3f2229ea932d10cb803f3e26f3fba630ec
 
 CONFFLAGS=(
 --disable-ldap ## curl is usually a web fetcher, if you need ldap, open an issue
