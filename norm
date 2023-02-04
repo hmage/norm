@@ -121,6 +121,11 @@ cmd_install() {
         set -- gzip "$@"
     fi
 
+    if ! perl -MFile::Compare -e 1; then
+        log "Perl installation is incomplete, will install our own"
+        set -- perl "$@"
+    fi
+
     ## ensure we have proper patch
     if ! hash patch 2>/dev/null; then
         log "Required utility patch not found, will install it too"
@@ -140,10 +145,6 @@ cmd_install() {
         set -- make "$@"
     fi
 
-    if ! perl -MFile::Compare -e 1; then
-        log "Perl installation is incomplete, will install our own"
-        set -- perl "$@"
-    fi
     for FORMULA; do
         [[ "$FORMULA" == --* ]] && continue ## ignore flags
         compile_formula $force "$FORMULA"
