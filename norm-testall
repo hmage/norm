@@ -21,7 +21,7 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-[[ -n "$TRAVIS" ]] && EXTRAFLAGS+=("-q")
+[[ -n "$CI" ]] && EXTRAFLAGS+=("-q")
 
 ##
 ## set up variables
