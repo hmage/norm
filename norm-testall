@@ -163,7 +163,13 @@ done
 
 ##
 ## list package names that didn't build cleanly
-ERRORS=($LOGPATH/*.log)
+ERRORS=()
+for FORMULA_NAME in "${LIST[@]}"; do
+    # calculate formula name and file path
+    FORMULA_NAME=${FORMULA_NAME#$NORMDIR/packages/} ## get rid of paths if any
+    ERRORS+=("$LOGPATH/$FORMULA".*.log)
+done
+
 if [ -n "$ERRORS" ] && [ -e "$ERRORS" ]; then
     echo These packages have failed to build:
     for file in "${ERRORS[@]}"; do
