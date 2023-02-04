@@ -5,6 +5,7 @@ fetch_source http://ftpmirror.gnu.org/make/make-4.3.tar.gz 3c40e5b49b893dbb14f1e
 CONFFLAGS=(
 --without-guile  ## opportunistic linking
 --disable-nls    ## otherwise will try to link with gettext's libintl
+--disable-dependency-tracking ## fails on barebones debian
 )
 
 do_unpack
