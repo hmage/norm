@@ -1,0 +1,10 @@
+#!/bin/bash
+
+fetch_source http://deb.debian.org/debian/pool/main/u/unzip/unzip_6.0.orig.tar.gz abf7de8a4018a983590ed6f5cbd990d4740f8a22
+fetch_debian http://deb.debian.org/debian/pool/main/u/unzip/unzip_6.0-26+deb11u1.debian.tar.xz acde56ac8e532a3b3cf22415ba84b5d8a20f13bc
+
+do_undebian
+pushd_src
+do_make -f unix/Makefile LOC="-DLARGE_FILE_SUPPORT -DUNICODE_SUPPORT -DUNICODE_WCHAR -DUTF8_MAYBE_NATIVE -DNO_WORKING_ISPRINT" unzips
+do_install -f unix/Makefile prefix=$PREFIX
+popd
