@@ -2,6 +2,7 @@
 
 depends_on zlib # for zlib.h
 depends_on openssl
+needs_tool unzip ## luajit stage fails without unzip
 
 do_gitclone https://github.com/giltene/wrk2
 
