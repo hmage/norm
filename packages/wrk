@@ -1,6 +1,7 @@
 #!/bin/bash
 
 depends_on openssl
+needs_tool unzip ## luajit stage fails without unzip
 
 fetch_source https://github.com/wg/wrk/archive/refs/tags/4.2.0/wrk-4.2.0.tar.gz d75052b18e62c399109f2f63450965761903782b
 
