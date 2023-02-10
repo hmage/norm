@@ -1,0 +1,8 @@
+pipeline:
+  prep:
+    image: docker
+    commands:
+    - "echo 'FROM debian\nRUN apt-get update -qq && apt-get install -qq curl build-essential patch make -y\nRUN apt-get install -qq ccache -y\nENV PATH=/usr/lib/ccache:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' > Dockerfile"
+    - docker build -t normdebian .
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
