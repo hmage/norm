@@ -10,6 +10,6 @@ fetch_file http://luajit.org/download/LuaJIT-2.0.5.tar.gz 10427215da7d424fd9e48a
 
 pushd_src
 tar xf "$CACHEDIR/$FILENAME" -C "deps/luajit" --strip-components 1
-do_make WITH_OPENSSL="$PREFIX" CFLAGS="-std=gnu99 -O2 -g $CPPFLAGS -I./deps/luajit/src"
+do_make CFLAGS="-std=gnu99 -O2 -g -Ideps/luajit/src $CPPFLAGS"
 install -m755 wrk "$PREFIX/bin/wrk2"
 popd_src
