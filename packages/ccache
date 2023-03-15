@@ -5,6 +5,6 @@ needs_tool cmake
 
 fetch_source https://github.com/ccache/ccache/releases/download/v4.8/ccache-4.8.tar.xz a9992be50f8b96ff0b110d1a0d9d06eeaa501e13
 
-do_unpack_compile -DREDIS_STORAGE_BACKEND=OFF -DENABLE_IPO=ON
+do_unpack_compile -DREDIS_STORAGE_BACKEND=OFF -DENABLE_IPO=ON -DSTATIC_LINK=ON
 
 add_to_ccache cc cpp gcov c++ g++ gcc gcc-ar gcc-nm gcc-ranlib
