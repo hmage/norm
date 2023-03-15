@@ -7,6 +7,8 @@ fetch_source https://github.com/wg/wrk/archive/refs/tags/4.2.0/wrk-4.2.0.tar.gz 
 
 do_unpack
 pushd_src
-do_make WITH_OPENSSL="$PREFIX"
+## force linking with bundled lua
+LDFLAGS="" \
+make WITH_OPENSSL="$PREFIX"
 install -m755 wrk "$PREFIX/bin/wrk"
 popd_src
