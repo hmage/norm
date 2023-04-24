@@ -6,7 +6,7 @@ depends_on glib
 depends_on libsdl2 ## for GUI
 needs_tool ninja ## for building
 
-fetch_source https://download.qemu.org/qemu-7.0.0.tar.xz c3fd2403106c33d0470bc9ba4fb4b946c0402248
+fetch_source https://download.qemu.org/qemu-8.0.0.tar.xz 17d54a85aa5d7f5dcfc619aa34049f9a91ceed0d
 
 CONFFLAGS=(
 --target-list=x86_64-softmmu ## if you need anything else, change this, optionally make a pull request or fill an issue ^.^
