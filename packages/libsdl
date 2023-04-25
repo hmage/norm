@@ -1,7 +1,7 @@
 #!/bin/bash
 
-fetch_source http://http.debian.net/debian/pool/main/libs/libsdl1.2/libsdl1.2_1.2.15.orig.tar.gz 0c5f193ced810b0d7ce3ab06d808cbb5eef03a2c
-fetch_debian http://http.debian.net/debian/pool/main/libs/libsdl1.2/libsdl1.2_1.2.15-10.debian.tar.xz 79c62066192373f90134fed8d7be01e668839d7a
+fetch_source http://deb.debian.org/debian/pool/main/libs/libsdl1.2/libsdl1.2_1.2.15+dfsg2.orig.tar.gz 84f62ffd04d6288f92308c692bef7e412f97d121
+fetch_debian http://deb.debian.org/debian/pool/main/libs/libsdl1.2/libsdl1.2_1.2.15+dfsg2-6.debian.tar.xz 4eba2a323cfb288d777d8ed88fe72172e95a2691
 
 CONFFLAGS=()
 
