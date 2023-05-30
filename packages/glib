@@ -19,6 +19,7 @@ fetch_source https://ftp.gnome.org/pub/gnome/sources/glib/2.58/glib-2.58.2.tar.x
 
 do_unpack
 pushd_src
+sed -E -ibak 's/-Wall//g;s/-Werror=[a-z-]+(=[0-9a-z]+)?//g;' configure.ac
 NOCONFIGURE=1 ./autogen.sh
 popd_src
 
