@@ -118,6 +118,7 @@ matrix:
   - libp11-kit
   - libpciaccess
   - libpcre
+  - libpcre2
   - libpng
   - libprotobuf
   - libpsl

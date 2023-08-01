@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source http://downloads.sourceforge.net/project/pcre/pcre2/10.32/pcre2-10.32.tar.bz2 31dea762ff549cda09b7df33648f9d4cc3707cf8
+
+do_unpack_compile
