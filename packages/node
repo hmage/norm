@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://nodejs.org/dist/v20.2.0/node-v20.2.0.tar.xz 892dcc485f35a96c498199374ca040cd4444976b
+fetch_source https://nodejs.org/dist/v20.5.0/node-v20.5.0.tar.xz 83148e3fa559e0baa09091255bdbe3fc88f499fd
 
 do_unpack
 ## this fixes build failure on OSX if gnu libtool is installed
