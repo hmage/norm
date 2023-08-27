@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
-fetch_source http://deb.debian.org/debian/pool/main/o/openssl/openssl_3.0.8.orig.tar.gz 580d8a7232327fe1fa6e7db54ac060d4321f40ab
-fetch_debian http://deb.debian.org/debian/pool/main/o/openssl/openssl_3.0.8-1.debian.tar.xz c5092a3ba02104dea94f3818d23d14d13412e843
+fetch_source http://deb.debian.org/debian/pool/main/o/openssl/openssl_3.0.9.orig.tar.gz b569725118c0603537c9a19449046b41b39627c8
+fetch_debian http://deb.debian.org/debian/pool/main/o/openssl/openssl_3.0.9-1.debian.tar.xz 16a3f57149bc0982190bf24ef5f60202bae39087
 
 SSLCONFIG=(
 shared ## otherwise curl will fail to link on x64, since it builds with fPIC but openssl isn't
