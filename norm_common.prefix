@@ -34,7 +34,7 @@ setup_prefix() {
 
     ## also try other flags if compiler supports them
     [[ $OSTYPE == *darwin* ]] && cc_addflags CPPFLAGS -fno-stack-check
-    [[ $OSTYPE == *darwin* ]] && cc_addflags LDFLAGS -Wl,-rpath,$ESCAPED_PREFIX/lib -Wl,-x -Wl,-dead_strip -Wl,-dead_strip_dylibs -Wl,-no_uuid
+    [[ $OSTYPE == *darwin* ]] && cc_addflags LDFLAGS -Wl,-rpath,$ESCAPED_PREFIX/lib -Wl,-x -Wl,-dead_strip -Wl,-dead_strip_dylibs
     [[ $OSTYPE == *linux* ]] && cc_addflags LDFLAGS -Wl,-rpath,$ESCAPED_PREFIX/lib -Wl,-rpath-link,$ESCAPED_PREFIX/lib -Wl,-O1 -Wl,--as-needed -Wl,--gc-sections -Wl,--relax
     [[ $OSTYPE == *darwin* ]] && export MACOSX_DEPLOYMENT_TARGET="$NORM_OSX_VERSION" ## needed for -rpath to work in CLT-only installs without xcode
     # [[ $OSTYPE == *darwin* ]] && cc_addflags CPPFLAGS -mmacosx-version-min="$NORM_OSX_VERSION" ## needed for -rpath to work in CLT-only installs without xcode
