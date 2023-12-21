@@ -1,7 +1,5 @@
 #!/bin/bash
 
-depends_on libonig ## was optional in 1.5 and below, fails to build without it since 1.6
-
-fetch_source https://github.com/stedolan/jq/releases/download/jq-1.6/jq-1.6.tar.gz 73bcbdc45be4db907a864e829b06cd869f77f4f7
+fetch_source https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-1.7.1.tar.gz 7420c31e4b22d9eeda6b7d9d949af7489fe97c4f
 
 do_unpack_compile --disable-maintainer-mode
