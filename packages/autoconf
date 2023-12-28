@@ -1,7 +1,7 @@
 #!/bin/bash
 
-needs_tool m4
+depends_on m4 ## system-provided m4 could be too old (wants m4 1.4.16 or newer)
 
-fetch_source http://ftpmirror.gnu.org/autoconf/autoconf-2.71.tar.xz 1b5b1dbed849c6653be47c56d28d26fcf3f7238a
+fetch_source http://ftpmirror.gnu.org/autoconf/autoconf-2.72.tar.xz 1d082d999ff4506ec8f92c6ecb9732546f5204fb
 
 do_unpack_compile
