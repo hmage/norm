@@ -44,7 +44,7 @@ setup_prefix() {
     cc_addflags CPPFLAGS "-march=native"
 
     ## try to make reproducible builds by removing path-specific debug sections
-    cc_addflags CPPFLAGS "-fdebug-prefix-map=$ESCAPED_PREFIX=/build"
+    cc_addflags CPPFLAGS "-fdebug-prefix-map=$ESCAPED_PREFIX/tmp/compile=/build"
 
     ## let linker be more aggressive with removing unused functions and data
     cc_addflags CPPFLAGS -ffunction-sections -fdata-sections
