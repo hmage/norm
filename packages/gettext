@@ -10,4 +10,7 @@ CONFFLAGS=(
 --with-included-libunistring ## need only a small subset of unistring
 )
 
+## this fixes build failure
+CFLAGS="${CFLAGS/-Ofast/}" \
+CXXFLAGS="${CXXFLAGS/-Ofast/}" \
 do_unpack_compile "${CONFFLAGS[@]}"
