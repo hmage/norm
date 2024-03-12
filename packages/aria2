@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/aria2/aria2/releases/download/release-1.36.0/aria2-1.36.0.tar.xz cd2e5e69ae8382b03bf18619d501af8b73bee201
+fetch_source https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz 5b38504efcec4668d91ff6fa8f8bb21325a71901
 
 CONFFLAGS=(
 --without-libxml2 ## opportunistic linking
