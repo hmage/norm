@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://exiftool.org/Image-ExifTool-12.50.tar.gz 8bf26bac880854796db3f8a2bd7477386755f9d2
+fetch_source http://deb.debian.org/debian/pool/main/libi/libimage-exiftool-perl/libimage-exiftool-perl_12.57+dfsg.orig.tar.xz 539e810ae470254ebf348efd77bd41622ff2fb65
 
 do_unpack
 pushd_src
