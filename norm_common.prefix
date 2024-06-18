@@ -52,6 +52,8 @@ setup_prefix() {
     ## disable warnings as errors, apple clang v12 seems to default to -Werror=implicit-function-declaration
     ## caught when building pinentry 1.1.0
     cc_addflags CPPFLAGS -Wno-error=implicit-function-declaration
+    ## clang 15, this breaks glib 2.58.2
+    cc_addflags CPPFLAGS -Wno-error=int-conversion
     ## -Wnarrowing breaks gcc-9.1
     cc_addflags CPPFLAGS -Wno-error=narrowing
 
