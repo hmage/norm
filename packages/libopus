@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://downloads.xiph.org/releases/opus/opus-1.4.tar.gz c53b3a74fc26fb2c2314afe958be30d169bd029a
+fetch_source http://downloads.xiph.org/releases/opus/opus-1.5.2.tar.gz 2aa62fdc741af1cffc955bcb1e174f8a44baa659
 
 ## libopus dislikes -ffast-math, so force disable it
 cc_addflag EXTRAFLAGS -fno-fast-math
