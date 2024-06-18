@@ -12,7 +12,7 @@ depends_on libvpx
 depends_on libsvtav1
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx provides the library
 
-fetch_source https://ffmpeg.org/releases/ffmpeg-7.0.tar.xz 511c32ec55efe55266f7fb0795515a0385f5fa33
+fetch_source https://ffmpeg.org/releases/ffmpeg-7.0.1.tar.xz f82eea4505bd834943179d3ded46c77341fd2a42
 
 CONFFLAGS=(
 --enable-gpl ## needed to use x264 and x265
