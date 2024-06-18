@@ -3,8 +3,8 @@
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## required, osx provides the library
 [[ $OSTYPE != *darwin* ]] && depends_on curl ## for git pull over https, osx provides the library
 
-fetch_source https://www.kernel.org/pub/software/scm/git/git-2.42.0.tar.xz b8f9760971bc16a0813bd66cb38e8582a59d4968
-fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.42.0.tar.xz f48267c27eff5f21d93c53b4413123cc3f9557b7
+fetch_source https://www.kernel.org/pub/software/scm/git/git-2.45.2.tar.xz c7b6becec398e69130e4f066390e1519a417eb35
+fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.45.2.tar.xz b41ffcef0added78af91a400fd57fc4c1b07fcf1
 
 OPTIONS=(
 NO_GETTEXT=1 ## if it detects gettext headers, it assumes msgfmt tool is installed, which is not always the case
