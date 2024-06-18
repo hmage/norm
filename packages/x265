@@ -3,7 +3,7 @@
 needs_tool cmake
 needs_tool nasm
 
-fetch_source https://bitbucket.org/multicoreware/x265_git/get/3.5.tar.gz 95de93f1572396a07e558279af94e5fa93273a47
+fetch_source https://bitbucket.org/multicoreware/x265_git/get/3.6.tar.gz d41a8df0d94216b086b894daf00a45f0824e9df3
 
 do_unpack
 SRCDIR="$SRCDIR/source"
