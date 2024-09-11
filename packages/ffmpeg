@@ -10,6 +10,7 @@ depends_on libsdl2 ## needed for ffplay to work
 depends_on libopus
 depends_on libvpx
 depends_on libsvtav1
+depends_on libxml ## for dash
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx provides the library
 
 fetch_source https://ffmpeg.org/releases/ffmpeg-7.0.1.tar.xz f82eea4505bd834943179d3ded46c77341fd2a42
@@ -26,6 +27,8 @@ CONFFLAGS=(
 --enable-libopus
 --enable-libvpx
 --enable-libsvtav1
+--enable-libxml2
+--enable-demuxer=dash
 --disable-lzma     ## opportunistic linking
 )
 
