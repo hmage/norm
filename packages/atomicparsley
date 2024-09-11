@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://github.com/wez/atomicparsley/archive/refs/tags/20240608.083822.1ed9031.tar.gz 9a88478bb83f20a84085f5dbce396762d331c742
+
+do_unpack_compile
