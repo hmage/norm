@@ -2,7 +2,7 @@
 
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## for deflated chunks, osx provides the library
 
-fetch_source https://mediaarea.net/download/binary/mediainfo/22.03/MediaInfo_CLI_22.03_GNU_FromSource.tar.xz 9bcdbd98c032524ea273f24d0adfba64e9a99338
+fetch_source https://mediaarea.net/download/binary/mediainfo/24.06/MediaInfo_CLI_24.06_GNU_FromSource.tar.xz bdd6752a19e61c203b72388ddf018073538a78b9
 
 do_unpack
 OLD="$SRCDIR"
