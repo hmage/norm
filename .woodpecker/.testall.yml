@@ -17,9 +17,11 @@ depends_on:
 matrix:
   FORMULA:
   - aria2
+  - atomicparsley
   - autoconf
   - automake
   - bash-completion
+  - bento4
   - bison
   - bloaty
   - brotli
