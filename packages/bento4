@@ -1,0 +1,10 @@
+#!/bin/bash
+
+fetch_source https://www.bok.net/Bento4/source/Bento4-SRC-1-6-0-641.zip ed3e2603489f4748caadccb794cf37e5e779422e
+
+prep_srcdir "$TARNAME"
+unzip "$CACHEDIR/$TARNAME" -d "$SRCDIR" || return 1
+do_compile
+#exit 1
+
+#do_unpack_compile
