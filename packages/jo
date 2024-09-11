@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fetch_source https://github.com/jpmens/jo/releases/download/1.9/jo-1.9.tar.gz 91cf60d8030559a182b7f006915950daa758d01b
+
+do_unpack_compile
+

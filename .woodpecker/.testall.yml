@@ -59,6 +59,7 @@ matrix:
   - gzip
   - hashcat
   - imagemagick
+  - jo
   - john
   - jq
   - knot
