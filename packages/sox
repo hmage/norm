@@ -20,6 +20,13 @@ CONFFLAGS=(
 )
 
 ## sox does not like -ffast-math
-CFLAGS="${CFLAGS/-Ofast/}" \
-CXXFLAGS="${CXXFLAGS/-Ofast/}" \
-do_unpack_compile "${CONFFLAGS[@]}"
+do_unpack
+
+fetch_file https://raw.githubusercontent.com/Homebrew/formula-patches/master/libtool/configure-pre-0.4.2.418-big_sur.diff 99cc25af3c3f498b2ca6b077fc6a5f595ff6ffe1
+do_patch "$FILENAME" -p1
+fetch_file "https://80x24.org/sox.git/patch?id=bf2afa54a7dec" 856f772bb28f247e94298c22ce736941c0eb72aa
+do_patch "$FILENAME" -p1
+
+CFLAGS="${CFLAGS/-Ofast/} -Wno-incompatible-function-pointer-types" \
+CXXFLAGS="${CXXFLAGS/-Ofast/} -Wno-incompatible-function-pointer-types" \
+do_compile "${CONFFLAGS[@]}"
