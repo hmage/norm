@@ -2,6 +2,7 @@
 
 depends_on glib
 depends_on libslang
+depends_on file ## for type-based mc.ext.ini triggers
 
 fetch_source http://ftp.midnight-commander.org/mc-4.8.30.tar.xz 91708eb00ba0d7c1579de357745b1a6717b1dfac
 
