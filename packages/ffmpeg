@@ -13,7 +13,7 @@ depends_on libsvtav1
 depends_on libxml ## for dash
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx provides the library
 
-fetch_source https://ffmpeg.org/releases/ffmpeg-7.0.1.tar.xz f82eea4505bd834943179d3ded46c77341fd2a42
+fetch_source https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz 299e7790544f380d0472b406c9b5ce82efeb8f48
 
 CONFFLAGS=(
 --enable-gpl ## needed to use x264 and x265
@@ -116,10 +116,10 @@ diff -urw libavformat/movenc.h libavformat/movenc.h
 --- libavformat/movenc.h
 +++ libavformat/movenc.h
 @@ -263,6 +263,7 @@
- #define FF_MOV_FLAG_SKIP_SIDX             (1 << 21)
  #define FF_MOV_FLAG_CMAF                  (1 << 22)
  #define FF_MOV_FLAG_PREFER_ICC            (1 << 23)
-+#define FF_MOV_FLAG_PIXELDENSITY          (1 << 24)
+ #define FF_MOV_FLAG_HYBRID_FRAGMENTED     (1 << 24)
++#define FF_MOV_FLAG_PIXELDENSITY          (1 << 25)
  
  int ff_mov_write_packet(AVFormatContext *s, AVPacket *pkt);
 EOF
