@@ -134,6 +134,7 @@ matrix:
   - libsdl2
   - libseccomp
   - libslang
+  - libsrt
   - libsvt-hevc
   - libsvtav1
   - libtasn1
