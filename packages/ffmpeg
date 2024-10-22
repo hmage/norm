@@ -12,6 +12,7 @@ depends_on libvpx
 depends_on libsvtav1
 depends_on libxml ## for dash
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx provides the library
+depends_on libsrt ## for srt subtitles
 
 fetch_source https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz 299e7790544f380d0472b406c9b5ce82efeb8f48
 
