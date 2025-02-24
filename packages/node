@@ -1,10 +1,10 @@
 #!/bin/bash
 
-fetch_source https://nodejs.org/dist/v22.14.0/node-v22.14.0.tar.xz d001e84e159b5eceab0e33ddbf861e9587851eff
+fetch_source https://nodejs.org/dist/v23.7.0/node-v23.7.0.tar.xz 4222b2cc9c2911247fd887b86c6e8508d283651b
 
 do_unpack
 ## this fixes build failure on OSX if gnu libtool is installed
-sed -i.bak 's|./gyp-mac-tool filter-libtool libtool|/usr/bin/libtool|g' "$SRCDIR"/tools/gyp/pylib/gyp/generator/make.py
+sed -i.bak 's|%(python)s gyp-mac-tool filter-libtool libtool|/usr/bin/libtool|g' "$SRCDIR"/tools/gyp/pylib/gyp/generator/make.py
 ## this also fixes build failure
 CFLAGS="${CFLAGS/-Ofast/} -g1" \
 CXXFLAGS="${CXXFLAGS/-Ofast/} -g1" \
