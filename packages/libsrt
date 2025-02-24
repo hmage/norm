@@ -1,6 +1,7 @@
 #!/bin/bash
 
 needs_tool cmake
+depends_on openssl
 
 fetch_source https://github.com/Haivision/srt/archive/refs/tags/v1.5.3.tar.gz ff3eecef64dd7454fff2c6d3c4172822e55e363c
 
