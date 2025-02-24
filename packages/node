@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://nodejs.org/dist/v22.8.0/node-v22.8.0.tar.xz 9ac45111d3d2627493853116e640c7717b2d05c1
+fetch_source https://nodejs.org/dist/v22.14.0/node-v22.14.0.tar.xz d001e84e159b5eceab0e33ddbf861e9587851eff
 
 do_unpack
 ## this fixes build failure on OSX if gnu libtool is installed
