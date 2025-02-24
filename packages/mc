@@ -4,25 +4,7 @@ depends_on glib
 depends_on libslang
 depends_on file ## for type-based mc.ext.ini triggers
 
-fetch_source http://ftp.midnight-commander.org/mc-4.8.30.tar.xz 91708eb00ba0d7c1579de357745b1a6717b1dfac
+fetch_source http://ftp.midnight-commander.org/mc-4.8.33.tar.xz 5c717fe7f5fde13bb0af9c5bd15cd2f83942d9fc
 
 do_unpack
-do_patch_inline -p0 << EOF
---- src/filemanager/file.c
-+++ src/filemanager/file.c
-@@ -665,8 +665,13 @@
- get_times (const struct stat *sb, mc_timesbuf_t * times)
- {
- #ifdef HAVE_UTIMENSAT
-+#ifdef __MACH__
-+    (*times)[0] = sb->st_atimespec;
-+    (*times)[1] = sb->st_mtimespec;
-+#else // __MACH__
-     (*times)[0] = sb->st_atim;
-     (*times)[1] = sb->st_mtim;
-+#endif // __MACH__
- #else
-     times->actime = sb->st_atime;
-     times->modtime = sb->st_mtime;
-EOF
 do_compile
