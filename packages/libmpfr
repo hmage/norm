@@ -2,6 +2,6 @@
 
 depends_on libgmp
 
-fetch_source http://ftpmirror.gnu.org/mpfr/mpfr-4.1.0.tar.xz 159c3a58705662bfde4dc93f2617f3660855ead6
+fetch_source https://ftpmirror.gnu.org/mpfr/mpfr-4.2.2.tar.xz a63a264b273a652e27518443640e69567da498ce
 
 do_unpack_compile
