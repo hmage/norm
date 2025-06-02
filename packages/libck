@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/concurrencykit/ck/archive/0.7.0.tar.gz 9eff8e1677303a0714f0b706a76885703d8eac73
+fetch_source https://github.com/concurrencykit/ck/archive/0.7.2.tar.gz 2fe94acb1f9310b0f9d402fd2e593e1edb40e3ab
 
 do_unpack_compile
