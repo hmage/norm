@@ -2,6 +2,6 @@
 
 depends_on libgpg-error
 
-fetch_source https://gnupg.org/ftp/gcrypt/libksba/libksba-1.6.0.tar.bz2 d71e18a71b44d7f0e93180e05971857b4900c788
+fetch_source https://gnupg.org/ftp/gcrypt/libksba/libksba-1.6.7.tar.bz2 781acfb012cbb5328f41efcf82f723524e8d0128
 
 do_unpack_compile
