@@ -2,7 +2,7 @@
 
 [[ $OSTYPE != *linux* ]] && log "libattr is a linux-specific library, refusing to build" && false
 
-fetch_source http://download.savannah.gnu.org/releases/attr/attr-2.5.1.tar.gz 72fea2dee5f481bfe7c9da84a2a1ace063a6c82d
+fetch_source https://download.savannah.nongnu.org/releases/attr/attr-2.5.2.tar.xz dfced877779583861401389eea82dfeb88cb5d3a
 
 CONFFLAGS=(
 --disable-nls ## otherwise fails to build on musl libc
