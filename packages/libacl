@@ -4,7 +4,7 @@
 
 depends_on libattr
 
-fetch_source http://download.savannah.gnu.org/releases/acl/acl-2.3.1.tar.gz a5343e9f75326ffe5aa8d5d042e52227a3fd66cb
+fetch_source https://download.savannah.nongnu.org/releases/acl/acl-2.3.2.tar.xz 2674394a4061791c77d80fd2089a39c3675a5980
 
 do_unpack
 
