@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/lz4/lz4/archive/v1.9.3.tar.gz 5a19554ef404a609123b756ddcbbb677df838f05
+fetch_source https://github.com/lz4/lz4/releases/download/v1.10.0/lz4-1.10.0.tar.gz e6a01c6d457365f9e26bc440394daab80ab0aff0
 
 do_unpack
 pushd_src
