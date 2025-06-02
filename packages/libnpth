@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://www.gnupg.org/ftp/gcrypt/npth/npth-1.6.tar.bz2 f9d63e9747b027e4e404fe3c20c73c73719e1731
+fetch_source https://gnupg.org/ftp/gcrypt/npth/npth-1.8.tar.bz2 6f60ce8540453e120d715f269d0c7cfd9e0b0d24
 
 do_unpack_compile
