@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/patch/patch-2.7.6.tar.gz 0ed8f3e49d84964f27e27c712fc8780e291dfa60
+fetch_source https://ftpmirror.gnu.org/patch/patch-2.8.tar.xz 2b151e08827f797636cc7741628d2147fdf8de8b
 
 do_unpack_compile
