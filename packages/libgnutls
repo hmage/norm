@@ -6,7 +6,7 @@ depends_on libtasn1
 depends_on libunistring
 depends_on libp11-kit
 
-fetch_source https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.0.tar.xz b7be709fefed484fc9044081961eb096e4c17d99
+fetch_source https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.9.tar.xz 4bacfbfcba06b67e91bbd3535c275b04ef89a61f
 
 CONFFLAGS=(
 --disable-libdane ## somehow forces linking against system libnettle
