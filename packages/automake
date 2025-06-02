@@ -2,6 +2,6 @@
 
 depends_on autoconf
 
-fetch_source https://ftpmirror.gnu.org/automake/automake-1.16.5.tar.xz 32fb36e73568271ff506b60c55a6170b67681375
+fetch_source https://ftpmirror.gnu.org/automake/automake-1.18.tar.xz 7d1536fd2ccf19e8a3286f95c5af6c49efe7222a
 
 do_unpack_compile
