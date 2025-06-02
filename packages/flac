@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://downloads.xiph.org/releases/flac/flac-1.4.2.tar.xz 4297c4f7c8665705f46886403755061dd0a30289
+fetch_source https://downloads.xiph.org/releases/flac/flac-1.5.0.tar.xz 54861febe9fd8749c52f0b699f59d1dd8771aad8
 
 do_unpack
 do_patch_inline -p0 << EOF
