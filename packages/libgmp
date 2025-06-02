@@ -2,6 +2,6 @@
 
 needs_tool m4
 
-fetch_source https://gmplib.org/download/gmp/gmp-6.2.1.tar.xz 0578d48607ec0e272177d175fd1807c30b00fdf2
+fetch_source https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz b4043dd2964ab1a858109da85c44de224384f352
 
 do_unpack_compile
