@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/gzip/gzip-1.12.tar.gz 91fa501ada319c4dc8f796208440d45a3f48ed13
+fetch_source http://ftpmirror.gnu.org/gzip/gzip-1.14.tar.xz 05f44a8a589df0171e75769e3d11f8b11d692f58
 
 do_unpack_compile
