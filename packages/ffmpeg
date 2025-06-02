@@ -14,7 +14,7 @@ depends_on libxml ## for dash
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx provides the library
 depends_on libsrt ## for srt subtitles
 
-fetch_source https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz 299e7790544f380d0472b406c9b5ce82efeb8f48
+fetch_source https://ffmpeg.org/releases/ffmpeg-7.1.1.tar.xz 1055f20aa2fbecad554597395a5432581ebc1e61
 
 CONFFLAGS=(
 --enable-gpl ## needed to use x264 and x265
