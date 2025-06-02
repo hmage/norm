@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/gperf/gperf-3.1.tar.gz e3c0618c2d2e5586eda9498c867d5e4858a3b0e2
+fetch_source http://ftpmirror.gnu.org/gperf/gperf-3.3.tar.gz 0ccc217cba4e3311efb12ddd0cc23cb6a25d5d7c
 
 do_unpack_compile
