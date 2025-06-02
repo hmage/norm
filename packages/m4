@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/m4/m4-1.4.19.tar.gz 1b9141800f481353b8bcfafe8ec03d3d95f03f64
+fetch_source https://ftpmirror.gnu.org/m4/m4-1.4.20.tar.xz 025df51430845178f926b20a078f994eefaa50fd
 
 CONFFLAGS=(
 --disable-nls    ## otherwise will try to link with gettext's libintl
