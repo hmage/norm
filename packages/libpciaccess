@@ -2,6 +2,6 @@
 
 [[ $OSTYPE != *linux* ]] && log "libpciaccess is a linux-specific library, refusing to build" && false
 
-fetch_source https://xorg.freedesktop.org/releases/individual/lib/libpciaccess-0.16.tar.gz ea13375ae560c95f012c635f6806c1b0361f6240
+fetch_source https://www.x.org/releases/individual/lib/libpciaccess-0.18.1.tar.xz 0f06bb9579544e6b18cb28514a5f77cb7fdd10a7
 
 do_unpack_compile
