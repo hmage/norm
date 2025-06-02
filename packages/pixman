@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source http://cairographics.org/releases/pixman-0.40.0.tar.gz d7baa6377b6f48e29db011c669788bb1268d08ad
+fetch_source https://www.cairographics.org/releases/pixman-0.46.0.tar.gz 533436dbc5a64e647a5ce3305f55fd6a7466deca
 
 do_unpack_compile
