@@ -2,7 +2,7 @@
 
 depends_on libgmp
 
-fetch_source https://libisl.sourceforge.io/isl-0.24.tar.xz d16012cf5bf35684ef0de68dab55279d34df4909
+fetch_source https://libisl.sourceforge.io/isl-0.27.tar.xz 8778bdabc1fbebe392564440c1ebbaaa45cdaf85
 
 CPPFLAGS="${CPPFLAGS/-march=native/}" \
 do_unpack_compile
