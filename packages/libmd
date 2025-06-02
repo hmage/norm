@@ -2,6 +2,6 @@
 
 [[ $OSTYPE != *linux* ]] && log "libmd is a linux-specific library, refusing to build" && false
 
-fetch_source https://archive.hadrons.org/software/libmd/libmd-1.0.4.tar.xz c412a6cb3792e00927127b85cb99b46f493eecce
+fetch_source https://archive.hadrons.org/software/libmd/libmd-1.1.0.tar.xz 72718d5ffad112b702ba84fd40900486f8179642
 
 do_unpack_compile
