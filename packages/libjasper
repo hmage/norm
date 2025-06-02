@@ -2,7 +2,7 @@
 
 needs_tool cmake
 
-fetch_source https://github.com/jasper-software/jasper/archive/version-3.0.3/jasper-3.0.3.tar.gz ed0892a5c559e95eda896358cbc236d2ddbac3ac
+fetch_source https://github.com/jasper-software/jasper/archive/version-4.2.0.tar.gz f799047228b629eccc9e59de6aa9ae8c649c2326
 
 do_unpack
 do_compile_outside -DJAS_ENABLE_DOC=OFF -DJAS_ENABLE_SHARED=OFF -DJAS_ENABLE_PROGRAMS=OFF
