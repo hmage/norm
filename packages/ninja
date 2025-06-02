@@ -2,7 +2,7 @@
 
 needs_tool python3
 
-fetch_source https://github.com/ninja-build/ninja/archive/v1.10.2.tar.gz 8d2e8c1c070c27fb9dc46b4a6345bbb1de7ccbaf
+fetch_source https://github.com/ninja-build/ninja/archive/v1.12.1.tar.gz f3a1a28e0e427be58b4f2ff2e61b7a4a0e4f0c24
 
 do_unpack
 pushd_src
