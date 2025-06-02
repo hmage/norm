@@ -5,13 +5,9 @@ depends_on libde265   ## otherwise libheif can't read images
 depends_on x265       ## otherwise libheif can't save images
 depends_on libjpeg    ## opportunistic linking without a way to disable
 
-fetch_source https://github.com/strukturag/libheif/releases/download/v1.12.0/libheif-1.12.0.tar.gz 7bc8ed78a2946949f137dcd9f86492de99aee2bd
-
-CONFFLAGS=(
---disable-go ## go library/examples are broken in 1.5.0
-)
+fetch_source https://github.com/strukturag/libheif/releases/download/v1.19.8/libheif-1.19.8.tar.gz 75da1da1b62d015e6afba8669b29e0f7ab967ec9
 
 ## fix build failure because Ofast emits warnings while libheif enables -Werror
 CFLAGS="${CFLAGS/-Ofast/}" \
 CXXFLAGS="${CXXFLAGS/-Ofast/}" \
-do_unpack_compile "${CONFFLAGS[@]}"
+do_unpack_compile
