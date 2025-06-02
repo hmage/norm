@@ -2,6 +2,6 @@
 
 depends_on libidn2
 
-fetch_source https://github.com/rockdaboot/libpsl/releases/download/0.21.1/libpsl-0.21.1.tar.gz dc5fd26d060b3445386b5a82628df900567654f4
+fetch_source https://github.com/rockdaboot/libpsl/releases/download/0.21.5/libpsl-0.21.5.tar.gz f2d1efc3c3e3ed1aeefd863f2e1e7f689662bf23
 
 do_unpack_compile
