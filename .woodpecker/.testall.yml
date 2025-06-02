@@ -132,6 +132,7 @@ matrix:
   - librhash
   - libsdl
   - libsdl2
+  - libsdl3
   - libseccomp
   - libslang
   - libsrt

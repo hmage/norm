@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fetch_source https://github.com/libsdl-org/SDL/releases/download/release-3.2.14/SDL3-3.2.14.tar.gz 39714bc4c836eba06d447aa107db55d85815ce12
+
+do_unpack_compile
