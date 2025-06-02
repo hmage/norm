@@ -2,6 +2,6 @@
 
 needs_tool m4
 
-fetch_source http://ftpmirror.gnu.org/libtool/libtool-2.4.7.tar.xz 0c90f1b046ea9cd7b32a4b5a6a9df4b46ddb637a
+fetch_source https://ftpmirror.gnu.org/libtool/libtool-2.5.4.tar.xz 9781a113fe6af1b150571410b29d3eee2e792516
 
 do_unpack_compile
