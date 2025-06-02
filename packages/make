@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/make/make-4.3.tar.gz 3c40e5b49b893dbb14f1e2e1f8fe89b7298cc51d
+fetch_source https://ftpmirror.gnu.org/make/make-4.4.1.tar.gz 5ca41d365c35a4ded07d616190baf38814c25f2a
 
 CONFFLAGS=(
 --without-guile  ## opportunistic linking
