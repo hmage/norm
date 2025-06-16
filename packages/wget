@@ -7,7 +7,7 @@ depends_on libpcre                              ## opportunistic linking
 depends_on libunistring                         ## otherwise uses bundled copy
 depends_on openssl
 
-fetch_source http://ftpmirror.gnu.org/wget/wget-1.21.3.tar.gz e0c2c21aff77693c3e67cf3889945a2ef5a03a39
+fetch_source http://ftpmirror.gnu.org/wget/wget-1.25.0.tar.gz 939b74b0759a2e5f57ec9ac12f5b4403fd9cf5cf
 
 CONFFLAGS=(
 --with-ssl=openssl
