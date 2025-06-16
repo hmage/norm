@@ -1,5 +1,7 @@
 #!/bin/bash
 
-fetch_source https://www.cairographics.org/releases/pixman-0.46.0.tar.gz 533436dbc5a64e647a5ce3305f55fd6a7466deca
+# 0.42.2 is last version that uses autotools before switching to meson/ninja
+# TODO: add support for meson/ninja
+fetch_source https://www.cairographics.org/releases/pixman-0.42.2.tar.gz 7063429f9952fd8c4fcbc887c3210b35adb6a6c7
 
 do_unpack_compile
