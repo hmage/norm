@@ -4,7 +4,7 @@ depends_on libxxhash
 depends_on zstd ## for libzstd.a and headers
 depends_on liblz4
 
-fetch_source https://download.samba.org/pub/rsync/src/rsync-3.3.0.tar.gz e03db4fbaaebc5aa4934468cd31d22963b6ff888
+fetch_source https://download.samba.org/pub/rsync/src/rsync-3.4.1.tar.gz 19a6173f6242275478fc35804e87616ff82b5cff
 
 CONFFLAGS=(
 --with-included-popt ## opportunistic linking
