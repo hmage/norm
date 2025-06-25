@@ -3,7 +3,7 @@
 needs_tool cmake
 needs_tool nasm
 
-fetch_source https://bitbucket.org/multicoreware/x265_git/get/4.0.tar.gz f103643837bfb6aecccb1afe78bff5af6802bf8d
+fetch_source http://ftp.videolan.org/pub/videolan/x265/x265_4.1.tar.gz 11880a3aa9e4ee618f539a2d6a8ece0ea442f505
 
 do_unpack
 SRCDIR="$SRCDIR/source"
