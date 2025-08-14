@@ -6,10 +6,10 @@ depends_on glib
 depends_on libsdl2 ## for GUI
 needs_tool ninja ## for building
 
-fetch_source https://download.qemu.org/qemu-8.0.0.tar.xz 17d54a85aa5d7f5dcfc619aa34049f9a91ceed0d
+fetch_source https://download.qemu.org/qemu-10.0.3.tar.xz 127603cc7b14684b2b10e745d29fceefe05c38de
 
 CONFFLAGS=(
---target-list=x86_64-softmmu ## if you need anything else, change this, optionally make a pull request or fill an issue ^.^
+--target-list=x86_64-softmmu ## if you need anything else, change this, optionally make a pull request or fill an issue
 --disable-auth-pam ## opportunistic linking with libpam
 --disable-snappy   ## opportunistic linking, used for compressing memory dump files
 --disable-lzo      ## opportunistic linking, used for compressing memory dump files
