@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/Cyan4973/xxHash/archive/v0.8.1/xxHash-0.8.1.tar.gz a92c9a9cfbef23e52f2d1b581cb9926c680d261d
+fetch_source https://github.com/Cyan4973/xxHash/archive/v0.8.3/xxHash-0.8.3.tar.gz 6caf7421bbcb2be76006f31ab514d484a8d8b628
 
 do_unpack
 pushd_src
