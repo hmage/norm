@@ -24,8 +24,22 @@ do_unpack
 
 fetch_file https://raw.githubusercontent.com/Homebrew/formula-patches/master/libtool/configure-pre-0.4.2.418-big_sur.diff 99cc25af3c3f498b2ca6b077fc6a5f595ff6ffe1
 do_patch "$FILENAME" -p1
-fetch_file "https://80x24.org/sox.git/patch?id=bf2afa54a7dec" 856f772bb28f247e94298c22ce736941c0eb72aa
-do_patch "$FILENAME" -p1
+
+do_patch_inline -p1 <<EOF
+diff --git a/src/coreaudio.c b/src/coreaudio.c
+index f6f20c13..27623922 100644
+--- a/src/coreaudio.c
++++ b/src/coreaudio.c
+@@ -152,6 +152,8 @@ static int setup(sox_format_t *ft, int is_input)
+               for (i = 0; i < device_count; i++)
+               {
+                   char name[256];
++
++                  property_size = sizeof(name);
+                   status = AudioDeviceGetProperty(devices[i],0,false,kAudioDevicePropertyDeviceName,&property_size,&name);
+ 
+                   lsx_report("Found Audio Device \"%s\"\n",name);
+EOF
 
 CFLAGS="${CFLAGS/-Ofast/} -Wno-incompatible-function-pointer-types" \
 CXXFLAGS="${CXXFLAGS/-Ofast/} -Wno-incompatible-function-pointer-types" \
