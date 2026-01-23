@@ -5,7 +5,7 @@ depends_on nasm ## steep version requirement, so bring our own (wants 2.13 while
 ## x264 deprecated source archive releases, so have to pin a specific revision instead
 do_gitclone https://code.videolan.org/videolan/x264
 pushd_src
-git checkout 31e19f92f00c7003fa115047ce50978bc98c3a0d
+git checkout 0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee
 popd_src
 
 CONFFLAGS=(
