@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/jqlang/jq/releases/download/jq-1.8.0/jq-1.8.0.tar.gz 49e128e8ff9b27edd1c9d0e2240b430dc4a7ac9b
+fetch_source https://github.com/jqlang/jq/releases/download/jq-1.8.1/jq-1.8.1.tar.gz ac8ee9d92fd58805a90e1853df7c35887236d8a8
 
 do_unpack_compile --disable-maintainer-mode
