@@ -1,9 +1,9 @@
 #!/bin/bash
 
 [[ $OSTYPE != *darwin* ]] && depends_on zlib    ## commonly seen, osx provides the library
-[[ $OSTYPE != *darwin* ]] && depends_on openssl ## https support, osx provides the library
+depends_on openssl ## https support, SecureTransport removed in curl 8.18
 
-fetch_source https://github.com/curl/curl/releases/download/curl-8_0_1/curl-8.0.1.tar.gz 4bd44cec15725d6e983ea1824b8f6c8a7d80ef4c
+fetch_source https://github.com/curl/curl/releases/download/curl-8_18_0/curl-8.18.0.tar.gz 1a13070ccd2c5fe1d47cb34dd56138f69708f3f9
 
 CONFFLAGS=(
 --disable-ldap ## curl is usually a web fetcher, if you need ldap, open an issue
@@ -13,12 +13,12 @@ CONFFLAGS=(
 --without-libpsl  ## opportunistic linking
 --without-brotli  ## opportunistic linking
 --without-zstd    ## opportunistic linking
+--with-openssl    ## need to explicitly specify openssl
 )
 
 if [[ $OSTYPE != *darwin* ]]; then
-	CONFFLAGS+=(--with-openssl) ## use openssl
 	CONFFLAGS+=("--with-ca-bundle=$PREFIX/etc/ssl/cert.pem")
 fi
-[[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--with-secure-transport) ## but on osx use system library
+[[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--with-apple-sectrust) ## use osx certificate storage
 
 do_unpack_compile "${CONFFLAGS[@]}"
