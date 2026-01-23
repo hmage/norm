@@ -3,6 +3,6 @@
 depends_on pkg-config
 depends_on libopus
 
-fetch_source http://downloads.xiph.org/releases/opus/libopusenc-0.2.1.tar.gz 0f107876925141fe1a8840f4d602d5b0771be105
+fetch_source https://downloads.xiph.org/releases/opus/libopusenc-0.3.tar.gz 4024930445b1b0a188dd3911ce247a0c4ae03c2f
 
 do_unpack_compile
