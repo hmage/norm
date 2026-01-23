@@ -1,16 +1,16 @@
 #!/bin/bash
 
-fetch_source http://distfiles.dereferenced.org/pkgconf/pkgconf-2.1.0.tar.xz ec10c4205d122f9ceb781afdeca46de5386a223f
+fetch_source http://distfiles.dereferenced.org/pkgconf/pkgconf-2.5.1.tar.xz 402f512417561fbfb2421d0d9c05c25984a8d8c1
 
 do_unpack
 
 ## to make running programs linked with norm-provided libraries easier, automatically add rpath to any library path
 ## this is useful as well for go, which doesn't use libtool, so never adds rpath as well.
-do_patch_inline -p0 << EOF
+do_patch_inline -p0 << 'EOF'
 --- libpkgconf/fragment.c
 +++ libpkgconf/fragment.c
-@@ -463,6 +463,12 @@
- 	{
+@@ -537,6 +537,12 @@ pkgconf_fragment_len(const pkgconf_fragment_t *frag)
+
  		char *quoted = fragment_quote(frag);
  		len += strlen(quoted);
 +		// Add rpath to all -L fragments
@@ -20,23 +20,23 @@ do_patch_inline -p0 << EOF
 +			len += 1;
 +		}
  		free(quoted);
+
+ 		PKGCONF_FOREACH_LIST_ENTRY(frag->children.head, iter)
+@@ -586,6 +592,14 @@ fragment_render_item(const pkgconf_fragment_t *frag, char *bptr, size_t bufremain
+ 		*bptr++ = frag->type;
  	}
- 
-@@ -508,6 +514,14 @@
- 			break;
- 		}
- 
-+		// Add rpath to all -L fragments
-+		if (frag->type && frag->type == 'L') {
-+			bptr += pkgconf_strlcpy(bptr, "-Wl,-rpath,", buf_remaining);
-+			bptr += pkgconf_strlcpy(bptr, quoted, buf_remaining);
-+			*bptr++ = ' ';
-+		}
+
++	// Add rpath to all -L fragments
++	if (frag->type && frag->type == 'L' && quoted != NULL) {
++		bptr += pkgconf_strlcpy(bptr, quoted, bufremain - (bptr - base));
++		*bptr++ = ' ';
++		bptr += pkgconf_strlcpy(bptr, "-Wl,-rpath,", bufremain - (bptr - base));
++	}
 +
 +
- 		if (frag->type)
- 		{
- 			*bptr++ = '-';
+ 	if (quoted != NULL)
+ 	{
+ 		bptr += pkgconf_strlcpy(bptr, quoted, bufremain - (bptr - base));
 EOF
 do_compile --with-system-includedir=/usr/include --with-system-libdir=/usr/lib
 ln -fs pkgconf "$PREFIX"/bin/pkg-config
