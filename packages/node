@@ -20,6 +20,12 @@ CONFFLAGS=(
 --shared-openssl
 )
 
+# Norm defaults add dead-strip flags that drop unused N-API exports; remove
+# them so native addons (sharp, @node-rs/argon2, etc.) can load.
+LDFLAGS="${LDFLAGS//-Wl,-dead_strip_dylibs/}"
+LDFLAGS="${LDFLAGS//-Wl,-dead_strip/}"
+LDFLAGS="${LDFLAGS//-Wl,-x/}"
+
 ## this also fixes build failure
 CFLAGS="${CFLAGS/-Ofast/} -g1" \
 CXXFLAGS="${CXXFLAGS/-Ofast/} -g1" \
