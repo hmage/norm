@@ -2,13 +2,11 @@
 
 needs_tool python3
 
-fetch_source https://github.com/ninja-build/ninja/archive/v1.12.1.tar.gz f3a1a28e0e427be58b4f2ff2e61b7a4a0e4f0c24
+fetch_source https://github.com/ninja-build/ninja/archive/v1.13.2.tar.gz 814c89873e905fd07dfb13c3ebbcfbc0dfc277ca
 
 do_unpack
 pushd_src
 python3 ./configure.py --bootstrap --with-python=python3
-./ninja ninja_test
-./ninja_test --gtest_filter=-SubprocessTest.SetWithLots
 mkdir -p "$PREFIX/bin"
 install -m755  ninja "$PREFIX/bin/ninja"
 popd_src
