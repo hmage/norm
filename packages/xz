@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://archive.org/download/xz-5.4.6/xz-5.4.6.tar.gz a8262cf6e4ecf878955e236cea09ad5dc80c3fb8
+fetch_source https://github.com/tukaani-project/xz/releases/download/v5.8.2/xz-5.8.2.tar.gz 7bf2d887bd0ad401e0a4787a9033d9235036b3bb
 
 CONFFLAGS=(
 --disable-nls ## otherwise will try to link with gettext's libintl
