@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://download.gnome.org/sources/libxml2/2.9/libxml2-2.9.13.tar.xz 7dced00d88181d559ee76c6d8ef4571eb1bd0b26
+fetch_source https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.1.tar.xz 8a5337a2d77caad438dd6f2f473ab29058d94a4b
 
 CONFFLAGS=(
 --without-python ## opportunistic linking
