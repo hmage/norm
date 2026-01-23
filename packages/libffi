@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/libffi/libffi/releases/download/v3.5.1/libffi-3.5.1.tar.gz 5375e956b0d662e118e47758bd656861e43ba3ef
+fetch_source https://github.com/libffi/libffi/releases/download/v3.5.2/libffi-3.5.2.tar.gz 2bd35b135b0eeb5c631e02422c9dbe786ddb626a
 
 do_unpack
 ## fix up https://github.com/libffi/libffi/issues/55 and https://github.com/libffi/libffi/issues/127
