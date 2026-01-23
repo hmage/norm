@@ -6,7 +6,7 @@ if ! python3 -c 'import setuptools'; then
     depends_on python ## system-provided python3 doesn't have setuptools
 fi
 
-fetch_source https://github.com/mesonbuild/meson/releases/download/1.8.1/meson-1.8.1.tar.gz 685015cb9a32b6bded6327892a8ac016d2455bd1
+fetch_source https://github.com/mesonbuild/meson/releases/download/1.10.1/meson-1.10.1.tar.gz b9f59df54f340b868535e23703ec237c22bf2c33
 
 do_unpack
 pushd_src
