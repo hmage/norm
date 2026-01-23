@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://downloads.webmproject.org/releases/webp/libwebp-1.2.4.tar.gz 24586e2a8e01a9cced102d68852661b964502429
+fetch_source http://downloads.webmproject.org/releases/webp/libwebp-1.6.0.tar.gz c65babfd749817e6d0f8233d653f8a85e4220b48
 
 CONFFLAGS=(
 --enable-libwebpmux ## needed by graphicsmagick
