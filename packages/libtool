@@ -4,4 +4,7 @@ needs_tool m4
 
 fetch_source https://ftpmirror.gnu.org/libtool/libtool-2.5.4.tar.xz 9781a113fe6af1b150571410b29d3eee2e792516
 
-do_unpack_compile
+CONFIGURE_OPTS=()
+[[ $OSTYPE == *darwin* ]] && CONFIGURE_OPTS+=(--program-prefix=g) ## avoid clobbering Apple's libtool
+
+do_unpack_compile "${CONFIGURE_OPTS[@]}"

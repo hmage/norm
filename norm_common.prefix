@@ -62,6 +62,12 @@ setup_prefix() {
     addpath LD_RUN_PATH "$PREFIX/lib"
     addpath PKG_CONFIG_PATH "$PREFIX/share/pkgconfig" "$PREFIX/lib/pkgconfig"
     addpath PERL5LIB "$PREFIX/lib/perl5"
+    addpath ACLOCAL_PATH "$PREFIX/share/aclocal"
+
+    if [[ $OSTYPE == *darwin* ]]; then
+        export LIBTOOL="${LIBTOOL:-$PREFIX/bin/glibtool}"
+        export LIBTOOLIZE="${LIBTOOLIZE:-$PREFIX/bin/glibtoolize}"
+    fi
 
     ## create files if they don't exist
     [ ! -e "$PREFIX/bin" ] && mkdir -p "$PREFIX/bin" || true
