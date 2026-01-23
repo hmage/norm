@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/nghttp2/nghttp2/releases/download/v1.65.0/nghttp2-1.65.0.tar.xz 4cf556fb7ca4467b3f2d692c95e55ba8af7c8740
+fetch_source https://github.com/nghttp2/nghttp2/releases/download/v1.68.0/nghttp2-1.68.0.tar.xz 0f0c28825ebb01ff2514769a9bd61f4bfc037aaf
 
 CONFFLAGS=(
 --enable-lib-only         ## we are interested only in C library, not building examples, app python bindings or hpack tools
