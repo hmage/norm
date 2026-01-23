@@ -2,7 +2,7 @@
 
 needs_tool cmake
 
-fetch_source https://github.com/jasper-software/jasper/archive/version-4.2.0.tar.gz f799047228b629eccc9e59de6aa9ae8c649c2326
+fetch_source https://github.com/jasper-software/jasper/archive/version-4.2.8.tar.gz 4f260b9a3a004c4a3f1ddf7ab8517ce115eca60a
 
 do_unpack
 do_compile_outside -DJAS_ENABLE_DOC=OFF -DJAS_ENABLE_SHARED=OFF -DJAS_ENABLE_PROGRAMS=OFF
