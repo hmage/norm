@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/libexpat/libexpat/releases/download/R_2_7_3/expat-2.7.3.tar.xz de012c8dc6a3486df58bde1e7687a0cb3cd2070b
+fetch_source https://github.com/libexpat/libexpat/releases/download/R_2_7_4/expat-2.7.4.tar.xz 70448152f3b2b1e812b83c4e2f7ee77f8dd0b91c
 
 CONFFLAGS=(
 --without-docbook ## build failure on CentOS6 because of old docbook2man
