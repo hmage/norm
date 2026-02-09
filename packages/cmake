@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/Kitware/CMake/releases/download/v4.2.2/cmake-4.2.2.tar.gz fe09edf461e04f6b01074936480a6fc41d13e83a
+fetch_source https://github.com/Kitware/CMake/releases/download/v4.2.3/cmake-4.2.3.tar.gz 86cbe4566dc17829af4302bfc2241435ff881b1b
 
 CONFFLAGS=(
 --parallel="${NUMJOBS}" ## their ./configure compiles mini-cmake to compile full cmake later, defaults to 1 parallel
