@@ -1,0 +1,17 @@
+#!/bin/bash
+
+depends_on meson
+depends_on ninja
+depends_on nasm
+
+fetch_source https://code.videolan.org/videolan/dav1d/-/archive/1.5.3/dav1d-1.5.3.tar.bz2 2a88df5b67e7b29c05fd90db9b6f52385b13612f
+
+do_unpack
+BUILDDIR="$SRCDIR"-build
+rm -rf "$BUILDDIR"
+mkdir -p "$BUILDDIR"
+pushd "$BUILDDIR"
+meson setup --prefix="$PREFIX" --buildtype=release "$SRCDIR"
+ninja -j$NUMJOBS
+ninja install
+popd

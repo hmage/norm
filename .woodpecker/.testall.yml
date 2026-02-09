@@ -76,6 +76,7 @@ matrix:
   - libcapstone
   - libcares
   - libck
+  - libdav1d
   - libdb
   - libde265
   - libdrm
