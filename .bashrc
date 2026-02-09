@@ -37,6 +37,12 @@ norm_addpath() {
 ## add ourselves to the PATH if we're not there yet
 norm_addpath PATH "$DIR" "$NORMPREFIX/bin" "$NORMPREFIX/sbin" "$NORMPREFIX/bin/ccache_wrap"
 norm_addpath PERL5LIB "$NORMPREFIX/lib/perl5"
+for pysite in "$NORMPREFIX"/lib/python*/site-packages; do
+    [ -d "$pysite" ] && norm_addpath PYTHONPATH "$pysite"
+    for egg in "$pysite"/*.egg; do
+        [ -e "$egg" ] && norm_addpath PYTHONPATH "$egg"
+    done
+done
 
 unset -f norm_addpath
-unset DIR
+unset DIR pysite egg

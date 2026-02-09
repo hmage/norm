@@ -63,6 +63,13 @@ setup_prefix() {
     addpath PKG_CONFIG_PATH "$PREFIX/share/pkgconfig" "$PREFIX/lib/pkgconfig"
     addpath PERL5LIB "$PREFIX/lib/perl5"
     addpath ACLOCAL_PATH "$PREFIX/share/aclocal"
+    ## add python site-packages and any .egg files (needed for importlib.metadata to find egg zips)
+    for pysite in "$PREFIX"/lib/python*/site-packages; do
+        [ -d "$pysite" ] && addpath PYTHONPATH "$pysite"
+        for egg in "$pysite"/*.egg; do
+            [ -e "$egg" ] && addpath PYTHONPATH "$egg"
+        done
+    done
 
     if [[ $OSTYPE == *darwin* ]]; then
         export LIBTOOL="${LIBTOOL:-$PREFIX/bin/glibtool}"
