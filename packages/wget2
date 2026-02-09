@@ -5,7 +5,7 @@ depends_on openssl
 depends_on libidn
 depends_on zlib    ## osx provides the library but wget2 fails to link with it
 
-fetch_source http://ftpmirror.gnu.org/wget/wget2-2.0.1.tar.gz e50ab408168e28d8b9eecba046e21cffbb30636f
+fetch_source http://ftpmirror.gnu.org/wget/wget2-2.2.1.tar.gz 775dc51bb870f6d6ed8e2e66b47d9e55c6e7195c
 
 CONFFLAGS=(
 --with-ssl=openssl
