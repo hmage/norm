@@ -2,9 +2,11 @@
 
 depends_on libncurses
 
-fetch_source http://ftpmirror.gnu.org/readline/readline-8.2.tar.gz 97ad98be243a857b639c0f3da2fe7d81c6d1d36e
+fetch_source http://ftpmirror.gnu.org/readline/readline-8.3.tar.gz 2c05ae9350b695f69d70b47f17f092611de2081f
 PATCHES=(
-"http://ftpmirror.gnu.org/readline/readline-8.2-patches/readline82-001 b09ce649b859600fb778b685f151f197fc2a9080"
+"http://ftpmirror.gnu.org/readline/readline-8.3-patches/readline83-001 1bb11b1cad43fe0d552afc987caba2421b3b29bb"
+"http://ftpmirror.gnu.org/readline/readline-8.3-patches/readline83-002 53bc0f297523f4537dab91742bcf81f6e189d378"
+"http://ftpmirror.gnu.org/readline/readline-8.3-patches/readline83-003 55157e298916e8f860f0725137a4effa835ec90f"
 )
 
 do_unpack
