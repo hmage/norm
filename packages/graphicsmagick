@@ -8,7 +8,7 @@ depends_on libwebp   ## format served and owned by google
 depends_on libtiff   ## format often seen in some places
 depends_on libjasper ## jpeg2000, uncommon but builds quickly
 
-fetch_source https://downloads.sf.net/graphicsmagick/graphicsmagick/1.3.38/GraphicsMagick-1.3.38.tar.xz 9494a31b057a79db27cc909f9ba332cf7aa578f5
+fetch_source https://downloads.sf.net/graphicsmagick/graphicsmagick/1.3.46/GraphicsMagick-1.3.46.tar.xz ad3e6003d00f288619f3aaf93a1a45d0f945bc44
 
 CONFFLAGS=(
 --without-x   ## graphicsmagick is used most as library and command-line tool, GUI is not needed, if you need it, open an issue
