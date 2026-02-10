@@ -1,7 +1,12 @@
 #!/bin/bash
 
-# 0.42.2 is last version that uses autotools before switching to meson/ninja
-# TODO: add support for meson/ninja
-fetch_source https://www.cairographics.org/releases/pixman-0.42.2.tar.gz 7063429f9952fd8c4fcbc887c3210b35adb6a6c7
+depends_on meson
 
-do_unpack_compile
+fetch_source https://www.cairographics.org/releases/pixman-0.46.4.tar.gz e1bd7d0406cafdf0f969510b19f3325945f0c541
+
+do_unpack
+pushd_src
+meson setup --prefix="$PREFIX" --buildtype=release builddir
+ninja -C builddir
+ninja -C builddir install
+popd_src
