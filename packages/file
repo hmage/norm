@@ -6,7 +6,7 @@ depends_on autoconf automake libtool
 [[ $OSTYPE != *darwin* ]] && depends_on bzip2   ## to provide more info than just "bz2-compressed data"
 
 ## astron.com does not work for many users, use github and autoreconf
-fetch_source https://github.com/file/file/archive/FILE5_34.tar.gz ddf1dc2f35e9ccbaf227506a8821ff29d143f2df
+fetch_source https://github.com/file/file/archive/FILE5_46.tar.gz 497024ae2522d5b7fbec9379b0f27368a5baf563
 
 CONFFLAGS=(
 --disable-libseccomp ## seccomp produces errors with musl/alpine
