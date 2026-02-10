@@ -4,7 +4,7 @@ depends_on libgpg-error
 depends_on libassuan
 depends_on libncurses
 
-fetch_source https://www.gnupg.org/ftp/gcrypt/pinentry/pinentry-1.3.1.tar.bz2 fb0bbb88211558c8f7e652b4b6a675b1972fba04
+fetch_source https://www.gnupg.org/ftp/gcrypt/pinentry/pinentry-1.3.2.tar.bz2 ca7c502f347f248377842f7e68df5e971059e4db
 
 CONFOPTS=(
 --disable-pinentry-qt
