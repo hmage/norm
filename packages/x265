@@ -6,6 +6,23 @@ needs_tool nasm
 fetch_source http://ftp.videolan.org/pub/videolan/x265/x265_4.1.tar.gz 11880a3aa9e4ee618f539a2d6a8ece0ea442f505
 
 do_unpack
+
+# fix for cmake 4+
+sed -i.bak \
+    -e '1s/^/cmake_minimum_required (VERSION 3.10)\n/' \
+    -e '/cmake_minimum_required/{ 1!d; }' \
+    -e '/cmake_policy(SET CMP0025 OLD)/,/endif()/d' \
+    -e '/cmake_policy(SET CMP0042 NEW)/,/endif()/d' \
+    -e '/cmake_policy(SET CMP0054 OLD)/,/endif()/d' \
+    -e 's/if(POLICY CMP0025)//' \
+    -e 's/if(POLICY CMP0042)//' \
+    -e 's/if(POLICY CMP0054)//' \
+    -e 's/if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")/if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")/' \
+    "$SRCDIR"/source/CMakeLists.txt
+sed -i.bak \
+    -e 's/cmake_minimum_required (VERSION 2.8.11)/cmake_minimum_required (VERSION 3.10)/' \
+    "$SRCDIR"/source/dynamicHDR10/CMakeLists.txt
+
 SRCDIR="$SRCDIR/source"
 pushd_src
 BUILDDIR="$SRCDIR/../build/norm/12bit"
