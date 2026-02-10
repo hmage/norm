@@ -7,6 +7,8 @@ fetch_source https://github.com/capstone-engine/capstone/archive/5.0.7.tar.gz 55
 do_unpack
 pushd_src
 sed -i.bak 's|includedir=$(INCDIR)/capstone|includedir=$(INCDIR)|' Makefile
+## fix dylib install_name to use absolute path on macOS
+[[ $OSTYPE == *darwin* ]] && sed -i.bak "s|-install_name lib|-install_name $PREFIX/lib/lib|" Makefile
 do_make PREFIX="$PREFIX"
 do_install PREFIX="$PREFIX"
 popd_src

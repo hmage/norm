@@ -10,4 +10,9 @@ pushd_src
 cd libraries/liblmdb
 do_make "${FLAGS[@]}"
 do_make install "${FLAGS[@]}"
+
+## fix dylib install_name on macOS
+if [[ $OSTYPE == *darwin* ]]; then
+	install_name_tool -id "$PREFIX/lib/liblmdb.dylib" "$PREFIX/lib/liblmdb.dylib"
+fi
 popd_src
