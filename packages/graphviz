@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/12.2.1/graphviz-12.2.1.tar.xz 993a27ee7c881bfef93ba16372c40c78894a9108
+fetch_source https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14.1.2/graphviz-14.1.2.tar.xz 06dded55a4004e47aa8b3b83d3889cdefd88ce56
 
 do_unpack_compile "${CONFOPTS[@]}"
