@@ -5,6 +5,6 @@ depends_on openssl
 depends_on libck
 depends_on libnghttp2
 
-fetch_source https://www.dns-oarc.net/files/dnsperf/dnsperf-2.11.2.tar.gz d05fdd373c6fb76f53249fa899941de4d588c0d4
+fetch_source https://www.dns-oarc.net/files/dnsperf/dnsperf-2.14.0.tar.gz 33f0d83f0937a74a50b5841ef4720a768d458b04
 
 do_unpack_compile
