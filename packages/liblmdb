@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/LMDB/lmdb/archive/refs/tags/LMDB_0.9.29.tar.gz abb4dd93c66732054d12a0e30a965f83306112d1
+fetch_source https://github.com/LMDB/lmdb/archive/refs/tags/LMDB_0.9.35.tar.gz 07a8d4eb047e291dc6851807ce96b509caf36b76
 
 FLAGS=(prefix="$PREFIX")
 [[ $OSTYPE == *darwin* ]] && FLAGS+=(SOEXT=.dylib)
