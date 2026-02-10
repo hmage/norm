@@ -5,4 +5,12 @@ depends_on openssl
 
 fetch_source https://github.com/Haivision/srt/archive/v1.5.4.tar.gz 04a1ac57e866d2790a9d245ac29bddee8e1db61c
 
-do_unpack_compile
+do_unpack
+
+# fix for cmake 4+
+sed -i.bak \
+    's/cmake_minimum_required.*VERSION 2.8.12.*/cmake_minimum_required (VERSION 3.5)/' \
+    "$SRCDIR"/CMakeLists.txt \
+    "$SRCDIR"/scripts/googletest-download.cmake
+
+do_compile
