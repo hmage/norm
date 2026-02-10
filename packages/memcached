@@ -2,29 +2,6 @@
 
 depends_on libevent
 
-fetch_source http://memcached.org/files/memcached-1.6.17.tar.gz e25639473e15f1bd9516b915fb7e03ab8209030f
+fetch_source http://memcached.org/files/memcached-1.6.36.tar.gz af9696ef8a96f059f643453c299e6acce7f0305c
 
-do_unpack
-do_patch_inline << EOF
---- a/logger.c
-+++ b/logger.c
-@@ -269,7 +269,7 @@ static int _logger_parse_extw(logentry *e, char *scratch) {
- 
- static int _logger_parse_cne(logentry *e, char *scratch) {
-     int total;
--    unsigned short rport;
-+    unsigned short rport = 0;
-     char rip[64];
-     struct logentry_conn_event *le = (struct logentry_conn_event *) e->data;
-     const char * const transport_map[] = { "local", "tcp", "udp" };
-@@ -286,7 +286,7 @@ static int _logger_parse_cne(logentry *e, char *scratch) {
- 
- static int _logger_parse_cce(logentry *e, char *scratch) {
-     int total;
--    unsigned short rport;
-+    unsigned short rport = 0;
-     char rip[64];
-     struct logentry_conn_event *le = (struct logentry_conn_event *) e->data;
-     const char * const transport_map[] = { "local", "tcp", "udp" };
-EOF
-do_compile
+do_unpack_compile
