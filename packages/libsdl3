@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/libsdl-org/SDL/releases/download/release-3.2.20/SDL3-3.2.20.tar.gz 388e3051f5b40068fff5491e1797968a314d8ba7
+fetch_source https://github.com/libsdl-org/SDL/releases/download/release-3.4.0/SDL3-3.4.0.tar.gz 5d7aaeb4c74efd6dc20331b5b32780795485788b
 
 do_unpack_compile
