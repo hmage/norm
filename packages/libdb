@@ -1,10 +1,11 @@
 #!/bin/bash
 
-fetch_source http://download.oracle.com/berkeley-db/db-6.2.32.tar.gz 51824cee0a59cdcfb11413ac4558c851dda24551
+fetch_source http://download.oracle.com/berkeley-db/db-18.1.40.tar.gz 880c13a65b6c2126f6ec90d6d5f2f28485b237c3
 
 do_unpack
 SRCDIR=$SRCDIR/dist
 pushd_src
 sed -ibak 's|^docdir=.*$|docdir= @docdir@|' Makefile.in
+sed -ibak 's|install_docs||g' Makefile.in
 do_compile_outside
 popd
