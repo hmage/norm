@@ -29,4 +29,4 @@ LDFLAGS="${LDFLAGS//-Wl,-x/}"
 ## this also fixes build failure
 CFLAGS="${CFLAGS/-Ofast/} -g1" \
 CXXFLAGS="${CXXFLAGS/-Ofast/} -g1" \
-do_compile "${CONFFLAGS}"
+do_compile "${CONFFLAGS[@]}"
