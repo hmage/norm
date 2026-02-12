@@ -24,9 +24,10 @@ setup_prefix() {
     default_ldflags="-L$ESCAPED_PREFIX/lib"
     default_cppflags="-I$ESCAPED_PREFIX/include"
 
-    ## set compile flags
-    cc_addflags LDFLAGS $default_ldflags
-    cc_addflags CPPFLAGS $default_cppflags
+    ## set compile flags -- use LIBRARY_PATH instead of -L so that packages'
+    ## own -L flags take priority (same idea as -isystem for includes)
+    export LIBRARY_PATH="$PREFIX/lib${LIBRARY_PATH:+:$LIBRARY_PATH}"
+    cc_addflag CPPFLAGS "-isystem$ESCAPED_PREFIX/include" "-I$ESCAPED_PREFIX/include"
 
     ## set optimization flags
     cc_addflags CFLAGS -g -O2 -O3 -Ofast
