@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://download.sourceforge.net/rhash/1.4.4/rhash-1.4.4-src.tar.gz feaee551aec9cc9a303a45aa8c864f97ece9ed2d
+fetch_source https://download.sourceforge.net/rhash/1.4.6/rhash-1.4.6-src.tar.gz b97afef14dd2a6fe62ab53f5e82fa600862282bf
 
 do_unpack
 do_compile
