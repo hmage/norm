@@ -2,6 +2,6 @@
 
 depends_on zlib
 
-fetch_source https://downloads.sourceforge.net/libpng/libpng-1.6.54.tar.xz 3dcffaeb58daa7b754bebe93cb008342964d9f39
+fetch_source https://downloads.sourceforge.net/libpng/libpng-1.6.55.tar.xz 13f7bedf27009e59961f823cc779a5f9f5341a91
 
 do_unpack_compile
