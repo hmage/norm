@@ -2,7 +2,7 @@
 
 depends_on libgmp ## presence of libgmp builds libhogweed (needed by libgnutls)
 
-fetch_source https://ftpmirror.gnu.org/nettle/nettle-3.10.2.tar.gz 7facbe118b985faab180cdcac13bebd16cc633b4
+fetch_source https://ftpmirror.gnu.org/nettle/nettle-4.0.tar.gz 8a2f1b1d3c2e4c108b40dbc051a545550c1a6a4c
 
 CFLAGS="-std=c99 -g -O2" \
 do_unpack_compile --libdir="$PREFIX/lib"
