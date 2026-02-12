@@ -3,7 +3,7 @@
 needs_tool cmake
 depends_on nasm
 
-fetch_source https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v3.1.2/SVT-AV1-v3.1.2.tar.bz2 7e5a7796d0859b8178cf777e04aa261edff97472
+fetch_source https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v4.0.0/SVT-AV1-v4.0.0.tar.bz2 7003a2c5f1615f46a854cb6b98747058945e0688
 
 do_unpack_compile
 
