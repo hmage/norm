@@ -2,7 +2,7 @@
 
 [[ $OSTYPE != *darwin* ]] && depends_on zlib    ## for .archive, osx provides the library
 
-fetch_source https://sqlite.org/2025/sqlite-autoconf-3490100.tar.gz 1392247c9a35377a20b7db708e7c6e2574695f59
+fetch_source https://sqlite.org/2026/sqlite-autoconf-3510200.tar.gz 979a87d3eab508bd939562cd57359619850bfd38
 
 CONFFLAGS=(
 --disable-editline     ## both editline and readline incur heavy build time dependency of libncurses
