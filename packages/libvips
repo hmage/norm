@@ -2,6 +2,8 @@
 
 depends_on glib     ## uses gobject-introspection
 [[ $OSTYPE != *darwin* ]] && depends_on libexpat ## what for? also on osx it's always there, don't build our own
+depends_on meson
+depends_on ninja
 
 ## image formats
 depends_on libpng
@@ -15,10 +17,14 @@ depends_on libgif
 ## opportunistic linking
 depends_on liblcms2
 
-fetch_source https://github.com/libvips/libvips/releases/download/v8.17.1/vips-8.17.1.tar.xz c6ced6e886d679152ecf2337e88e01d14d8e14d6
+fetch_source https://github.com/libvips/libvips/releases/download/v8.18.0/vips-8.18.0.tar.xz 380830d3b0f8dde88d0f36da277ab10d2574fcb7
 
-CONFFLAGS=(
-#--without-giflib ## if system has giflib 4.x and we bring our own giflib 5.x, build fails because compiler for some reason picks up headers from 4.x instead of 5.x
-)
-
-do_unpack_compile "${CONFFLAGS[@]}"
+do_unpack
+BUILDDIR="$SRCDIR"-build
+rm -rf "$BUILDDIR"
+mkdir -p "$BUILDDIR"
+pushd "$BUILDDIR"
+meson setup --prefix="$PREFIX" --buildtype=release "$SRCDIR"
+ninja -j$NUMJOBS
+ninja install
+popd
