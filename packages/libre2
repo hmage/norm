@@ -2,6 +2,6 @@
 
 needs_tool cmake
 
-fetch_source https://github.com/google/re2/archive/2022-04-01.tar.gz e88e72adc5dd18d00922a9c7ddf6e056e29a3d06
+fetch_source https://github.com/google/re2/archive/2023-03-01.tar.gz 3e37cc282ad4ea05e2971e0ed28ef5dba0129651
 
 do_unpack_compile
