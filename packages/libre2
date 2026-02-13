@@ -1,7 +1,8 @@
 #!/bin/bash
 
 needs_tool cmake
+depends_on libabsl
 
-fetch_source https://github.com/google/re2/archive/2023-03-01.tar.gz 3e37cc282ad4ea05e2971e0ed28ef5dba0129651
+fetch_source https://github.com/google/re2/archive/2025-11-05.tar.gz f9620b63e5b0887f25b13b730176e495d246def4
 
 do_unpack_compile
