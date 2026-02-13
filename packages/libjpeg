@@ -2,20 +2,21 @@
 
 needs_tool cmake
 
-fetch_source https://downloads.sourceforge.net/libjpeg-turbo/2.1.4/libjpeg-turbo-2.1.4.tar.gz 5a355c08caa326cef7c2a61e062edfe8dd02ac07
+fetch_source https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.3/libjpeg-turbo-3.1.3.tar.gz e9bcf65bf26c8313cbdc13cff5de7aacaab1f232
 
 do_unpack
 ## some programs define JPEG_INTERNALS and fail to compile since by default it's not added by this fork of libjpeg
 do_patch_inline << "EOF"
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -1400,6 +1400,7 @@
+@@ -2107,6 +2107,7 @@
  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/jconfig.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/jerror.h ${CMAKE_CURRENT_SOURCE_DIR}/jmorecfg.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/jpeglib.h
-+  ${CMAKE_CURRENT_SOURCE_DIR}/jpegint.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/jerror.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/jmorecfg.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/jpeglib.h
++  ${CMAKE_CURRENT_SOURCE_DIR}/src/jpegint.h
    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
  
  include(cmakescripts/BuildPackages.cmake)
 EOF
-do_compile -DWITH_JPEG8=ON
+do_compile -DWITH_JPEG8=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5
