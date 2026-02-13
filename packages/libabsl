@@ -1,0 +1,15 @@
+#!/bin/bash
+
+needs_tool cmake
+
+fetch_source https://github.com/abseil/abseil-cpp/archive/refs/tags/20260107.1.tar.gz 9669d572ca2e734bdec47eb87cfe8cd3715bbf58
+
+CONFFLAGS=(
+-DABSL_ENABLE_INSTALL=ON ## provide CMake package for downstream users
+-DABSL_BUILD_TESTING=OFF ## save build time
+-DABSL_USE_SYSTEM_INCLUDES=ON ## avoid noisy warnings in consumers
+-DABSL_PROPAGATE_CXX_STD=ON ## honor CMAKE_CXX_STANDARD in dependents
+-DCMAKE_CXX_STANDARD=17 ## required by modern abseil releases
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
