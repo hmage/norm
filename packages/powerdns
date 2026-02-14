@@ -1,0 +1,19 @@
+#!/bin/bash
+
+depends_on pkg-config # otherwise doesn't find openssl and libyamlcpp
+depends_on luajit
+depends_on openssl
+depends_on libboost
+depends_on libyamlcpp
+depends_on sqlite3 ## for libsqlite3
+depends_on curl ## libcurl needed for LUA records
+
+fetch_source https://downloads.powerdns.com/releases/pdns-4.9.12.tar.bz2 6af10c398f37cc88b204ee23c8c93e3f3e1b179c
+
+CONFFLAGS=(
+--with-modules="gsqlite3 geoip pipe remote"
+)
+
+LUA_CFLAGS="-I$ESCAPED_PREFIX/include/luajit-2.1" \
+LUA_LIBS="-L$ESCAPED_PREFIX/lib -lluajit-5.1" \
+do_unpack_compile "${CONFFLAGS[@]}"
