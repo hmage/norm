@@ -5,7 +5,7 @@ if [[ "${BASH_SOURCE[0]##*/}" == libboost-python ]]; then
     BOOST_WITHOUT_PYTHON="--with-libraries=python --with-python=$ESCAPED_PREFIX/bin/python --with-python-root=$ESCAPED_PREFIX"
 fi
 
-fetch_source http://downloads.sourceforge.net/project/boost/boost/1.81.0/boost_1_81_0.tar.bz2 898469f1ae407f5cbfca84f63ad602962eebf4cc
+fetch_source http://downloads.sourceforge.net/project/boost/boost/1.90.0/boost_1_90_0.tar.bz2 a1d6405b423de1f0e88920337ab3334dcef9e1ec
 
 BOOTSTRAP_ARGS=(
 --prefix="$PREFIX"
