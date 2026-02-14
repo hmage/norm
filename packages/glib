@@ -1,39 +1,37 @@
 #!/bin/bash
 
-needs_tool autoconf
-depends_on automake ## system-provided automake might not have libtool definitions
 depends_on pkg-config
-depends_on libtool
 depends_on gettext
-depends_on libpcre ## system-provided pcre might not support unicode (that's the case on osx), so always bring our own
+depends_on libpcre2 ## modern glib requires pcre2
 depends_on libffi
-## these formulas are not needed on osx -- they are guaranteed to be present in the system
-if [[ $OSTYPE != *darwin* ]]; then
-	depends_on zlib
-fi
-[[ $OSTYPE == *linux* ]] && depends_on libmount ## glib needs it only on linux, and libmount compiles only on linux
-needs_tool python3 # bin/gdbus-codegen is in python, needed by libgtk3
+depends_on meson
+depends_on ninja
+[[ $OSTYPE != *darwin* ]] && depends_on zlib
+[[ $OSTYPE == *linux* ]] && depends_on libmount
+needs_tool python3 # gdbus-codegen and build scripts
 
-## 2.58 is last version that doesn't require python3
-fetch_source https://ftp.gnome.org/pub/gnome/sources/glib/2.58/glib-2.58.3.tar.xz 9499377d09ad52d94b4ab9f38c4040e9dce875e5
+fetch_source https://ftp.gnome.org/pub/gnome/sources/glib/2.86/glib-2.86.4.tar.xz 73681e151396afd4920d33e6677c042b8a53d55c
 
-do_unpack
-pushd_src
-sed -E -ibak 's/-Wall//g;s/-Werror=[a-z-]+(=[0-9a-z]+)?//g;' configure.ac
-NOCONFIGURE=1 ./autogen.sh
-popd_src
-
-CONFFLAGS=(
---disable-libelf ## opportunistic linking with libelf for gresource tool, still works without it
---disable-selinux ## opportunistic linking with libselinux, we don't expect to manipulate or switch selinux policies anyway
---disable-fam ## opportunistic linking with libfam
---enable-static ## some programs want static version of glib
+MESONFLAGS=(
+--prefix="$PREFIX"
+--buildtype=release
+-Ddocumentation=false
+-Dman-pages=disabled
+-Dtests=false
+-Dinstalled_tests=false
+-Dselinux=disabled
+-Dlibelf=disabled
+-Dintrospection=disabled
 )
 
-## these flags are needed to tell where the system libffi is located on darwin
-if [[ $OSTYPE == *darwin* ]]; then
-	SDKPATH=$(xcrun --show-sdk-path)
-	CONFFLAGS+=(LIBFFI_CFLAGS="-I$SDKPATH/usr/include/ffi" LIBFFI_LIBS="-L$SDKPATH/usr/lib -lffi")
-fi
+[[ $OSTYPE == *darwin* ]] && MESONFLAGS+=(-Dlibmount=disabled)
 
-do_compile "${CONFFLAGS[@]}"
+do_unpack
+BUILDDIR="$SRCDIR"-build
+rm -rf "$BUILDDIR"
+mkdir -p "$BUILDDIR"
+pushd "$BUILDDIR"
+meson setup "${MESONFLAGS[@]}" "$SRCDIR"
+ninja -j$NUMJOBS
+ninja install
+popd
