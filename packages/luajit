@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+do_gitclone https://luajit.org/git/luajit.git
+
+pushd_src
+do_make PREFIX="$PREFIX"
+do_install PREFIX="$PREFIX"
+popd_src
