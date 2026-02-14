@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+depends_on libck
+depends_on luajit
+depends_on libgnutls
+
+fetch_source https://www.dns-oarc.net/files/dnsjit/dnsjit-1.5.1.tar.gz 6c4c9931616e9176b34f733470968a2320d9aa6f
+
+do_unpack
+sed -i.bak 's|-Wl,-E||' "$SRCDIR/src/Makefile.in"
+do_compile
