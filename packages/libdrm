@@ -4,10 +4,13 @@
 
 depends_on pkg-config
 depends_on libpciaccess
+depends_on meson ninja
 
-# 2.4.100 is latest that uses autotools, newer use meson+ninja that require python 3.9
-fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.124.tar.xz 4c231ef4e652e66bd53bf5dd70c8c41238d3e94d
+fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.131.tar.xz 8e6962a814dff30a43945dd63f1d77e80f9cfe23
 
 do_unpack
-sed -ibak "s|-DDEBUG|-DNODEBUG|g" "$SRCDIR"/nouveau/Makefile.in ## -DDEBUG creates build failure on bullseye
-do_compile
+pushd_src
+meson setup --prefix="$PREFIX" --buildtype=release builddir
+ninja -C builddir
+ninja -C builddir install
+popd_src
