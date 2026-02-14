@@ -1,7 +1,7 @@
 #!/bin/bash
 
 fetch_source http://deb.debian.org/debian/pool/main/e/ent/ent_1.2debian.orig.tar.gz f3ff843b3a346d1db2cd941ee0232492f9445845
-fetch_debian http://deb.debian.org/debian/pool/main/e/ent/ent_1.2debian-2.debian.tar.xz daf952ab750312bcfb336634ba6981c47d2515e2
+fetch_debian http://deb.debian.org/debian/pool/main/e/ent/ent_1.2debian-3.debian.tar.xz 26218c1149bb81f2c553ee46749e1ec78f9a5afc
 
 do_undebian
 pushd_src
