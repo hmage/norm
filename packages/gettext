@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.22.3.tar.xz a535ee270dea4e191aa9d28e57705af9f4b4ff4b
+fetch_source http://ftpmirror.gnu.org/gettext/gettext-0.26.tar.xz 06caeffe13e4e9f92912e8c4d99d340790f463ae
 
 CONFFLAGS=(
 --without-emacs  ## build failure on debian 11 with emacs installed
@@ -11,6 +11,15 @@ CONFFLAGS=(
 )
 
 ## this fixes build failure
+do_unpack
+pushd_src
+sed -ibak 's/iconv_ostream__flush (iconv_ostream_t stream)$/iconv_ostream__flush (iconv_ostream_t stream, ostream_flush_scope_t scope)/' libtextstyle/lib/iconv-ostream.c
+ac_cv_prog_cc_c23=no \
+am_cv_func_iconv=yes \
+am_cv_func_iconv_works=yes \
 CFLAGS="${CFLAGS/-Ofast/}" \
 CXXFLAGS="${CXXFLAGS/-Ofast/}" \
-do_unpack_compile "${CONFFLAGS[@]}"
+LIBS="-liconv $LIBS" \
+do_configure "${CONFFLAGS[@]}"
+do_make_and_install
+popd_src
