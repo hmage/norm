@@ -1,7 +1,13 @@
 #!/bin/bash
 
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## enables GzipInputStream, osx provides the library
+depends_on libabsl
 
-fetch_source https://github.com/google/protobuf/releases/download/v31.1/protobuf-31.1.tar.gz da10aaa3bf779735a8a9acde1256a47ce5d148be
+fetch_source https://github.com/protocolbuffers/protobuf/releases/download/v33.5/protobuf-33.5.tar.gz 24f666eb4974e405581da5a174eb7f9113eb1241
 
-do_unpack_compile
+do_unpack
+pushd_src
+do_cmake -Dprotobuf_BUILD_TESTS=OFF
+find . -name flags.make -exec sed -ibak "s|-I$PREFIX/include ||g" {} +
+do_make_and_install
+popd_src
