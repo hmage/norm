@@ -2,6 +2,6 @@
 
 [[ $OSTYPE == *darwin* ]] && log "valgrind has very weak support for darwin, refusing to build" && false
 
-fetch_source https://sourceware.org/pub/valgrind/valgrind-3.25.1.tar.bz2 4d2cc4d527213f81af573bca4d2cb93ccac7f274
+fetch_source https://sourceware.org/pub/valgrind/valgrind-3.26.0.tar.bz2 c32f135761724db05f018fff67e06c4edf328770
 
 do_unpack_compile --without-mpicc ## avoid opportunistic linking with libmpi, since we're not interested in mpi
