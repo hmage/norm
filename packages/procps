@@ -5,7 +5,7 @@
 needs_tool pkg-config ## to find libncurses
 depends_on libncurses
 
-fetch_source https://downloads.sourceforge.net/procps-ng/Production/procps-ng-4.0.0.tar.xz 70f2e8fa5b2643330fe93bde6346feab3149dc5e
+fetch_source https://downloads.sourceforge.net/procps-ng/Production/procps-ng-4.0.6.tar.xz 6e23f716a86dbec3174c05bdc23a02aa72ac3185
 
 OURNAME=`basename "${BASH_SOURCE[0]}"` ## get our filename, it could be a library name
 
