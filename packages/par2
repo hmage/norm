@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/Parchive/par2cmdline/releases/download/v1.1.0/par2cmdline-1.1.0.tar.gz 881463ad9ef72a0ed3938a33d32f6727b1cacd3e
+fetch_source https://github.com/Parchive/par2cmdline/releases/download/v1.1.1/par2cmdline-1.1.1.tar.gz 333d0da60683f7ea82a88cb3f0ad24ba94ac80a8
 
 do_unpack_compile
