@@ -1,0 +1,12 @@
+#!/bin/bash
+
+needs_tool cmake
+
+fetch_source https://github.com/jbeder/yaml-cpp/archive/refs/tags/yaml-cpp-0.9.0.tar.gz 9d008f9d45ab3950f1f2f1edd3167bbed032063f
+
+CONFFLAGS=(
+-DYAML_BUILD_SHARED_LIBS=ON ## libyaml-cpp.a "cannot be used when making a shared object"
+-DYAML_CPP_BUILD_TESTS=OFF ## save time
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
