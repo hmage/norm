@@ -6,7 +6,7 @@ depends_on libtasn1
 depends_on libunistring
 depends_on libp11-kit
 
-fetch_source https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.11.tar.xz 112b50f152fb4357c80f8ab0ec604a2af547f39d
+fetch_source https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.12.tar.xz d0bc40f70507922f632658f8991328c917ce6729
 
 CONFFLAGS=(
 --disable-libdane ## somehow forces linking against system libnettle
@@ -17,4 +17,5 @@ CONFFLAGS=(
 --without-zlib    ## avoid CRIME attack, CVE-2012-4929
 )
 
+MAKEINFO=true \
 do_unpack_compile "${CONFFLAGS[@]}"
