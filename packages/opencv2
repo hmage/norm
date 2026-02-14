@@ -1,14 +1,32 @@
 #!/bin/bash
 
 needs_tool cmake
+depends_on libpng
+depends_on libjpeg
+depends_on libtiff
+depends_on libjasper
+depends_on zlib ## required when BUILD_ZLIB=OFF to use system zlib
 
 fetch_source https://github.com/opencv/opencv/archive/2.4.13.7.tar.gz d31ee6b8087648fb015327cd968d798f3e510451
 
 CONFFLAGS=(
 -DWITH_CUDA=OFF ## fails to build with cuda 10.1, and we don't need it anyway
 -DWITH_FFMPEG=OFF ## fails to build with newest ffmpeg
+-DWITH_OPENCL=OFF ## opencv2 ocl module breaks with modern clang
+-DWITH_OPENEXR=OFF ## bundled openexr in opencv2 is too old for modern toolchains
+-DCMAKE_POLICY_VERSION_MINIMUM=3.5 ## cmake >=4 drops compatibility defaults used by opencv 2.x
+-DBUILD_ZLIB=OFF ## bundled zlib fails with modern macOS SDK headers
+-DWITH_JASPER=ON ## keep JPEG2000 support via system libjasper
+-DBUILD_JASPER=OFF ## bundled jasper fails with modern clang/C99 defaults
+-DBUILD_PNG=OFF ## bundled libpng expects legacy system headers
+-DBUILD_JPEG=OFF
+-DBUILD_TIFF=OFF
+-DBUILD_opencv_ocl=OFF
+-DBUILD_TESTS=OFF
+-DBUILD_PERF_TESTS=OFF
 )
 
 do_unpack
+sed -i.bak 's/cmake_policy(SET CMP0042 OLD)/cmake_policy(SET CMP0042 NEW)/' "$SRCDIR/CMakeLists.txt"
 do_compile_outside "${CONFFLAGS[@]}"
 
