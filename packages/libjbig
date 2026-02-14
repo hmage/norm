@@ -1,12 +1,13 @@
 #!/bin/bash
 
 fetch_source http://deb.debian.org/debian/pool/main/j/jbigkit/jbigkit_2.1.orig.tar.gz 4864646df004e8331d19f2fa103ed731fdb6c099
+fetch_debian http://deb.debian.org/debian/pool/main/j/jbigkit/jbigkit_2.1-6.1.debian.tar.xz ba344ca00fadcd6dd6761fe5fed6c8b306f2c9fb
 
-do_unpack
+do_undebian
 pushd_src
 cd libjbig
 ## add -fPIC, otherwise it will fail to link with libtiff on x64 linux (relocation failure)
-do_make CC=$CC CFLAGS="-g -O2 -fPIC"
+do_make CC=$CC CFLAGS="-g -O2 -fPIC" libjbig.a libjbig85.a tstcodec tstcodec85
 do_test CC=$CC CFLAGS="-g -O2 -fPIC"
 install -d $PREFIX/lib
 install -m 644 *.a $PREFIX/lib
