@@ -6,7 +6,7 @@ depends_on glib
 depends_on libsdl2 ## for GUI
 needs_tool ninja ## for building
 
-fetch_source https://download.qemu.org/qemu-10.0.3.tar.xz 127603cc7b14684b2b10e745d29fceefe05c38de
+fetch_source https://download.qemu.org/qemu-10.2.1.tar.xz 53ce67b2b57cccac3655c2ea6c4d88283dbef4f7
 
 CONFFLAGS=(
 --target-list=x86_64-softmmu ## if you need anything else, change this, optionally make a pull request or fill an issue
@@ -18,6 +18,7 @@ CONFFLAGS=(
 )
 
 ## fix build failure with error "pragma STDC FENV_ACCESS ON is illegal when precise is disabled"
+PATH="$PREFIX/bin:$PATH" \
 CFLAGS="${CFLAGS/-Ofast/}" \
 CXXFLAGS="${CXXFLAGS/-Ofast/}" \
 do_unpack_compile "${CONFFLAGS[@]}"
