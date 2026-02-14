@@ -1,19 +1,42 @@
 #!/bin/bash
 
 fetch_source http://deb.debian.org/debian/pool/main/b/bzip2/bzip2_1.0.8.orig.tar.gz bf7badf7e248e0ecf465d33c2f5aeec774209227
+fetch_debian http://deb.debian.org/debian/pool/main/b/bzip2/bzip2_1.0.8-6.debian.tar.bz2 339a767cb2f05ec32402bae7269d98fd14413428
 
-do_unpack
+do_undebian
 pushd_src
 sed -ibak 's/^CFLAGS=/CFLAGS=-fpic -fPIC /' Makefile ## otherwise imagemagick will fail to link on x64 linux
+if [[ $OSTYPE == *darwin* ]]; then
+    sed -ibak 's/^bzip2: libbz2\.so bzip2\.o$/bzip2: libbz2.a bzip2.o/' Makefile
+fi
 do_make
-do_install PREFIX=$PREFIX
-if [[ $OSTYPE != *darwin* ]]; then
-    ## shared library needs to be built and installed manually
-    do_make -f Makefile-libbz2_so clean
-    do_make -f Makefile-libbz2_so
-    install -d $PREFIX/lib
-    install -m 755 libbz2.so.* $PREFIX/lib
-    cp -fd libbz2.so.1.0 $PREFIX/lib/
-    ln -fs libbz2.so.1.0 $PREFIX/lib/libbz2.so.1
+install -d $PREFIX/bin
+install -d $PREFIX/lib
+install -d $PREFIX/man/man1
+install -d $PREFIX/include
+
+install -m 755 bzip2 $PREFIX/bin/bzip2
+ln -fs bzip2 $PREFIX/bin/bunzip2
+ln -fs bzip2 $PREFIX/bin/bzcat
+install -m 755 bzip2recover $PREFIX/bin/bzip2recover
+
+install -m 755 bzgrep $PREFIX/bin/bzgrep
+ln -fs bzgrep $PREFIX/bin/bzegrep
+ln -fs bzgrep $PREFIX/bin/bzfgrep
+install -m 755 bzmore $PREFIX/bin/bzmore
+ln -fs bzmore $PREFIX/bin/bzless
+install -m 755 bzdiff $PREFIX/bin/bzdiff
+ln -fs bzdiff $PREFIX/bin/bzcmp
+
+install -m 644 bzip2.1 bzgrep.1 bzmore.1 bzdiff.1 $PREFIX/man/man1
+printf '.so man1/bzgrep.1\n' > $PREFIX/man/man1/bzegrep.1
+printf '.so man1/bzgrep.1\n' > $PREFIX/man/man1/bzfgrep.1
+printf '.so man1/bzmore.1\n' > $PREFIX/man/man1/bzless.1
+printf '.so man1/bzdiff.1\n' > $PREFIX/man/man1/bzcmp.1
+
+install -m 644 bzlib.h $PREFIX/include/bzlib.h
+install -m 644 libbz2.a $PREFIX/lib/libbz2.a
+if ls libbz2.so* >/dev/null 2>&1; then
+    cp -fa libbz2.so* $PREFIX/lib/
 fi
 popd_src
