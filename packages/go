@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## Build go completely from source and avoid downloading any go binaries.
+## To this end, we bootstrap - build go that compiles with C compiler, then build newer go that is supported by bootstrapped go, and so on, until we reach latest version of go.
+
 ## TODO: wants /etc/services
 if ! is_without tests; then
     [[ ! -e /etc/services ]] && log "Go requires /etc/services to successfully test" && false
@@ -13,6 +16,348 @@ fi
 fetch_source https://github.com/golang/go/archive/bdd4b9503e47c2c38a9d0a9bb2f5d95ec5ff8ef6.tar.gz b1092edf37195a3d45eb5bd7e54139ac806cc9ac
 
 do_unpack
+
+# Fix go1.4 toolchain bootstrap on modern macOS:
+# - old cmd/ld Mach-O layout maps __DWARF vmaddrs into __DATA (dyld rejects with "__DATA overlaps __DWARF").
+# - old mach_msg_trap syscall ABI is guarded (EXC_GUARD/SIGKILL).
+# - bsdthread_register is unusable; create threads via libpthread's callback + minimal pthread_t.
+do_patch_inline <<'EOF'
+--- a/src/cmd/ld/dwarf.c
++++ b/src/cmd/ld/dwarf.c
+@@ -2386,37 +2386,38 @@
+ 	ms = newMachoSeg("__DWARF", nsect);
+ 	ms->fileoffset = fakestart;
+ 	ms->filesize = abbrevo-fakestart;
+-	ms->vaddr = ms->fileoffset + segdata.vaddr - segdata.fileoff;
++	// Place __DWARF after __DATA to avoid overlaps on modern dyld.
++	ms->vaddr = segdata.vaddr + rnd(segdata.len, INITRND);
+ 
+ 	msect = newMachoSect(ms, "__debug_abbrev", "__DWARF");
+ 	msect->off = abbrevo;
+ 	msect->size = abbrevsize;
+-	msect->addr = msect->off + segdata.vaddr - segdata.fileoff;
++	msect->addr = msect->off + ms->vaddr - ms->fileoffset;
+ 	ms->filesize += msect->size;
+ 
+ 	msect = newMachoSect(ms, "__debug_line", "__DWARF");
+ 	msect->off = lineo;
+ 	msect->size = linesize;
+-	msect->addr = msect->off + segdata.vaddr - segdata.fileoff;
++	msect->addr = msect->off + ms->vaddr - ms->fileoffset;
+ 	ms->filesize += msect->size;
+ 
+ 	msect = newMachoSect(ms, "__debug_frame", "__DWARF");
+ 	msect->off = frameo;
+ 	msect->size = framesize;
+-	msect->addr = msect->off + segdata.vaddr - segdata.fileoff;
++	msect->addr = msect->off + ms->vaddr - ms->fileoffset;
+ 	ms->filesize += msect->size;
+ 
+ 	msect = newMachoSect(ms, "__debug_info", "__DWARF");
+ 	msect->off = infoo;
+ 	msect->size = infosize;
+-	msect->addr = msect->off + segdata.vaddr - segdata.fileoff;
++	msect->addr = msect->off + ms->vaddr - ms->fileoffset;
+ 	ms->filesize += msect->size;
+ 
+ 	if (pubnamessize > 0) {
+ 		msect = newMachoSect(ms, "__debug_pubnames", "__DWARF");
+ 		msect->off = pubnameso;
+ 		msect->size = pubnamessize;
+-		msect->addr = msect->off + segdata.vaddr - segdata.fileoff;
++		msect->addr = msect->off + ms->vaddr - ms->fileoffset;
+ 		ms->filesize += msect->size;
+ 	}
+ 
+@@ -2424,7 +2425,7 @@
+ 		msect = newMachoSect(ms, "__debug_pubtypes", "__DWARF");
+ 		msect->off = pubtypeso;
+ 		msect->size = pubtypessize;
+-		msect->addr = msect->off + segdata.vaddr - segdata.fileoff;
++		msect->addr = msect->off + ms->vaddr - ms->fileoffset;
+ 		ms->filesize += msect->size;
+ 	}
+ 
+@@ -2432,7 +2433,7 @@
+ 		msect = newMachoSect(ms, "__debug_aranges", "__DWARF");
+ 		msect->off = arangeso;
+ 		msect->size = arangessize;
+-		msect->addr = msect->off + segdata.vaddr - segdata.fileoff;
++		msect->addr = msect->off + ms->vaddr - ms->fileoffset;
+ 		ms->filesize += msect->size;
+ 	}
+ 
+@@ -2441,7 +2442,7 @@
+ 		msect = newMachoSect(ms, "__debug_gdb_scripts", "__DWARF");
+ 		msect->off = gdbscripto;
+ 		msect->size = gdbscriptsize;
+-		msect->addr = msect->off + segdata.vaddr - segdata.fileoff;
++		msect->addr = msect->off + ms->vaddr - ms->fileoffset;
+ 		ms->filesize += msect->size;
+ 	}
+ }
+--- a/src/cmd/ld/macho.c
++++ b/src/cmd/ld/macho.c
+@@ -442,7 +442,8 @@
+ 
+ 		if(linkmode != LinkExternal) {
+ 			ms = newMachoSeg("__LINKEDIT", 0);
+-			ms->vaddr = va+v+rnd(segdata.len, INITRND);
++			// Keep __LINKEDIT after __DWARF to avoid vmaddr overlaps.
++			ms->vaddr = va+v+rnd(segdata.len, INITRND) + rnd(segdwarf.filelen, INITRND);
+ 			ms->vsize = s1->size + s2->size + s3->size + s4->size;
+ 			ms->fileoffset = linkoff;
+ 			ms->filesize = ms->vsize;
+--- a/src/runtime/asm_amd64.s
++++ b/src/runtime/asm_amd64.s
+@@ -61,6 +61,17 @@
+ 	CMPL	runtime·issolaris(SB), $1
+ 	JEQ ok
+ 
++#ifdef GOOS_darwin
++	// Save libpthread's pointer-munge token before we repurpose %gs/TLS for Go.
++	// libpthread stores the token in the pthread_t for the current thread.
++	// We use it later to fabricate minimal pthread_t objects for bsdthread_create.
++	MOVQ	0(GS), AX		// pthread_t*
++	TESTQ	AX, AX
++	JEQ	2(PC)
++	MOVQ	0x118(AX), AX		// __pthread_ptr_munge_token
++	MOVQ	AX, runtime·pthread_munge_token(SB)
++#endif
++
+ 	LEAQ	runtime·tls0(SB), DI
+ 	CALL	runtime·settls(SB)
+ 
+--- a/src/runtime/os_darwin.c
++++ b/src/runtime/os_darwin.c
+@@ -14,6 +14,11 @@
+ static Sigset sigset_none;
+ static Sigset sigset_all = ~(Sigset)0;
+ 
++// libpthread pointer-munge token, read early in rt0_go before we repurpose
++// %gs/TLS for the Go runtime. Used to fabricate minimal pthread_t objects for
++// bsdthread_create when libpthread owns the thread start callback.
++uintptr runtime·pthread_munge_token;
++
+ static void
+ unimplemented(int8 *name)
+ {
+@@ -97,7 +102,11 @@
+ 	// Register our thread-creation callback (see sys_darwin_{amd64,386}.s)
+ 	// but only if we're not using cgo.  If we are using cgo we need
+ 	// to let the C pthread library install its own thread-creation callback.
+-	if(!runtime·iscgo) {
++	// On modern Darwin, libpthread initializes early and installs its own
++	// bsdthread_start callback; attempting to register ours fails (EINVAL).
++	// We rely on libpthread's start routine and arrange for it to call into
++	// the Go runtime instead (see newosproc).
++	if(0 && !runtime·iscgo) {
+ 		if(runtime·bsdthread_register() != 0) {
+ 			if(runtime·getenv("DYLD_INSERT_LIBRARIES"))
+ 				runtime·throw("runtime: bsdthread_register error (unset DYLD_INSERT_LIBRARIES)");
+@@ -112,6 +121,9 @@
+ {
+ 	int32 errno;
+ 	Sigset oset;
++	uintptr stacksize;
++	byte *region;
++	byte *pthread;
+ 
+ 	mp->tls[0] = mp->id;	// so 386 asm can find it
+ 	if(0){
+@@ -120,7 +132,44 @@
+ 	}
+ 
+ 	runtime·sigprocmask(SIG_SETMASK, &sigset_all, &oset);
+-	errno = runtime·bsdthread_create(stk, mp, mp->g0, runtime·mstart);
++
++	// libpthread registers the process-wide bsdthread_start callback early on
++	// modern Darwin, so we can't use bsdthread_register ourselves. Instead,
++	// create a thread using bsdthread_create and provide a minimal pthread_t
++	// object that libpthread's __pthread_start will accept, so it can call
++	// our entrypoint (mstart_stub).
++	//
++	// Important: libpthread expects the "pthread" pointer to sit at the top of
++	// the thread's stack mapping. Allocate a single mapping with stack below and
++	// the pthread_t object above; pass the pthread_t base both as the stack
++	// pointer and as the "pthread" argument to the syscall.
++	// Go 1.4 normally gives each m->g0 a tiny (~8K) stack. That worked when the
++	// kernel jumped directly into the Go callback (bsdthread_start). When
++	// libpthread owns the callback it runs substantial startup code on the new
++	// thread stack before calling into Go, so we must use a larger stack to
++	// avoid corrupting state.
++	//
++	// Match libpthread's default stack size (512KB) when no explicit size is set.
++	stacksize = 0x80000;
++	region = runtime·mmap(nil, stacksize + 0x2000, PROT_READ|PROT_WRITE, MAP_ANON|MAP_PRIVATE, -1, 0);
++	if(region < (byte*)4096)
++		runtime·throw("runtime: failed to allocate stack/pthread region");
++	pthread = region + stacksize;
++
++	// Install stack bounds for g0 to match the actual OS thread stack.
++	mp->g0->stack.lo = (uintptr)region;
++	mp->g0->stack.hi = (uintptr)pthread;
++
++	if(runtime·pthread_munge_token == 0)
++		runtime·throw("runtime: missing pthread munge token");
++	*(uintptr*)pthread = runtime·pthread_munge_token ^ (uintptr)pthread;	// munged self pointer
++	*(uintptr*)(pthread+0x118) = runtime·pthread_munge_token;		// cached token (libpthread)
++	*(uintptr*)(pthread+0x90) = (uintptr)runtime·mstart_stub;		// start function
++	*(uintptr*)(pthread+0x98) = (uintptr)mp;				// start arg (M*)
++	*(uint16*)(pthread+0xa6) = 3;					// default cancel state
++
++	stk = pthread;
++	errno = runtime·bsdthread_create(stk, mp, (G*)pthread, runtime·mstart_stub);
+ 	runtime·sigprocmask(SIG_SETMASK, &oset, nil);
+ 
+ 	if(errno < 0) {
+--- a/src/runtime/os_darwin.h
++++ b/src/runtime/os_darwin.h
+@@ -5,6 +5,7 @@
+ typedef byte* kevent_udata;
+ 
+ int32	runtime·bsdthread_create(void*, M*, G*, void(*)(void));
++void	runtime·mstart_stub(void);
+ int32	runtime·bsdthread_register(void);
+ int32	runtime·mach_msg_trap(MachHeader*, int32, uint32, uint32, uint32, uint32, uint32);
+ uint32	runtime·mach_reply_port(void);
+--- a/src/runtime/sys_darwin_amd64.s
++++ b/src/runtime/sys_darwin_amd64.s
+@@ -354,13 +354,26 @@
+ // void bsdthread_register(void)
+ // registers callbacks for threadstart (see bsdthread_create above
+ // and wqthread and pthsize (not used).  returns 0 on success.
+-TEXT runtime·bsdthread_register(SB),NOSPLIT,$0
++TEXT runtime·bsdthread_register(SB),NOSPLIT,$64
++	// Modern Darwin expects a pthread init data pointer + size and a non-zero
++	// dispatch queue offset. Use the same 56-byte (0x38) init data layout that
++	// libpthread uses; we do not use workqueues but provide a minimal wqthread stub.
++	MOVQ	$0x38, 0(SP)	// initdata.version
++	MOVQ	$0xa0, 8(SP)	// initdata.dispatch_queue_offset
++	MOVQ	$0, 16(SP)
++	MOVQ	$0x28000000e0, AX
++	MOVQ	AX, 24(SP)
++	MOVQ	$0x18, 32(SP)
++	MOVQ	$0, 40(SP)
++	MOVQ	$0x3c000000188, AX
++	MOVQ	AX, 48(SP)
++
+ 	MOVQ	$runtime·bsdthread_start(SB), DI	// threadstart
+-	MOVQ	$0, SI	// wqthread, not used by us
+-	MOVQ	$0, DX	// pthsize, not used by us
+-	MOVQ	$0, R10	// dummy_value [sic]
+-	MOVQ	$0, R8	// targetconc_ptr
+-	MOVQ	$0, R9	// dispatchqueue_offset
++	MOVQ	$runtime·wqthread_start(SB), SI	// wqthread
++	MOVQ	$0x2000, DX	// pthsize
++	LEAQ	0(SP), R10	// pthread_init_data
++	MOVQ	$0x38, R8	// initdata size
++	MOVQ	$0xa0, R9	// dispatchqueue_offset
+ 	MOVQ	$(0x2000000+366), AX	// bsdthread_register
+ 	SYSCALL
+ 	JCC 4(PC)
+@@ -377,15 +390,32 @@
+ TEXT runtime·mach_msg_trap(SB),NOSPLIT,$0
+ 	MOVQ	h+0(FP), DI
+ 	MOVL	op+8(FP), SI
+-	MOVL	send_size+12(FP), DX
+-	MOVL	rcv_size+16(FP), R10
+-	MOVL	rcv_name+20(FP), R8
+-	MOVL	timeout+24(FP), R9
+-	MOVL	notify+28(FP), R11
+-	PUSHQ	R11	// seventh arg, on stack
+-	MOVL	$(0x1000000+31), AX	// mach_msg_trap
++	// Use mach_msg2_trap (47) packed ABI to avoid EXC_GUARD on modern Darwin.
++	MOVQ	$0x200000000, AX
++	ORQ	AX, SI
++	MOVL	send_size+12(FP), AX
++	SHLQ	$32, AX
++	MOVL	0(DI), CX	// msgh_bits
++	ORQ	CX, AX
++	MOVQ	AX, DX		// (send_size<<32) | msgh_bits
++	MOVQ	8(DI), R10	// packed remote/local ports from header
++	MOVQ	16(DI), R8	// packed reserved/id from header
++	MOVL	rcv_name+20(FP), AX
++	SHLQ	$32, AX
++	MOVL	notify+28(FP), CX
++	ORQ	CX, AX
++	MOVQ	AX, R9		// (rcv_name<<32) | notify
++	MOVL	timeout+24(FP), AX
++	PUSHQ	AX		// arg8: timeout
++	MOVL	rcv_size+16(FP), AX
++	PUSHQ	AX		// arg7: rcv_size
++	// Pad so kernel sees stack args at 8(SP), 16(SP).
++	PUSHQ	$0
++	MOVL	$(0x1000000+47), AX	// mach_msg2_trap
+ 	SYSCALL
+-	POPQ	R11
++	POPQ	CX		// pad
++	POPQ	CX		// rcv_size
++	POPQ	CX		// timeout
+ 	MOVL	AX, ret+32(FP)
+ 	RET
+ 
+@@ -509,3 +539,58 @@
+ 	MOVL	$(0x2000000+92), AX  // fcntl
+ 	SYSCALL
+ 	RET
++
++// Workqueue thread entry for bsdthread_register on modern Darwin.
++// Go runtime does not use workqueues; if invoked, exit the OS thread.
++TEXT runtime·wqthread_start(SB),NOSPLIT,$0
++	PUSHQ	$0
++	PUSHQ	BP
++	MOVQ	SP, BP
++	SUBQ	$16, SP
++
++	// bsdthread_terminate / exit1(0)
++	XORL	DI, DI
++	MOVL	$(0x2000000+361), AX
++	SYSCALL
++
++	// If the syscall returns, crash hard.
++	MOVQ	BP, SP
++	POPQ	BP
++	POPQ	CX
++	BYTE	$0x0f
++	BYTE	$0x0b
++	RET
++
++// Entry point used when libpthread (not the Go runtime) owns the
++// bsdthread_start callback. The kernel will arrange for libpthread to
++// call this function pointer with arg in DI.
++//
++// SysV ABI:
++//	DI = arg (M*)
++TEXT runtime·mstart_stub(SB),NOSPLIT,$0
++	// Save m in a register that survives SYSCALL.
++	// (SYSCALL clobbers RCX and R11 on amd64.)
++	MOVQ	DI, R12
++
++	// Install g = m->g0.
++	MOVQ	m_g0(R12), AX
++	// On modern Darwin the kernel/libpthread set up the per-thread GS base
++	// for pthread TSD before calling into the thread start callback.
++	// We avoid thread_fast_set_cthread_self (which can be restricted) and
++	// store g directly in the fixed slot at gs:0x8a0.
++	MOVQ	AX, 0x8a0(GS)
++	MOVQ	R12, g_m(AX)
++
++	// Verify that SP is within g0's stack bounds.
++	CALL	runtime·stackcheck(SB)
++
++	// Enter the Go runtime scheduler on this thread.
++	CALL	runtime·mstart(SB)
++
++	// mstart should never return. If it does, terminate this OS thread
++	// without returning into libpthread (TLS no longer points to pthread data).
++	XORL	DI, DI
++	MOVL	$(0x2000000+361), AX	// bsdthread_terminate / exit1(0)
++	SYSCALL
++	MOVL	$0xf1, 0xf1  // crash
++	RET
+EOF
+
 pushd_src
 cd src
 GOROOT_FINAL="$PREFIX/go-bootstrap" GOBIN="$SRCDIR/bin" GO_LDFLAGS="-L $PREFIX/lib" GO_CCFLAGS="-I $PREFIX/include" ./make.bash --no-banner
@@ -24,6 +369,38 @@ popd_src
 # 1.17.13 needed for 1.20
 fetch_source https://go.dev/dl/go1.17.13.src.tar.gz 88e2bd59e440816155b9355a74185269b220453a
 do_unpack
+# Modern dyld rejects Mach-O executables without LC_UUID.
+do_patch_inline <<'EOF'
+--- a/src/cmd/link/internal/ld/macho.go
++++ b/src/cmd/link/internal/ld/macho.go
+@@ -12,6 +12,7 @@
+ 	"cmd/internal/sys"
+ 	"cmd/link/internal/loader"
+ 	"cmd/link/internal/sym"
++	"crypto/sha256"
+ 	"debug/macho"
+ 	"encoding/binary"
+ 	"fmt"
+@@ -846,6 +847,18 @@
+ 			}
+ 		}
+ 
++		// Modern dyld rejects Mach-O executables without LC_UUID.
++		// Older Go internal linkers didn't emit it, so add a deterministic UUID
++		// derived from the Go build ID.
++		if ctxt.IsInternal() {
++			ml := newMachoLoad(ctxt.Arch, LC_UUID, 4)
++			sum := sha256.Sum256([]byte(*flagBuildid))
++			ml.data[0] = ctxt.Arch.ByteOrder.Uint32(sum[0:4])
++			ml.data[1] = ctxt.Arch.ByteOrder.Uint32(sum[4:8])
++			ml.data[2] = ctxt.Arch.ByteOrder.Uint32(sum[8:12])
++			ml.data[3] = ctxt.Arch.ByteOrder.Uint32(sum[12:16])
++		}
++
+ 		if ctxt.IsInternal() && ctxt.NeedCodeSign() {
+ 			ml := newMachoLoad(ctxt.Arch, LC_CODE_SIGNATURE, 2)
+ 			ml.data[0] = uint32(codesigOff)
+EOF
 pushd_src
 cd src
 GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap" GOROOT_FINAL="$PREFIX/go-bootstrap117" GO_LDFLAGS="-L $PREFIX/lib" ./make.bash --no-banner
@@ -33,8 +410,76 @@ cp -a bin pkg src "$PREFIX/go-bootstrap117"
 rm -rf "$PREFIX/go-bootstrap"
 popd_src
 
+# 1.20.14 needed for 1.22.12
+fetch_source https://go.dev/dl/go1.20.14.src.tar.gz 2c8f790b26d41a52eae0f848eaabc65ec02f2034
+do_unpack
+# Modern dyld rejects Mach-O executables without LC_UUID.
+do_patch_inline <<'EOF'
+--- a/src/cmd/link/internal/ld/macho.go
++++ b/src/cmd/link/internal/ld/macho.go
+@@ -11,6 +11,7 @@
+ 	"cmd/internal/sys"
+ 	"cmd/link/internal/loader"
+ 	"cmd/link/internal/sym"
++	"crypto/sha256"
+ 	"debug/macho"
+ 	"encoding/binary"
+ 	"fmt"
+@@ -848,6 +849,18 @@
+ 			}
+ 		}
+ 
++		// Modern dyld rejects Mach-O executables without LC_UUID.
++		// Older Go internal linkers didn't emit it, so add a deterministic UUID
++		// derived from the Go build ID.
++		if ctxt.IsInternal() {
++			ml := newMachoLoad(ctxt.Arch, LC_UUID, 4)
++			sum := sha256.Sum256([]byte(*flagBuildid))
++			ml.data[0] = ctxt.Arch.ByteOrder.Uint32(sum[0:4])
++			ml.data[1] = ctxt.Arch.ByteOrder.Uint32(sum[4:8])
++			ml.data[2] = ctxt.Arch.ByteOrder.Uint32(sum[8:12])
++			ml.data[3] = ctxt.Arch.ByteOrder.Uint32(sum[12:16])
++		}
++
+ 		if ctxt.IsInternal() && ctxt.NeedCodeSign() {
+ 			ml := newMachoLoad(ctxt.Arch, LC_CODE_SIGNATURE, 2)
+ 			ml.data[0] = uint32(codesigOff)
+EOF
+pushd_src
+cd src
+PROMPT_COMMAND="" PROMPT_TITLE="" \
+GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap117" GOROOT_FINAL="$PREFIX/go-bootstrap120" GO_LDFLAGS="-L $PREFIX/lib" ./make.bash --no-banner
+cd ..
+mkdir -p "$PREFIX/go-bootstrap120"
+cp -a bin pkg src "$PREFIX/go-bootstrap120"
+popd_src
+rm -rf "$PREFIX/go-bootstrap117"
 
-fetch_source https://go.dev/dl/go1.20.src.tar.gz a7236459104fe2d8582cd8e2bf4935d4eab9721b
+# 1.22.12 needed for 1.24.13
+fetch_source https://go.dev/dl/go1.22.12.src.tar.gz c60942afe47c977e2dffa7b4bce3398972551814
+do_unpack
+pushd_src
+cd src
+GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap120" GOROOT_FINAL="$PREFIX/go-bootstrap122" GO_LDFLAGS="-L $PREFIX/lib" ./make.bash --no-banner
+cd ..
+mkdir -p "$PREFIX/go-bootstrap122"
+cp -a bin pkg src "$PREFIX/go-bootstrap122"
+rm -rf "$PREFIX/go-bootstrap120"
+popd_src
+
+# 1.24.13 needed for 1.26.0
+fetch_source https://go.dev/dl/go1.24.13.src.tar.gz f6a7b81b5dba0079645a00832b35250e9bec9509
+do_unpack
+pushd_src
+cd src
+GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap122" GOROOT_FINAL="$PREFIX/go-bootstrap124" GO_LDFLAGS="-L $PREFIX/lib" ./make.bash --no-banner
+cd ..
+mkdir -p "$PREFIX/go-bootstrap124"
+cp -a bin pkg src "$PREFIX/go-bootstrap124"
+rm -rf "$PREFIX/go-bootstrap122"
+popd_src
+
+fetch_source https://go.dev/dl/go1.26.0.src.tar.gz ba6b6474c3c38bf614f3fa7d3cad3a160f561583
 do_unpack
 pushd_src
 cd src
@@ -45,7 +490,7 @@ else
     is_with tests && CMD=./all.bash
 fi
 PROMPT_COMMAND="" PROMPT_TITLE="" \
-GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap117" GOROOT_FINAL="$PREFIX/go" GO_LDFLAGS="-L $PREFIX/lib" $CMD --no-banner
+GOROOT_BOOTSTRAP="$PREFIX/go-bootstrap124" GOROOT_FINAL="$PREFIX/go" GO_LDFLAGS="-L $PREFIX/lib" $CMD --no-banner
 cd ..
 rm -rf "$PREFIX/go"
 mkdir -p "$PREFIX/go"
@@ -54,4 +499,4 @@ mkdir -p "$PREFIX/bin"
 ln -fs ../go/bin/go "$PREFIX/bin/go"
 ln -fs ../go/bin/gofmt "$PREFIX/bin/gofmt"
 popd_src
-rm -rf "$PREFIX/go-bootstrap117"
+rm -rf "$PREFIX/go-bootstrap124"
