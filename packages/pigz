@@ -2,7 +2,7 @@
 
 depends_on zlib
 
-fetch_source https://zlib.net/pigz/pigz-2.8.tar.gz 567c47a1f63e64abb2498bf42877e0c8c272d29b
+fetch_source http://deb.debian.org/debian/pool/main/p/pigz/pigz_2.8.orig.tar.xz c6c45d7da183c62bea0b6f8105f559f8b68d4e74
 
 do_unpack
 pushd_src
