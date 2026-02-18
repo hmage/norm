@@ -178,6 +178,8 @@ do_untar() {
 ## sets global SRCDIR
 set_srcdir() {
     SRCDIR="$COMPILEDIR/$FORMULA/$1"
+    ## make reproducible builds by mapping source path to /build/<formula> in debug sections
+    cc_addflags CPPFLAGS "-fdebug-prefix-map=$SRCDIR=/build/$FORMULA"
 }
 
 prep_srcdir() {
