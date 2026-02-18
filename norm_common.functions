@@ -178,8 +178,13 @@ do_untar() {
 ## sets global SRCDIR
 set_srcdir() {
     SRCDIR="$COMPILEDIR/$FORMULA/$1"
+    if [ -n "$CURRENT_DEBUG_PREFIX_MAP" ]; then
+        cc_removeflags CPPFLAGS "$CURRENT_DEBUG_PREFIX_MAP"
+    fi
+
     ## make reproducible builds by mapping source path to /build/<formula> in debug sections
-    cc_addflags CPPFLAGS "-fdebug-prefix-map=$SRCDIR=/build/$FORMULA"
+    CURRENT_DEBUG_PREFIX_MAP="-fdebug-prefix-map=$SRCDIR=/build/$FORMULA"
+    cc_addflags CPPFLAGS "$CURRENT_DEBUG_PREFIX_MAP"
 }
 
 prep_srcdir() {
@@ -611,6 +616,27 @@ cc_addflags() {
         cc_checkflags $CFLAGS ${!VARNAME} $value || continue
         export $VARNAME="${!VARNAME} $value"
     done
+}
+
+##
+## removes exact flags from a variable
+##
+## example: cc_removeflags EXTRA_CFLAGS -march=native -Wextra
+cc_removeflags() {
+    [ -z "$1" -o -z "$2" ] && return
+    local token value VARNAME=$1
+    local OUTPUT=""
+    shift 1
+
+    for token in ${!VARNAME}; do
+        local SKIP=""
+        for value; do
+            [ "$token" = "$value" ] && SKIP=1 && break
+        done
+        [ -n "$SKIP" ] && continue
+        OUTPUT="${OUTPUT}${OUTPUT:+ }$token"
+    done
+    export $VARNAME="$OUTPUT"
 }
 
 ## test_cc_expr "fcntl.h" "int a = O_CLOEXEC"
