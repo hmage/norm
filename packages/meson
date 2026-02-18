@@ -1,10 +1,6 @@
 #!/bin/bash
 
-needs_tool python3
-
-if ! python3 -c 'import setuptools'; then
-    depends_on python ## system-provided python3 doesn't have setuptools
-fi
+depends_on python
 
 fetch_source https://github.com/mesonbuild/meson/releases/download/1.10.1/meson-1.10.1.tar.gz b9f59df54f340b868535e23703ec237c22bf2c33
 
