@@ -1,5 +1,6 @@
 #!/bin/bash
 
+## Keep 1.3 intentionally: macOS ships Bash 3.x, and 1.3 is the newest release compatible with Bash 3.
 fetch_source https://src.fedoraproject.org/lookaside/extras/bash-completion/bash-completion-1.3.tar.bz2/a1262659b4bbf44dc9e59d034de505ec/bash-completion-1.3.tar.bz2 6a46b93f44c56cc336632ab28d90c0595fbcc98f
 
 do_unpack
