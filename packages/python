@@ -13,10 +13,9 @@ if [[ $OSTYPE != *darwin* ]]; then
 	depends_on libffi      ## _ctypes module, osx provides the library
 	depends_on libuuid     ## _uuid module, osx apparently provides one
 	depends_on libreadline ## readline module, osx apparently provides one
-	depends_on libtirpc    ## nis module
 fi
 
-fetch_source https://www.python.org/ftp/python/3.11.14/Python-3.11.14.tar.xz dd6254e3a92978cb506e6303d1bb0db4dfff5b7f
+fetch_source https://www.python.org/ftp/python/3.14.3/Python-3.14.3.tar.xz 83eed62ba54742382542474db798717e6ee6b3f2
 
 CONFFLAGS=(
 --enable-shared              ## otherwise python extensions fail to load
@@ -28,8 +27,7 @@ CONFFLAGS=(
 
 do_unpack
 
-## otherwise it can't find ncurses on linux
-sed -i.bak "s|/usr/include/ncursesw|$PREFIX/include/ncursesw|" "$SRCDIR/setup.py"
+## Python 3.14: ensure configure points to our ncurses headers
 sed -i.bak "s|-I/usr/include/ncursesw|-I$ESCAPED_PREFIX/include/ncursesw|" "$SRCDIR/configure"
 
 ## build breaks with parallel or Ofast
@@ -41,16 +39,28 @@ do_compile "${CONFFLAGS[@]}"
 ## small sanity check
 MODULES=(
 _asyncio _bisect _blake2 _bz2 _codecs_cn _codecs_hk _codecs_iso2022 _codecs_jp _codecs_kr _codecs_tw _contextvars
-_crypt _csv _ctypes _ctypes_test _curses _curses_panel _datetime _dbm _decimal _elementtree _gdbm _hashlib _heapq
-_json _lsprof _lzma _md5 _multibytecodec _multiprocessing _opcode _pickle _posixshmem _posixsubprocess _queue
-_random _sha1 _sha256 _sha3 _sha512 _socket _sqlite3 _ssl _statistics _struct _testbuffer _testcapi
-_testimportmultiple _testinternalcapi _testmultiphase _uuid _xxsubinterpreters _xxtestfuzz _zoneinfo array
-audioop binascii cmath fcntl grp math mmap nis pyexpat readline resource select syslog termios unicodedata
-xxlimited xxlimited_35 zlib nis
+_csv _ctypes _ctypes_test _curses _curses_panel _datetime _dbm _decimal _elementtree _gdbm _hashlib _heapq _hmac
+_interpchannels _interpreters _interpqueues _json _lsprof _lzma _md5 _multibytecodec _multiprocessing _opcode
+_pickle _posixshmem _posixsubprocess _queue _random _sha1 _sha2 _sha3 _socket _sqlite3 _ssl _statistics _struct
+_testbuffer _testcapi _testimportmultiple _testinternalcapi _testmultiphase _uuid _xxtestfuzz _zoneinfo array
+binascii cmath fcntl grp hashlib hmac math mmap pyexpat readline resource select ssl syslog termios unicodedata
+xxlimited xxlimited_35 zlib
 )
 for i in "${MODULES[@]}"; do
 	"$PREFIX/bin/python3" -c "import $i"
 done
+"$PREFIX/bin/python3" - <<'PY'
+import _hashlib
+import _ssl
+import hashlib
+import hmac
+
+## _crypt was removed in Python 3.13; validate OpenSSL-backed hashing directly instead
+assert hasattr(_hashlib, "openssl_sha256")
+assert _ssl.OPENSSL_VERSION.startswith("OpenSSL ")
+assert len(hashlib.sha256(b"norm").hexdigest()) == 64
+assert len(hmac.digest(b"k", b"norm", "sha256")) == 32
+PY
 "$PREFIX/bin/python3" -m venv "$SRCDIR/temp/venvtest"
 
 ## default python is now python3 everywhere
