@@ -6,7 +6,7 @@ depends_on libnghttp2
 depends_on libuv
 depends_on openssl
 
-fetch_source https://nodejs.org/dist/v24.13.0/node-v24.13.0.tar.xz 2df02712281407b0ad50c2d179ca18505b774a61
+fetch_source https://nodejs.org/dist/v24.13.1/node-v24.13.1.tar.xz b45f0398b58fd0242914bc35c8930f696cb66e88
 
 do_unpack
 ## this fixes build failure on OSX if gnu libtool is installed
