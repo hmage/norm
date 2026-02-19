@@ -16,7 +16,7 @@ if [[ $OSTYPE != *darwin* ]]; then
 	depends_on libtirpc    ## nis module
 fi
 
-fetch_source https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tar.xz 89ee31611b73dc0c32c178d15aa208734b462c5a
+fetch_source https://www.python.org/ftp/python/3.11.14/Python-3.11.14.tar.xz dd6254e3a92978cb506e6303d1bb0db4dfff5b7f
 
 CONFFLAGS=(
 --enable-shared              ## otherwise python extensions fail to load
