@@ -63,5 +63,12 @@ assert len(hmac.digest(b"k", b"norm", "sha256")) == 32
 PY
 "$PREFIX/bin/python3" -m venv "$SRCDIR/temp/venvtest"
 
+## Python 3.14+ no longer bundles setuptools by default; install it for setup.py/PEP517 formulas.
+fetch_source https://files.pythonhosted.org/packages/82/f3/748f4d6f65d1756b9ae577f329c951cda23fb900e4de9f70900ced962085/setuptools-82.0.0.tar.gz 55aa6a1d86e8d5a831f60eedeba82006808c7a0e
+do_unpack
+pushd_src
+"$PREFIX/bin/python3" setup.py install --prefix="$PREFIX" --single-version-externally-managed --record="$PREFIX/var/norm/python-setuptools.install-record"
+popd_src
+
 ## default python is now python3 everywhere
 ln -sf "$PREFIX/bin/python3" "$PREFIX/bin/python"
