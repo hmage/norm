@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/libsdl-org/SDL/releases/download/release-3.4.0/SDL3-3.4.0.tar.gz 5d7aaeb4c74efd6dc20331b5b32780795485788b
+fetch_source https://github.com/libsdl-org/SDL/releases/download/release-3.4.2/SDL3-3.4.2.tar.gz c3e6ad40e0cde41fb88a139c0e0cc003de0b41ea
 
-do_unpack_compile
+do_unpack_compile -DSDL_TESTS=OFF ## tests fail to configure when ffmpeg is installed due to rpath in pkg-config
