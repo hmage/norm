@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://cpan.metacpan.org/authors/id/E/EX/EXIFTOOL/Image-ExifTool-13.50.tar.gz ca9b90544de0ae533ac5a754755a7ecfec972460
+fetch_source https://sourceforge.net/projects/exiftool/files/Image-ExifTool-13.52.tar.gz/download e6840805b4e19bce61d1f7e2ecf1d6b7aa355b41 Image-ExifTool-13.52.tar.gz
 
 do_unpack
 pushd_src
