@@ -2,10 +2,14 @@
 
 depends_on python
 
-fetch_source https://github.com/mesonbuild/meson/releases/download/1.10.1/meson-1.10.1.tar.gz b9f59df54f340b868535e23703ec237c22bf2c33
+fetch_source https://github.com/mesonbuild/meson/releases/download/1.10.2/meson-1.10.2.tar.gz 97b04d0ba0e63680f2428798a56f918c961323d2
 
 do_unpack
 pushd_src
 python3 setup.py build
+# setuptools leaves old Meson egg-info behind on upgrades, which makes the
+# entrypoint resolve the stale version metadata.
+rm -rf "$PREFIX"/lib/python*/site-packages/meson-*.egg-info
+rm -rf "$PREFIX"/lib/python*/site-packages/meson-*.dist-info
 python3 setup.py install --prefix="$PREFIX" --single-version-externally-managed --record="$PREFIX/var/norm/meson.install-record"
 popd_src
