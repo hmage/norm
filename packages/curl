@@ -3,7 +3,7 @@
 [[ $OSTYPE != *darwin* ]] && depends_on zlib    ## commonly seen, osx provides the library
 depends_on openssl ## https support, SecureTransport removed in curl 8.18
 
-fetch_source https://github.com/curl/curl/releases/download/curl-8_18_0/curl-8.18.0.tar.gz 1a13070ccd2c5fe1d47cb34dd56138f69708f3f9
+fetch_source https://github.com/curl/curl/releases/download/curl-8_19_0/curl-8.19.0.tar.gz f15ff190a787ab21402b493984e636209de9e182
 
 CONFFLAGS=(
 --disable-ldap ## curl is usually a web fetcher, if you need ldap, open an issue
