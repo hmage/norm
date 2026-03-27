@@ -7,7 +7,7 @@ depends_on liblz4 ## links with liblz4
 [[ $OSTYPE != *darwin* ]] && depends_on zlib    ## zlib support, osx provides the library
 [[ $OSTYPE != *darwin* ]] && depends_on bzip2   ## bz2 support, osx provides the library
 
-fetch_source https://github.com/libarchive/libarchive/releases/download/v3.8.5/libarchive-3.8.5.tar.xz de4f6da8ed5721663f201ec8630754e3784facb0
+fetch_source https://github.com/libarchive/libarchive/releases/download/v3.8.6/libarchive-3.8.6.tar.xz 78bb0967a7bb98ea816b314651d4a0dc086b9fa2
 
 CONFFLAGS=(
 --without-libb2 ## opportunistic linking
