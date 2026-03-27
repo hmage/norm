@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://cyberelk.net/tim/data/patchutils/stable/patchutils-0.4.3.tar.xz ddb75e5f9576e9309ec835715440616106c55026
+fetch_source http://cyberelk.net/tim/data/patchutils/stable/patchutils-0.4.5.tar.xz 5bc7ddee7f51c6389b8d1f80a39875e4d5537959
 
 CONFFLAGS=(
 --without-pcre2 ## opportunistic linking
