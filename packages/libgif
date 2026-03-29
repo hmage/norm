@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://downloads.sourceforge.net/project/giflib/giflib-5.2.2.tar.gz 608ba98d2dd8d03dfa7476f434d57de50a33e10b
+fetch_source https://downloads.sourceforge.net/project/giflib/giflib-6.x/giflib-6.1.2.tar.gz bf0440c7aee5a0a151d7abbbe3657d3c1998ce86
 
 do_unpack
 pushd_src
