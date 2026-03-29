@@ -5,7 +5,7 @@ depends_on libreadline
 
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## for compressed dumps, osx provides the library
 
-fetch_source http://ftp.postgresql.org/pub/source/v15.17/postgresql-15.17.tar.bz2 09a3926425707ffcf1dd7a5bae8869f921659c13
+fetch_source http://ftp.postgresql.org/pub/source/v18.3/postgresql-18.3.tar.bz2 715414a7dcf6ca491588b1c243610f11acdc501b
 
 ## postgres does not like -ffast-math and -Wl,-dead_strip
 CFLAGS="${CFLAGS/-Ofast/}" \
