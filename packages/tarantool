@@ -10,7 +10,7 @@ depends_on zlib ## opportunistic linking
 
 needs_tool git ## build system needs git for some reason
 
-fetch_source https://download.tarantool.org/tarantool/src/tarantool-2.11.8.tar.gz 6cce0cef5491d4a2645694e59e6de13b3b493e2a
+fetch_source https://download.tarantool.org/tarantool/src/tarantool-3.5.0.tar.gz 8cb553c46b1ad910e402252eb981e8c1d81c0fed
 
 do_unpack
 sed -ibak 's|CURL_ROOT_DIR|CURL_ROOT|' "$SRCDIR"/cmake/os.cmake
