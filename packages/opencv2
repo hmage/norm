@@ -28,5 +28,6 @@ CONFFLAGS=(
 
 do_unpack
 sed -i.bak 's/cmake_policy(SET CMP0042 OLD)/cmake_policy(SET CMP0042 NEW)/' "$SRCDIR/CMakeLists.txt"
+sed -i.bak 's/&jas_matrix_get(/jas_matrix_getref(/g' "$SRCDIR/modules/highgui/src/grfmt_jpeg2000.cpp"
 do_compile_outside "${CONFFLAGS[@]}"
 
