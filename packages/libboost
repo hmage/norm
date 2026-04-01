@@ -1,9 +1,6 @@
 #!/bin/bash
 
-BOOST_WITHOUT_PYTHON="--without-libraries=python"
-if [[ "${BASH_SOURCE[0]##*/}" == libboost-python ]]; then
-    BOOST_WITHOUT_PYTHON="--with-libraries=python --with-python=$ESCAPED_PREFIX/bin/python --with-python-root=$ESCAPED_PREFIX"
-fi
+BOOTSTRAP_WITHOUT_LIBRARIES=()
 
 fetch_source http://downloads.sourceforge.net/project/boost/boost/1.90.0/boost_1_90_0.tar.bz2 a1d6405b423de1f0e88920337ab3334dcef9e1ec
 
@@ -31,13 +28,35 @@ boost.locale.icu=off ## opportunistic linking with libicu
 
 do_unpack
 pushd_src
+if [[ "${BASH_SOURCE[0]##*/}" == libboost-python ]]; then
+    BOOTSTRAP_ARGS+=(--with-libraries=python --with-python="$ESCAPED_PREFIX/bin/python" --with-python-root="$ESCAPED_PREFIX")
+else
+    BOOTSTRAP_WITHOUT_LIBRARIES+=(python)
+fi
 perl -i.bak -pe 's/.*-fcoalesce-templates.*//g' tools/build/src/tools/darwin.jam ## clang doen't support those anymore
 touch user-config.jam
 if [[ $OSTYPE == *darwin* ]]; then
-    echo "using darwin : : clang++ : <archiver>/usr/bin/libtool ;" >> user-config.jam
+    echo "using clang : : clang++ ;" >> user-config.jam
+    BOOST_ARGS+=(toolset=clang)
+fi
+mpi_wrapper_path=
+for mpi_wrapper in mpic++ mpiCC mpicxx; do
+    mpi_wrapper_path="$(command -v "$mpi_wrapper" 2>/dev/null || true)"
+    if [[ -n $mpi_wrapper_path ]]; then
+        echo "using mpi : $mpi_wrapper_path ;" >> user-config.jam
+        break
+    fi
+done
+if [[ -z $mpi_wrapper_path ]]; then
+    BOOTSTRAP_WITHOUT_LIBRARIES+=(mpi)
+    BOOST_ARGS+=(--without-mpi)
+fi
+if [[ ${#BOOTSTRAP_WITHOUT_LIBRARIES[@]} -gt 0 ]]; then
+    without_libraries="$(IFS=,; echo "${BOOTSTRAP_WITHOUT_LIBRARIES[*]}")"
+    BOOTSTRAP_ARGS+=(--without-libraries="$without_libraries")
 fi
 set -x
-./bootstrap.sh "${BOOTSTRAP_ARGS[@]}" $BOOST_WITHOUT_PYTHON
+./bootstrap.sh "${BOOTSTRAP_ARGS[@]}"
 ./b2 "${BOOST_ARGS[@]}"
 ./b2 "${BOOST_ARGS[@]}" install
 set +x
