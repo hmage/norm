@@ -1,13 +1,16 @@
 #!/bin/bash
 
+needs_tool cmake
+
 fetch_source https://github.com/strukturag/libde265/releases/download/v1.0.18/libde265-1.0.18.tar.gz 2c7e1db0b288e76200af42fdd79c68b0525c708f
 
 CONFFLAGS=(
---disable-sherlock265 ## sherlock265 is a GUI tool to analyze h265 frames, but requires QT to build
---disable-dec265      ## dec265 is a tool to decode frames, but requires libSDL to build
+-DENABLE_SHERLOCK265=OFF ## sherlock265 is a GUI tool to analyze h265 frames, but requires QT to build
+-DENABLE_DECODER=OFF     ## dec265 is a decoder tool, not needed as a library dependency
+-DENABLE_SDL=OFF         ## avoid opportunistic linking with libsdl
 )
 
 do_unpack
 ## fix build failure on centos 6 with gcc 4.8.2
-sed -i.bak 's/-Werror=unused-result//' "$SRCDIR"/configure
+sed -i.bak 's/-Werror=unused-result//' "$SRCDIR"/CMakeLists.txt
 do_compile "${CONFFLAGS[@]}"
