@@ -2,6 +2,13 @@
 
 [[ $OSTYPE != *linux* ]] && log "libpciaccess is a linux-specific library, refusing to build" && false
 
-fetch_source https://www.x.org/releases/individual/lib/libpciaccess-0.18.1.tar.xz 0f06bb9579544e6b18cb28514a5f77cb7fdd10a7
+depends_on meson ninja
 
-do_unpack_compile
+fetch_source https://www.x.org/releases/individual/lib/libpciaccess-0.19.tar.xz 4f83983d96d113ffebbc493715ee71a79ee24136
+
+do_unpack
+pushd_src
+meson setup --prefix="$PREFIX" --buildtype=release builddir
+ninja -C builddir
+ninja -C builddir install
+popd_src
