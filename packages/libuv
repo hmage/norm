@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://dist.libuv.org/dist/v1.52.0/libuv-v1.52.0-dist.tar.gz 32802499048dc468e4f3f43132867a5b84bb0bd2
+fetch_source https://dist.libuv.org/dist/v1.52.1/libuv-v1.52.1-dist.tar.gz 2882fda848db4283dd8cb2a04116ad14a86c20cf
 
 do_unpack_compile
