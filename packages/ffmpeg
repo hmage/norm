@@ -15,7 +15,7 @@ depends_on libxml ## for dash
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx provides the library
 depends_on libsrt ## for srt subtitles
 
-fetch_source https://ffmpeg.org/releases/ffmpeg-8.0.1.tar.xz 963990565b6599df15e23877e853ec4b0764b8ec
+fetch_source https://ffmpeg.org/releases/ffmpeg-8.1.tar.xz cee125f770f7599c3727315128a9f6928392137b
 
 CONFFLAGS=(
 --cc=${CC:-cc} # ffmpeg doesn't send CC choice
@@ -127,22 +127,5 @@ diff -urw libavformat/movenc.h libavformat/movenc.h
 +#define FF_MOV_FLAG_PIXELDENSITY          (1 << 25)
  
  int ff_mov_write_packet(AVFormatContext *s, AVPacket *pkt);
-EOF
-## libsvtav1 v4.0.0 renamed enable_adaptive_quantization to aq_mode
-## upstream fix: https://github.com/FFmpeg/FFmpeg/commit/a5d4c398b411a00ac09d8fe3b66117222323844c
-do_patch_inline -p1 << 'EOF'
---- a/libavcodec/libsvtav1.c
-+++ b/libavcodec/libsvtav1.c
-@@ -238,7 +238,11 @@ static int config_enc_params(EbSvtAv1EncConfiguration *param,
-     } else if (svt_enc->qp > 0) {
-         param->qp                   = svt_enc->qp;
-         param->rate_control_mode    = 0;
--        param->enable_adaptive_quantization = 0;
-+#if SVT_AV1_CHECK_VERSION(4, 0, 0)
-+        param->aq_mode = 0;
-+#else
-+        param->enable_adaptive_quantization = 0;
-+#endif
-     }
 EOF
 do_compile "${CONFFLAGS[@]}"
