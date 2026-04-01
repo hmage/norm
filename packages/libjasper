@@ -2,7 +2,15 @@
 
 needs_tool cmake
 
-fetch_source https://github.com/jasper-software/jasper/archive/version-4.2.8.tar.gz 4f260b9a3a004c4a3f1ddf7ab8517ce115eca60a
+fetch_source https://github.com/jasper-software/jasper/archive/version-4.2.9.tar.gz c57ec2ba91d110515b6d865eb4fb61ca3d51987a
+
+CONFFLAGS=(
+-DJAS_ENABLE_DOC=OFF
+-DJAS_ENABLE_SHARED=OFF
+-DJAS_ENABLE_PROGRAMS=OFF
+-DJAS_ENABLE_LIBHEIF=OFF
+-DJAS_INCLUDE_HEIC_CODEC=OFF ## avoid opportunistic linking with libheif in the static archive
+)
 
 do_unpack
-do_compile_outside -DJAS_ENABLE_DOC=OFF -DJAS_ENABLE_SHARED=OFF -DJAS_ENABLE_PROGRAMS=OFF
+do_compile_outside "${CONFFLAGS[@]}"
