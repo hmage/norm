@@ -3,6 +3,17 @@
 fetch_source https://downloads.sourceforge.net/project/giflib/giflib-6.x/giflib-6.1.2.tar.gz bf0440c7aee5a0a151d7abbbe3657d3c1998ce86
 
 do_unpack
+[[ $OSTYPE == *darwin* ]] && do_patch_inline -p0 << 'EOF'
+--- Makefile
++++ Makefile
+@@ -133,6 +133,6 @@
+ $(LIBUTILSO): $(UOBJECTS) $(UHEADERS)
+ ifeq ($(UNAME), Darwin)
+-	$(CC) $(CFLAGS) -dynamiclib -current_version $(LIBVER) $(UOBJECTS) -o $(LIBUTILSO)
++	$(CC) $(CFLAGS) -dynamiclib -current_version $(LIBVER) $(UOBJECTS) $(LIBGIFSO) -o $(LIBUTILSO)
+ else
+ endif
+EOF
 pushd_src
 NOPARALLEL=1 do_make all
 do_make install PREFIX="$PREFIX"
