@@ -1,15 +1,15 @@
 #!/bin/bash
 
-depends_on python
+needs_tool python3
 
 fetch_source https://github.com/mesonbuild/meson/releases/download/1.10.2/meson-1.10.2.tar.gz 97b04d0ba0e63680f2428798a56f918c961323d2
 
 do_unpack
 pushd_src
-python3 setup.py build
-# setuptools leaves old Meson egg-info behind on upgrades, which makes the
-# entrypoint resolve the stale version metadata.
-rm -rf "$PREFIX"/lib/python*/site-packages/meson-*.egg-info
-rm -rf "$PREFIX"/lib/python*/site-packages/meson-*.dist-info
-python3 setup.py install --prefix="$PREFIX" --single-version-externally-managed --record="$PREFIX/var/norm/meson.install-record"
+# Install into a venv so the entrypoint shebang finds the meson
+# package without requiring a full CPython build from source.
+MESON_VENV="$PREFIX/lib/meson-venv"
+python3 -m venv --clear --system-site-packages "$MESON_VENV"
+"$MESON_VENV/bin/python3" setup.py install --single-version-externally-managed --record="$PREFIX/var/norm/meson.install-record"
 popd_src
+ln -sf "$MESON_VENV/bin/meson" "$PREFIX/bin/meson"
