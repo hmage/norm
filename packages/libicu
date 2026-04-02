@@ -2,6 +2,9 @@
 
 fetch_source https://github.com/unicode-org/icu/releases/download/release-78.3/icu4c-78.3-sources.tgz 50cce26aef01eba162284901f202205edec01e17
 
+CONFFLAGS=()
+[[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--enable-rpath)
+
 do_unpack
 SRCDIR="$SRCDIR/source"
-do_compile
+do_compile "${CONFFLAGS[@]}"
