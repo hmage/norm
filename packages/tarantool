@@ -1,8 +1,6 @@
 #!/bin/bash
 
 needs_tool cmake
-[[ $OSTYPE != *darwin* ]] && depends_on openssl
-[[ $OSTYPE != *darwin* ]] && depends_on libreadline
 [[ $OSTYPE != *darwin* ]] && depends_on libncurses ## opportunistic linking with libtinfo
 depends_on libicu
 depends_on autoconf automake libtool ## needed for bundled libraries
@@ -10,8 +8,6 @@ depends_on zlib ## opportunistic linking
 
 needs_tool git ## build system needs git for some reason
 
-fetch_source https://download.tarantool.org/tarantool/src/tarantool-3.5.0.tar.gz 8cb553c46b1ad910e402252eb981e8c1d81c0fed
+fetch_source https://download.tarantool.org/tarantool/src/tarantool-3.6.2.tar.gz e2dd77f0341e939024d7d6d7382c8f1c7d435300
 
-do_unpack
-sed -ibak 's|CURL_ROOT_DIR|CURL_ROOT|' "$SRCDIR"/cmake/os.cmake
-do_compile -DCURL_ROOT="$PREFIX" -DREADLINE_ROOT="$PREFIX" -DICU_ROOT="$PREFIX" -DCURSES_INCLUDE_PATH="$PREFIX/include/ncurses"
+do_unpack_compile -DREADLINE_ROOT="$PREFIX" -DICU_ROOT="$PREFIX" -DCURSES_INCLUDE_PATH="$PREFIX/include/ncurses" -DENABLE_BUNDLED_OPENSSL=ON -DENABLE_BUNDLED_READLINE=ON -DCMAKE_OSX_SYSROOT="$(xcrun --show-sdk-path)"
