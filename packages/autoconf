@@ -2,6 +2,6 @@
 
 depends_on m4 ## system-provided m4 could be too old (wants m4 1.4.16 or newer)
 
-fetch_source http://ftpmirror.gnu.org/autoconf/autoconf-2.72.tar.xz 1d082d999ff4506ec8f92c6ecb9732546f5204fb
+fetch_source http://ftpmirror.gnu.org/autoconf/autoconf-2.73.tar.xz d3686a380aeb8b98ae6b3d0a7e830c16ab19524e
 
 do_unpack_compile
