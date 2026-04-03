@@ -29,6 +29,6 @@ OURNAME=`basename "${BASH_SOURCE[0]}"` ## get our filename, it could be a librar
 [[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--disable-ipcrm --disable-ipcs) ## does not build on darwin
 [[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--disable-libuuid) ## breaks builds of other software on darwin, like ffmpeg
 
-fetch_source https://www.kernel.org/pub/linux/utils/util-linux/v2.41/util-linux-2.41.3.tar.xz 4060091cdb5f1c495afb4bf55e2173138db2f791
+fetch_source https://www.kernel.org/pub/linux/utils/util-linux/v2.41/util-linux-2.41.4.tar.xz 0e61178c68875f33be327a7606429904d1663867
 
 do_unpack_compile "${CONFFLAGS[@]}"
