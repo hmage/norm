@@ -2,10 +2,9 @@
 
 [[ $MACHTYPE == x86_64-pc-linux-gnu ]] && depends_on yasm
 
-fetch_source https://downloads.sourceforge.net/project/p7zip/p7zip/16.02/p7zip_16.02_src_all.tar.bz2 e8819907132811aa1afe5ef296181d3a15cc8f22
-fetch_debian http://deb.debian.org/debian/pool/main/p/p7zip/p7zip_16.02+dfsg-8.debian.tar.xz 191647ecffe02b6b32cbc627397add49797b06cd
+## Original p7zip is effectively dead; use the maintained p7zip-project fork.
+fetch_source https://github.com/p7zip-project/p7zip/archive/refs/tags/v17.05.tar.gz f8c03d6b55759867fb464bfe5caf49149de34b01
 
-do_undebian
 pushd_src
 [[ $OSTYPE == *darwin* ]] && ln -fs makefile.macosx_llvm_64bits makefile.machine
 [[ $MACHTYPE == x86_64-pc-linux-gnu ]] && ln -fs makefile.linux_amd64_asm makefile.machine
