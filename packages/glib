@@ -10,7 +10,7 @@ depends_on ninja
 [[ $OSTYPE == *linux* ]] && depends_on libmount
 needs_tool python3 # gdbus-codegen and build scripts
 
-fetch_source https://ftp.gnome.org/pub/gnome/sources/glib/2.86/glib-2.86.4.tar.xz 73681e151396afd4920d33e6677c042b8a53d55c
+fetch_source https://ftp.gnome.org/pub/gnome/sources/glib/2.88/glib-2.88.0.tar.xz ade19b85abf1eb8f392b287523b1d80f8e6d5202
 
 MESONFLAGS=(
 --prefix="$PREFIX"
