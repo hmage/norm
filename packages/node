@@ -6,7 +6,7 @@ depends_on libnghttp2
 depends_on libuv
 depends_on openssl
 
-fetch_source https://nodejs.org/dist/v25.8.2/node-v25.8.2.tar.xz 6c7eab3bbd6814981ba8150c87ce0067d620c335
+fetch_source https://nodejs.org/dist/v25.9.0/node-v25.9.0.tar.xz dd00d75da36b86a1e4e49c9560a34780bf1ea790
 
 do_unpack
 ## this fixes build failure on OSX if gnu libtool is installed
