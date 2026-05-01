@@ -3,7 +3,7 @@
 depends_on zstd
 needs_tool cmake
 
-fetch_source https://github.com/ccache/ccache/releases/download/v4.13.2/ccache-4.13.2.tar.xz 7a03e1d9a7a02be0d67bc050c15eec2021b947d7
+fetch_source https://github.com/ccache/ccache/releases/download/v4.13.5/ccache-4.13.5.tar.xz 0db71725be5f76443b680635b415518ca81cee79
 
 do_unpack_compile -DREDIS_STORAGE_BACKEND=OFF -DENABLE_IPO=ON -DSTATIC_LINK=ON
 
