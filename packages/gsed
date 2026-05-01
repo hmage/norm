@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-fetch_source https://ftpmirror.gnu.org/sed/sed-4.9.tar.xz 8ded1b543f1f558cbd5d7b713602f6a8ee84bde4
+fetch_source https://ftpmirror.gnu.org/sed/sed-4.10.tar.xz 15f5d702ae4360c3e6a79c48984830aa55396855
 
 CONFFLAGS=(
 --program-prefix=g
