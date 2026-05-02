@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.59.tar.bz2 6570ddb77656b91c88ffd166c9fcdd79a149c898
+fetch_source https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.60.tar.bz2 851a1619aee8f7723ed50f09cb6a186c483c280c
 
 CONFFLAGS=(
 --disable-nls    ## otherwise will try to link with gettext's libintl
