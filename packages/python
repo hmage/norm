@@ -15,7 +15,7 @@ if [[ $OSTYPE != *darwin* ]]; then
 	depends_on libreadline ## readline module, osx apparently provides one
 fi
 
-fetch_source https://www.python.org/ftp/python/3.14.3/Python-3.14.3.tar.xz 83eed62ba54742382542474db798717e6ee6b3f2
+fetch_source https://www.python.org/ftp/python/3.14.4/Python-3.14.4.tar.xz 567ffd2b4116db4cbcd3fb7adb304ec32687f99f
 
 CONFFLAGS=(
 --enable-shared              ## otherwise python extensions fail to load
@@ -64,7 +64,16 @@ PY
 "$PREFIX/bin/python3" -m venv "$SRCDIR/temp/venvtest"
 
 ## Python 3.14+ no longer bundles setuptools by default; install it for setup.py/PEP517 formulas.
-fetch_source https://files.pythonhosted.org/packages/82/f3/748f4d6f65d1756b9ae577f329c951cda23fb900e4de9f70900ced962085/setuptools-82.0.0.tar.gz 55aa6a1d86e8d5a831f60eedeba82006808c7a0e
+SITE_PACKAGES=$("$PREFIX/bin/python3" - <<'PY'
+import sysconfig
+
+print(sysconfig.get_path("purelib"))
+PY
+)
+rm -rf "$SITE_PACKAGES/setuptools" "$SITE_PACKAGES/_distutils_hack" "$SITE_PACKAGES"/setuptools-*.egg-info "$SITE_PACKAGES/distutils-precedence.pth"
+rm -f "$PREFIX/var/norm/python-setuptools.install-record"
+
+fetch_source https://files.pythonhosted.org/packages/4f/db/cfac1baf10650ab4d1c111714410d2fbb77ac5a616db26775db562c8fab2/setuptools-82.0.1.tar.gz 8c02ceb7cbb28f69fee84d7201967412d80d3109
 do_unpack
 pushd_src
 "$PREFIX/bin/python3" setup.py install --prefix="$PREFIX" --single-version-externally-managed --record="$PREFIX/var/norm/python-setuptools.install-record"
