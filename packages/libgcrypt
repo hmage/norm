@@ -2,7 +2,7 @@
 
 depends_on libgpg-error
 
-fetch_source https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.12.1.tar.bz2 b3c30f3366bfdb203a91b5dbea4dab29ed106779
+fetch_source https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.12.2.tar.bz2 7b8ff21966a0b6e7a735466b9b9b55d9dac9fa87
 
 ## libgcrypt seems to break itself on OSX 10.15 with presence of -march=native
 CPPFLAGS="${CPPFLAGS/-march=native/}" \
