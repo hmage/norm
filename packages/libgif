@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://downloads.sourceforge.net/project/giflib/giflib-6.x/giflib-6.1.2.tar.gz bf0440c7aee5a0a151d7abbbe3657d3c1998ce86
+fetch_source https://downloads.sourceforge.net/project/giflib/giflib-6.x/giflib-6.1.3.tar.gz 5bc9aa3e5188d1828b5df8aed81720273952b2d4
 
 do_unpack
 [[ $OSTYPE == *darwin* ]] && do_patch_inline -p0 << 'EOF'
