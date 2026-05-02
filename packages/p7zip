@@ -3,8 +3,9 @@
 [[ $MACHTYPE == x86_64-pc-linux-gnu ]] && depends_on yasm
 
 ## Original p7zip is effectively dead; use the maintained p7zip-project fork.
-fetch_source https://github.com/p7zip-project/p7zip/archive/refs/tags/v17.05.tar.gz f8c03d6b55759867fb464bfe5caf49149de34b01
+fetch_source https://github.com/p7zip-project/p7zip/archive/refs/tags/v17.06.tar.gz db9f081a4a09380ea0b658868c156ee554be62e6
 
+do_unpack
 pushd_src
 [[ $OSTYPE == *darwin* ]] && ln -fs makefile.macosx_llvm_64bits makefile.machine
 [[ $MACHTYPE == x86_64-pc-linux-gnu ]] && ln -fs makefile.linux_amd64_asm makefile.machine
