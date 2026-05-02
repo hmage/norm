@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/libexif/libexif/releases/download/v0.6.25/libexif-0.6.25.tar.xz 58bdf23dd144548eb2f0f8e485f2ddfc38c113eb
+fetch_source https://github.com/libexif/libexif/releases/download/v0.6.26/libexif-0.6.26.tar.xz e56780de3553acf105b3d71d8676589b23ba7ea3
 
 CONFFLAGS=(
 --disable-nls    ## otherwise will try to link with gettext's libintl
