@@ -2,7 +2,7 @@
 
 needs_tool python3
 
-fetch_source https://github.com/mesonbuild/meson/releases/download/1.10.2/meson-1.10.2.tar.gz 97b04d0ba0e63680f2428798a56f918c961323d2
+fetch_source https://github.com/mesonbuild/meson/releases/download/1.11.1/meson-1.11.1.tar.gz 7b27df9a9fda79b648c4b1b754ad694200251e00
 
 do_unpack
 pushd_src
@@ -10,6 +10,7 @@ pushd_src
 # package without requiring a full CPython build from source.
 MESON_VENV="$PREFIX/lib/meson-venv"
 python3 -m venv --clear --system-site-packages "$MESON_VENV"
+mkdir -p "$PREFIX/var/norm"
 "$MESON_VENV/bin/python3" setup.py install --single-version-externally-managed --record="$PREFIX/var/norm/meson.install-record"
 popd_src
 ln -sf "$MESON_VENV/bin/meson" "$PREFIX/bin/meson"
