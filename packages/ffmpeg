@@ -14,7 +14,7 @@ depends_on libdav1d
 depends_on libxml ## for dash
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx provides the library
 
-fetch_source https://ffmpeg.org/releases/ffmpeg-8.1.tar.xz cee125f770f7599c3727315128a9f6928392137b
+fetch_source https://ffmpeg.org/releases/ffmpeg-8.1.1.tar.xz 0b8318579556aaa736096ceb1e8333d2260b63bf
 
 CONFFLAGS=(
 --cc=${CC:-cc} # ffmpeg doesn't send CC choice
