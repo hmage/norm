@@ -3,7 +3,7 @@
 needs_tool cmake
 needs_tool nasm
 
-fetch_source http://ftp.videolan.org/pub/videolan/x265/x265_4.1.tar.gz 11880a3aa9e4ee618f539a2d6a8ece0ea442f505
+fetch_source http://ftp.videolan.org/pub/videolan/x265/x265_4.2.tar.gz 23d81ed01dee9806fbc2bf61b3c455336854f220
 
 do_unpack
 
@@ -20,7 +20,7 @@ sed -i.bak \
     -e 's/if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")/if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")/' \
     "$SRCDIR"/source/CMakeLists.txt
 sed -i.bak \
-    -e 's/cmake_minimum_required (VERSION 2.8.11)/cmake_minimum_required (VERSION 3.10)/' \
+    -e 's/cmake_minimum_required (VERSION 2.8.11[^)]*)/cmake_minimum_required (VERSION 3.10)/' \
     "$SRCDIR"/source/dynamicHDR10/CMakeLists.txt
 
 SRCDIR="$SRCDIR/source"
