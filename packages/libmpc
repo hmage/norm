@@ -3,6 +3,6 @@
 depends_on libgmp
 depends_on libmpfr
 
-fetch_source https://ftpmirror.gnu.org/mpc/mpc-1.4.0.tar.xz 8f3c683f81cff2c09eda82acd045495a40d1fad2
+fetch_source https://ftpmirror.gnu.org/mpc/mpc-1.4.1.tar.xz 3d9e196d973a822ae144d543c9d21023cef0870f
 
 do_unpack_compile
