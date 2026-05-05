@@ -1,9 +1,12 @@
 #!/bin/bash
 
-do_gitclone https://gitlab.isc.org/isc-projects/queryperf
+fetch_source https://cdn.NetBSD.org/pub/pkgsrc/distfiles/queryperf-nominum-2.1.tar.gz d70cf238335a0dfce7948dfa99b70a445f8ee43a
+do_unpack
+perl -i.bak -0pe 's|#include <arpa/nameser.h>\n|#include <arpa/nameser.h>\n#ifdef __APPLE__\n#include <arpa/nameser_compat.h>\n#endif\n|; s|(enum directives_enum)|int is_uint(char *test_int, unsigned int *result);\n\n$1|' "$SRCDIR/queryperf.c"
+[[ $OSTYPE == *darwin* ]] && export LIBS="-lresolv"
 pushd_src
 do_configure
-make
+make queryperf
 install queryperf "$PREFIX/bin/queryperf"
 popd_src
 
