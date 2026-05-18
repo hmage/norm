@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/emcrisostomo/fswatch/releases/download/1.20.1/fswatch-1.20.1.tar.gz e717d204f38a0e58b614217d62d31eaabfdb33a1
+fetch_source https://github.com/emcrisostomo/fswatch/releases/download/1.21.0/fswatch-1.21.0.tar.gz 2f06857b7162a59f5a4bd44688747742f0c0e87a
 
 CONFFLAGS=(
 --disable-nls ## otherwise will try to link with gettext's libintl
