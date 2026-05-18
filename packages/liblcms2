@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://downloads.sf.net/lcms/lcms2-2.18.tar.gz 3917db04b8d19b62ea6c9d8f4ff0404d145aca4a
+fetch_source https://github.com/mm2/Little-CMS/releases/download/lcms2.19.1/lcms2-2.19.1.tar.gz b66f8317db40a775cb46cc465f66eb841c11aebf
 
 CONFFLAGS=(
 --without-tiff ## opportunistic linking, installs tificc binary
