@@ -15,7 +15,7 @@ if [[ $OSTYPE != *darwin* ]]; then
 	depends_on libreadline ## readline module, osx apparently provides one
 fi
 
-fetch_source https://www.python.org/ftp/python/3.14.4/Python-3.14.4.tar.xz 567ffd2b4116db4cbcd3fb7adb304ec32687f99f
+fetch_source https://www.python.org/ftp/python/3.14.5/Python-3.14.5.tar.xz 550bd85f05ba3a75d710e716100db174f13601f6
 
 CONFFLAGS=(
 --enable-shared              ## otherwise python extensions fail to load
@@ -32,6 +32,7 @@ sed -i.bak "s|-I/usr/include/ncursesw|-I$ESCAPED_PREFIX/include/ncursesw|" "$SRC
 
 ## build breaks with parallel or Ofast
 NOPARALLEL=1 \
+CPPFLAGS="$CPPFLAGS -DOPENSSL_NO_SSL3 -DOPENSSL_NO_SSL3_METHOD" \
 CFLAGS="${CFLAGS/-Ofast/}" \
 CXXFLAGS="${CXXFLAGS/-Ofast/}" \
 do_compile "${CONFFLAGS[@]}"
