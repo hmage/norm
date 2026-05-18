@@ -7,7 +7,7 @@ depends_on libheif   ## common format saved by photo cameras
 depends_on libwebp   ## format served and owned by google
 depends_on libtiff   ## format often seen in some places
 
-fetch_source https://github.com/ImageMagick/ImageMagick/archive/7.1.2-21.tar.gz d46ea60d3decc5a6182ed4a58b3b30ccb9a22c42
+fetch_source https://github.com/ImageMagick/ImageMagick/archive/7.1.2-23.tar.gz a4c76abcb75833f44dd1c921b24d205211f4f7c4
 
 CONFFLAGS=(
 --without-x   ## graphicsmagick is used most as library and command-line tool, GUI is not needed, if you need it, open an issue
