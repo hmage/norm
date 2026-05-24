@@ -1,0 +1,47 @@
+#!/bin/bash
+
+needs_tool cmake
+depends_on zlib
+depends_on libjpeg
+depends_on libpng
+depends_on libtiff
+depends_on libwebp
+
+fetch_source https://github.com/opencv/opencv/archive/4.13.0.tar.gz fc2f2ce6f8f2d5a5c34435054334fa6046ae3d6d
+
+CONFFLAGS=(
+-DWITH_CUDA=OFF
+-DWITH_ADE=OFF
+-DWITH_FFMPEG=OFF
+-DWITH_GSTREAMER=OFF
+-DWITH_IPP=OFF
+-DWITH_ITT=OFF
+-DWITH_JASPER=OFF
+-DWITH_OPENCL=OFF
+-DWITH_OPENEXR=OFF
+-DWITH_OPENJPEG=OFF
+-DWITH_PROTOBUF=OFF
+-DBUILD_EXAMPLES=OFF
+-DBUILD_JASPER=OFF
+-DBUILD_JPEG=OFF
+-DBUILD_OPENJPEG=OFF
+-DBUILD_PNG=OFF
+-DBUILD_PERF_TESTS=OFF
+-DBUILD_PROTOBUF=OFF
+-DBUILD_TESTS=OFF
+-DBUILD_TIFF=OFF
+-DBUILD_WEBP=OFF
+-DBUILD_ZLIB=OFF
+-DBUILD_opencv_dnn=OFF
+-DBUILD_opencv_gapi=OFF
+-DBUILD_opencv_java=OFF
+-DBUILD_opencv_js=OFF
+-DBUILD_opencv_objc=OFF
+-DBUILD_opencv_python2=OFF
+-DBUILD_opencv_python3=OFF
+-DBUILD_opencv_ts=OFF
+-DOPENCV_GENERATE_PKGCONFIG=ON
+)
+
+do_unpack
+do_compile_outside "${CONFFLAGS[@]}"
