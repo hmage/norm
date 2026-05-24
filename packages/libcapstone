@@ -2,7 +2,7 @@
 
 depends_on pkg-config ## to build .pc file
 
-fetch_source https://github.com/capstone-engine/capstone/archive/5.0.7.tar.gz 5513880163c1f0145fc816e5251a75cb8b8ab0d2
+fetch_source https://github.com/capstone-engine/capstone/archive/5.0.8.tar.gz 7fef90966191a93759b4795935d6e62ee0f6cd18
 
 do_unpack
 pushd_src
