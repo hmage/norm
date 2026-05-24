@@ -1,11 +1,11 @@
 #!/bin/bash
 
-depends_on pkg-config
-depends_on autoconf automake libtool
-
 OURNAME=`basename "${BASH_SOURCE[0]}"` ## get our filename, it could be a library name
 [[ $OURNAME == libmount && $OSTYPE != *linux* ]] && log "libmount is a linux-specific library, refusing to build" && false
 [[ $OURNAME == libuuid && $OSTYPE == *darwin* ]] && log "macOS provides uuid, refusing to build util-linux libuuid" && false
+
+depends_on pkg-config
+depends_on autoconf automake libtool
 
 CONFFLAGS=(
 --disable-makeinstall-chown ## otherwise it tries to chown root:root which we don't have permissions for
