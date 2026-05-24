@@ -1,14 +1,20 @@
 #!/bin/bash
 
-[[ $MACHTYPE == x86_64-pc-linux-gnu ]] && depends_on yasm
+fetch_source https://github.com/ip7z/7zip/releases/download/26.01/7z2601-src.tar.xz 8f090240835cc9ebf01631de3b8559bdb224f267
 
-## Original p7zip is effectively dead; use the maintained p7zip-project fork.
-fetch_source https://github.com/p7zip-project/p7zip/archive/refs/tags/v17.06.tar.gz db9f081a4a09380ea0b658868c156ee554be62e6
+do_unpack "$TARNAME" --strip-components 0
 
-do_unpack
 pushd_src
-[[ $OSTYPE == *darwin* ]] && ln -fs makefile.macosx_llvm_64bits makefile.machine
-[[ $MACHTYPE == x86_64-pc-linux-gnu ]] && ln -fs makefile.linux_amd64_asm makefile.machine
-do_make all3 OPTFLAGS="$CFLAGS $CPPFLAGS"
-do_install DEST_HOME="$PREFIX"
+pushd CPP/7zip/Bundles/Alone2
+do_make -f makefile.gcc \
+    CFLAGS_BASE2="$CFLAGS $CPPFLAGS" \
+    CXXFLAGS_BASE2="$CXXFLAGS $CPPFLAGS" \
+    LDFLAGS_STATIC_3="$LDFLAGS"
+install -d "$PREFIX/bin" "$PREFIX/share/doc/p7zip"
+install -m 755 _o/7zz "$PREFIX/bin/7zz"
+ln -sf 7zz "$PREFIX/bin/7z"
+ln -sf 7zz "$PREFIX/bin/7za"
+ln -sf 7zz "$PREFIX/bin/7zr"
+cp -R "$SRCDIR/DOC/." "$PREFIX/share/doc/p7zip/"
+popd
 popd_src
