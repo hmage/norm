@@ -3,6 +3,7 @@
 depends_on pkg-config
 depends_on autoconf automake libtool
 
+OURNAME=`basename "${BASH_SOURCE[0]}"` ## get our filename, it could be a library name
 [[ $OURNAME == libmount && $OSTYPE != *linux* ]] && log "libmount is a linux-specific library, refusing to build" && false
 
 CONFFLAGS=(
@@ -20,8 +21,6 @@ CONFFLAGS=(
 --disable-su
 --disable-runuser
 )
-OURNAME=`basename "${BASH_SOURCE[0]}"` ## get our filename, it could be a library name
-
 
 [[ $OURNAME == lib* ]] && CONFFLAGS+=(--disable-all-programs --enable-$OURNAME) ## if it's a library, disable building any binaries, and then enable building only specific library
 [[ $OURNAME == libmount ]] && CONFFLAGS+=(--enable-libblkid) ## otherwise building libmount fails
