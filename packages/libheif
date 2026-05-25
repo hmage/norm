@@ -5,7 +5,7 @@ depends_on libde265   ## otherwise libheif can't read images
 depends_on x265       ## otherwise libheif can't save images
 depends_on libjpeg    ## opportunistic linking without a way to disable
 
-fetch_source https://github.com/strukturag/libheif/releases/download/v1.22.0/libheif-1.22.0.tar.gz b5f038bfba21bc66ba9a145bb50ddeae2892fd8f
+fetch_source https://github.com/strukturag/libheif/releases/download/v1.22.2/libheif-1.22.2.tar.gz a77029e4123eddd082fb517c5b17bd3910615203
 
 ## fix build failure because Ofast emits warnings while libheif enables -Werror
 ## disable x264 opportunistic linking and heif-view example that requires SDL2 to be found by cmake
