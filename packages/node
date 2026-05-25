@@ -6,9 +6,45 @@ depends_on libnghttp2
 depends_on libuv
 depends_on openssl
 
-fetch_source https://nodejs.org/dist/v26.0.0/node-v26.0.0.tar.xz d5cc8ff3dd9f2f52276e6d4159a11a130f4ed25c
+fetch_source https://nodejs.org/dist/v26.2.0/node-v26.2.0.tar.xz 7d5385460f7054fe440e5726c2f4543b85f17e83
 
 do_unpack
+do_patch_inline -p0 <<'EOF'
+--- configure
++++ configure
+@@ -20,7 +20,7 @@ except ImportError:
+ 
+ print('Node.js configure: Found Python {}.{}.{}...'.format(*sys.version_info))
+-acceptable_pythons = ((3, 14), (3, 13), (3, 12), (3, 11), (3, 10))
++acceptable_pythons = ((3, 14), (3, 13), (3, 12), (3, 11), (3, 10), (3, 9))
+ if sys.version_info[:2] in acceptable_pythons:
+   import configure
+ else:
+EOF
+do_patch_inline -p0 <<'EOF'
+--- configure.py
++++ configure.py
+@@ -2171,13 +2171,12 @@ def configure_v8(o):
+   # if auto-detecting, warn and disable Temporal in those cases.
+   # Refs: https://github.com/nodejs/node/issues/62676
+   if (not options.v8_disable_temporal_support and not options.v8_enable_temporal_support):
+-    match options.with_intl:
+-      case 'none':
+-        warn('Temporal support disabled when compiling without ICU')
+-        options.v8_disable_temporal_support = True
+-      case 'system-icu':
+-        warn('Temporal support disabled when compiling with a shared ICU library')
+-        options.v8_disable_temporal_support = True
++    if options.with_intl == 'none':
++      warn('Temporal support disabled when compiling without ICU')
++      options.v8_disable_temporal_support = True
++    elif options.with_intl == 'system-icu':
++      warn('Temporal support disabled when compiling with a shared ICU library')
++      options.v8_disable_temporal_support = True
+   o['variables']['v8_enable_temporal_support'] = 0 if options.v8_disable_temporal_support else 1
+   o['variables']['v8_trace_maps'] = 1 if options.trace_maps else 0
+   o['variables']['node_use_v8_platform'] = b(not options.without_v8_platform)
+EOF
 ## this fixes build failure on OSX if gnu libtool is installed
 sed -i.bak 's|%(python)s gyp-mac-tool filter-libtool libtool|/usr/bin/libtool|g' "$SRCDIR"/tools/gyp/pylib/gyp/generator/make.py
 
