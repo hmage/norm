@@ -6,7 +6,7 @@ depends_on libnghttp2
 depends_on libuv
 depends_on openssl
 
-fetch_source https://nodejs.org/dist/v26.2.0/node-v26.2.0.tar.xz 7d5385460f7054fe440e5726c2f4543b85f17e83
+fetch_source https://nodejs.org/dist/v26.3.0/node-v26.3.0.tar.xz 10d1a1cf5bd4cad612494962c63d94261e667dbf
 
 do_unpack
 do_patch_inline -p0 <<'EOF'
