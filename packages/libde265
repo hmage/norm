@@ -2,7 +2,7 @@
 
 needs_tool cmake
 
-fetch_source https://github.com/strukturag/libde265/releases/download/v1.0.19/libde265-1.0.19.tar.gz 82bbbcb5cfd0735a81bb092cadef5f7a534bde9c
+fetch_source https://github.com/strukturag/libde265/releases/download/v1.1.0/libde265-1.1.0.tar.gz b821588509b378ffb08c13e01c87e26f1f25e6f1
 
 CONFFLAGS=(
 -DENABLE_SHERLOCK265=OFF ## sherlock265 is a GUI tool to analyze h265 frames, but requires QT to build
