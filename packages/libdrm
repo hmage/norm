@@ -6,7 +6,7 @@ depends_on pkg-config
 depends_on libpciaccess
 depends_on meson ninja
 
-fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.133.tar.xz 2b5b84e0cd53e02f4571fbb92e7971bb1fc39e4b
+fetch_source https://dri.freedesktop.org/libdrm/libdrm-2.4.134.tar.xz 5c6452dfcceea5ed1073c2de4d826c4c5f59838d
 
 do_unpack
 pushd_src
