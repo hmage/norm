@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://sourceforge.net/projects/exiftool/files/Image-ExifTool-13.58.tar.gz/download ba477e9d7a18972fdcf90c61b27b4ed36021e844 Image-ExifTool-13.58.tar.gz
+fetch_source https://sourceforge.net/projects/exiftool/files/Image-ExifTool-13.59.tar.gz/download 8429367c8289c21499696dcba6fc6b8eb2de5017 Image-ExifTool-13.59.tar.gz
 
 do_unpack
 pushd_src
