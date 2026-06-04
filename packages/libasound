@@ -2,6 +2,6 @@
 
 [[ $OSTYPE != *linux* ]] && log "libasound is a linux-specific library, refusing to build" && false
 
-fetch_source https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.15.3.tar.bz2 1a6214981d2a2ea02e999b8ee2fc2fb59a8a44c8
+fetch_source https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.16.tar.bz2 c10c5c1681bcbccff1a628a3758393db17282ba3
 
 do_unpack_compile
