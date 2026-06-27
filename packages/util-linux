@@ -29,7 +29,7 @@ CONFFLAGS=(
 [[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--disable-ipcrm --disable-ipcs) ## does not build on darwin
 [[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--disable-libuuid) ## breaks builds of other software on darwin, like ffmpeg
 
-fetch_source https://www.kernel.org/pub/linux/utils/util-linux/v2.42/util-linux-2.42.1.tar.xz 958e42251c774c097cf35953f0cd7441d4b7971e
+fetch_source https://www.kernel.org/pub/linux/utils/util-linux/v2.42/util-linux-2.42.2.tar.xz bcdab8b86394bff5295219c2f1feb0e333d22a86
 
 do_unpack
 do_compile "${CONFFLAGS[@]}"
