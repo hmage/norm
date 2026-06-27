@@ -2,6 +2,16 @@
 
 depends_on libidn2
 
-fetch_source https://github.com/rockdaboot/libpsl/releases/download/0.21.5/libpsl-0.21.5.tar.gz f2d1efc3c3e3ed1aeefd863f2e1e7f689662bf23
+fetch_source https://github.com/rockdaboot/libpsl/releases/download/0.22.0/libpsl-0.22.0.tar.gz 230cdeee3d444de3dd85167c28d84e1512866c0d
 
-do_unpack_compile
+## libpsl 0.22.0 makes a working iconv mandatory for the libidn2 runtime path.
+## Apple's system libiconv fails gettext's strict "working iconv" runtime test,
+## but it's fine for the UTF-8/ASCII conversions libpsl needs (libidn2 does the
+## actual IDNA punycode work). Tell configure to trust it on macOS.
+[[ $OSTYPE == *darwin* ]] && export am_cv_func_iconv_works=yes
+
+CONFFLAGS=(
+--enable-runtime=libidn2 ## 0.22.0 auto-detection now prefers Apple's libicucore on macOS; pin to libidn2 to keep prior behaviour and actually use our declared dependency
+)
+
+do_unpack_compile "${CONFFLAGS[@]}"
