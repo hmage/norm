@@ -8,7 +8,7 @@ depends_on libyamlcpp
 depends_on sqlite3 ## for libsqlite3
 depends_on curl ## libcurl needed for LUA records
 
-fetch_source https://downloads.powerdns.com/releases/pdns-5.0.5.tar.bz2 cd720382bcbdf9a63870a8d66df810ae7a4fee42
+fetch_source https://downloads.powerdns.com/releases/pdns-5.1.2.tar.bz2 e46990f6a04af3ab9df1e9136e5e1af9e77f75d1
 
 CONFFLAGS=(
 --with-modules="gsqlite3 geoip pipe remote"
