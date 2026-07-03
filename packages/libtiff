@@ -9,7 +9,7 @@ depends_on zstd    ## for zstd-compressed tiff's
 [[ $OSTYPE != *darwin* ]] && depends_on zlib    ## pixar log and zlib in tiff, osx provides the library
 
 fetch_source http://deb.debian.org/debian/pool/main/t/tiff/tiff_4.7.1.orig.tar.bz2 313ce0699f8b97b83d8518ea2a4f79b23f92c42e
-fetch_debian http://deb.debian.org/debian/pool/main/t/tiff/tiff_4.7.1-2.debian.tar.xz 9562c48e04f4a29114853b523c822925ee23567a
+fetch_debian http://deb.debian.org/debian/pool/main/t/tiff/tiff_4.7.1-3.debian.tar.xz 62af53d712b6a699d3e21f7dc6b8414407466a0e
 
 CONFFLAGS=(
 --disable-webp ## webp inside tiff is _VERY_ uncommon, and we can't depend on it, because libwebp depends on us!
