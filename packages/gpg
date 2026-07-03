@@ -8,7 +8,7 @@ depends_on libnpth
 depends_on pinentry
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx provides the library
 
-fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.5.20.tar.bz2 96371ec0260da5a22edbf8e4d3bf0e54b3ea5b8e
+fetch_source https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.5.21.tar.bz2 51fae4f4d902787624eb7047f6d3e7c263ad7690
 
 CONFFLAGS=(
 --with-pinentry-pgm="$PREFIX/bin/pinentry"
