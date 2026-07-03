@@ -5,7 +5,7 @@ depends_on openssl ## opportunistic linking -- creates a libevent wrapper around
 ## otherwise build failure on osx
 depends_on pkg-config libtool autoconf automake
 
-fetch_source https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz cd55656a9b5bed630b08f05495230affb7996b21
+fetch_source https://github.com/libevent/libevent/releases/download/release-2.1.13-stable/libevent-2.1.13-stable.tar.gz ac35a228380d7a087727b53c4f18f5491097455e
 
 do_unpack
 do_autoreconf ## otherwise build failure on osx
