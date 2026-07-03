@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://www.nasm.us/pub/nasm/releasebuilds/3.01/nasm-3.01.tar.xz f0531dfe9728192fe190cc4932df44a26f1bde7c
+fetch_source https://www.nasm.us/pub/nasm/releasebuilds/3.02/nasm-3.02.tar.xz dc8d0d4f440e23e308d7cd18c99b332da3e511e6
 
 do_unpack
 ## Internal md5.h is more important than libmd's md5.h
