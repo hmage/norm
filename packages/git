@@ -3,12 +3,13 @@
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## required, osx provides the library
 [[ $OSTYPE != *darwin* ]] && depends_on curl ## for git pull over https, osx provides the library
 
-fetch_source https://www.kernel.org/pub/software/scm/git/git-2.54.0.tar.xz 29a739063b869e12874d660d540e4503e6af3b53
-fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.54.0.tar.xz 6cbabbc5035f8fbd8dd96e6e5653973573a099ca
+fetch_source https://www.kernel.org/pub/software/scm/git/git-2.55.0.tar.xz 463b58df8b3dc512abf065865011d09d661421d5
+fetch_file https://www.kernel.org/pub/software/scm/git/git-manpages-2.55.0.tar.xz 8c2159ddeed8e6a39e7e71986825258839dec924
 
 OPTIONS=(
 NO_GETTEXT=1 ## if it detects gettext headers, it assumes msgfmt tool is installed, which is not always the case
 NO_TCLTK=1   ## build failure if tcl is not installed
+NO_RUST=1    ## 2.55 enables rust by default, don't rely on host having a rust toolchain
 V=1          ## verbose logging for easier debugging of user reports
 )
 
