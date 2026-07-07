@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/c-ares/c-ares/releases/download/v1.34.6/c-ares-1.34.6.tar.gz 3d408814ed67b48668344461b115148979b076cd
+fetch_source https://github.com/c-ares/c-ares/releases/download/v1.34.7/c-ares-1.34.7.tar.gz 910214e3e309f40d20dcc27f04d1bac5a92832bc
 
 do_unpack_compile
