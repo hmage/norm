@@ -1,22 +1,19 @@
 #!/bin/bash
 
-fetch_source https://github.com/libffi/libffi/releases/download/v3.6.0/libffi-3.6.0.tar.gz 781b5eb67349b75e3714e6a4df4f32b7470774c1
+fetch_source https://github.com/libffi/libffi/releases/download/v3.7.0/libffi-3.7.0.tar.gz 37e690d31e7a6df652fddd27a41735cf7e66a421
 
 do_unpack
-## fix up https://github.com/libffi/libffi/issues/55 and https://github.com/libffi/libffi/issues/127
-sed -i.bak 's|includesdir = $(libdir)/@PACKAGE_NAME@-@PACKAGE_VERSION@/include|includesdir = $(includedir)|' "$SRCDIR/include/Makefile.in"
-sed -i.bak 's|includedir=${libdir}/@PACKAGE_NAME@-@PACKAGE_VERSION@/include|includedir=@includedir@|' "$SRCDIR/libffi.pc.in"
 do_patch_inline -p0 << "EOF"
 --- configure
 +++ configure
-@@ -18716,7 +18716,7 @@
- 
+@@ -19733,7 +19733,7 @@
+
  # These variables are only ever used when we cross-build to X86_WIN32.
  # And we only support this with GCC, so...
 -if test "x$GCC" = "xyes"; then
 +if false; then
    if test -n "$with_cross_host" &&
       test x"$with_cross_host" != x"no"; then
-     toolexecdir="${exec_prefix}"/'$(target_alias)'
+     toolexecdir='${exec_prefix}'/'$(target_alias)'
 EOF
 do_compile
