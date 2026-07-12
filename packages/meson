@@ -2,7 +2,7 @@
 
 needs_tool python3
 
-fetch_source https://github.com/mesonbuild/meson/releases/download/1.11.1/meson-1.11.1.tar.gz 7b27df9a9fda79b648c4b1b754ad694200251e00
+fetch_source https://github.com/mesonbuild/meson/releases/download/1.11.2/meson-1.11.2.tar.gz 43ba6823e209bed087e00620d367ce30708a9a13
 
 do_unpack
 pushd_src
