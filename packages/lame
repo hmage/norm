@@ -2,7 +2,9 @@
 
 needs_tool nasm
 
-fetch_source https://downloads.sourceforge.net/sourceforge/lame/lame-3.100.tar.gz 64c53b1a4d493237cef5e74944912cd9f98e618d
+depends_on libmpg123 ## 4.0 dropped the internal mpglib decoder, `lame --decode` needs libmpg123
+
+fetch_source https://downloads.sourceforge.net/sourceforge/lame/lame-4.0.tar.gz e3630adf399d8917d4da19b96937b7f9b12774ea
 
 CONFFLAGS=(
 --enable-nasm
@@ -10,5 +12,6 @@ CONFFLAGS=(
 )
 
 do_unpack
-sed -i.bak 's/DEPRECATED_OR_OBSOLETE_CODE_REMOVED/KEEP_OLD_CODE/' "$SRCDIR"/include/lame.h
+# 4.0 guards setlocale() with HAVE_LANGINFO_H but only includes <locale.h> with working iconv
+perl -i.bak -pe 's|^#include <ctype\.h>$|#include <ctype.h>\n#include <locale.h>|' "$SRCDIR/frontend/parse.c"
 do_compile "${CONFFLAGS[@]}"
