@@ -4,7 +4,7 @@ depends_on meson
 depends_on ninja
 depends_on nasm
 
-fetch_source https://code.videolan.org/videolan/dav1d/-/archive/1.5.3/dav1d-1.5.3.tar.bz2 2a88df5b67e7b29c05fd90db9b6f52385b13612f
+fetch_source https://code.videolan.org/videolan/dav1d/-/archive/1.5.4/dav1d-1.5.4.tar.bz2 00d2dacfeb09e1f0c9daabb1fb355990cce7232b
 
 do_unpack
 BUILDDIR="$SRCDIR"-build
