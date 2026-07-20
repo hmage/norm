@@ -8,7 +8,7 @@ depends_on libtool
 needs_tool pod2man
 needs_tool autoconf automake
 
-fetch_source https://github.com/ckolivas/lrzip/archive/v0.7.0/lrzip-0.7.0.tar.gz fc1c939098f5583596e81de8f104630b3864a1ee
+fetch_source https://github.com/ckolivas/lrzip/archive/v0.7.1/lrzip-0.7.1.tar.gz c47b769e5ed450384e34bccdb160063a07008e2e
 
 do_unpack
 # Attempting to build the ASM/x86 folder as a compilation unit fails (even on Intel)
