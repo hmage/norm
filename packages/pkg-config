@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://distfiles.dereferenced.org/pkgconf/pkgconf-2.5.1.tar.xz 402f512417561fbfb2421d0d9c05c25984a8d8c1
+fetch_source http://distfiles.dereferenced.org/pkgconf/pkgconf-3.0.3.tar.xz ce04779cfd87e89a69ec16264d8cf417b8a6deb6
 
 do_unpack
 
@@ -9,34 +9,21 @@ do_unpack
 do_patch_inline -p0 << 'EOF'
 --- libpkgconf/fragment.c
 +++ libpkgconf/fragment.c
-@@ -537,6 +537,12 @@ pkgconf_fragment_len(const pkgconf_fragment_t *frag)
-
- 		char *quoted = fragment_quote(frag);
- 		len += strlen(quoted);
-+		// Add rpath to all -L fragments
-+		if (frag->type && frag->type == 'L') {
-+			len += strlen("-Wl,-rpath,");
-+			len += strlen(quoted);
-+			len += 1;
-+		}
- 		free(quoted);
-
- 		PKGCONF_FOREACH_LIST_ENTRY(frag->children.head, iter)
-@@ -586,6 +592,14 @@ fragment_render_item(const pkgconf_fragment_t *frag, char *bptr, size_t bufremain
- 		*bptr++ = frag->type;
- 	}
+@@ -848,6 +848,14 @@
+ 	if (!pkgconf_buffer_append(buf, pkgconf_buffer_str_or_empty(&quoted)))
+ 		goto fail;
 
 +	// Add rpath to all -L fragments
-+	if (frag->type && frag->type == 'L' && quoted != NULL) {
-+		bptr += pkgconf_strlcpy(bptr, quoted, bufremain - (bptr - base));
-+		*bptr++ = ' ';
-+		bptr += pkgconf_strlcpy(bptr, "-Wl,-rpath,", bufremain - (bptr - base));
++	if (frag->type && frag->type == 'L') {
++		if (!pkgconf_buffer_append(buf, " -Wl,-rpath,"))
++			goto fail;
++		if (!pkgconf_buffer_append(buf, pkgconf_buffer_str_or_empty(&quoted)))
++			goto fail;
 +	}
 +
-+
- 	if (quoted != NULL)
- 	{
- 		bptr += pkgconf_strlcpy(bptr, quoted, bufremain - (bptr - base));
+ 	pkgconf_buffer_finalize(&quoted);
+
+ 	PKGCONF_FOREACH_LIST_ENTRY(frag->children.head, iter)
 EOF
 do_compile --with-system-includedir=/usr/include --with-system-libdir=/usr/lib
 ln -fs pkgconf "$PREFIX"/bin/pkg-config
