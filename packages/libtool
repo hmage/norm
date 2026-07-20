@@ -2,7 +2,7 @@
 
 needs_tool m4
 
-fetch_source https://ftpmirror.gnu.org/libtool/libtool-2.5.4.tar.xz 9781a113fe6af1b150571410b29d3eee2e792516
+fetch_source https://ftpmirror.gnu.org/libtool/libtool-2.6.2.tar.xz 4d49bd98639a2f60cb348af1ca5623944141bc22
 
 CONFIGURE_OPTS=()
 [[ $OSTYPE == *darwin* ]] && CONFIGURE_OPTS+=(--program-prefix=g) ## avoid clobbering Apple's libtool
