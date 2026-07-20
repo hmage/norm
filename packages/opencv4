@@ -7,7 +7,7 @@ depends_on libpng
 depends_on libtiff
 depends_on libwebp
 
-fetch_source https://github.com/opencv/opencv/archive/4.13.0.tar.gz fc2f2ce6f8f2d5a5c34435054334fa6046ae3d6d
+fetch_source https://github.com/opencv/opencv/archive/4.14.0.tar.gz b1e6d39fd2ae0f91334bd15f61182d808b2fb782
 
 CONFFLAGS=(
 -DWITH_CUDA=OFF
