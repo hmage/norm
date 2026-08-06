@@ -1,10 +1,9 @@
 #!/bin/bash
 
-fetch_source https://github.com/nghttp2/nghttp2/releases/download/v1.69.0/nghttp2-1.69.0.tar.xz df73d47c4c0b41c9cdeeec6663b0c9df51fce1fd
+fetch_source https://github.com/nghttp2/nghttp2/releases/download/v1.70.0/nghttp2-1.70.0.tar.xz 63043d18cbb9256694f4eb34b2ec14e860564341
 
 CONFFLAGS=(
 --enable-lib-only         ## we are interested only in C library, not building examples, app python bindings or hpack tools
---disable-python-bindings ## system-provided python breaks build
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
