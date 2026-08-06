@@ -3,7 +3,7 @@
 needs_tool cmake
 depends_on openssl
 
-fetch_source https://github.com/Haivision/srt/archive/v1.5.5.tar.gz 5a6c81909973f5031f8b865a1991dbfe848acb49
+fetch_source https://github.com/Haivision/srt/archive/v1.5.6.tar.gz 4556a637ef278dca550910c5d31d50396e56abae
 
 do_unpack
 pushd_src
