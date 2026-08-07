@@ -17,7 +17,7 @@ depends_on libgif
 ## opportunistic linking
 depends_on liblcms2
 
-fetch_source https://github.com/libvips/libvips/releases/download/v8.18.4/vips-8.18.4.tar.xz a11933e3cbd12fe6bde1464bba7cab1463966e23
+fetch_source https://github.com/libvips/libvips/releases/download/v8.18.5/vips-8.18.5.tar.xz 530bc3bf41dbb046dad465324d1f9ce090684c42
 
 do_unpack
 BUILDDIR="$SRCDIR"-build
