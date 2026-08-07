@@ -2,7 +2,7 @@
 
 depends_on libidn2
 
-fetch_source https://github.com/rockdaboot/libpsl/releases/download/0.23.0/libpsl-0.23.0.tar.gz 5356a13bc04e031b9788f9edc8b136405f866257
+fetch_source https://github.com/rockdaboot/libpsl/releases/download/0.23.1/libpsl-0.23.1.tar.gz db686973d6fd10113ddcedfc330447886ce17b1b
 
 ## libpsl 0.22.0 makes a working iconv mandatory for the libidn2 runtime path.
 ## Apple's system libiconv fails gettext's strict "working iconv" runtime test,
