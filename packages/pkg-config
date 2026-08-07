@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source http://distfiles.dereferenced.org/pkgconf/pkgconf-3.0.3.tar.xz ce04779cfd87e89a69ec16264d8cf417b8a6deb6
+fetch_source http://distfiles.dereferenced.org/pkgconf/pkgconf-3.0.5.tar.xz f78e535405f3a62b78f4dfb5ab7f5dd7c01233de
 
 do_unpack
 
@@ -9,21 +9,21 @@ do_unpack
 do_patch_inline -p0 << 'EOF'
 --- libpkgconf/fragment.c
 +++ libpkgconf/fragment.c
-@@ -848,6 +848,14 @@
- 	if (!pkgconf_buffer_append(buf, pkgconf_buffer_str_or_empty(&quoted)))
- 		goto fail;
+@@ -1184,6 +1184,14 @@
+ 	if (!fragment_quote(buf, frag))
+ 		return false;
 
 +	// Add rpath to all -L fragments
 +	if (frag->type && frag->type == 'L') {
 +		if (!pkgconf_buffer_append(buf, " -Wl,-rpath,"))
-+			goto fail;
-+		if (!pkgconf_buffer_append(buf, pkgconf_buffer_str_or_empty(&quoted)))
-+			goto fail;
++			return false;
++		if (!fragment_quote(buf, frag))
++			return false;
 +	}
 +
- 	pkgconf_buffer_finalize(&quoted);
-
  	PKGCONF_FOREACH_LIST_ENTRY(frag->children.head, iter)
+ 	{
+ 		const pkgconf_fragment_t *child_frag = iter->data;
 EOF
 do_compile --with-system-includedir=/usr/include --with-system-libdir=/usr/lib
 ln -fs pkgconf "$PREFIX"/bin/pkg-config
