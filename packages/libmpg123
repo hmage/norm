@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://www.mpg123.de/download/mpg123-1.33.6.tar.bz2 94aea4e3698a020ef081b2fea778c55e79903a19
+fetch_source https://www.mpg123.de/download/mpg123-1.33.7.tar.bz2 2922a9bb86f36c5d9082fad9baa3903aaeef7918
 
 CONFFLAGS=(
 --disable-modules ## compile audio output into libout123 instead of dlopen'd modules
