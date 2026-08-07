@@ -8,16 +8,8 @@ depends_on libtool
 needs_tool pod2man
 needs_tool autoconf automake
 
-fetch_source https://github.com/ckolivas/lrzip/archive/v0.7.1/lrzip-0.7.1.tar.gz c47b769e5ed450384e34bccdb160063a07008e2e
+fetch_source https://github.com/ckolivas/lrzip/archive/v0.7.2/lrzip-0.7.2.tar.gz 21c356efe9ee500871bd0db9f244dbf2ef483d8b
 
 do_unpack
-# Attempting to build the ASM/x86 folder as a compilation unit fails (even on Intel)
-sed -ibak 's|SUBDIRS = C ASM/x86|SUBDIRS = C|' "$SRCDIR/lzma/Makefile.am"
-[[ $OSTYPE == *darwin* ]] && sed -ibak 's|-f elf64|-f macho64|' "$SRCDIR/configure.ac"
-# Both compression and decompression use control_lock; initialise it per file.
-perl -i.bak -0pe 's|\n\t\t\tmemcpy\(&local_control, &base_control, sizeof\(rzip_control\)\);\n|\n\t\t\tmemcpy(&local_control, &base_control, sizeof(rzip_control));\n\t\t\tinit_mutex(&local_control, &local_control.control_lock);\n|' "$SRCDIR/main.c"
-sed -ibak '/init_mutex(control, &control->control_lock);/d' "$SRCDIR/rzip.c"
 do_autoreconf
-# embedded libzpaq gates its unix code on `unix`, which darwin's clang doesn't define; without it the build wants windows.h
-CXXFLAGS="$CXXFLAGS -Dunix" \
 do_compile
