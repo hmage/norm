@@ -74,7 +74,7 @@ PY
 rm -rf "$SITE_PACKAGES/setuptools" "$SITE_PACKAGES/_distutils_hack" "$SITE_PACKAGES"/setuptools-*.egg-info "$SITE_PACKAGES/distutils-precedence.pth"
 rm -f "$PREFIX/var/norm/python-setuptools.install-record"
 
-fetch_source https://files.pythonhosted.org/packages/34/26/f5d29e25ffdb535afef2d35cdb55b325298f96debd670da4c325e08d70f4/setuptools-83.0.0.tar.gz 4d692d295c13418a5a4f038bcb5d54603992c9e9
+fetch_source https://files.pythonhosted.org/packages/6d/44/f5da03a8ef95d369145c5bb53050e7877c9f3d312e128605fd9504829143/setuptools-84.0.0.tar.gz 3485c95455192f8b09c4736a03fd7bcdd991dd3d
 do_unpack
 pushd_src
 "$PREFIX/bin/python3" setup.py install --prefix="$PREFIX" --single-version-externally-managed --record="$PREFIX/var/norm/python-setuptools.install-record"
