@@ -2,6 +2,6 @@
 
 needs_tool yasm
 
-fetch_source https://github.com/webmproject/libvpx/archive/v1.16.0/libvpx-1.16.0.tar.gz 638890006ffb2ee2ce2b10d926af86498a52a66c
+fetch_source https://github.com/webmproject/libvpx/archive/v1.17.0/libvpx-1.17.0.tar.gz 421f075d49c983054af842556c5aaac164f1aac8
 
 do_unpack_compile --enable-pic ## otherwise ffmpeg fails to build
