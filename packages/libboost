@@ -2,7 +2,7 @@
 
 BOOTSTRAP_WITHOUT_LIBRARIES=()
 
-fetch_source https://archives.boost.io/release/1.91.0/source/boost_1_91_0.tar.bz2 9c34db516413241449b664c2e1b5add089515bd6
+fetch_source https://archives.boost.io/release/1.92.0/source/boost_1_92_0.tar.bz2 02f875f132abc4f20eecd95b26746c27b6ef25c4
 
 BOOTSTRAP_ARGS=(
 --prefix="$PREFIX"
