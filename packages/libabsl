@@ -2,7 +2,7 @@
 
 needs_tool cmake
 
-fetch_source https://github.com/abseil/abseil-cpp/archive/refs/tags/20260526.0.tar.gz 36b738aaf6af5522c8740afc70855c089c3ebc0e
+fetch_source https://github.com/abseil/abseil-cpp/archive/refs/tags/20260817.0.tar.gz 8c09ef8af38d14ae98cfe045c7a11067701aa2ce
 
 CONFFLAGS=(
 -DABSL_ENABLE_INSTALL=ON ## provide CMake package for downstream users
