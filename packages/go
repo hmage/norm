@@ -467,7 +467,7 @@ cp -a bin pkg src "$PREFIX/go-bootstrap122"
 rm -rf "$PREFIX/go-bootstrap120"
 popd_src
 
-# 1.24.13 needed for 1.26.5
+# 1.24.13 needed for 1.27.1
 fetch_source https://go.dev/dl/go1.24.13.src.tar.gz f6a7b81b5dba0079645a00832b35250e9bec9509
 do_unpack
 pushd_src
@@ -479,7 +479,7 @@ cp -a bin pkg src "$PREFIX/go-bootstrap124"
 rm -rf "$PREFIX/go-bootstrap122"
 popd_src
 
-fetch_source https://go.dev/dl/go1.26.5.src.tar.gz d3fc5c837a2018cff6b388bc2b635c08d3040d65
+fetch_source https://go.dev/dl/go1.27.1.src.tar.gz 7c0a5271db822d10045296428e803ec8fb675683
 do_unpack
 pushd_src
 cd src
