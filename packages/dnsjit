@@ -4,7 +4,7 @@ depends_on libck
 depends_on luajit
 depends_on libgnutls
 
-fetch_source https://www.dns-oarc.net/files/dnsjit/dnsjit-1.5.1.tar.gz 6c4c9931616e9176b34f733470968a2320d9aa6f
+fetch_source https://www.dns-oarc.net/files/dnsjit/dnsjit-1.5.2.tar.gz 93eb36bde0e5cad356a363c8b0519a5b366e5908
 
 do_unpack
 sed -i.bak 's|-Wl,-E||' "$SRCDIR/src/Makefile.in"
