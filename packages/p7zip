@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/ip7z/7zip/releases/download/26.02/7z2602-src.tar.xz b47139671f5fefd7b8d5f7a233a0f7953c03fdd0
+fetch_source https://github.com/ip7z/7zip/releases/download/26.03/7z2603-src.tar.xz a48b1d61b3704fcd70db2ea6d3c85ffc8a09707a
 
 do_unpack "$TARNAME" --strip-components 0
 
