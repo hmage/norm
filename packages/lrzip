@@ -8,7 +8,7 @@ depends_on libtool
 needs_tool pod2man
 needs_tool autoconf automake
 
-fetch_source https://github.com/ckolivas/lrzip/archive/v0.7.2/lrzip-0.7.2.tar.gz 21c356efe9ee500871bd0db9f244dbf2ef483d8b
+fetch_source https://github.com/ckolivas/lrzip/archive/v0.7.3/lrzip-0.7.3.tar.gz bfc4bd269fb1b0f5ccb5c2017c1ee8426297fa33
 
 do_unpack
 do_autoreconf
