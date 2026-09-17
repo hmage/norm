@@ -7,5 +7,7 @@ depends_on libgnutls
 fetch_source https://www.dns-oarc.net/files/dnsjit/dnsjit-1.6.0.tar.gz 30bb242cb651a098c2a34af132099417afa381c6
 
 do_unpack
-sed -i.bak 's|-Wl,-E||' "$SRCDIR/src/Makefile.in"
+## apple ld has no -E, use its equivalent so that luajit ffi can dlsym() symbols from the executable
+[[ $OSTYPE == *darwin* ]] && sed -i.bak 's|-Wl,-E|-Wl,-export_dynamic|' "$SRCDIR/src/Makefile.in"
+[[ $OSTYPE != *darwin* ]] && sed -i.bak 's|-Wl,-E||' "$SRCDIR/src/Makefile.in"
 do_compile
