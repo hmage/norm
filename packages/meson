@@ -2,6 +2,7 @@
 
 needs_tool python3
 
+## newer meson wants python 3.10 but osx ships with 3.9, skip until osx ships newer
 fetch_source https://github.com/mesonbuild/meson/releases/download/1.11.2/meson-1.11.2.tar.gz 43ba6823e209bed087e00620d367ce30708a9a13
 
 do_unpack
