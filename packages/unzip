@@ -1,7 +1,7 @@
 #!/bin/bash
 
 fetch_source http://deb.debian.org/debian/pool/main/u/unzip/unzip_6.0.orig.tar.gz abf7de8a4018a983590ed6f5cbd990d4740f8a22
-fetch_debian http://deb.debian.org/debian/pool/main/u/unzip/unzip_6.0-29.debian.tar.xz 60d291e40b4cba025591bdd84f1b00779f9c68d6
+fetch_debian http://deb.debian.org/debian/pool/main/u/unzip/unzip_6.0-31.debian.tar.xz e807f4edb0cc452c3937bd4e4cc79cd049049821
 
 do_undebian
 pushd_src
