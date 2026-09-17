@@ -7,6 +7,9 @@ PATCHES=(
 "http://ftpmirror.gnu.org/readline/readline-8.3-patches/readline83-001 1bb11b1cad43fe0d552afc987caba2421b3b29bb"
 "http://ftpmirror.gnu.org/readline/readline-8.3-patches/readline83-002 53bc0f297523f4537dab91742bcf81f6e189d378"
 "http://ftpmirror.gnu.org/readline/readline-8.3-patches/readline83-003 55157e298916e8f860f0725137a4effa835ec90f"
+"http://ftpmirror.gnu.org/readline/readline-8.3-patches/readline83-004 2456187c7e077b03c28b3f5d090342e6c4e37a93"
+"http://ftpmirror.gnu.org/readline/readline-8.3-patches/readline83-005 aa776ba10fd79bd3e9b2299abf0b7b9bc3cb001c"
+"http://ftpmirror.gnu.org/readline/readline-8.3-patches/readline83-006 9060473d656bc838f899dde3058d7e161bb4f3ba"
 )
 
 do_unpack
