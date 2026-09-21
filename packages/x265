@@ -3,7 +3,7 @@
 needs_tool cmake
 needs_tool nasm
 
-fetch_source http://ftp.videolan.org/pub/videolan/x265/x265_4.2.tar.gz 23d81ed01dee9806fbc2bf61b3c455336854f220
+fetch_source https://github.com/Multicorewareinc/x265/releases/download/4.3/x265_4.3.tar.gz acd7ea297b4f4aea949cce73a85e0f89589e799b
 
 do_unpack
 
