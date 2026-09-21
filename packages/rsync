@@ -4,11 +4,12 @@ depends_on libxxhash
 depends_on zstd ## for libzstd.a and headers
 depends_on liblz4
 
-fetch_source https://download.samba.org/pub/rsync/src/rsync-3.5.0.tar.gz 2f338dab2f7825c391f13790f467aa2498795d3a
+fetch_source https://download.samba.org/pub/rsync/src/rsync-3.5.1.tar.gz 79cbb38c17040bdba703dbf668984896a92e49cc
 
 CONFFLAGS=(
 --with-included-popt ## opportunistic linking
 --disable-openssl    ## opportunistic linking, encryption is commonly done by ssh layer anyway
+--disable-idn        ## needs libidn2 since 3.5.1, only matters for non-ascii daemon hostnames
 )
 
 do_unpack_compile "${CONFFLAGS[@]}"
