@@ -5,7 +5,7 @@ needs_tool cmake
 depends_on libgnutls
 depends_on libgcrypt
 
-fetch_source https://github.com/arvidn/libtorrent/releases/download/v2.1.1/libtorrent-rasterbar-2.1.1.tar.gz a602cb0d71414bfbc8dafe37d47f4e0b4102e8d0
+fetch_source https://github.com/arvidn/libtorrent/releases/download/v2.1.2/libtorrent-rasterbar-2.1.2.tar.gz 892ae7087703ea86c4e9588787e3b393b858c121
 
 CONFFLAGS=(
 -Dwebtorrent=OFF ## upstream warns it significantly widens attack surface; 2.1.0's vendored dependency install is broken
