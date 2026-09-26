@@ -1,0 +1,26 @@
+#!/bin/bash
+
+depends_on meson
+depends_on ninja
+depends_on nasm
+
+fetch_source https://github.com/Netflix/vmaf/archive/refs/tags/v3.2.1/libvmaf-3.2.1.tar.gz 955143c2287052e9d98414b8871330160bb1f6cd
+
+MESONFLAGS=(
+--prefix="$PREFIX"
+--buildtype=release
+-Dbuilt_in_models=true
+-Denable_float=true
+-Denable_tests=false
+-Denable_docs=false
+)
+
+do_unpack
+BUILDDIR="$SRCDIR"-build
+rm -rf "$BUILDDIR"
+mkdir -p "$BUILDDIR"
+pushd "$BUILDDIR"
+meson setup "${MESONFLAGS[@]}" "$SRCDIR"/libvmaf
+ninja -j$NUMJOBS
+ninja install
+popd
