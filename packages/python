@@ -31,8 +31,9 @@ do_unpack
 sed -i.bak "s|-I/usr/include/ncursesw|-I$ESCAPED_PREFIX/include/ncursesw|" "$SRCDIR/configure"
 
 ## build breaks with parallel or Ofast
+## openssl 4 has no TLSv1*_method(), otherwise _ssl segfaults calling them
 NOPARALLEL=1 \
-CPPFLAGS="$CPPFLAGS -DOPENSSL_NO_SSL3 -DOPENSSL_NO_SSL3_METHOD" \
+CPPFLAGS="$CPPFLAGS -DOPENSSL_NO_SSL3 -DOPENSSL_NO_SSL3_METHOD -DOPENSSL_NO_TLS1_METHOD -DOPENSSL_NO_TLS1_1_METHOD -DOPENSSL_NO_TLS1_2_METHOD" \
 CFLAGS="${CFLAGS/-Ofast/}" \
 CXXFLAGS="${CXXFLAGS/-Ofast/}" \
 do_compile "${CONFFLAGS[@]}"
