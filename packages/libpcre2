@@ -1,5 +1,5 @@
 #!/bin/bash
 
-fetch_source https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.48/pcre2-10.48.tar.bz2 02a7d570785764ee31cb53e33c7e9f5cad26e102
+fetch_source https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.49/pcre2-10.49.tar.bz2 2de6eb8afd30f39a27e4c69a6766651b90d48ab4
 
 do_unpack_compile
