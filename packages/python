@@ -15,7 +15,7 @@ if [[ $OSTYPE != *darwin* ]]; then
 	depends_on libreadline ## readline module, osx apparently provides one
 fi
 
-fetch_source https://www.python.org/ftp/python/3.14.7/Python-3.14.7.tar.xz 1239d153c968b5fa1958963acd350a42b73d895b
+fetch_source https://www.python.org/ftp/python/3.14.8/Python-3.14.8.tar.xz f236c255d3dea446cfba89ecb810374f37dbac14
 
 CONFFLAGS=(
 --enable-shared              ## otherwise python extensions fail to load
