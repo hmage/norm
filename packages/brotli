@@ -2,6 +2,6 @@
 
 needs_tool cmake
 
-fetch_source https://github.com/google/brotli/archive/v1.2.0.tar.gz fb74102a641ecce8ebcb13d2a992975a9f165de5
+fetch_source https://github.com/google/brotli/archive/v1.2.1.tar.gz b874ab0e69d1835455761147aacad2c117c9fe1a
 
 do_unpack_compile
