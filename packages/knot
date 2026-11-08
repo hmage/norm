@@ -5,6 +5,6 @@ depends_on libgnutls
 depends_on liburcu
 [[ $OSTYPE != *darwin* ]] && depends_on libedit ## on osx it's always there, so no need to build it
 
-fetch_source https://knot-dns.nic.cz/release/knot-3.6.0.tar.xz 9d2779790a26b7f1d3cf233c7c31ce1041c19bd2
+fetch_source https://knot-dns.nic.cz/release/knot-3.6.2.tar.xz 1b0c69a169fa2da803fa2e816e78a93e23967267
 
 do_unpack_compile
