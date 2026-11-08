@@ -1,6 +1,10 @@
 #!/bin/bash
 
-fetch_source https://hashcat.net/files/hashcat-7.1.2.tar.gz 5abba3fdcc6d546591075e7acdcb84d55c6fde9d
+depends_on zlib
+depends_on xz
+depends_on zstd
+
+fetch_source https://hashcat.net/files/hashcat-8.0.0.tar.gz e1264ce25fd0c1f3fcae4b31c795184af8772252
 
 do_unpack
 pushd_src
@@ -8,4 +12,6 @@ pushd_src
 CFLAGS="${CFLAGS/-g/}" \
 make PREFIX="$PREFIX"
 make install PREFIX="$PREFIX"
+# Removed in 8.0.0; leaving it installed disables the module cache.
+rm -f "$PREFIX/share/hashcat/modules/module_72000.so"
 popd_src
