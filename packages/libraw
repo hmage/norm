@@ -5,7 +5,7 @@ depends_on autoconf automake libtool ## for autoreconf
 depends_on libjpeg   ## lossy DNG files
 depends_on libjasper ## lossy DNG files
 
-fetch_source http://www.libraw.org/data/LibRaw-0.22.2.tar.gz 141381f1c2ba5ea5c4420caad4d8936e92ab4811
+fetch_source http://www.libraw.org/data/LibRaw-0.22.3.tar.gz 6e9e25a6efa78aac50e543b888683e775ccbb040
 
 do_unpack
 do_autoreconf
