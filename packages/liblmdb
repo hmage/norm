@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## lmdb 1.0 changes the on-disk format and cannot read 0.9 databases, stay on 0.9.x
-fetch_source https://github.com/LMDB/lmdb/archive/refs/tags/LMDB_0.9.36.tar.gz d89e60bb481938c90142541a77b70966d9cae836
+fetch_source https://git.openldap.org/openldap/openldap/-/archive/LMDB_0.9.37/openldap-LMDB_0.9.37.tar.gz 0e4f846f3d20aed549603285aee2c94f6c81b86d
 
 FLAGS=(prefix="$PREFIX")
 [[ $OSTYPE == *darwin* ]] && FLAGS+=(SOEXT=.dylib)
