@@ -17,7 +17,7 @@ depends_on glib
 depends_on libsdl2 ## for GUI
 needs_tool ninja ## for building
 
-fetch_source https://download.qemu.org/qemu-11.1.2.tar.xz fb04bb1f7850c81a507b5b3786efed0d134718c9
+fetch_source https://download.qemu.org/qemu-11.1.3.tar.xz 0844c0bc2beed52fe79292b2b4af77f87c357c02
 
 CONFFLAGS=(
 --python="$QEMU_PYTHON" ## select Python with tomllib/tomli for QEMU mkvenv
