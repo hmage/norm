@@ -2,7 +2,7 @@
 
 needs_tool cmake
 
-fetch_source https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.2.0/libjpeg-turbo-3.2.0.tar.gz 1237089621aaed89dab23c2cbb9691fdbeb9fe33
+fetch_source https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.2.1/libjpeg-turbo-3.2.1.tar.gz 8713ea9302966e47c639c3efbad9cff3ba9e8868
 
 do_unpack
 ## some programs define JPEG_INTERNALS and fail to compile since by default it's not added by this fork of libjpeg
