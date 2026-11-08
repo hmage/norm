@@ -7,7 +7,7 @@ depends_on libpng
 depends_on libtiff
 depends_on libwebp
 
-fetch_source https://github.com/opencv/opencv/archive/5.0.0.tar.gz 67e27a1ed9e9998bba211691dac766a8740fc476
+fetch_source https://github.com/opencv/opencv/archive/5.1.0.tar.gz a80493e1025e2485ae207f4d621a4aac92dd2cda
 
 CONFFLAGS=(
 -DWITH_CUDA=OFF
@@ -15,12 +15,14 @@ CONFFLAGS=(
 -DWITH_FFMPEG=OFF
 -DWITH_GSTREAMER=OFF
 -DWITH_IPP=OFF
+-DWITH_ITALICFONT=ON
 -DWITH_ITT=OFF
 -DWITH_JASPER=OFF
 -DWITH_OPENCL=OFF
 -DWITH_OPENEXR=OFF
 -DWITH_OPENJPEG=OFF
 -DWITH_PROTOBUF=OFF
+-DWITH_UNIFONT=ON
 -DBUILD_EXAMPLES=OFF
 -DBUILD_JASPER=OFF
 -DBUILD_JPEG=OFF
