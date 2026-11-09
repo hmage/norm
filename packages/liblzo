@@ -2,4 +2,25 @@
 
 fetch_source http://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz 4924676a9bae5db58ef129dc1cebce3baa3c4b5d
 
-do_unpack_compile
+do_unpack
+
+# Upstream LZO1F safe decompressor bounds-check fix:
+# https://www.oberhumer.com/opensource/lzo/#patches
+do_patch_inline <<'EOF'
+--- a/src/lzo1f_d.ch
++++ b/src/lzo1f_d.ch
+@@ -58,8 +58,10 @@
+     while (TEST_IP_AND_TEST_OP)
+     {
+         t = *ip++;
+-        if (t > 31)
++        if (t > 31) {
++            NEED_IP(1);
+             goto match;
++        }
+
+         /* a literal run */
+         if (t == 0)
+EOF
+
+do_compile
