@@ -1,0 +1,89 @@
+#!/bin/bash
+
+[[ $OSTYPE == *darwin* ]] && log "Building GCC on OSX fails at the moment" && false
+
+depends_on libgmp
+depends_on libmpfr
+depends_on libmpc
+
+CONFIGURE_OPTIONS=(
+--program-suffix=-9.5    # version suffix to all binaries
+--enable-__cxa_atexit    # for fully standards-compliant destructors, requires libc to have __cxa_atexit
+--enable-languages=c,c++ # only C and C++, gcc is barely used for anything else
+--enable-version-specific-runtime-libs # keep runtimes from different GCC versions separate
+--disable-bootstrap      # never had bootstrap detect anything, speed up compilation
+)
+
+if ! test_cc_value "linux/fs.h" 'FS_IOC_GETFLAGS'; then
+    CONFIGURE_OPTIONS+=(--disable-libsanitizer)
+    add_caveat "Sanitizer support was disabled -- your linux headers are too old"
+fi
+
+if cc_checkflags -m64 && cc_checkflags -m32; then
+    CONFIGURE_OPTIONS+=(--enable-multilib)
+else
+    CONFIGURE_OPTIONS+=(--disable-multilib)
+    add_caveat "Multilib support was disabled -- your current compiler doesn't support multilib"
+fi
+
+fetch_source https://sourceware.org/pub/gcc/releases/gcc-9.5.0/gcc-9.5.0.tar.xz 083a5575e5bd6ffe9247da3aa7c2ee3ec092c1c3
+do_unpack
+
+# Backport GCC 2701442d0cf6292f6624443c15813d6d1a3562fe for glibc 2.36+.
+do_patch_inline <<'EOF'
+--- a/libsanitizer/sanitizer_common/sanitizer_platform_limits_posix.cc
++++ b/libsanitizer/sanitizer_common/sanitizer_platform_limits_posix.cc
+@@ -65,7 +65,9 @@
+ #include <sys/vt.h>
+ #include <linux/cdrom.h>
+ #include <linux/fd.h>
++#if SANITIZER_ANDROID
+ #include <linux/fs.h>
++#endif
+ #include <linux/hdreg.h>
+ #include <linux/input.h>
+ #include <linux/ioctl.h>
+@@ -846,10 +848,10 @@
+   unsigned IOCTL_EVIOCGPROP = IOCTL_NOT_PRESENT;
+   unsigned IOCTL_EVIOCSKEYCODE_V2 = IOCTL_NOT_PRESENT;
+ #endif
+-  unsigned IOCTL_FS_IOC_GETFLAGS = FS_IOC_GETFLAGS;
+-  unsigned IOCTL_FS_IOC_GETVERSION = FS_IOC_GETVERSION;
+-  unsigned IOCTL_FS_IOC_SETFLAGS = FS_IOC_SETFLAGS;
+-  unsigned IOCTL_FS_IOC_SETVERSION = FS_IOC_SETVERSION;
++  unsigned IOCTL_FS_IOC_GETFLAGS = _IOR('f', 1, long);
++  unsigned IOCTL_FS_IOC_GETVERSION = _IOR('v', 1, long);
++  unsigned IOCTL_FS_IOC_SETFLAGS = _IOW('f', 2, long);
++  unsigned IOCTL_FS_IOC_SETVERSION = _IOW('v', 2, long);
+   unsigned IOCTL_GIO_CMAP = GIO_CMAP;
+   unsigned IOCTL_GIO_FONT = GIO_FONT;
+   unsigned IOCTL_GIO_UNIMAP = GIO_UNIMAP;
+EOF
+
+# Use lib rather than lib64 on 64-bit Linux.
+[[ $HOSTTYPE == "x86_64" ]] && sed -ibak '/m64=/s/lib64/lib/' "$SRCDIR"/gcc/config/i386/t-linux64
+
+# Keep libgcc's multilibs inside the version directory as well.
+sed -ibak '/^MULTIOSDIR :=/s/-print-multi-os-directory/-print-multi-directory/' "$SRCDIR"/libgcc/Makefile.in
+
+do_compile_outside "${CONFIGURE_OPTIONS[@]}"
+
+# Let programs find this compiler's separate runtime libraries.
+gcc_libdir=$(dirname "$("$PREFIX/bin/gcc-9.5" -print-libgcc-file-name)")
+gcc_multilibs=$("$PREFIX/bin/gcc-9.5" -print-multi-lib)
+gcc_specs=$("$PREFIX/bin/gcc-9.5" -dumpspecs)
+{
+    printf '%s\n\n' "$gcc_specs"
+    printf '*link:\n+ %%{!static:%%{!static-pie:'
+    while IFS=';' read -r multilib flags; do
+        printf ' -rpath %s' "$gcc_libdir/$multilib"
+    done <<< "$gcc_multilibs"
+    printf '}}\n\n'
+} > "$gcc_libdir/specs"
+
+add_to_ccache g++-9.5 gcc-9.5
+
+add_caveat "To not clash with system-installed default gcc, GCC 9.5 was installed with a suffix, run gcc-9.5 or g++-9.5"
+
+add_caveat "Remember -- you can't use this build of gcc on any other machine" \
+           "Do not move it away from $PREFIX either -- paths are hardcoded"
