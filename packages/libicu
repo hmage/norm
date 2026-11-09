@@ -1,10 +1,27 @@
 #!/bin/bash
 
-fetch_source https://github.com/unicode-org/icu/releases/download/release-78.3/icu4c-78.3-sources.tgz 50cce26aef01eba162284901f202205edec01e17
+fetch_source https://github.com/unicode-org/icu/releases/download/release-79.1/icu4c-79.1-sources.tgz ece296b44947080735e410f3a05e9bf42bf0fb64
 
 CONFFLAGS=()
 [[ $OSTYPE == *darwin* ]] && CONFFLAGS+=(--enable-rpath)
 
 do_unpack
 SRCDIR="$SRCDIR/source"
+do_patch_inline -p0 <<'EOF'
+--- common/rbbi_cache.cpp
++++ common/rbbi_cache.cpp
+@@ -545,9 +545,10 @@
+
+     int32_t backupPosition = fromPosition;
+
+     // Find a boundary somewhere preceding the first already-cached boundary
+     do {
+-        backupPosition = backupPosition - 30;
++        const int32_t backupDistance = std::max<int32_t>(30, fromPosition - backupPosition);
++        backupPosition -= std::min(backupDistance, backupPosition);
+         if (backupPosition <= 0) {
+             backupPosition = 0;
+         } else {
+EOF
+
 do_compile "${CONFFLAGS[@]}"
