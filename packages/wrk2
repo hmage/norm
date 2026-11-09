@@ -5,11 +5,11 @@ depends_on openssl
 
 do_gitclone https://github.com/giltene/wrk2
 
-## wrk2 fails to build with luajit bundled in the repo, bring new one
-fetch_file http://luajit.org/download/LuaJIT-2.0.5.tar.gz 10427215da7d424fd9e48adbea087966053cdb6f
-
 pushd_src
-tar xf "$CACHEDIR/$FILENAME" -C "deps/luajit" --strip-components 1
+## replace bundled LuaJIT with the maintained v2.1 branch
+rm -rf deps/luajit
+git clone --branch v2.1 https://luajit.org/git/luajit.git deps/luajit
+sed -i.bak 's/struct luaL_reg/luaL_Reg/g' src/script.c
 do_make CFLAGS="-std=gnu99 -O2 -g -Ideps/luajit/src $CPPFLAGS"
 install -m755 wrk "$PREFIX/bin/wrk2"
 popd_src
