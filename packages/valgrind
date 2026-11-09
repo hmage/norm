@@ -2,6 +2,8 @@
 
 [[ $OSTYPE == *darwin* ]] && log "valgrind has very weak support for darwin, refusing to build" && false
 
-fetch_source https://sourceware.org/pub/valgrind/valgrind-3.27.1.tar.bz2 0b113f5c80d34743195b78651c2520901ba630cf
+fetch_source https://sourceware.org/pub/valgrind/valgrind-3.28.0.tar.bz2 ed9297806b5d35ef3e885ca5efbe507a66b37007
 
+## -march=native emits BMI2 instructions that the x86 engine cannot execute.
+CPPFLAGS="${CPPFLAGS/-march=native/}" \
 do_unpack_compile --without-mpicc ## avoid opportunistic linking with libmpi, since we're not interested in mpi
