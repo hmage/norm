@@ -15,7 +15,7 @@ depends_on libvmaf ## for the libvmaf filter
 depends_on libxml ## for dash
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## osx provides the library
 
-fetch_source https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz ede5e2cfa3cbcd69a731adf688c0f1ec0aefc734
+fetch_source https://ffmpeg.org/releases/ffmpeg-9.1.tar.xz 07adb31107dce005427868ee912b961cd74fc304
 
 CONFFLAGS=(
 --cc=${CC:-cc} # ffmpeg doesn't send CC choice
@@ -43,19 +43,19 @@ do_patch_inline -p0 << EOF
 diff -urw libavformat/movenc.c libavformat/movenc.c
 --- libavformat/movenc.c
 +++ libavformat/movenc.c
-@@ -109,6 +109,7 @@
+@@ -112,6 +112,7 @@
        { "skip_sidx", "Skip writing of sidx atom", 0, AV_OPT_TYPE_CONST, {.i64 = FF_MOV_FLAG_SKIP_SIDX}, INT_MIN, INT_MAX, AV_OPT_FLAG_ENCODING_PARAM, .unit = "movflags" },
        { "skip_trailer", "Skip writing the mfra/tfra/mfro trailer for fragmented files", 0, AV_OPT_TYPE_CONST, {.i64 = FF_MOV_FLAG_SKIP_TRAILER}, INT_MIN, INT_MAX, AV_OPT_FLAG_ENCODING_PARAM, .unit = "movflags" },
        { "use_metadata_tags", "Use mdta atom for metadata.", 0, AV_OPT_TYPE_CONST, {.i64 = FF_MOV_FLAG_USE_MDTA}, INT_MIN, INT_MAX, AV_OPT_FLAG_ENCODING_PARAM, .unit = "movflags" },
-+      { "write_pixeldensity", "Write pixel density metdata for retina videos", 0, AV_OPT_TYPE_CONST, {.i64 = FF_MOV_FLAG_PIXELDENSITY}, INT_MIN, INT_MAX, AV_OPT_FLAG_ENCODING_PARAM, "movflags" },
++      { "write_pixeldensity", "Write pixel density metadata for retina videos", 0, AV_OPT_TYPE_CONST, {.i64 = FF_MOV_FLAG_PIXELDENSITY}, INT_MIN, INT_MAX, AV_OPT_FLAG_ENCODING_PARAM, .unit = "movflags" },
        { "write_colr", "Write colr atom even if the color info is unspecified (Experimental, may be renamed or changed, do not use from scripts)", 0, AV_OPT_TYPE_CONST, {.i64 = FF_MOV_FLAG_WRITE_COLR}, INT_MIN, INT_MAX, AV_OPT_FLAG_ENCODING_PARAM, .unit = "movflags" },
        { "write_gama", "Write deprecated gama atom", 0, AV_OPT_TYPE_CONST, {.i64 = FF_MOV_FLAG_WRITE_GAMA}, INT_MIN, INT_MAX, AV_OPT_FLAG_ENCODING_PARAM, .unit = "movflags" },
-     { "min_frag_duration", "Minimum fragment duration", offsetof(MOVMuxContext, min_fragment_duration), AV_OPT_TYPE_INT, {.i64 = 0}, 0, INT_MAX, AV_OPT_FLAG_ENCODING_PARAM},
-@@ -3853,6 +3854,56 @@
-     return 0;
+       { "hybrid_fragmented", "For recoverability, write a fragmented file that is converted to non-fragmented at the end.", 0, AV_OPT_TYPE_CONST, {.i64 = FF_MOV_FLAG_HYBRID_FRAGMENTED}, INT_MIN, INT_MAX, AV_OPT_FLAG_ENCODING_PARAM, .unit = "movflags" },
+@@ -4520,6 +4521,56 @@
+     return ret;
  }
  
-+static int mov_write_pixeldensity_meta_tag(AVIOContext *pb, MOVMuxContext *mov, MOVTrack *track, AVFormatContext *s)
++static int mov_write_pixeldensity_meta_tag(AVIOContext *pb, MOVTrack *track)
 +{
 +    int size = 0;
 +    int64_t pos = avio_tell(pb);
@@ -108,12 +108,12 @@ diff -urw libavformat/movenc.c libavformat/movenc.c
  static int mov_write_trak_tag(AVFormatContext *s, AVIOContext *pb, MOVMuxContext *mov,
                                MOVTrack *track, AVStream *st)
  {
-@@ -3397,6 +3448,9 @@
+@@ -4570,6 +4621,9 @@
              mov_write_tapt_tag(pb, track);
          }
      }
 +    if (mov->flags & FF_MOV_FLAG_PIXELDENSITY) {
-+         mov_write_pixeldensity_meta_tag(pb, mov, track, st);
++        mov_write_pixeldensity_meta_tag(pb, track);
 +    }
      mov_write_track_udta_tag(pb, mov, st);
      track->entry = entry_backup;
@@ -121,8 +121,7 @@ diff -urw libavformat/movenc.c libavformat/movenc.c
 diff -urw libavformat/movenc.h libavformat/movenc.h
 --- libavformat/movenc.h
 +++ libavformat/movenc.h
-@@ -263,6 +263,7 @@
- #define FF_MOV_FLAG_CMAF                  (1 << 22)
+@@ -301,4 +301,5 @@
  #define FF_MOV_FLAG_PREFER_ICC            (1 << 23)
  #define FF_MOV_FLAG_HYBRID_FRAGMENTED     (1 << 24)
 +#define FF_MOV_FLAG_PIXELDENSITY          (1 << 25)
