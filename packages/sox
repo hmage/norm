@@ -8,8 +8,9 @@ depends_on libogg
 depends_on libvorbis
 depends_on libpng  ## unclear what for
 depends_on libopusfile
+depends_on libopusenc
 
-fetch_source https://codeberg.org/sox_ng/sox_ng/releases/download/sox_ng-14.8.1/sox_ng-14.8.1.tar.gz 5bd4daa503f6cf5b637f924fd23c4ff0e249f50a
+fetch_source https://codeberg.org/sox_ng/sox_ng/releases/download/sox_ng-14.9.0/sox_ng-14.9.0.tar.gz e3caf7fe3f58d39b2fbcb0e07c88258671257b5d
 
 CONFFLAGS=(
 --enable-replace ## install sox/play/rec/soxi compatibility names
