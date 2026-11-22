@@ -1,9 +1,8 @@
 #!/bin/bash
 
-fetch_source http://deb.debian.org/debian/pool/main/j/jbigkit/jbigkit_2.1.orig.tar.gz 4864646df004e8331d19f2fa103ed731fdb6c099
-fetch_debian http://deb.debian.org/debian/pool/main/j/jbigkit/jbigkit_2.1-6.1.debian.tar.xz ba344ca00fadcd6dd6761fe5fed6c8b306f2c9fb
+fetch_source https://www.cl.cam.ac.uk/~mgk25/jbigkit/download/jbigkit-2.2.tar.gz 4fe5bfa95e557ae47c28e04397ff2ab6408dc10e
 
-do_undebian
+do_unpack
 pushd_src
 cd libjbig
 ## add -fPIC, otherwise it will fail to link with libtiff on x64 linux (relocation failure)
