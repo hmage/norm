@@ -3,13 +3,14 @@
 depends_on libgdbm ## opportunistic linking
 depends_on libdb   ## opportunistic linking
 
-fetch_source http://www.cpan.org/src/5.0/perl-5.45.4.tar.gz 644a84e5bfc064c7271228b20ef002de2e52c9b0
+fetch_source https://www.cpan.org/src/5.0/perl-5.45.5.tar.gz 8abebb882e08580b9a8c03eb85ce78c8bceda7fb
 
 do_unpack
 pushd_src
 ./Configure -des \
             -Dusedevel \
             -Dprefix=$PREFIX \
+            -Dloclibpth="$PREFIX/lib" \
             -Accflags="$CPPFLAGS" \
             -Dusethreads
 do_make
