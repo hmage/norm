@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fetch_source https://github.com/libffi/libffi/releases/download/v3.8.0/libffi-3.8.0.tar.gz 293229eaf78d7f1efb98269af5898944abea73b1
+fetch_source https://github.com/libffi/libffi/releases/download/v3.8.1/libffi-3.8.1.tar.gz a0ee830a97489de04dede09e39ef38dc36067ed6
 
 do_unpack
 do_patch_inline -p0 << "EOF"
