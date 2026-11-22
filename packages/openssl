@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ## don't use https to download openssl source because openssl might be too old to even establish a connection!
-fetch_source http://deb.debian.org/debian/pool/main/o/openssl/openssl_4.0.3.orig.tar.gz 7035f60f356f8c80b76eebfdeb81a499f19028fa
-fetch_debian http://deb.debian.org/debian/pool/main/o/openssl/openssl_4.0.3-1.debian.tar.xz 0c3b0674b639e3f507c164dc942237f14fbe23ea
+fetch_source http://deb.debian.org/debian/pool/main/o/openssl/openssl_4.0.3+really4.1.0.orig.tar.gz 44d07584cca891b042c38478255228ac4bd379a6
+fetch_debian http://deb.debian.org/debian/pool/main/o/openssl/openssl_4.0.3+really4.1.0-1.debian.tar.xz db8652fea4bc4c8d6911cbe8289d3db62772a79c
 
 SSLCONFIG=(
 shared ## otherwise curl will fail to link on x64, since it builds with fPIC but openssl isn't
@@ -13,6 +13,8 @@ shared ## otherwise curl will fail to link on x64, since it builds with fPIC but
 
 do_undebian
 pushd_src
+## Keep Debian's provider configuration snippets inside the Norm prefix.
+PREFIX="$PREFIX" perl -pi -e 's{/etc/ssl/openssl\.cnf\.d}{$ENV{PREFIX}$&}g' apps/openssl.cnf
 ./config --prefix="$PREFIX" $LDFLAGS "${SSLCONFIG[@]}"
 NOPARALLEL=1 do_make all # parallel build can truncate libcrypto.so
 do_test
@@ -20,5 +22,5 @@ do_install MANDIR="$PREFIX/share/man"
 popd_src
 
 ## install root certificates so curl and others can use HTTPS
-mkdir -p "$PREFIX"/etc/ssl/certs
+mkdir -p "$PREFIX"/etc/ssl/{certs,openssl.cnf.d}
 install -m 644 "$NORMDIR/files/ca-bundle.crt" "$PREFIX/etc/ssl/cert.pem"
