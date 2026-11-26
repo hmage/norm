@@ -5,7 +5,7 @@ depends_on libreadline
 
 [[ $OSTYPE != *darwin* ]] && depends_on zlib ## for compressed dumps, osx provides the library
 
-fetch_source http://ftp.postgresql.org/pub/source/v18.7/postgresql-18.7.tar.bz2 bdc6e7f70355c599cee32c9ed6aebfad939d9a35
+fetch_source https://ftp.postgresql.org/pub/source/v19.0/postgresql-19.0.tar.bz2 afc57003aa54646c12c615bef88211cbf33766f8
 
 CONFFLAGS=(
 --without-icu ## opportunistic linking
