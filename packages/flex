@@ -2,5 +2,5 @@
 
 needs_tool m4
 
-fetch_source https://github.com/westes/flex/releases/download/v2.7.6/flex-2.7.6.tar.gz 13905c001d88b75d06ce49061147598d11b9fb16
+fetch_source https://github.com/westes/flex/releases/download/v2.7.9/flex-2.7.9.tar.gz 099b6f9003a785f3003aa12631e07d021b959204
 do_unpack_compile
